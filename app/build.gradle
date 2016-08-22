@@ -33,6 +33,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     buildTypes {
         def BOOLEAN = "boolean"
         def TRUE = "true"
@@ -48,6 +52,12 @@ android {
             buildConfigField STRING, API_URL, urls.api
 
             applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+
+            minifyEnabled false
+            shrinkResources false
+
+            return true
         }
 
         release {
@@ -55,7 +65,8 @@ android {
             buildConfigField STRING, BASE_URL, urls.stg
             buildConfigField STRING, API_URL, urls.api
 
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt')
         }
     }
@@ -71,6 +82,8 @@ android {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/services/javax.annotation.processing.Processor'
+
+        return true
     }
 }
 
@@ -89,6 +102,7 @@ dependencies {
     compile libraries.supportAppCompat
     compile libraries.supportDesign
     compile libraries.supportCardView
+    compile libraries.supportConstraintLayout
 
     compile libraries.glide
 
