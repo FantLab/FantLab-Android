@@ -1,0 +1,106 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven {
+        url 'https://maven.fabric.io/public'
+    }
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
+android {
+    // Declared in dependencies.gradle in the root of the project.
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    defaultConfig {
+        applicationId "org.odddev.fantlab"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode versions.major * 1000 + versions.minor * 100 + versions.patch
+        versionName "${versions.major}.${versions.minor}.${versions.patch}"
+
+        // Make generated apks contain version name and code.
+        archivesBaseName = "fantlab-${versionName}"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        def BOOLEAN = "boolean"
+        def TRUE = "true"
+        def FALSE = "false"
+        def STRING = "String"
+        def REPORT_CRASHES = "REPORT_CRASHES"
+        def BASE_URL = "BASE_URL"
+        def API_URL = "API_URL"
+
+        debug {
+            buildConfigField BOOLEAN, REPORT_CRASHES, FALSE
+            buildConfigField STRING, BASE_URL, urls.stg
+            buildConfigField STRING, API_URL, urls.api
+
+            applicationIdSuffix '.debug'
+        }
+
+        release {
+            buildConfigField BOOLEAN, REPORT_CRASHES, TRUE
+            buildConfigField STRING, BASE_URL, urls.stg
+            buildConfigField STRING, API_URL, urls.api
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+        }
+    }
+
+    lintOptions {
+        warningsAsErrors true
+        abortOnError true // Fail early.
+    }
+
+    packagingOptions {
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+}
+
+dependencies {
+    compile libraries.dagger
+    apt libraries.daggerCompiler
+
+    compile libraries.rxJava
+    compile libraries.rxLint
+
+    compile libraries.retrofit
+    compile libraries.retrofitRxJavaAdapter
+    compile libraries.retrofitGsonConverter
+
+    compile libraries.supportAnnotations
+    compile libraries.supportAppCompat
+    compile libraries.supportDesign
+    compile libraries.supportCardView
+
+    compile libraries.glide
+
+    compile libraries.timber
+    compile (libraries.crashlytics) {
+        transitive = true;
+    }
+
+    // Debug tools
+    debugCompile libraries.stetho
+    debugCompile libraries.stethoOkHttp
+
+    // Test tools
+    testCompile libraries.junit
+}
