@@ -48,7 +48,7 @@ android {
 
         debug {
             buildConfigField BOOLEAN, REPORT_CRASHES, FALSE
-            buildConfigField STRING, BASE_URL, urls.stg
+            buildConfigField STRING, BASE_URL, urls.base
             buildConfigField STRING, API_URL, urls.api
 
             applicationIdSuffix '.debug'
@@ -62,7 +62,7 @@ android {
 
         release {
             buildConfigField BOOLEAN, REPORT_CRASHES, TRUE
-            buildConfigField STRING, BASE_URL, urls.stg
+            buildConfigField STRING, BASE_URL, urls.base
             buildConfigField STRING, API_URL, urls.api
 
             minifyEnabled true
@@ -92,6 +92,7 @@ dependencies {
     apt libraries.daggerCompiler
 
     compile libraries.rxJava
+    compile libraries.rxAndroid
     compile libraries.rxLint
 
     compile libraries.retrofit

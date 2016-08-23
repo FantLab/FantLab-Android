@@ -16,6 +16,7 @@ ext.versions = [
         dagger                  : '2.4',
 
         rxJava                  : '1.1.5',
+        rxAndroid               : '1.2.1',
         rxLint                  : '1.0',
 
         retrofit                : '2.1.0',
@@ -45,6 +46,7 @@ ext.libraries = [
         daggerCompiler          : "com.google.dagger:dagger-compiler:$versions.dagger",
 
         rxJava                  : "io.reactivex:rxjava:$versions.rxJava",
+        rxAndroid               : "io.reactivex:rxandroid:$versions.rxAndroid",
         rxLint                  : "nl.littlerobots.rxlint:rxlint:$versions.rxLint",
 
         retrofit                : "com.squareup.retrofit2:retrofit:$versions.retrofit",
@@ -71,6 +73,6 @@ ext.libraries = [
 ]
 
 ext.urls = [
-        stg : "\"https://fantlab.ru/\"",
-        api : "\"https://api.fantlab.ru\"",
+        base : "\"https://fantlab.ru/\"",
+        api  : "\"https://api.fantlab.ru\"",
 ]
