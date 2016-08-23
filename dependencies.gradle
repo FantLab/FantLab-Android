@@ -8,7 +8,7 @@ ext.versions = [
         compileSdk              : 23,
         buildTools              : '24.0.1',
 
-        androidGradlePlugin     : '2.1.3',
+        androidGradlePlugin     : '2.2.0-beta2',
         aptGradlePlugin         : '1.8',
         retrolambdaGradlePlugin : '3.2.5',
         crashlyticsGradlePlugin : '1.+',
@@ -21,8 +21,8 @@ ext.versions = [
 
         retrofit                : '2.1.0',
 
-        supportLibs             : '23.4.0',
-        supportConstraintLayout : '1.0.0-alpha1',
+        supportLibs             : '24.2.0',
+        supportConstraintLayout : '1.0.0-alpha7',
 
         glide                   : '3.7.0',
 
@@ -58,6 +58,7 @@ ext.libraries = [
         supportDesign           : "com.android.support:design:$versions.supportLibs",
         supportCardView         : "com.android.support:cardview-v7:$versions.supportLibs",
         supportConstraintLayout : "com.android.support.constraint:constraint-layout:$versions.supportConstraintLayout",
+        supportConstraintSolver : "com.android.support.constraint:constraint-layout-solver:$versions.supportConstraintLayout",
 
         glide                   : "com.github.bumptech.glide:glide:$versions.glide",
 
@@ -75,4 +76,9 @@ ext.libraries = [
 ext.urls = [
         base : "\"https://fantlab.ru/\"",
         api  : "\"https://api.fantlab.ru\"",
+]
+
+ext.resVals = [
+        appNameDebug : "Fantlab debug",
+        appName      : "Fantlab",
 ]

@@ -19,12 +19,13 @@ android {
 
     defaultConfig {
         applicationId "org.odddev.fantlab"
+
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
+
         versionCode versions.major * 1000 + versions.minor * 100 + versions.patch
         versionName "${versions.major}.${versions.minor}.${versions.patch}"
 
-        // Make generated apks contain version name and code.
         archivesBaseName = "fantlab-${versionName}"
     }
 
@@ -42,14 +43,18 @@ android {
         def TRUE = "true"
         def FALSE = "false"
         def STRING = "String"
+        def APP_NAME = "app_name"
         def REPORT_CRASHES = "REPORT_CRASHES"
         def BASE_URL = "BASE_URL"
         def API_URL = "API_URL"
+        def string = "string"
 
         debug {
             buildConfigField BOOLEAN, REPORT_CRASHES, FALSE
             buildConfigField STRING, BASE_URL, urls.base
             buildConfigField STRING, API_URL, urls.api
+
+            resValue string, APP_NAME, resVals.appNameDebug
 
             applicationIdSuffix '.debug'
             versionNameSuffix '-DEBUG'
@@ -64,6 +69,8 @@ android {
             buildConfigField BOOLEAN, REPORT_CRASHES, TRUE
             buildConfigField STRING, BASE_URL, urls.base
             buildConfigField STRING, API_URL, urls.api
+
+            resValue string, APP_NAME, resVals.appName
 
             minifyEnabled true
             shrinkResources true
@@ -81,7 +88,6 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/services/javax.annotation.processing.Processor'
 
         return true
     }
