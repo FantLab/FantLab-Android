@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@android:color/darker_gray"
     tools:ignore="contentDescription">
 
     <LinearLayout
@@ -69,5 +70,13 @@
             android:textSize="16sp"/>
 
     </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="@string/login.button.continue"
+        android:layout_marginBottom="24dp"/>
 
 </FrameLayout>
