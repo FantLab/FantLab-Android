@@ -79,6 +79,6 @@ ext.urls = [
 ]
 
 ext.resVals = [
-        appNameDebug : "Fantlab debug",
+        appNameDebug : "Fantlab alpha",
         appName      : "Fantlab",
 ]

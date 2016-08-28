@@ -10,12 +10,12 @@ import android.support.v7.app.AppCompatActivity;
  * Date: 23.08.16
  */
 
-public class LoginActivity extends AppCompatActivity {
+public class AuthActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_activity);
+        setContentView(R.layout.auth_activity);
 
         // TODO: 23.08.16 refactor layout (styles etc)
     }

@@ -1,7 +1,8 @@
 <resources>
-    <string name="login.input.username">Имя пользователя</string>
-    <string name="login.input.password">Пароль</string>
-    <string name="login.button.login">Вход</string>
-    <string name="login.button.register">Нет аккаунта? Присоединяйтесь</string>
-    <string name="login.button.continue">Продолжить без регистрации</string>
+    <string name="auth.input.username">Имя пользователя</string>
+    <string name="auth.input.password">Пароль</string>
+    <string name="auth.text.auth">Вход</string>
+    <string name="auth.button.login">Вход</string>
+    <string name="auth.button.register">Регистрация</string>
+    <string name="auth.button.enter">Продолжить без регистрации</string>
 </resources>

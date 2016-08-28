@@ -14,7 +14,7 @@
         android:fullBackupContent="@xml/backup_scheme">
         <activity android:name=".MainActivity">
         </activity>
-        <activity android:name=".login.LoginActivity">
+        <activity android:name=".login.AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
