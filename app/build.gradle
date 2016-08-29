@@ -39,18 +39,13 @@ android {
     }
 
     buildTypes {
-        def BOOLEAN = "boolean"
-        def TRUE = "true"
-        def FALSE = "false"
         def STRING = "String"
         def APP_NAME = "app_name"
-        def REPORT_CRASHES = "REPORT_CRASHES"
         def BASE_URL = "BASE_URL"
         def API_URL = "API_URL"
         def string = "string"
 
         debug {
-            buildConfigField BOOLEAN, REPORT_CRASHES, FALSE
             buildConfigField STRING, BASE_URL, urls.base
             buildConfigField STRING, API_URL, urls.api
 
@@ -66,7 +61,6 @@ android {
         }
 
         release {
-            buildConfigField BOOLEAN, REPORT_CRASHES, TRUE
             buildConfigField STRING, BASE_URL, urls.base
             buildConfigField STRING, API_URL, urls.api
 
@@ -80,7 +74,7 @@ android {
 
     lintOptions {
         warningsAsErrors true
-        abortOnError true // Fail early.
+        abortOnError true
     }
 
     packagingOptions {
