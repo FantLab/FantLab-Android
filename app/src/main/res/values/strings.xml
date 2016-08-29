@@ -5,4 +5,13 @@
     <string name="auth.button.login">Вход</string>
     <string name="auth.button.register">Регистрация</string>
     <string name="auth.button.enter">Продолжить без регистрации</string>
+    <string name="signup.text.title">Регистрация</string>
+    <string name="signup.input.username">Имя пользователя</string>
+    <string name="signup.input.password">Пароль</string>
+    <string name="signup.input.email">E-mail</string>
+    <string name="signup.gender.male">Мужской</string>
+    <string name="signup.gender.female">Женский</string>
+    <string name="signup.text.gender">Пол</string>
+    <string name="signup.input.name">Фамилия, имя, отчество</string>
+    <string name="signup.text.birthday">День рождения</string>
 </resources>
