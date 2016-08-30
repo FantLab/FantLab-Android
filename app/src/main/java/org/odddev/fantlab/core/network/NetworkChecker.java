@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import org.odddev.fantlab.core.Injector;
+import org.odddev.fantlab.core.di.Injector;
 
 import javax.inject.Inject;
 

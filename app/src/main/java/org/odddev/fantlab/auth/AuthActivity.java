@@ -1,6 +1,7 @@
-package org.odddev.fantlab.login;
+package org.odddev.fantlab.auth;
 
 import org.odddev.fantlab.R;
+import org.odddev.fantlab.core.utils.FragmentUtils;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,6 @@ public class AuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth_activity);
 
-        // TODO: 23.08.16 refactor layout (styles etc)
+        FragmentUtils.initFragment(this, R.id.container, new SignInFragment(), false);
     }
 }

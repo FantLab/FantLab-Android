@@ -1,4 +1,4 @@
-package org.odddev.fantlab.core;
+package org.odddev.fantlab.core.di;
 
 import org.odddev.fantlab.core.network.NetworkChecker;
 
