@@ -7,6 +7,8 @@ import org.odddev.fantlab.R;
 import org.odddev.fantlab.core.layers.presenter.PresenterManager;
 import org.odddev.fantlab.core.view.BaseBindingFragment;
 import org.odddev.fantlab.databinding.SignInFragmentBinding;
+import org.odddev.fantlab.profile.ProfileValidator;
+import org.odddev.fantlab.profile.User;
 
 /**
  * Developer: Ivan Zolotarev
@@ -39,5 +41,35 @@ public class SignInFragment extends BaseBindingFragment<SignInFragmentBinding>
     public void onStop() {
         mPresenter.detachView(this);
         super.onStop();
+    }
+
+    @Override
+    public void showValidator(ProfileValidator validator) {
+
+    }
+
+    @Override
+    public void showError(int errorResource) {
+
+    }
+
+    @Override
+    public void success() {
+
+    }
+
+    @Override
+    public void showData(User data) {
+
+    }
+
+    @Override
+    public void showError(String errorMessage) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
     }
 }

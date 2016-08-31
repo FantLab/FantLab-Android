@@ -70,6 +70,7 @@
                         android:id="@+id/username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLength="16"
                         android:hint="@string/auth.input.username"
                         android:inputType="text"/>
 
