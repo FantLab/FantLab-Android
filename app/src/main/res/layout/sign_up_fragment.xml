@@ -17,7 +17,7 @@
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:fontFamily="sans-serif-medium"
-            android:text="@string/signup.text.title"
+            android:text="@string/register.text.title"
             android:textColor="@color/color_primary_dark"
             android:textSize="20sp"/>
 
@@ -32,7 +32,7 @@
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/signup.input.username"
+                android:hint="@string/register.input.username"
                 android:inputType="text"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="@string/signup.input.password"/>
+                android:hint="@string/register.input.password"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -64,7 +64,7 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/signup.input.email"
+                android:hint="@string/register.input.email"
                 android:inputType="textEmailAddress"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -76,7 +76,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
-            android:text="@string/signup.text.gender"
+            android:text="@string/register.text.gender"
             android:textSize="20sp"/>
 
         <RadioGroup
@@ -93,14 +93,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/signup.gender.male"/>
+                android:text="@string/register.gender.male"/>
 
             <RadioButton
                 android:id="@+id/female"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/signup.gender.female"/>
+                android:text="@string/register.gender.female"/>
 
         </RadioGroup>
 
@@ -115,7 +115,7 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/signup.input.name"
+                android:hint="@string/register.input.name"
                 android:inputType="textCapSentences"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -127,7 +127,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
-            android:text="@string/signup.text.birthday"
+            android:text="@string/register.text.birthday"
             android:textSize="20sp"/>
 
         <DatePicker

@@ -1,22 +1,23 @@
 <resources>
-    <string name="auth.input.username">Имя пользователя</string>
-    <string name="auth.input.password">Пароль</string>
+    <string name="login.input.username">Имя пользователя</string>
+    <string name="login.input.password">Пароль</string>
     <string name="auth.text.auth">Вход</string>
     <string name="auth.button.login">Вход</string>
     <string name="auth.button.register">Регистрация</string>
     <string name="auth.button.enter">Продолжить без регистрации</string>
-    <string name="signup.text.title">Регистрация</string>
-    <string name="signup.input.username">Имя пользователя</string>
-    <string name="signup.input.password">Пароль</string>
-    <string name="signup.input.email">E-mail</string>
-    <string name="signup.gender.male">Мужской</string>
-    <string name="signup.gender.female">Женский</string>
-    <string name="signup.text.gender">Пол</string>
-    <string name="signup.input.name">Фамилия, имя, отчество</string>
-    <string name="signup.text.birthday">День рождения</string>
+    <string name="register.text.title">Регистрация</string>
+    <string name="register.input.username">Имя пользователя</string>
+    <string name="register.input.password">Пароль</string>
+    <string name="register.input.email">E-mail</string>
+    <string name="register.gender.male">Мужской</string>
+    <string name="register.gender.female">Женский</string>
+    <string name="register.text.gender">Пол</string>
+    <string name="register.input.name">Фамилия, имя, отчество</string>
+    <string name="register.text.birthday">День рождения</string>
 
     <string name="error.string.empty">Поле не может быть пустым</string>
-    <string name="error.login.busy">Данное имя пользователя уже занято</string>
+    <string name="error.username.busy">Данное имя пользователя уже занято</string>
     <string name="error.email.incorrect">Некорректный адрес электронной почты</string>
+    <string name="error.url.incorrect">Некорректный адрес веб-страницы</string>
     <string name="error.answer.incorrect">Неверный ответ на проверочный вопрос</string>
 </resources>

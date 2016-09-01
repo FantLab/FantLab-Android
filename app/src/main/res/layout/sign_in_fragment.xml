@@ -71,7 +71,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLength="16"
-                        android:hint="@string/auth.input.username"
+                        android:hint="@string/login.input.username"
                         android:inputType="text"/>
 
                 </android.support.design.widget.TextInputLayout>
@@ -88,7 +88,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:hint="@string/auth.input.password"/>
+                        android:hint="@string/login.input.password"/>
 
                 </android.support.design.widget.TextInputLayout>
 

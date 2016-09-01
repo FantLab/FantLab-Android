@@ -10,16 +10,25 @@ import java.util.Date;
 public class User {
 
     enum Gender {
-        MALE,
-        FEMALE
+        MALE(0),
+        FEMALE(1);
+
+        int mValue;
+
+        Gender(int value) {
+            mValue = value;
+        }
     }
+
     private String mUserName;
     private String mPassword;
     private String mEmail;
     private String mFullName;
     private Gender mGender;
     private Date mBirthDay;
-    private Location mLocation;
+    private String mCountry;
+    private String mRegion;
+    private String mCity;
     private String mAltLocation;
     private String mHomepage;
     private String mSkype;
@@ -32,15 +41,17 @@ public class User {
     }
 
     public User(String userName, String password, String email, String fullName, Gender gender,
-                Date birthDay, Location location, String altLocation, String homepage, String skype,
-                String icq, String controlAnswer) {
+                Date birthDay, String country, String region, String city, String altLocation,
+                String homepage, String skype, String icq, String controlAnswer) {
         mUserName = userName;
         mPassword = password;
         mEmail = email;
         mFullName = fullName;
         mGender = gender;
         mBirthDay = birthDay;
-        mLocation = location;
+        mCountry = country;
+        mRegion = region;
+        mCity = city;
         mAltLocation = altLocation;
         mHomepage = homepage;
         mSkype = skype;
@@ -72,8 +83,16 @@ public class User {
         return mBirthDay;
     }
 
-    public Location getLocation() {
-        return mLocation;
+    public String getCountry() {
+        return mCountry;
+    }
+
+    public String getRegion() {
+        return mRegion;
+    }
+
+    public String getCity() {
+        return mCity;
     }
 
     public String getAltLocation() {
@@ -94,30 +113,5 @@ public class User {
 
     public String getControlAnswer() {
         return mControlAnswer;
-    }
-
-    public class Location {
-
-        private String mCountry;
-        private String mRegion;
-        private String mCity;
-
-        public Location(String country, String region, String city) {
-            mCountry = country;
-            mRegion = region;
-            mCity = city;
-        }
-
-        public String getCountry() {
-            return mCountry;
-        }
-
-        public String getRegion() {
-            return mRegion;
-        }
-
-        public String getCity() {
-            return mCity;
-        }
     }
 }
