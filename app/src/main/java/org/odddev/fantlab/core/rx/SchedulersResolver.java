@@ -12,7 +12,7 @@ import rx.schedulers.Schedulers;
 public class SchedulersResolver implements ISchedulersResolver {
 
     @Override
-    public Scheduler backgroundThread() {
+    public Scheduler ioThread() {
         return Schedulers.io();
     }
 

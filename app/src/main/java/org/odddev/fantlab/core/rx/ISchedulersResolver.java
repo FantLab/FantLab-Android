@@ -9,7 +9,7 @@ import rx.Scheduler;
 
 public interface ISchedulersResolver {
 
-    Scheduler backgroundThread();
+    Scheduler ioThread();
 
     Scheduler mainThread();
 }

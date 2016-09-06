@@ -40,10 +40,12 @@ public class ProfileValidator extends Validator<User> {
     }
 
     public Observable<ProfileValidator> getValidatorObservable() {
-        return Observable.just(this).map(profileValidator -> {
-            validationRun();
-            return profileValidator;
-        });
+        return Observable
+                .just(this)
+                .map(profileValidator -> {
+                    validationRun();
+                    return profileValidator;
+                });
     }
 
     @Override
