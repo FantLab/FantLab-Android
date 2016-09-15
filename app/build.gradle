@@ -95,6 +95,7 @@ dependencies {
     compile libraries.rxAndroid
     compile libraries.rxLint
 
+    compile libraries.okHttpLoggingInterceptor
     compile libraries.retrofit
     compile libraries.retrofitRxJavaAdapter
     compile libraries.retrofitGsonConverter

@@ -9,5 +9,5 @@ import org.odddev.fantlab.profile.User;
  * Date: 30.08.16
  */
 
-public interface ISignInView extends IFormView<User, ProfileValidator> {
+public interface ILoginView extends IFormView<User, ProfileValidator> {
 }

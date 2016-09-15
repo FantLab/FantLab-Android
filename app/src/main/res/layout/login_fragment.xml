@@ -6,6 +6,12 @@
 
     <data>
 
+        <import type="org.odddev.fantlab.auth.LoginFragment"/>
+
+        <variable
+            name="actionsHandler"
+            type="LoginFragment"/>
+
     </data>
 
     <FrameLayout
@@ -108,6 +114,7 @@
                         android:layout_weight="6"
                         android:padding="12dp"
                         android:text="@string/auth.button.login"
+                        android:onClick="@{actionsHandler::login}"
                         android:textColor="@color/white"
                         android:background="@drawable/rounded_button"/>
 
@@ -125,6 +132,7 @@
                         android:layout_weight="10"
                         android:padding="12dp"
                         android:text="@string/auth.button.register"
+                        android:onClick="@{actionsHandler::register}"
                         android:textColor="@color/white"
                         android:background="@drawable/rounded_button"/>
 
@@ -143,6 +151,7 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textAllCaps="true"
+            android:onClick="@{actionsHandler::entry}"
             style="?attr/borderlessButtonStyle"/>
 
     </FrameLayout>

@@ -1,8 +1,10 @@
 package org.odddev.fantlab.auth;
 
+import org.odddev.fantlab.core.di.Injector;
 import org.odddev.fantlab.core.layers.presenter.DataFormPresenter;
 import org.odddev.fantlab.core.rx.ConfiguratorProvider;
 import org.odddev.fantlab.core.validator.ValidatorException;
+import org.odddev.fantlab.profile.IUserProvider;
 import org.odddev.fantlab.profile.ProfileValidator;
 import org.odddev.fantlab.profile.User;
 
@@ -15,17 +17,22 @@ import rx.Observable;
  * Date: 30.08.16
  */
 
-public class SignInPresenter extends DataFormPresenter<User, ProfileValidator, ISignInView> {
+public class LoginPresenter extends DataFormPresenter<User, ProfileValidator, ILoginView> {
 
     @Inject
     ConfiguratorProvider mConfiguratorProvider;
 
-    public SignInPresenter() {
+    @Inject
+    IUserProvider mUserProvider;
+
+    public LoginPresenter() {
+        Injector.getAppComponent().inject(this);
     }
 
     @Override
     public void checkForm(User user) {
-        ProfileValidator validator = ProfileValidator.newInstance(user, ProfileValidator.TYPE_LOGIN);
+        mUserProvider.login(user);
+        /*ProfileValidator validator = ProfileValidator.newInstance(user, ProfileValidator.TYPE_LOGIN);
         validator
                 .getValidatorObservable()
                 .compose(mConfiguratorProvider.applySchedulers())
@@ -35,6 +42,6 @@ public class SignInPresenter extends DataFormPresenter<User, ProfileValidator, I
                         return mUserProvider.login(user);
                     }
                     return Observable.error(new ValidatorException());
-                });
+                });*/
     }
 }

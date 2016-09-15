@@ -18,6 +18,6 @@ public class AuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth_activity);
 
-        FragmentUtils.initFragment(this, R.id.container, new SignInFragment(), false);
+        FragmentUtils.initFragment(this, R.id.container, new LoginFragment(), false);
     }
 }
