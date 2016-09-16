@@ -3,8 +3,8 @@ package org.odddev.fantlab.profile;
 import java.util.Date;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 31.08.16
+ * @author kenrube
+ * @date 31.08.16
  */
 
 public class User {

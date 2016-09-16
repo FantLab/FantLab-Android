@@ -2,38 +2,38 @@ package org.odddev.fantlab.auth;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.odddev.fantlab.R;
 import org.odddev.fantlab.core.layers.presenter.PresenterManager;
-import org.odddev.fantlab.core.view.BaseBindingFragment;
 import org.odddev.fantlab.databinding.LoginFragmentBinding;
-import org.odddev.fantlab.profile.ProfileValidator;
-import org.odddev.fantlab.profile.User;
 
 import timber.log.Timber;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 30.08.16
+ * @author kenrube
+ * @date 30.08.16
  */
 // TODO: 23.08.16 refactor layout (styles etc)
-public class LoginFragment extends BaseBindingFragment<LoginFragmentBinding>
-        implements ILoginView {
+public class LoginFragment extends Fragment implements ILoginView {
 
     private LoginPresenter mPresenter;
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.login_fragment;
-    }
+    private LoginFragmentBinding mBinding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = PresenterManager.getPresenter(this.hashCode(), LoginPresenter::new);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        mBinding = LoginFragmentBinding.inflate(inflater, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
@@ -54,8 +54,8 @@ public class LoginFragment extends BaseBindingFragment<LoginFragmentBinding>
     }
 
     public void login(View view) {
-        mPresenter.checkForm(new User(mBinding.username.getText().toString(),
-                mBinding.password.getText().toString()));
+        mPresenter.login(mBinding.username.getText().toString(),
+                mBinding.password.getText().toString());
     }
 
     public void register(View view) {
@@ -67,32 +67,7 @@ public class LoginFragment extends BaseBindingFragment<LoginFragmentBinding>
     }
 
     @Override
-    public void showValidator(ProfileValidator validator) {
-
-    }
-
-    @Override
-    public void showError(int errorResource) {
-
-    }
-
-    @Override
-    public void success() {
-
-    }
-
-    @Override
-    public void showData(User data) {
-
-    }
-
-    @Override
-    public void showError(String errorMessage) {
-
-    }
-
-    @Override
-    public void showLoading() {
-
+    public void showLoggedIn() {
+        Timber.d("LoggedIn");
     }
 }

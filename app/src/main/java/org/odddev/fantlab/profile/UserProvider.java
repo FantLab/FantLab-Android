@@ -10,8 +10,8 @@ import rx.Observable;
 import timber.log.Timber;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 15.09.16
+ * @author kenrube
+ * @date 15.09.16
  */
 
 public class UserProvider implements IUserProvider {
@@ -27,8 +27,8 @@ public class UserProvider implements IUserProvider {
     }
 
     @Override
-    public Observable<Void> login(User user) {
-        return mServerApi.login(user)
+    public Observable<Void> login(String login, String password) {
+        return mServerApi.login(login, password)
                 .compose(mConfiguratorProvider.applySchedulers())
                 .map(response -> {
                     Timber.e(response.toString());

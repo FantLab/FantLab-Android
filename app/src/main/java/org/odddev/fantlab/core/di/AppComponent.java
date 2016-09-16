@@ -11,14 +11,15 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 23.08.16
+ * @author kenrube
+ * @date 23.08.16
  */
 
 @Singleton
 @Component(modules = {
         AppModule.class,
         ProvidersModule.class,
+        PresentersModule.class,
         NetworkModule.class
 })
 public interface AppComponent {

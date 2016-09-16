@@ -7,8 +7,8 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 15.09.16
+ * @author kenrube
+ * @date 15.09.16
  */
 
 @Module

@@ -1,19 +1,21 @@
 package org.odddev.fantlab.core.network;
 
-import org.odddev.fantlab.profile.User;
-
 import okhttp3.ResponseBody;
-import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import rx.Observable;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 15.09.16
+ * @author kenrube
+ * @date 15.09.16
  */
 
 public interface IServerApi {
 
-    @POST("/login")
-    Observable<ResponseBody> login(@Body User request);
+    @FormUrlEncoded
+    @POST("login")
+    Observable<ResponseBody> login(
+            @Field("login") String login,
+            @Field("password") String password);
 }

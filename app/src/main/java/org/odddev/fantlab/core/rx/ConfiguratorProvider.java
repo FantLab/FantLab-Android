@@ -9,8 +9,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 06.09.16
+ * @author kenrube
+ * @date 06.09.16
  */
 
 public class ConfiguratorProvider {

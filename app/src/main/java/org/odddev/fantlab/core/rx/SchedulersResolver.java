@@ -5,8 +5,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 23.08.16
+ * @author kenrube
+ * @date 23.08.16
  */
 
 public class SchedulersResolver implements ISchedulersResolver {

@@ -12,8 +12,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 15.09.16
+ * @author kenrube
+ * @date 15.09.16
  */
 
 public class ServerApiBuilder {

@@ -3,8 +3,8 @@ package org.odddev.fantlab.core.di;
 import android.support.annotation.NonNull;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 23.08.16
+ * @author kenrube
+ * @date 23.08.16
  */
 
 public class Injector {

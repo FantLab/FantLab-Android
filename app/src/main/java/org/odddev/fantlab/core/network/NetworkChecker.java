@@ -9,8 +9,8 @@ import org.odddev.fantlab.core.di.Injector;
 import javax.inject.Inject;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 23.08.16
+ * @author kenrube
+ * @date 23.08.16
  */
 
 public class NetworkChecker implements INetworkChecker {

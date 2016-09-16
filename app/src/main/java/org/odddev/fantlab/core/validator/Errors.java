@@ -5,8 +5,8 @@ import android.support.annotation.StringRes;
 import org.odddev.fantlab.R;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 30.08.16
+ * @author kenrube
+ * @date 30.08.16
  */
 
 public enum Errors {

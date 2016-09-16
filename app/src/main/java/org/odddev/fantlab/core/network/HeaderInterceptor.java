@@ -9,8 +9,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 15.09.16
+ * @author kenrube
+ * @date 15.09.16
  */
 
 public class HeaderInterceptor implements Interceptor {
@@ -21,8 +21,9 @@ public class HeaderInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request original = chain.request();
         Request.Builder builder = original.newBuilder()
-                .header("Content-Type", "application/json")
-                .header("User-Agent", APP_VERSION)
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .header("User-Agent", /*APP_VERSION*/"Mozilla")
+                .header("Cookie", "")
                 .method(original.method(), original.body());
         return chain.proceed(builder.build());
     }

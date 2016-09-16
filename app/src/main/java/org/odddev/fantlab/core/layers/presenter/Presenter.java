@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 30.08.16
+ * @author kenrube
+ * @date 30.08.16
  */
 
 public class Presenter<V extends IView> {

@@ -1,23 +1,27 @@
 package org.odddev.fantlab.auth;
 
 import org.odddev.fantlab.core.di.Injector;
-import org.odddev.fantlab.core.layers.presenter.DataFormPresenter;
+import org.odddev.fantlab.core.layers.presenter.Presenter;
 import org.odddev.fantlab.core.rx.ConfiguratorProvider;
-import org.odddev.fantlab.core.validator.ValidatorException;
 import org.odddev.fantlab.profile.IUserProvider;
-import org.odddev.fantlab.profile.ProfileValidator;
-import org.odddev.fantlab.profile.User;
 
 import javax.inject.Inject;
 
-import rx.Observable;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
+import timber.log.Timber;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 30.08.16
+ * @author kenrube
+ * @date 30.08.16
  */
 
-public class LoginPresenter extends DataFormPresenter<User, ProfileValidator, ILoginView> {
+public class LoginPresenter extends Presenter<ILoginView> {
+
+    private Subscription mLoginSubscription;
+
+    @Inject
+    CompositeSubscription mCompositeSubscription;
 
     @Inject
     ConfiguratorProvider mConfiguratorProvider;
@@ -29,19 +33,25 @@ public class LoginPresenter extends DataFormPresenter<User, ProfileValidator, IL
         Injector.getAppComponent().inject(this);
     }
 
+    public void login(String login, String password) {
+        mLoginSubscription = mUserProvider
+                .login(login, password)
+                .subscribe(
+                        aVoid -> showSuccess(),
+                        throwable -> Timber.e(throwable.getLocalizedMessage()),
+                        () -> mCompositeSubscription.remove(mLoginSubscription));
+        mCompositeSubscription.add(mLoginSubscription);
+    }
+
+    private void showSuccess() {
+        for (ILoginView view : getViews()) {
+            view.showLoggedIn();
+        }
+    }
+
     @Override
-    public void checkForm(User user) {
-        mUserProvider.login(user);
-        /*ProfileValidator validator = ProfileValidator.newInstance(user, ProfileValidator.TYPE_LOGIN);
-        validator
-                .getValidatorObservable()
-                .compose(mConfiguratorProvider.applySchedulers())
-                .flatMap(profileValidator -> {
-                    showValidator(profileValidator);
-                    if (profileValidator.formIsValid()) {
-                        return mUserProvider.login(user);
-                    }
-                    return Observable.error(new ValidatorException());
-                });*/
+    protected void onDestroy() {
+        mCompositeSubscription.unsubscribe();
+        super.onDestroy();
     }
 }

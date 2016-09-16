@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 30.08.16
+ * @author kenrube
+ * @date 30.08.16
  */
 
 public class FragmentUtils {

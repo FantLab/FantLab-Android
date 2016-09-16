@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Developer: Ivan Zolotarev
- * Date: 23.08.16
+ * @author kenrube
+ * @date 23.08.16
  */
 
 public class AuthActivity extends AppCompatActivity {
