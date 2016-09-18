@@ -6,9 +6,9 @@
 
     <data>
 
-        <import type="org.odddev.fantlab.auth.LoginFragment"/>
+        <import type="org.odddev.fantlab.auth.login.LoginFragment"/>
 
-        <import type="org.odddev.fantlab.auth.LoginParams"/>
+        <import type="org.odddev.fantlab.auth.login.LoginParams"/>
 
         <variable
             name="actionsHandler"

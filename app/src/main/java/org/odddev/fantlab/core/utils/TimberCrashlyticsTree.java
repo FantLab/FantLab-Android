@@ -1,4 +1,4 @@
-package org.odddev.fantlab.core;
+package org.odddev.fantlab.core.utils;
 
 import android.util.Log;
 

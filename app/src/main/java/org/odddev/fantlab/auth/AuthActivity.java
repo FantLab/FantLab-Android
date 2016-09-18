@@ -1,6 +1,7 @@
 package org.odddev.fantlab.auth;
 
 import org.odddev.fantlab.R;
+import org.odddev.fantlab.auth.login.LoginFragment;
 import org.odddev.fantlab.core.utils.FragmentUtils;
 
 import android.os.Bundle;

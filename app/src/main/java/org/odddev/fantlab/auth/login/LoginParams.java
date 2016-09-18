@@ -1,4 +1,4 @@
-package org.odddev.fantlab.auth;
+package org.odddev.fantlab.auth.login;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -55,11 +55,15 @@ public class LoginParams extends BaseObservable {
     private void validate(Field field) {
         switch (field) {
             case LOGIN: {
-                setLoginError(login.isEmpty() ? mResources.getString(field.getResource()) : null);
+                setLoginError(login.isEmpty()
+                        ? mResources.getString(field.getResource())
+                        : null);
                 break;
             }
             case PASSWORD: {
-                setPasswordError(password.isEmpty() ? mResources.getString(field.getResource()) : null);
+                setPasswordError(password.isEmpty()
+                        ? mResources.getString(field.getResource())
+                        : null);
                 break;
             }
         }

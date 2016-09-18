@@ -1,4 +1,4 @@
-package org.odddev.fantlab.auth;
+package org.odddev.fantlab.auth.login;
 
 import org.odddev.fantlab.core.layers.view.IView;
 

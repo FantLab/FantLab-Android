@@ -1,8 +1,8 @@
-package org.odddev.fantlab.profile;
+package org.odddev.fantlab.auth;
 
 import org.odddev.fantlab.core.di.Injector;
 import org.odddev.fantlab.core.network.IServerApi;
-import org.odddev.fantlab.core.rx.ConfiguratorProvider;
+import org.odddev.fantlab.core.rx.ISchedulersResolver;
 
 import javax.inject.Inject;
 
@@ -14,22 +14,22 @@ import timber.log.Timber;
  * @date 15.09.16
  */
 
-public class UserProvider implements IUserProvider {
+public class AuthProvider implements IAuthProvider {
 
     @Inject
-    ConfiguratorProvider mConfiguratorProvider;
+    ISchedulersResolver mSchedulersResolver;
 
     @Inject
     IServerApi mServerApi;
 
-    public UserProvider() {
+    public AuthProvider() {
         Injector.getAppComponent().inject(this);
     }
 
     @Override
     public Observable<Void> login(String login, String password) {
         return mServerApi.login(login, password)
-                .compose(mConfiguratorProvider.applySchedulers())
+                .compose(mSchedulersResolver.applyDefaultSchedulers())
                 .map(response -> {
                     Timber.e(response.toString());
                     return null;

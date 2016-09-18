@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 
 import org.odddev.fantlab.core.network.INetworkChecker;
 import org.odddev.fantlab.core.network.NetworkChecker;
-import org.odddev.fantlab.core.rx.ConfiguratorProvider;
 import org.odddev.fantlab.core.rx.ISchedulersResolver;
 import org.odddev.fantlab.core.rx.SchedulersResolver;
 
@@ -39,12 +38,6 @@ public class AppModule {
     @Provides
     ISchedulersResolver provideSchedulersResolver() {
         return new SchedulersResolver();
-    }
-
-    @Singleton
-    @Provides
-    ConfiguratorProvider provideConfiguratorProvider() {
-        return new ConfiguratorProvider();
     }
 
     @Singleton

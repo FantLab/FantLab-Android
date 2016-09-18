@@ -1,7 +1,9 @@
-package org.odddev.fantlab;
+package org.odddev.fantlab.home;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import org.odddev.fantlab.R;
 
 public class MainActivity extends AppCompatActivity {
 

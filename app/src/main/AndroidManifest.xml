@@ -15,7 +15,7 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="8f0a95903f61d5dc2716d25b1addf1e44755258d"/>
-        <activity android:name=".MainActivity">
+        <activity android:name=".home.MainActivity">
         </activity>
         <activity android:name=".auth.AuthActivity"
             android:screenOrientation="portrait">

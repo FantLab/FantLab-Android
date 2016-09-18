@@ -1,4 +1,4 @@
-package org.odddev.fantlab.auth;
+package org.odddev.fantlab.auth.login;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -60,7 +60,7 @@ public class LoginFragment extends Fragment implements ILoginView {
 
     public void login() {
         if (mLoginParams.isValid()) {
-            //mPresenter.login(mLoginParams.login, mLoginParams.password);
+            mPresenter.login(mLoginParams.login, mLoginParams.password);
             Snackbar.make(mBinding.getRoot(), "Very cool!", Snackbar.LENGTH_LONG).show();
         }
     }

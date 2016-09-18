@@ -1,7 +1,7 @@
 package org.odddev.fantlab.core.di;
 
-import org.odddev.fantlab.profile.IUserProvider;
-import org.odddev.fantlab.profile.UserProvider;
+import org.odddev.fantlab.auth.AuthProvider;
+import org.odddev.fantlab.auth.IAuthProvider;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,7 +15,7 @@ import dagger.Provides;
 public class ProvidersModule {
 
     @Provides
-    IUserProvider provideUserProvider() {
-        return new UserProvider();
+    IAuthProvider provideUserProvider() {
+        return new AuthProvider();
     }
 }

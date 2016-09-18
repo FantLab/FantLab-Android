@@ -1,9 +1,8 @@
-package org.odddev.fantlab.auth;
+package org.odddev.fantlab.auth.login;
 
 import org.odddev.fantlab.core.di.Injector;
 import org.odddev.fantlab.core.layers.presenter.Presenter;
-import org.odddev.fantlab.core.rx.ConfiguratorProvider;
-import org.odddev.fantlab.profile.IUserProvider;
+import org.odddev.fantlab.auth.IAuthProvider;
 
 import javax.inject.Inject;
 
@@ -24,10 +23,7 @@ public class LoginPresenter extends Presenter<ILoginView> {
     CompositeSubscription mCompositeSubscription;
 
     @Inject
-    ConfiguratorProvider mConfiguratorProvider;
-
-    @Inject
-    IUserProvider mUserProvider;
+    IAuthProvider mUserProvider;
 
     public LoginPresenter() {
         Injector.getAppComponent().inject(this);

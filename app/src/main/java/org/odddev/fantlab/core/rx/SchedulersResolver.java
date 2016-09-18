@@ -1,5 +1,6 @@
 package org.odddev.fantlab.core.rx;
 
+import rx.Observable;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -12,12 +13,18 @@ import rx.schedulers.Schedulers;
 public class SchedulersResolver implements ISchedulersResolver {
 
     @Override
-    public Scheduler ioThread() {
+    public Scheduler ioScheduler() {
         return Schedulers.io();
     }
 
     @Override
-    public Scheduler mainThread() {
+    public Scheduler mainThreadScheduler() {
         return AndroidSchedulers.mainThread();
+    }
+
+    public <T> Observable.Transformer<T, T> applyDefaultSchedulers() {
+        return observable -> observable
+                .subscribeOn(ioScheduler())
+                .observeOn(mainThreadScheduler());
     }
 }
