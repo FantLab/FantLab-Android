@@ -2,6 +2,7 @@ package org.odddev.fantlab.auth;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ public class LoginFragment extends Fragment implements ILoginView {
     private LoginPresenter mPresenter;
     private LoginFragmentBinding mBinding;
 
+    private LoginParams mLoginParams;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,8 @@ public class LoginFragment extends Fragment implements ILoginView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mBinding.setActionsHandler(this);
+        mLoginParams = new LoginParams(getContext());
+        mBinding.setLoginParams(mLoginParams);
     }
 
     @Override
@@ -53,16 +58,18 @@ public class LoginFragment extends Fragment implements ILoginView {
         super.onStop();
     }
 
-    public void login(View view) {
-        mPresenter.login(mBinding.username.getText().toString(),
-                mBinding.password.getText().toString());
+    public void login() {
+        if (mLoginParams.isValid()) {
+            //mPresenter.login(mLoginParams.login, mLoginParams.password);
+            Snackbar.make(mBinding.getRoot(), "Very cool!", Snackbar.LENGTH_LONG).show();
+        }
     }
 
-    public void register(View view) {
+    public void register() {
         Timber.d("Register");
     }
 
-    public void entry(View view) {
+    public void entry() {
         Timber.d("Entry");
     }
 

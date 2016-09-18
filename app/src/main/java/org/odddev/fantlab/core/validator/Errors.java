@@ -11,16 +11,21 @@ import org.odddev.fantlab.R;
 
 public enum Errors {
 
-    ERROR_EMPTY(R.string.error_string_empty),
+    /*ERROR_EMPTY(R.string.error_string_empty),*/
     ERROR_LOGIN_BUSY(R.string.error_username_busy),
     ERROR_INCORRECT_EMAIL(R.string.error_email_incorrect),
     ERROR_INCORRECT_URL(R.string.error_url_incorrect),
     ERROR_INCORRECT_ANSWER(R.string.error_answer_incorrect);
 
     @StringRes
-    public int textResource;
+    private int mTextResource;
 
     Errors(@StringRes int textResource) {
-        this.textResource = textResource;
+        this.mTextResource = textResource;
+    }
+
+    @StringRes
+    public int getResource() {
+        return mTextResource;
     }
 }

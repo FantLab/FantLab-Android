@@ -15,7 +15,8 @@
     <string name="register.input.name">Фамилия, имя, отчество</string>
     <string name="register.text.birthday">День рождения</string>
 
-    <string name="error.string.empty">Поле не может быть пустым</string>
+    <string name="error.username.empty">Имя пользователя не может быть пустым</string>
+    <string name="error.password.empty">Пароль не может быть пустым</string>
     <string name="error.username.busy">Данное имя пользователя уже занято</string>
     <string name="error.email.incorrect">Некорректный адрес электронной почты</string>
     <string name="error.url.incorrect">Некорректный адрес веб-страницы</string>

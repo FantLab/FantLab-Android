@@ -17,9 +17,11 @@
             android:value="8f0a95903f61d5dc2716d25b1addf1e44755258d"/>
         <activity android:name=".MainActivity">
         </activity>
-        <activity android:name=".auth.AuthActivity">
+        <activity android:name=".auth.AuthActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".launch.LaunchActivity">
+        <activity android:name=".launch.LaunchActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
