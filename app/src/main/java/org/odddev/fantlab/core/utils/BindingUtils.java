@@ -25,11 +25,7 @@ public class BindingUtils {
     }
 
     @BindingAdapter("app:textWatcher")
-    public static void bindTextWatcher(TextView textView, final TextWatcher oldValue,
-                                       final TextWatcher newValue) {
-        if (oldValue != null) {
-            textView.removeTextChangedListener(oldValue);
-        }
+    public static void bindTextWatcher(TextView textView, final TextWatcher newValue) {
         textView.addTextChangedListener(newValue);
     }
 
@@ -49,7 +45,7 @@ public class BindingUtils {
     }
 
     @BindingConversion
-    public static int convertFooToVisibility(final boolean foo) {
-        return foo ? View.VISIBLE : View.GONE;
+    public static int convertConditionToVisibility(final boolean condition) {
+        return condition ? View.VISIBLE : View.GONE;
     }
 }
