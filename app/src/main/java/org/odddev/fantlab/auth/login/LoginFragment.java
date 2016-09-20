@@ -20,6 +20,8 @@ import timber.log.Timber;
 // TODO: 23.08.16 refactor layout (styles etc)
 public class LoginFragment extends Fragment implements ILoginView {
 
+    private static final int PRESENTER_ID = LoginPresenter.class.getSimpleName().hashCode();
+
     private LoginPresenter mPresenter;
     private LoginFragmentBinding mBinding;
 
@@ -28,7 +30,7 @@ public class LoginFragment extends Fragment implements ILoginView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = PresenterManager.getPresenter(this.hashCode(), LoginPresenter::new);
+        mPresenter = PresenterManager.getPresenter(PRESENTER_ID, LoginPresenter::new);
     }
 
     @Nullable

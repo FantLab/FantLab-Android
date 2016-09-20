@@ -35,4 +35,9 @@ public class AuthProvider implements IAuthProvider {
                     return null;
                 });
     }
+
+    @Override
+    public Observable<Void> register(String login, String password, String email) {
+        return null;
+    }
 }

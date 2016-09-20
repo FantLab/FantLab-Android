@@ -1,8 +1,8 @@
-package org.odddev.fantlab.auth.login;
+package org.odddev.fantlab.auth.reg;
 
+import org.odddev.fantlab.auth.IAuthProvider;
 import org.odddev.fantlab.core.di.Injector;
 import org.odddev.fantlab.core.layers.presenter.Presenter;
-import org.odddev.fantlab.auth.IAuthProvider;
 
 import javax.inject.Inject;
 
@@ -12,12 +12,12 @@ import timber.log.Timber;
 
 /**
  * @author kenrube
- * @date 30.08.16
+ * @date 20.09.16
  */
 
-public class LoginPresenter extends Presenter<ILoginView> {
+public class RegPresenter extends Presenter<IRegView> {
 
-    private Subscription mLoginSubscription;
+    private Subscription mRegSubscription;
 
     @Inject
     CompositeSubscription mCompositeSubscription;
@@ -25,23 +25,23 @@ public class LoginPresenter extends Presenter<ILoginView> {
     @Inject
     IAuthProvider mAuthProvider;
 
-    LoginPresenter() {
+    public RegPresenter() {
         Injector.getAppComponent().inject(this);
     }
 
-    public void login(String login, String password) {
-        mLoginSubscription = mAuthProvider
-                .login(login, password)
+    public void register(String login, String password, String email) {
+        mRegSubscription = mAuthProvider
+                .register(login, password, email)
                 .subscribe(
                         aVoid -> showSuccess(),
                         throwable -> Timber.e(throwable.getLocalizedMessage()),
-                        () -> mCompositeSubscription.remove(mLoginSubscription));
-        mCompositeSubscription.add(mLoginSubscription);
+                        () -> mCompositeSubscription.remove(mRegSubscription));
+        mCompositeSubscription.add(mRegSubscription);
     }
 
     private void showSuccess() {
-        for (ILoginView view : getViews()) {
-            view.showLoggedIn();
+        for (IRegView view : getViews()) {
+            view.showRegistered();
         }
     }
 

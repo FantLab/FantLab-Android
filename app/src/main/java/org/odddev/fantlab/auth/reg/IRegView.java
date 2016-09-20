@@ -8,4 +8,6 @@ import org.odddev.fantlab.core.layers.view.IView;
  */
 
 public interface IRegView extends IView {
+
+    void showRegistered();
 }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.odddev.fantlab.core.layers.presenter.PresenterManager;
 import org.odddev.fantlab.databinding.RegFragmentBinding;
 
 /**
@@ -17,6 +18,9 @@ import org.odddev.fantlab.databinding.RegFragmentBinding;
 
 public class RegFragment extends Fragment implements IRegView {
 
+    private static final int PRESENTER_ID = RegFragment.class.getSimpleName().hashCode();
+
+    private RegPresenter mPresenter;
     private RegFragmentBinding mBinding;
 
     private RegParams mRegParams;
@@ -24,6 +28,7 @@ public class RegFragment extends Fragment implements IRegView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter = PresenterManager.getPresenter(PRESENTER_ID, RegPresenter::new);
     }
 
     @Nullable
@@ -44,17 +49,24 @@ public class RegFragment extends Fragment implements IRegView {
     @Override
     public void onStart() {
         super.onStart();
+        mPresenter.attachView(this);
     }
 
     @Override
     public void onStop() {
+        mPresenter.detachView(this);
         super.onStop();
     }
 
     public void register() {
         if (mRegParams.isValid()) {
-            //mPresenter.login(mLoginParams.login, mLoginParams.password);
+            //mPresenter.register(mRegParams.login, mRegParams.password, mRegParams.email);
             Snackbar.make(mBinding.getRoot(), "Very cool!", Snackbar.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void showRegistered() {
+        //
     }
 }

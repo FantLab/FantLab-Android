@@ -6,6 +6,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.annotation.StringRes;
 import android.text.Editable;
+import android.util.Patterns;
 
 import org.odddev.fantlab.BR;
 import org.odddev.fantlab.R;
@@ -60,21 +61,21 @@ public class RegParams extends BaseObservable {
     private void validate(Field field) {
         switch (field) {
             case LOGIN: {
-                setLoginError(login.isEmpty()
-                        ? mResources.getString(field.getResource())
-                        : null);
+                setLoginError(!login.isEmpty()
+                        ? null
+                        : mResources.getString(field.getResource()));
                 break;
             }
             case PASSWORD: {
-                setPasswordError(password.isEmpty()
-                        ? mResources.getString(field.getResource())
-                        : null);
+                setPasswordError(!password.isEmpty()
+                        ? null
+                        : mResources.getString(field.getResource()));
                 break;
             }
             case EMAIL: {
-                setEmailError(isEmailIncorrect()
-                        ? mResources.getString(field.getResource())
-                        : null);
+                setEmailError(isEmailCorrect()
+                        ? null
+                        : mResources.getString(field.getResource()));
                 break;
             }
         }
@@ -87,8 +88,8 @@ public class RegParams extends BaseObservable {
         return mLoginError == null && mPasswordError == null && mEmailError == null;
     }
 
-    private boolean isEmailIncorrect() {
-        return true;
+    private boolean isEmailCorrect() {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     @Bindable

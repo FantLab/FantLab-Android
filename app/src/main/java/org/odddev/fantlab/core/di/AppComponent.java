@@ -1,6 +1,7 @@
 package org.odddev.fantlab.core.di;
 
 import org.odddev.fantlab.auth.login.LoginPresenter;
+import org.odddev.fantlab.auth.reg.RegPresenter;
 import org.odddev.fantlab.core.network.NetworkChecker;
 import org.odddev.fantlab.core.network.NetworkModule;
 import org.odddev.fantlab.auth.AuthProvider;
@@ -28,4 +29,6 @@ public interface AppComponent {
     void inject(LoginPresenter loginPresenter);
 
     void inject(AuthProvider userProvider);
+
+    void inject(RegPresenter regPresenter);
 }
