@@ -27,6 +27,8 @@
 
     <string name="nav.awards">Награды</string>
     <string name="nav.profile">Профиль</string>
+    <string name="nav.login">Войти</string>
+    <string name="nav.logout">Выйти</string>
 
     <string name="sample.username">kenrube</string>
     <string name="sample.class_progress">6000.00 из 10000</string>

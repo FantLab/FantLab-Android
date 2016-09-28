@@ -2,6 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group
+        android:id="@+id/group_exit"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:title="@string/nav.login"/>
+
+    </group>
+
+    <group
         android:id="@+id/group_common"
         android:checkableBehavior="single">
 
