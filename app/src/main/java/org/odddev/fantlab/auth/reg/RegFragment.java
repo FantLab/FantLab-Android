@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.odddev.fantlab.R;
+import org.odddev.fantlab.auth.AuthActivity;
 import org.odddev.fantlab.auth.AuthRouter;
 import org.odddev.fantlab.core.layers.presenter.PresenterManager;
 import org.odddev.fantlab.databinding.RegFragmentBinding;
@@ -32,7 +33,7 @@ public class RegFragment extends Fragment implements IRegView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = PresenterManager.getPresenter(PRESENTER_ID, RegPresenter::new);
-        mRouter = new AuthRouter(getActivity());
+        mRouter = new AuthRouter((AuthActivity) getActivity());
     }
 
     @Nullable

@@ -24,4 +24,10 @@
     <string name="error.answer.incorrect">Неверный ответ на проверочный вопрос</string>
     <string name="error.login">Имя пользователя и/или пароль неверны</string>
     <string name="error.reg">Ошибка регистрации</string>
+
+    <string name="nav.awards">Награды</string>
+    <string name="nav.profile">Профиль</string>
+
+    <string name="sample.username">kenrube</string>
+    <string name="sample.class_progress">6000.00 из 10000</string>
 </resources>
