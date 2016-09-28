@@ -4,6 +4,7 @@
     <string name="auth.text.auth">Вход</string>
     <string name="auth.button.login">Вход</string>
     <string name="auth.button.register">Регистрация</string>
+    <string name="auth.button.forgot">Забыли пароль?</string>
     <string name="auth.button.enter">Продолжить без регистрации</string>
     <string name="register.text.title">Регистрация</string>
     <string name="register.input.username">Имя пользователя</string>
@@ -21,4 +22,6 @@
     <string name="error.email.incorrect">Некорректный адрес электронной почты</string>
     <string name="error.url.incorrect">Некорректный адрес веб-страницы</string>
     <string name="error.answer.incorrect">Неверный ответ на проверочный вопрос</string>
+    <string name="error.login">Имя пользователя и/или пароль неверны</string>
+    <string name="error.reg">Ошибка регистрации</string>
 </resources>

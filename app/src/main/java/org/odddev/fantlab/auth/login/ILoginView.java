@@ -9,5 +9,7 @@ import org.odddev.fantlab.core.layers.view.IView;
 
 public interface ILoginView extends IView {
 
-    void showLoggedIn();
+    void showLoginResult(boolean loggedIn);
+
+    void showError(String error);
 }

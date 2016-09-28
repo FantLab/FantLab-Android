@@ -33,15 +33,21 @@ public class LoginPresenter extends Presenter<ILoginView> {
         mLoginSubscription = mAuthProvider
                 .login(login, password)
                 .subscribe(
-                        aVoid -> showSuccess(),
-                        throwable -> Timber.e(throwable.getLocalizedMessage()),
+                        this::showResult,
+                        throwable -> showError(throwable.getLocalizedMessage()),
                         () -> mCompositeSubscription.remove(mLoginSubscription));
         mCompositeSubscription.add(mLoginSubscription);
     }
 
-    private void showSuccess() {
+    private void showResult(boolean hasCookie) {
         for (ILoginView view : getViews()) {
-            view.showLoggedIn();
+            view.showLoginResult(hasCookie);
+        }
+    }
+
+    private void showError(String error) {
+        for (ILoginView view : getViews()) {
+            view.showError(error);
         }
     }
 

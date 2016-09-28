@@ -8,22 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.odddev.fantlab.R;
+import org.odddev.fantlab.auth.AuthRouter;
 import org.odddev.fantlab.core.layers.presenter.PresenterManager;
 import org.odddev.fantlab.databinding.LoginFragmentBinding;
-
-import timber.log.Timber;
 
 /**
  * @author kenrube
  * @date 30.08.16
  */
-// TODO: 23.08.16 refactor layout (styles etc)
 public class LoginFragment extends Fragment implements ILoginView {
 
     private static final int PRESENTER_ID = LoginPresenter.class.getSimpleName().hashCode();
 
     private LoginPresenter mPresenter;
     private LoginFragmentBinding mBinding;
+    private AuthRouter mRouter;
 
     private LoginParams mLoginParams;
 
@@ -31,6 +31,7 @@ public class LoginFragment extends Fragment implements ILoginView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = PresenterManager.getPresenter(PRESENTER_ID, LoginPresenter::new);
+        mRouter = new AuthRouter(getActivity());
     }
 
     @Nullable
@@ -46,6 +47,7 @@ public class LoginFragment extends Fragment implements ILoginView {
         mBinding.setActionsHandler(this);
         mLoginParams = new LoginParams(getContext());
         mBinding.setLoginParams(mLoginParams);
+        mBinding.setForgotPassVisible(false);
     }
 
     @Override
@@ -62,21 +64,36 @@ public class LoginFragment extends Fragment implements ILoginView {
 
     public void login() {
         if (mLoginParams.isValid()) {
-            //mPresenter.login(mLoginParams.login, mLoginParams.password);
-            Snackbar.make(mBinding.getRoot(), "Very cool!", Snackbar.LENGTH_LONG).show();
+            mPresenter.login(mLoginParams.login, mLoginParams.password);
+            mBinding.setForgotPassVisible(false);
         }
     }
 
     public void register() {
-        Timber.d("Register");
+        mRouter.routeToReg();
+    }
+
+    public void forgotPass() {
+        //TODO open Dialog for pass change
     }
 
     public void entry() {
-        Timber.d("Entry");
+        mRouter.routeToHome(false);
     }
 
     @Override
-    public void showLoggedIn() {
-        Timber.d("LoggedIn");
+    public void showLoginResult(boolean loggedIn) {
+        if (loggedIn) {
+            mRouter.routeToHome(true);
+        } else {
+            mBinding.setForgotPassVisible(true);
+            showError(getString(R.string.error_login));
+        }
     }
+
+    @Override
+    public void showError(String error) {
+        Snackbar.make(mBinding.getRoot(), error, Snackbar.LENGTH_LONG).show();
+    }
+    // TODO refactor layout (styles etc)
 }

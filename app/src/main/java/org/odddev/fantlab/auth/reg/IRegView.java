@@ -9,5 +9,7 @@ import org.odddev.fantlab.core.layers.view.IView;
 
 public interface IRegView extends IView {
 
-    void showRegistered();
+    void showRegResult(boolean registered);
+
+    void showError(String error);
 }

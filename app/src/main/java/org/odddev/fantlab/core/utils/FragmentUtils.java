@@ -15,6 +15,20 @@ public class FragmentUtils {
 
     private static final String RETAIN_FRAGMENT = "retain";
 
+    public static void replaceFragment(FragmentActivity activity, @IdRes int containerId,
+                                       Fragment fragment, boolean backStack) {
+        try {
+            FragmentTransaction fragmentTransaction = getFragmentManager(activity).beginTransaction();
+            fragmentTransaction.replace(containerId, fragment, RETAIN_FRAGMENT);
+            if (backStack) {
+                fragmentTransaction.addToBackStack(null);
+            }
+            fragmentTransaction.commit();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void addFragment(FragmentActivity activity, @IdRes int containerId,
                                     Fragment fragment, boolean addToBackStack) {
         FragmentTransaction transaction = getFragmentManager(activity).beginTransaction();

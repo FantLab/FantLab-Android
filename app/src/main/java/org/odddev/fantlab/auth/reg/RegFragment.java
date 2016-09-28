@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.odddev.fantlab.R;
+import org.odddev.fantlab.auth.AuthRouter;
 import org.odddev.fantlab.core.layers.presenter.PresenterManager;
 import org.odddev.fantlab.databinding.RegFragmentBinding;
 
@@ -22,6 +24,7 @@ public class RegFragment extends Fragment implements IRegView {
 
     private RegPresenter mPresenter;
     private RegFragmentBinding mBinding;
+    private AuthRouter mRouter;
 
     private RegParams mRegParams;
 
@@ -29,6 +32,7 @@ public class RegFragment extends Fragment implements IRegView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = PresenterManager.getPresenter(PRESENTER_ID, RegPresenter::new);
+        mRouter = new AuthRouter(getActivity());
     }
 
     @Nullable
@@ -60,13 +64,21 @@ public class RegFragment extends Fragment implements IRegView {
 
     public void register() {
         if (mRegParams.isValid()) {
-            //mPresenter.register(mRegParams.login, mRegParams.password, mRegParams.email);
-            Snackbar.make(mBinding.getRoot(), "Very cool!", Snackbar.LENGTH_LONG).show();
+            mPresenter.register(mRegParams.login, mRegParams.password, mRegParams.email);
         }
     }
 
     @Override
-    public void showRegistered() {
-        //
+    public void showRegResult(boolean registered) {
+        if (registered) {
+            mRouter.routeToHome(true);
+        } else {
+            showError(getString(R.string.error_reg));
+        }
+    }
+
+    @Override
+    public void showError(String error) {
+        Snackbar.make(mBinding.getRoot(), error, Snackbar.LENGTH_LONG).show();
     }
 }

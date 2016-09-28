@@ -33,15 +33,21 @@ public class RegPresenter extends Presenter<IRegView> {
         mRegSubscription = mAuthProvider
                 .register(login, password, email)
                 .subscribe(
-                        aVoid -> showSuccess(),
-                        throwable -> Timber.e(throwable.getLocalizedMessage()),
+                        this::showResult,
+                        throwable -> showError(throwable.getLocalizedMessage()),
                         () -> mCompositeSubscription.remove(mRegSubscription));
         mCompositeSubscription.add(mRegSubscription);
     }
 
-    private void showSuccess() {
+    private void showResult(boolean hasCookie) {
         for (IRegView view : getViews()) {
-            view.showRegistered();
+            view.showRegResult(hasCookie);
+        }
+    }
+
+    private void showError(String error) {
+        for (IRegView view : getViews()) {
+            view.showError(error);
         }
     }
 
