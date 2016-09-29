@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import org.odddev.fantlab.core.di.Injector;
 import org.odddev.fantlab.core.network.IServerApi;
 import org.odddev.fantlab.core.rx.ISchedulersResolver;
+import org.odddev.fantlab.core.storage.StorageManager;
 
 import javax.inject.Inject;
 
@@ -25,25 +26,28 @@ public class AuthProvider implements IAuthProvider {
     @Inject
     IServerApi mServerApi;
 
+    @Inject
+    StorageManager mStorageManager;
+
     public AuthProvider() {
         Injector.getAppComponent().inject(this);
     }
 
     @Override
-    public Observable<Boolean> login(String login, String password) {
-        return mServerApi.login(login, password)
+    public Observable<Boolean> login(String username, String password) {
+        return mServerApi.login(username, password)
                 .compose(mSchedulersResolver.applyDefaultSchedulers())
                 .map(response -> {
                     String cookie = response.headers().get(COOKIE_HEADER);
                     if (!TextUtils.isEmpty(cookie)) {
-                        //TODO save cookie to storage
+                        mStorageManager.saveCookie(cookie);
                     }
                     return !TextUtils.isEmpty(cookie);
                 });
     }
 
     @Override
-    public Observable<Boolean> register(String login, String password, String email) {
+    public Observable<Boolean> register(String username, String password, String email) {
         return null;
     }
 }

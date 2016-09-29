@@ -5,6 +5,8 @@ import org.odddev.fantlab.auth.reg.RegPresenter;
 import org.odddev.fantlab.core.network.NetworkChecker;
 import org.odddev.fantlab.core.network.NetworkModule;
 import org.odddev.fantlab.auth.AuthProvider;
+import org.odddev.fantlab.core.storage.StorageModule;
+import org.odddev.fantlab.launch.LaunchActivity;
 
 import javax.inject.Singleton;
 
@@ -20,7 +22,8 @@ import dagger.Component;
         AppModule.class,
         ProvidersModule.class,
         PresentersModule.class,
-        NetworkModule.class
+        NetworkModule.class,
+        StorageModule.class
 })
 public interface AppComponent {
 
@@ -31,4 +34,6 @@ public interface AppComponent {
     void inject(AuthProvider userProvider);
 
     void inject(RegPresenter regPresenter);
+
+    void inject(LaunchActivity launchActivity);
 }

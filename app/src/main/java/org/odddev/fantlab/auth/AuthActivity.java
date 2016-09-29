@@ -1,8 +1,6 @@
 package org.odddev.fantlab.auth;
 
 import org.odddev.fantlab.R;
-import org.odddev.fantlab.auth.login.LoginFragment;
-import org.odddev.fantlab.core.utils.FragmentUtils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +15,8 @@ import android.support.v4.content.IntentCompat;
  */
 
 public class AuthActivity extends FragmentActivity {
+
+    private AuthRouter mRouter;
 
     public static void start(Context context) {
         start(context, Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
@@ -33,11 +33,8 @@ public class AuthActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth_activity);
 
-        routeToLogin();
-    }
-
-    private void routeToLogin() {
-        FragmentUtils.initFragment(this, getContainerResId(), new LoginFragment(), false);
+        mRouter = new AuthRouter(this);
+        mRouter.routeToLogin();
     }
 
     @IdRes

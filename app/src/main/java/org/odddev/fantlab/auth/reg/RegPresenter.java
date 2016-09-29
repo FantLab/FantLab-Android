@@ -29,9 +29,9 @@ public class RegPresenter extends Presenter<IRegView> {
         Injector.getAppComponent().inject(this);
     }
 
-    public void register(String login, String password, String email) {
+    public void register(String username, String password, String email) {
         mRegSubscription = mAuthProvider
-                .register(login, password, email)
+                .register(username, password, email)
                 .subscribe(
                         this::showResult,
                         throwable -> showError(throwable.getLocalizedMessage()),

@@ -9,7 +9,7 @@ import rx.Observable;
 
 public interface IAuthProvider {
 
-    Observable<Boolean> login(String login, String password);
+    Observable<Boolean> login(String username, String password);
 
-    Observable<Boolean> register(String login, String password, String email);
+    Observable<Boolean> register(String username, String password, String email);
 }

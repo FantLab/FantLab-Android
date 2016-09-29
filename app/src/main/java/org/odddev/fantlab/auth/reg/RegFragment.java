@@ -65,7 +65,7 @@ public class RegFragment extends Fragment implements IRegView {
 
     public void register() {
         if (mRegParams.isValid()) {
-            mPresenter.register(mRegParams.login, mRegParams.password, mRegParams.email);
+            mPresenter.register(mRegParams.username, mRegParams.password, mRegParams.email);
         }
     }
 

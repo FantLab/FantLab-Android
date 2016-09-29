@@ -29,9 +29,9 @@ public class LoginPresenter extends Presenter<ILoginView> {
         Injector.getAppComponent().inject(this);
     }
 
-    public void login(String login, String password) {
+    public void login(String username, String password) {
         mLoginSubscription = mAuthProvider
-                .login(login, password)
+                .login(username, password)
                 .subscribe(
                         this::showResult,
                         throwable -> showError(throwable.getLocalizedMessage()),

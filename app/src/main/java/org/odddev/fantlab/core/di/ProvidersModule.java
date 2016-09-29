@@ -15,7 +15,7 @@ import dagger.Provides;
 public class ProvidersModule {
 
     @Provides
-    IAuthProvider provideUserProvider() {
+    IAuthProvider provideAuthProvider() {
         return new AuthProvider();
     }
 }

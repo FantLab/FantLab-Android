@@ -29,28 +29,7 @@ public class FragmentUtils {
         }
     }
 
-    public static void addFragment(FragmentActivity activity, @IdRes int containerId,
-                                    Fragment fragment, boolean addToBackStack) {
-        FragmentTransaction transaction = getFragmentManager(activity).beginTransaction();
-        transaction.add(containerId, fragment, RETAIN_FRAGMENT);
-        if (addToBackStack) {
-            transaction.addToBackStack(null);
-        }
-        transaction.commit();
-    }
-
-    public static void initFragment(FragmentActivity activity, @IdRes int containerId,
-                                    Fragment fragment, boolean addToBackStack) {
-        if (isFragmentNotFound(activity)) {
-            addFragment(activity, containerId, fragment, addToBackStack);
-        }
-    }
-
     private static FragmentManager getFragmentManager(FragmentActivity activity) {
         return activity.getSupportFragmentManager();
-    }
-
-    private static boolean isFragmentNotFound(FragmentActivity activity) {
-        return getFragmentManager(activity).findFragmentByTag(RETAIN_FRAGMENT) == null;
     }
 }

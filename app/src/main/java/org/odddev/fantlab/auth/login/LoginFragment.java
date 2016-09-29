@@ -48,7 +48,7 @@ public class LoginFragment extends Fragment implements ILoginView {
         mBinding.setActionsHandler(this);
         mLoginParams = new LoginParams(getContext());
         mBinding.setLoginParams(mLoginParams);
-        mBinding.setForgotPassVisible(false);
+        mBinding.setForgotPass(false);
     }
 
     @Override
@@ -65,8 +65,8 @@ public class LoginFragment extends Fragment implements ILoginView {
 
     public void login() {
         if (mLoginParams.isValid()) {
-            mPresenter.login(mLoginParams.login, mLoginParams.password);
-            mBinding.setForgotPassVisible(false);
+            mPresenter.login(mLoginParams.username, mLoginParams.password);
+            mBinding.setForgotPass(false);
         }
     }
 
@@ -87,7 +87,7 @@ public class LoginFragment extends Fragment implements ILoginView {
         if (loggedIn) {
             mRouter.routeToHome(true);
         } else {
-            mBinding.setForgotPassVisible(true);
+            mBinding.setForgotPass(true);
             showError(getString(R.string.error_login));
         }
     }

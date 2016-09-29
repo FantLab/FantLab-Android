@@ -20,7 +20,7 @@ import org.odddev.fantlab.core.utils.AbsTextWatcher;
 public class RegParams extends BaseObservable {
 
     private enum Field {
-        LOGIN(R.string.error_username_empty),
+        USERNAME(R.string.error_username_empty),
         PASSWORD(R.string.error_password_empty),
         EMAIL(R.string.error_email_incorrect);
 
@@ -39,29 +39,29 @@ public class RegParams extends BaseObservable {
 
     private Resources mResources;
 
-    public RegTextWatcher loginWatcher;
+    public RegTextWatcher usernameWatcher;
     public RegTextWatcher passwordWatcher;
     public RegTextWatcher emailWatcher;
 
-    public String login = "";
+    public String username = "";
     public String password = "";
     public String email = "";
 
-    private String mLoginError = null;
+    private String mUsernameError = null;
     private String mPasswordError = null;
     private String mEmailError = null;
 
     RegParams(Context context) {
         mResources = context.getResources();
-        loginWatcher = new RegTextWatcher(Field.LOGIN);
+        usernameWatcher = new RegTextWatcher(Field.USERNAME);
         passwordWatcher = new RegTextWatcher(Field.PASSWORD);
         emailWatcher = new RegTextWatcher(Field.EMAIL);
     }
 
     private void validate(Field field) {
         switch (field) {
-            case LOGIN: {
-                setLoginError(!login.isEmpty()
+            case USERNAME: {
+                setUsernameError(!username.isEmpty()
                         ? null
                         : mResources.getString(field.getResource()));
                 break;
@@ -85,7 +85,7 @@ public class RegParams extends BaseObservable {
         for (Field field : Field.values()) {
             validate(field);
         }
-        return mLoginError == null && mPasswordError == null && mEmailError == null;
+        return mUsernameError == null && mPasswordError == null && mEmailError == null;
     }
 
     private boolean isEmailCorrect() {
@@ -93,13 +93,13 @@ public class RegParams extends BaseObservable {
     }
 
     @Bindable
-    public String getLoginError() {
-        return mLoginError;
+    public String getUsernameError() {
+        return mUsernameError;
     }
 
-    private void setLoginError(String loginError) {
-        this.mLoginError = loginError;
-        notifyPropertyChanged(BR.loginError);
+    private void setUsernameError(String usernameError) {
+        this.mUsernameError = usernameError;
+        notifyPropertyChanged(BR.usernameError);
     }
 
     @Bindable
@@ -123,6 +123,7 @@ public class RegParams extends BaseObservable {
     }
 
     public class RegTextWatcher extends AbsTextWatcher {
+
         private RegParams.Field mField;
 
         RegTextWatcher(RegParams.Field field) {

@@ -19,7 +19,7 @@ import org.odddev.fantlab.core.utils.AbsTextWatcher;
 public class LoginParams extends BaseObservable {
 
     private enum Field {
-        LOGIN(R.string.error_username_empty),
+        USERNAME(R.string.error_username_empty),
         PASSWORD(R.string.error_password_empty);
 
         @StringRes
@@ -37,25 +37,25 @@ public class LoginParams extends BaseObservable {
 
     private Resources mResources;
 
-    public LoginTextWatcher loginWatcher;
+    public LoginTextWatcher usernameWatcher;
     public LoginTextWatcher passwordWatcher;
 
-    public String login = "";
+    public String username = "";
     public String password = "";
 
-    private String mLoginError = null;
+    private String mUsernameError = null;
     private String mPasswordError = null;
 
     LoginParams(Context context) {
         mResources = context.getResources();
-        loginWatcher = new LoginTextWatcher(Field.LOGIN);
+        usernameWatcher = new LoginTextWatcher(Field.USERNAME);
         passwordWatcher = new LoginTextWatcher(Field.PASSWORD);
     }
 
     private void validate(Field field) {
         switch (field) {
-            case LOGIN: {
-                setLoginError(login.isEmpty()
+            case USERNAME: {
+                setUsernameError(username.isEmpty()
                         ? mResources.getString(field.getResource())
                         : null);
                 break;
@@ -73,17 +73,17 @@ public class LoginParams extends BaseObservable {
         for (Field field : Field.values()) {
             validate(field);
         }
-        return mLoginError == null && mPasswordError == null;
+        return mUsernameError == null && mPasswordError == null;
     }
 
     @Bindable
-    public String getLoginError() {
-        return mLoginError;
+    public String getUsernameError() {
+        return mUsernameError;
     }
 
-    private void setLoginError(String loginError) {
-        this.mLoginError = loginError;
-        notifyPropertyChanged(BR.loginError);
+    private void setUsernameError(String usernameError) {
+        this.mUsernameError = usernameError;
+        notifyPropertyChanged(BR.usernameError);
     }
 
     @Bindable
