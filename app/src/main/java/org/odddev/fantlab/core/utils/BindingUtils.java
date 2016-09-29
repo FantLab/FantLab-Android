@@ -4,13 +4,17 @@ import android.content.res.ColorStateList;
 import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 /**
  * @author kenrube
@@ -25,8 +29,8 @@ public class BindingUtils {
     }
 
     @BindingAdapter("app:textWatcher")
-    public static void bindTextWatcher(TextView textView, final TextWatcher newValue) {
-        textView.addTextChangedListener(newValue);
+    public static void bindTextWatcher(TextView textView, final TextWatcher textWatcher) {
+        textView.addTextChangedListener(textWatcher);
     }
 
     @BindingAdapter("app:error")
@@ -42,6 +46,29 @@ public class BindingUtils {
         } else {
             progressBar.setProgressTintList(ColorStateList.valueOf(color));
         }
+    }
+
+    @BindingAdapter({"app:roundSrcUri", "app:placeholder"})
+    public static void bindRoundSrcUri(ImageView imageView, final String uri,
+                                       final Drawable placeholder) {
+        Glide
+                .with(imageView.getContext())
+                .load(uri)
+                .placeholder(placeholder)
+                .error(placeholder)
+                .transform(new CircleTransform(imageView.getContext()))
+                .into(imageView);
+    }
+
+    @BindingAdapter({"app:srcUri", "app:placeholder"})
+    public static void bindSrcUri(ImageView imageView, final String uri,
+                                  final Drawable placeholder) {
+        Glide
+                .with(imageView.getContext())
+                .load(uri)
+                .placeholder(placeholder)
+                .error(placeholder)
+                .into(imageView);
     }
 
     @BindingConversion
