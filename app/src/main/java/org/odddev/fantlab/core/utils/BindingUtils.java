@@ -48,7 +48,7 @@ public class BindingUtils {
         }
     }
 
-    @BindingAdapter({"app:roundSrcUri", "app:placeholder"})
+    @BindingAdapter({"bind:roundSrcUri", "bind:placeholder"})
     public static void bindRoundSrcUri(ImageView imageView, final String uri,
                                        final Drawable placeholder) {
         Glide
@@ -60,7 +60,7 @@ public class BindingUtils {
                 .into(imageView);
     }
 
-    @BindingAdapter({"app:srcUri", "app:placeholder"})
+    @BindingAdapter({"bind:srcUri", "bind:placeholder"})
     public static void bindSrcUri(ImageView imageView, final String uri,
                                   final Drawable placeholder) {
         Glide

@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
@@ -14,51 +15,51 @@
         android:layout_height="match_parent"
         android:src="@drawable/background"
         android:scaleType="centerCrop"
-        tools:ignore="ContentDescription"/>
+        tools:ignore="ContentDescription"
+        android:id="@+id/imageView"/>
 
     <ImageView
         android:id="@+id/avatar"
-        android:layout_width="@dimen/avatar_size"
-        android:layout_height="@dimen/avatar_size"
+        android:layout_width="64dp"
         android:layout_marginLeft="@dimen/spacing_16"
         android:layout_marginStart="@dimen/spacing_16"
-        android:layout_marginTop="@dimen/spacing_16"
-        app:layout_constraintBottom_toTopOf="@+id/username"
-        app:layout_constraintLeft_toLeftOf="@+id/root_layout"
-        app:layout_constraintTop_toTopOf="@+id/root_layout"
-        tools:ignore="ContentDescription"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:ignore="ContentDescription"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        android:layout_marginTop="16dp"
+        android:layout_height="64dp"/>
 
-<!--
     <TextView
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_16"
         android:layout_marginLeft="@dimen/spacing_16"
         android:layout_marginStart="@dimen/spacing_16"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="@string/sample.username"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_16"
-        app:layout_constraintLeft_toLeftOf="@+id/root_layout"
-        tools:text="@string/sample.username"/>
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:text="@string/sample.username"
+        app:layout_constraintBottom_toTopOf="@+id/class_progress"
+        android:layout_marginBottom="8dp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/class_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_16"
-        android:layout_marginEnd="@dimen/spacing_16"
-        android:layout_marginRight="@dimen/spacing_16"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="@string/sample.class_progress"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_16"
-        app:layout_constraintTop_toTopOf="@+id/root_layout"
-        app:layout_constraintRight_toRightOf="@+id/root_layout"
-        tools:text="@string/sample.class_progress"/>
--->
+        android:textSize="14sp"
+        tools:text="@string/sample.class_progress"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        android:layout_marginBottom="16dp"/>
 
 </android.support.constraint.ConstraintLayout>
