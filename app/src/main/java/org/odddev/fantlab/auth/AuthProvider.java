@@ -18,7 +18,7 @@ import rx.Observable;
 
 public class AuthProvider implements IAuthProvider {
 
-    private static final String COOKIE_HEADER = "Cookie";
+    private static final String COOKIE_HEADER = "Set-Cookie";
 
     @Inject
     ISchedulersResolver mSchedulersResolver;

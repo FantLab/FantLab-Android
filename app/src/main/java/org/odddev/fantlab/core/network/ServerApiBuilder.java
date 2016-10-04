@@ -33,6 +33,8 @@ public class ServerApiBuilder {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         builder.addInterceptor(loggingInterceptor);
 
+        builder.followRedirects(false);
+
         OkHttpClient httpClient = builder.build();
 
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
