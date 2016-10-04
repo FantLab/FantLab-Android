@@ -1,8 +1,12 @@
 package org.odddev.fantlab.core.network;
 
 import org.odddev.fantlab.BuildConfig;
+import org.odddev.fantlab.core.di.Injector;
+import org.odddev.fantlab.core.storage.StorageManager;
 
 import java.io.IOException;
+
+import javax.inject.Inject;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -17,14 +21,26 @@ public class HeaderInterceptor implements Interceptor {
 
     private final static String APP_VERSION = "Android/" + BuildConfig.VERSION_NAME;
 
+    @Inject
+    StorageManager mStorageManager;
+
+    public HeaderInterceptor() {
+        Injector.getAppComponent().inject(this);
+    }
+
     @Override
     public Response intercept(Chain chain) throws IOException {
+
+        String cookie = mStorageManager.loadCookie();
+
         Request original = chain.request();
         Request.Builder builder = original.newBuilder()
                 .header("Content-Type", "application/x-www-form-urlencoded")
-                .header("User-Agent", /*APP_VERSION*/"Mozilla")
-                .header("Cookie", "")
-                .method(original.method(), original.body());
+                .header("User-Agent", APP_VERSION);
+        if (cookie != null) {
+            builder.header("Cookie", cookie);
+        }
+        builder.method(original.method(), original.body());
         return chain.proceed(builder.build());
     }
 }

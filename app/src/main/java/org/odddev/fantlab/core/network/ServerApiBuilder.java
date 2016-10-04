@@ -16,13 +16,13 @@ import timber.log.Timber;
  * @date 15.09.16
  */
 
-public class ServerApiBuilder {
+class ServerApiBuilder {
 
     private static final String BASE_URL = BuildConfig.BASE_URL;
 
     private static final String HTTP_LOG_TAG = "OkHttp";
 
-    public static IServerApi createApi() {
+    static IServerApi createApi() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
         builder.addInterceptor(new HeaderInterceptor());
