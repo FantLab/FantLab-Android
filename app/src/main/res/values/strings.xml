@@ -14,7 +14,7 @@
     <string name="register.gender.female">Женский</string>
     <string name="register.text.gender">Пол</string>
     <string name="register.input.name">Фамилия, имя, отчество</string>
-    <string name="register.text.birthday">День рождения</string>
+    <string name="register.input.birthday">Дата рождения</string>
 
     <string name="error.username.empty">Имя пользователя не может быть пустым</string>
     <string name="error.password.empty">Пароль не может быть пустым</string>

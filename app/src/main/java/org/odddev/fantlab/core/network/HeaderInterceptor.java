@@ -19,7 +19,8 @@ import okhttp3.Response;
 
 public class HeaderInterceptor implements Interceptor {
 
-    private final static String APP_VERSION = "Android/" + BuildConfig.VERSION_NAME;
+    private static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
+    private static final String APP_VERSION = "Android/" + BuildConfig.VERSION_NAME;
 
     @Inject
     StorageManager mStorageManager;
@@ -35,7 +36,7 @@ public class HeaderInterceptor implements Interceptor {
 
         Request original = chain.request();
         Request.Builder builder = original.newBuilder()
-                .header("Content-Type", "application/x-www-form-urlencoded")
+                .header("Content-Type", CONTENT_TYPE)
                 .header("User-Agent", APP_VERSION);
         if (cookie != null) {
             builder.header("Cookie", cookie);
