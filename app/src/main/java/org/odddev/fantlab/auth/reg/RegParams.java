@@ -46,6 +46,9 @@ public class RegParams extends BaseObservable {
     public String username = "";
     public String password = "";
     public String email = "";
+    private int birthDay;
+    private int birthMonth;
+    private int birthYear;
 
     private String mUsernameError = null;
     private String mPasswordError = null;
@@ -120,6 +123,30 @@ public class RegParams extends BaseObservable {
     private void setEmailError(String emailError) {
         this.mEmailError = emailError;
         notifyPropertyChanged(BR.emailError);
+    }
+
+    public int getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(int birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public int getBirthMonth() {
+        return birthMonth;
+    }
+
+    public void setBirthMonth(int birthMonth) {
+        this.birthMonth = birthMonth;
+    }
+
+    public int getBirthYear() {
+        return birthYear;
+    }
+
+    public void setBirthYear(int birthYear) {
+        this.birthYear = birthYear;
     }
 
     public class RegTextWatcher extends AbsTextWatcher {

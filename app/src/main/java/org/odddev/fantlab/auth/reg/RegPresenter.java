@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
-import timber.log.Timber;
 
 /**
  * @author kenrube
@@ -29,9 +28,12 @@ public class RegPresenter extends Presenter<IRegView> {
         Injector.getAppComponent().inject(this);
     }
 
-    public void register(String username, String password, String email) {
+    public void register(RegParams params) {
         mRegSubscription = mAuthProvider
-                .register(username, password, email)
+                .register(
+                        params.username,
+                        params.password,
+                        params.email)
                 .subscribe(
                         this::showResult,
                         throwable -> showError(throwable.getLocalizedMessage()),

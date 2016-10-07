@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,12 @@ import java.util.Calendar;
 public class RegFragment extends Fragment implements IRegView, DatePickerDialog.OnDateSetListener {
 
     private static final int PRESENTER_ID = RegFragment.class.getSimpleName().hashCode();
+
+    private static final int MIN_AGE = 5;
+    private static final int DEFAULT_AGE = 20;
+    private static final int MAX_AGE = 100;
+    private static final int JANUARY_FIRST_DAY = 1;
+    private static final int DECEMBER_LAST_DAY = 31;
 
     private RegPresenter mPresenter;
     private RegFragmentBinding mBinding;
@@ -54,6 +61,8 @@ public class RegFragment extends Fragment implements IRegView, DatePickerDialog.
         mBinding.setActionsHandler(this);
         mRegParams = new RegParams(getContext());
         mBinding.setRegParams(mRegParams);
+
+        setDefaultBirthDate();
     }
 
     @Override
@@ -70,37 +79,51 @@ public class RegFragment extends Fragment implements IRegView, DatePickerDialog.
 
     public void register() {
         if (mRegParams.isValid()) {
-            mPresenter.register(mRegParams.username, mRegParams.password, mRegParams.email);
+            mPresenter.register(mRegParams);
         }
     }
 
+    private void setDefaultBirthDate() {
+        Calendar calendar = Calendar.getInstance();
+
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        showBirthDate(day, month + 1, year - DEFAULT_AGE);
+    }
+
+    private void showBirthDate(int day, int month, int year) {
+        mBinding.birthdate.setText(DateUtils.valuesToString(day, month, year));
+    }
+
     public void pickDate() {
-/*
-        Calendar curOrderDate = DateUtils.stringToCalendar(mBinding.getOrder().getPackageInfo().getExecDate(), DateUtils.DEFAULT_DATE_TIME_FORMAT);
+        // Calendar calendar = DateUtils.stringToCalendar(mBinding.birthdate.getText());
+        Calendar calendar = Calendar.getInstance();
 
-        int year = curOrderDate.get(Calendar.YEAR);
-        int month = curOrderDate.get(Calendar.MONTH);
-        int day = curOrderDate.get(Calendar.DAY_OF_MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        Calendar minOrderDate = OrderUtils.getOrderMinDate();
+        DatePickerDialog dialog = new DatePickerDialog(getContext(), this, year - DEFAULT_AGE,
+                month, day);
 
-        minOrderDate.set(Calendar.HOUR_OF_DAY, 0);
-        minOrderDate.set(Calendar.MINUTE, 0);
-        minOrderDate.set(Calendar.SECOND, 0);
+        calendar.set(year - MAX_AGE, Calendar.JANUARY, JANUARY_FIRST_DAY);
+        dialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
 
-        DatePickerDialog dialog = new DatePickerDialog(getContext(), this, year, month, day);
-        dialog.getDatePicker().setMaxDate(OrderUtils.getOrderMaxDate().getTimeInMillis());
-        dialog.getDatePicker().setMinDate(minOrderDate.getTimeInMillis());
+        calendar.set(year - MIN_AGE, Calendar.DECEMBER, DECEMBER_LAST_DAY);
+        dialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+
         dialog.show();
-*/
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-/*
-        Calendar curOrderDate = DateUtils.stringToCalendar(binding.getOrder().getPackageInfo().getExecDate(), DateUtils.DEFAULT_DATE_TIME_FORMAT);
-        curOrderDate.set(year, monthOfYear, dayOfMonth);
-*/
+        mRegParams.setBirthDay(dayOfMonth);
+        mRegParams.setBirthMonth(monthOfYear + 1);
+        mRegParams.setBirthYear(year);
+
+        showBirthDate(dayOfMonth, monthOfYear + 1, year);
     }
 
     @Override

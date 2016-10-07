@@ -65,7 +65,7 @@ public class LoginFragment extends Fragment implements ILoginView {
 
     public void login() {
         if (mLoginParams.isValid()) {
-            mPresenter.login(mLoginParams.username, mLoginParams.password);
+            mPresenter.login(mLoginParams);
             mBinding.setForgotPass(false);
         }
     }
