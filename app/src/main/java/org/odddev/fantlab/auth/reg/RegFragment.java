@@ -33,6 +33,9 @@ public class RegFragment extends Fragment implements IRegView, DatePickerDialog.
     private static final int MAX_AGE = 100;
     private static final int JANUARY_FIRST_DAY = 1;
     private static final int DECEMBER_LAST_DAY = 31;
+    private static final int DAY_LAST_HOUR = 23;
+    private static final int HOUR_LAST_MINUTE = 59;
+    private static final int MINUTE_LAST_SECOND = 59;
 
     private RegPresenter mPresenter;
     private RegFragmentBinding mBinding;
@@ -112,7 +115,13 @@ public class RegFragment extends Fragment implements IRegView, DatePickerDialog.
         calendar.set(year - MAX_AGE, Calendar.JANUARY, JANUARY_FIRST_DAY);
         dialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
 
-        calendar.set(year - MIN_AGE, Calendar.DECEMBER, DECEMBER_LAST_DAY);
+        calendar.set(
+                year - MIN_AGE,
+                Calendar.DECEMBER,
+                DECEMBER_LAST_DAY,
+                DAY_LAST_HOUR,
+                HOUR_LAST_MINUTE,
+                MINUTE_LAST_SECOND);
         dialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
 
         dialog.show();
