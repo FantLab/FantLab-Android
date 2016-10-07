@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,19 +93,21 @@ public class RegFragment extends Fragment implements IRegView, DatePickerDialog.
     }
 
     private void showBirthDate(int day, int month, int year) {
-        mBinding.birthdate.setText(DateUtils.valuesToString(day, month, year));
+        mBinding.birthdate.setText(DateUtils.valuesToDateString(day, month, year));
     }
 
     public void pickDate() {
-        // Calendar calendar = DateUtils.stringToCalendar(mBinding.birthdate.getText());
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = DateUtils.dateStringToCalendar(mBinding.birthdate.getText().toString());
 
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog dialog = new DatePickerDialog(getContext(), this, year - DEFAULT_AGE,
-                month, day);
+        DatePickerDialog dialog = new DatePickerDialog(getContext(), this, year, month, day);
+
+        calendar = Calendar.getInstance();
+
+        year = calendar.get(Calendar.YEAR);
 
         calendar.set(year - MAX_AGE, Calendar.JANUARY, JANUARY_FIRST_DAY);
         dialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
