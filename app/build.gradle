@@ -26,7 +26,8 @@ android {
         versionCode versions.major * 1000 + versions.minor * 100 + versions.patch
         versionName "${versions.major}.${versions.minor}.${versions.patch}"
 
-        archivesBaseName = "fantlab-${versionName}"
+        /*archivesBaseName = "fantlab-${versionName}"*/
+        archivesBaseName = "fantlab"
     }
 
     compileOptions {
