@@ -42,6 +42,8 @@ public class AuthProvider implements IAuthProvider {
                     if (!TextUtils.isEmpty(cookie)) {
                         mStorageManager.saveCookie(cookie);
                     }
+                    // todo 6.32
+                    mStorageManager.saveUsername(username);
                     return !TextUtils.isEmpty(cookie);
                 });
     }

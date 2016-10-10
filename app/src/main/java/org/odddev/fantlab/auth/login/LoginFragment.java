@@ -75,7 +75,7 @@ public class LoginFragment extends Fragment implements ILoginView {
     }
 
     public void forgotPass() {
-        //TODO open Dialog for pass change
+        // todo 3.1, 3.2, 3.3
     }
 
     public void entry() {
@@ -96,5 +96,5 @@ public class LoginFragment extends Fragment implements ILoginView {
     public void showError(String error) {
         Snackbar.make(mBinding.getRoot(), error, Snackbar.LENGTH_LONG).show();
     }
-    // TODO refactor layout (styles etc)
+    // todo 1.10
 }

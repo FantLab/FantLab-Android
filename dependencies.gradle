@@ -1,7 +1,7 @@
 ext.versions = [
         major                   : 0,
         minor                   : 0,
-        patch                   : 2,
+        patch                   : 8,
 
         minSdk                  : 16,
         targetSdk               : 23,

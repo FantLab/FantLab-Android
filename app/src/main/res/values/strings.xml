@@ -30,6 +30,6 @@
     <string name="nav.login">Войти</string>
     <string name="nav.logout">Выйти</string>
 
-    <string name="sample.username">kenrube</string>
-    <string name="sample.class_progress">Грандмастер: 6000.00 / 10000</string>
+    <string name="nav_drawer.guest">Гость</string>
+    <string name="nav_drawer.class_progress">Грандмастер: 5000.00 / 10000</string>
 </resources>

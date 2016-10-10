@@ -27,7 +27,7 @@ public class LaunchActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
             String cookie = mStorageManager.loadCookie();
-            //TODO проверять еще expire-date (< 1 года)
+            // todo 8.35, 8.36
             if (!TextUtils.isEmpty(cookie)) {
                 MainActivity.start(this, true);
             } else {
