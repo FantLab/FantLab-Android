@@ -3,9 +3,12 @@ package org.odddev.fantlab.home;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.IntentCompat;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,6 +24,7 @@ public class MainActivity extends FragmentActivity {
     private static final String LOGGED_IN = "LOGGED_IN";
 
     private MainActivityBinding mBinding;
+    private NavDrawerRouter mRouter;
 
     private boolean mLoggedIn;
 
@@ -46,6 +50,7 @@ public class MainActivity extends FragmentActivity {
         Injector.getAppComponent().inject(this);
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.main_activity);
+        mRouter = new NavDrawerRouter(this);
 
         mLoggedIn = getIntent().getBooleanExtra(LOGGED_IN, false);
 
@@ -66,5 +71,12 @@ public class MainActivity extends FragmentActivity {
         mBinding.navigationView.inflateMenu(mLoggedIn
                 ? R.menu.nav_drawer_user
                 : R.menu.nav_drawer_guest);
+
+        mBinding.navigationView.setNavigationItemSelectedListener(item -> {
+            @NavDrawerRouter.NAV_DRAWER_ITEM int itemId = item.getItemId();
+
+            mBinding.navigationView.setCheckedItem(itemId);
+            return mRouter.routeToNavDrawerItem(itemId);
+        });
     }
 }

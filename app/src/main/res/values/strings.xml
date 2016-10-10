@@ -25,7 +25,8 @@
     <string name="error.login">Имя пользователя и/или пароль неверны</string>
     <string name="error.reg">Ошибка регистрации</string>
 
-    <string name="nav.awards">Награды</string>
+    <string name="nav.autors">Авторы и книги</string>
+    <string name="nav.search">Поиск</string>
     <string name="nav.profile">Профиль</string>
     <string name="nav.login">Войти</string>
     <string name="nav.logout">Выйти</string>

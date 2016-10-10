@@ -6,9 +6,14 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_awards"
-            android:icon="@drawable/ic_poll_black_24dp"
-            android:title="@string/nav.awards"/>
+            android:id="@+id/nav_autors"
+            android:icon="@drawable/ic_book_black_24dp"
+            android:title="@string/nav.autors"/>
+
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="@string/nav.search"/>
 
     </group>
 
