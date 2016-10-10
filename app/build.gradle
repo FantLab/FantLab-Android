@@ -50,7 +50,7 @@ android {
             buildConfigField STRING, BASE_URL, urls.base
             buildConfigField STRING, API_URL, urls.api
 
-            resValue string, APP_NAME, resVals.appNameDebug
+            resValue string, APP_NAME, resVals.appNameDebug + "-" + defaultConfig.versionName
 
             applicationIdSuffix '.debug'
             versionNameSuffix '-DEBUG'
