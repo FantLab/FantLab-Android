@@ -41,4 +41,9 @@ public class AuthActivity extends FragmentActivity {
     public int getContainerResId() {
         return R.id.container;
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
