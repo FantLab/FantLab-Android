@@ -8,7 +8,7 @@ ext.versions = [
         compileSdk              : 23,
         buildTools              : '24.0.1',
 
-        androidGradlePlugin     : '2.2.0',
+        androidGradlePlugin     : '2.2.1',
         aptGradlePlugin         : '1.8',
         retrolambdaGradlePlugin : '3.2.5',
         crashlyticsGradlePlugin : '1.+',
@@ -76,8 +76,8 @@ ext.libraries = [
 ]
 
 ext.urls = [
-        base : "\"https://fantlab.ru/\"",
-        api  : "\"https://api.fantlab.ru\"",
+        debug : "\"http://kenrube.dev2.fantlab.org:4455/\"",
+        prod  : "\"https://fantlab.ru\"",
 ]
 
 ext.resVals = [
