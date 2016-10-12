@@ -46,7 +46,7 @@ android {
         def string = "string"
 
         debug {
-            buildConfigField STRING, BASE_URL, urls.debug
+            buildConfigField STRING, BASE_URL, urls.dev
 
             resValue string, APP_NAME, resVals.appNameDebug + "-" + defaultConfig.versionName
 
@@ -60,7 +60,7 @@ android {
         }
 
         release {
-            buildConfigField STRING, BASE_URL, urls.prod
+            buildConfigField STRING, BASE_URL, urls.production
 
             resValue string, APP_NAME, resVals.appName
 

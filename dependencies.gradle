@@ -76,8 +76,8 @@ ext.libraries = [
 ]
 
 ext.urls = [
-        debug : "\"http://kenrube.dev2.fantlab.org:4455/\"",
-        prod  : "\"https://fantlab.ru\"",
+        dev : "\"http://kenrube.dev2.fantlab.org:4455/\"",
+        production  : "\"https://fantlab.ru\"",
 ]
 
 ext.resVals = [
