@@ -13,6 +13,9 @@ ext.versions = [
         retrolambdaGradlePlugin : '3.2.5',
         crashlyticsGradlePlugin : '1.+',
 
+        moxy                    : '1.2.1',
+        cicerone                : '1.1',
+
         dagger                  : '2.4',
 
         rxJava                  : '1.1.5',
@@ -43,6 +46,10 @@ ext.gradlePlugins = [
 ]
 
 ext.libraries = [
+        moxy                     : "com.arello-mobile:moxy:$versions.moxy",
+        moxyCompiler             : "com.arello-mobile:moxy:$versions.moxy",
+        cicerone                 : "ru.terrakok.cicerone:cicerone:$versions.cicerone",
+
         dagger                   : "com.google.dagger:dagger:$versions.dagger",
         daggerCompiler           : "com.google.dagger:dagger-compiler:$versions.dagger",
 

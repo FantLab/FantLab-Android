@@ -86,6 +86,10 @@ android {
 }
 
 dependencies {
+    compile libraries.moxy
+    apt libraries.moxyCompiler
+    compile libraries.cicerone
+
     compile libraries.dagger
     apt libraries.daggerCompiler
 
