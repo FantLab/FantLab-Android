@@ -26,7 +26,7 @@ public class LoginFragment extends Fragment implements ILoginView {
     private LoginFragmentBinding mBinding;
     private AuthRouter mRouter;
 
-    private LoginParams mLoginParams;
+    private LoginViewModel mLoginViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,8 +46,8 @@ public class LoginFragment extends Fragment implements ILoginView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mBinding.setActionsHandler(this);
-        mLoginParams = new LoginParams(getContext());
-        mBinding.setLoginParams(mLoginParams);
+        mLoginViewModel = new LoginViewModel(getContext());
+        mBinding.setLoginViewModel(mLoginViewModel);
         mBinding.setForgotPass(false);
     }
 
@@ -64,8 +64,8 @@ public class LoginFragment extends Fragment implements ILoginView {
     }
 
     public void login() {
-        if (mLoginParams.isValid()) {
-            mPresenter.login(mLoginParams);
+        if (mLoginViewModel.isValid()) {
+            mPresenter.login(mLoginViewModel);
             mBinding.setForgotPass(false);
         }
     }

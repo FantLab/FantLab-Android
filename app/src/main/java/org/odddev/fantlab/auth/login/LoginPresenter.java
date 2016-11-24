@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
-import timber.log.Timber;
 
 /**
  * @author kenrube
@@ -29,11 +28,9 @@ public class LoginPresenter extends Presenter<ILoginView> {
         Injector.getAppComponent().inject(this);
     }
 
-    public void login(LoginParams params) {
+    public void login(LoginViewModel params) {
         mLoginSubscription = mAuthProvider
-                .login(
-                        params.username,
-                        params.password)
+                .login(params.getUsername(), params.getPassword())
                 .subscribe(
                         this::showResult,
                         throwable -> showError(throwable.getLocalizedMessage()),

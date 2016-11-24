@@ -8,15 +8,15 @@
 
         <import type="org.odddev.fantlab.auth.login.LoginFragment"/>
 
-        <import type="org.odddev.fantlab.auth.login.LoginParams"/>
+        <import type="org.odddev.fantlab.auth.login.LoginViewModel"/>
 
         <variable
             name="actionsHandler"
             type="LoginFragment"/>
 
         <variable
-            name="loginParams"
-            type="LoginParams"/>
+            name="loginViewModel"
+            type="LoginViewModel"/>
 
         <variable
             name="forgotPass"
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
-                    app:error="@{loginParams.usernameError}">
+                    app:error="@{loginViewModel.usernameError}">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/username"
@@ -90,8 +90,7 @@
                         android:hint="@string/login.input.username"
                         android:inputType="text"
                         android:maxLength="16"
-                        android:text="@={loginParams.username}"
-                        app:textWatcher="@{loginParams.usernameWatcher}"/>
+                        android:text="@={loginViewModel.username}"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -100,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
-                    app:error="@{loginParams.passwordError}">
+                    app:error="@{loginViewModel.passwordError}">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/password"
@@ -108,8 +107,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/login.input.password"
                         android:inputType="textPassword"
-                        android:text="@={loginParams.password}"
-                        app:textWatcher="@{loginParams.passwordWatcher}"/>
+                        android:text="@={loginViewModel.password}"/>
 
                 </android.support.design.widget.TextInputLayout>
 
