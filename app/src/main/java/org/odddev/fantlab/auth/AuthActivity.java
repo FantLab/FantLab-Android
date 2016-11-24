@@ -1,7 +1,5 @@
 package org.odddev.fantlab.auth;
 
-import org.odddev.fantlab.R;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +7,11 @@ import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.IntentCompat;
 
+import org.odddev.fantlab.R;
+
 /**
  * @author kenrube
- * @date 23.08.16
+ * @since 23.08.16
  */
 
 public class AuthActivity extends FragmentActivity {

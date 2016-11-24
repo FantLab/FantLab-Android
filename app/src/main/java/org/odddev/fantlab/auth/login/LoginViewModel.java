@@ -11,7 +11,7 @@ import org.odddev.fantlab.R;
 
 /**
  * @author kenrube
- * @date 17.09.16
+ * @since 17.09.16
  */
 
 public class LoginViewModel extends BaseObservable {
@@ -43,12 +43,14 @@ public class LoginViewModel extends BaseObservable {
                 mUsernameError = username.isEmpty()
                         ? mResources.getString(R.string.error_username_empty)
                         : null;
+                notifyPropertyChanged(BR.usernameError);
                 break;
             }
             case FIELD.PASSWORD: {
                 mPasswordError = password.isEmpty()
                         ? mResources.getString(R.string.error_password_empty)
                         : null;
+                notifyPropertyChanged(BR.passwordError);
                 break;
             }
         }
@@ -68,7 +70,6 @@ public class LoginViewModel extends BaseObservable {
     public void setUsername(String username) {
         this.username = username;
         validate(FIELD.USERNAME);
-        notifyPropertyChanged(BR.usernameError);
     }
 
     public String getPassword() {
@@ -78,7 +79,6 @@ public class LoginViewModel extends BaseObservable {
     public void setPassword(String password) {
         this.password = password;
         validate(FIELD.PASSWORD);
-        notifyPropertyChanged(BR.passwordError);
     }
 
     @Bindable

@@ -14,7 +14,7 @@ import okhttp3.Response;
 
 /**
  * @author kenrube
- * @date 15.09.16
+ * @since 15.09.16
  */
 
 public class HeaderInterceptor implements Interceptor {

@@ -11,7 +11,7 @@ import rx.subscriptions.CompositeSubscription;
 
 /**
  * @author kenrube
- * @date 20.09.16
+ * @since 20.09.16
  */
 
 public class RegPresenter extends Presenter<IRegView> {

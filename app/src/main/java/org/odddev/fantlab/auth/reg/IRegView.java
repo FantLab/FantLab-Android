@@ -4,7 +4,7 @@ import org.odddev.fantlab.core.layers.view.IView;
 
 /**
  * @author kenrube
- * @date 18.09.16
+ * @since 18.09.16
  */
 
 public interface IRegView extends IView {

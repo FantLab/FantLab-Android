@@ -11,7 +11,7 @@ import rx.subscriptions.CompositeSubscription;
 
 /**
  * @author kenrube
- * @date 30.08.16
+ * @since 30.08.16
  */
 
 public class LoginPresenter extends Presenter<ILoginView> {

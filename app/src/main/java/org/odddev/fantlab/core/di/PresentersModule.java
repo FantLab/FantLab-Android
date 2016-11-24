@@ -6,7 +6,7 @@ import rx.subscriptions.CompositeSubscription;
 
 /**
  * @author kenrube
- * @date 16.09.16
+ * @since 16.09.16
  */
 
 @Module

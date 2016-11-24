@@ -11,7 +11,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author kenrube
- * @date 11.10.16
+ * @since 11.10.16
  */
 
 public class NavDrawerRouter extends Router<MainActivity> {

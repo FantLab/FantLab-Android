@@ -4,7 +4,7 @@ import android.app.Activity;
 
 /**
  * @author kenrube
- * @date 28.09.16
+ * @since 28.09.16
  */
 
 public class Router<T extends Activity> {

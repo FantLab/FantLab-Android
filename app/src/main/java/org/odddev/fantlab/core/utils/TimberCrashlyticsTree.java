@@ -8,7 +8,7 @@ import timber.log.Timber;
 
 /**
  * @author kenrube
- * @date 23.08.16
+ * @since 23.08.16
  */
 
 public class TimberCrashlyticsTree extends Timber.Tree {

@@ -9,7 +9,7 @@ import dagger.Provides;
 
 /**
  * @author kenrube
- * @date 29.09.16
+ * @since 29.09.16
  */
 
 @Module

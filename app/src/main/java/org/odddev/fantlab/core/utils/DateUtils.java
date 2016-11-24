@@ -6,7 +6,7 @@ import java.util.Calendar;
 
 /**
  * @author kenrube
- * @date 07.10.16
+ * @since 07.10.16
  */
 
 public class DateUtils {

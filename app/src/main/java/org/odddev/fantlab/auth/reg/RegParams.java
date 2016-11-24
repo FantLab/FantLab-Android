@@ -14,7 +14,7 @@ import org.odddev.fantlab.core.utils.AbsTextWatcher;
 
 /**
  * @author kenrube
- * @date 18.09.16
+ * @since 18.09.16
  */
 
 public class RegParams extends BaseObservable {

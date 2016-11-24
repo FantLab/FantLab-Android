@@ -7,7 +7,7 @@ import rx.schedulers.Schedulers;
 
 /**
  * @author kenrube
- * @date 23.08.16
+ * @since 23.08.16
  */
 
 public class SchedulersResolver implements ISchedulersResolver {

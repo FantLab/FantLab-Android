@@ -21,7 +21,7 @@ import java.util.Calendar;
 
 /**
  * @author kenrube
- * @date 18.09.16
+ * @since 18.09.16
  */
 
 public class RegFragment extends Fragment implements IRegView, DatePickerDialog.OnDateSetListener {

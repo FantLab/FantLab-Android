@@ -16,7 +16,7 @@ import org.odddev.fantlab.databinding.LoginFragmentBinding;
 
 /**
  * @author kenrube
- * @date 30.08.16
+ * @since 30.08.16
  */
 public class LoginFragment extends Fragment implements ILoginView {
 

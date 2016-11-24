@@ -12,7 +12,7 @@ import org.odddev.fantlab.home.MainActivity;
 
 /**
  * @author kenrube
- * @date 28.09.16
+ * @since 28.09.16
  */
 
 public class AuthRouter extends Router<AuthActivity> {

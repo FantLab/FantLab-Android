@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 
 /**
  * @author kenrube
- * @date 17.09.16
+ * @since 17.09.16
  */
 
 public class BindingUtils {
