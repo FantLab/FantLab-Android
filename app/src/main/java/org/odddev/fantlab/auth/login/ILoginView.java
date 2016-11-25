@@ -12,4 +12,6 @@ public interface ILoginView extends IView {
     void showLoginResult(boolean loggedIn);
 
     void showError(String error);
+
+    void showFieldsValid();
 }

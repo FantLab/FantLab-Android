@@ -28,14 +28,19 @@ public class LoginPresenter extends Presenter<ILoginView> {
         Injector.getAppComponent().inject(this);
     }
 
-    public void login(LoginViewModel params) {
-        mLoginSubscription = mAuthProvider
-                .login(params.getUsername(), params.getPassword())
-                .subscribe(
-                        this::showResult,
-                        throwable -> showError(throwable.getLocalizedMessage()),
-                        () -> mCompositeSubscription.remove(mLoginSubscription));
-        mCompositeSubscription.add(mLoginSubscription);
+    public void login(LoginValidator validator) {
+        if (validator.isValid()) {
+            mLoginSubscription = mAuthProvider
+                    .login(validator.fields.get(LoginValidator.FIELD.USERNAME),
+                            validator.fields.get(LoginValidator.FIELD.PASSWORD))
+                    .subscribe(
+                            this::showResult,
+                            throwable -> showError(throwable.getLocalizedMessage()),
+                            () -> mCompositeSubscription.remove(mLoginSubscription));
+            mCompositeSubscription.add(mLoginSubscription);
+        } else {
+            showFieldsValid();
+        }
     }
 
     private void showResult(boolean hasCookie) {
@@ -47,6 +52,12 @@ public class LoginPresenter extends Presenter<ILoginView> {
     private void showError(String error) {
         for (ILoginView view : getViews()) {
             view.showError(error);
+        }
+    }
+
+    private void showFieldsValid() {
+        for (ILoginView view : getViews()) {
+            view.showFieldsValid();
         }
     }
 

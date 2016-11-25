@@ -18,83 +18,89 @@ import org.odddev.fantlab.databinding.LoginFragmentBinding;
  * @author kenrube
  * @since 30.08.16
  */
-public class LoginFragment extends Fragment implements ILoginView {
+public class LoginFragment extends Fragment implements ILoginView, ILoginActions {
 
     private static final int PRESENTER_ID = LoginPresenter.class.getSimpleName().hashCode();
 
-    private LoginPresenter mPresenter;
-    private LoginFragmentBinding mBinding;
-    private AuthRouter mRouter;
+    private LoginPresenter presenter;
+    private LoginFragmentBinding binding;
+    private AuthRouter router;
 
-    private LoginViewModel mLoginViewModel;
+    private LoginValidator loginValidator;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = PresenterManager.getPresenter(PRESENTER_ID, LoginPresenter::new);
-        mRouter = new AuthRouter((AuthActivity) getActivity());
+        presenter = PresenterManager.getPresenter(PRESENTER_ID, LoginPresenter::new);
+        router = new AuthRouter((AuthActivity) getActivity());
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mBinding = LoginFragmentBinding.inflate(inflater, container, false);
-        return mBinding.getRoot();
+        binding = LoginFragmentBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        mBinding.setActionsHandler(this);
-        mLoginViewModel = new LoginViewModel(getContext());
-        mBinding.setLoginViewModel(mLoginViewModel);
-        mBinding.setForgotPass(false);
+        binding.setHandler(this);
+        loginValidator = new LoginValidator(getContext());
+        binding.setLoginValidator(loginValidator);
+        binding.setForgotPass(false);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.attachView(this);
+        presenter.attachView(this);
     }
 
     @Override
     public void onStop() {
-        mPresenter.detachView(this);
+        presenter.detachView(this);
         super.onStop();
     }
 
+    @Override
     public void login() {
-        if (mLoginViewModel.isValid()) {
-            mPresenter.login(mLoginViewModel);
-            mBinding.setForgotPass(false);
-        }
+        presenter.login(loginValidator);
     }
 
+    @Override
     public void register() {
-        mRouter.routeToReg();
+        router.routeToReg();
     }
 
+    @Override
     public void forgotPass() {
         // todo 3.1, 3.2, 3.3
     }
 
+    @Override
     public void entry() {
-        mRouter.routeToHome(false);
+        router.routeToHome(false);
+    }
+
+    @Override
+    public void showFieldsValid() {
+        binding.setForgotPass(false);
     }
 
     @Override
     public void showLoginResult(boolean loggedIn) {
         if (loggedIn) {
-            mRouter.routeToHome(true);
+            router.routeToHome(true);
         } else {
-            mBinding.setForgotPass(true);
+            binding.setForgotPass(true);
             showError(getString(R.string.error_login));
         }
     }
 
     @Override
     public void showError(String error) {
-        Snackbar.make(mBinding.getRoot(), error, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(binding.getRoot(), error, Snackbar.LENGTH_LONG).show();
     }
     // todo 1.10
 }
