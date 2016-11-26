@@ -3,26 +3,28 @@ package org.odddev.fantlab.auth.login;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.arellomobile.mvp.presenter.InjectPresenter;
+
 import org.odddev.fantlab.R;
 import org.odddev.fantlab.auth.AuthActivity;
 import org.odddev.fantlab.auth.AuthRouter;
-import org.odddev.fantlab.core.layers.presenter.PresenterManager;
 import org.odddev.fantlab.databinding.LoginFragmentBinding;
 
 /**
  * @author kenrube
  * @since 30.08.16
  */
-public class LoginFragment extends Fragment implements ILoginView, ILoginActions {
 
-    private static final int PRESENTER_ID = LoginPresenter.class.getSimpleName().hashCode();
+public class LoginFragment extends MvpAppCompatFragment implements ILoginView, ILoginActions {
 
-    private LoginPresenter presenter;
+    @InjectPresenter
+    LoginPresenter presenter;
+
     private LoginFragmentBinding binding;
     private AuthRouter router;
 
@@ -31,7 +33,6 @@ public class LoginFragment extends Fragment implements ILoginView, ILoginActions
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = PresenterManager.getPresenter(PRESENTER_ID, LoginPresenter::new);
         router = new AuthRouter((AuthActivity) getActivity());
     }
 
@@ -49,18 +50,6 @@ public class LoginFragment extends Fragment implements ILoginView, ILoginActions
         loginValidator = new LoginValidator(getContext());
         binding.setLoginValidator(loginValidator);
         binding.setForgotPass(false);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        presenter.attachView(this);
-    }
-
-    @Override
-    public void onStop() {
-        presenter.detachView(this);
-        super.onStop();
     }
 
     @Override
@@ -84,7 +73,7 @@ public class LoginFragment extends Fragment implements ILoginView, ILoginActions
     }
 
     @Override
-    public void showFieldsValid() {
+    public void showFieldsInvalid() {
         binding.setForgotPass(false);
     }
 

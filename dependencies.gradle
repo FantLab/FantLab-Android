@@ -47,6 +47,7 @@ ext.gradlePlugins = [
 
 ext.libraries = [
         moxy                     : "com.arello-mobile:moxy:$versions.moxy",
+        moxyAppCompat            : "com.arello-mobile:moxy-app-compat:$versions.moxy",
         moxyCompiler             : "com.arello-mobile:moxy:$versions.moxy",
         cicerone                 : "ru.terrakok.cicerone:cicerone:$versions.cicerone",
 
