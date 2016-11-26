@@ -14,15 +14,17 @@ public abstract class Validator extends BaseObservable {
     public ObservableArrayMap<Integer, String> fields = new ObservableArrayMap<>();
     public ObservableArrayMap<Integer, String> fieldErrors = new ObservableArrayMap<>();
 
+    protected Validator() {
+        fields.addOnMapChangedCallback(
+                new ObservableMap.OnMapChangedCallback<ObservableMap<Integer, String>, Integer, String>() {
+                    @Override
+                    public void onMapChanged(ObservableMap<Integer, String> integerStringObservableMap, Integer integer) {
+                        validate(integer);
+                    }
+                });
+    }
+
     protected abstract void validate(Integer field);
 
     protected abstract boolean areFieldsValid();
-
-    protected ObservableMap.OnMapChangedCallback<ObservableMap<Integer, String>, Integer, String> onMapChangedCallback =
-            new ObservableMap.OnMapChangedCallback<ObservableMap<Integer, String>, Integer, String>() {
-                @Override
-                public void onMapChanged(ObservableMap<Integer, String> integerStringObservableMap, Integer integer) {
-                    validate(integer);
-                }
-            };
 }

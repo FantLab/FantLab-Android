@@ -26,26 +26,22 @@ public class LoginValidator extends Validator {
     private Resources resources;
 
     LoginValidator(Context context) {
+        super();
         resources = context.getResources();
-
-        for (@FIELD int i = 0; i < 2; i++) {
-            fields.put(i, "");
-            fieldErrors.put(i, null);
-        }
-        fields.addOnMapChangedCallback(onMapChangedCallback);
     }
 
     @Override
     protected void validate(Integer field) {
+        String value = fields.get(field);
         switch (field) {
             case FIELD.USERNAME: {
-                fieldErrors.put(FIELD.USERNAME, fields.get(FIELD.USERNAME).trim().isEmpty()
+                fieldErrors.put(FIELD.USERNAME, value == null || value.trim().isEmpty()
                         ? resources.getString(R.string.error_username_empty)
                         : null);
                 break;
             }
             case FIELD.PASSWORD: {
-                fieldErrors.put(FIELD.PASSWORD, fields.get(FIELD.PASSWORD).trim().isEmpty()
+                fieldErrors.put(FIELD.PASSWORD, value == null || value.trim().isEmpty()
                         ? resources.getString(R.string.error_password_empty)
                         : null);
                 break;
@@ -55,8 +51,8 @@ public class LoginValidator extends Validator {
 
     @Override
     protected boolean areFieldsValid() {
-        for (Integer field : fields.keySet()) {
-            validate(field);
+        for (@FIELD int i = 0; i < 2; i++) {
+            validate(i);
         }
         return fieldErrors.get(FIELD.USERNAME) == null
                 && fieldErrors.get(FIELD.PASSWORD) == null;
