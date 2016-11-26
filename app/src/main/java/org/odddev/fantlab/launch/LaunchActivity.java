@@ -1,11 +1,9 @@
 package org.odddev.fantlab.launch;
 
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
-import org.odddev.fantlab.R;
 import org.odddev.fantlab.auth.AuthActivity;
 import org.odddev.fantlab.core.di.Injector;
 import org.odddev.fantlab.core.storage.StorageManager;
@@ -21,19 +19,15 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.launch_activity);
 
         Injector.getAppComponent().inject(this);
 
-        new Handler().postDelayed(() -> {
-            String cookie = storageManager.loadCookie();
-            // todo 8.35, 8.36
-            if (!TextUtils.isEmpty(cookie)) {
-                MainActivity.start(this, true);
-            } else {
-                AuthActivity.start(this);
-            }
-            overridePendingTransition(0, 0);
-        }, 1000);
+        String cookie = storageManager.loadCookie();
+        // todo 8.35, 8.36
+        if (!TextUtils.isEmpty(cookie)) {
+            MainActivity.start(this, true);
+        } else {
+            AuthActivity.start(this);
+        }
     }
 }
