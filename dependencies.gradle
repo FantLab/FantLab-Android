@@ -1,7 +1,7 @@
 ext.versions = [
         major                   : 0,
         minor                   : 0,
-        patch                   : 8,
+        patch                   : 10,
 
         minSdk                  : 16,
         targetSdk               : 23,
@@ -48,7 +48,7 @@ ext.gradlePlugins = [
 ext.libraries = [
         moxy                     : "com.arello-mobile:moxy:$versions.moxy",
         moxyAppCompat            : "com.arello-mobile:moxy-app-compat:$versions.moxy",
-        moxyCompiler             : "com.arello-mobile:moxy:$versions.moxy",
+        moxyCompiler             : "com.arello-mobile:moxy-compiler:$versions.moxy",
         cicerone                 : "ru.terrakok.cicerone:cicerone:$versions.cicerone",
 
         dagger                   : "com.google.dagger:dagger:$versions.dagger",
