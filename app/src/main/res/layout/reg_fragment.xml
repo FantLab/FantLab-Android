@@ -158,15 +158,15 @@
                 app:errorEnabled="false">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/birthdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="datetime"
-                    android:maxLines="1"
-                    app:onClick="@{handler::pickDate}"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:hint="@string/register.input.birthday"/>
+                    android:hint="@string/register.input.birthday"
+                    android:inputType="datetime"
+                    android:maxLines="1"
+                    android:text="@={regValidator.fields[FIELD.BIRTH_DATE]}"
+                    app:onClick="@{handler::pickDate}"/>
 
             </android.support.design.widget.TextInputLayout>
 

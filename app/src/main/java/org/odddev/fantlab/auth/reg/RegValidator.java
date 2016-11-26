@@ -18,12 +18,14 @@ public class RegValidator extends Validator {
     @IntDef({
             FIELD.USERNAME,
             FIELD.PASSWORD,
-            FIELD.EMAIL})
+            FIELD.EMAIL,
+            FIELD.BIRTH_DATE})
     public @interface FIELD {
 
         int USERNAME = 0;
         int PASSWORD = 1;
         int EMAIL = 2;
+        int BIRTH_DATE = 3;
     }
 
     private Resources resources;
@@ -59,13 +61,17 @@ public class RegValidator extends Validator {
                         : null);
                 break;
             }
+            case FIELD.BIRTH_DATE: {
+                fieldErrors.put(FIELD.BIRTH_DATE, null);
+                break;
+            }
         }
     }
 
     @Override
     protected boolean areFieldsValid() {
         boolean result = true;
-        for (@FIELD int i = 0; i < 3; i++) {
+        for (@FIELD int i = 0; i < 4; i++) {
             validate(i);
             if (fieldErrors.get(i) != null) result = false;
         }

@@ -53,6 +53,8 @@ public class MainActivity extends FragmentActivity {
 
         View header = binding.navigationView.getHeaderView(0);
 
+        DataBindingUtil.bind(header);
+
         TextView username = (TextView) header.findViewById(R.id.username);
 
         username.setText(loggedIn ? storageManager.loadUsername() : getString(R.string.nav_drawer_guest));

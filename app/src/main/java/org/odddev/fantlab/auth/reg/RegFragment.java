@@ -97,12 +97,14 @@ public class RegFragment extends MvpAppCompatFragment implements IRegView, IRegA
     }
 
     private void showBirthDate(int day, int month, int year) {
-        binding.birthdate.setText(DateUtils.valuesToDateString(day, month, year));
+        regValidator.fields.put(RegValidator.FIELD.BIRTH_DATE,
+                DateUtils.valuesToDateString(day, month, year));
     }
 
     @Override
     public void pickDate() {
-        Calendar calendar = DateUtils.dateStringToCalendar(binding.birthdate.getText().toString());
+        Calendar calendar = DateUtils.dateStringToCalendar(
+                regValidator.fields.get(RegValidator.FIELD.BIRTH_DATE));
 
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);

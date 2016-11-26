@@ -1,16 +1,11 @@
 package org.odddev.fantlab.core.utils;
 
-import android.content.res.ColorStateList;
 import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.annotation.ColorInt;
 import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
@@ -31,15 +26,6 @@ public class BindingUtils {
     public static void bindError(TextInputLayout textInputLayout, final String error) {
         textInputLayout.setErrorEnabled(error != null);
         textInputLayout.setError(error);
-    }
-
-    @BindingAdapter("color")
-    public static void bindColor(ProgressBar progressBar, final @ColorInt int color) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            progressBar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-        } else {
-            progressBar.setProgressTintList(ColorStateList.valueOf(color));
-        }
     }
 
     @BindingAdapter({"srcUri", "isCircle", "placeholder"})
