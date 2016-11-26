@@ -7,7 +7,7 @@ import org.odddev.fantlab.core.layers.view.IView;
  * @since 30.08.16
  */
 
-public interface ILoginView extends IView {
+interface ILoginView extends IView {
 
     void showLoginResult(boolean loggedIn);
 

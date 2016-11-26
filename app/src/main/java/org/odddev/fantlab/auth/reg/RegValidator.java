@@ -1,4 +1,4 @@
-package org.odddev.fantlab.auth.login;
+package org.odddev.fantlab.auth.reg;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -6,23 +6,26 @@ import android.databinding.BaseObservable;
 import android.databinding.ObservableArrayMap;
 import android.databinding.ObservableMap;
 import android.support.annotation.IntDef;
+import android.util.Patterns;
 
 import org.odddev.fantlab.R;
 
 /**
  * @author kenrube
- * @since 17.09.16
+ * @since 18.09.16
  */
 
-public class LoginValidator extends BaseObservable {
+public class RegValidator extends BaseObservable {
 
     @IntDef({
             FIELD.USERNAME,
-            FIELD.PASSWORD})
+            FIELD.PASSWORD,
+            FIELD.EMAIL})
     public @interface FIELD {
 
         int USERNAME = 0;
         int PASSWORD = 1;
+        int EMAIL = 2;
     }
 
     private Resources mResources;
@@ -30,13 +33,19 @@ public class LoginValidator extends BaseObservable {
     public ObservableArrayMap<Integer, String> fields = new ObservableArrayMap<>();
     public ObservableArrayMap<Integer, String> fieldErrors = new ObservableArrayMap<>();
 
-    LoginValidator(Context context) {
+    int birthDay;
+    int birthMonth;
+    int birthYear;
+
+    RegValidator(Context context) {
         mResources = context.getResources();
         fields.put(FIELD.USERNAME, "");
         fields.put(FIELD.PASSWORD, "");
+        fields.put(FIELD.EMAIL, "");
         fields.addOnMapChangedCallback(onMapChangedCallback);
         fieldErrors.put(FIELD.USERNAME, null);
         fieldErrors.put(FIELD.PASSWORD, null);
+        fieldErrors.put(FIELD.EMAIL, null);
     }
 
     private void validate(@FIELD int field) {
@@ -53,6 +62,12 @@ public class LoginValidator extends BaseObservable {
                         : null);
                 break;
             }
+            case FIELD.EMAIL: {
+                fieldErrors.put(FIELD.EMAIL, !Patterns.EMAIL_ADDRESS.matcher(fields.get(FIELD.EMAIL)).matches()
+                        ? mResources.getString(R.string.error_email_incorrect)
+                        : null);
+                break;
+            }
         }
     }
 
@@ -61,7 +76,8 @@ public class LoginValidator extends BaseObservable {
             validate(field);
         }
         return fieldErrors.get(FIELD.USERNAME) == null
-                && fieldErrors.get(FIELD.PASSWORD) == null;
+                && fieldErrors.get(FIELD.PASSWORD) == null
+                && fieldErrors.get(FIELD.EMAIL) == null;
     }
 
     private ObservableMap.OnMapChangedCallback<ObservableMap<Integer, String>, Integer, String> onMapChangedCallback =

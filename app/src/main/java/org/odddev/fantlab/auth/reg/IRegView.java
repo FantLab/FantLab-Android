@@ -7,7 +7,7 @@ import org.odddev.fantlab.core.layers.view.IView;
  * @since 18.09.16
  */
 
-public interface IRegView extends IView {
+interface IRegView extends IView {
 
     void showRegResult(boolean registered);
 

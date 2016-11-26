@@ -24,7 +24,8 @@ import java.util.Calendar;
  * @since 18.09.16
  */
 
-public class RegFragment extends Fragment implements IRegView, DatePickerDialog.OnDateSetListener {
+public class RegFragment extends Fragment implements IRegView, IRegActions,
+        DatePickerDialog.OnDateSetListener {
 
     private static final int PRESENTER_ID = RegFragment.class.getSimpleName().hashCode();
 
@@ -37,32 +38,32 @@ public class RegFragment extends Fragment implements IRegView, DatePickerDialog.
     private static final int HOUR_LAST_MINUTE = 59;
     private static final int MINUTE_LAST_SECOND = 59;
 
-    private RegPresenter mPresenter;
-    private RegFragmentBinding mBinding;
-    private AuthRouter mRouter;
+    private RegPresenter presenter;
+    private RegFragmentBinding binding;
+    private AuthRouter router;
 
-    private RegParams mRegParams;
+    private RegValidator regValidator;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = PresenterManager.getPresenter(PRESENTER_ID, RegPresenter::new);
-        mRouter = new AuthRouter((AuthActivity) getActivity());
+        presenter = PresenterManager.getPresenter(PRESENTER_ID, RegPresenter::new);
+        router = new AuthRouter((AuthActivity) getActivity());
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mBinding = RegFragmentBinding.inflate(inflater, container, false);
-        return mBinding.getRoot();
+        binding = RegFragmentBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        mBinding.setActionsHandler(this);
-        mRegParams = new RegParams(getContext());
-        mBinding.setRegParams(mRegParams);
+        binding.setHandler(this);
+        regValidator = new RegValidator(getContext());
+        binding.setRegValidator(regValidator);
 
         setDefaultBirthDate();
     }
@@ -70,18 +71,18 @@ public class RegFragment extends Fragment implements IRegView, DatePickerDialog.
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.attachView(this);
+        presenter.attachView(this);
     }
 
     @Override
     public void onStop() {
-        mPresenter.detachView(this);
+        presenter.detachView(this);
         super.onStop();
     }
 
     public void register() {
-        if (mRegParams.isValid()) {
-            mPresenter.register(mRegParams);
+        if (regValidator.areFieldsValid()) {
+            presenter.register(regValidator);
         }
     }
 
@@ -96,11 +97,12 @@ public class RegFragment extends Fragment implements IRegView, DatePickerDialog.
     }
 
     private void showBirthDate(int day, int month, int year) {
-        mBinding.birthdate.setText(DateUtils.valuesToDateString(day, month, year));
+        binding.birthdate.setText(DateUtils.valuesToDateString(day, month, year));
     }
 
+    @Override
     public void pickDate() {
-        Calendar calendar = DateUtils.dateStringToCalendar(mBinding.birthdate.getText().toString());
+        Calendar calendar = DateUtils.dateStringToCalendar(binding.birthdate.getText().toString());
 
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -129,9 +131,9 @@ public class RegFragment extends Fragment implements IRegView, DatePickerDialog.
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        mRegParams.setBirthDay(dayOfMonth);
-        mRegParams.setBirthMonth(monthOfYear + 1);
-        mRegParams.setBirthYear(year);
+        regValidator.birthDay = dayOfMonth;
+        regValidator.birthMonth = monthOfYear + 1;
+        regValidator.birthYear = year;
 
         showBirthDate(dayOfMonth, monthOfYear + 1, year);
     }
@@ -139,7 +141,7 @@ public class RegFragment extends Fragment implements IRegView, DatePickerDialog.
     @Override
     public void showRegResult(boolean registered) {
         if (registered) {
-            mRouter.routeToHome(true);
+            router.routeToHome(true);
         } else {
             showError(getString(R.string.error_reg));
         }
@@ -147,6 +149,6 @@ public class RegFragment extends Fragment implements IRegView, DatePickerDialog.
 
     @Override
     public void showError(String error) {
-        Snackbar.make(mBinding.getRoot(), error, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(binding.getRoot(), error, Snackbar.LENGTH_LONG).show();
     }
 }

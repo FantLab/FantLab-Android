@@ -16,28 +16,28 @@ import rx.subscriptions.CompositeSubscription;
 
 public class LoginPresenter extends Presenter<ILoginView> {
 
-    private Subscription mLoginSubscription;
+    private Subscription loginSubscription;
 
     @Inject
-    CompositeSubscription mCompositeSubscription;
+    CompositeSubscription compositeSubscription;
 
     @Inject
-    IAuthProvider mAuthProvider;
+    IAuthProvider authProvider;
 
     LoginPresenter() {
         Injector.getAppComponent().inject(this);
     }
 
     public void login(LoginValidator validator) {
-        if (validator.isValid()) {
-            mLoginSubscription = mAuthProvider
+        if (validator.areFieldsValid()) {
+            loginSubscription = authProvider
                     .login(validator.fields.get(LoginValidator.FIELD.USERNAME),
                             validator.fields.get(LoginValidator.FIELD.PASSWORD))
                     .subscribe(
                             this::showResult,
                             throwable -> showError(throwable.getLocalizedMessage()),
-                            () -> mCompositeSubscription.remove(mLoginSubscription));
-            mCompositeSubscription.add(mLoginSubscription);
+                            () -> compositeSubscription.remove(loginSubscription));
+            compositeSubscription.add(loginSubscription);
         } else {
             showFieldsValid();
         }
@@ -63,7 +63,7 @@ public class LoginPresenter extends Presenter<ILoginView> {
 
     @Override
     protected void onDestroy() {
-        mCompositeSubscription.unsubscribe();
+        compositeSubscription.unsubscribe();
         super.onDestroy();
     }
 }

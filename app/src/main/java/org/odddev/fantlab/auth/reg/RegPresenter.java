@@ -16,29 +16,29 @@ import rx.subscriptions.CompositeSubscription;
 
 public class RegPresenter extends Presenter<IRegView> {
 
-    private Subscription mRegSubscription;
+    private Subscription regSubscription;
 
     @Inject
-    CompositeSubscription mCompositeSubscription;
+    CompositeSubscription compositeSubscription;
 
     @Inject
-    IAuthProvider mAuthProvider;
+    IAuthProvider authProvider;
 
-    public RegPresenter() {
+    RegPresenter() {
         Injector.getAppComponent().inject(this);
     }
 
-    public void register(RegParams params) {
-        mRegSubscription = mAuthProvider
+    public void register(RegValidator validator) {
+        regSubscription = authProvider
                 .register(
-                        params.username,
-                        params.password,
-                        params.email)
+                        validator.fields.get(RegValidator.FIELD.USERNAME),
+                        validator.fields.get(RegValidator.FIELD.PASSWORD),
+                        validator.fields.get(RegValidator.FIELD.EMAIL))
                 .subscribe(
                         this::showResult,
                         throwable -> showError(throwable.getLocalizedMessage()),
-                        () -> mCompositeSubscription.remove(mRegSubscription));
-        mCompositeSubscription.add(mRegSubscription);
+                        () -> compositeSubscription.remove(regSubscription));
+        compositeSubscription.add(regSubscription);
     }
 
     private void showResult(boolean hasCookie) {
@@ -55,7 +55,7 @@ public class RegPresenter extends Presenter<IRegView> {
 
     @Override
     protected void onDestroy() {
-        mCompositeSubscription.unsubscribe();
+        compositeSubscription.unsubscribe();
         super.onDestroy();
     }
 }
