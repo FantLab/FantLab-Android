@@ -1,8 +1,10 @@
 package org.odddev.fantlab.auth.reg;
 
+import com.arellomobile.mvp.InjectViewState;
+import com.arellomobile.mvp.MvpPresenter;
+
 import org.odddev.fantlab.auth.IAuthProvider;
 import org.odddev.fantlab.core.di.Injector;
-import org.odddev.fantlab.core.layers.presenter.Presenter;
 
 import javax.inject.Inject;
 
@@ -14,7 +16,8 @@ import rx.subscriptions.CompositeSubscription;
  * @since 20.09.16
  */
 
-public class RegPresenter extends Presenter<IRegView> {
+@InjectViewState
+public class RegPresenter extends MvpPresenter<IRegView> {
 
     private Subscription regSubscription;
 
@@ -42,19 +45,15 @@ public class RegPresenter extends Presenter<IRegView> {
     }
 
     private void showResult(boolean hasCookie) {
-        for (IRegView view : getViews()) {
-            view.showRegResult(hasCookie);
-        }
+        getViewState().showRegResult(hasCookie);
     }
 
     private void showError(String error) {
-        for (IRegView view : getViews()) {
-            view.showError(error);
-        }
+        getViewState().showError(error);
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         compositeSubscription.unsubscribe();
         super.onDestroy();
     }

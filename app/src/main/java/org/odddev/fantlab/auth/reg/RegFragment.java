@@ -4,16 +4,17 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 
+import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.arellomobile.mvp.presenter.InjectPresenter;
+
 import org.odddev.fantlab.R;
 import org.odddev.fantlab.auth.AuthActivity;
 import org.odddev.fantlab.auth.AuthRouter;
-import org.odddev.fantlab.core.layers.presenter.PresenterManager;
 import org.odddev.fantlab.core.utils.DateUtils;
 import org.odddev.fantlab.databinding.RegFragmentBinding;
 
@@ -24,10 +25,8 @@ import java.util.Calendar;
  * @since 18.09.16
  */
 
-public class RegFragment extends Fragment implements IRegView, IRegActions,
+public class RegFragment extends MvpAppCompatFragment implements IRegView, IRegActions,
         DatePickerDialog.OnDateSetListener {
-
-    private static final int PRESENTER_ID = RegFragment.class.getSimpleName().hashCode();
 
     private static final int MIN_AGE = 5;
     private static final int DEFAULT_AGE = 20;
@@ -38,7 +37,9 @@ public class RegFragment extends Fragment implements IRegView, IRegActions,
     private static final int HOUR_LAST_MINUTE = 59;
     private static final int MINUTE_LAST_SECOND = 59;
 
-    private RegPresenter presenter;
+    @InjectPresenter
+    RegPresenter presenter;
+
     private RegFragmentBinding binding;
     private AuthRouter router;
 
@@ -47,7 +48,6 @@ public class RegFragment extends Fragment implements IRegView, IRegActions,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = PresenterManager.getPresenter(PRESENTER_ID, RegPresenter::new);
         router = new AuthRouter((AuthActivity) getActivity());
     }
 

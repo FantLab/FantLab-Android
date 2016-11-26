@@ -1,17 +1,17 @@
 package org.odddev.fantlab.auth.login;
 
-import org.odddev.fantlab.core.layers.view.IView;
+import com.arellomobile.mvp.MvpView;
 
 /**
  * @author kenrube
  * @since 30.08.16
  */
 
-interface ILoginView extends IView {
+interface ILoginView extends MvpView {
 
     void showLoginResult(boolean loggedIn);
 
     void showError(String error);
 
-    void showFieldsValid();
+    void showFieldsInvalid();
 }

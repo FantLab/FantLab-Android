@@ -87,6 +87,7 @@ android {
 
 dependencies {
     compile libraries.moxy
+    compile libraries.moxyAppCompat
     apt libraries.moxyCompiler
     compile libraries.cicerone
 
