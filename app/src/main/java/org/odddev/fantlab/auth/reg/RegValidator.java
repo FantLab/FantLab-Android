@@ -64,11 +64,11 @@ public class RegValidator extends Validator {
 
     @Override
     protected boolean areFieldsValid() {
+        boolean result = true;
         for (@FIELD int i = 0; i < 3; i++) {
             validate(i);
+            if (fieldErrors.get(i) != null) result = false;
         }
-        return fieldErrors.get(FIELD.USERNAME) == null
-                && fieldErrors.get(FIELD.PASSWORD) == null
-                && fieldErrors.get(FIELD.EMAIL) == null;
+        return result;
     }
 }
