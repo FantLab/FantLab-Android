@@ -2,19 +2,17 @@ package org.odddev.fantlab.auth.login;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.databinding.BaseObservable;
-import android.databinding.ObservableArrayMap;
-import android.databinding.ObservableMap;
 import android.support.annotation.IntDef;
 
 import org.odddev.fantlab.R;
+import org.odddev.fantlab.core.validation.Validator;
 
 /**
  * @author kenrube
  * @since 17.09.16
  */
 
-public class LoginValidator extends BaseObservable {
+public class LoginValidator extends Validator {
 
     @IntDef({
             FIELD.USERNAME,
@@ -25,50 +23,42 @@ public class LoginValidator extends BaseObservable {
         int PASSWORD = 1;
     }
 
-    private Resources mResources;
-
-    public ObservableArrayMap<Integer, String> fields = new ObservableArrayMap<>();
-    public ObservableArrayMap<Integer, String> fieldErrors = new ObservableArrayMap<>();
+    private Resources resources;
 
     LoginValidator(Context context) {
-        mResources = context.getResources();
-        fields.put(FIELD.USERNAME, "");
-        fields.put(FIELD.PASSWORD, "");
+        resources = context.getResources();
+
+        for (@FIELD int i = 0; i < 2; i++) {
+            fields.put(i, "");
+            fieldErrors.put(i, null);
+        }
         fields.addOnMapChangedCallback(onMapChangedCallback);
-        fieldErrors.put(FIELD.USERNAME, null);
-        fieldErrors.put(FIELD.PASSWORD, null);
     }
 
-    private void validate(@FIELD int field) {
+    @Override
+    protected void validate(Integer field) {
         switch (field) {
             case FIELD.USERNAME: {
                 fieldErrors.put(FIELD.USERNAME, fields.get(FIELD.USERNAME).trim().isEmpty()
-                        ? mResources.getString(R.string.error_username_empty)
+                        ? resources.getString(R.string.error_username_empty)
                         : null);
                 break;
             }
             case FIELD.PASSWORD: {
                 fieldErrors.put(FIELD.PASSWORD, fields.get(FIELD.PASSWORD).trim().isEmpty()
-                        ? mResources.getString(R.string.error_password_empty)
+                        ? resources.getString(R.string.error_password_empty)
                         : null);
                 break;
             }
         }
     }
 
-    boolean areFieldsValid() {
+    @Override
+    protected boolean areFieldsValid() {
         for (Integer field : fields.keySet()) {
             validate(field);
         }
         return fieldErrors.get(FIELD.USERNAME) == null
                 && fieldErrors.get(FIELD.PASSWORD) == null;
     }
-
-    private ObservableMap.OnMapChangedCallback<ObservableMap<Integer, String>, Integer, String> onMapChangedCallback =
-            new ObservableMap.OnMapChangedCallback<ObservableMap<Integer, String>, Integer, String>() {
-                @Override
-                public void onMapChanged(ObservableMap<Integer, String> integerStringObservableMap, Integer integer) {
-                    validate(integer);
-                }
-            };
 }

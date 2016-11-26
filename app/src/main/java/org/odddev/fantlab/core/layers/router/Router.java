@@ -9,13 +9,13 @@ import android.app.Activity;
 
 public class Router<T extends Activity> {
 
-    private T mActivity;
+    private T activity;
 
     public Router(T activity) {
-        mActivity = activity;
+        this.activity = activity;
     }
 
     protected T getActivity() {
-        return mActivity;
+        return activity;
     }
 }

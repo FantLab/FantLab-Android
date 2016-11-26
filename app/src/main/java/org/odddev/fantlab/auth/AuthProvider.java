@@ -21,13 +21,13 @@ public class AuthProvider implements IAuthProvider {
     private static final String COOKIE_HEADER = "Set-Cookie";
 
     @Inject
-    ISchedulersResolver mSchedulersResolver;
+    ISchedulersResolver schedulersResolver;
 
     @Inject
-    IServerApi mServerApi;
+    IServerApi serverApi;
 
     @Inject
-    StorageManager mStorageManager;
+    StorageManager storageManager;
 
     public AuthProvider() {
         Injector.getAppComponent().inject(this);
@@ -35,15 +35,15 @@ public class AuthProvider implements IAuthProvider {
 
     @Override
     public Observable<Boolean> login(String username, String password) {
-        return mServerApi.login(username, password)
-                .compose(mSchedulersResolver.applyDefaultSchedulers())
+        return serverApi.login(username, password)
+                .compose(schedulersResolver.applyDefaultSchedulers())
                 .map(response -> {
                     String cookie = response.headers().get(COOKIE_HEADER);
                     if (!TextUtils.isEmpty(cookie)) {
-                        mStorageManager.saveCookie(cookie);
+                        storageManager.saveCookie(cookie);
                     }
                     // todo 6.32
-                    mStorageManager.saveUsername(username);
+                    storageManager.saveUsername(username);
                     return !TextUtils.isEmpty(cookie);
                 });
     }

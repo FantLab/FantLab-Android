@@ -15,36 +15,36 @@ import java.util.List;
 
 public class Presenter<V extends IView> {
 
-    private List<V> mViews = new ArrayList<>();
-    private Bundle mArguments;
-    private Long mDetachedTime = null;
+    private List<V> views = new ArrayList<>();
+    private Bundle arguments;
+    private Long detachedTime = null;
 
     public void attachView(@NonNull V view) {
-        mViews.add(view);
-        mDetachedTime = null;
+        views.add(view);
+        detachedTime = null;
         onViewAttached(view);
     }
 
     public void detachView(@NonNull V view) {
         onViewDetached(view);
-        mDetachedTime = System.currentTimeMillis();
-        mViews.remove(view);
+        detachedTime = System.currentTimeMillis();
+        views.remove(view);
     }
 
     public boolean isAttached() {
-        return mViews.size() > 0;
+        return views.size() > 0;
     }
 
     public List<V> getViews() {
-        return mViews;
+        return views;
     }
 
     public Bundle getArguments() {
-        return mArguments;
+        return arguments;
     }
 
     protected void setArguments(Bundle args) {
-        mArguments = args;
+        arguments = args;
     }
 
     protected void onCreate() {
@@ -60,6 +60,6 @@ public class Presenter<V extends IView> {
     }
 
     public Long getDetachedTime() {
-        return mDetachedTime;
+        return detachedTime;
     }
 }

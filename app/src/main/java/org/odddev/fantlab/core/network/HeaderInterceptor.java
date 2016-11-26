@@ -23,7 +23,7 @@ public class HeaderInterceptor implements Interceptor {
     private static final String APP_VERSION = "Android/" + BuildConfig.VERSION_NAME;
 
     @Inject
-    StorageManager mStorageManager;
+    StorageManager storageManager;
 
     public HeaderInterceptor() {
         Injector.getAppComponent().inject(this);
@@ -32,7 +32,7 @@ public class HeaderInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
 
-        String cookie = mStorageManager.loadCookie();
+        String cookie = storageManager.loadCookie();
 
         Request original = chain.request();
         Request.Builder builder = original.newBuilder()

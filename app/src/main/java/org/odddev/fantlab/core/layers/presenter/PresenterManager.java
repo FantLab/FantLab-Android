@@ -13,7 +13,7 @@ public class PresenterManager {
 
     private static final int MAX_PRESENTERS = 10;
 
-    private static final HashMap<Integer, Presenter> mPresenters = new HashMap<>();
+    private static final HashMap<Integer, Presenter> PRESENTERS = new HashMap<>();
 
     public interface PresenterFactory<T extends Presenter> {
         T createPresenter();
@@ -29,7 +29,7 @@ public class PresenterManager {
     @SuppressWarnings("unchecked")
     public static <T extends Presenter> T getPresenter(int presenterId, Bundle arguments,
                                                        PresenterFactory<T> factory) {
-        Presenter presenter = mPresenters.get(presenterId);
+        Presenter presenter = PRESENTERS.get(presenterId);
         if (presenter == null) {
             presenter = factory.createPresenter();
             if (presenter == null) {
@@ -37,27 +37,27 @@ public class PresenterManager {
             }
             presenter.setArguments(arguments);
             presenter.onCreate();
-            if (mPresenters.size() > MAX_PRESENTERS) {
+            if (PRESENTERS.size() > MAX_PRESENTERS) {
                 removeObsoletePresenters();
             }
-            mPresenters.put(presenterId, presenter);
+            PRESENTERS.put(presenterId, presenter);
         }
         return (T) presenter;
     }
 
     public static void removeObsoletePresenters() {
-        while (mPresenters.size() > MAX_PRESENTERS) {
+        while (PRESENTERS.size() > MAX_PRESENTERS) {
             long oldestDetachTime = Long.MAX_VALUE;
             Integer idToRemove = null;
-            for (int presenterId : mPresenters.keySet()) {
-                Presenter presenter = mPresenters.get(presenterId);
+            for (int presenterId : PRESENTERS.keySet()) {
+                Presenter presenter = PRESENTERS.get(presenterId);
                 if (!presenter.isAttached() && presenter.getDetachedTime() < oldestDetachTime) {
                     idToRemove = presenterId;
                 }
             }
             if (idToRemove != null) {
-                mPresenters.get(idToRemove).onDestroy();
-                mPresenters.remove(idToRemove);
+                PRESENTERS.get(idToRemove).onDestroy();
+                PRESENTERS.remove(idToRemove);
             }
         }
     }

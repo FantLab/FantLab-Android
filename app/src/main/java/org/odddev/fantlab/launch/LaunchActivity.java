@@ -16,7 +16,7 @@ import javax.inject.Inject;
 public class LaunchActivity extends AppCompatActivity {
 
     @Inject
-    StorageManager mStorageManager;
+    StorageManager storageManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class LaunchActivity extends AppCompatActivity {
         Injector.getAppComponent().inject(this);
 
         new Handler().postDelayed(() -> {
-            String cookie = mStorageManager.loadCookie();
+            String cookie = storageManager.loadCookie();
             // todo 8.35, 8.36
             if (!TextUtils.isEmpty(cookie)) {
                 MainActivity.start(this, true);

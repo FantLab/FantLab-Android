@@ -3,12 +3,9 @@ package org.odddev.fantlab.home;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.IntentCompat;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,13 +20,13 @@ public class MainActivity extends FragmentActivity {
 
     private static final String LOGGED_IN = "LOGGED_IN";
 
-    private MainActivityBinding mBinding;
-    private NavDrawerRouter mRouter;
+    private MainActivityBinding binding;
+    private NavDrawerRouter router;
 
-    private boolean mLoggedIn;
+    private boolean loggedIn;
 
     @Inject
-    StorageManager mStorageManager;
+    StorageManager storageManager;
 
     public static void start(Context context, boolean loggedIn) {
         start(context, Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK,
@@ -49,34 +46,34 @@ public class MainActivity extends FragmentActivity {
 
         Injector.getAppComponent().inject(this);
 
-        mBinding = DataBindingUtil.setContentView(this, R.layout.main_activity);
-        mRouter = new NavDrawerRouter(this);
+        binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
+        router = new NavDrawerRouter(this);
 
-        mLoggedIn = getIntent().getBooleanExtra(LOGGED_IN, false);
+        loggedIn = getIntent().getBooleanExtra(LOGGED_IN, false);
 
-        View header = mBinding.navigationView.getHeaderView(0);
+        View header = binding.navigationView.getHeaderView(0);
 
         TextView username = (TextView) header.findViewById(R.id.username);
 
-        username.setText(mLoggedIn ? mStorageManager.loadUsername() : getString(R.string.nav_drawer_guest));
+        username.setText(loggedIn ? storageManager.loadUsername() : getString(R.string.nav_drawer_guest));
 
         TextView classProgress = (TextView) header.findViewById(R.id.class_progress);
 
-        if (mLoggedIn) {
+        if (loggedIn) {
             classProgress.setText(getString(R.string.nav_drawer_class_progress));
         }
-        classProgress.setVisibility(mLoggedIn ? View.VISIBLE : View.GONE);
+        classProgress.setVisibility(loggedIn ? View.VISIBLE : View.GONE);
 
-        mBinding.navigationView.getMenu().clear();
-        mBinding.navigationView.inflateMenu(mLoggedIn
+        binding.navigationView.getMenu().clear();
+        binding.navigationView.inflateMenu(loggedIn
                 ? R.menu.nav_drawer_user
                 : R.menu.nav_drawer_guest);
 
-        mBinding.navigationView.setNavigationItemSelectedListener(item -> {
+        binding.navigationView.setNavigationItemSelectedListener(item -> {
             @NavDrawerRouter.NAV_DRAWER_ITEM int itemId = item.getItemId();
 
-            mBinding.navigationView.setCheckedItem(itemId);
-            return mRouter.routeToNavDrawerItem(itemId);
+            binding.navigationView.setCheckedItem(itemId);
+            return router.routeToNavDrawerItem(itemId);
         });
     }
 }

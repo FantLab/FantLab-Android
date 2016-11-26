@@ -16,7 +16,7 @@ import javax.inject.Inject;
 public class NetworkChecker implements INetworkChecker {
 
     @Inject
-    Context mContext;
+    Context context;
 
     public NetworkChecker() {
         Injector.getAppComponent().inject(this);
@@ -24,7 +24,7 @@ public class NetworkChecker implements INetworkChecker {
 
     @Override
     public boolean isConnected() {
-        ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
 
         return ni != null && ni.isConnected();

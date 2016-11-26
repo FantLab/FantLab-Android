@@ -9,15 +9,15 @@ import android.support.annotation.NonNull;
 
 public class Injector {
 
-    private static AppComponent sAppComponent;
+    private static AppComponent appComponent;
 
     public static void init(@NonNull AppComponent appComponent) {
-        sAppComponent = appComponent;
+        Injector.appComponent = appComponent;
     }
 
     @NonNull
     public static AppComponent getAppComponent() {
-        if (sAppComponent == null) throw new RuntimeException("AppComponent not initialized yet!");
-        return sAppComponent;
+        if (appComponent == null) throw new RuntimeException("AppComponent not initialized yet!");
+        return appComponent;
     }
 }
