@@ -36,13 +36,13 @@ public class LoginValidator extends Validator {
         switch (field) {
             case FIELD.USERNAME: {
                 fieldErrors.put(FIELD.USERNAME, value == null || value.trim().isEmpty()
-                        ? resources.getString(R.string.error_username_empty)
+                        ? resources.getString(R.string.auth_username_empty)
                         : null);
                 break;
             }
             case FIELD.PASSWORD: {
                 fieldErrors.put(FIELD.PASSWORD, value == null || value.trim().isEmpty()
-                        ? resources.getString(R.string.error_password_empty)
+                        ? resources.getString(R.string.auth_password_empty)
                         : null);
                 break;
             }

@@ -40,8 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_drawer_header"/>
+            android:fitsSystemWindows="true"/>
 
     </android.support.v4.widget.DrawerLayout>
 

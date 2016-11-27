@@ -3,27 +3,24 @@ package org.odddev.fantlab.home;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.IntentCompat;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 
 import org.odddev.fantlab.R;
 import org.odddev.fantlab.core.di.Injector;
 import org.odddev.fantlab.core.storage.StorageManager;
 import org.odddev.fantlab.databinding.MainActivityBinding;
+import org.odddev.fantlab.databinding.NavDrawerHeaderBinding;
 
 import javax.inject.Inject;
 
 public class MainActivity extends FragmentActivity {
 
-    private static final String LOGGED_IN = "LOGGED_IN";
+    private static final String EXTRA_LOGGED_IN_KEY = "LOGGED_IN";
 
     private MainActivityBinding binding;
     private NavDrawerRouter router;
-
-    private boolean loggedIn;
 
     @Inject
     StorageManager storageManager;
@@ -36,7 +33,7 @@ public class MainActivity extends FragmentActivity {
     public static void start(Context context, int flags, boolean loggedIn) {
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(intent.getFlags() | flags);
-        intent.putExtra(LOGGED_IN, loggedIn);
+        intent.putExtra(EXTRA_LOGGED_IN_KEY, loggedIn);
         context.startActivity(intent);
     }
 
@@ -46,25 +43,15 @@ public class MainActivity extends FragmentActivity {
 
         Injector.getAppComponent().inject(this);
 
+        boolean loggedIn = getIntent().getBooleanExtra(EXTRA_LOGGED_IN_KEY, false);
+
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         router = new NavDrawerRouter(this);
 
-        loggedIn = getIntent().getBooleanExtra(LOGGED_IN, false);
+        NavDrawerHeaderBinding headerBinding = NavDrawerHeaderBinding.inflate(getLayoutInflater(),
+                binding.navigationView, false);
 
-        View header = binding.navigationView.getHeaderView(0);
-
-        DataBindingUtil.bind(header);
-
-        TextView username = (TextView) header.findViewById(R.id.username);
-
-        username.setText(loggedIn ? storageManager.loadUsername() : getString(R.string.nav_drawer_guest));
-
-        TextView classProgress = (TextView) header.findViewById(R.id.class_progress);
-
-        if (loggedIn) {
-            classProgress.setText(getString(R.string.nav_drawer_class_progress));
-        }
-        classProgress.setVisibility(loggedIn ? View.VISIBLE : View.GONE);
+        binding.navigationView.addHeaderView(headerBinding.getRoot());
 
         binding.navigationView.getMenu().clear();
         binding.navigationView.inflateMenu(loggedIn

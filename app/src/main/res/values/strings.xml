@@ -1,36 +1,46 @@
 <resources>
-    <string name="login.input.username">Имя пользователя</string>
-    <string name="login.input.password">Пароль</string>
-    <string name="auth.text.auth">Вход</string>
-    <string name="auth.button.login">Вход</string>
-    <string name="auth.button.register">Регистрация</string>
-    <string name="auth.button.forgot">Забыли пароль?</string>
-    <string name="auth.button.enter">Продолжить без регистрации</string>
-    <string name="register.text.title">Регистрация</string>
-    <string name="register.input.username">Имя пользователя</string>
-    <string name="register.input.password">Пароль</string>
-    <string name="register.input.email">E-mail</string>
+
+    <!-- Auth -->
+    <string name="auth.username.input">Имя пользователя</string>
+    <string name="auth.username.empty">Имя пользователя не может быть пустым</string>
+    <string name="auth.password.input">Пароль</string>
+    <string name="auth.password.empty">Пароль не может быть пустым</string>
+    <string name="auth.caption">Вход</string>
+    <string name="auth.login.button">Вход</string>
+    <string name="auth.login.error">Имя пользователя и/или пароль неверны</string>
+    <string name="auth.register.button">Регистрация</string>
+    <string name="auth.forgot.button">Забыли пароль?</string>
+    <string name="auth.entry.button">Продолжить без регистрации</string>
+
+    <!-- Register -->
+    <string name="register.caption">Регистрация</string>
+    <string name="register.username.input">Имя пользователя</string>
+    <string name="register.username.empty">@string/auth.username.empty</string>
+    <string name="register.username.busy">Данное имя пользователя уже занято</string>
+    <string name="register.password.input">Пароль</string>
+    <string name="register.password.empty">@string/auth.password.empty</string>
+    <string name="register.email.input">E-mail</string>
+    <string name="register.email.incorrect">Некорректный адрес электронной почты</string>
+    <string name="register.gender.caption">Пол</string>
     <string name="register.gender.male">Мужской</string>
     <string name="register.gender.female">Женский</string>
-    <string name="register.text.gender">Пол</string>
-    <string name="register.input.name">Фамилия, имя, отчество</string>
-    <string name="register.input.birthday">Дата рождения</string>
+    <string name="register.name.input">Фамилия, имя, отчество</string>
+    <string name="register.birthday.input">Дата рождения</string>
+    <string name="register.url.incorrect">Некорректный адрес веб-страницы</string>
+    <string name="register.answer.incorrect">Неверный ответ на проверочный вопрос</string>
+    <string name="register.error">Ошибка регистрации</string>
 
-    <string name="error.username.empty">Имя пользователя не может быть пустым</string>
-    <string name="error.password.empty">Пароль не может быть пустым</string>
-    <string name="error.username.busy">Данное имя пользователя уже занято</string>
-    <string name="error.email.incorrect">Некорректный адрес электронной почты</string>
-    <string name="error.url.incorrect">Некорректный адрес веб-страницы</string>
-    <string name="error.answer.incorrect">Неверный ответ на проверочный вопрос</string>
-    <string name="error.login">Имя пользователя и/или пароль неверны</string>
-    <string name="error.reg">Ошибка регистрации</string>
-
+    <!-- Navigation drawer menu -->
     <string name="nav.autors">Авторы и книги</string>
     <string name="nav.search">Поиск</string>
     <string name="nav.profile">Профиль</string>
     <string name="nav.login">Войти</string>
     <string name="nav.logout">Выйти</string>
 
+    <!-- Navigation drawer header -->
     <string name="nav_drawer.guest">Гость</string>
-    <string name="nav_drawer.class_progress">Грандмастер: 5000.00 / 10000</string>
+    <string name="nav_drawer.guest.class_progress">Новичок: 0.00 / 200 баллов</string>
+    <string name="nav_drawer.user">Пользователь</string>
+    <string name="nav_drawer.user.class_progress">Грандмастер: 5000.00 / 10000</string>
+
 </resources>

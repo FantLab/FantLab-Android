@@ -83,7 +83,7 @@ public class LoginFragment extends MvpAppCompatFragment implements ILoginView, I
             router.routeToHome(true);
         } else {
             binding.setForgotPass(true);
-            showError(getString(R.string.error_login));
+            showError(getString(R.string.auth_login_error));
         }
     }
 

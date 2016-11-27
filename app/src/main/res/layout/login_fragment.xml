@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="@{forgotPass ? @dimen/no_size : @dimen/spacing_24}">
+                android:paddingBottom="@{forgotPass ? @dimen/spacing_void : @dimen/spacing_big}">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -68,7 +68,7 @@
                         android:layout_marginLeft="24dp"
                         android:layout_marginStart="24dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="@string/auth.text.auth"
+                        android:text="@string/auth.caption"
                         android:textColor="@color/color_primary_dark"
                         android:textSize="20sp"/>
 
@@ -85,7 +85,7 @@
                         android:id="@+id/username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/login.input.username"
+                        android:hint="@string/auth.username.input"
                         android:inputType="text"
                         android:maxLength="16"
                         android:text="@={loginValidator.fields[FIELD.USERNAME]}"/>
@@ -103,7 +103,7 @@
                         android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/login.input.password"
+                        android:hint="@string/auth.password.input"
                         android:inputType="textPassword"
                         android:text="@={loginValidator.fields[FIELD.PASSWORD]}"/>
 
@@ -124,7 +124,7 @@
                         android:layout_weight="6"
                         android:background="@drawable/rounded_button"
                         android:padding="12dp"
-                        android:text="@string/auth.button.login"
+                        android:text="@string/auth.login.button"
                         android:textColor="@color/white"
                         app:onClick="@{handler::login}"/>
 
@@ -141,7 +141,7 @@
                         android:layout_weight="10"
                         android:background="@drawable/rounded_button"
                         android:padding="12dp"
-                        android:text="@string/auth.button.register"
+                        android:text="@string/auth.register.button"
                         android:textColor="@color/white"
                         app:onClick="@{handler::register}"/>
 
@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center_horizontal"
                     android:layout_marginTop="8dp"
-                    android:text="@string/auth.button.forgot"
+                    android:text="@string/auth.forgot.button"
                     android:textAllCaps="true"
                     android:textColor="@color/color_primary_dark"
                     android:textStyle="bold"
@@ -170,7 +170,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="8dp"
-            android:text="@string/auth.button.enter"
+            android:text="@string/auth.entry.button"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textStyle="bold"

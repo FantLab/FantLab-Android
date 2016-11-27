@@ -145,7 +145,7 @@ public class RegFragment extends MvpAppCompatFragment implements IRegView, IRegA
         if (registered) {
             router.routeToHome(true);
         } else {
-            showError(getString(R.string.error_reg));
+            showError(getString(R.string.register_error));
         }
     }
 

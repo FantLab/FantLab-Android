@@ -34,7 +34,7 @@
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="@string/register.text.title"
+                android:text="@string/register.caption"
                 android:textColor="@color/color_primary_dark"
                 android:textSize="20sp"/>
 
@@ -49,7 +49,7 @@
                     android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/register.input.username"
+                    android:hint="@string/register.username.input"
                     android:inputType="text"
                     android:text="@={regValidator.fields[FIELD.USERNAME]}"/>
 
@@ -66,7 +66,7 @@
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/register.input.password"
+                    android:hint="@string/register.password.input"
                     android:inputType="textPassword"
                     android:text="@={regValidator.fields[FIELD.PASSWORD]}"/>
 
@@ -83,7 +83,7 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/register.input.email"
+                    android:hint="@string/register.email.input"
                     android:inputType="textEmailAddress"
                     android:text="@={regValidator.fields[FIELD.EMAIL]}"/>
 
@@ -101,7 +101,7 @@
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/register.input.name"
+                    android:hint="@string/register.name.input"
                     android:inputType="textCapSentences"/>
 
             </android.support.design.widget.TextInputLayout>
@@ -119,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="@string/register.text.gender"
+                    android:text="@string/register.gender.caption"
                     android:textColor="@color/black"
                     android:textSize="20sp"/>
 
@@ -162,7 +162,7 @@
                     android:layout_height="wrap_content"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:hint="@string/register.input.birthday"
+                    android:hint="@string/register.birthday.input"
                     android:inputType="datetime"
                     android:maxLines="1"
                     android:text="@={regValidator.fields[FIELD.BIRTH_DATE]}"

@@ -1,12 +1,19 @@
 <resources>
 
+    <!-- Text sizes -->
+    <dimen name="text_medial">14sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+
+    <!-- Spacings -->
+    <dimen name="spacing_void">0dp</dimen>
+    <dimen name="spacing_tiny">4dp</dimen>
+    <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_big">24dp</dimen>
+
+    <!-- Others -->
     <dimen name="rounded_button_radius">4dp</dimen>
-    <dimen name="no_size">0dp</dimen>
-    <dimen name="spacing_24">24dp</dimen>
-    <dimen name="avatar_size">64dp</dimen>
-    <dimen name="spacing_16">16dp</dimen>
-    <dimen name="text_16">16sp</dimen>
     <dimen name="nav_drawer_width">280dp</dimen>
     <dimen name="nav_drawer_header_height">164dp</dimen>
+    <dimen name="avatar_size">64dp</dimen>
 
 </resources>
