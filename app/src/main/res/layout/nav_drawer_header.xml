@@ -55,6 +55,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/text_medium"
             android:textStyle="bold"
+            app:font="@{@string/roboto_medium}"
             app:layout_constraintBottom_toTopOf="@+id/class_progress"
             app:layout_constraintLeft_toLeftOf="parent"
             tools:text="@string/nav_drawer.guest"/>
@@ -71,6 +72,7 @@
             android:text="@{loggedIn ? @string/nav_drawer_user_class_progress : @string/nav_drawer_guest_class_progress}"
             android:textColor="@color/white"
             android:textSize="@dimen/text_medial"
+            app:font="@{@string/roboto_regular}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             tools:text="@string/nav_drawer.guest.class_progress"/>

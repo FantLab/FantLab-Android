@@ -1,5 +1,10 @@
 <resources>
 
+    <!-- Fonts -->
+    <string name="roboto.regular">sans-serif</string>
+    <string name="roboto.light">sans-serif-light</string>
+    <string name="roboto.medium">sans-serif-medium</string>
+    
     <!-- Auth -->
     <string name="auth.username.input">Имя пользователя</string>
     <string name="auth.username.empty">Имя пользователя не может быть пустым</string>
