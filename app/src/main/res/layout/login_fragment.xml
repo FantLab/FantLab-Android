@@ -22,64 +22,69 @@
 
     </data>
 
-    <FrameLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:ignore="contentDescription">
+        android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/background"/>
+            android:src="@drawable/background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"/>
 
         <android.support.v7.widget.CardView
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="4dp"
-            app:cardPreventCornerOverlap="false">
+            app:cardCornerRadius="@dimen/spacing_tiny"
+            app:cardPreventCornerOverlap="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="@{forgotPass ? @dimen/spacing_void : @dimen/spacing_big}">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="@dimen/spacing_tiny"
+                    android:layout_height="@dimen/spacing_big"
+                    android:layout_marginTop="@dimen/spacing_big"
+                    android:background="@color/color_primary_dark"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/auth_caption"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginTop="24dp"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="4dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/color_primary_dark"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginStart="24dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/auth.caption"
-                        android:textColor="@color/color_primary_dark"
-                        android:textSize="20sp"/>
-
-                </LinearLayout>
+                    android:layout_marginLeft="@dimen/spacing_big"
+                    android:layout_marginStart="@dimen/spacing_big"
+                    android:layout_marginTop="@dimen/spacing_big"
+                    android:text="@string/auth.caption"
+                    android:textColor="@color/color_primary_dark"
+                    android:textSize="@dimen/text_big"
+                    app:font="@{@string/roboto_medium}"
+                    app:layout_constraintStart_toEndOf="@id/view"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/username_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    app:error="@{loginValidator.fieldErrors[FIELD.USERNAME]}">
+                    android:layout_marginLeft="@dimen/spacing_big"
+                    android:layout_marginRight="@dimen/spacing_big"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    app:error="@{loginValidator.fieldErrors[FIELD.USERNAME]}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/auth_caption">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/username"
@@ -93,11 +98,15 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/password_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    app:error="@{loginValidator.fieldErrors[FIELD.PASSWORD]}">
+                    android:layout_marginLeft="@dimen/spacing_big"
+                    android:layout_marginRight="@dimen/spacing_big"
+                    app:error="@{loginValidator.fieldErrors[FIELD.PASSWORD]}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/username_layout">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/password"
@@ -109,58 +118,63 @@
 
                 </android.support.design.widget.TextInputLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/login"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="@dimen/spacing_big"
+                    android:layout_marginEnd="@dimen/spacing_small"
+                    android:layout_marginLeft="@dimen/spacing_big"
+                    android:layout_marginRight="@dimen/spacing_small"
+                    android:layout_marginStart="@dimen/spacing_big"
+                    android:layout_marginTop="@dimen/spacing_big"
+                    android:background="@drawable/rounded_button"
+                    android:padding="@dimen/spacing_medial"
+                    android:text="@string/auth.login.button"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/register"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/password_layout"
+                    app:onClick="@{handler::login}"/>
 
-                    <Button
-                        android:id="@+id/login"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:layout_weight="6"
-                        android:background="@drawable/rounded_button"
-                        android:padding="12dp"
-                        android:text="@string/auth.login.button"
-                        android:textColor="@color/white"
-                        app:onClick="@{handler::login}"/>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-
-                    <Button
-                        android:id="@+id/register"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:layout_weight="10"
-                        android:background="@drawable/rounded_button"
-                        android:padding="12dp"
-                        android:text="@string/auth.register.button"
-                        android:textColor="@color/white"
-                        app:onClick="@{handler::register}"/>
-
-                </LinearLayout>
+                <Button
+                    android:id="@+id/register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_big"
+                    android:layout_marginEnd="@dimen/spacing_big"
+                    android:layout_marginLeft="@dimen/spacing_medial"
+                    android:layout_marginRight="@dimen/spacing_big"
+                    android:layout_marginStart="@dimen/spacing_medial"
+                    android:layout_marginTop="@dimen/spacing_big"
+                    android:background="@drawable/rounded_button"
+                    android:padding="@dimen/spacing_medial"
+                    android:text="@string/auth.register.button"
+                    android:textColor="@color/white"
+                    app:layout_constraintBaseline_toBaselineOf="@id/login"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/login"
+                    app:layout_constraintTop_toBottomOf="@id/password_layout"
+                    app:onClick="@{handler::register}"/>
 
                 <Button
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="@dimen/spacing_small"
                     android:text="@string/auth.forgot.button"
                     android:textAllCaps="true"
                     android:textColor="@color/color_primary_dark"
                     android:textStyle="bold"
                     android:visibility="@{forgotPass}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/register"
                     app:onClick="@{handler::forgotPass}"/>
 
-            </LinearLayout>
+            </android.support.constraint.ConstraintLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -168,14 +182,16 @@
             style="?attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/spacing_small"
             android:text="@string/auth.entry.button"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:onClick="@{handler::entry}"/>
 
-    </FrameLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </layout>

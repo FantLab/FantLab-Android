@@ -3,10 +3,13 @@
     <!-- Text sizes -->
     <dimen name="text_medial">14sp</dimen>
     <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_big">20sp</dimen>
 
     <!-- Spacings -->
     <dimen name="spacing_void">0dp</dimen>
     <dimen name="spacing_tiny">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_medial">12dp</dimen>
     <dimen name="spacing_medium">16dp</dimen>
     <dimen name="spacing_big">24dp</dimen>
 
