@@ -1,7 +1,7 @@
 package org.odddev.fantlab.core.rx;
 
-import rx.Observable;
 import rx.Scheduler;
+import rx.Single;
 
 /**
  * @author kenrube
@@ -14,5 +14,5 @@ public interface ISchedulersResolver {
 
     Scheduler mainThreadScheduler();
 
-    <T> Observable.Transformer<T, T> applyDefaultSchedulers();
+    <T> Single.Transformer<T, T> applyDefaultSchedulers();
 }

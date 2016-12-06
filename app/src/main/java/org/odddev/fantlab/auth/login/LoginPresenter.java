@@ -38,8 +38,7 @@ public class LoginPresenter extends MvpPresenter<ILoginView> {
                             validator.fields.get(LoginValidator.FIELD.PASSWORD))
                     .subscribe(
                             this::showResult,
-                            throwable -> showError(throwable.getLocalizedMessage()),
-                            () -> compositeSubscription.remove(loginSubscription));
+                            throwable -> showError(throwable.getLocalizedMessage()));
             compositeSubscription.add(loginSubscription);
         } else {
             showFieldsInvalid();

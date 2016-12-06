@@ -59,6 +59,22 @@ android {
             return true
         }
 
+        qa {
+            buildConfigField STRING, BASE_URL, urls.dev
+
+            resValue string, APP_NAME, resVals.appNameQa + "-" + defaultConfig.versionName
+
+            applicationIdSuffix '.qa'
+            versionNameSuffix '-QA'
+
+            minifyEnabled false
+            shrinkResources false
+
+            signingConfig signingConfigs.debug
+
+            return true
+        }
+
         release {
             buildConfigField STRING, BASE_URL, urls.production
 

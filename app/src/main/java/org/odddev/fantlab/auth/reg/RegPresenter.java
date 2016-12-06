@@ -39,8 +39,7 @@ public class RegPresenter extends MvpPresenter<IRegView> {
                         validator.fields.get(RegValidator.FIELD.EMAIL))
                 .subscribe(
                         this::showResult,
-                        throwable -> showError(throwable.getLocalizedMessage()),
-                        () -> compositeSubscription.remove(regSubscription));
+                        throwable -> showError(throwable.getLocalizedMessage()));
         compositeSubscription.add(regSubscription);
     }
 

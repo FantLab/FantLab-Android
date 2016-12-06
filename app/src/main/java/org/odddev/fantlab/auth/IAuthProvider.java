@@ -1,6 +1,6 @@
 package org.odddev.fantlab.auth;
 
-import rx.Observable;
+import rx.Single;
 
 /**
  * @author kenrube
@@ -9,7 +9,7 @@ import rx.Observable;
 
 public interface IAuthProvider {
 
-    Observable<Boolean> login(String username, String password);
+    Single<Boolean> login(String username, String password);
 
-    Observable<Boolean> register(String username, String password, String email);
+    Single<Boolean> register(String username, String password, String email);
 }

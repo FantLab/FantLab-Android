@@ -89,5 +89,6 @@ ext.urls = [
 
 ext.resVals = [
         appNameDebug : "Fantlab alpha",
+        appNameQa    : "Fantlab alpha",
         appName      : "Fantlab",
 ]

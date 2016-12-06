@@ -9,7 +9,7 @@ import org.odddev.fantlab.core.storage.StorageManager;
 
 import javax.inject.Inject;
 
-import rx.Observable;
+import rx.Single;
 
 /**
  * @author kenrube
@@ -34,9 +34,8 @@ public class AuthProvider implements IAuthProvider {
     }
 
     @Override
-    public Observable<Boolean> login(String username, String password) {
+    public Single<Boolean> login(String username, String password) {
         return serverApi.login(username, password)
-                .compose(schedulersResolver.applyDefaultSchedulers())
                 .map(response -> {
                     String cookie = response.headers().get(COOKIE_HEADER);
                     if (!TextUtils.isEmpty(cookie)) {
@@ -45,11 +44,12 @@ public class AuthProvider implements IAuthProvider {
                     // todo 6.32
                     storageManager.saveUsername(username);
                     return !TextUtils.isEmpty(cookie);
-                });
+                })
+                .compose(schedulersResolver.applyDefaultSchedulers());
     }
 
     @Override
-    public Observable<Boolean> register(String username, String password, String email) {
+    public Single<Boolean> register(String username, String password, String email) {
         return null;
     }
 }
