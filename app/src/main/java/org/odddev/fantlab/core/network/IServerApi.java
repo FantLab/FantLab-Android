@@ -15,7 +15,7 @@ import rx.Observable;
 public interface IServerApi {
 
     @FormUrlEncoded
-    @POST("login")
+    @POST("/login")
     Observable<Response<ResponseBody>> login(
             @Field("login") String login,
             @Field("password") String password);
