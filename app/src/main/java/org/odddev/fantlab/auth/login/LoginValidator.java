@@ -35,15 +35,11 @@ public class LoginValidator extends Validator {
         String value = fields.get(field);
         switch (field) {
             case FIELD.USERNAME: {
-                fieldErrors.put(FIELD.USERNAME, value == null || value.trim().isEmpty()
-                        ? resources.getString(R.string.auth_username_empty)
-                        : null);
+                fieldErrors.put(FIELD.USERNAME, getUsernameError(value));
                 break;
             }
             case FIELD.PASSWORD: {
-                fieldErrors.put(FIELD.PASSWORD, value == null || value.trim().isEmpty()
-                        ? resources.getString(R.string.auth_password_empty)
-                        : null);
+                fieldErrors.put(FIELD.PASSWORD, getPasswordError(value));
                 break;
             }
         }
@@ -57,5 +53,17 @@ public class LoginValidator extends Validator {
             if (fieldErrors.get(i) != null) result = false;
         }
         return result;
+    }
+
+    private String getUsernameError(String username) {
+        return username == null || username.trim().isEmpty()
+                ? resources.getString(R.string.auth_username_empty)
+                : null;
+    }
+
+    private String getPasswordError(String password) {
+        return password == null || password.trim().isEmpty()
+                ? resources.getString(R.string.auth_password_empty)
+                : null;
     }
 }
