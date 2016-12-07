@@ -42,7 +42,7 @@ public class BindingUtils {
                 .placeholder(placeholder)
                 .error(placeholder);
         if (isCircle) {
-            builder = builder.transform(new CircleTransform(imageView.getContext()));
+            builder.transform(new CircleTransform(imageView.getContext()));
         }
         builder.into(imageView);
     }

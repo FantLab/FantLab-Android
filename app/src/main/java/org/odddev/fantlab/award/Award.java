@@ -14,93 +14,117 @@ public class Award {
 
     @SerializedName("award_close")
     @Expose
-    public String awardClose;
+    private String awardClose;
 
     @SerializedName("award_id")
     @Expose
-    public String awardId;
+    private String awardId;
 
     @SerializedName("award_type")
     @Expose
-    public String awardType;
+    private String awardType;
 
     @SerializedName("comment")
     @Expose
-    public String comment;
+    private String comment;
 
     @SerializedName("compiler")
     @Expose
-    public String compiler;
+    private String compiler;
 
     @SerializedName("contests")
     @Expose
-    public List<Contest> contests;
+    private List<Contest> contests;
 
     @SerializedName("copyright")
     @Expose
-    public String copyright;
+    private String copyright;
 
     @SerializedName("copyright_link")
     @Expose
-    public String copyrightLink;
+    private String copyrightLink;
 
     @SerializedName("country_id")
     @Expose
-    public String countryId;
+    private String countryId;
 
     @SerializedName("country_name")
     @Expose
-    public String countryName;
+    private String countryName;
 
     @SerializedName("curator_id")
     @Expose
-    public String curatorId;
+    private String curatorId;
 
     @SerializedName("description")
     @Expose
-    public String description;
+    private String description;
 
     @SerializedName("homepage")
     @Expose
-    public String homepage;
+    private String homepage;
 
     @SerializedName("is_opened")
     @Expose
-    public Integer isOpened;
+    private Integer isOpened;
 
     @SerializedName("lang_id")
     @Expose
-    public String langId;
+    private String langId;
 
     @SerializedName("max_date")
     @Expose
-    public String maxDate;
+    private String maxDate;
 
     @SerializedName("min_date")
     @Expose
-    public String minDate;
+    private String minDate;
 
     @SerializedName("name")
     @Expose
-    public String name;
+    private String name;
 
     @SerializedName("non_fantastic")
     @Expose
-    public String nonFantastic;
+    private String nonFantastic;
 
     @SerializedName("notes")
     @Expose
-    public String notes;
+    private String notes;
 
     @SerializedName("process_status")
     @Expose
-    public String processStatus;
+    private String processStatus;
 
     @SerializedName("rusname")
     @Expose
-    public String rusname;
+    private String rusname;
 
     @SerializedName("show_in_list")
     @Expose
-    public String showInList;
+    private String showInList;
+
+    public String getAwardId() {
+        return awardId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getMaxDate() {
+        return maxDate;
+    }
+
+    public String getMinDate() {
+        return minDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getRusname() {
+        return rusname;
+    }
 }
