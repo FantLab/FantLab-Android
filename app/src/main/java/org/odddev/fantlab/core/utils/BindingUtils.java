@@ -22,7 +22,7 @@ import org.odddev.fantlab.R;
 
 public class BindingUtils {
 
-    @BindingAdapter("onClick")
+    @BindingAdapter("onHomeOptionSelected")
     public static void bindOnClick(View view, final Runnable runnable) {
         view.setOnClickListener(v -> runnable.run());
     }

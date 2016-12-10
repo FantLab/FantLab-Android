@@ -48,7 +48,7 @@ public class RegFragment extends MvpAppCompatFragment implements IRegView, IRegA
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        router = new AuthRouter((AuthActivity) getActivity());
+        router = new AuthRouter((AuthActivity) getActivity(), R.id.container);
     }
 
     @Nullable

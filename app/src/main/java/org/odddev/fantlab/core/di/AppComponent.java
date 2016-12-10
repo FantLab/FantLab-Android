@@ -1,13 +1,12 @@
 package org.odddev.fantlab.core.di;
 
+import org.odddev.fantlab.auth.AuthProvider;
 import org.odddev.fantlab.auth.login.LoginPresenter;
 import org.odddev.fantlab.auth.reg.RegPresenter;
 import org.odddev.fantlab.core.network.HeaderInterceptor;
 import org.odddev.fantlab.core.network.NetworkChecker;
 import org.odddev.fantlab.core.network.NetworkModule;
-import org.odddev.fantlab.auth.AuthProvider;
 import org.odddev.fantlab.core.storage.StorageModule;
-import org.odddev.fantlab.home.MainActivity;
 import org.odddev.fantlab.launch.LaunchActivity;
 
 import javax.inject.Singleton;
@@ -40,6 +39,4 @@ public interface AppComponent {
     void inject(LaunchActivity launchActivity);
 
     void inject(HeaderInterceptor headerInterceptor);
-
-    void inject(MainActivity mainActivity);
 }

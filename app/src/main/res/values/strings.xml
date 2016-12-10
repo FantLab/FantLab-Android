@@ -37,6 +37,7 @@
 
     <!-- Navigation drawer menu -->
     <string name="nav.autors">Авторы и книги</string>
+    <string name="nav.awards">Награды и премии</string>
     <string name="nav.search">Поиск</string>
     <string name="nav.profile">Профиль</string>
     <string name="nav.login">Войти</string>

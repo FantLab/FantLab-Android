@@ -25,7 +25,7 @@
             app:isCircle="@{true}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:placeholder="@{@drawable/ic_award_placeholder_black_24dp}"
+            app:placeholder="@{@drawable/ic_insert_chart_black_24dp}"
             app:srcUri="@{BuildConfig.IMAGE_STORAGE_URL + @string/award_image_url(award.awardId)}"
             tools:ignore="ContentDescription"/>
 

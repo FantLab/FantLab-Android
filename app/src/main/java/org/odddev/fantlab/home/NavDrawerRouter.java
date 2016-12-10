@@ -1,10 +1,13 @@
 package org.odddev.fantlab.home;
 
+import android.support.annotation.IdRes;
 import android.support.annotation.IntDef;
 
 import org.odddev.fantlab.R;
 import org.odddev.fantlab.auth.AuthActivity;
+import org.odddev.fantlab.award.AwardsFragment;
 import org.odddev.fantlab.core.layers.router.Router;
+import org.odddev.fantlab.core.utils.FragmentUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -14,19 +17,31 @@ import java.lang.annotation.RetentionPolicy;
  * @since 11.10.16
  */
 
-public class NavDrawerRouter extends Router<MainActivity> {
+class NavDrawerRouter extends Router<HomeActivity> {
 
-    @IntDef({R.id.nav_autors, R.id.nav_search, R.id.nav_profile, R.id.nav_logout, R.id.nav_login})
+    @IntDef({
+            R.id.nav_autors,
+            R.id.nav_awards,
+            R.id.nav_search,
+            R.id.nav_profile,
+            R.id.nav_logout,
+            R.id.nav_login
+    })
     @Retention(RetentionPolicy.SOURCE)
-    public @interface NAV_DRAWER_ITEM{}
+    @interface NAV_DRAWER_ITEM{}
 
-    public NavDrawerRouter(MainActivity activity) {
-        super(activity);
+    NavDrawerRouter(HomeActivity activity, @IdRes int containerId) {
+        super(activity, containerId);
     }
 
-    public boolean routeToNavDrawerItem(@NAV_DRAWER_ITEM int item) {
+    boolean routeToNavDrawerItem(@NAV_DRAWER_ITEM int item, HomeOptionSelectListener listener) {
         switch (item) {
             case R.id.nav_autors: {
+                return true;
+            }
+            case R.id.nav_awards: {
+                FragmentUtils.replaceFragment(getActivity(), getContainerId(),
+                        new AwardsFragment(listener), true);
                 return true;
             }
             case R.id.nav_search: {

@@ -1,14 +1,12 @@
 package org.odddev.fantlab.auth;
 
 import android.support.annotation.IdRes;
-import android.support.v4.app.FragmentActivity;
 
-import org.odddev.fantlab.R;
 import org.odddev.fantlab.auth.login.LoginFragment;
 import org.odddev.fantlab.auth.reg.RegFragment;
 import org.odddev.fantlab.core.layers.router.Router;
 import org.odddev.fantlab.core.utils.FragmentUtils;
-import org.odddev.fantlab.home.MainActivity;
+import org.odddev.fantlab.home.HomeActivity;
 
 /**
  * @author kenrube
@@ -17,22 +15,20 @@ import org.odddev.fantlab.home.MainActivity;
 
 public class AuthRouter extends Router<AuthActivity> {
 
-    public AuthRouter(AuthActivity activity) {
-        super(activity);
+    public AuthRouter(AuthActivity activity, @IdRes int containerId) {
+        super(activity, containerId);
     }
 
     public void routeToLogin() {
-        @IdRes int containerId = getActivity().getContainerResId();
-        FragmentUtils.replaceFragment(getActivity(), containerId, new LoginFragment(), true);
+        FragmentUtils.replaceFragment(getActivity(), getContainerId(), new LoginFragment(), true);
     }
 
     public void routeToReg() {
-        @IdRes int containerId = getActivity().getContainerResId();
-        FragmentUtils.replaceFragment(getActivity(), containerId, new RegFragment(), true);
+        FragmentUtils.replaceFragment(getActivity(), getContainerId(), new RegFragment(), true);
     }
 
     public void routeToHome(boolean loggedIn) {
-        MainActivity.start(getActivity(), loggedIn);
+        HomeActivity.start(getActivity(), loggedIn);
         getActivity().overridePendingTransition(0, 0);
     }
 }

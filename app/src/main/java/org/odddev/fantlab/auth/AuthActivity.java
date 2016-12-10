@@ -2,12 +2,13 @@ package org.odddev.fantlab.auth;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.IntentCompat;
 
 import org.odddev.fantlab.R;
+import org.odddev.fantlab.databinding.AuthActivityBinding;
 
 /**
  * @author kenrube
@@ -16,6 +17,7 @@ import org.odddev.fantlab.R;
 
 public class AuthActivity extends FragmentActivity {
 
+    private AuthActivityBinding binding;
     private AuthRouter router;
 
     public static void start(Context context) {
@@ -31,15 +33,10 @@ public class AuthActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.auth_activity);
+        binding = DataBindingUtil.setContentView(this, R.layout.auth_activity);
 
-        router = new AuthRouter(this);
+        router = new AuthRouter(this, R.id.container);
         router.routeToLogin();
-    }
-
-    @IdRes
-    public int getContainerResId() {
-        return R.id.container;
     }
 
     @Override

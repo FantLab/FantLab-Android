@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import org.odddev.fantlab.auth.AuthActivity;
 import org.odddev.fantlab.core.di.Injector;
 import org.odddev.fantlab.core.storage.StorageManager;
-import org.odddev.fantlab.home.MainActivity;
+import org.odddev.fantlab.home.HomeActivity;
 
 import javax.inject.Inject;
 
@@ -25,7 +25,7 @@ public class LaunchActivity extends AppCompatActivity {
         String cookie = storageManager.loadCookie();
         // todo 8.35, 8.36
         if (!TextUtils.isEmpty(cookie)) {
-            MainActivity.start(this, true);
+            HomeActivity.start(this, true);
         } else {
             AuthActivity.start(this);
         }
