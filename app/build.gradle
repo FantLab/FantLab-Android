@@ -43,10 +43,12 @@ android {
         def STRING = "String"
         def APP_NAME = "app_name"
         def BASE_URL = "BASE_URL"
+        def IMAGE_STORAGE_URL = "IMAGE_STORAGE_URL"
         def string = "string"
 
         debug {
             buildConfigField STRING, BASE_URL, urls.dev
+            buildConfigField STRING, IMAGE_STORAGE_URL, urls.imageStorage
 
             resValue string, APP_NAME, resVals.appNameDebug + "-" + defaultConfig.versionName
 
@@ -61,6 +63,7 @@ android {
 
         qa {
             buildConfigField STRING, BASE_URL, urls.dev
+            buildConfigField STRING, IMAGE_STORAGE_URL, urls.imageStorage
 
             resValue string, APP_NAME, resVals.appNameQa + "-" + defaultConfig.versionName
 
@@ -77,6 +80,7 @@ android {
 
         release {
             buildConfigField STRING, BASE_URL, urls.production
+            buildConfigField STRING, IMAGE_STORAGE_URL, urls.imageStorage
 
             resValue string, APP_NAME, resVals.appName
 

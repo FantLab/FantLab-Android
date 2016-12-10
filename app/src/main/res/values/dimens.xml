@@ -12,6 +12,7 @@
     <dimen name="spacing_medial">12dp</dimen>
     <dimen name="spacing_medium">16dp</dimen>
     <dimen name="spacing_big">24dp</dimen>
+    <dimen name="spacing_large">72dp</dimen>
 
     <!-- Others -->
     <dimen name="rounded_button_radius">4dp</dimen>

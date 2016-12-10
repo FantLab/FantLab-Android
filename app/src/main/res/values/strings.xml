@@ -48,4 +48,7 @@
     <string name="nav_drawer.user">Пользователь</string>
     <string name="nav_drawer.user.class_progress">Грандмастер: 5000.00 / 10000</string>
 
+    <!-- Awards -->
+    <string name="award.image.url">/awards/$s</string>
+
 </resources>

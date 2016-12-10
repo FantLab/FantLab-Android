@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import org.odddev.fantlab.R;
+import org.odddev.fantlab.databinding.AwardItemBinding;
 
 import java.util.ArrayList;
 import java.util.List;

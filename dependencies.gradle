@@ -83,8 +83,9 @@ ext.libraries = [
 ]
 
 ext.urls = [
-        dev : "\"http://kenrube.dev2.fantlab.org:4455\"",
-        production  : "\"https://fantlab.ru\"",
+        dev          : "\"http://kenrube.dev2.fantlab.org:4455\"",
+        production   : "\"https://fantlab.ru\"",
+        imageStorage : "\"https://fantlab.ru/images\"",
 ]
 
 ext.resVals = [
