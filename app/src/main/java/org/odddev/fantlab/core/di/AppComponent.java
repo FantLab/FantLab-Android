@@ -3,6 +3,8 @@ package org.odddev.fantlab.core.di;
 import org.odddev.fantlab.auth.AuthProvider;
 import org.odddev.fantlab.auth.login.LoginPresenter;
 import org.odddev.fantlab.auth.reg.RegPresenter;
+import org.odddev.fantlab.award.AwardsPresenter;
+import org.odddev.fantlab.award.AwardsProvider;
 import org.odddev.fantlab.core.network.HeaderInterceptor;
 import org.odddev.fantlab.core.network.NetworkChecker;
 import org.odddev.fantlab.core.network.NetworkModule;
@@ -39,4 +41,8 @@ public interface AppComponent {
     void inject(LaunchActivity launchActivity);
 
     void inject(HeaderInterceptor headerInterceptor);
+
+    void inject(AwardsPresenter awardsPresenter);
+
+    void inject(AwardsProvider awardsProvider);
 }

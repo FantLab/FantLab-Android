@@ -36,6 +36,10 @@ public class Award {
     @Expose
     private List<Contest> contests;
 
+    @SerializedName("contests_count")
+    @Expose
+    private String contestsCount;
+
     @SerializedName("copyright")
     @Expose
     private String copyright;
@@ -60,6 +64,10 @@ public class Award {
     @Expose
     private String description;
 
+    @SerializedName("description_length")
+    @Expose
+    private String descriptionLength;
+
     @SerializedName("homepage")
     @Expose
     private String homepage;
@@ -72,6 +80,10 @@ public class Award {
     @Expose
     private String langId;
 
+    @SerializedName("lang_name")
+    @Expose
+    private String langName;
+
     @SerializedName("max_date")
     @Expose
     private String maxDate;
@@ -83,6 +95,10 @@ public class Award {
     @SerializedName("name")
     @Expose
     private String name;
+
+    @SerializedName("nomi_count")
+    @Expose
+    private String nomiCount;
 
     @SerializedName("non_fantastic")
     @Expose
@@ -106,6 +122,10 @@ public class Award {
 
     public String getAwardId() {
         return awardId;
+    }
+
+    public String getCountryName() {
+        return countryName;
     }
 
     public String getDescription() {

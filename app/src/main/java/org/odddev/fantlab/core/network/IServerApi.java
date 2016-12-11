@@ -2,6 +2,8 @@ package org.odddev.fantlab.core.network;
 
 import org.odddev.fantlab.award.Award;
 
+import java.util.List;
+
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.Field;
@@ -23,6 +25,9 @@ public interface IServerApi {
     Single<Response<ResponseBody>> login(
             @Field("login") String login,
             @Field("password") String password);
+
+    @GET("/awards.json")
+    Single<List<Award>> getAwards();
 
     @GET("/award{id}.json")
     Single<Award> getAward(@Path("id") int id);

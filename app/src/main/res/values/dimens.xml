@@ -18,6 +18,6 @@
     <dimen name="rounded_button_radius">4dp</dimen>
     <dimen name="nav_drawer_width">280dp</dimen>
     <dimen name="nav_drawer_header_height">164dp</dimen>
-    <dimen name="avatar_size">64dp</dimen>
+    <dimen name="avatar_size">56dp</dimen>
 
 </resources>

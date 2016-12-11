@@ -7,6 +7,8 @@
 
         <import type="org.odddev.fantlab.BuildConfig"/>
 
+        <import type="android.text.TextUtils"/>
+
         <variable
             name="award"
             type="org.odddev.fantlab.award.Award"/>
@@ -38,7 +40,7 @@
             android:layout_marginTop="@dimen/spacing_medium"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{award.name}"
+            android:text="@{!TextUtils.isEmpty(award.name) ? award.name : award.rusname}"
             android:textSize="@dimen/text_medium"
             app:font="@{@string/roboto_medium}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +54,7 @@
             android:layout_marginStart="@dimen/spacing_large"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@{award.description}"
+            android:text="@{@string/award_short_description(award.countryName, award.minDate, award.maxDate)}"
             android:textSize="@dimen/text_medial"
             app:font="@{@string/roboto_regular}"
             app:layout_constraintEnd_toEndOf="parent"

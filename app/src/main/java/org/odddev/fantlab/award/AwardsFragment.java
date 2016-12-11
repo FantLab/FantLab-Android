@@ -2,28 +2,37 @@ package org.odddev.fantlab.award;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import org.odddev.fantlab.R;
 import org.odddev.fantlab.databinding.AwardsFragmentBinding;
 import org.odddev.fantlab.home.HomeOptionSelectListener;
+
+import java.util.List;
 
 /**
  * @author kenrube
  * @since 10.12.16
  */
 
-public class AwardsFragment extends MvpAppCompatFragment {
+public class AwardsFragment extends MvpAppCompatFragment implements IAwardsView {
 
     private AwardsFragmentBinding binding;
+    private AwardsAdapter adapter;
     private HomeOptionSelectListener listener;
+
+    @InjectPresenter
+    AwardsPresenter presenter;
 
     public AwardsFragment() {
     }
@@ -42,8 +51,12 @@ public class AwardsFragment extends MvpAppCompatFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        presenter.getAwards();
+
         initToolbar();
         setHasOptionsMenu(true);
+
+        initRecyclerView();
     }
 
     private void initToolbar() {
@@ -57,6 +70,13 @@ public class AwardsFragment extends MvpAppCompatFragment {
         }
     }
 
+    private void initRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        binding.awards.setLayoutManager(layoutManager);
+        adapter = new AwardsAdapter();
+        binding.awards.setAdapter(adapter);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -66,5 +86,15 @@ public class AwardsFragment extends MvpAppCompatFragment {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void showAwards(List<Award> awards) {
+        adapter.setAwards(awards);
+    }
+
+    @Override
+    public void showError(String message) {
+        Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_LONG).show();
     }
 }
