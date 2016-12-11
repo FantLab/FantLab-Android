@@ -11,8 +11,8 @@ import android.preference.PreferenceManager;
 
 public class StorageManager {
 
-    private static final String COOKIE_KEY = "COOKIE_KEY";
-    private static final String USERNAME_KEY = "USERNAME_KEY";
+    private static final String COOKIE_KEY = "COOKIE";
+    private static final String USERNAME_KEY = "USERNAME";
 
     private SharedPreferences sharedPreferences;
 
@@ -28,6 +28,12 @@ public class StorageManager {
 
     public String loadCookie() {
         return sharedPreferences.getString(COOKIE_KEY, null);
+    }
+
+    public void clearCookie() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(COOKIE_KEY);
+        editor.apply();
     }
 
     // todo 6.32

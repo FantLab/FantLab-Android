@@ -27,7 +27,7 @@ public class FantlabApplication extends Application {
     }
 
     private void initCrashlytics() {
-        Fabric.with(this, new Crashlytics());
+        if (!BuildConfig.DEBUG) Fabric.with(this, new Crashlytics());
     }
 
     private void initTimber() {

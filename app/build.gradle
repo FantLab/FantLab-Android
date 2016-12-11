@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'io.fabric'
 
@@ -108,11 +107,11 @@ android {
 dependencies {
     compile libraries.moxy
     compile libraries.moxyAppCompat
-    apt libraries.moxyCompiler
+    provided libraries.moxyCompiler
     compile libraries.cicerone
 
     compile libraries.dagger
-    apt libraries.daggerCompiler
+    annotationProcessor libraries.daggerCompiler
 
     compile libraries.rxJava
     compile libraries.rxAndroid
@@ -139,6 +138,10 @@ dependencies {
     // Debug tools
     debugCompile libraries.stetho
     debugCompile libraries.stethoOkHttp
+
+    // Qa
+    qaCompile libraries.stetho
+    qaCompile libraries.stethoOkHttp
 
     // Test tools
     testCompile libraries.junit

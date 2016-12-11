@@ -1,19 +1,18 @@
 ext.versions = [
         major                   : 0,
         minor                   : 0,
-        patch                   : 10,
+        patch                   : 11,
 
         minSdk                  : 16,
         targetSdk               : 23,
         compileSdk              : 23,
         buildTools              : '24.0.1',
 
-        androidGradlePlugin     : '2.2.2',
-        aptGradlePlugin         : '1.8',
+        androidGradlePlugin     : '2.2.3',
         retrolambdaGradlePlugin : '3.2.5',
         crashlyticsGradlePlugin : '1.+',
 
-        moxy                    : '1.2.1',
+        moxy                    : '1.3.3',
         cicerone                : '1.1',
 
         dagger                  : '2.4',
@@ -40,7 +39,6 @@ ext.versions = [
 
 ext.gradlePlugins = [
         android     : "com.android.tools.build:gradle:$versions.androidGradlePlugin",
-        apt         : "com.neenbedankt.gradle.plugins:android-apt:$versions.aptGradlePlugin",
         retrolambda : "me.tatarka:gradle-retrolambda:$versions.retrolambdaGradlePlugin",
         crashlytics : "io.fabric.tools:gradle:$versions.crashlyticsGradlePlugin",
 ]

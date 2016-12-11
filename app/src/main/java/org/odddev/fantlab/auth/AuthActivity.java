@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.IntentCompat;
 
 import org.odddev.fantlab.R;
-import org.odddev.fantlab.databinding.AuthActivityBinding;
 
 /**
  * @author kenrube
@@ -17,7 +16,6 @@ import org.odddev.fantlab.databinding.AuthActivityBinding;
 
 public class AuthActivity extends FragmentActivity {
 
-    private AuthActivityBinding binding;
     private AuthRouter router;
 
     public static void start(Context context) {
@@ -33,7 +31,7 @@ public class AuthActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.auth_activity);
+        DataBindingUtil.setContentView(this, R.layout.auth_activity);
 
         router = new AuthRouter(this, R.id.container);
         router.routeToLogin();

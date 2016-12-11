@@ -9,7 +9,6 @@ buildscript {
     }
     dependencies {
         classpath gradlePlugins.android
-        classpath gradlePlugins.apt
         classpath gradlePlugins.retrolambda
         classpath gradlePlugins.crashlytics
     }

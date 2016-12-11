@@ -9,6 +9,8 @@ import org.odddev.fantlab.core.network.HeaderInterceptor;
 import org.odddev.fantlab.core.network.NetworkChecker;
 import org.odddev.fantlab.core.network.NetworkModule;
 import org.odddev.fantlab.core.storage.StorageModule;
+import org.odddev.fantlab.home.HomePresenter;
+import org.odddev.fantlab.home.HomeProvider;
 import org.odddev.fantlab.launch.LaunchActivity;
 
 import javax.inject.Singleton;
@@ -45,4 +47,8 @@ public interface AppComponent {
     void inject(AwardsPresenter awardsPresenter);
 
     void inject(AwardsProvider awardsProvider);
+
+    void inject(HomeProvider homeProvider);
+
+    void inject(HomePresenter homePresenter);
 }

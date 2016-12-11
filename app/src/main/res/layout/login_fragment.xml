@@ -156,10 +156,9 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/login"
-                    app:layout_constraintTop_toBottomOf="@id/password_layout"
-                    app:onClick="@{handler::register}"/>
-
-                <Button
+                    app:layout_constraintTop_toBottomOf="@id/password_layout"/>
+                <!--app:onClick="@{handler::register}"-->
+                <!--<Button
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -172,7 +171,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/register"
-                    app:onClick="@{handler::forgotPass}"/>
+                    app:onClick="@{handler::forgotPass}"/>-->
 
             </android.support.constraint.ConstraintLayout>
 

@@ -3,6 +3,8 @@ package org.odddev.fantlab.award;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +18,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import org.odddev.fantlab.R;
 import org.odddev.fantlab.databinding.AwardsFragmentBinding;
-import org.odddev.fantlab.home.HomeOptionSelectListener;
 
 import java.util.List;
 
@@ -29,17 +30,9 @@ public class AwardsFragment extends MvpAppCompatFragment implements IAwardsView 
 
     private AwardsFragmentBinding binding;
     private AwardsAdapter adapter;
-    private HomeOptionSelectListener listener;
 
     @InjectPresenter
     AwardsPresenter presenter;
-
-    public AwardsFragment() {
-    }
-
-    public AwardsFragment(HomeOptionSelectListener listener) {
-        this.listener = listener;
-    }
 
     @Nullable
     @Override
@@ -81,7 +74,8 @@ public class AwardsFragment extends MvpAppCompatFragment implements IAwardsView 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                listener.onHomeOptionSelected();
+                ((DrawerLayout) getActivity().findViewById(R.id.drawer_layout))
+                        .openDrawer(GravityCompat.START);
                 break;
             }
         }

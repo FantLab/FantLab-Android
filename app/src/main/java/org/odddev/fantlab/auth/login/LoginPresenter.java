@@ -8,7 +8,6 @@ import org.odddev.fantlab.core.di.Injector;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -18,8 +17,6 @@ import rx.subscriptions.CompositeSubscription;
 
 @InjectViewState
 public class LoginPresenter extends MvpPresenter<ILoginView> {
-
-    private Subscription loginSubscription;
 
     @Inject
     CompositeSubscription compositeSubscription;
@@ -33,13 +30,12 @@ public class LoginPresenter extends MvpPresenter<ILoginView> {
 
     public void login(LoginValidator validator) {
         if (validator.areFieldsValid()) {
-            loginSubscription = authProvider
+            compositeSubscription.add(authProvider
                     .login(validator.fields.get(LoginValidator.FIELD.USERNAME),
                             validator.fields.get(LoginValidator.FIELD.PASSWORD))
                     .subscribe(
                             this::showResult,
-                            throwable -> showError(throwable.getLocalizedMessage()));
-            compositeSubscription.add(loginSubscription);
+                            throwable -> showError(throwable.getLocalizedMessage())));
         } else {
             showFieldsInvalid();
         }
