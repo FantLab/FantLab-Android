@@ -89,7 +89,6 @@
 
             </android.support.design.widget.TextInputLayout>
 
-
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -167,6 +166,23 @@
                     android:maxLines="1"
                     android:text="@={regValidator.fields[FIELD.BIRTH_DATE]}"
                     app:onClick="@{handler::pickDate}"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:error="@{regValidator.fieldErrors[FIELD.WEB_PAGE]}">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/web_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/register.web_page.input"
+                    android:inputType="textUri"
+                    android:text="@={regValidator.fields[FIELD.WEB_PAGE]}"/>
 
             </android.support.design.widget.TextInputLayout>
 

@@ -156,8 +156,9 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/login"
-                    app:layout_constraintTop_toBottomOf="@id/password_layout"/>
-                <!--app:onClick="@{handler::register}"-->
+                    app:layout_constraintTop_toBottomOf="@id/password_layout"
+                    app:onClick="@{handler::register}"/>
+
                 <!--<Button
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"

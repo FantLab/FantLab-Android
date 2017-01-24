@@ -26,6 +26,7 @@ public class RegValidator extends Validator {
         int PASSWORD = 1;
         int EMAIL = 2;
         int BIRTH_DATE = 3;
+        int WEB_PAGE = 4;
     }
 
     private Resources resources;
@@ -57,6 +58,10 @@ public class RegValidator extends Validator {
             }
             case FIELD.BIRTH_DATE: {
                 fieldErrors.put(FIELD.BIRTH_DATE, getBirthDateError(value));
+                break;
+            }
+            case FIELD.WEB_PAGE: {
+                fieldErrors.put(FIELD.WEB_PAGE, getUrlError(value));
                 break;
             }
         }
@@ -92,5 +97,11 @@ public class RegValidator extends Validator {
 
     private String getBirthDateError(String birthDate) {
         return null;
+    }
+
+    private String getUrlError(String url) {
+        return url == null || !Patterns.WEB_URL.matcher(url).matches()
+                ? resources.getString(R.string.register_url_incorrect)
+                : null;
     }
 }

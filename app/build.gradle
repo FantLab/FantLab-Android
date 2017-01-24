@@ -107,7 +107,7 @@ android {
 dependencies {
     compile libraries.moxy
     compile libraries.moxyAppCompat
-    provided libraries.moxyCompiler
+    annotationProcessor libraries.moxyCompiler
     compile libraries.cicerone
 
     compile libraries.dagger
