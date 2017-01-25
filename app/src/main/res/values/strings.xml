@@ -31,8 +31,14 @@
     <string name="register.gender.female">Женский</string>
     <string name="register.name.input">Фамилия, имя, отчество</string>
     <string name="register.birthday.input">Дата рождения</string>
+    <string name="register.location.caption">Место жительства</string>
+    <string name="register.location.id">Выбрать</string>
+    <string name="register.location.string">Ввести</string>
     <string name="register.web_page.input">Домашняя страница</string>
     <string name="register.url.incorrect">Некорректный адрес веб-страницы</string>
+    <string name="register.skype.input">Skype</string>
+    <string name="register.icq.input">ICQ</string>
+    <string name="register.icq.incorrect">Неверный UIN</string>
     <string name="register.answer.incorrect">Неверный ответ на проверочный вопрос</string>
     <string name="register.error">Ошибка регистрации</string>
 
