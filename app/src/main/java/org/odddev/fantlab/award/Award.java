@@ -10,7 +10,7 @@ import java.util.List;
  * @since 07.12.16
  */
 
-public class AwardRes {
+public class Award {
 
     @SerializedName("award_close")
     @Expose

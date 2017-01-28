@@ -18,7 +18,7 @@ import java.util.List;
 
 public class AwardsAdapter extends RecyclerView.Adapter<AwardsAdapter.AwardViewHolder> {
 
-    private List<AwardDto> awards;
+    private List<Award> awards;
 
     public AwardsAdapter() {
         awards = new ArrayList<>();
@@ -40,7 +40,7 @@ public class AwardsAdapter extends RecyclerView.Adapter<AwardsAdapter.AwardViewH
         return awards.size();
     }
 
-    void setAwards(List<AwardDto> awards) {
+    void setAwards(List<Award> awards) {
         this.awards = awards;
         notifyDataSetChanged();
     }

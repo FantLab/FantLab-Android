@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'io.fabric'
 
@@ -10,7 +9,6 @@ repositories {
     maven {
         url "https://jitpack.io"
     }
-    mavenCentral()
 }
 
 android {
@@ -104,19 +102,9 @@ android {
 
         return true
     }
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
-}
-
-kapt {
-    generateStubs = true
 }
 
 dependencies {
-
-    compile libraries.kotlinStdLib
-
     compile libraries.moxy
     compile libraries.moxyAppCompat
     provided libraries.moxyCompiler

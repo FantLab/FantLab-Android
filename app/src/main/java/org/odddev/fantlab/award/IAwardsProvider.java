@@ -11,5 +11,5 @@ import rx.Single;
 
 public interface IAwardsProvider {
 
-    Single<List<AwardDto>> getAwards();
+    Single<List<Award>> getAwards();
 }

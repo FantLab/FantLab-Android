@@ -4,7 +4,6 @@ import org.odddev.fantlab.core.di.Injector;
 import org.odddev.fantlab.core.network.IServerApi;
 import org.odddev.fantlab.core.rx.ISchedulersResolver;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,15 +28,8 @@ public class AwardsProvider implements IAwardsProvider {
     }
 
     @Override
-    public Single<List<AwardDto>> getAwards() {
+    public Single<List<Award>> getAwards() {
         return serverApi.getAwards()
-                .map(resList -> {
-                    List<AwardDto> result = new ArrayList<>();
-                    for (AwardRes res : resList) {
-                        result.add(new AwardDto(res));
-                    }
-                    return result;
-                })
                 .compose(schedulersResolver.applyDefaultSchedulers());
     }
 }

@@ -83,7 +83,7 @@ public class AwardsFragment extends MvpAppCompatFragment implements IAwardsView 
     }
 
     @Override
-    public void showAwards(List<AwardDto> awards) {
+    public void showAwards(List<Award> awards) {
         adapter.setAwards(awards);
     }
 
