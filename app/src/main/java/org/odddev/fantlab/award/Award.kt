@@ -14,7 +14,6 @@ class Award(
         val name: String,
         val rusName: String) {
 
-
     fun getStartYear(): String {
         return minDate.get(Calendar.YEAR).toString()
     }
