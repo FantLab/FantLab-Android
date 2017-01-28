@@ -1,5 +1,4 @@
 buildscript {
-    ext.kotlin_version = '1.0.6'
     apply from: 'dependencies.gradle'
 
     repositories {
@@ -10,12 +9,11 @@ buildscript {
     }
     dependencies {
         classpath gradlePlugins.android
+        classpath gradlePlugins.kotlin
         classpath gradlePlugins.retrolambda
         classpath gradlePlugins.crashlytics
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
-apply plugin: 'kotlin'
 
 allprojects {
     repositories {
@@ -28,10 +26,4 @@ task clean(type: Delete) {
 }
 repositories {
     mavenCentral()
-}
-dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-}
-sourceSets {
-    main.java.srcDirs += 'src/main/kotlin'
 }

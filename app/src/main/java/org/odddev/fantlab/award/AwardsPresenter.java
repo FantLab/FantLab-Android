@@ -19,7 +19,7 @@ import rx.subscriptions.CompositeSubscription;
 @InjectViewState
 public class AwardsPresenter extends MvpPresenter<IAwardsView> {
 
-    private List<Award> awards;
+    private List<AwardDto> awards;
 
     @Inject
     CompositeSubscription compositeSubscription;
@@ -46,7 +46,7 @@ public class AwardsPresenter extends MvpPresenter<IAwardsView> {
         }
     }
 
-    private void showAwards(List<Award> awards) {
+    private void showAwards(List<AwardDto> awards) {
         getViewState().showAwards(awards);
     }
 

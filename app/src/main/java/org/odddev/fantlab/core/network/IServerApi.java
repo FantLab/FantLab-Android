@@ -1,6 +1,6 @@
 package org.odddev.fantlab.core.network;
 
-import org.odddev.fantlab.award.Award;
+import org.odddev.fantlab.award.AwardRes;
 
 import java.util.List;
 
@@ -27,8 +27,8 @@ public interface IServerApi {
             @Field("password") String password);
 
     @GET("/awards.json")
-    Single<List<Award>> getAwards();
+    Single<List<AwardRes>> getAwards();
 
     @GET("/award{id}.json")
-    Single<Award> getAward(@Path("id") int id);
+    Single<AwardRes> getAward(@Path("id") int id);
 }

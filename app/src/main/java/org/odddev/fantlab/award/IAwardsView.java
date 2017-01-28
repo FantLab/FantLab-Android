@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface IAwardsView extends MvpView {
 
-    void showAwards(List<Award> awards);
+    void showAwards(List<AwardDto> awards);
 
     void showError(String message);
 }

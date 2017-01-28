@@ -11,7 +11,7 @@
 
         <variable
             name="award"
-            type="org.odddev.fantlab.award.Award"/>
+            type="org.odddev.fantlab.award.AwardDto"/>
 
     </data>
 
@@ -21,45 +21,48 @@
 
         <ImageView
             android:id="@+id/avatar"
-            android:layout_width="@dimen/recycler_item_image_size"
-            android:layout_height="@dimen/recycler_item_image_size"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_marginTop="@dimen/spacing_medium"
             app:isCircle="@{true}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:placeholder="@{@drawable/ic_insert_chart_black_24dp}"
-            app:srcUri="@{BuildConfig.IMAGE_STORAGE_URL + @string/award_image_url(award.awardId)}"
-            tools:ignore="ContentDescription"/>
+            app:srcUri="@{BuildConfig.IMAGE_STORAGE_URL + @string/award_image_url(award.id)}"
+            tools:ignore="ContentDescription"
+            tools:layout_editor_absoluteX="0dp"/>
 
         <TextView
             android:id="@+id/award_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/spacing_large"
-            android:layout_marginStart="@dimen/spacing_large"
             android:layout_marginTop="@dimen/spacing_medium"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{!TextUtils.isEmpty(award.name) ? award.name : award.rusname}"
+            android:text="@{!TextUtils.isEmpty(award.name) ? award.name : award.rusName}"
             android:textSize="@dimen/text_medium"
             app:font="@{@string/roboto_medium}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlHardcoded"
+            tools:layout_editor_absoluteX="0dp"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/spacing_large"
-            android:layout_marginStart="@dimen/spacing_large"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@{@string/award_short_description(award.countryName, award.minDate, award.maxDate)}"
+            android:text="@{@string/award_short_description(award.countryName, award.startYear, award.endYear)}"
             android:textSize="@dimen/text_medial"
             app:font="@{@string/roboto_regular}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/award_name"/>
+            app:layout_constraintTop_toBottomOf="@+id/award_name"
+            tools:ignore="RtlHardcoded"
+            tools:layout_editor_absoluteX="0dp"/>
 
     </android.support.constraint.ConstraintLayout>
 
