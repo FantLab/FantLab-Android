@@ -43,14 +43,14 @@ class ServerApiBuilder {
 
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(createAwardGson()))
+                .addConverterFactory(GsonConverterFactory.create(createGson()))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(httpClient);
 
         return retrofitBuilder.build().create(IServerApi.class);
     }
 
-    private static Gson createAwardGson() {
+    private static Gson createGson() {
         return new GsonBuilder()
                 .registerTypeAdapter(Award.class, new AwardDeserializer())
                 .create();

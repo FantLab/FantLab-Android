@@ -3,7 +3,7 @@ package org.odddev.fantlab.award
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
-import org.odddev.fantlab.core.utils.parseToYear
+import org.odddev.fantlab.core.utils.parseToDate
 import java.lang.reflect.Type
 
 /**
@@ -19,8 +19,8 @@ class AwardDeserializer : JsonDeserializer<Award> {
                 awardId = jsonObject.get("award_id").asString,
                 countryName = jsonObject.get("country_name")?.asString ?: "",
                 description = jsonObject.get("description")?.asString ?: "",
-                maxDate = jsonObject.get("max_date").asString.parseToYear(),
-                minDate = jsonObject.get("min_date").asString.parseToYear(),
+                maxDate = jsonObject.get("max_date").asString.parseToDate(),
+                minDate = jsonObject.get("min_date").asString.parseToDate(),
                 name = jsonObject.get("name")?.asString ?: "",
                 rusName = jsonObject.get("rus_name")?.asString ?: ""
         )
