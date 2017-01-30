@@ -36,30 +36,30 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/spacing_large"
-            android:layout_marginStart="@dimen/spacing_large"
             android:layout_marginTop="@dimen/spacing_medium"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{!TextUtils.isEmpty(award.name) ? award.name : award.rusname}"
+            android:text="@{!TextUtils.isEmpty(award.name) ? award.name : award.rusName}"
             android:textSize="@dimen/text_medium"
             app:font="@{@string/roboto_medium}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlHardcoded"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/spacing_large"
-            android:layout_marginStart="@dimen/spacing_large"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@{@string/award_short_description(award.countryName, award.minDate, award.maxDate)}"
+            android:text="@{@string/award_short_description(award.countryName, award.startYear, award.endYear)}"
             android:textSize="@dimen/text_medial"
             app:font="@{@string/roboto_regular}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/award_name"/>
+            app:layout_constraintTop_toBottomOf="@id/award_name"
+            tools:ignore="RtlHardcoded"/>
 
     </android.support.constraint.ConstraintLayout>
 
