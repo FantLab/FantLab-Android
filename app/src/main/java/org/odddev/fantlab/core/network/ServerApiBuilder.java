@@ -1,8 +1,12 @@
 package org.odddev.fantlab.core.network;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.odddev.fantlab.BuildConfig;
+import org.odddev.fantlab.award.Award;
+import org.odddev.fantlab.award.AwardDeserializer;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -39,10 +43,16 @@ class ServerApiBuilder {
 
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(createGson()))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(httpClient);
 
         return retrofitBuilder.build().create(IServerApi.class);
+    }
+
+    private static Gson createGson() {
+        return new GsonBuilder()
+                .registerTypeAdapter(Award.class, new AwardDeserializer())
+                .create();
     }
 }

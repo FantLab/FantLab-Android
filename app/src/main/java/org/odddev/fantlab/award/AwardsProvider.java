@@ -30,6 +30,7 @@ public class AwardsProvider implements IAwardsProvider {
     @Override
     public Single<List<Award>> getAwards() {
         return serverApi.getAwards()
-                .compose(schedulersResolver.applyDefaultSchedulers());
+                .compose(schedulersResolver.applyDefaultSchedulers())
+                .doOnError(Throwable::printStackTrace);
     }
 }
