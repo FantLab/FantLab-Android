@@ -28,67 +28,67 @@ import java.util.List;
 
 public class AwardsFragment extends MvpAppCompatFragment implements IAwardsView {
 
-    private AwardsFragmentBinding binding;
-    private AwardsAdapter adapter;
+	private AwardsFragmentBinding binding;
+	private AwardsAdapter adapter;
 
-    @InjectPresenter
-    AwardsPresenter presenter;
+	@InjectPresenter
+	AwardsPresenter presenter;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        binding = AwardsFragmentBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
+	@Nullable
+	@Override
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+							 @Nullable Bundle savedInstanceState) {
+		binding = AwardsFragmentBinding.inflate(inflater, container, false);
+		return binding.getRoot();
+	}
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        presenter.getAwards();
+	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		presenter.getAwards();
 
-        initToolbar();
-        setHasOptionsMenu(true);
+		initToolbar();
+		setHasOptionsMenu(true);
 
-        initRecyclerView();
-    }
+		initRecyclerView();
+	}
 
-    private void initToolbar() {
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(binding.toolbar);
-        ActionBar actionBar = activity.getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(R.string.nav_awards);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-    }
+	private void initToolbar() {
+		AppCompatActivity activity = (AppCompatActivity) getActivity();
+		activity.setSupportActionBar(binding.toolbar);
+		ActionBar actionBar = activity.getSupportActionBar();
+		if (actionBar != null) {
+			actionBar.setTitle(R.string.nav_awards);
+			actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+			actionBar.setDisplayHomeAsUpEnabled(true);
+		}
+	}
 
-    private void initRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        binding.awards.setLayoutManager(layoutManager);
-        adapter = new AwardsAdapter();
-        binding.awards.setAdapter(adapter);
-    }
+	private void initRecyclerView() {
+		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+		binding.awards.setLayoutManager(layoutManager);
+		adapter = new AwardsAdapter();
+		binding.awards.setAdapter(adapter);
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home: {
-                ((DrawerLayout) getActivity().findViewById(R.id.drawer_layout))
-                        .openDrawer(GravityCompat.START);
-                break;
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home: {
+				((DrawerLayout) getActivity().findViewById(R.id.drawer_layout))
+						.openDrawer(GravityCompat.START);
+				break;
+			}
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
-    @Override
-    public void showAwards(List<Award> awards) {
-        adapter.setAwards(awards);
-    }
+	@Override
+	public void showAwards(List<Award> awards) {
+		adapter.setAwards(awards);
+	}
 
-    @Override
-    public void showError(String message) {
-        Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_LONG).show();
-    }
+	@Override
+	public void showError(String message) {
+		Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_LONG).show();
+	}
 }

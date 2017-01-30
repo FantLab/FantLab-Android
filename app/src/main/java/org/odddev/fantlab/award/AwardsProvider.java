@@ -17,19 +17,19 @@ import rx.Single;
 
 public class AwardsProvider implements IAwardsProvider {
 
-    @Inject
-    ISchedulersResolver schedulersResolver;
+	@Inject
+	ISchedulersResolver schedulersResolver;
 
-    @Inject
-    IServerApi serverApi;
+	@Inject
+	IServerApi serverApi;
 
-    public AwardsProvider() {
-        Injector.getAppComponent().inject(this);
-    }
+	public AwardsProvider() {
+		Injector.INSTANCE.getAppComponent().inject(this);
+	}
 
-    @Override
-    public Single<List<Award>> getAwards() {
-        return serverApi.getAwards()
-                .compose(schedulersResolver.applyDefaultSchedulers());
-    }
+	@Override
+	public Single<List<Award>> getAwards() {
+		return serverApi.getAwards()
+				.compose(schedulersResolver.applyDefaultSchedulers());
+	}
 }

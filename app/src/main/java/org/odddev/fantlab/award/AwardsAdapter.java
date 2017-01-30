@@ -18,40 +18,40 @@ import java.util.List;
 
 public class AwardsAdapter extends RecyclerView.Adapter<AwardsAdapter.AwardViewHolder> {
 
-    private List<Award> awards;
+	private List<Award> awards;
 
-    public AwardsAdapter() {
-        awards = new ArrayList<>();
-    }
+	public AwardsAdapter() {
+		awards = new ArrayList<>();
+	}
 
-    @Override
-    public AwardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new AwardViewHolder(DataBindingUtil.inflate(inflater, R.layout.award_item, parent, false));
-    }
+	@Override
+	public AwardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+		LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+		return new AwardViewHolder(DataBindingUtil.inflate(inflater, R.layout.award_item, parent, false));
+	}
 
-    @Override
-    public void onBindViewHolder(AwardViewHolder holder, int position) {
-        holder.binding.setAward(awards.get(position));
-    }
+	@Override
+	public void onBindViewHolder(AwardViewHolder holder, int position) {
+		holder.binding.setAward(awards.get(position));
+	}
 
-    @Override
-    public int getItemCount() {
-        return awards.size();
-    }
+	@Override
+	public int getItemCount() {
+		return awards.size();
+	}
 
-    void setAwards(List<Award> awards) {
-        this.awards = awards;
-        notifyDataSetChanged();
-    }
+	void setAwards(List<Award> awards) {
+		this.awards = awards;
+		notifyDataSetChanged();
+	}
 
-    class AwardViewHolder extends RecyclerView.ViewHolder {
+	class AwardViewHolder extends RecyclerView.ViewHolder {
 
-        AwardItemBinding binding;
+		AwardItemBinding binding;
 
-        AwardViewHolder(AwardItemBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
-    }
+		AwardViewHolder(AwardItemBinding binding) {
+			super(binding.getRoot());
+			this.binding = binding;
+		}
+	}
 }

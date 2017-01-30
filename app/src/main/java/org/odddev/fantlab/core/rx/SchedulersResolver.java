@@ -1,5 +1,7 @@
 package org.odddev.fantlab.core.rx;
 
+import android.support.annotation.NonNull;
+
 import rx.Scheduler;
 import rx.Single;
 import rx.android.schedulers.AndroidSchedulers;
@@ -12,19 +14,22 @@ import rx.schedulers.Schedulers;
 
 public class SchedulersResolver implements ISchedulersResolver {
 
-    @Override
-    public Scheduler ioScheduler() {
-        return Schedulers.io();
-    }
+	@NonNull
+	@Override
+	public Scheduler ioScheduler() {
+		return Schedulers.io();
+	}
 
-    @Override
-    public Scheduler mainThreadScheduler() {
-        return AndroidSchedulers.mainThread();
-    }
+	@NonNull
+	@Override
+	public Scheduler mainThreadScheduler() {
+		return AndroidSchedulers.mainThread();
+	}
 
-    public <T> Single.Transformer<T, T> applyDefaultSchedulers() {
-        return single -> single
-                .subscribeOn(ioScheduler())
-                .observeOn(mainThreadScheduler());
-    }
+	@NonNull
+	public <T> Single.Transformer<T, T> applyDefaultSchedulers() {
+		return single -> single
+				.subscribeOn(ioScheduler())
+				.observeOn(mainThreadScheduler());
+	}
 }

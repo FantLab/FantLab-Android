@@ -19,44 +19,44 @@ import rx.subscriptions.CompositeSubscription;
 @InjectViewState
 public class AwardsPresenter extends MvpPresenter<IAwardsView> {
 
-    private List<Award> awards;
+	private List<Award> awards;
 
-    @Inject
-    CompositeSubscription compositeSubscription;
+	@Inject
+	CompositeSubscription compositeSubscription;
 
-    @Inject
-    IAwardsProvider awardsProvider;
+	@Inject
+	IAwardsProvider awardsProvider;
 
-    public AwardsPresenter() {
-        Injector.getAppComponent().inject(this);
-    }
+	public AwardsPresenter() {
+		Injector.INSTANCE.getAppComponent().inject(this);
+	}
 
-    void getAwards() {
-        if (awards != null) {
-            showAwards(awards);
-        } else {
-            compositeSubscription.add(awardsProvider
-                    .getAwards()
-                    .subscribe(
-                            awards -> {
-                                this.awards = awards;
-                                showAwards(awards);
-                            },
-                            throwable -> showError(throwable.getLocalizedMessage())));
-        }
-    }
+	void getAwards() {
+		if (awards != null) {
+			showAwards(awards);
+		} else {
+			compositeSubscription.add(awardsProvider
+					.getAwards()
+					.subscribe(
+							awards -> {
+								this.awards = awards;
+								showAwards(awards);
+							},
+							throwable -> showError(throwable.getLocalizedMessage())));
+		}
+	}
 
-    private void showAwards(List<Award> awards) {
-        getViewState().showAwards(awards);
-    }
+	private void showAwards(List<Award> awards) {
+		getViewState().showAwards(awards);
+	}
 
-    private void showError(String error) {
-        getViewState().showError(error);
-    }
+	private void showError(String error) {
+		getViewState().showError(error);
+	}
 
-    @Override
-    public void onDestroy() {
-        compositeSubscription.unsubscribe();
-        super.onDestroy();
-    }
+	@Override
+	public void onDestroy() {
+		compositeSubscription.unsubscribe();
+		super.onDestroy();
+	}
 }

@@ -35,15 +35,22 @@ ext.versions = [
         stetho                  : '1.4.2',
 
         junit                   : '4.12',
+
+        kotlin                  : '1.0.6'
 ]
 
 ext.gradlePlugins = [
         android     : "com.android.tools.build:gradle:$versions.androidGradlePlugin",
+        kotlin      : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin",
         retrolambda : "me.tatarka:gradle-retrolambda:$versions.retrolambdaGradlePlugin",
         crashlytics : "io.fabric.tools:gradle:$versions.crashlyticsGradlePlugin",
 ]
 
 ext.libraries = [
+        kotlin                   : "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin",
+
+        dataBindingCompiler      : "com.android.databinding:compiler:$versions.androidGradlePlugin",
+
         moxy                     : "com.arello-mobile:moxy:$versions.moxy",
         moxyAppCompat            : "com.arello-mobile:moxy-app-compat:$versions.moxy",
         moxyCompiler             : "com.arello-mobile:moxy-compiler:$versions.moxy",
