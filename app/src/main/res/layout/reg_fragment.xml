@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="org.odddev.fantlab.auth.reg.RegValidator.FIELD"/>
+        <import type="org.odddev.fantlab.auth.reg.RegValidator"/>
 
         <variable
             name="handler"
@@ -17,7 +17,7 @@
 
     </data>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                app:error="@{regValidator.fieldErrors[FIELD.USERNAME]}">
+                app:error="@{regValidator.fieldErrors[RegValidator.USERNAME]}">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/username"
@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/register.username.input"
                     android:inputType="text"
-                    android:text="@={regValidator.fields[FIELD.USERNAME]}"/>
+                    android:text="@={regValidator.fields[RegValidator.USERNAME]}"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                app:error="@{regValidator.fieldErrors[FIELD.PASSWORD]}">
+                app:error="@{regValidator.fieldErrors[RegValidator.PASSWORD]}">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/password"
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/register.password.input"
                     android:inputType="textPassword"
-                    android:text="@={regValidator.fields[FIELD.PASSWORD]}"/>
+                    android:text="@={regValidator.fields[RegValidator.PASSWORD]}"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                app:error="@{regValidator.fieldErrors[FIELD.EMAIL]}">
+                app:error="@{regValidator.fieldErrors[RegValidator.EMAIL]}">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/email"
@@ -85,10 +85,9 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/register.email.input"
                     android:inputType="textEmailAddress"
-                    android:text="@={regValidator.fields[FIELD.EMAIL]}"/>
+                    android:text="@={regValidator.fields[RegValidator.EMAIL]}"/>
 
             </android.support.design.widget.TextInputLayout>
-
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -165,13 +164,107 @@
                     android:hint="@string/register.birthday.input"
                     android:inputType="datetime"
                     android:maxLines="1"
-                    android:text="@={regValidator.fields[FIELD.BIRTH_DATE]}"
+                    android:text="@={regValidator.fields[RegValidator.BIRTH_DATE]}"
                     app:onClick="@{handler::pickDate}"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/register.location.caption"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"/>
+
+                <RadioGroup
+                    android:id="@+id/location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@+id/location_id"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/location_id"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/register.location.id"
+                        android:textSize="16sp"/>
+
+                    <RadioButton
+                        android:id="@+id/location_string"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/register.location.string"
+                        android:textSize="16sp"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:error="@{regValidator.fieldErrors[RegValidator.WEB_PAGE]}">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/web_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/register.web_page.input"
+                    android:inputType="textUri"
+                    android:text="@={regValidator.fields[RegValidator.WEB_PAGE]}"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:error="@{regValidator.fieldErrors[RegValidator.SKYPE]}">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/skype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/register.skype.input"
+                    android:text="@={regValidator.fields[RegValidator.SKYPE]}"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:error="@{regValidator.fieldErrors[RegValidator.ICQ]}">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/icq"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/register.icq.input"
+                    android:inputType="number"
+                    android:text="@={regValidator.fields[RegValidator.ICQ]}"/>
 
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
 
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </layout>

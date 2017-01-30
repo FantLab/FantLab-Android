@@ -26,8 +26,7 @@ android {
         versionCode versions.major * 1000 + versions.minor * 100 + versions.patch
         versionName "${versions.major}.${versions.minor}.${versions.patch}"
 
-        /*archivesBaseName = "fantlab-${versionName}"*/
-        archivesBaseName = "fantlab"
+        archivesBaseName = "fantlab-${versionName}"
     }
 
     compileOptions {
@@ -116,13 +115,15 @@ kapt {
 dependencies {
     compile libraries.kotlin
 
+    kapt libraries.dataBindingCompiler
+
     compile libraries.moxy
     compile libraries.moxyAppCompat
-    provided libraries.moxyCompiler
+    kapt libraries.moxyCompiler
     compile libraries.cicerone
 
     compile libraries.dagger
-    annotationProcessor libraries.daggerCompiler
+    kapt libraries.daggerCompiler
 
     compile libraries.rxJava
     compile libraries.rxAndroid
@@ -142,7 +143,7 @@ dependencies {
     compile libraries.glide
 
     compile libraries.timber
-    compile(libraries.crashlytics) {
+    compile (libraries.crashlytics) {
         transitive = true;
     }
 

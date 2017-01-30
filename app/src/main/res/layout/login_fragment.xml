@@ -6,7 +6,7 @@
 
     <data>
 
-        <import type="org.odddev.fantlab.auth.login.LoginValidator.FIELD"/>
+        <import type="org.odddev.fantlab.auth.login.LoginValidator"/>
 
         <variable
             name="handler"
@@ -81,7 +81,7 @@
                     android:layout_marginLeft="@dimen/spacing_big"
                     android:layout_marginRight="@dimen/spacing_big"
                     android:layout_marginTop="@dimen/spacing_small"
-                    app:error="@{loginValidator.fieldErrors[FIELD.USERNAME]}"
+                    app:error="@{loginValidator.fieldErrors[LoginValidator.USERNAME]}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/auth_caption">
@@ -93,7 +93,7 @@
                         android:hint="@string/auth.username.input"
                         android:inputType="text"
                         android:maxLength="16"
-                        android:text="@={loginValidator.fields[FIELD.USERNAME]}"/>
+                        android:text="@={loginValidator.fields[LoginValidator.USERNAME]}"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/spacing_big"
                     android:layout_marginRight="@dimen/spacing_big"
-                    app:error="@{loginValidator.fieldErrors[FIELD.PASSWORD]}"
+                    app:error="@{loginValidator.fieldErrors[LoginValidator.PASSWORD]}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/username_layout">
@@ -114,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/auth.password.input"
                         android:inputType="textPassword"
-                        android:text="@={loginValidator.fields[FIELD.PASSWORD]}"/>
+                        android:text="@={loginValidator.fields[LoginValidator.PASSWORD]}"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -156,8 +156,9 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/login"
-                    app:layout_constraintTop_toBottomOf="@id/password_layout"/>
-                <!--app:onClick="@{handler::register}"-->
+                    app:layout_constraintTop_toBottomOf="@id/password_layout"
+                    app:onClick="@{handler::register}"/>
+
                 <!--<Button
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"

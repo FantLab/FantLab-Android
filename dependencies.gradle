@@ -12,7 +12,7 @@ ext.versions = [
         retrolambdaGradlePlugin: '3.2.5',
         crashlyticsGradlePlugin: '1.+',
 
-        moxy                   : '1.3.3',
+        moxy                   : '1.4.5',
         cicerone               : '1.1',
 
         dagger                 : '2.8',
@@ -47,12 +47,14 @@ ext.gradlePlugins = [
 ]
 
 ext.libraries = [
+        kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin",
+
+        dataBindingCompiler     : "com.android.databinding:compiler:$versions.androidGradlePlugin",
+
         moxy                    : "com.arello-mobile:moxy:$versions.moxy",
         moxyAppCompat           : "com.arello-mobile:moxy-app-compat:$versions.moxy",
         moxyCompiler            : "com.arello-mobile:moxy-compiler:$versions.moxy",
         cicerone                : "ru.terrakok.cicerone:cicerone:$versions.cicerone",
-
-        kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin",
 
         dagger                  : "com.google.dagger:dagger:$versions.dagger",
         daggerCompiler          : "com.google.dagger:dagger-compiler:$versions.dagger",
