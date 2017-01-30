@@ -18,11 +18,7 @@ import java.util.ArrayList
 
 class AwardsAdapter : RecyclerView.Adapter<AwardsAdapter.AwardViewHolder>() {
 
-	private var awards: List<Award>? = null
-
-	init {
-		awards = ArrayList<Award>()
-	}
+	private var awards: List<Award> = ArrayList()
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AwardViewHolder {
 		val inflater = LayoutInflater.from(parent.context)
@@ -30,11 +26,11 @@ class AwardsAdapter : RecyclerView.Adapter<AwardsAdapter.AwardViewHolder>() {
 	}
 
 	override fun onBindViewHolder(holder: AwardViewHolder, position: Int) {
-		holder.binding.award = awards!![position]
+		holder.binding.award = awards[position]
 	}
 
 	override fun getItemCount(): Int {
-		return awards!!.size
+		return awards.size
 	}
 
 	internal fun setAwards(awards: List<Award>) {
@@ -42,5 +38,5 @@ class AwardsAdapter : RecyclerView.Adapter<AwardsAdapter.AwardViewHolder>() {
 		notifyDataSetChanged()
 	}
 
-	internal inner class AwardViewHolder(var binding: AwardItemBinding) : RecyclerView.ViewHolder(binding.root)
+	inner class AwardViewHolder(var binding: AwardItemBinding) : RecyclerView.ViewHolder(binding.root)
 }

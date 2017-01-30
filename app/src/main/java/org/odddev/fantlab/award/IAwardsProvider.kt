@@ -10,5 +10,5 @@ import rx.Single
 
 interface IAwardsProvider {
 
-	val awards: Single<List<Award>>
+	fun getAwards(): Single<List<Award>>
 }

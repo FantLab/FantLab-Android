@@ -10,7 +10,6 @@ import java.lang.reflect.Type
  * Created by kefir on 28.01.2017.
  */
 class AwardDeserializer : JsonDeserializer<Award> {
-    private val TAG = "AwardDeserializer"
 
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext?): Award {
         val jsonObject = json.asJsonObject

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -26,20 +25,20 @@ import org.odddev.fantlab.databinding.AwardsFragmentBinding
 
 class AwardsFragment : MvpAppCompatFragment(), IAwardsView {
 
-	private var binding: AwardsFragmentBinding? = null
-	private var adapter: AwardsAdapter? = null
+	private lateinit var binding: AwardsFragmentBinding
+	private lateinit var adapter: AwardsAdapter
 
 	@InjectPresenter
-	internal var presenter: AwardsPresenter? = null
+	lateinit var presenter: AwardsPresenter
 
 	override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
 							  savedInstanceState: Bundle?): View? {
 		binding = AwardsFragmentBinding.inflate(inflater, container, false)
-		return binding!!.root
+		return binding.root
 	}
 
 	override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-		presenter!!.getAwards()
+		presenter.getAwards()
 
 		initToolbar()
 		setHasOptionsMenu(true)
@@ -49,7 +48,7 @@ class AwardsFragment : MvpAppCompatFragment(), IAwardsView {
 
 	private fun initToolbar() {
 		val activity = activity as AppCompatActivity
-		activity.setSupportActionBar(binding!!.toolbar)
+		activity.setSupportActionBar(binding.toolbar)
 		val actionBar = activity.supportActionBar
 		if (actionBar != null) {
 			actionBar.setTitle(R.string.nav_awards)
@@ -60,9 +59,9 @@ class AwardsFragment : MvpAppCompatFragment(), IAwardsView {
 
 	private fun initRecyclerView() {
 		val layoutManager = LinearLayoutManager(context)
-		binding!!.awards.layoutManager = layoutManager
+		binding.awards.layoutManager = layoutManager
 		adapter = AwardsAdapter()
-		binding!!.awards.adapter = adapter
+		binding.awards.adapter = adapter
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -76,10 +75,10 @@ class AwardsFragment : MvpAppCompatFragment(), IAwardsView {
 	}
 
 	override fun showAwards(awards: List<Award>) {
-		adapter!!.setAwards(awards)
+		adapter.setAwards(awards)
 	}
 
 	override fun showError(message: String) {
-		Snackbar.make(binding!!.root, message, Snackbar.LENGTH_LONG).show()
+		Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
 	}
 }

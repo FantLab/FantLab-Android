@@ -1,6 +1,8 @@
 package org.odddev.fantlab.core.network
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 
 import org.odddev.fantlab.BuildConfig
 
@@ -10,6 +12,10 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
+import org.odddev.fantlab.award.AwardDeserializer
+import org.odddev.fantlab.award.Award
+
+
 
 /**
  * @author kenrube
@@ -37,10 +43,14 @@ internal object ServerApiBuilder {
 
 		val retrofitBuilder = Retrofit.Builder()
 				.baseUrl(BuildConfig.BASE_URL)
-				.addConverterFactory(GsonConverterFactory.create())
+				.addConverterFactory(GsonConverterFactory.create(createGson()))
 				.addCallAdapterFactory(RxJavaCallAdapterFactory.create())
 				.client(httpClient)
 
 		return retrofitBuilder.build().create(IServerApi::class.java)
 	}
+
+	private fun createGson(): Gson = GsonBuilder()
+			.registerTypeAdapter(Award::class.java, AwardDeserializer())
+			.create()
 }

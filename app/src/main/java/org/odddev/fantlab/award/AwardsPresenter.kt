@@ -2,12 +2,9 @@ package org.odddev.fantlab.award
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-
 import org.odddev.fantlab.core.di.Injector
-
-import javax.inject.Inject
-
 import rx.subscriptions.CompositeSubscription
+import javax.inject.Inject
 
 /**
  * @author kenrube
@@ -21,10 +18,10 @@ class AwardsPresenter : MvpPresenter<IAwardsView>() {
 	private var awards: List<Award>? = null
 
 	@Inject
-	internal var compositeSubscription: CompositeSubscription? = null
+	lateinit var compositeSubscription: CompositeSubscription
 
 	@Inject
-	internal var awardsProvider: IAwardsProvider? = null
+	lateinit var awardsProvider: IAwardsProvider
 
 	init {
 		Injector.getAppComponent().inject(this)
@@ -32,16 +29,15 @@ class AwardsPresenter : MvpPresenter<IAwardsView>() {
 
 	internal fun getAwards() {
 		if (awards != null) {
-			showAwards(awards)
+			showAwards(awards as List<Award>)
 		} else {
-			compositeSubscription!!.add(awardsProvider!!
+			compositeSubscription.add(awardsProvider
 					.getAwards()
 					.subscribe(
 							{ awards ->
 								this.awards = awards
 								showAwards(awards)
-							}
-					) { throwable -> showError(throwable.getLocalizedMessage()) })
+							}))
 		}
 	}
 
@@ -49,12 +45,12 @@ class AwardsPresenter : MvpPresenter<IAwardsView>() {
 		viewState.showAwards(awards)
 	}
 
-	private fun showError(error: String) {
+	/*private fun showError(error: String) {
 		viewState.showError(error)
-	}
+	}*/
 
 	override fun onDestroy() {
-		compositeSubscription!!.unsubscribe()
+		compositeSubscription.unsubscribe()
 		super.onDestroy()
 	}
 }

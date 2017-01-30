@@ -17,17 +17,16 @@ import rx.Single
 class AwardsProvider : IAwardsProvider {
 
 	@Inject
-	internal var schedulersResolver: ISchedulersResolver? = null
+	lateinit var schedulersResolver: ISchedulersResolver
 
 	@Inject
-	internal var serverApi: IServerApi? = null
+	lateinit var serverApi: IServerApi
 
 	init {
 		Injector.getAppComponent().inject(this)
 	}
 
 	override fun getAwards(): Single<List<Award>> {
-		return serverApi!!.getAwards()
-				.compose(schedulersResolver!!.applyDefaultSchedulers<List<Award>>())
+		return serverApi.getAwards().compose(schedulersResolver.applyDefaultSchedulers<List<Award>>())
 	}
 }
