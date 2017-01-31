@@ -34,7 +34,7 @@ class AuthActivity : FragmentActivity() {
 
 	companion object {
 
-		@JvmOverloads fun start(context: Context, flags: Int = Intent.FLAG_ACTIVITY_NEW_TASK or IntentCompat.FLAG_ACTIVITY_CLEAR_TASK) {
+		fun start(context: Context, flags: Int = Intent.FLAG_ACTIVITY_NEW_TASK or IntentCompat.FLAG_ACTIVITY_CLEAR_TASK) {
 			val intent = Intent(context, AuthActivity::class.java)
 			intent.flags = intent.flags or flags
 			context.startActivity(intent)

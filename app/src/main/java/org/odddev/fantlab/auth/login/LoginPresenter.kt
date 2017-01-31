@@ -2,13 +2,10 @@ package org.odddev.fantlab.auth.login
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-
 import org.odddev.fantlab.auth.IAuthProvider
 import org.odddev.fantlab.core.di.Injector
-
-import javax.inject.Inject
-
 import rx.subscriptions.CompositeSubscription
+import javax.inject.Inject
 
 /**
  * @author kenrube
@@ -17,7 +14,7 @@ import rx.subscriptions.CompositeSubscription
  */
 
 @InjectViewState
-class LoginPresenter internal constructor() : MvpPresenter<ILoginView>() {
+class LoginPresenter : MvpPresenter<ILoginView>() {
 
 	@Inject
 	lateinit var compositeSubscription: CompositeSubscription

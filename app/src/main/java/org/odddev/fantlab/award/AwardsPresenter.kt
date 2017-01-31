@@ -37,6 +37,9 @@ class AwardsPresenter : MvpPresenter<IAwardsView>() {
 							{ awards ->
 								this.awards = awards
 								showAwards(awards)
+							},
+							{ error ->
+								viewState.showError(error.message ?: "")
 							}))
 		}
 	}
@@ -44,10 +47,6 @@ class AwardsPresenter : MvpPresenter<IAwardsView>() {
 	private fun showAwards(awards: List<Award>) {
 		viewState.showAwards(awards)
 	}
-
-	/*private fun showError(error: String) {
-		viewState.showError(error)
-	}*/
 
 	override fun onDestroy() {
 		compositeSubscription.unsubscribe()
