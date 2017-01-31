@@ -8,8 +8,6 @@ branches:
 
 before_install:
   - chmod +x gradlew
-  - mkdir -p ${ANDROID_HOME}/licenses
-  - echo $ANDROID_SDK_LICENSE > ${ANDROID_HOME}/licenses/android-sdk-license
 
 script: ./gradlew dependencies || true && ./gradlew clean assembleDebug
 
@@ -19,3 +17,6 @@ android:
     - tools
     - build-tools-25.0.0
     - android-25
+    - extra-android-support
+    - extra-android-m2repository
+    - extra-google-m2repository
