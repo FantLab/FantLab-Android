@@ -8,13 +8,10 @@ branches:
 
 before_install:
   - chmod +x gradlew
+  - mkdir -p ${ANDROID_HOME}/licenses
+  - echo $ANDROID_SDK_LICENSE > ${ANDROID_HOME}/licenses/android-sdk-license
+  - bash ./misc/download_keystore.sh
 
-mkdir "${ANDROID_HOME}/licenses" || true && \
-echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" \
-     > "${ANDROID_HOME}/licenses/android-sdk-license" && \
-echo -e "\nd23d63a1f23e25e2c7a316e29eb60396e7924281" \
-     > "${ANDROID_HOME}/licenses/android-sdk-preview-license"
-     
 script: ./gradlew dependencies || true && ./gradlew clean assembleDebug
 
 android:
