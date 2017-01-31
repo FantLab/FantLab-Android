@@ -1,18 +1,21 @@
 language: android
 jdk: oraclejdk8
-sudo: true
+sudo: false
 
 branches:
   only:
     - master
 
+before_install:
+  - chmod +x gradlew
+ 
 script: ./gradlew clean assembleDebug
 
 android:
   components:
-      - platform-tools
-      - tools
-      - build-tools-24.0.3
-      - android-22
-      - sys-img-armeabi-v7a-android-22
-      - extra-android-m2repository
+    - platform-tools
+    - tools
+    - build-tools-24.0.3
+    - android-22
+    - sys-img-armeabi-v7a-android-22
+    - extra-android-m2repository
