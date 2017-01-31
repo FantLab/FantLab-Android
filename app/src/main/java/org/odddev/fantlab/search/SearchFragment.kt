@@ -47,7 +47,7 @@ class SearchFragment : MvpAppCompatFragment() {
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-		when (item!!.itemId) {
+		when (item?.itemId) {
 			android.R.id.home -> {
 				(activity.findViewById(R.id.drawer_layout) as DrawerLayout)
 						.openDrawer(GravityCompat.START)

@@ -15,9 +15,9 @@ import javax.inject.Inject
  */
 
 @InjectViewState
-class RegPresenter internal constructor() : MvpPresenter<IRegView>() {
+class RegPresenter : MvpPresenter<IRegView>() {
 
-	private var regSubscription: Subscription? = null
+	private lateinit var regSubscription: Subscription
 
 	@Inject
 	lateinit var compositeSubscription: CompositeSubscription
@@ -38,7 +38,7 @@ class RegPresenter internal constructor() : MvpPresenter<IRegView>() {
 				.subscribe(
 						{ this.showResult(it) }
 				)
-		compositeSubscription.add(regSubscription!!)
+		compositeSubscription.add(regSubscription)
 	}
 
 	private fun showResult(hasCookie: Boolean) {
