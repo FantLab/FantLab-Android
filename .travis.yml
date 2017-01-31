@@ -6,7 +6,7 @@ branches:
   only:
     - master
 
-script: gradle clean assembleDebug
+script: ./gradlew clean assembleDebug
 
 android:
   components:
