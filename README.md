@@ -1,5 +1,6 @@
 # Fantlab-client
 [![Build Status](https://travis-ci.org/FanDevs/Fantlab-client.svg?branch=master)](https://travis-ci.org/FanDevs/Fantlab-client)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # License
 MIT License
