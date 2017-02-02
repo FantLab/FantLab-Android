@@ -194,24 +194,66 @@
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/location_id"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/register.location.id"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+						app:onCheck="@{handler::chooseLocation}"/>
 
                     <RadioButton
-                        android:id="@+id/location_string"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/register.location.string"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+						app:onCheck="@{handler::enterLocationManually}"/>
 
                 </RadioGroup>
 
             </LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/location_id"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:visibility="gone">
+
+				<Spinner
+					android:id="@+id/country"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+
+				<Spinner
+					android:id="@+id/region"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+
+				<Spinner
+					android:id="@+id/city"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+
+			</LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:error="@{regValidator.fieldErrors[RegValidator.LOCATION_STRING]}">
+
+                <android.support.design.widget.TextInputEditText
+					android:id="@+id/location_string"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/register.location.string.input"
+                    android:inputType="text"
+                    android:text="@={regValidator.fields[RegValidator.LOCATION_STRING]}"
+					android:visibility="gone"/>
+
+            </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"

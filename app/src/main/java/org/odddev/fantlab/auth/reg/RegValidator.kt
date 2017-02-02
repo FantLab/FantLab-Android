@@ -21,9 +21,10 @@ class RegValidator internal constructor(context: Context) : Validator() {
 		const val PASSWORD = 1
 		const val EMAIL = 2
 		const val BIRTH_DATE = 3
-		const val WEB_PAGE = 4
-		const val SKYPE = 5
-		const val ICQ = 6
+		const val LOCATION_STRING = 4
+		const val WEB_PAGE = 5
+		const val SKYPE = 6
+		const val ICQ = 7
 	}
 
 	private val resources: Resources = context.resources
@@ -39,7 +40,7 @@ class RegValidator internal constructor(context: Context) : Validator() {
 
 	public override fun areFieldsValid(): Boolean {
 		var result = true
-		for (i in 0..6) {
+		for (i in 0..7) {
 			validate(i)
 			if (fieldErrors[i] != null) result = false
 		}
@@ -61,6 +62,7 @@ class RegValidator internal constructor(context: Context) : Validator() {
 			else
 				null
 			BIRTH_DATE -> return null
+			LOCATION_STRING -> return null
 			WEB_PAGE -> return if (value == null || !Patterns.WEB_URL.matcher(value).matches())
 				resources.getString(R.string.register_url_incorrect)
 			else
