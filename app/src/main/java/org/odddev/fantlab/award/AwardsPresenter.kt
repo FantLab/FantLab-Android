@@ -39,7 +39,7 @@ class AwardsPresenter : MvpPresenter<IAwardsView>() {
 								showAwards(awards)
 							},
 							{ error ->
-								viewState.showError(error.message ?: "")
+								viewState.showError(error.message ?: "Error")
 							}))
 		}
 	}
@@ -50,6 +50,9 @@ class AwardsPresenter : MvpPresenter<IAwardsView>() {
 
 	override fun onDestroy() {
 		compositeSubscription.unsubscribe()
-		super.onDestroy()
+	}
+
+	fun onFilterButtonClick() {
+		viewState.showFilterDialog()
 	}
 }
