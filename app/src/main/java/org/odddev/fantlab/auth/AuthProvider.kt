@@ -4,7 +4,7 @@ import android.text.TextUtils
 
 import org.odddev.fantlab.core.di.Injector
 import org.odddev.fantlab.core.network.IServerApi
-import org.odddev.fantlab.core.rx.ISchedulersResolver
+import org.odddev.fantlab.core.rx.applyDefaultSchedulers
 import org.odddev.fantlab.core.storage.StorageManager
 
 import javax.inject.Inject
@@ -18,9 +18,6 @@ import rx.Single
  */
 
 class AuthProvider : IAuthProvider {
-
-	@Inject
-	lateinit var schedulersResolver: ISchedulersResolver
 
 	@Inject
 	lateinit var serverApi: IServerApi
@@ -43,7 +40,7 @@ class AuthProvider : IAuthProvider {
 					storageManager.saveUsername(username)
 					!TextUtils.isEmpty(cookie)
 				})
-				.compose(schedulersResolver.applyDefaultSchedulers<Boolean>())
+				.applyDefaultSchedulers()
 	}
 
 	override fun register(username: String, password: String, email: String): Single<Boolean> {

@@ -2,12 +2,9 @@ package org.odddev.fantlab.home
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-
 import org.odddev.fantlab.core.di.Injector
-
-import javax.inject.Inject
-
 import rx.subscriptions.CompositeSubscription
+import javax.inject.Inject
 
 /**
  * @author kenrube
@@ -29,7 +26,7 @@ class HomePresenter : MvpPresenter<IHomeView>() {
 	}
 
 	internal fun getUserName() {
-		compositeSubscription.add(provider.getUserName().subscribe({ this.showUserName(it) }))
+		compositeSubscription.add(provider.getUserName().subscribe({ showUserName(it) }))
 	}
 
 	internal fun clearCookie() {

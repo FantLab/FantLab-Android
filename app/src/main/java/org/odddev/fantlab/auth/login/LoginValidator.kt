@@ -12,7 +12,7 @@ import org.odddev.fantlab.core.validation.Validator
  * @since 17.09.16
  */
 
-class LoginValidator internal constructor(context: Context) : Validator() {
+class LoginValidator(context: Context) : Validator() {
 
 	companion object {
 
@@ -26,10 +26,10 @@ class LoginValidator internal constructor(context: Context) : Validator() {
 		val value = fields[field]
 		when (field) {
 			USERNAME -> {
-				fieldErrors.put(USERNAME, getUsernameError(value))
+				fieldErrors[USERNAME] = getUsernameError(value)
 			}
 			PASSWORD -> {
-				fieldErrors.put(PASSWORD, getPasswordError(value))
+				fieldErrors[PASSWORD] = getPasswordError(value)
 			}
 		}
 	}

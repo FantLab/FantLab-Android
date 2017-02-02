@@ -13,7 +13,7 @@ import org.odddev.fantlab.core.validation.Validator
  * @since 18.09.16
  */
 
-class RegValidator internal constructor(context: Context) : Validator() {
+class RegValidator(context: Context) : Validator() {
 
 	companion object {
 

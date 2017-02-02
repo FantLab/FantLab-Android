@@ -35,7 +35,7 @@ class StorageManager(context: Context) {
 		editor.apply()
 	}
 
-	fun loadUsername(): String? = sharedPreferences.getString(USERNAME_KEY, null)
+	fun loadUsername(): String? = sharedPreferences.getString(USERNAME_KEY, "Guest")
 
 	companion object {
 
