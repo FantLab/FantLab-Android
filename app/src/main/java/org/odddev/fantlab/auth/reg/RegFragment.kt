@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import org.odddev.fantlab.R
@@ -120,11 +121,12 @@ class RegFragment : MvpAppCompatFragment(), IRegView, IRegActions, DatePickerDia
 	}
 
 	override fun chooseLocation() {
-		//
+		binding.locationString.visibility = View.GONE
 	}
 
 	override fun enterLocationManually() {
-		//
+		binding.locationString.visibility = View.VISIBLE
+		binding.locationString.requestFocus()
 	}
 
 	override fun showRegResult(registered: Boolean) {

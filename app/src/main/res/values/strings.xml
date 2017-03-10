@@ -35,6 +35,7 @@
 	<string name="register.location.caption">Место жительства</string>
 	<string name="register.location.id">Выбрать</string>
 	<string name="register.location.string">Ввести</string>
+	<string name="register.location.string.input">Место жительства</string>
 	<string name="register.web_page.input">Домашняя страница</string>
 	<string name="register.url.incorrect">Некорректный адрес веб-страницы</string>
 	<string name="register.skype.input">Skype</string>

@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.support.design.widget.TextInputLayout
 import android.view.View
+import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -26,6 +27,12 @@ object BindingUtils {
 	@JvmStatic
 	fun bindOnClick(view: View, runnable: Runnable) {
 		view.setOnClickListener { v -> runnable.run() }
+	}
+
+	@BindingAdapter("onCheck")
+	@JvmStatic
+	fun bindOnCheck(button: CompoundButton, runnable: Runnable) {
+		button.setOnCheckedChangeListener { button, checked -> if (checked) runnable.run() }
 	}
 
 	@BindingAdapter("error")
