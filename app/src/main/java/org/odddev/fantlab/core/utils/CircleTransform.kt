@@ -32,6 +32,7 @@ internal class CircleTransform(context: Context) : BitmapTransformation(context)
 
 		val canvas = Canvas(result!!)
 		val paint = Paint()
+
 		paint.shader = BitmapShader(squared, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
 		paint.isAntiAlias = true
 		val r = size / 2f

@@ -13,4 +13,6 @@ interface IAwardsView : MvpView {
 	fun showAwards(awards: List<Award>)
 
 	fun showError(message: String)
+
+	fun showFilterDialog()
 }

@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -64,14 +62,26 @@ class AwardsFragment : MvpAppCompatFragment(), IAwardsView {
 		binding.awards.adapter = adapter
 	}
 
-	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-		when (item!!.itemId) {
-			android.R.id.home -> {
-				(activity.findViewById(R.id.drawer_layout) as DrawerLayout)
-						.openDrawer(GravityCompat.START)
-			}
+	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+		inflater.inflate(R.menu.action_bar_awards, menu)
+	}
+
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		when (item.itemId) {
+			android.R.id.home -> (activity.findViewById(R.id.drawer_layout) as DrawerLayout)
+					.openDrawer(GravityCompat.START)
+			R.id.filter_by -> presenter.onFilterButtonClick()
 		}
 		return super.onOptionsItemSelected(item)
+	}
+
+	override fun showFilterDialog() {
+		AlertDialog.Builder(context)
+				.setTitle(getString(R.string.award_filter_dialog_title))
+				.setView(R.layout.award_filter_dialog)
+				.setPositiveButton(android.R.string.ok, null)
+				.setNegativeButton(getString(R.string.award_filter_cancel), null)
+				.show()
 	}
 
 	override fun showAwards(awards: List<Award>) {

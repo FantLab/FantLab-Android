@@ -1,15 +1,12 @@
 package org.odddev.fantlab.auth
 
 import android.text.TextUtils
-
 import org.odddev.fantlab.core.di.Injector
 import org.odddev.fantlab.core.network.IServerApi
 import org.odddev.fantlab.core.rx.applyDefaultSchedulers
 import org.odddev.fantlab.core.storage.StorageManager
-
-import javax.inject.Inject
-
 import rx.Single
+import javax.inject.Inject
 
 /**
  * @author kenrube
@@ -44,7 +41,7 @@ class AuthProvider : IAuthProvider {
 	}
 
 	override fun register(username: String, password: String, email: String): Single<Boolean> {
-		return null!!
+		return Single.just(true)
 	}
 
 	companion object {

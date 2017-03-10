@@ -1,63 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Fonts -->
-    <string name="roboto.regular">sans-serif</string>
-    <string name="roboto.light">sans-serif-light</string>
-    <string name="roboto.medium">sans-serif-medium</string>
-    
-    <!-- Auth -->
-    <string name="auth.username.input">Имя пользователя</string>
-    <string name="auth.username.empty">Имя пользователя не может быть пустым</string>
-    <string name="auth.password.input">Пароль</string>
-    <string name="auth.password.empty">Пароль не может быть пустым</string>
-    <string name="auth.caption">Вход</string>
-    <string name="auth.login.button">Вход</string>
-    <string name="auth.login.error">Имя пользователя и/или пароль неверны</string>
-    <string name="auth.register.button">Регистрация</string>
-    <string name="auth.forgot.button">Забыли пароль?</string>
-    <string name="auth.entry.button">Продолжить без регистрации</string>
+	<!-- Fonts -->
+	<string name="roboto.regular" translatable="false">sans-serif</string>
+	<string name="roboto.light" translatable="false">sans-serif-light</string>
+	<string name="roboto.medium" translatable="false">sans-serif-medium</string>
 
-    <!-- Register -->
-    <string name="register.caption">Регистрация</string>
-    <string name="register.username.input">Имя пользователя</string>
-    <string name="register.username.empty">@string/auth.username.empty</string>
-    <string name="register.username.busy">Данное имя пользователя уже занято</string>
-    <string name="register.password.input">Пароль</string>
-    <string name="register.password.empty">@string/auth.password.empty</string>
-    <string name="register.email.input">E-mail</string>
-    <string name="register.email.incorrect">Некорректный адрес электронной почты</string>
-    <string name="register.gender.caption">Пол</string>
-    <string name="register.gender.male">Мужской</string>
-    <string name="register.gender.female">Женский</string>
-    <string name="register.name.input">Фамилия, имя, отчество</string>
-    <string name="register.birthday.input">Дата рождения</string>
-    <string name="register.location.caption">Место жительства</string>
-    <string name="register.location.id">Выбрать</string>
-    <string name="register.location.string">Ввести</string>
-    <string name="register.web_page.input">Домашняя страница</string>
-    <string name="register.url.incorrect">Некорректный адрес веб-страницы</string>
-    <string name="register.skype.input">Skype</string>
-    <string name="register.icq.input">ICQ</string>
-    <string name="register.icq.incorrect">Неверный UIN</string>
-    <string name="register.answer.incorrect">Неверный ответ на проверочный вопрос</string>
-    <string name="register.error">Ошибка регистрации</string>
+	<!-- Auth -->
+	<string name="auth.username.input">Имя пользователя</string>
+	<string name="auth.username.empty">Имя пользователя не может быть пустым</string>
+	<string name="auth.password.input">Пароль</string>
+	<string name="auth.password.empty">Пароль не может быть пустым</string>
+	<string name="auth.caption">Вход</string>
+	<string name="auth.login.button">Вход</string>
+	<string name="auth.login.error">Имя пользователя и/или пароль неверны</string>
+	<string name="auth.register.button">Регистрация</string>
+	<string name="auth.forgot.button">Забыли пароль?</string>
+	<string name="auth.entry.button">Продолжить без регистрации</string>
 
-    <!-- Navigation drawer menu -->
-    <string name="nav.autors">Авторы и книги</string>
-    <string name="nav.awards">Награды и премии</string>
-    <string name="nav.search">Поиск</string>
-    <string name="nav.profile">Профиль</string>
-    <string name="nav.login">Войти</string>
-    <string name="nav.logout">Выйти</string>
+	<!-- Register -->
+	<string name="register.caption">Регистрация</string>
+	<string name="register.username.input">Имя пользователя</string>
+	<string name="register.username.empty">@string/auth.username.empty</string>
+	<string name="register.username.busy">Данное имя пользователя уже занято</string>
+	<string name="register.password.input">Пароль</string>
+	<string name="register.password.empty">@string/auth.password.empty</string>
+	<string name="register.email.input">E-mail</string>
+	<string name="register.email.incorrect">Некорректный адрес электронной почты</string>
+	<string name="register.gender.caption">Пол</string>
+	<string name="register.gender.male">Мужской</string>
+	<string name="register.gender.female">Женский</string>
+	<string name="register.name.input">Фамилия, имя, отчество</string>
+	<string name="register.birthday.input">Дата рождения</string>
+	<string name="register.location.caption">Место жительства</string>
+	<string name="register.location.id">Выбрать</string>
+	<string name="register.location.string">Ввести</string>
+	<string name="register.web_page.input">Домашняя страница</string>
+	<string name="register.url.incorrect">Некорректный адрес веб-страницы</string>
+	<string name="register.skype.input">Skype</string>
+	<string name="register.icq.input">ICQ</string>
+	<string name="register.icq.incorrect">Неверный UIN</string>
+	<string name="register.answer.incorrect">Неверный ответ на проверочный вопрос</string>
+	<string name="register.error">Ошибка регистрации</string>
 
-    <!-- Navigation drawer header -->
-    <string name="nav_drawer.guest">Гость</string>
-    <string name="nav_drawer.guest.class_progress">Новичок: 0.00 / 200 баллов</string>
-    <string name="nav_drawer.user">Пользователь</string>
-    <string name="nav_drawer.user.class_progress">Грандмастер: 5000.00 / 10000</string>
+	<!-- Navigation drawer menu -->
+	<string name="nav.autors">Авторы и книги</string>
+	<string name="nav.awards">Награды и премии</string>
+	<string name="nav.search">Поиск</string>
+	<string name="nav.profile">Профиль</string>
+	<string name="nav.login">Войти</string>
+	<string name="nav.logout">Выйти</string>
 
-    <!-- Awards -->
-    <string name="award.image.url">/awards/%s</string>
-    <string name="award.short_description">%1$s, %2$s - %3$s</string>
+	<!-- Navigation drawer header -->
+	<string name="nav_drawer.guest">Гость</string>
+	<string name="nav_drawer.guest.class_progress">Новичок: 0.00 / 200 баллов</string>
+	<string name="nav_drawer.user">Пользователь</string>
+	<string name="nav_drawer.user.class_progress">Грандмастер: 5000.00 / 10000</string>
+
+	<!-- Awards -->
+	<string name="award.image.url">/awards/%s</string>
+	<string name="award.short_description">%1$s, %2$s - %3$s</string>
+	<string name="award.filter">Сортировать</string>
+	<string name="award.filter.dialog_title">Сортировать</string>
+	<string name="award.filter.cancel">Отмена</string>
+	<string name="award.filter.by_country">по стране</string>
+	<string name="award.filter.by_type">по типу</string>
+	<string name="award.filter.by_language">по языку</string>
+	<string-array name="award_countries">
+		<item>Межрегиональные премии</item>
+		<item>Болгария</item>
+		<item>Великобритания</item>
+		<item>Германия</item>
+		<item>Испания</item>
+		<item>Канада</item>
+		<item>Польша</item>
+		<item>Россия</item>
+		<item>Сербия</item>
+		<item>США</item>
+		<item>Украина</item>
+		<item>Франция</item>
+		<item>Япония</item>
+	</string-array>
+	<string-array name="award_types">
+		<item>Популярные награды</item>
+		<item>Почетные премии</item>
+		<item>Национальные премии</item>
+		<item>Тематические премии</item>
+		<item>Премии журналов и сайтов</item>
+		<item>Конвенты</item>
+		<item>Другие</item>
+	</string-array>
+	<string-array name="award_languages">
+		<item>английский</item>
+		<item>болгарский</item>
+		<item>испанский</item>
+		<item>немецкий</item>
+		<item>польский</item>
+		<item>русский</item>
+		<item>сербский</item>
+		<item>французский</item>
+		<item>японский</item>
+		<item>не указан</item>
+	</string-array>
 
 </resources>
