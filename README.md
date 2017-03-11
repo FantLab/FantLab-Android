@@ -1,5 +1,5 @@
 # Fantlab-client
-[![Build Status](https://travis-ci.org/FanDevs/Fantlab-client.svg?branch=master)](https://travis-ci.org/FanDevs/Fantlab-client)
+[![Build Status](https://travis-ci.org/kenrube/Fantlab-client.svg?branch=master)](https://travis-ci.org/FanDevs/Fantlab-client)
 ![minSdkVersion 16](https://img.shields.io/badge/minSdkVersion-16-green.svg?style=true)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -8,7 +8,7 @@
 
     MIT License
 
-    Copyright (c) 2017 FanDevs
+    Copyright (c) 2017 kenrube
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
