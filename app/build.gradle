@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
 
 repositories {
@@ -13,25 +13,19 @@ repositories {
 }
 
 android {
-    // Declared in dependencies.gradle in the root of the project.
-    compileSdkVersion versions.compileSdk
-    buildToolsVersion versions.buildTools
+    compileSdkVersion 25
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         applicationId "org.odddev.fantlab"
 
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
+        minSdkVersion 16
+        targetSdkVersion 25
 
-        versionCode versions.major * 1000 + versions.minor * 100 + versions.patch
-        versionName "${versions.major}.${versions.minor}.${versions.patch}"
+        versionCode 12
+        versionName "0.0.12"
 
         archivesBaseName = "fantlab-${versionName}"
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     dataBinding {
@@ -42,14 +36,14 @@ android {
         def STRING = "String"
         def APP_NAME = "app_name"
         def BASE_URL = "BASE_URL"
-        def IMAGE_STORAGE_URL = "IMAGE_STORAGE_URL"
+        def IMAGES_URL = "IMAGES_URL"
         def string = "string"
 
         debug {
-            buildConfigField STRING, BASE_URL, urls.dev
-            buildConfigField STRING, IMAGE_STORAGE_URL, urls.imageStorage
+            buildConfigField STRING, BASE_URL, "\"https://api.fantlab.ru\""
+            buildConfigField STRING, IMAGES_URL, "\"https://fantlab.ru/images\""
 
-            resValue string, APP_NAME, resVals.appNameDebug + "-" + defaultConfig.versionName
+            resValue string, APP_NAME, "Fantlab debug - " + defaultConfig.versionName
 
             applicationIdSuffix '.debug'
             versionNameSuffix '-DEBUG'
@@ -61,10 +55,10 @@ android {
         }
 
         qa {
-            buildConfigField STRING, BASE_URL, urls.dev
-            buildConfigField STRING, IMAGE_STORAGE_URL, urls.imageStorage
+            buildConfigField STRING, BASE_URL, "\"https://api.fantlab.ru\""
+            buildConfigField STRING, IMAGES_URL, "\"https://fantlab.ru/images\""
 
-            resValue string, APP_NAME, resVals.appNameQa + "-" + defaultConfig.versionName
+            resValue string, APP_NAME, "Fantlab test - " + defaultConfig.versionName
 
             applicationIdSuffix '.qa'
             versionNameSuffix '-QA'
@@ -78,10 +72,10 @@ android {
         }
 
         release {
-            buildConfigField STRING, BASE_URL, urls.production
-            buildConfigField STRING, IMAGE_STORAGE_URL, urls.imageStorage
+            buildConfigField STRING, BASE_URL, "\"https://api.fantlab.ru\""
+            buildConfigField STRING, IMAGES_URL, "\"https://fantlab.ru/images\""
 
-            resValue string, APP_NAME, resVals.appName
+            resValue string, APP_NAME, "Fantlab"
 
             minifyEnabled true
             shrinkResources true
@@ -113,48 +107,46 @@ kapt {
 }
 
 dependencies {
-    compile libraries.kotlin
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.6"
 
-    kapt libraries.dataBindingCompiler
+    kapt "com.android.databinding:compiler:2.3.0"
 
-    compile libraries.moxy
-    compile libraries.moxyAppCompat
-    kapt libraries.moxyCompiler
-    compile libraries.cicerone
+    compile "com.arello-mobile:moxy:1.4.5"
+    compile "com.arello-mobile:moxy-app-compat:1.4.5"
+    kapt "com.arello-mobile:moxy-compiler:1.4.5"
 
-    compile libraries.dagger
-    kapt libraries.daggerCompiler
+    compile "com.google.dagger:dagger:2.8"
+    kapt "com.google.dagger:dagger-compiler:2.8"
 
-    compile libraries.rxJava
-    compile libraries.rxAndroid
-    compile libraries.rxLint
+    compile "io.reactivex:rxjava:1.2.5"
+    compile "io.reactivex:rxandroid:1.2.1"
 
-    compile libraries.okHttpLoggingInterceptor
-    compile libraries.retrofit
-    compile libraries.retrofitRxJavaAdapter
-    compile libraries.retrofitGsonConverter
+    compile "com.squareup.okhttp3:logging-interceptor:3.5.0"
+    compile "com.squareup.retrofit2:retrofit:2.1.0"
+    compile "com.squareup.retrofit2:adapter-rxjava:2.1.0"
+    compile "com.squareup.retrofit2:converter-gson:2.1.0"
 
-    compile libraries.supportAnnotations
-    compile libraries.supportAppCompat
-    compile libraries.supportDesign
-    compile libraries.supportCardView
-    compile libraries.supportConstraintLayout
+    compile "com.android.support:support-annotations:25.2.0"
+    compile "com.android.support:appcompat-v7:25.2.0"
+    compile "com.android.support:design:25.2.0"
+    compile "com.android.support:cardview-v7:25.2.0"
+    compile "com.android.support.constraint:constraint-layout:1.0.0-beta4"
 
-    compile libraries.glide
+    compile "com.github.bumptech.glide:glide:3.7.0"
 
-    compile libraries.timber
-    compile (libraries.crashlytics) {
+    compile "com.jakewharton.timber:timber:4.1.2"
+    compile ("com.crashlytics.sdk.android:crashlytics:2.5.5@aar") {
         transitive = true;
     }
 
     // Debug tools
-    debugCompile libraries.stetho
-    debugCompile libraries.stethoOkHttp
+    debugCompile "com.facebook.stetho:stetho:1.4.2"
+    debugCompile "com.facebook.stetho:stetho-okhttp3:1.4.2"
 
-    // Qa
-    qaCompile libraries.stetho
-    qaCompile libraries.stethoOkHttp
+    // QA tools
+    qaCompile "com.facebook.stetho:stetho:1.4.2"
+    qaCompile "com.facebook.stetho:stetho-okhttp3:1.4.2"
 
     // Test tools
-    testCompile libraries.junit
+    testCompile "junit:junit:4.12"
 }

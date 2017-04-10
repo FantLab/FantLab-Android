@@ -24,4 +24,9 @@ interface IServerApi {
 
 	@GET("/award{id}.json")
 	fun getAward(@Path("id") id: Int): Single<Award>
+
+	@GET("/autorsall.json")
+	fun getAutors(): Single<Void>
+
+
 }
