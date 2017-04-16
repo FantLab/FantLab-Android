@@ -1,10 +1,9 @@
 package org.odddev.fantlab.core.network
 
-import okhttp3.ResponseBody
 import org.odddev.fantlab.autors.AutorsResponse
 import org.odddev.fantlab.award.Award
-import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Path
 import rx.Single
 
 /**
@@ -14,11 +13,6 @@ import rx.Single
  */
 
 interface IServerApi {
-
-	@FormUrlEncoded
-	@POST("/login")
-	fun login(@Field("login") login: String,
-			  @Field("password") password: String): Single<Response<ResponseBody>>
 
 	@GET("/awards.json")
 	fun getAwards(): Single<List<Award>>

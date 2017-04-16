@@ -1,9 +1,6 @@
 package org.odddev.fantlab.core.di
 
 import dagger.Component
-import org.odddev.fantlab.auth.AuthProvider
-import org.odddev.fantlab.auth.login.LoginPresenter
-import org.odddev.fantlab.auth.reg.RegPresenter
 import org.odddev.fantlab.autors.AutorsPresenter
 import org.odddev.fantlab.autors.AutorsProvider
 import org.odddev.fantlab.award.AwardsPresenter
@@ -29,12 +26,6 @@ import javax.inject.Singleton
 interface AppComponent {
 
 	fun inject(networkChecker: NetworkChecker)
-
-	fun inject(loginPresenter: LoginPresenter)
-
-	fun inject(userProvider: AuthProvider)
-
-	fun inject(regPresenter: RegPresenter)
 
 	fun inject(launchActivity: LaunchActivity)
 
