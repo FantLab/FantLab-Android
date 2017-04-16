@@ -3,17 +3,17 @@ package org.odddev.fantlab.core.network
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-
-import org.odddev.fantlab.BuildConfig
-
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.odddev.fantlab.BuildConfig
+import org.odddev.fantlab.autors.Autor
+import org.odddev.fantlab.autors.AutorDeserializer
+import org.odddev.fantlab.award.Award
+import org.odddev.fantlab.award.AwardDeserializer
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
-import org.odddev.fantlab.award.AwardDeserializer
-import org.odddev.fantlab.award.Award
 
 
 
@@ -52,5 +52,6 @@ internal object ServerApiBuilder {
 
 	private fun createGson(): Gson = GsonBuilder()
 			.registerTypeAdapter(Award::class.java, AwardDeserializer())
+			.registerTypeAdapter(Autor::class.java, AutorDeserializer())
 			.create()
 }

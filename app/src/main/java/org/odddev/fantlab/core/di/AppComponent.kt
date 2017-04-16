@@ -1,8 +1,11 @@
 package org.odddev.fantlab.core.di
 
+import dagger.Component
 import org.odddev.fantlab.auth.AuthProvider
 import org.odddev.fantlab.auth.login.LoginPresenter
 import org.odddev.fantlab.auth.reg.RegPresenter
+import org.odddev.fantlab.autors.AutorsPresenter
+import org.odddev.fantlab.autors.AutorsProvider
 import org.odddev.fantlab.award.AwardsPresenter
 import org.odddev.fantlab.award.AwardsProvider
 import org.odddev.fantlab.core.network.HeaderInterceptor
@@ -12,10 +15,7 @@ import org.odddev.fantlab.core.storage.StorageModule
 import org.odddev.fantlab.home.HomePresenter
 import org.odddev.fantlab.home.HomeProvider
 import org.odddev.fantlab.launch.LaunchActivity
-
 import javax.inject.Singleton
-
-import dagger.Component
 
 /**
  * @author kenrube
@@ -47,4 +47,8 @@ interface AppComponent {
 	fun inject(homeProvider: HomeProvider)
 
 	fun inject(homePresenter: HomePresenter)
+
+	fun inject(autorsProvider: AutorsProvider)
+
+	fun inject(autorsPresenter: AutorsPresenter)
 }

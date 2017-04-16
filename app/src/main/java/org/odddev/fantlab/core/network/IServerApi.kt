@@ -1,6 +1,7 @@
 package org.odddev.fantlab.core.network
 
 import okhttp3.ResponseBody
+import org.odddev.fantlab.autors.AutorsResponse
 import org.odddev.fantlab.award.Award
 import retrofit2.Response
 import retrofit2.http.*
@@ -26,7 +27,5 @@ interface IServerApi {
 	fun getAward(@Path("id") id: Int): Single<Award>
 
 	@GET("/autorsall.json")
-	fun getAutors(): Single<Void>
-
-
+	fun getAutors(): Single<AutorsResponse>
 }

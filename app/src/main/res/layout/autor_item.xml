@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="org.odddev.fantlab.BuildConfig"/>
+
+        <import type="android.text.TextUtils"/>
+
+        <variable
+            name="autor"
+            type="org.odddev.fantlab.autors.Autor"/>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="@dimen/recycler_item_image_size"
+                android:layout_height="@dimen/recycler_item_image_size"
+                android:layout_marginTop="@dimen/spacing_medium"
+                app:isCircle="@{true}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:placeholder="@{@drawable/not_found}"
+                app:srcUri="@{BuildConfig.IMAGES_URL + @string/autor_image_url(autor.autorId)}"
+                tools:ignore="ContentDescription"/>
+
+            <TextView
+                android:id="@+id/autor_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_large"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{autor.nameShort}"
+                android:textSize="@dimen/text_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlHardcoded"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_large"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{autor.nameOrig}"
+                android:textSize="@dimen/text_medial"
+                app:font="@{@string/roboto_regular}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/autor_name"
+                tools:ignore="RtlHardcoded"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?android:attr/selectableItemBackground"
+            tools:visibility="invisible"
+            />
+
+    </FrameLayout>
+
+</layout>
