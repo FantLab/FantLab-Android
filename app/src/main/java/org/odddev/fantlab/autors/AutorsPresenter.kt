@@ -4,6 +4,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import org.odddev.fantlab.core.di.Injector
 import rx.subscriptions.CompositeSubscription
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -15,7 +16,7 @@ import javax.inject.Inject
 @InjectViewState
 class AutorsPresenter : MvpPresenter<IAutorsView>() {
 
-	private var autors: List<Autor>? = null
+	private var autors: List<Autor> = ArrayList()
 
 	@Inject
 	lateinit var compositeSubscription: CompositeSubscription
@@ -28,15 +29,15 @@ class AutorsPresenter : MvpPresenter<IAutorsView>() {
 	}
 
 	internal fun getAutors() {
-		if (autors != null) {
-			showAutors(autors as List<Autor>)
+		if (!autors.isEmpty()) {
+			showAutors(autors)
 		} else {
 			compositeSubscription.add(autorsProvider
 					.getAutors()
 					.subscribe(
 							{ autors ->
 								this.autors = autors.getAutorsList()
-								showAutors(this.autors as List<Autor>)
+								showAutors(this.autors)
 							},
 							{ error ->
 								viewState.showError(error.message ?: "Error")

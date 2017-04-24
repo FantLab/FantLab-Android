@@ -17,6 +17,7 @@ import java.util.*
 class AutorsAdapter : RecyclerView.Adapter<AutorsAdapter.AutorViewHolder>() {
 
 	private var autors: List<Autor> = ArrayList()
+	private var autorsCopy: List<Autor> = autors
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AutorViewHolder {
 		val inflater = LayoutInflater.from(parent.context)
@@ -33,6 +34,17 @@ class AutorsAdapter : RecyclerView.Adapter<AutorsAdapter.AutorViewHolder>() {
 
 	internal fun setAutors(autors: List<Autor>) {
 		this.autors = autors
+		autorsCopy = autors
+		notifyDataSetChanged()
+	}
+
+	fun filter(text: String) {
+		autors = ArrayList()
+		if (text.isEmpty())
+			autors = autorsCopy
+		else autorsCopy
+				.filter { it.name.contains(text, true) || it.nameOrig.contains(text, true) }
+				.forEach { (autors as ArrayList<Autor>).add(it) }
 		notifyDataSetChanged()
 	}
 

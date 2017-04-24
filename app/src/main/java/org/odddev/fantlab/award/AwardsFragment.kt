@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.view.*
-
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
-
 import org.odddev.fantlab.R
 import org.odddev.fantlab.databinding.AwardsFragmentBinding
 
@@ -49,7 +49,7 @@ class AwardsFragment : MvpAppCompatFragment(), IAwardsView {
 		activity.setSupportActionBar(binding.toolbar)
 		val actionBar = activity.supportActionBar
 		if (actionBar != null) {
-			actionBar.setTitle(R.string.nav_awards)
+			actionBar.setTitle(R.string.awards_toolbar_title)
 			actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
 			actionBar.setDisplayHomeAsUpEnabled(true)
 		}
@@ -62,26 +62,12 @@ class AwardsFragment : MvpAppCompatFragment(), IAwardsView {
 		binding.awards.adapter = adapter
 	}
 
-	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-		inflater.inflate(R.menu.action_bar_awards, menu)
-	}
-
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
 			android.R.id.home -> (activity.findViewById(R.id.drawer_layout) as DrawerLayout)
 					.openDrawer(GravityCompat.START)
-			R.id.filter_by -> presenter.onFilterButtonClick()
 		}
 		return super.onOptionsItemSelected(item)
-	}
-
-	override fun showFilterDialog() {
-		AlertDialog.Builder(context)
-				.setTitle(getString(R.string.award_filter_dialog_title))
-				.setView(R.layout.award_filter_dialog)
-				.setPositiveButton(android.R.string.ok, null)
-				.setNegativeButton(getString(R.string.award_filter_cancel), null)
-				.show()
 	}
 
 	override fun showAwards(awards: List<Award>) {

@@ -51,8 +51,4 @@ class AwardsPresenter : MvpPresenter<IAwardsView>() {
 	override fun onDestroy() {
 		compositeSubscription.unsubscribe()
 	}
-
-	fun onFilterButtonClick() {
-		viewState.showFilterDialog()
-	}
 }

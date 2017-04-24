@@ -3,14 +3,17 @@ package org.odddev.fantlab.autors
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
+import android.support.v4.view.MenuItemCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
 import android.view.*
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import org.odddev.fantlab.R
 import org.odddev.fantlab.databinding.AutorsFragmentBinding
+
 
 /**
  * @author kenrube
@@ -33,12 +36,29 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView {
 	}
 
 	override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-		presenter.getAutors()
-
 		initToolbar()
 		setHasOptionsMenu(true)
-
 		initRecyclerView()
+
+		presenter.getAutors()
+	}
+
+	override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+		inflater?.inflate(R.menu.search_menu, menu)
+
+		val searchItem = menu?.findItem(R.id.action_search)
+		val searchView = MenuItemCompat.getActionView(searchItem) as SearchView
+		searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+			override fun onQueryTextSubmit(query: String): Boolean {
+				adapter.filter(query)
+				return true
+			}
+
+			override fun onQueryTextChange(newText: String): Boolean {
+				adapter.filter(newText)
+				return true
+			}
+		})
 	}
 
 	private fun initToolbar() {
@@ -46,7 +66,7 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView {
 		activity.setSupportActionBar(binding.toolbar)
 		val actionBar = activity.supportActionBar
 		if (actionBar != null) {
-			actionBar.setTitle(R.string.nav_awards)
+			actionBar.setTitle(R.string.autors_toolbar_title)
 			actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
 			actionBar.setDisplayHomeAsUpEnabled(true)
 		}
@@ -57,10 +77,6 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView {
 		binding.autors.layoutManager = layoutManager
 		adapter = AutorsAdapter()
 		binding.autors.adapter = adapter
-	}
-
-	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-		inflater.inflate(R.menu.action_bar_awards, menu)
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {

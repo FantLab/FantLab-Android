@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<!-- Common -->
+	<string name="action_search">Поиск</string>
+
 	<!-- Fonts -->
 	<string name="roboto.regular" translatable="false">sans-serif</string>
 	<string name="roboto.light" translatable="false">sans-serif-light</string>
@@ -58,53 +61,13 @@
 	<string name="nav_drawer.user">Пользователь</string>
 	<string name="nav_drawer.user.class_progress">Грандмастер: 5000.00 / 10000</string>
 
-	<!-- Autors -->
+	<!-- Autors screen -->
+	<string name="autors_toolbar_title">Авторы</string>
 	<string name="autor.image.url">/autors/%s</string>
 
-	<!-- Awards -->
+	<!-- Awards screen -->
+	<string name="awards_toolbar_title">Премии</string>
 	<string name="award.image.url">/awards/%s</string>
 	<string name="award.short_description">%1$s, %2$s - %3$s</string>
-	<string name="award.filter">Сортировать</string>
-	<string name="award.filter.dialog_title">Сортировать</string>
-	<string name="award.filter.cancel">Отмена</string>
-	<string name="award.filter.by_country">по стране</string>
-	<string name="award.filter.by_type">по типу</string>
-	<string name="award.filter.by_language">по языку</string>
-	<string-array name="award_countries">
-		<item>Межрегиональные премии</item>
-		<item>Болгария</item>
-		<item>Великобритания</item>
-		<item>Германия</item>
-		<item>Испания</item>
-		<item>Канада</item>
-		<item>Польша</item>
-		<item>Россия</item>
-		<item>Сербия</item>
-		<item>США</item>
-		<item>Украина</item>
-		<item>Франция</item>
-		<item>Япония</item>
-	</string-array>
-	<string-array name="award_types">
-		<item>Популярные награды</item>
-		<item>Почетные премии</item>
-		<item>Национальные премии</item>
-		<item>Тематические премии</item>
-		<item>Премии журналов и сайтов</item>
-		<item>Конвенты</item>
-		<item>Другие</item>
-	</string-array>
-	<string-array name="award_languages">
-		<item>английский</item>
-		<item>болгарский</item>
-		<item>испанский</item>
-		<item>немецкий</item>
-		<item>польский</item>
-		<item>русский</item>
-		<item>сербский</item>
-		<item>французский</item>
-		<item>японский</item>
-		<item>не указан</item>
-	</string-array>
 
 </resources>
