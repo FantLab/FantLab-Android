@@ -25,9 +25,6 @@
 			android:id="@+id/autors"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:clipToPadding="false"
-			android:paddingLeft="@dimen/spacing_medium"
-			android:paddingRight="@dimen/spacing_medium"
 			app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 	</android.support.design.widget.CoordinatorLayout>

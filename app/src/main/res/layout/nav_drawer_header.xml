@@ -33,10 +33,10 @@
             android:layout_height="@dimen/avatar_size"
             android:layout_marginLeft="@dimen/spacing_medium"
             android:layout_marginStart="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_small"
             app:isCircle="@{true}"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/username"
             app:placeholder="@{@drawable/rounded_button}"
             app:srcUri="@{`http://fantlab.ru/images/users/58246_4`}"
             tools:ignore="ContentDescription"/>
