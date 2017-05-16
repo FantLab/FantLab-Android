@@ -1,17 +1,14 @@
 package org.odddev.fantlab.core
 
 import android.app.Application
-
 import com.crashlytics.android.Crashlytics
 import com.facebook.stetho.Stetho
-
+import io.fabric.sdk.android.Fabric
 import org.odddev.fantlab.BuildConfig
 import org.odddev.fantlab.core.di.AppModule
 import org.odddev.fantlab.core.di.DaggerAppComponent
 import org.odddev.fantlab.core.di.Injector
 import org.odddev.fantlab.core.utils.TimberCrashlyticsTree
-
-import io.fabric.sdk.android.Fabric
 import timber.log.Timber
 
 class FantlabApplication : Application() {

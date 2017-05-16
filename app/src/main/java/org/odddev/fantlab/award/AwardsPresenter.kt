@@ -2,6 +2,7 @@ package org.odddev.fantlab.award
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import org.odddev.fantlab.core.di.Injector
 import javax.inject.Inject
@@ -33,6 +34,7 @@ class AwardsPresenter : MvpPresenter<IAwardsView>() {
 		} else {
 			disposables.add(awardsProvider
 					.getAwards()
+					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(
 							{ awards ->
 								this.awards = awards
