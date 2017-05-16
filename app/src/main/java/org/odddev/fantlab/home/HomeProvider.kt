@@ -1,12 +1,11 @@
 package org.odddev.fantlab.home
 
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.odddev.fantlab.core.di.Injector
-import org.odddev.fantlab.core.rx.applyDefaultSchedulers
 import org.odddev.fantlab.core.storage.StorageManager
-
 import javax.inject.Inject
-
-import rx.Single
 
 /**
  * @author kenrube
@@ -23,9 +22,10 @@ class HomeProvider : IHomeProvider {
 		Injector.getAppComponent().inject(this)
 	}
 
-	override fun getUserName(): Single<String> {
-		return Single.just<String>(storageManager.loadUsername())
-				.applyDefaultSchedulers()
+	override fun getUserName(): Observable<String> {
+		return Observable.just<String>(storageManager.loadUsername())
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
 	}
 
 	override fun clearCookie() {

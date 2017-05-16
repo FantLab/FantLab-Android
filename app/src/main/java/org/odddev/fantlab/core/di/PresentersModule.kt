@@ -2,7 +2,7 @@ package org.odddev.fantlab.core.di
 
 import dagger.Module
 import dagger.Provides
-import rx.subscriptions.CompositeSubscription
+import io.reactivex.disposables.CompositeDisposable
 
 /**
  * @author kenrube
@@ -14,5 +14,5 @@ import rx.subscriptions.CompositeSubscription
 class PresentersModule {
 
 	@Provides
-	fun provideCompositeSubscription(): CompositeSubscription = CompositeSubscription()
+	fun provideCompositeDisposable(): CompositeDisposable = CompositeDisposable()
 }

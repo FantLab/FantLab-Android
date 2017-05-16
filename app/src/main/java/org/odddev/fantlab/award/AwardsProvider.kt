@@ -1,9 +1,10 @@
 package org.odddev.fantlab.award
 
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.odddev.fantlab.core.di.Injector
 import org.odddev.fantlab.core.network.IServerApi
-import org.odddev.fantlab.core.rx.applyDefaultSchedulers
-import rx.Single
 import javax.inject.Inject
 
 /**
@@ -21,8 +22,9 @@ class AwardsProvider : IAwardsProvider {
 		Injector.getAppComponent().inject(this)
 	}
 
-	override fun getAwards(): Single<List<Award>> {
+	override fun getAwards(): Observable<List<Award>> {
 		return serverApi.getAwards()
-				.applyDefaultSchedulers()
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
 	}
 }

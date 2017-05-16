@@ -1,6 +1,6 @@
 package org.odddev.fantlab.autors
 
-import rx.Single
+import io.reactivex.Observable
 
 /**
  * @author kenrube
@@ -10,5 +10,5 @@ import rx.Single
 
 interface IAutorsProvider {
 
-	fun getAutors(): Single<AutorsResponse>
+	fun getAutors(): Observable<AutorsResponse>
 }

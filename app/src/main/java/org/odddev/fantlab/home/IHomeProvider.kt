@@ -1,6 +1,6 @@
 package org.odddev.fantlab.home
 
-import rx.Single
+import io.reactivex.Observable
 
 /**
  * @author kenrube
@@ -10,7 +10,7 @@ import rx.Single
 
 interface IHomeProvider {
 
-	fun getUserName(): Single<String>
+	fun getUserName(): Observable<String>
 
 	fun clearCookie()
 }

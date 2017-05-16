@@ -1,10 +1,10 @@
 package org.odddev.fantlab.core.network
 
+import io.reactivex.Observable
 import org.odddev.fantlab.autors.AutorsResponse
 import org.odddev.fantlab.award.Award
 import retrofit2.http.GET
 import retrofit2.http.Path
-import rx.Single
 
 /**
  * @author kenrube
@@ -15,11 +15,11 @@ import rx.Single
 interface IServerApi {
 
 	@GET("/awards.json")
-	fun getAwards(): Single<List<Award>>
+	fun getAwards(): Observable<List<Award>>
 
 	@GET("/award{id}.json")
-	fun getAward(@Path("id") id: Int): Single<Award>
+	fun getAward(@Path("id") id: Int): Observable<Award>
 
 	@GET("/autorsall.json")
-	fun getAutors(): Single<AutorsResponse>
+	fun getAutors(): Observable<AutorsResponse>
 }

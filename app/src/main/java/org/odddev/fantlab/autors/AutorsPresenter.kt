@@ -2,8 +2,8 @@ package org.odddev.fantlab.autors
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import io.reactivex.disposables.CompositeDisposable
 import org.odddev.fantlab.core.di.Injector
-import rx.subscriptions.CompositeSubscription
 import java.util.*
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class AutorsPresenter : MvpPresenter<IAutorsView>() {
 	private var autors: List<Autor> = ArrayList()
 
 	@Inject
-	lateinit var compositeSubscription: CompositeSubscription
+	lateinit var disposables: CompositeDisposable
 
 	@Inject
 	lateinit var autorsProvider: IAutorsProvider
@@ -32,7 +32,7 @@ class AutorsPresenter : MvpPresenter<IAutorsView>() {
 		if (!autors.isEmpty()) {
 			showAutors(autors)
 		} else {
-			compositeSubscription.add(autorsProvider
+			disposables.add(autorsProvider
 					.getAutors()
 					.subscribe(
 							{ autors ->
@@ -50,6 +50,6 @@ class AutorsPresenter : MvpPresenter<IAutorsView>() {
 	}
 
 	override fun onDestroy() {
-		compositeSubscription.unsubscribe()
+		disposables.clear()
 	}
 }

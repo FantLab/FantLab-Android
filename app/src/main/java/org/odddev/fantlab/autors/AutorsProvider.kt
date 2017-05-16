@@ -1,9 +1,10 @@
 package org.odddev.fantlab.autors
 
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.odddev.fantlab.core.di.Injector
 import org.odddev.fantlab.core.network.IServerApi
-import org.odddev.fantlab.core.rx.applyDefaultSchedulers
-import rx.Single
 import javax.inject.Inject
 
 /**
@@ -21,8 +22,9 @@ class AutorsProvider : IAutorsProvider {
 		Injector.getAppComponent().inject(this)
 	}
 
-	override fun getAutors(): Single<AutorsResponse> {
+	override fun getAutors(): Observable<AutorsResponse> {
 		return serverApi.getAutors()
-				.applyDefaultSchedulers()
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
 	}
 }

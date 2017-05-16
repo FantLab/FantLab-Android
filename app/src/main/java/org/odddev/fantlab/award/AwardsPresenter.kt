@@ -2,8 +2,8 @@ package org.odddev.fantlab.award
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import io.reactivex.disposables.CompositeDisposable
 import org.odddev.fantlab.core.di.Injector
-import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
 /**
@@ -18,7 +18,7 @@ class AwardsPresenter : MvpPresenter<IAwardsView>() {
 	private var awards: List<Award>? = null
 
 	@Inject
-	lateinit var compositeSubscription: CompositeSubscription
+	lateinit var disposables: CompositeDisposable
 
 	@Inject
 	lateinit var awardsProvider: IAwardsProvider
@@ -31,7 +31,7 @@ class AwardsPresenter : MvpPresenter<IAwardsView>() {
 		if (awards != null) {
 			showAwards(awards as List<Award>)
 		} else {
-			compositeSubscription.add(awardsProvider
+			disposables.add(awardsProvider
 					.getAwards()
 					.subscribe(
 							{ awards ->
@@ -49,6 +49,6 @@ class AwardsPresenter : MvpPresenter<IAwardsView>() {
 	}
 
 	override fun onDestroy() {
-		compositeSubscription.unsubscribe()
+		disposables.clear()
 	}
 }

@@ -2,8 +2,8 @@ package org.odddev.fantlab.home
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import io.reactivex.disposables.CompositeDisposable
 import org.odddev.fantlab.core.di.Injector
-import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
 /**
@@ -19,14 +19,14 @@ class HomePresenter : MvpPresenter<IHomeView>() {
 	lateinit var provider: IHomeProvider
 
 	@Inject
-	lateinit var compositeSubscription: CompositeSubscription
+	lateinit var disposables: CompositeDisposable
 
 	init {
 		Injector.getAppComponent().inject(this)
 	}
 
 	internal fun getUserName() {
-		compositeSubscription.add(provider.getUserName().subscribe({ showUserName(it) }))
+		disposables.add(provider.getUserName().subscribe({ showUserName(it) }))
 	}
 
 	internal fun clearCookie() {
@@ -38,7 +38,6 @@ class HomePresenter : MvpPresenter<IHomeView>() {
 	}
 
 	override fun onDestroy() {
-		compositeSubscription.unsubscribe()
-		super.onDestroy()
+		disposables.clear()
 	}
 }

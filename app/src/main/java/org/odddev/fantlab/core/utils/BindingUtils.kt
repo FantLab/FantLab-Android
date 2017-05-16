@@ -26,13 +26,13 @@ object BindingUtils {
 	@BindingAdapter("onClick")
 	@JvmStatic
 	fun bindOnClick(view: View, runnable: Runnable) {
-		view.setOnClickListener { v -> runnable.run() }
+		view.setOnClickListener { runnable.run() }
 	}
 
 	@BindingAdapter("onCheck")
 	@JvmStatic
 	fun bindOnCheck(button: CompoundButton, runnable: Runnable) {
-		button.setOnCheckedChangeListener { button, checked -> if (checked) runnable.run() }
+		button.setOnCheckedChangeListener { _, checked -> if (checked) runnable.run() }
 	}
 
 	@BindingAdapter("error")

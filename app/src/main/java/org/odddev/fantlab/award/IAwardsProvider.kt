@@ -1,6 +1,6 @@
 package org.odddev.fantlab.award
 
-import rx.Single
+import io.reactivex.Observable
 
 /**
  * @author kenrube
@@ -10,5 +10,5 @@ import rx.Single
 
 interface IAwardsProvider {
 
-	fun getAwards(): Single<List<Award>>
+	fun getAwards(): Observable<List<Award>>
 }

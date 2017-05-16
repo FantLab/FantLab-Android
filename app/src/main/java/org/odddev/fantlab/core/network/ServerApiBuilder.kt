@@ -11,7 +11,7 @@ import org.odddev.fantlab.autors.AutorDeserializer
 import org.odddev.fantlab.award.Award
 import org.odddev.fantlab.award.AwardDeserializer
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 
@@ -44,7 +44,7 @@ internal object ServerApiBuilder {
 		val retrofitBuilder = Retrofit.Builder()
 				.baseUrl(BuildConfig.BASE_URL)
 				.addConverterFactory(GsonConverterFactory.create(createGson()))
-				.addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 				.client(httpClient)
 
 		return retrofitBuilder.build().create(IServerApi::class.java)
