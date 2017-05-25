@@ -16,7 +16,8 @@ import org.odddev.fantlab.core.utils.FragmentUtils
 
 internal class NavDrawerRouter(activity: HomeActivity, @IdRes containerId: Int) : Router<HomeActivity>(activity, containerId) {
 
-	@IntDef(R.id.nav_autors.toLong(), R.id.nav_awards.toLong(), R.id.nav_search.toLong(), R.id.nav_profile.toLong(), R.id.nav_logout.toLong(), R.id.nav_login.toLong())
+	@IntDef(R.id.nav_autors.toLong(), R.id.nav_awards.toLong(), R.id.nav_search.toLong(),
+			R.id.nav_profile.toLong(), R.id.nav_logout.toLong(), R.id.nav_login.toLong())
 	@Retention(AnnotationRetention.SOURCE)
 	internal annotation class NAV_DRAWER_ITEM
 

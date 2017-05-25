@@ -8,6 +8,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.odddev.fantlab.BuildConfig
 import org.odddev.fantlab.autors.Autor
 import org.odddev.fantlab.autors.AutorDeserializer
+import org.odddev.fantlab.autors.autor.AutorFull
+import org.odddev.fantlab.autors.autor.AutorFullDeserializer
 import org.odddev.fantlab.award.Award
 import org.odddev.fantlab.award.AwardDeserializer
 import retrofit2.Retrofit
@@ -53,5 +55,6 @@ internal object ServerApiBuilder {
 	private fun createGson(): Gson = GsonBuilder()
 			.registerTypeAdapter(Award::class.java, AwardDeserializer())
 			.registerTypeAdapter(Autor::class.java, AutorDeserializer())
+			.registerTypeAdapter(AutorFull::class.java, AutorFullDeserializer())
 			.create()
 }

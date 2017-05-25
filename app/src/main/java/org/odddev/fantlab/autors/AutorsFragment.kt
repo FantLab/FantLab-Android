@@ -21,7 +21,7 @@ import org.odddev.fantlab.databinding.AutorsFragmentBinding
  * @since 10.12.16
  */
 
-class AutorsFragment : MvpAppCompatFragment(), IAutorsView {
+class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listener {
 
 	private lateinit var binding: AutorsFragmentBinding
 	private lateinit var adapter: AutorsAdapter
@@ -89,9 +89,14 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView {
 
 	override fun showAutors(autors: List<Autor>) {
 		adapter.setAutors(autors)
+		adapter.setListener(this)
 	}
 
 	override fun showError(message: String) {
 		Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+	}
+
+	override fun onClick(autorId: Int) {
+		Snackbar.make(binding.root, autorId.toString(), Snackbar.LENGTH_LONG).show()
 	}
 }

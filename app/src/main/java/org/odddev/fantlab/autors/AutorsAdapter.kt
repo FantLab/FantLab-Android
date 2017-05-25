@@ -14,10 +14,11 @@ import java.util.*
  * @since 07.12.16
  */
 
-class AutorsAdapter : RecyclerView.Adapter<AutorsAdapter.AutorViewHolder>() {
+class AutorsAdapter() : RecyclerView.Adapter<AutorsAdapter.AutorViewHolder>() {
 
 	private var autors: List<Autor> = ArrayList()
 	private var autorsCopy: List<Autor> = autors
+	private lateinit var listener: Listener
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AutorViewHolder {
 		val inflater = LayoutInflater.from(parent.context)
@@ -25,7 +26,9 @@ class AutorsAdapter : RecyclerView.Adapter<AutorsAdapter.AutorViewHolder>() {
 	}
 
 	override fun onBindViewHolder(holder: AutorViewHolder, position: Int) {
-		holder.binding.autor = autors[position]
+		val autor = autors[position]
+		holder.binding.autor = autor
+		holder.binding.root.setOnClickListener { listener.onClick(autor.autorId) }
 	}
 
 	override fun getItemCount(): Int {
@@ -36,6 +39,10 @@ class AutorsAdapter : RecyclerView.Adapter<AutorsAdapter.AutorViewHolder>() {
 		this.autors = autors
 		autorsCopy = autors
 		notifyDataSetChanged()
+	}
+
+	internal fun setListener(listener: Listener) {
+		this.listener = listener
 	}
 
 	fun filter(text: String) {
@@ -49,4 +56,9 @@ class AutorsAdapter : RecyclerView.Adapter<AutorsAdapter.AutorViewHolder>() {
 	}
 
 	inner class AutorViewHolder(var binding: AutorItemBinding) : RecyclerView.ViewHolder(binding.root)
+
+	interface Listener {
+
+		fun onClick(autorId: Int)
+	}
 }
