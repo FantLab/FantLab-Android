@@ -16,11 +16,7 @@ class Award(
 		val language: Int,
 		val type: Int) {
 
-	fun getStartYear(): String {
-		return minDate.get(Calendar.YEAR).toString()
-	}
+	fun getStartYear(): String = minDate.get(Calendar.YEAR).toString()
 
-	fun getEndYear(): String {
-		return maxDate.get(Calendar.YEAR).toString()
-	}
+	fun getEndYear(): String = maxDate.get(Calendar.YEAR).toString()
 }
