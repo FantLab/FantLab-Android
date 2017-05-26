@@ -65,11 +65,9 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listen
 		val activity = activity as AppCompatActivity
 		activity.setSupportActionBar(binding.toolbar)
 		val actionBar = activity.supportActionBar
-		if (actionBar != null) {
-			actionBar.setTitle(R.string.autors_toolbar_title)
-			actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
-			actionBar.setDisplayHomeAsUpEnabled(true)
-		}
+		actionBar?.setTitle(R.string.autors_toolbar_title)
+		actionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
+		actionBar?.setDisplayHomeAsUpEnabled(true)
 	}
 
 	private fun initRecyclerView() {

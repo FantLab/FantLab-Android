@@ -14,9 +14,60 @@ class AutorFullDeserializer : JsonDeserializer<AutorFull> {
 	override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext?): AutorFull {
 		val jsonObject = json.asJsonObject
 
-		val sitesArray = jsonObject.getAsJsonArray("sites")
-		val sites = ArrayList<AutorFull.Site>(sitesArray.size())
-		sitesArray.mapTo(sites) {
+		val awardsObject = jsonObject.getAsJsonObject("awards")
+		val nom = awardsObject.getAsJsonArray("nom")
+		val win = awardsObject.getAsJsonArray("win")
+		val awards = ArrayList<AutorFull.Award>(nom.size() + win.size())
+		nom.mapTo(awards) {
+			AutorFull.Award(
+					it.asJsonObject.get("award_id").asString.toInt(),
+					it.asJsonObject.get("award_in_list").asString.toInt() == 1,
+					it.asJsonObject.get("award_is_opened").asString.toInt() == 1,
+					it.asJsonObject.get("award_name").asString,
+					it.asJsonObject.get("award_rusname").asString,
+					it.asJsonObject.get("contest_id").asString.toInt(),
+					it.asJsonObject.get("contest_name").asString,
+					it.asJsonObject.get("contest_year").asString.toInt(),
+					it.asJsonObject.get("cw_id").asString.toInt(),
+					it.asJsonObject.get("cw_is_winner").asString.toInt() == 1,
+					it.asJsonObject.get("cw_postfix").asString,
+					it.asJsonObject.get("cw_prefix").asString,
+					it.asJsonObject.get("nomination_id")?.asString?.toInt() ?: -1,
+					it.asJsonObject.get("nomination_name")?.asString ?: "",
+					it.asJsonObject.get("nomination_rusname")?.asString ?: "",
+					it.asJsonObject.get("work_id").asString.toInt(),
+					it.asJsonObject.get("work_name").asString,
+					it.asJsonObject.get("work_rusname").asString,
+					it.asJsonObject.get("work_year").asString.toInt()
+			)
+		}
+		win.mapTo(awards) {
+			AutorFull.Award(
+					it.asJsonObject.get("award_id").asString.toInt(),
+					it.asJsonObject.get("award_in_list").asString.toInt() == 1,
+					it.asJsonObject.get("award_is_opened").asString.toInt() == 1,
+					it.asJsonObject.get("award_name").asString,
+					it.asJsonObject.get("award_rusname").asString,
+					it.asJsonObject.get("contest_id").asString.toInt(),
+					it.asJsonObject.get("contest_name").asString,
+					it.asJsonObject.get("contest_year").asString.toInt(),
+					it.asJsonObject.get("cw_id").asString.toInt(),
+					it.asJsonObject.get("cw_is_winner").asString.toInt() == 1,
+					it.asJsonObject.get("cw_postfix").asString,
+					it.asJsonObject.get("cw_prefix").asString,
+					it.asJsonObject.get("nomination_id")?.asString?.toInt() ?: -1,
+					it.asJsonObject.get("nomination_name")?.asString ?: "",
+					it.asJsonObject.get("nomination_rusname")?.asString ?: "",
+					it.asJsonObject.get("work_id").asString.toInt(),
+					it.asJsonObject.get("work_name").asString,
+					it.asJsonObject.get("work_rusname").asString,
+					it.asJsonObject.get("work_year").asString.toInt()
+			)
+		}
+
+		val sitesList = jsonObject.getAsJsonArray("sites")
+		val sites = ArrayList<AutorFull.Site>(sitesList.size())
+		sitesList.mapTo(sites) {
 			AutorFull.Site(
 					it.asJsonObject.get("descr").asString,
 					it.asJsonObject.get("site").asString
@@ -34,7 +85,8 @@ class AutorFullDeserializer : JsonDeserializer<AutorFull> {
 
 		return AutorFull(
 				anons = jsonObject.get("anons").asString ?: "",
-				autorId = jsonObject.get("autor_id").asString.toInt(),
+				awards = awards,
+				id = jsonObject.get("autor_id").asString.toInt(),
 				biography = jsonObject.get("biography").asString ?: "",
 				biographyNotes = jsonObject.get("biography_notes").asString ?: "",
 				birthday = jsonObject.get("birthday").asString.parseToDate(),
