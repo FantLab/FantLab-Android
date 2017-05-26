@@ -1,10 +1,13 @@
 package org.odddev.fantlab.autors.autor
 
+import android.util.SparseArray
+import android.util.SparseIntArray
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import org.odddev.fantlab.core.utils.parseToDate
 import java.lang.reflect.Type
+import java.util.*
 
 /**
  * Created by kefir on 28.01.2017.
@@ -18,6 +21,7 @@ class AutorFullDeserializer : JsonDeserializer<AutorFull> {
 		val nom = awardsObject.getAsJsonArray("nom")
 		val win = awardsObject.getAsJsonArray("win")
 		val awards = ArrayList<AutorFull.Award>(nom.size() + win.size())
+
 		nom.mapTo(awards) {
 			AutorFull.Award(
 					it.asJsonObject.get("award_id").asString.toInt(),
@@ -65,6 +69,17 @@ class AutorFullDeserializer : JsonDeserializer<AutorFull> {
 			)
 		}
 
+		val my = jsonObject.getAsJsonObject("my")
+		val myMarks = SparseIntArray()
+		for ((key, value) in my.getAsJsonObject("marks").entrySet()) {
+			myMarks.put(key.toInt(), value.asString.toInt())
+		}
+
+		val myResponses = ArrayList<Int>()
+		for ((key, _) in my.getAsJsonObject("resps").entrySet()) {
+			myResponses.add(key.toInt())
+		}
+
 		val sitesList = jsonObject.getAsJsonArray("sites")
 		val sites = ArrayList<AutorFull.Site>(sitesList.size())
 		sitesList.mapTo(sites) {
@@ -97,6 +112,8 @@ class AutorFullDeserializer : JsonDeserializer<AutorFull> {
 				fantastic = jsonObject.get("fantastic").asString.toInt(),
 				isFv = jsonObject.get("is_fv").asString.toInt() == 1,
 				isOpened = jsonObject.get("is_opened").asString.toInt() == 1,
+				myMarks = myMarks,
+				myResponses = myResponses,
 				name = jsonObject.get("name").asString,
 				nameOrig = jsonObject.get("name_orig")?.asString ?: "",
 				nameRp = jsonObject.get("name_rp").asString,
@@ -106,7 +123,8 @@ class AutorFullDeserializer : JsonDeserializer<AutorFull> {
 				source = jsonObject.get("source").asString ?: "",
 				sourceLink = jsonObject.get("source_link").asString ?: "",
 				stat = stat,
-				type = jsonObject.get("type").asString
+				type = jsonObject.get("type").asString,
+				works = SparseArray()
 		)
 	}
 }

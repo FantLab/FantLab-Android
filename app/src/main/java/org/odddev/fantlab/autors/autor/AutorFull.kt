@@ -1,5 +1,7 @@
 package org.odddev.fantlab.autors.autor
 
+import android.util.SparseArray
+import android.util.SparseIntArray
 import java.util.*
 
 /**
@@ -19,6 +21,8 @@ class AutorFull(
 		val id: Int,
 		val isFv: Boolean,
 		val isOpened: Boolean,
+		val myMarks: SparseIntArray,
+		val myResponses: List<Int>,
 		val name: String,
 		val nameOrig: String,
 		val nameRp: String,
@@ -28,7 +32,8 @@ class AutorFull(
 		val source: String,
 		val sourceLink: String,
 		val stat: Stat,
-		val type: String) {
+		val type: String,
+		val works: SparseArray<List<Work>>) {
 
 	fun getImageLink(): String = "/autors/$id"
 
@@ -67,5 +72,34 @@ class AutorFull(
 			val workName: String,
 			val workRusname: String,
 			val workYear: Int
+	)
+
+	class AutorLink(
+			val id: Int,
+			val name: String
+	)
+
+	class Work(
+			val autors: List<AutorLink>,
+			val midmark: Float,
+			val responseCount: Int,
+			val voters: Int,
+			val description: String,
+			val id: Int,
+			val name: String,
+			val nameAlt: String,
+			val nameOrig: String,
+			val nameBonus: String,
+			val notFinished: Boolean,
+			val published: Boolean,
+			val preparing: Boolean, // в планах
+			val type: Int, // work_type_id
+			val year: Int,
+			val writeYear: Int,
+			val deep: Int,
+			val plus: Boolean,
+			val canDownload: Boolean,
+			val hasLp: Boolean, // есть лингвопрофиль
+			val forChildren: Boolean
 	)
 }
