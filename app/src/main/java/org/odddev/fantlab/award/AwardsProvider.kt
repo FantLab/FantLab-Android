@@ -22,7 +22,7 @@ class AwardsProvider : IAwardsProvider {
 	}
 
 	override fun getAwards(): Observable<List<Award>> {
-		return serverApi.getAwards()
+		return serverApi.getAwards(1)
 				.subscribeOn(Schedulers.io())
 	}
 }
