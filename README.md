@@ -1,5 +1,5 @@
 # Fantlab-client
-[![Build Status](https://travis-ci.org/kenrube/Fantlab-client.svg?branch=master)](https://travis-ci.org/FanDevs/Fantlab-client)
+[![Build Status](https://travis-ci.org/kenrube/Fantlab-client.svg?branch=master)](https://travis-ci.org/kenrube/Fantlab-client)
 ![minSdkVersion 16](https://img.shields.io/badge/minSdkVersion-16-green.svg?style=true)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
