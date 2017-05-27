@@ -1,5 +1,6 @@
 package org.odddev.fantlab.autors
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
@@ -13,6 +14,7 @@ import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import org.odddev.fantlab.R
 import org.odddev.fantlab.databinding.AutorsFragmentBinding
+import org.odddev.fantlab.home.IActionsHandler
 
 
 /**
@@ -25,6 +27,7 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listen
 
 	private lateinit var binding: AutorsFragmentBinding
 	private lateinit var adapter: AutorsAdapter
+	private lateinit var handler: IActionsHandler
 
 	@InjectPresenter
 	lateinit var presenter: AutorsPresenter
@@ -61,6 +64,13 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listen
 		})
 	}
 
+
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+
+		handler = context as IActionsHandler
+	}
+
 	private fun initToolbar() {
 		val activity = activity as AppCompatActivity
 		activity.setSupportActionBar(binding.toolbar)
@@ -95,6 +105,6 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listen
 	}
 
 	override fun onClick(autorId: Int) {
-		Snackbar.make(binding.root, autorId.toString(), Snackbar.LENGTH_LONG).show()
+		handler.openAutor(autorId)
 	}
 }

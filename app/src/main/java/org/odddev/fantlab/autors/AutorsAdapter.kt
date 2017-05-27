@@ -14,7 +14,7 @@ import java.util.*
  * @since 07.12.16
  */
 
-class AutorsAdapter() : RecyclerView.Adapter<AutorsAdapter.AutorViewHolder>() {
+class AutorsAdapter : RecyclerView.Adapter<AutorsAdapter.AutorViewHolder>() {
 
 	private var autors: List<Autor> = ArrayList()
 	private var autorsCopy: List<Autor> = autors

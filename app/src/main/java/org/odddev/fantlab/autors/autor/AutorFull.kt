@@ -8,36 +8,40 @@ import java.util.*
  * Created by kefir on 28.01.2017.
  */
 class AutorFull(
-		val anons: String,
+		val id: Int,
+		val biography: Biography,
 		val awards: List<Award>,
-		val biography: String,
-		val biographyNotes: String,
-		val birthday: Calendar,
+		val works: SparseArray<List<Work>>,
+		val sites: List<Site>,
+		val stat: Stat,
+		val type: String,
 		val compiler: String,
-		val countryId: Int,
-		val countryName: String,
 		val curator: Int,
 		val fantastic: Int,
-		val id: Int,
 		val isFv: Boolean,
 		val isOpened: Boolean,
 		val myMarks: SparseIntArray,
-		val myResponses: List<Int>,
-		val name: String,
-		val nameOrig: String,
-		val nameRp: String,
-		val nameShort: String,
-		val sex: String,
-		val sites: List<Site>,
-		val source: String,
-		val sourceLink: String,
-		val stat: Stat,
-		val type: String,
-		val works: SparseArray<List<Work>>) {
+		val myResponses: List<Int>) {
 
 	fun getImageLink(): String = "/autors/$id"
 
 	fun getImagePreviewLink(): String = "/autors/small/$id"
+
+	class Biography(
+			val anons: String,
+			val text: String,
+			val notes: String,
+			val source: String,
+			val sourceLink: String,
+			val birthday: Calendar,
+			val countryId: Int,
+			val countryName: String,
+			val name: String,
+			val nameOrig: String,
+			val nameRp: String,
+			val nameShort: String,
+			val sex: String
+	)
 
 	class Site(
 			val description: String,

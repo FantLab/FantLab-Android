@@ -7,15 +7,15 @@ import android.os.Bundle
 import android.support.v4.content.IntentCompat
 import android.support.v4.view.GravityCompat
 import android.text.TextUtils
-
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
-
 import org.odddev.fantlab.R
+import org.odddev.fantlab.autors.autor.AutorFragment
+import org.odddev.fantlab.core.utils.FragmentUtils
 import org.odddev.fantlab.databinding.HomeActivityBinding
 import org.odddev.fantlab.databinding.NavDrawerHeaderBinding
 
-class HomeActivity : MvpAppCompatActivity(), IHomeView {
+class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 
 	private lateinit var binding: HomeActivityBinding
 	private lateinit var headerBinding: NavDrawerHeaderBinding
@@ -97,6 +97,10 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView {
 			headerBinding.username.text = userName
 			headerBinding.classProgress.setText(R.string.nav_drawer_user_class_progress)
 		}
+	}
+
+	override fun openAutor(id: Int) {
+		FragmentUtils.replaceFragment(this, R.id.container, AutorFragment(id), false)
 	}
 
 	companion object {

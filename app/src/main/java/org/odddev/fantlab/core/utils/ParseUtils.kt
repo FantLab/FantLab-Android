@@ -1,5 +1,6 @@
 package org.odddev.fantlab.core.utils
 
+import com.google.gson.JsonElement
 import java.util.*
 
 /**
@@ -12,4 +13,8 @@ fun String.parseToDate(): Calendar {
         set(Calendar.MONTH, this@parseToDate.substring(4..5).toInt() + 1)
         set(Calendar.DAY_OF_MONTH, this@parseToDate.substring(8..9).toInt() + 1)
     }
+}
+
+fun JsonElement?.getField(): JsonElement? {
+    return if (this == null || this.isJsonNull || this.asString.isEmpty()) null else this
 }
