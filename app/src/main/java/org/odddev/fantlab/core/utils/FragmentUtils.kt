@@ -26,6 +26,5 @@ object FragmentUtils {
 		} catch (e: IllegalStateException) {
 			e.printStackTrace()
 		}
-
 	}
 }

@@ -57,6 +57,15 @@ object BindingUtils {
 		builder.into(imageView)
 	}
 
+	@BindingAdapter("srcUri")
+	@JvmStatic
+	fun bindSrcUri(imageView: ImageView, uri: String) {
+		Glide
+				.with(imageView.context)
+				.load(uri)
+				.into(imageView)
+	}
+
 	@BindingAdapter("font")
 	@JvmStatic
 	fun bindFont(textView: TextView, fontName: String) {

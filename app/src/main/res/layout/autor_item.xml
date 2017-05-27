@@ -42,7 +42,7 @@
             android:layout_marginLeft="@dimen/spacing_small"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{autor.nameShort}"
+            android:text="@{autor.nameShort.replace(`,`, ``)}"
             android:textColor="@color/black"
             android:textSize="@dimen/text_medium"
             app:layout_constraintEnd_toEndOf="parent"

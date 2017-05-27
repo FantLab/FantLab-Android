@@ -104,7 +104,7 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listen
 		Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
 	}
 
-	override fun onClick(autorId: Int) {
-		handler.openAutor(autorId)
+	override fun onClick(id: Int, name: String) {
+		handler.openAutor(id, name)
 	}
 }

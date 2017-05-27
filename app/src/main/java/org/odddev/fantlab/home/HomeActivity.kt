@@ -22,7 +22,7 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 	private lateinit var router: NavDrawerRouter
 
 	@NavDrawerRouter.NAV_DRAWER_ITEM
-	private var selectedNavDrawerItemId: Int = R.id.nav_awards
+	private var selectedNavDrawerItemId: Int = R.id.nav_autors
 
 	@InjectPresenter
 	lateinit var presenter: HomePresenter
@@ -78,9 +78,8 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 		if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
 			binding.drawerLayout.closeDrawer(GravityCompat.START)
 		} else {
-			val backStackEntryCount = supportFragmentManager.backStackEntryCount
-			if (backStackEntryCount == 1) {
-				finish()
+			if (supportFragmentManager.backStackEntryCount > 0) {
+				supportFragmentManager.popBackStack()
 			} else {
 				super.onBackPressed()
 			}
@@ -99,8 +98,8 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 		}
 	}
 
-	override fun openAutor(id: Int) {
-		FragmentUtils.replaceFragment(this, R.id.container, AutorFragment(id), false)
+	override fun openAutor(id: Int, name: String) {
+		FragmentUtils.replaceFragment(this, R.id.container, AutorFragment(id, name), true)
 	}
 
 	companion object {

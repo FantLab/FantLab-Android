@@ -6,5 +6,5 @@ package org.odddev.fantlab.home
  */
 interface IActionsHandler {
 
-    fun openAutor(id: Int)
+    fun openAutor(id: Int, name: String)
 }

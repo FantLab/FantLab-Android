@@ -28,7 +28,7 @@ class AutorsAdapter : RecyclerView.Adapter<AutorsAdapter.AutorViewHolder>() {
 	override fun onBindViewHolder(holder: AutorViewHolder, position: Int) {
 		val autor = autors[position]
 		holder.binding.autor = autor
-		holder.binding.root.setOnClickListener { listener.onClick(autor.autorId) }
+		holder.binding.root.setOnClickListener { listener.onClick(autor.autorId, autor.name) }
 	}
 
 	override fun getItemCount(): Int {
@@ -59,6 +59,6 @@ class AutorsAdapter : RecyclerView.Adapter<AutorsAdapter.AutorViewHolder>() {
 
 	interface Listener {
 
-		fun onClick(autorId: Int)
+		fun onClick(id: Int, name: String)
 	}
 }
