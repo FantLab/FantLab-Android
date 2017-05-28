@@ -64,7 +64,6 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listen
 		})
 	}
 
-
 	override fun onAttach(context: Context?) {
 		super.onAttach(context)
 

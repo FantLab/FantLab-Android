@@ -11,6 +11,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import org.odddev.fantlab.R
 import org.odddev.fantlab.autors.autor.AutorFragment
+import org.odddev.fantlab.autors.autor.biography.BiographyFragment
 import org.odddev.fantlab.core.utils.FragmentUtils
 import org.odddev.fantlab.databinding.HomeActivityBinding
 import org.odddev.fantlab.databinding.NavDrawerHeaderBinding
@@ -100,6 +101,10 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 
 	override fun openAutor(id: Int, name: String) {
 		FragmentUtils.replaceFragment(this, R.id.container, AutorFragment(id, name), true)
+	}
+
+	override fun showBiography(bio: String) {
+		FragmentUtils.replaceFragment(this, R.id.container, BiographyFragment(bio), true)
 	}
 
 	companion object {

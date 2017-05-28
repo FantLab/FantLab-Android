@@ -70,4 +70,8 @@
 	<string name="award.image.url">/awards/%s</string>
 	<string name="award.short_description">%1$s, %2$s - %3$s</string>
 
+	<!-- Autor screen -->
+	<string name="autor_bio_details">Подробнее</string>
+	<string name="autor_bio_toolbar_title">Биография</string>
+
 </resources>

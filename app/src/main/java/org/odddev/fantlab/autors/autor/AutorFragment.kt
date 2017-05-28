@@ -1,5 +1,6 @@
 package org.odddev.fantlab.autors.autor
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -9,8 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.google.gson.Gson
 import org.odddev.fantlab.R
 import org.odddev.fantlab.databinding.AutorFragmentBinding
+import org.odddev.fantlab.home.IActionsHandler
 
 
 /**
@@ -19,15 +22,18 @@ import org.odddev.fantlab.databinding.AutorFragmentBinding
  * @since 10.12.16
  */
 
-class AutorFragment : MvpAppCompatFragment, IAutorView {
+class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 
 	private val EXTRA_ID = "id"
 	private val EXTRA_NAME = "name"
 
 	private lateinit var binding: AutorFragmentBinding
+	private lateinit var handler: IActionsHandler
 
 	@InjectPresenter
 	lateinit var presenter: AutorPresenter
+
+	private lateinit var bio: String
 
 	constructor(): super()
 
@@ -41,6 +47,7 @@ class AutorFragment : MvpAppCompatFragment, IAutorView {
 	override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
 							  savedInstanceState: Bundle?): View? {
 		binding = AutorFragmentBinding.inflate(inflater, container, false)
+		binding.handler = this
 		return binding.root
 	}
 
@@ -49,6 +56,12 @@ class AutorFragment : MvpAppCompatFragment, IAutorView {
 		setHasOptionsMenu(true)
 
 		presenter.getAutor(arguments.getInt(EXTRA_ID))
+	}
+
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+
+		handler = context as IActionsHandler
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -69,9 +82,14 @@ class AutorFragment : MvpAppCompatFragment, IAutorView {
 
 	override fun showAutor(autor: AutorFull) {
 		binding.autor = autor
+		bio = Gson().toJson(autor.biography)
 	}
 
 	override fun showError(message: String) {
 		Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+	}
+
+	override fun showBiography() {
+		handler.showBiography(bio)
 	}
 }

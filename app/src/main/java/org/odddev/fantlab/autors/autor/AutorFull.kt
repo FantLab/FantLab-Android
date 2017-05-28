@@ -10,6 +10,7 @@ import java.util.*
 class AutorFull(
 		val id: Int,
 		val biography: Biography,
+		val country: Country,
 		val awards: List<Award>,
 		val works: SparseArray<List<Work>>,
 		val sites: List<Site>,
@@ -34,13 +35,16 @@ class AutorFull(
 			val source: String,
 			val sourceLink: String,
 			val birthday: Calendar,
-			val countryId: Int,
-			val countryName: String,
 			val name: String,
 			val nameOrig: String,
 			val nameRp: String,
 			val nameShort: String,
 			val sex: String
+	)
+
+	class Country(
+			val id: Int,
+			val name: String
 	)
 
 	class Site(
