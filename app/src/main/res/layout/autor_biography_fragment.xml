@@ -7,7 +7,7 @@
 
 		<variable
 			name="bio"
-			type="String"
+			type="android.text.Spanned"
 			/>
 
 	</data>
@@ -37,6 +37,7 @@
 			>
 
 			<TextView
+				android:id="@+id/autor_bio"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:textSize="14sp"
