@@ -10,6 +10,7 @@ import com.arellomobile.mvp.MvpAppCompatFragment
 import com.google.gson.Gson
 import org.odddev.fantlab.R
 import org.odddev.fantlab.autors.autor.AutorFull
+import org.odddev.fantlab.core.utils.format
 import org.odddev.fantlab.core.utils.formatText
 import org.odddev.fantlab.databinding.AutorBiographyFragmentBinding
 
@@ -45,8 +46,10 @@ class BiographyFragment : MvpAppCompatFragment {
 		initToolbar()
 		setHasOptionsMenu(true)
 
-		val text = Gson().fromJson(arguments.getString(EXTRA_BIO), AutorFull.Biography::class.java).text
-		binding.bio = text.formatText()
+		val bio = Gson().fromJson(arguments.getString(EXTRA_BIO), AutorFull.Biography::class.java)
+		binding.birthday = bio.birthday?.format()
+		binding.deathday = bio.deathday?.format()
+		binding.text = bio.text.formatText()
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {

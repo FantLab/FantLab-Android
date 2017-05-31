@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	>
 
 	<data>
 
 		<variable
-			name="bio"
+			name="birthday"
+			type="String"
+			/>
+
+		<variable
+			name="deathday"
+			type="String"
+			/>
+
+		<variable
+			name="text"
 			type="android.text.Spanned"
 			/>
 
@@ -36,15 +48,53 @@
 			app:layout_behavior="@string/appbar_scrolling_view_behavior"
 			>
 
-			<TextView
-				android:id="@+id/autor_bio"
+			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:textSize="14sp"
-				android:textColor="@color/black"
-				android:layout_margin="@dimen/spacing_medium"
-				android:text="@{bio}"
-				/>
+				android:orientation="vertical"
+				>
+
+				<TextView
+					android:id="@+id/autor_birthday"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textSize="14sp"
+					android:textColor="@color/black"
+					android:layout_margin="@dimen/spacing_medium"
+					android:text="@{birthday}"
+					android:visibility="@{birthday != null}"
+					tools:text="01.01.1954"
+					/>
+
+				<TextView
+					android:id="@+id/autor_deathday"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textSize="14sp"
+					android:textColor="@color/black"
+					android:layout_marginLeft="@dimen/spacing_medium"
+					android:layout_marginRight="@dimen/spacing_medium"
+					android:layout_marginBottom="@dimen/spacing_medium"
+					android:text="@{deathday}"
+					android:visibility="@{deathday != null}"
+					tools:text="09.05.2001"
+					/>
+
+				<TextView
+					android:id="@+id/autor_bio"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textSize="14sp"
+					android:textColor="@color/black"
+					android:layout_marginLeft="@dimen/spacing_medium"
+					android:layout_marginRight="@dimen/spacing_medium"
+					android:layout_marginBottom="@dimen/spacing_medium"
+					android:text="@{text}"
+					tools:text="Очень длинная биография"
+					/>
+
+			</LinearLayout>
+
 
 		</android.support.v4.widget.NestedScrollView>
 
