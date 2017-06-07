@@ -7,7 +7,7 @@
 
 	<data>
 
-		<import type="org.odddev.fantlab.BuildConfig"/>
+		<import type="org.odddev.fantlab.BuildConfig" />
 
 		<variable
 			name="autor"

@@ -35,9 +35,9 @@ class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 
 	private lateinit var bio: String
 
-	constructor(): super()
+	constructor() : super()
 
-	constructor(id: Int, name: String): super() {
+	constructor(id: Int, name: String) : super() {
 		val bundle = Bundle()
 		bundle.putInt(EXTRA_ID, id)
 		bundle.putString(EXTRA_NAME, name)

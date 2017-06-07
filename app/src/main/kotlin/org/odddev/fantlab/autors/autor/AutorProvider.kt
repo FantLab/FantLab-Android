@@ -25,8 +25,8 @@ class AutorProvider : IAutorProvider {
 	}
 
 	override fun getAutor(id: Int): Observable<AutorFull> =
-		serverApi.getAutor(id, 1, 1, 1, 1, 1)
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
+			serverApi.getAutor(id, 1, 1, 1, 1, 1)
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
 
 }

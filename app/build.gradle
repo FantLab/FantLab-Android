@@ -4,146 +4,146 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
 
 repositories {
-    maven {
-        url 'https://maven.fabric.io/public'
-    }
-    maven {
-        url "https://jitpack.io"
-    }
+	maven {
+		url 'https://maven.fabric.io/public'
+	}
+	maven {
+		url "https://jitpack.io"
+	}
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.3'
+	compileSdkVersion 25
+	buildToolsVersion '25.0.3'
 
-    defaultConfig {
-        applicationId "org.odddev.fantlab"
+	defaultConfig {
+		applicationId "org.odddev.fantlab"
 
-        minSdkVersion 16
-        targetSdkVersion 25
+		minSdkVersion 16
+		targetSdkVersion 25
 
-        versionCode 12
-        versionName "0.0.12"
+		versionCode 12
+		versionName "0.0.12"
 
-        archivesBaseName = "fantlab-${versionName}"
-    }
+		archivesBaseName = "fantlab-${versionName}"
+	}
 
-    dataBinding {
-        enabled = true
-    }
+	dataBinding {
+		enabled = true
+	}
 
-    buildTypes {
-        def STRING = "String"
-        def APP_NAME = "app_name"
-        def BASE_URL = "BASE_URL"
-        def IMAGES_URL = "IMAGES_URL"
-        def string = "string"
+	buildTypes {
+		def STRING = "String"
+		def APP_NAME = "app_name"
+		def BASE_URL = "BASE_URL"
+		def IMAGES_URL = "IMAGES_URL"
+		def string = "string"
 
-        debug {
-            buildConfigField STRING, BASE_URL, "\"https://api.fantlab.ru\""
-            buildConfigField STRING, IMAGES_URL, "\"https://fantlab.ru/images\""
+		debug {
+			buildConfigField STRING, BASE_URL, "\"https://api.fantlab.ru\""
+			buildConfigField STRING, IMAGES_URL, "\"https://fantlab.ru/images\""
 
-            resValue string, APP_NAME, "Fantlab debug - " + defaultConfig.versionName
+			resValue string, APP_NAME, "Fantlab debug - " + defaultConfig.versionName
 
-            applicationIdSuffix '.debug'
-            versionNameSuffix '-DEBUG'
+			applicationIdSuffix '.debug'
+			versionNameSuffix '-DEBUG'
 
-            minifyEnabled false
-            shrinkResources false
+			minifyEnabled false
+			shrinkResources false
 
-            return true
-        }
+			return true
+		}
 
-        qa {
-            buildConfigField STRING, BASE_URL, "\"https://api.fantlab.ru\""
-            buildConfigField STRING, IMAGES_URL, "\"https://fantlab.ru/images\""
+		qa {
+			buildConfigField STRING, BASE_URL, "\"https://api.fantlab.ru\""
+			buildConfigField STRING, IMAGES_URL, "\"https://fantlab.ru/images\""
 
-            resValue string, APP_NAME, "Fantlab test - " + defaultConfig.versionName
+			resValue string, APP_NAME, "Fantlab test - " + defaultConfig.versionName
 
-            applicationIdSuffix '.qa'
-            versionNameSuffix '-QA'
+			applicationIdSuffix '.qa'
+			versionNameSuffix '-QA'
 
-            minifyEnabled false
-            shrinkResources false
+			minifyEnabled false
+			shrinkResources false
 
-            signingConfig signingConfigs.debug
+			signingConfig signingConfigs.debug
 
-            return true
-        }
+			return true
+		}
 
-        release {
-            buildConfigField STRING, BASE_URL, "\"https://api.fantlab.ru\""
-            buildConfigField STRING, IMAGES_URL, "\"https://fantlab.ru/images\""
+		release {
+			buildConfigField STRING, BASE_URL, "\"https://api.fantlab.ru\""
+			buildConfigField STRING, IMAGES_URL, "\"https://fantlab.ru/images\""
 
-            resValue string, APP_NAME, "Fantlab"
+			resValue string, APP_NAME, "Fantlab"
 
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt')
-        }
-    }
+			minifyEnabled true
+			shrinkResources true
+			proguardFiles getDefaultProguardFile('proguard-android.txt')
+		}
+	}
 
-    lintOptions {
-        warningsAsErrors true
-        abortOnError true
-    }
+	lintOptions {
+		warningsAsErrors true
+		abortOnError true
+	}
 
-    packagingOptions {
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
+	packagingOptions {
+		exclude 'META-INF/NOTICE'
+		exclude 'META-INF/NOTICE.txt'
+		exclude 'META-INF/LICENSE'
+		exclude 'META-INF/LICENSE.txt'
 
-        return true
-    }
+		return true
+	}
 
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
+	sourceSets {
+		main.java.srcDirs += 'src/main/kotlin'
+	}
 }
 
 kapt {
-    generateStubs = true
+	generateStubs = true
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:1.1.1"
+	compile "org.jetbrains.kotlin:kotlin-stdlib:1.1.1"
 
-    kapt "com.android.databinding:compiler:2.3.1"
+	kapt "com.android.databinding:compiler:2.3.2"
 
-    compile "com.arello-mobile:moxy:1.4.5"
-    compile "com.arello-mobile:moxy-app-compat:1.4.5"
-    kapt "com.arello-mobile:moxy-compiler:1.4.5"
+	compile "com.arello-mobile:moxy:1.4.5"
+	compile "com.arello-mobile:moxy-app-compat:1.4.5"
+	kapt "com.arello-mobile:moxy-compiler:1.4.5"
 
-    compile "com.google.dagger:dagger:2.8"
-    kapt "com.google.dagger:dagger-compiler:2.8"
+	compile "com.google.dagger:dagger:2.8"
+	kapt "com.google.dagger:dagger-compiler:2.8"
 
-    compile "io.reactivex.rxjava2:rxjava:2.1.0"
-    compile "io.reactivex.rxjava2:rxandroid:2.0.1"
+	compile "io.reactivex.rxjava2:rxjava:2.1.0"
+	compile "io.reactivex.rxjava2:rxandroid:2.0.1"
 
-    compile 'io.requery:requery:1.3.2'
-    compile 'io.requery:requery-android:1.3.2'
-    kapt 'io.requery:requery-processor:1.3.2'
+	compile 'io.requery:requery:1.3.2'
+	compile 'io.requery:requery-android:1.3.2'
+	kapt 'io.requery:requery-processor:1.3.2'
 
-    compile "com.squareup.okhttp3:logging-interceptor:3.6.0"
-    compile "com.squareup.retrofit2:retrofit:2.3.0"
-    compile "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
-    compile "com.squareup.retrofit2:converter-gson:2.2.0"
+	compile "com.squareup.okhttp3:logging-interceptor:3.6.0"
+	compile "com.squareup.retrofit2:retrofit:2.3.0"
+	compile "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+	compile "com.squareup.retrofit2:converter-gson:2.2.0"
 
-    compile "com.android.support:support-annotations:25.3.1"
-    compile "com.android.support:appcompat-v7:25.3.1"
-    compile "com.android.support:design:25.3.1"
-    compile "com.android.support:cardview-v7:25.3.1"
-    compile "com.android.support.constraint:constraint-layout:1.0.2"
+	compile "com.android.support:support-annotations:25.3.1"
+	compile "com.android.support:appcompat-v7:25.3.1"
+	compile "com.android.support:design:25.3.1"
+	compile "com.android.support:cardview-v7:25.3.1"
+	compile "com.android.support.constraint:constraint-layout:1.0.2"
 
-    compile "com.github.bumptech.glide:glide:3.7.0"
+	compile "com.github.bumptech.glide:glide:3.7.0"
 
-    compile "com.jakewharton.timber:timber:4.3.1"
-    compile ("com.crashlytics.sdk.android:crashlytics:2.5.5@aar") { transitive = true }
+	compile "com.jakewharton.timber:timber:4.3.1"
+	compile("com.crashlytics.sdk.android:crashlytics:2.5.5@aar") { transitive = true }
 
-    compile "com.facebook.stetho:stetho:1.4.2"
-    compile "com.facebook.stetho:stetho-okhttp3:1.4.2"
+	compile "com.facebook.stetho:stetho:1.4.2"
+	compile "com.facebook.stetho:stetho-okhttp3:1.4.2"
 
-    // Test tools
-    testCompile "junit:junit:4.12"
+	// Test tools
+	testCompile "junit:junit:4.12"
 }

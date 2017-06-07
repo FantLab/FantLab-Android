@@ -73,5 +73,13 @@
 	<!-- Autor screen -->
 	<string name="autor_bio_details">Подробнее</string>
 	<string name="autor_bio_toolbar_title">Биография</string>
+	<string-array name="autor_bio_birthday">
+		<item>Родился:</item>
+		<item>Родилась:</item>
+	</string-array>
+	<string-array name="autor_bio_deathday">
+		<item>Умер:</item>
+		<item>Умерла:</item>
+	</string-array>
 
 </resources>

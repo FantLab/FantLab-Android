@@ -13,24 +13,24 @@ import io.requery.Persistable
 @Entity
 interface AwardRow : Parcelable, Persistable {
 
-    @get:Key
-    val id: Int
+	@get:Key
+	val id: Int
 
-    val awardId: String
+	val awardId: String
 
-    val country: String
+	val country: String
 
-    val description: String
+	val description: String
 
-    val maxDate: String
+	val maxDate: String
 
-    val minDate: String
+	val minDate: String
 
-    val name: String
+	val name: String
 
-    val rusName: String
+	val rusName: String
 
-    val language: Int
+	val language: Int
 
-    val type: Int
+	val type: Int
 }

@@ -39,10 +39,11 @@ class AutorPresenter : MvpPresenter<IAutorView>() {
 								this.autor = autor
 								showAutor(this.autor as AutorFull)
 							},
-							{ error -> run {
-								Timber.e(error)
-								viewState.showError(error.message ?: "Error")
-							}
+							{ error ->
+								run {
+									Timber.e(error)
+									viewState.showError(error.message ?: "Error")
+								}
 							}))
 		}
 	}

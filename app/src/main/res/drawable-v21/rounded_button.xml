@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-        android:color="?attr/colorControlHighlight">
-    <item>
-        <shape xmlns:android="http://schemas.android.com/apk/res/android"
-               android:shape="rectangle">
-            <corners android:radius="@dimen/rounded_button_radius" />
-            <solid android:color="@color/color_primary_dark" />
-        </shape>
-    </item>
+<ripple
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:color="?attr/colorControlHighlight"
+	>
+	<item>
+		<shape
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:shape="rectangle"
+			>
+			<corners android:radius="@dimen/rounded_button_radius" />
+			<solid android:color="@color/color_primary_dark" />
+		</shape>
+	</item>
 </ripple>

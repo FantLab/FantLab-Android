@@ -18,6 +18,11 @@
 			/>
 
 		<variable
+			name="sex"
+			type="int"
+			/>
+
+		<variable
 			name="text"
 			type="android.text.Spanned"
 			/>
@@ -26,19 +31,22 @@
 
 	<android.support.design.widget.CoordinatorLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="match_parent"
+		>
 
 		<android.support.design.widget.AppBarLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:theme="@style/AppTheme.AppBarOverlay">
+			android:theme="@style/AppTheme.AppBarOverlay"
+			>
 
 			<android.support.v7.widget.Toolbar
 				android:id="@+id/toolbar"
 				android:layout_width="match_parent"
 				android:layout_height="?attr/actionBarSize"
 				android:background="?attr/colorPrimary"
-				android:fitsSystemWindows="true"/>
+				android:fitsSystemWindows="true"
+				/>
 
 		</android.support.design.widget.AppBarLayout>
 
@@ -51,34 +59,75 @@
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:layout_margin="@dimen/spacing_medium"
 				android:orientation="vertical"
 				>
 
-				<TextView
-					android:id="@+id/autor_birthday"
-					android:layout_width="match_parent"
+				<LinearLayout
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textSize="14sp"
-					android:textColor="@color/black"
-					android:layout_margin="@dimen/spacing_medium"
-					android:text="@{birthday}"
-					android:visibility="@{birthday != null}"
-					tools:text="01.01.1954"
-					/>
+					android:layout_marginBottom="@dimen/spacing_medial"
+					android:orientation="horizontal"
+					>
 
-				<TextView
-					android:id="@+id/autor_deathday"
-					android:layout_width="match_parent"
+					<TextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:textSize="14sp"
+						android:textColor="@color/black"
+						android:textStyle="bold"
+						android:text="@{@stringArray/autor_bio_birthday[sex]}"
+						android:visibility="@{birthday != null}"
+						tools:text="Родился:"
+						/>
+
+					<TextView
+						android:id="@+id/autor_birthday"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="@dimen/spacing_medium"
+						android:textSize="14sp"
+						android:textColor="@color/black"
+						android:text="@{birthday}"
+						android:visibility="@{birthday != null}"
+						tools:text="01.01.1954"
+						tools:ignore="RtlHardcoded"
+						/>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textSize="14sp"
-					android:textColor="@color/black"
-					android:layout_marginLeft="@dimen/spacing_medium"
-					android:layout_marginRight="@dimen/spacing_medium"
-					android:layout_marginBottom="@dimen/spacing_medium"
-					android:text="@{deathday}"
-					android:visibility="@{deathday != null}"
-					tools:text="09.05.2001"
-					/>
+					android:layout_marginBottom="@dimen/spacing_medial"
+					android:orientation="horizontal"
+					>
+
+					<TextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:textSize="14sp"
+						android:textColor="@color/black"
+						android:textStyle="bold"
+						android:text="@{@stringArray/autor_bio_deathday[sex]}"
+						android:visibility="@{deathday != null}"
+						tools:text="Умер:"
+						/>
+
+					<TextView
+						android:id="@+id/autor_deathday"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:textSize="14sp"
+						android:textColor="@color/black"
+						android:layout_marginLeft="@dimen/spacing_medium"
+						android:text="@{deathday}"
+						android:visibility="@{deathday != null}"
+						tools:text="09.05.2001"
+						tools:ignore="RtlHardcoded"
+						/>
+
+				</LinearLayout>
 
 				<TextView
 					android:id="@+id/autor_bio"
@@ -86,9 +135,6 @@
 					android:layout_height="wrap_content"
 					android:textSize="14sp"
 					android:textColor="@color/black"
-					android:layout_marginLeft="@dimen/spacing_medium"
-					android:layout_marginRight="@dimen/spacing_medium"
-					android:layout_marginBottom="@dimen/spacing_medium"
 					android:text="@{text}"
 					tools:text="Очень длинная биография"
 					/>

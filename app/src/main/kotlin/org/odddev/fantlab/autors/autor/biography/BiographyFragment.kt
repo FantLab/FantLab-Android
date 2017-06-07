@@ -27,10 +27,10 @@ class BiographyFragment : MvpAppCompatFragment {
 
 	private lateinit var binding: AutorBiographyFragmentBinding
 
-	constructor(): super()
+	constructor() : super()
 
 	// todo выпилить этот ужас после добавления базы
-	constructor(bio: String): super() {
+	constructor(bio: String) : super() {
 		val bundle = Bundle()
 		bundle.putString(EXTRA_BIO, bio)
 		arguments = bundle
@@ -47,8 +47,9 @@ class BiographyFragment : MvpAppCompatFragment {
 		setHasOptionsMenu(true)
 
 		val bio = Gson().fromJson(arguments.getString(EXTRA_BIO), AutorFull.Biography::class.java)
-		binding.birthday = bio.birthday?.format()
-		binding.deathday = bio.deathday?.format()
+		binding.birthday = bio.birthday?.format(context)
+		binding.deathday = bio.deathday?.format(context)
+		binding.sex = if (bio.sex == "m") 0 else 1
 		binding.text = bio.text.formatText()
 	}
 
