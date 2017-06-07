@@ -4,7 +4,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.disposables.CompositeDisposable
 import org.odddev.fantlab.core.di.Injector
-import java.util.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @InjectViewState
 class AutorsPresenter : MvpPresenter<IAutorsView>() {
 
-	private var autors: List<Autor> = ArrayList()
+	private var autors: List<Autor>? = null
 
 	@Inject
 	lateinit var disposables: CompositeDisposable
@@ -29,24 +29,19 @@ class AutorsPresenter : MvpPresenter<IAutorsView>() {
 	}
 
 	internal fun getAutors() {
-		if (!autors.isEmpty()) {
-			showAutors(autors)
-		} else {
+		autors?.let { viewState.showAutors(it) } ?: run {
 			disposables.add(autorsProvider
 					.getAutors()
 					.subscribe(
 							{ autors ->
 								this.autors = autors.getAutorsList()
-								showAutors(this.autors)
+								viewState.showAutors(this.autors as List<Autor>)
 							},
-							{ error ->
+							{ error -> run {
+								Timber.e(error)
 								viewState.showError(error.message ?: "Error")
-							}))
+							}}))
 		}
-	}
-
-	private fun showAutors(autors: List<Autor>) {
-		viewState.showAutors(autors)
 	}
 
 	override fun onDestroy() {

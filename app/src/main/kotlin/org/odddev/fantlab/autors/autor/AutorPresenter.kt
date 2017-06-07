@@ -29,27 +29,20 @@ class AutorPresenter : MvpPresenter<IAutorView>() {
 	}
 
 	internal fun getAutor(id: Int) {
-		if (autor != null) {
-			showAutor(autor as AutorFull)
-		} else {
+		autor?.let { viewState.showAutor(it) } ?: run {
 			disposables.add(autorProvider
 					.getAutor(id)
 					.subscribe(
 							{ autor ->
 								this.autor = autor
-								showAutor(this.autor as AutorFull)
+								viewState.showAutor(this.autor as AutorFull)
 							},
-							{ error ->
-								run {
+							{ error -> run {
 									Timber.e(error)
 									viewState.showError(error.message ?: "Error")
 								}
 							}))
 		}
-	}
-
-	private fun showAutor(autor: AutorFull) {
-		viewState.showAutor(autor)
 	}
 
 	override fun onDestroy() {

@@ -1,11 +1,9 @@
 package org.odddev.fantlab.core.storage
 
 import android.content.Context
-
-import javax.inject.Singleton
-
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 /**
  * @author kenrube
@@ -18,5 +16,5 @@ class StorageModule {
 
 	@Provides
 	@Singleton
-	fun getStorageManager(context: Context): StorageManager = StorageManager(context)
+	fun getStorageManager(context: Context) = StorageManager(context)
 }

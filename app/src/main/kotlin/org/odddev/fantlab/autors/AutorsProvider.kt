@@ -1,6 +1,5 @@
 package org.odddev.fantlab.autors
 
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.odddev.fantlab.core.di.Injector
@@ -22,9 +21,7 @@ class AutorsProvider : IAutorsProvider {
 		Injector.getAppComponent().inject(this)
 	}
 
-	override fun getAutors(): Observable<AutorsResponse> {
-		return serverApi.getAutors()
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-	}
+	override fun getAutors() = serverApi.getAutors()
+			.subscribeOn(Schedulers.io())
+			.observeOn(AndroidSchedulers.mainThread())
 }

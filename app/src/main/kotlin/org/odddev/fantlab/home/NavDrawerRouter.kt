@@ -1,5 +1,6 @@
 package org.odddev.fantlab.home
 
+import android.annotation.SuppressLint
 import android.support.annotation.IdRes
 import android.support.annotation.IntDef
 import org.odddev.fantlab.R
@@ -21,6 +22,7 @@ internal class NavDrawerRouter(activity: HomeActivity, @IdRes containerId: Int) 
 	@Retention(AnnotationRetention.SOURCE)
 	internal annotation class NAV_DRAWER_ITEM
 
+	@SuppressLint("SwitchIntDef")
 	fun routeToNavDrawerItem(@NAV_DRAWER_ITEM item: Int) {
 		when (item) {
 			R.id.nav_autors -> FragmentUtils.replaceFragment(activity, containerId, AutorsFragment(), false)

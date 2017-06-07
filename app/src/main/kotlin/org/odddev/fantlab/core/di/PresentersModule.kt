@@ -14,5 +14,5 @@ import io.reactivex.disposables.CompositeDisposable
 class PresentersModule {
 
 	@Provides
-	fun provideCompositeDisposable(): CompositeDisposable = CompositeDisposable()
+	fun provideCompositeDisposable() = CompositeDisposable()
 }

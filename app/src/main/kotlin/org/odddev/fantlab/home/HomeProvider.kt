@@ -22,11 +22,9 @@ class HomeProvider : IHomeProvider {
 		Injector.getAppComponent().inject(this)
 	}
 
-	override fun getUserName(): Observable<String> {
-		return Observable.just<String>(storageManager.loadUsername())
+	override fun getUserName() = Observable.just<String>(storageManager.loadUsername())
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
-	}
 
 	override fun clearCookie() {
 		storageManager.clearCookie()

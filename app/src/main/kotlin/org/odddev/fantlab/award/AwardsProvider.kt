@@ -1,6 +1,5 @@
 package org.odddev.fantlab.award
 
-import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import org.odddev.fantlab.core.di.Injector
 import org.odddev.fantlab.core.network.IServerApi
@@ -21,8 +20,5 @@ class AwardsProvider : IAwardsProvider {
 		Injector.getAppComponent().inject(this)
 	}
 
-	override fun getAwards(): Observable<List<Award>> {
-		return serverApi.getAwards(1)
-				.subscribeOn(Schedulers.io())
-	}
+	override fun getAwards() = serverApi.getAwards(1).subscribeOn(Schedulers.io())
 }

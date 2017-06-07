@@ -80,5 +80,5 @@ object BindingUtils {
 
 	@BindingConversion
 	@JvmStatic
-	fun convertConditionToVisibility(condition: Boolean): Int = if (condition) View.VISIBLE else View.GONE
+	fun convertConditionToVisibility(condition: Boolean) = if (condition) View.VISIBLE else View.GONE
 }

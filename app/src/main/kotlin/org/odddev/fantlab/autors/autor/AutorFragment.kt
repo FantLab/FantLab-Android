@@ -48,6 +48,7 @@ class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 							  savedInstanceState: Bundle?): View? {
 		binding = AutorFragmentBinding.inflate(inflater, container, false)
 		binding.handler = this
+		binding.autorBio.visibility = View.GONE
 		return binding.root
 	}
 
@@ -75,13 +76,16 @@ class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 		val activity = activity as AppCompatActivity
 		activity.setSupportActionBar(binding.toolbar)
 		val actionBar = activity.supportActionBar
-		actionBar?.title = arguments.getString(EXTRA_NAME)
-		actionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
-		actionBar?.setDisplayHomeAsUpEnabled(true)
+		actionBar?.apply {
+			title = arguments.getString(EXTRA_NAME)
+			setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
+			setDisplayHomeAsUpEnabled(true)
+		}
 	}
 
 	override fun showAutor(autor: AutorFull) {
 		binding.autor = autor
+		binding.autorBio.visibility = View.VISIBLE
 		bio = Gson().toJson(autor.biography)
 	}
 

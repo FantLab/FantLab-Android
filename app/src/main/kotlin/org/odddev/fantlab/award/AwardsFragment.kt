@@ -40,7 +40,6 @@ class AwardsFragment : MvpAppCompatFragment(), IAwardsView {
 
 		initToolbar()
 		setHasOptionsMenu(true)
-
 		initRecyclerView()
 	}
 
@@ -48,9 +47,11 @@ class AwardsFragment : MvpAppCompatFragment(), IAwardsView {
 		val activity = activity as AppCompatActivity
 		activity.setSupportActionBar(binding.toolbar)
 		val actionBar = activity.supportActionBar
-		actionBar?.setTitle(R.string.awards_toolbar_title)
-		actionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
-		actionBar?.setDisplayHomeAsUpEnabled(true)
+		actionBar?.apply {
+			title = getString(R.string.awards_toolbar_title)
+			setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
+			setDisplayHomeAsUpEnabled(true)
+		}
 	}
 
 	private fun initRecyclerView() {

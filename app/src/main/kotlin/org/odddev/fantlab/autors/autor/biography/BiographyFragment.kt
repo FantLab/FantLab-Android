@@ -64,8 +64,10 @@ class BiographyFragment : MvpAppCompatFragment {
 		val activity = activity as AppCompatActivity
 		activity.setSupportActionBar(binding.toolbar)
 		val actionBar = activity.supportActionBar
-		actionBar?.title = getString(R.string.autor_bio_toolbar_title)
-		actionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
-		actionBar?.setDisplayHomeAsUpEnabled(true)
+		actionBar?.apply {
+			title = getString(R.string.autor_bio_toolbar_title)
+			setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
+			setDisplayHomeAsUpEnabled(true)
+		}
 	}
 }

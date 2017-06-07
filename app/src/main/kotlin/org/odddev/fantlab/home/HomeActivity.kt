@@ -1,10 +1,7 @@
 package org.odddev.fantlab.home
 
-import android.content.Context
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.content.IntentCompat
 import android.support.v4.view.GravityCompat
 import android.text.TextUtils
 import com.arellomobile.mvp.MvpAppCompatActivity
@@ -35,31 +32,25 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 
 		router = NavDrawerRouter(this, R.id.container)
 
-		if (savedInstanceState != null)
-			initNavigationDrawer(savedInstanceState.getInt(SELECTED_NAV_DRAWER_ITEM_ID_KEY))
-		else
+		savedInstanceState?.let { initNavigationDrawer(it.getInt("SELECTED_NAV_DRAWER_ITEM")) } ?: run {
 			initNavigationDrawer(selectedNavDrawerItemId)
+		}
 
 		presenter.getUserName()
 	}
 
 	private fun initNavigationDrawer(itemId: Int) {
-		headerBinding = NavDrawerHeaderBinding.inflate(layoutInflater,
-				binding.navigationView, false)
+		headerBinding = NavDrawerHeaderBinding.inflate(layoutInflater, binding.navigationView, false)
 
 		binding.navigationView.addHeaderView(headerBinding.root)
-
 		binding.navigationView.menu.clear()
 
-		val loggedIn = intent.getBooleanExtra(EXTRA_LOGGED_IN_KEY, false)
+		val loggedIn = intent.getBooleanExtra("LOGGED_IN", false)
 
-		binding.navigationView.inflateMenu(if (loggedIn)
-			R.menu.nav_drawer_user
-		else
-			R.menu.nav_drawer_guest)
+		binding.navigationView.inflateMenu(if (loggedIn) R.menu.nav_drawer_user else R.menu.nav_drawer_guest)
 
 		binding.navigationView.setNavigationItemSelectedListener(
-				{ item ->
+				{ item -> run {
 					@NavDrawerRouter.NAV_DRAWER_ITEM val navDrawerItemId = item.itemId
 
 					selectedNavDrawerItemId = navDrawerItemId
@@ -71,7 +62,7 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 
 					router.routeToNavDrawerItem(navDrawerItemId)
 					true
-				})
+				}})
 		binding.navigationView.menu.performIdentifierAction(itemId, 0)
 	}
 
@@ -89,7 +80,7 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 
 	override fun onSaveInstanceState(outState: Bundle) {
 		super.onSaveInstanceState(outState)
-		outState.putInt(SELECTED_NAV_DRAWER_ITEM_ID_KEY, selectedNavDrawerItemId)
+		outState.putInt("SELECTED_NAV_DRAWER_ITEM", selectedNavDrawerItemId)
 	}
 
 	override fun showUserName(userName: String) {
@@ -105,23 +96,5 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 
 	override fun showBiography(bio: String) {
 		FragmentUtils.replaceFragment(this, R.id.container, BiographyFragment(bio), true)
-	}
-
-	companion object {
-
-		private val SELECTED_NAV_DRAWER_ITEM_ID_KEY = "SELECTED_NAV_DRAWER_ITEM_ID"
-		private val EXTRA_LOGGED_IN_KEY = "LOGGED_IN"
-
-		fun start(context: Context, loggedIn: Boolean) {
-			start(context, Intent.FLAG_ACTIVITY_NEW_TASK or IntentCompat.FLAG_ACTIVITY_CLEAR_TASK,
-					loggedIn)
-		}
-
-		fun start(context: Context, flags: Int, loggedIn: Boolean) {
-			val intent = Intent(context, HomeActivity::class.java)
-			intent.flags = intent.flags or flags
-			intent.putExtra(EXTRA_LOGGED_IN_KEY, loggedIn)
-			context.startActivity(intent)
-		}
 	}
 }

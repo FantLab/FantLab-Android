@@ -102,6 +102,7 @@
 				/>
 
 			<Button
+				android:id="@+id/autor_bio"
 				android:background="@drawable/selectable_blue_fill_background"
 				android:text="@string/autor_bio_details"
 				android:layout_gravity="end"

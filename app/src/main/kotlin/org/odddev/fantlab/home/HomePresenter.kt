@@ -26,15 +26,11 @@ class HomePresenter : MvpPresenter<IHomeView>() {
 	}
 
 	internal fun getUserName() {
-		disposables.add(provider.getUserName().subscribe({ showUserName(it) }))
+		disposables.add(provider.getUserName().subscribe({ viewState.showUserName(it) }))
 	}
 
 	internal fun clearCookie() {
 		provider.clearCookie()
-	}
-
-	private fun showUserName(userName: String) {
-		viewState.showUserName(userName)
 	}
 
 	override fun onDestroy() {

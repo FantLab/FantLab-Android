@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import org.odddev.fantlab.core.di.Injector
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -29,25 +30,21 @@ class AwardsPresenter : MvpPresenter<IAwardsView>() {
 	}
 
 	internal fun getAwards() {
-		if (awards != null) {
-			showAwards(awards as List<Award>)
-		} else {
+		awards?.let { viewState.showAwards(it) } ?: run {
 			disposables.add(awardsProvider
 					.getAwards()
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(
 							{ awards ->
 								this.awards = awards
-								showAwards(awards)
+								viewState.showAwards(awards)
 							},
-							{ error ->
+							{ error -> run {
+								Timber.e(error)
 								viewState.showError(error.message ?: "Error")
-							}))
-		}
-	}
+							}}))
 
-	private fun showAwards(awards: List<Award>) {
-		viewState.showAwards(awards)
+		}
 	}
 
 	override fun onDestroy() {

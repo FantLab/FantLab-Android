@@ -26,6 +26,6 @@ class NetworkChecker : INetworkChecker {
 		val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 		val ni = cm.activeNetworkInfo
 
-		return ni != null && ni.isConnected
+		return ni?.isConnected ?: false
 	}
 }

@@ -12,6 +12,9 @@ import android.preference.PreferenceManager
 
 class StorageManager(context: Context) {
 
+	private val COOKIE_KEY = "COOKIE"
+	private val USERNAME_KEY = "USERNAME"
+
 	private val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
 	fun saveCookie(cookie: String) {
@@ -28,7 +31,6 @@ class StorageManager(context: Context) {
 		editor.apply()
 	}
 
-	// todo 6.32
 	fun saveUsername(username: String) {
 		val editor = sharedPreferences.edit()
 		editor.putString(USERNAME_KEY, username)
@@ -36,10 +38,4 @@ class StorageManager(context: Context) {
 	}
 
 	fun loadUsername(): String? = sharedPreferences.getString(USERNAME_KEY, "Guest")
-
-	companion object {
-
-		private val COOKIE_KEY = "COOKIE"
-		private val USERNAME_KEY = "USERNAME"
-	}
 }

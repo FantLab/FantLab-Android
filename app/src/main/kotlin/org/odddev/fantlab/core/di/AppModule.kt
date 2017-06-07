@@ -36,11 +36,11 @@ class AppModule(internal val context: Context) {
 	@Singleton
 	@Provides
 	fun provideRequery(): ReactiveEntityStore<Persistable> {
-		if (dataStore == null) {
+		dataStore?.let { return it } ?: run {
 			val source = DatabaseSource(context, Models.DEFAULT, 1)
 			val configuration = source.configuration
 			dataStore = ReactiveSupport.toReactiveStore(EntityDataStore<Persistable>(configuration))
+			return dataStore as ReactiveEntityStore<Persistable>
 		}
-		return dataStore!!
 	}
 }

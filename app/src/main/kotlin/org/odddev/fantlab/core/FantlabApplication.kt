@@ -34,8 +34,7 @@ class FantlabApplication : Application() {
 		val builder = Stetho.newInitializerBuilder(this)
 		builder.enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
 		builder.enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-		val initializer = builder.build()
-		Stetho.initialize(initializer)
+		Stetho.initialize(builder.build())
 	}
 
 	private fun initDagger() {

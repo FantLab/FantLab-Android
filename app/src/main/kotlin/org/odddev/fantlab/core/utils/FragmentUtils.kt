@@ -18,9 +18,7 @@ object FragmentUtils {
 			val fragmentManager = activity.supportFragmentManager
 			val fragmentTransaction = fragmentManager.beginTransaction()
 			fragmentTransaction.replace(containerId, fragment, fragment.javaClass.simpleName)
-			if (backStack) {
-				fragmentTransaction.addToBackStack(null)
-			}
+			if (backStack) fragmentTransaction.addToBackStack(null)
 			fragmentTransaction.commit()
 			fragmentManager.executePendingTransactions()
 		} catch (e: IllegalStateException) {
