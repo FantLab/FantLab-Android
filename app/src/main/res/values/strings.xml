@@ -81,5 +81,6 @@
 		<item>Умер:</item>
 		<item>Умерла:</item>
 	</string-array>
+	<string name="autor_bio_notes">Примечание к биографии:</string>
 
 </resources>

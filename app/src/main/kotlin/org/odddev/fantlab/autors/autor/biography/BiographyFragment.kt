@@ -51,6 +51,7 @@ class BiographyFragment : MvpAppCompatFragment {
 		binding.deathday = bio.deathday?.format(context)
 		binding.sex = if (bio.sex == "m") 0 else 1
 		binding.text = bio.text.formatText()
+		binding.notes = bio.notes.formatText()
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
