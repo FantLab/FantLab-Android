@@ -28,6 +28,11 @@
 			name="text"
 			type="android.text.Spanned"
 			/>
+		
+		<variable
+			name="source"
+			type="android.text.Spanned"
+			/>
 
 		<variable
 			name="notes"
@@ -149,6 +154,17 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
+					android:layout_gravity="end"
+					android:textSize="14sp"
+					android:textColor="@color/black"
+					android:text="@{source}"
+					android:visibility="@{!TextUtils.isEmpty(source)}"
+					/>
+				
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/spacing_small"
 					android:textSize="14sp"
 					android:textColor="@color/black"
 					android:textStyle="bold"
@@ -159,6 +175,7 @@
 				<TextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:layout_marginBottom="@dimen/spacing_big"
 					android:textSize="14sp"
 					android:textColor="@color/black"
 					android:text="@{notes}"
