@@ -7,7 +7,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:2.3.1'
+		classpath 'com.android.tools.build:gradle:2.3.3'
 		// still 1.1.2-2: see https://stackoverflow.com/a/44036101
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.2-2"
 		//noinspection GradleDynamicVersion

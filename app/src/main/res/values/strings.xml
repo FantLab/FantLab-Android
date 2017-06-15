@@ -2,6 +2,7 @@
 <resources>
 
 	<!-- Common -->
+	<string name="app_name">Fantlab</string>
 	<string name="action_search">Поиск</string>
 
 	<!-- Fonts -->

@@ -103,11 +103,11 @@
 
 			<Button
 				android:id="@+id/autor_bio"
-				android:background="@drawable/selectable_blue_fill_background"
+				android:background="?attr/selectableItemBackground"
 				android:text="@string/autor_bio_details"
 				android:layout_gravity="end"
 				android:layout_marginRight="@dimen/spacing_medium"
-				android:textColor="@color/white"
+				android:textColor="@color/blue"
 				app:font="@{@string/roboto_medium}"
 				app:onClick="@{handler::showBiography}"
 				style="@style/Button"
