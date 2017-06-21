@@ -5,12 +5,6 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-/**
- * @author kenrube
- * *
- * @since 29.09.16
- */
-
 @Module
 class StorageModule {
 

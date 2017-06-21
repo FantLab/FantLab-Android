@@ -4,16 +4,13 @@ import android.databinding.ViewDataBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
 
-/**
- * @author Ivan Zolotarev
- * @since 05.06.17
- */
 class BindingFactory<B : ViewDataBinding>(private val type: Class<B>) : VHFactory<BindingHolder<B>> {
 
 	override fun onCreateViewHolder(parent: ViewGroup): BindingHolder<B> {
-		val method = type.getMethod("inflate", LayoutInflater::class.java)
+		val method = type.getMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java,
+				kotlin.Boolean::class.java)
 		@Suppress("UNCHECKED_CAST")
-		val binding = method.invoke(null, LayoutInflater.from(parent.context)) as B
+		val binding = method.invoke(null, LayoutInflater.from(parent.context), parent, false) as B
 		return BindingHolder(binding)
 		/*try {
 			Method method = type.getMethod("inflate", LayoutInflater.class);

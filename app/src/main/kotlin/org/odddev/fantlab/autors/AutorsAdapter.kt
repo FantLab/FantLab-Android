@@ -6,12 +6,6 @@ import android.view.ViewGroup
 import org.odddev.fantlab.databinding.AutorItemBinding
 import java.util.*
 
-/**
- * @author kenrube
- * *
- * @since 07.12.16
- */
-
 class AutorsAdapter : RecyclerView.Adapter<AutorsAdapter.AutorViewHolder>() {
 
 	private var autors: List<Autor> = ArrayList()

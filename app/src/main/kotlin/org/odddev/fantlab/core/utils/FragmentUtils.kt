@@ -4,12 +4,6 @@ import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 
-/**
- * @author kenrube
- * *
- * @since 30.08.16
- */
-
 object FragmentUtils {
 
 	fun replaceFragment(activity: FragmentActivity, @IdRes containerId: Int,

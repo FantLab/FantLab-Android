@@ -9,12 +9,6 @@ import org.odddev.fantlab.award.AwardsFragment
 import org.odddev.fantlab.core.layers.router.Router
 import org.odddev.fantlab.core.utils.FragmentUtils
 
-/**
- * @author kenrube
- * *
- * @since 11.10.16
- */
-
 internal class NavDrawerRouter(activity: HomeActivity, @IdRes containerId: Int) : Router<HomeActivity>(activity, containerId) {
 
 	@IntDef(R.id.nav_autors.toLong(), R.id.nav_awards.toLong(), R.id.nav_search.toLong(),

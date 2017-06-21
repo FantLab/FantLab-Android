@@ -8,12 +8,6 @@ import org.odddev.fantlab.core.di.Injector
 import timber.log.Timber
 import javax.inject.Inject
 
-/**
- * @author kenrube
- * *
- * @since 11.12.16
- */
-
 @InjectViewState
 class AwardsPresenter : MvpPresenter<IAwardsView>() {
 

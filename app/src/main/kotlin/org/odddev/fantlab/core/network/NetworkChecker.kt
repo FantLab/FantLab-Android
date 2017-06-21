@@ -7,12 +7,6 @@ import org.odddev.fantlab.core.di.Injector
 
 import javax.inject.Inject
 
-/**
- * @author kenrube
- * *
- * @since 23.08.16
- */
-
 class NetworkChecker : INetworkChecker {
 
 	@Inject

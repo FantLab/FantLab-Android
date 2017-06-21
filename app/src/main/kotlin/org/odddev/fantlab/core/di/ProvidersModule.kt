@@ -11,12 +11,6 @@ import org.odddev.fantlab.award.IAwardsProvider
 import org.odddev.fantlab.home.HomeProvider
 import org.odddev.fantlab.home.IHomeProvider
 
-/**
- * @author kenrube
- * *
- * @since 15.09.16
- */
-
 @Module
 class ProvidersModule {
 

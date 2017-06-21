@@ -14,13 +14,6 @@ import org.odddev.fantlab.core.utils.format
 import org.odddev.fantlab.core.utils.formatText
 import org.odddev.fantlab.databinding.AutorBiographyFragmentBinding
 
-
-/**
- * @author kenrube
- * *
- * @since 10.12.16
- */
-
 class BiographyFragment : MvpAppCompatFragment {
 
 	private val EXTRA_BIO = "bio"

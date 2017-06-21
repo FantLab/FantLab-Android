@@ -5,12 +5,6 @@ import org.odddev.fantlab.core.di.Injector
 import org.odddev.fantlab.core.network.IServerApi
 import javax.inject.Inject
 
-/**
- * @author kenrube
- * *
- * @since 11.12.16
- */
-
 class AwardsProvider : IAwardsProvider {
 
 	@Inject

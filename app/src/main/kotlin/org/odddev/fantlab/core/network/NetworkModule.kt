@@ -4,12 +4,6 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-/**
- * @author kenrube
- * *
- * @since 15.09.16
- */
-
 @Module
 class NetworkModule {
 

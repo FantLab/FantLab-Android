@@ -8,12 +8,6 @@ import org.odddev.fantlab.core.storage.StorageManager
 import java.io.IOException
 import javax.inject.Inject
 
-/**
- * @author kenrube
- * *
- * @since 15.09.16
- */
-
 class HeaderInterceptor : Interceptor {
 
 	@Inject

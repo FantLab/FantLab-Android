@@ -4,9 +4,6 @@ import android.util.SparseArray
 import android.util.SparseIntArray
 import java.util.*
 
-/**
- * Created by kefir on 28.01.2017.
- */
 class AutorFull(
 		val id: Int,
 		val biography: Biography,

@@ -2,9 +2,6 @@ package org.odddev.fantlab.award
 
 import java.util.*
 
-/**
- * Created by kefir on 28.01.2017.
- */
 class Award(
 		val awardId: String,
 		val country: String,

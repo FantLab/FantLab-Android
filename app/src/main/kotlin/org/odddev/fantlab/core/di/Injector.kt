@@ -1,11 +1,5 @@
 package org.odddev.fantlab.core.di
 
-/**
- * @author kenrube
- * *
- * @since 23.08.16
- */
-
 object Injector {
 
 	private var appComponent: AppComponent? = null

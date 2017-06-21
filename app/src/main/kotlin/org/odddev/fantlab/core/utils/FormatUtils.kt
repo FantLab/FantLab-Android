@@ -6,11 +6,6 @@ import android.text.Spanned
 import android.text.format.DateFormat
 import java.util.*
 
-/**
- * @author Ivan Zolotarev
- * @since 30.05.17
- */
-
 @Suppress("DEPRECATION")
 fun CharSequence.formatText(): Spanned {
 	val baseUrl = "https://fantlab.ru"

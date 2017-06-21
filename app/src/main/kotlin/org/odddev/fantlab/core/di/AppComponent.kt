@@ -16,12 +16,6 @@ import org.odddev.fantlab.home.HomeProvider
 import org.odddev.fantlab.launch.LaunchActivity
 import javax.inject.Singleton
 
-/**
- * @author kenrube
- * *
- * @since 23.08.16
- */
-
 @Singleton
 @Component(modules = arrayOf(AppModule::class, ProvidersModule::class, PresentersModule::class,
 		NetworkModule::class, StorageModule::class))

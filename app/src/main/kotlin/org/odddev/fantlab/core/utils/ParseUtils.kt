@@ -3,10 +3,6 @@ package org.odddev.fantlab.core.utils
 import com.google.gson.JsonElement
 import java.util.*
 
-/**
- * Created by kefir on 28.01.2017.
- */
-
 fun String.parseToDate(): Calendar {
 	return Calendar.getInstance().apply {
 		set(Calendar.YEAR, this@parseToDate.substring(0..3).toInt())

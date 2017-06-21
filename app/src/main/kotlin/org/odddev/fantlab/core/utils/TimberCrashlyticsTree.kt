@@ -6,12 +6,6 @@ import com.crashlytics.android.Crashlytics
 
 import timber.log.Timber
 
-/**
- * @author kenrube
- * *
- * @since 23.08.16
- */
-
 class TimberCrashlyticsTree : Timber.Tree() {
 
 	private val CRASHLYTICS_KEY_PRIORITY = "priority"

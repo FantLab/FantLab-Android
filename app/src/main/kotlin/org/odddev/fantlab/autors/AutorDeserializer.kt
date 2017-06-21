@@ -6,9 +6,6 @@ import com.google.gson.JsonElement
 import org.odddev.fantlab.core.utils.parseToDate
 import java.lang.reflect.Type
 
-/**
- * Created by kefir on 28.01.2017.
- */
 class AutorDeserializer : JsonDeserializer<Autor> {
 
 	override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext?): Autor {

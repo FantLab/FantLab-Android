@@ -8,9 +8,6 @@ import org.odddev.fantlab.core.utils.parseToDate
 import java.lang.reflect.Type
 import java.util.*
 
-/**
- * Created by kefir on 28.01.2017.
- */
 class AutorFullDeserializer : JsonDeserializer<AutorFull> {
 
 	fun JsonArray.parseAwards(awards: ArrayList<AutorFull.Award>) {

@@ -16,13 +16,6 @@ import org.odddev.fantlab.R
 import org.odddev.fantlab.databinding.AutorsFragmentBinding
 import org.odddev.fantlab.home.IActionsHandler
 
-
-/**
- * @author kenrube
- * *
- * @since 10.12.16
- */
-
 class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listener {
 
 	private lateinit var binding: AutorsFragmentBinding

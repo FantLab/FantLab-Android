@@ -15,12 +15,6 @@ import com.bumptech.glide.Glide
 
 import org.odddev.fantlab.R
 
-/**
- * @author kenrube
- * *
- * @since 17.09.16
- */
-
 object BindingUtils {
 
 	@BindingAdapter("onClick")

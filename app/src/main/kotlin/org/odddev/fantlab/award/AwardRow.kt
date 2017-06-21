@@ -5,11 +5,6 @@ import io.requery.Entity
 import io.requery.Key
 import io.requery.Persistable
 
-/**
- * @author Ivan Zolotarev
- * @since 16.05.17
- */
-
 @Entity
 interface AwardRow : Parcelable, Persistable {
 

@@ -4,12 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 
-/**
- * @author kenrube
- * *
- * @since 29.09.16
- */
-
 class StorageManager(context: Context) {
 
 	private val COOKIE_KEY = "COOKIE"

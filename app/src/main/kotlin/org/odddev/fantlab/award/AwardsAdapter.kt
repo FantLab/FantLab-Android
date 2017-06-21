@@ -6,12 +6,6 @@ import android.view.ViewGroup
 import org.odddev.fantlab.databinding.AwardItemBinding
 import java.util.*
 
-/**
- * @author kenrube
- * *
- * @since 07.12.16
- */
-
 class AwardsAdapter : RecyclerView.Adapter<AwardsAdapter.AwardViewHolder>() {
 
 	private var awards: List<Award> = ArrayList()

@@ -15,12 +15,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import org.odddev.fantlab.R
 import org.odddev.fantlab.databinding.AwardsFragmentBinding
 
-/**
- * @author kenrube
- * *
- * @since 10.12.16
- */
-
 class AwardsFragment : MvpAppCompatFragment(), IAwardsView {
 
 	private lateinit var binding: AwardsFragmentBinding

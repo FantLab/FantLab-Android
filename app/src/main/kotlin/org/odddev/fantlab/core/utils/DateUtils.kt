@@ -1,14 +1,7 @@
 package org.odddev.fantlab.core.utils
 
 import android.text.TextUtils
-
-import java.util.Calendar
-
-/**
- * @author kenrube
- * *
- * @since 07.10.16
- */
+import java.util.*
 
 object DateUtils {
 

@@ -17,13 +17,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 
-
-/**
- * @author kenrube
- * *
- * @since 15.09.16
- */
-
 internal object ServerApiBuilder {
 
 	private val HTTP_LOG_TAG = "OkHttp"

@@ -13,13 +13,6 @@ import org.odddev.fantlab.core.network.INetworkChecker
 import org.odddev.fantlab.core.network.NetworkChecker
 import javax.inject.Singleton
 
-
-/**
- * @author kenrube
- * *
- * @since 23.08.16
- */
-
 @Module
 class AppModule(internal val context: Context) {
 

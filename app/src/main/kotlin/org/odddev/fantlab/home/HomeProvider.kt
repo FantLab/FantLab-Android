@@ -7,12 +7,6 @@ import org.odddev.fantlab.core.di.Injector
 import org.odddev.fantlab.core.storage.StorageManager
 import javax.inject.Inject
 
-/**
- * @author kenrube
- * *
- * @since 11.12.16
- */
-
 class HomeProvider : IHomeProvider {
 
 	@Inject

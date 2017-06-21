@@ -8,12 +8,6 @@ import org.odddev.fantlab.award.Award
 import retrofit2.Response
 import retrofit2.http.*
 
-/**
- * @author kenrube
- * *
- * @since 15.09.16
- */
-
 interface IServerApi {
 
 	@FormUrlEncoded
@@ -93,7 +87,9 @@ interface IServerApi {
 						@Path("action") action: String): Observable<Unit>
 
 	@GET("/edition{id}.json")
-	fun getEdition(@Path("id") id: Int): Observable<Unit>
+	fun getEdition(@Path("id") id: Int,
+				   @Query("include_content") includeContent: Int,
+				   @Query("images_plus") includeAdditionalImages: Int): Observable<Unit>
 
 	// c1, c2 divider = `:`
 	@GET("/compare")

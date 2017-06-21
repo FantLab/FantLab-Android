@@ -15,13 +15,6 @@ import org.odddev.fantlab.R
 import org.odddev.fantlab.databinding.AutorFragmentBinding
 import org.odddev.fantlab.home.IActionsHandler
 
-
-/**
- * @author kenrube
- * *
- * @since 10.12.16
- */
-
 class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 
 	private val EXTRA_ID = "id"

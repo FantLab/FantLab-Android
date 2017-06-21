@@ -6,12 +6,6 @@ import android.graphics.*
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 
-/**
- * @author kenrube
- * *
- * @since 29.09.16
- */
-
 internal class CircleTransform(context: Context) : BitmapTransformation(context) {
 
 	override fun transform(pool: BitmapPool, toTransform: Bitmap, outWidth: Int, outHeight: Int): Bitmap? = circleCrop(pool, toTransform)

@@ -6,12 +6,6 @@ import io.reactivex.disposables.CompositeDisposable
 import org.odddev.fantlab.core.di.Injector
 import javax.inject.Inject
 
-/**
- * @author kenrube
- * *
- * @since 11.12.16
- */
-
 @InjectViewState
 class HomePresenter : MvpPresenter<IHomeView>() {
 
