@@ -12,6 +12,8 @@ import org.odddev.fantlab.autors.autor.AutorFull
 import org.odddev.fantlab.autors.autor.AutorFullDeserializer
 import org.odddev.fantlab.award.Award
 import org.odddev.fantlab.award.AwardDeserializer
+import org.odddev.fantlab.edition.Edition
+import org.odddev.fantlab.edition.EditionDeserializer
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -48,5 +50,6 @@ internal object ServerApiBuilder {
 			.registerTypeAdapter(Award::class.java, AwardDeserializer())
 			.registerTypeAdapter(Autor::class.java, AutorDeserializer())
 			.registerTypeAdapter(AutorFull::class.java, AutorFullDeserializer())
+			.registerTypeAdapter(Edition::class.java, EditionDeserializer())
 			.create()
 }

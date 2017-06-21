@@ -13,38 +13,36 @@ class AutorFullDeserializer : JsonDeserializer<AutorFull> {
 	fun JsonArray.parseAwards(awards: ArrayList<AutorFull.Award>) {
 		this.map { it.asJsonObject }.mapTo(awards) {
 			AutorFull.Award(
-					it.get("award_id").getField()?.asInt ?: -1,
-					it.get("award_in_list").getField()?.asInt == 1,
-					it.get("award_is_opened").getField()?.asInt == 1,
-					it.get("award_name").getField()?.asString ?: "",
-					it.get("award_rusname").getField()?.asString ?: "",
-					it.get("contest_id").getField()?.asInt ?: -1,
-					it.get("contest_name").getField()?.asString ?: "",
-					it.get("contest_year").getField()?.asInt ?: -1,
-					it.get("cw_id").getField()?.asInt ?: -1,
-					it.get("cw_is_winner").getField()?.asInt == 1,
-					it.get("cw_postfix").getField()?.asString ?: "",
-					it.get("cw_prefix").getField()?.asString ?: "",
-					it.get("nomination_id").getField()?.asInt ?: -1,
-					it.get("nomination_name").getField()?.asString ?: "",
-					it.get("nomination_rusname").getField()?.asString ?: "",
-					it.get("work_id").getField()?.asInt ?: -1,
-					it.get("work_name").getField()?.asString ?: "",
-					it.get("work_rusname").getField()?.asString ?: "",
-					it.get("work_year").getField()?.asInt ?: -1
+					id = it.get("award_id").getField()?.asInt ?: -1,
+					inList = it.get("award_in_list").getField()?.asInt == 1,
+					isOpened = it.get("award_is_opened").getField()?.asInt == 1,
+					name = it.get("award_name").getField()?.asString ?: "",
+					rusName = it.get("award_rusname").getField()?.asString ?: "",
+					contestId = it.get("contest_id").getField()?.asInt ?: -1,
+					contestName = it.get("contest_name").getField()?.asString ?: "",
+					contestYear = it.get("contest_year").getField()?.asInt ?: -1,
+					cwId = it.get("cw_id").getField()?.asInt ?: -1,
+					cwIsWinner = it.get("cw_is_winner").getField()?.asInt == 1,
+					cwPostfix = it.get("cw_postfix").getField()?.asString ?: "",
+					cwPrefix = it.get("cw_prefix").getField()?.asString ?: "",
+					nominationId = it.get("nomination_id").getField()?.asInt ?: -1,
+					nominationName = it.get("nomination_name").getField()?.asString ?: "",
+					nominationRusname = it.get("nomination_rusname").getField()?.asString ?: "",
+					workId = it.get("work_id").getField()?.asInt ?: -1,
+					workName = it.get("work_name").getField()?.asString ?: "",
+					workRusname = it.get("work_rusname").getField()?.asString ?: "",
+					workYear = it.get("work_year").getField()?.asInt ?: -1
 			)
 		}
 	}
 
-	fun JsonObject.parseStat(): AutorFull.Stat {
-		return AutorFull.Stat(
-				this.get("awardcount").getField()?.asInt ?: -1,
-				this.get("editioncount").getField()?.asInt ?: -1,
-				this.get("moviecount").getField()?.asInt ?: -1,
-				this.get("markcount").getField()?.asInt ?: -1,
-				this.get("responsecount").getField()?.asInt ?: -1
-		)
-	}
+	fun JsonObject.parseStat(): AutorFull.Stat = AutorFull.Stat(
+			award = this.get("awardcount").getField()?.asInt ?: -1,
+			edition = this.get("editioncount").getField()?.asInt ?: -1,
+			movie = this.get("moviecount").getField()?.asInt ?: -1,
+			mark = this.get("markcount").getField()?.asInt ?: -1,
+			response = this.get("responsecount").getField()?.asInt ?: -1
+	)
 
 	fun JsonObject.parseAllWorks(works: SparseArray<List<AutorFull.Work>>) {
 		for ((key, value) in this.entrySet()) {
@@ -60,32 +58,32 @@ class AutorFullDeserializer : JsonDeserializer<AutorFull> {
 			val autorLinks = ArrayList<AutorFull.AutorLink>()
 			workObject.getAsJsonArray("authors")?.map { it.asJsonObject }?.mapTo(autorLinks) {
 				AutorFull.AutorLink(
-						it.get("id").asInt,
-						it.get("name").asString
+						id = it.get("id").asInt,
+						name = it.get("name").asString
 				)
 			}
 			works.add(AutorFull.Work(
-					autorLinks,
-					workObject.get("val_midmark").getField()?.asFloat ?: -1F,
-					workObject.get("val_responsecount").getField()?.asInt ?: -1,
-					workObject.get("val_voters").getField()?.asInt ?: -1,
-					workObject.get("work_description").getField()?.asString ?: "",
-					workObject.get("work_id").getField()?.asInt ?: -1,
-					workObject.get("work_name").getField()?.asString ?: "",
-					workObject.get("work_name_alt").getField()?.asString ?: "",
-					workObject.get("work_name_orig").getField()?.asString ?: "",
-					workObject.get("work_name_bonus").getField()?.asString ?: "",
-					workObject.get("work_notfinished").getField()?.asInt == 1,
-					workObject.get("work_published").getField()?.asInt == 1,
-					workObject.get("work_preparing").getField()?.asInt == 1,
-					workObject.get("work_type_id").getField()?.asInt ?: -1,
-					workObject.get("work_year").getField()?.asInt ?: -1,
-					workObject.get("work_year_of_write").getField()?.asInt ?: -1,
-					workObject.get("deep").getField()?.asInt ?: 0,
-					workObject.get("plus").getField()?.asInt == 1,
-					workObject.get("public_download_file").getField()?.asInt == 1,
-					workObject.get("work_lp").getField()?.asInt == 1,
-					workObject.get("publish_for_children").getField()?.asInt == 1
+					autors = autorLinks,
+					midmark = workObject.get("val_midmark").getField()?.asFloat ?: -1F,
+					responseCount = workObject.get("val_responsecount").getField()?.asInt ?: -1,
+					voters = workObject.get("val_voters").getField()?.asInt ?: -1,
+					description = workObject.get("work_description").getField()?.asString ?: "",
+					id = workObject.get("work_id").getField()?.asInt ?: -1,
+					name = workObject.get("work_name").getField()?.asString ?: "",
+					nameAlt = workObject.get("work_name_alt").getField()?.asString ?: "",
+					nameOrig = workObject.get("work_name_orig").getField()?.asString ?: "",
+					nameBonus = workObject.get("work_name_bonus").getField()?.asString ?: "",
+					notFinished = workObject.get("work_notfinished").getField()?.asInt == 1,
+					published = workObject.get("work_published").getField()?.asInt == 1,
+					preparing = workObject.get("work_preparing").getField()?.asInt == 1,
+					type = workObject.get("work_type_id").getField()?.asInt ?: -1,
+					year = workObject.get("work_year").getField()?.asInt ?: -1,
+					writeYear = workObject.get("work_year_of_write").getField()?.asInt ?: -1,
+					deep = workObject.get("deep").getField()?.asInt ?: 0,
+					plus = workObject.get("plus").getField()?.asInt == 1,
+					canDownload = workObject.get("public_download_file").getField()?.asInt == 1,
+					hasLp = workObject.get("work_lp").getField()?.asInt == 1,
+					forChildren = workObject.get("publish_for_children").getField()?.asInt == 1
 			))
 
 			workObject.getAsJsonArray("children")?.parseWorks(works)
@@ -100,23 +98,23 @@ class AutorFullDeserializer : JsonDeserializer<AutorFull> {
 		jsonObject.getAsJsonObject("awards")?.getAsJsonArray("win")?.parseAwards(awards)
 
 		val biography = AutorFull.Biography(
-				jsonObject.get("anons").getField()?.asString ?: "",
-				jsonObject.get("biography").getField()?.asString ?: "",
-				jsonObject.get("biography_notes").getField()?.asString ?: "",
-				jsonObject.get("source").getField()?.asString ?: "",
-				jsonObject.get("source_link").getField()?.asString ?: "",
-				jsonObject.get("birthday").getField()?.asString?.parseToDate(),
-				jsonObject.get("deathday").getField()?.asString?.parseToDate(),
-				jsonObject.get("name").getField()?.asString ?: "",
-				jsonObject.get("name_orig").getField()?.asString ?: "",
-				jsonObject.get("name_rp").getField()?.asString ?: "",
-				jsonObject.get("name_short").getField()?.asString ?: "",
-				jsonObject.get("sex").getField()?.asString ?: ""
+				anons = jsonObject.get("anons").getField()?.asString ?: "",
+				text = jsonObject.get("biography").getField()?.asString ?: "",
+				notes = jsonObject.get("biography_notes").getField()?.asString ?: "",
+				source = jsonObject.get("source").getField()?.asString ?: "",
+				sourceLink = jsonObject.get("source_link").getField()?.asString ?: "",
+				birthday = jsonObject.get("birthday").getField()?.asString?.parseToDate(),
+				deathday = jsonObject.get("deathday").getField()?.asString?.parseToDate(),
+				name = jsonObject.get("name").getField()?.asString ?: "",
+				nameOrig = jsonObject.get("name_orig").getField()?.asString ?: "",
+				nameRp = jsonObject.get("name_rp").getField()?.asString ?: "",
+				nameShort = jsonObject.get("name_short").getField()?.asString ?: "",
+				sex = jsonObject.get("sex").getField()?.asString ?: ""
 		)
 
 		val country = AutorFull.Country(
-				jsonObject.get("country_id").getField()?.asInt ?: -1,
-				jsonObject.get("country_name").getField()?.asString ?: ""
+				id = jsonObject.get("country_id").getField()?.asInt ?: -1,
+				name = jsonObject.get("country_name").getField()?.asString ?: ""
 		)
 
 		val myMarks = SparseIntArray()
@@ -132,8 +130,8 @@ class AutorFullDeserializer : JsonDeserializer<AutorFull> {
 		val sites = ArrayList<AutorFull.Site>()
 		jsonObject.getAsJsonArray("sites")?.map { it.asJsonObject }?.mapTo(sites) {
 			AutorFull.Site(
-					it.get("descr").asString,
-					it.get("site").asString
+					description = it.get("descr").asString,
+					site = it.get("site").asString
 			)
 		}
 

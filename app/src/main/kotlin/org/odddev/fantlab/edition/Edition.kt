@@ -5,14 +5,14 @@ class Edition (
 		val copies: Int,
 		val correctLevel: Float,
 		val covertType: String,
+		val creators: Map<String, List<Creator>>,
 		val description: String,
 		val id: Int,
 		val types: List<String>,
 		val format: String,
 		val images: List<Picture>,
-		val covers: List<Picture>,
 		val isbns: List<String>,
-		val lang: Language,
+		val language: Language,
 		val notes: String,
 		val origName: String,
 		val pages: Int,
@@ -20,6 +20,13 @@ class Edition (
 		val series: String,
 		val type: Int,
 		val year: Int) {
+
+	class Creator(
+			val id: Int,
+			val isOpened: Boolean,
+			val name: String,
+			val type: String
+	)
 
 	class Language(
 			val code: String,
