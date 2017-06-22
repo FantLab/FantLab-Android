@@ -6,15 +6,15 @@ import java.util.*
 class ListProvider : BaseProvider() {
 
 	private val entries = ArrayList<Any?>()
-	private val vhFactories = ArrayList<VHFactory<*>>()
-	private val vhBinders = ArrayList<VHBinder<out RecyclerView.ViewHolder, out Any?>>()
+	private val vhFactories = ArrayList<VHFactory<RecyclerView.ViewHolder>>()
+	private val vhBinders = ArrayList<VHBinder<RecyclerView.ViewHolder, Any?>>()
 
 	override fun getVHFactory(position: Int) = vhFactories[position]
 
 	override fun bindVH(holder: RecyclerView.ViewHolder, position: Int) {
 		val entry = entries[position]
 		val binder = vhBinders[position]
-		//binder.onBindViewHolder(holder, position, entry)
+		binder.onBindViewHolder(holder, position, entry)
 	}
 
 	override fun getEntry(position: Int) = entries[position]
@@ -33,7 +33,8 @@ class ListProvider : BaseProvider() {
 		val size = items.size
 		while (i < size) {
 			vhFactories.add(vhFactory)
-			vhBinders.add(vhBinder)
+			@Suppress("UNCHECKED_CAST")
+			vhBinders.add(vhBinder as VHBinder<RecyclerView.ViewHolder, Any?>)
 			i++
 		}
 	}
@@ -46,7 +47,8 @@ class ListProvider : BaseProvider() {
 			val item = items[i]
 			entries.add(item)
 			vhFactories.add(vhFactory)
-			vhBinders.add(vhBinder)
+			@Suppress("UNCHECKED_CAST")
+			vhBinders.add(vhBinder as VHBinder<RecyclerView.ViewHolder, Any?>)
 			i++
 		}
 	}
