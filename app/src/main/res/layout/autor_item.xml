@@ -36,7 +36,7 @@
 			app:isCircle="@{true}"
 			app:layout_constraintVertical_bias="0.5"
 			app:placeholder="@{@drawable/not_found}"
-			app:srcUri="@{BuildConfig.IMAGES_URL + @string/autor_image_url(autor.autorId)}"
+			app:srcUri="@{BuildConfig.IMAGES_URL + @string/autor_image_url(autor.id)}"
 			tools:ignore="ContentDescription"
 			/>
 

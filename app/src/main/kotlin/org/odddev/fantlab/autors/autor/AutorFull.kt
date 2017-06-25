@@ -51,11 +51,11 @@ class AutorFull(
 	)
 
 	class Stat(
-			val award: Int,
-			val edition: Int,
-			val movie: Int,
-			val mark: Int,
-			val response: Int
+			val award: Int = -1,
+			val edition: Int = -1,
+			val movie: Int = -1,
+			val mark: Int = -1,
+			val response: Int = -1
 	)
 
 	class Award(
