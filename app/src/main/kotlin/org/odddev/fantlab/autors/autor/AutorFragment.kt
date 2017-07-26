@@ -80,8 +80,7 @@ class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 	}
 
 	private fun initRecyclerView() {
-		val layoutManager = LinearLayoutManager(context)
-		binding.content.layoutManager = layoutManager
+		binding.content.layoutManager = LinearLayoutManager(context)
 		binding.content.adapter = controller.adapter
 	}
 
@@ -97,5 +96,9 @@ class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 
 	override fun showBiography() {
 		handler.showBiography(bio)
+	}
+
+	override fun showAwards() {
+		Snackbar.make(binding.root, "awards", Snackbar.LENGTH_SHORT).show()
 	}
 }

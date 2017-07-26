@@ -4,6 +4,7 @@
 	<!-- Common -->
 	<string name="app_name">Fantlab</string>
 	<string name="action_search">Поиск</string>
+	<string name="more">Все</string>
 
 	<!-- Fonts -->
 	<string name="roboto.regular" translatable="false">sans-serif</string>
@@ -73,6 +74,10 @@
 
 	<!-- Autor screen -->
 	<string name="autor_bio_details">Подробнее</string>
+	<string name="author_awards_header">Награды и премии</string>
+	<string name="author_awards_more">Все (%d)</string>
+
+	<!-- Biography screen -->
 	<string name="autor_bio_toolbar_title">Биография</string>
 	<string-array name="autor_bio_birthday">
 		<item>Родился:</item>
