@@ -28,16 +28,11 @@ interface IServerApi {
 	fun getContest(@Path("id") id: Int,
 				   @Query("include_works") includeWorks: Int): Observable<Unit>
 
-	@GET("/autorsall.json")
+	@GET("/autorsall")
 	fun getAutors(): Observable<AutorsResponse>
 
-	@GET("/autor{id}.json")
-	fun getAutor(@Path("id") id: Int,
-				 @Query("biblio_blocks") includeBiblioBlocks: Int,
-				 @Query("awards") includeAwards: Int,
-				 @Query("la_resume") includeLAResume: Int,
-				 @Query("userprofile") includeUserProfile: Int,
-				 @Query("biography") includeBiography: Int): Observable<AutorFull>
+	@GET("/autor/{id}/extended")
+	fun getAutor(@Path("id") id: Int): Observable<AutorFull>
 
 	@GET("/autor{id}/alleditions.json")
 	fun getAutorEditions(@Path("id") id: Int,
@@ -47,15 +42,8 @@ interface IServerApi {
 	fun getAutorResponses(@Path("id") id: Int,
 						  @Query("page") page: Int): Observable<Unit>
 
-	@GET("/work{id}")
-	fun getWork(@Path("id") id: Int,
-				@Query("translations") includeTranslations: Int,
-				@Query("classificatory") includeClassificatory: Int,
-				@Query("children") includeChildren: Int,
-				@Query("parents") includeParents: Int,
-				@Query("awards") includeAwards: Int,
-				@Query("films") includeFilms: Int,
-				@Query("editions") includeEditions: Int): Observable<Unit>
+	@GET("/work/{id}/extended")
+	fun getWork(@Path("id") id: Int): Observable<Unit>
 
 	@GET("/work{id}/responses.json")
 	fun getWorkResponses(@Path("id") id: Int): Observable<Unit>
@@ -86,7 +74,7 @@ interface IServerApi {
 	fun voteForResponse(@Path("id") responseId: Int,
 						@Path("action") action: String): Observable<Unit>
 
-	@GET("/edition{id}.json")
+	@GET("/edition/{id}/extended")
 	fun getEdition(@Path("id") id: Int,
 				   @Query("include_content") includeContent: Int,
 				   @Query("images_plus") includeAdditionalImages: Int): Observable<Unit>
@@ -96,7 +84,7 @@ interface IServerApi {
 	fun compareEditions(@Query("c1") firstSet: String,
 						@Query("c2") secondSet: String): Observable<Unit>
 
-	@GET("/searchmain.json")
+	@GET("/searchmain")
 	fun search(@Query("searchstr") query: String,
 			   @Query("page") page: Int): Observable<Unit>
 
@@ -105,14 +93,6 @@ interface IServerApi {
 	fun searchByType(@Path("type") type: String,
 					 @Query("q") query: String,
 					 @Query("page") page: Int): Observable<Unit>
-
-	@GET("/search-works.json")
-	fun searchWorksExt(@Query("q") query: String,
-					   @Query("page") page: Int): Observable<Unit>
-
-	@GET("/search-editions.json")
-	fun searchEditionsExt(@Query("q") query: String,
-						  @Query("page") page: Int): Observable<Unit>
 
 	@GET("/user{id}/responses.json")
 	fun getUserResponses(@Path("id") userId: Int,
