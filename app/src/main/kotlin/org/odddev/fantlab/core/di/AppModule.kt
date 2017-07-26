@@ -5,9 +5,9 @@ import dagger.Module
 import dagger.Provides
 import io.requery.Persistable
 import io.requery.android.sqlite.DatabaseSource
-import io.requery.reactivex.ReactiveEntityStore
-import io.requery.reactivex.ReactiveSupport
-import io.requery.sql.EntityDataStore
+import io.requery.reactivex.KotlinReactiveEntityStore
+import io.requery.sql.KotlinEntityDataStore
+import io.requery.sql.TableCreationMode
 import org.odddev.fantlab.award.Models
 import org.odddev.fantlab.core.network.INetworkChecker
 import org.odddev.fantlab.core.network.NetworkChecker
@@ -16,7 +16,11 @@ import javax.inject.Singleton
 @Module
 class AppModule(internal val context: Context) {
 
-	private var dataStore: ReactiveEntityStore<Persistable>? = null
+	private val dataStore: KotlinReactiveEntityStore<Persistable> by lazy {
+		val source = DatabaseSource(context, Models.DEFAULT, 1)
+		source.setTableCreationMode(TableCreationMode.DROP_CREATE)
+		KotlinReactiveEntityStore<Persistable>(KotlinEntityDataStore(source.configuration))
+	}
 
 	@Singleton
 	@Provides
@@ -28,12 +32,5 @@ class AppModule(internal val context: Context) {
 
 	@Singleton
 	@Provides
-	fun provideRequery(): ReactiveEntityStore<Persistable> {
-		dataStore?.let { return it } ?: run {
-			val source = DatabaseSource(context, Models.DEFAULT, 1)
-			val configuration = source.configuration
-			dataStore = ReactiveSupport.toReactiveStore(EntityDataStore<Persistable>(configuration))
-			return dataStore as ReactiveEntityStore<Persistable>
-		}
-	}
+	fun provideRequery(): KotlinReactiveEntityStore<Persistable> = dataStore
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	>
+
+	<data>
+
+		<variable
+			name="letter"
+			type="String"
+			/>
+
+	</data>
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="@dimen/spacing_small"
+		android:maxLines="1"
+		android:text="@{letter}"
+		android:textColor="@color/black"
+		android:textSize="@dimen/text_medium"
+		tools:text="A"
+		tools:ignore="RtlHardcoded"
+		/>
+
+</layout>

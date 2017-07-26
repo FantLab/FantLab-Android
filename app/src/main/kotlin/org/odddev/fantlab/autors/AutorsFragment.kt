@@ -19,8 +19,8 @@ import org.odddev.fantlab.home.IActionsHandler
 class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listener {
 
 	private lateinit var binding: AutorsFragmentBinding
-	private lateinit var adapter: AutorsAdapter
 	private lateinit var handler: IActionsHandler
+	private lateinit var controller: AuthorsController
 
 	@InjectPresenter
 	lateinit var presenter: AutorsPresenter
@@ -32,6 +32,8 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listen
 	}
 
 	override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+		controller = AuthorsController()
+
 		initToolbar()
 		setHasOptionsMenu(true)
 		initRecyclerView()
@@ -46,12 +48,12 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listen
 		val searchView = MenuItemCompat.getActionView(searchItem) as SearchView
 		searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 			override fun onQueryTextSubmit(query: String): Boolean {
-				adapter.filter(query)
+				presenter.filter(query)
 				return true
 			}
 
 			override fun onQueryTextChange(newText: String): Boolean {
-				adapter.filter(newText)
+				presenter.filter(newText)
 				return true
 			}
 		})
@@ -77,8 +79,7 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listen
 	private fun initRecyclerView() {
 		val layoutManager = LinearLayoutManager(context)
 		binding.autors.layoutManager = layoutManager
-		adapter = AutorsAdapter()
-		binding.autors.adapter = adapter
+		binding.autors.adapter = controller.adapter
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -90,8 +91,9 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listen
 	}
 
 	override fun showAutors(autors: List<Autor>) {
-		adapter.setAutors(autors)
-		adapter.setListener(this)
+		controller.setData(autors)
+		binding.autors.scrollToPosition(0)
+		//adapter.setListener(this)
 	}
 
 	override fun showError(message: String) {
