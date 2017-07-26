@@ -1,5 +1,6 @@
 package org.odddev.fantlab.autors.autor.biography
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
@@ -12,26 +13,27 @@ import org.odddev.fantlab.R
 import org.odddev.fantlab.autors.autor.AutorFull
 import org.odddev.fantlab.core.utils.format
 import org.odddev.fantlab.core.utils.formatText
-import org.odddev.fantlab.databinding.AutorBiographyFragmentBinding
+import org.odddev.fantlab.databinding.BiographyFragmentBinding
 
 class BiographyFragment : MvpAppCompatFragment {
 
 	private val EXTRA_BIO = "bio"
 
-	private lateinit var binding: AutorBiographyFragmentBinding
+	private lateinit var binding: BiographyFragmentBinding
 
 	constructor() : super()
 
-	// todo выпилить этот ужас после добавления базы
+	@SuppressLint("ValidFragment")
 	constructor(bio: String) : super() {
 		val bundle = Bundle()
 		bundle.putString(EXTRA_BIO, bio)
 		arguments = bundle
+		// todo выпилить этот ужас после добавления базы
 	}
 
 	override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
 							  savedInstanceState: Bundle?): View? {
-		binding = AutorBiographyFragmentBinding.inflate(inflater, container, false)
+		binding = BiographyFragmentBinding.inflate(inflater, container, false)
 		return binding.root
 	}
 

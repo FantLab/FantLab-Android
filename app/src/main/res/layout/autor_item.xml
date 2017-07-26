@@ -16,17 +16,23 @@
 			type="org.odddev.fantlab.autors.Autor"
 			/>
 
+		<variable
+			name="listener"
+			type="org.odddev.fantlab.autors.IAuthorsActions"
+			/>
+
 	</data>
 
 	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
 		android:background="?android:attr/selectableItemBackground"
 		android:clickable="true"
-		android:paddingTop="@dimen/spacing_small"
+		android:onClick="@{v -> listener.onAuthorClicked(autor)}"
 		android:paddingBottom="@dimen/spacing_small"
 		android:paddingLeft="@dimen/spacing_medium"
 		android:paddingRight="@dimen/spacing_medium"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		android:paddingTop="@dimen/spacing_small"
 		>
 
 		<ImageView

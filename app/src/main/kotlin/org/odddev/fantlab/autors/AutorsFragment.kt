@@ -16,11 +16,11 @@ import org.odddev.fantlab.R
 import org.odddev.fantlab.databinding.AutorsFragmentBinding
 import org.odddev.fantlab.home.IActionsHandler
 
-class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listener {
+class AutorsFragment : MvpAppCompatFragment(), IAutorsView, IAuthorsActions {
 
 	private lateinit var binding: AutorsFragmentBinding
 	private lateinit var handler: IActionsHandler
-	private lateinit var controller: AuthorsController
+	private val controller: AuthorsController by lazy { AuthorsController(this) }
 
 	@InjectPresenter
 	lateinit var presenter: AutorsPresenter
@@ -32,8 +32,6 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listen
 	}
 
 	override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-		controller = AuthorsController()
-
 		initToolbar()
 		setHasOptionsMenu(true)
 		initRecyclerView()
@@ -90,17 +88,16 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, AutorsAdapter.Listen
 		return super.onOptionsItemSelected(item)
 	}
 
-	override fun showAutors(autors: List<Autor>) {
+	override fun showAutors(autors: List<Autor>, scrollToTop: Boolean) {
 		controller.setData(autors)
-		binding.autors.scrollToPosition(0)
-		//adapter.setListener(this)
+		if (scrollToTop) binding.autors.scrollToPosition(0)
 	}
 
 	override fun showError(message: String) {
 		Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
 	}
 
-	override fun onClick(id: Int, name: String) {
-		handler.openAutor(id, name)
+	override fun onAuthorClicked(author: Autor) {
+		handler.openAutor(author.id, author.name)
 	}
 }

@@ -1,6 +1,7 @@
 @EpoxyDataBindingLayouts({
 	R.layout.autor_item,
-	R.layout.letter_item
+	R.layout.letter_item,
+	R.layout.author_biography_item
 })
 @PackageModelViewConfig(rClass = R.class)
 package org.odddev.fantlab.core.epoxy;

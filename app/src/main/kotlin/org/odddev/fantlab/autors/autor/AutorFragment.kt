@@ -1,9 +1,11 @@
 package org.odddev.fantlab.autors.autor
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -22,6 +24,7 @@ class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 
 	private lateinit var binding: AutorFragmentBinding
 	private lateinit var handler: IActionsHandler
+	private val controller: AuthorController by lazy { AuthorController(this) }
 
 	@InjectPresenter
 	lateinit var presenter: AutorPresenter
@@ -30,6 +33,7 @@ class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 
 	constructor() : super()
 
+	@SuppressLint("ValidFragment")
 	constructor(id: Int, name: String) : super() {
 		val bundle = Bundle()
 		bundle.putInt(EXTRA_ID, id)
@@ -40,14 +44,13 @@ class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 	override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
 							  savedInstanceState: Bundle?): View? {
 		binding = AutorFragmentBinding.inflate(inflater, container, false)
-		binding.handler = this
-		binding.autorBio.visibility = View.GONE
 		return binding.root
 	}
 
 	override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
 		initToolbar()
 		setHasOptionsMenu(true)
+		initRecyclerView()
 
 		presenter.getAutor(arguments.getInt(EXTRA_ID))
 	}
@@ -76,9 +79,15 @@ class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 		}
 	}
 
+	private fun initRecyclerView() {
+		val layoutManager = LinearLayoutManager(context)
+		binding.content.layoutManager = layoutManager
+		binding.content.adapter = controller.adapter
+	}
+
 	override fun showAutor(autor: AutorFull) {
 		binding.autor = autor
-		binding.autorBio.visibility = View.VISIBLE
+		controller.setData(autor)
 		bio = Gson().toJson(autor.biography)
 	}
 

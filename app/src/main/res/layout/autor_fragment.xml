@@ -14,11 +14,6 @@
 			type="org.odddev.fantlab.autors.autor.AutorFull"
 			/>
 
-		<variable
-			name="handler"
-			type="org.odddev.fantlab.autors.autor.IAutorActions"
-			/>
-
 	</data>
 
 	<android.support.design.widget.CoordinatorLayout
@@ -85,36 +80,12 @@
 
 		</android.support.design.widget.AppBarLayout>
 
-		<LinearLayout
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/content"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:orientation="vertical"
 			app:layout_behavior="@string/appbar_scrolling_view_behavior"
-			>
-
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:textSize="14sp"
-				android:layout_margin="16dp"
-				android:textColor="@color/black"
-				android:text="@{autor.biography.anons}"
-				/>
-
-			<Button
-				android:id="@+id/autor_bio"
-				android:background="?attr/selectableItemBackground"
-				android:text="@string/autor_bio_details"
-				android:layout_gravity="end"
-				android:layout_marginRight="@dimen/spacing_medium"
-				android:textColor="@color/blue"
-				app:font="@{@string/roboto_medium}"
-				app:onClick="@{handler::showBiography}"
-				style="@style/Button"
-				tools:ignore="RtlHardcoded"
-				/>
-
-		</LinearLayout>
+			/>
 
 	</android.support.design.widget.CoordinatorLayout>
 

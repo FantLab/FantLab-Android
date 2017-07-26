@@ -26,13 +26,13 @@ class AutorsPresenter : MvpPresenter<IAutorsView>() {
 	}
 
 	internal fun getAutors() {
-		autors?.let { viewState.showAutors(it) } ?: run {
+		autors?.let { viewState.showAutors(it, false) } ?: run {
 			disposables.add(autorsProvider
 					.getAutors()
 					.subscribe(
 							{ autors ->
 								this.autors = autors.getAutorsList()
-								viewState.showAutors(this.autors as List<Autor>)
+								viewState.showAutors(this.autors as List<Autor>, false)
 							},
 							{ error -> run {
 								Timber.e(error)
@@ -52,7 +52,7 @@ class AutorsPresenter : MvpPresenter<IAutorsView>() {
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
 						{
-							list -> viewState.showAutors(list)
+							list -> viewState.showAutors(list, true)
 						}
 				)
 		)
