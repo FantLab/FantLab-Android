@@ -21,67 +21,65 @@
 	<android.support.v7.widget.CardView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginBottom="@dimen/cardview_margin"
 		android:layout_marginLeft="@dimen/spacing_small"
 		android:layout_marginRight="@dimen/spacing_small"
 		android:layout_marginTop="@dimen/cardview_margin"
-		android:layout_marginBottom="@dimen/cardview_margin"
-		android:background="?attr/selectableItemBackground"
 		>
 
-		<android.support.constraint.ConstraintLayout
-			android:background="?android:attr/selectableItemBackground"
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="?attr/selectableItemBackground"
 			android:clickable="true"
 			android:focusable="true"
-			android:paddingTop="@dimen/spacing_small"
+			android:gravity="center_vertical"
+			android:orientation="horizontal"
 			android:paddingBottom="@dimen/spacing_small"
 			android:paddingLeft="@dimen/spacing_medium"
 			android:paddingRight="@dimen/spacing_medium"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:paddingTop="@dimen/spacing_small"
 			>
 
 			<ImageView
-				android:id="@+id/avatar"
 				android:layout_width="@dimen/recycler_item_image_size"
 				android:layout_height="@dimen/recycler_item_image_size"
-				app:isCircle="@{true}"
-				app:layout_constraintVertical_bias="0.5"
-				app:placeholder="@{@drawable/not_found}"
 				app:srcUri="@{BuildConfig.IMAGES_URL + @string/award_image_url(award.id)}"
 				tools:ignore="ContentDescription"
 				/>
 
-			<TextView
-				android:id="@+id/award_name"
-				android:layout_width="0dp"
+			<LinearLayout
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="@dimen/spacing_small"
-				android:ellipsize="end"
-				android:maxLines="1"
-				android:text="@{!TextUtils.isEmpty(award.rusName) ? award.rusName : award.name}"
-				android:textColor="@color/black"
-				android:textSize="@dimen/text_medium"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toEndOf="@id/avatar"
+				android:orientation="vertical"
 				tools:ignore="RtlHardcoded"
-				/>
+				>
 
-			<!--<TextView
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_marginLeft="@dimen/spacing_small"
-				android:ellipsize="end"
-				android:maxLines="2"
-				android:text="@{@string/award_short_description(award.country, award.startYear, award.endYear)}"
-				android:textSize="@dimen/text_medial"
-				app:font="@{@string/roboto_regular}"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toEndOf="@id/avatar"
-				app:layout_constraintTop_toBottomOf="@id/award_name"
-				tools:ignore="RtlHardcoded"
-				/>-->
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="2"
+					android:text="@{(!TextUtils.isEmpty(award.rusName) ? award.rusName : award.name) + `, ` + award.contestYear}"
+					android:textColor="@color/black"
+					android:textSize="@dimen/text_medial"
+					/>
 
-		</android.support.constraint.ConstraintLayout>
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="1"
+					android:text="@{!TextUtils.isEmpty(award.workRusname) ? award.workRusname : award.workName}"
+					android:textColor="@color/blue"
+					android:textSize="@dimen/text_medial"
+					android:visibility="@{award.workId != 0}"
+					/>
+
+			</LinearLayout>
+
+		</LinearLayout>
 
 	</android.support.v7.widget.CardView>
 

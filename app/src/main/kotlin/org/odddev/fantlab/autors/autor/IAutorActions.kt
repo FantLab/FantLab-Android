@@ -5,4 +5,6 @@ interface IAutorActions {
 	fun showBiography()
 
 	fun showAwards()
+
+	fun showWorks()
 }

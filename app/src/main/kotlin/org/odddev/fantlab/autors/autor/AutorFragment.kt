@@ -99,6 +99,10 @@ class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 	}
 
 	override fun showAwards() {
-		Snackbar.make(binding.root, "awards", Snackbar.LENGTH_SHORT).show()
+		Snackbar.make(binding.root, "Awards > Contests > Contest > Nomination", Snackbar.LENGTH_SHORT).show()
+	}
+
+	override fun showWorks() {
+		Snackbar.make(binding.root, "Works", Snackbar.LENGTH_SHORT).show()
 	}
 }

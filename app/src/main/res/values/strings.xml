@@ -76,6 +76,8 @@
 	<string name="autor_bio_details">Подробнее</string>
 	<string name="author_awards_header">Награды и премии</string>
 	<string name="author_awards_more">Все (%d)</string>
+	<string name="author_works_header">Произведения</string>
+	<string name="author_works_more">Все (%d)</string>
 
 	<!-- Biography screen -->
 	<string name="autor_bio_toolbar_title">Биография</string>

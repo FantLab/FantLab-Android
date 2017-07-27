@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	>
+
+	<data>
+
+		<import type="org.odddev.fantlab.BuildConfig" />
+
+		<import type="android.text.TextUtils" />
+
+		<variable
+			name="work"
+			type="org.odddev.fantlab.autors.autor.AutorFull.Work"
+			/>
+
+	</data>
+
+	<android.support.v7.widget.CardView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="@dimen/cardview_margin"
+		android:layout_marginLeft="@dimen/spacing_small"
+		android:layout_marginRight="@dimen/spacing_small"
+		android:layout_marginTop="@dimen/cardview_margin"
+		>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="?attr/selectableItemBackground"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center_vertical"
+			android:orientation="vertical"
+			android:paddingBottom="@dimen/spacing_small"
+			android:paddingLeft="@dimen/spacing_medium"
+			android:paddingRight="@dimen/spacing_medium"
+			android:paddingTop="@dimen/spacing_small"
+			>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ellipsize="end"
+				android:maxLines="2"
+				android:text="@{(!TextUtils.isEmpty(work.name) ? work.name : work.nameOrig) + `, ` + String.valueOf(work.year)}"
+				android:textColor="@color/black"
+				android:textSize="@dimen/text_medial"
+				/>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ellipsize="end"
+				android:maxLines="1"
+				android:text="@{String.valueOf(work.midmark) + ` / ` + String.valueOf(work.voters) + `, ` + String.valueOf(work.responseCount) + ` отзывов`}"
+				android:textColor="@color/blue"
+				android:textSize="@dimen/text_medial"
+				/>
+
+		</LinearLayout>
+
+	</android.support.v7.widget.CardView>
+
+</layout>

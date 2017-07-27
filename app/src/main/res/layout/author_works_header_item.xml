@@ -25,6 +25,7 @@
 		android:layout_marginBottom="@dimen/cardview_margin"
 		android:layout_marginLeft="@dimen/spacing_small"
 		android:layout_marginRight="@dimen/spacing_small"
+		android:layout_marginTop="@dimen/spacing_small"
 		>
 
 		<FrameLayout
@@ -33,7 +34,7 @@
 			android:background="?attr/selectableItemBackground"
 			android:clickable="true"
 			android:focusable="true"
-			app:onClick="@{handler::showAwards}"
+			app:onClick="@{handler::showWorks}"
 			>
 
 			<TextView
@@ -43,7 +44,7 @@
 				android:paddingBottom="@dimen/spacing_medium"
 				android:paddingLeft="@dimen/spacing_medium"
 				android:paddingTop="@dimen/spacing_medium"
-				android:text="@string/author_awards_header"
+				android:text="@string/author_works_header"
 				android:textColor="@color/black"
 				app:font="@{@string/roboto_medium}"
 				tools:ignore="RtlHardcoded,RtlSymmetry"
@@ -56,7 +57,7 @@
 				android:paddingBottom="@dimen/spacing_medium"
 				android:paddingRight="@dimen/spacing_medium"
 				android:paddingTop="@dimen/spacing_medium"
-				android:text="@{@string/author_awards_more(count)}"
+				android:text="@{@string/author_works_more(count)}"
 				android:textAllCaps="true"
 				android:textColor="@color/blue"
 				app:font="@{@string/roboto_medium}"
