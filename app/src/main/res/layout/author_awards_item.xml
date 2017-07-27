@@ -23,12 +23,15 @@
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="@dimen/spacing_small"
 		android:layout_marginRight="@dimen/spacing_small"
+		android:layout_marginTop="@dimen/cardview_margin"
+		android:layout_marginBottom="@dimen/cardview_margin"
 		android:background="?attr/selectableItemBackground"
 		>
 
 		<android.support.constraint.ConstraintLayout
 			android:background="?android:attr/selectableItemBackground"
 			android:clickable="true"
+			android:focusable="true"
 			android:paddingTop="@dimen/spacing_small"
 			android:paddingBottom="@dimen/spacing_small"
 			android:paddingLeft="@dimen/spacing_medium"

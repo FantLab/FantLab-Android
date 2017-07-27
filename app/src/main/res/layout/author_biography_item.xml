@@ -19,6 +19,7 @@
 		android:layout_marginLeft="@dimen/spacing_small"
 		android:layout_marginRight="@dimen/spacing_small"
 		android:layout_marginTop="@dimen/spacing_small"
+		android:layout_marginBottom="@dimen/cardview_margin"
 		>
 
 		<TextView
@@ -27,6 +28,7 @@
 			android:paddingLeft="@dimen/spacing_medium"
 			android:paddingRight="@dimen/spacing_medium"
 			android:paddingTop="@dimen/spacing_medium"
+			android:paddingBottom="2dp"
 			android:text="@{biography}"
 			android:textColor="@color/black"
 			android:textSize="14sp"

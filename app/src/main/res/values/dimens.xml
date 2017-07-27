@@ -22,5 +22,6 @@
 	<dimen name="avatar_size">64dp</dimen>
 	<dimen name="recycler_item_image_size">56dp</dimen>
 	<dimen name="long_button_corner">2dp</dimen>
+	<dimen name="cardview_margin">-2dp</dimen>
 
 </resources>
