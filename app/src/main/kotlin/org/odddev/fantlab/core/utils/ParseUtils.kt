@@ -65,6 +65,7 @@ fun JsonArray.parseWorks(works: ArrayList<AutorFull.Work>) {
 		works.add(AutorFull.Work(
 				autors = autorLinks,
 				midmark = workObject.get("val_midmark").getField()?.asFloat ?: -1F,
+				rating = workObject.get("val_midmark_rating").getField()?.asFloat ?: -1F,
 				responseCount = workObject.get("val_responsecount").getField()?.asInt ?: -1,
 				voters = workObject.get("val_voters").getField()?.asInt ?: -1,
 				description = workObject.get("work_description").getField()?.asString ?: "",

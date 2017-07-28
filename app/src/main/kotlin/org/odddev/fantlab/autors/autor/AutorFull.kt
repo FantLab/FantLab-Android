@@ -88,6 +88,7 @@ class AutorFull(
 	class Work(
 			val autors: List<AutorLink>,
 			val midmark: Float,
+			val rating: Float,
 			val responseCount: Int,
 			val voters: Int,
 			val description: String,

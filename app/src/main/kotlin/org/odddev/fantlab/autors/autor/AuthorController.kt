@@ -53,10 +53,11 @@ class AuthorController(private val listener: IAutorActions) : TypedEpoxyControll
 		for (i in (0..author.works.size() - 1)) {
 			allWorks.addAll(author.works[author.works.keyAt(i)])
 		}
-		// todo заменить it.midmark * it.voters на рейтинг
+
 		val best = allWorks
-				.sortedByDescending { it.midmark * it.voters }
 				.distinctBy { it.id }
+				.filter { it.autors.any { it.id == author.id } }
+				.sortedByDescending { it.rating }
 				.take(3)
 		(0..2)
 				.map { best.getOrNull(it) }
