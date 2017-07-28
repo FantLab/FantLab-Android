@@ -42,7 +42,8 @@ class AuthorController(private val listener: IAutorActions) : TypedEpoxyControll
 					}
 				}
 
-		val worksCount = (0..author.works.size() - 1).sumBy { author.works[author.works.keyAt(it)].size }
+		val worksCount = (0..author.works.size() - 1)
+				.sumBy { author.works[author.works.keyAt(it)].size }
 		worksHeader
 				.count(worksCount)
 				.handler(listener)
@@ -53,11 +54,14 @@ class AuthorController(private val listener: IAutorActions) : TypedEpoxyControll
 			allWorks.addAll(author.works[author.works.keyAt(i)])
 		}
 		// todo заменить it.midmark * it.voters на рейтинг
-		val best = allWorks.sortedByDescending { it.midmark * it.voters }.distinctBy { it.id }.take(3)
+		val best = allWorks
+				.sortedByDescending { it.midmark * it.voters }
+				.distinctBy { it.id }
+				.take(3)
 		(0..2)
-				.map { best[it] }
+				.map { best.getOrNull(it) }
 				.forEach {
-					it.let {
+					it?.let {
 						AuthorWorksItemBindingModel_()
 								.id(it.hashCode())
 								.work(it)
