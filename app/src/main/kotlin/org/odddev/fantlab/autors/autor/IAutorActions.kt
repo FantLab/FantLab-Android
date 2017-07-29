@@ -6,5 +6,9 @@ interface IAutorActions {
 
 	fun showAwards()
 
+	fun showAward(award: AutorFull.Award)
+
 	fun showWorks()
+
+	fun showWork(work: AutorFull.Work)
 }

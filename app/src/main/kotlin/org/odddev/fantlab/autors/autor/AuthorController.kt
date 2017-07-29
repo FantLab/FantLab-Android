@@ -4,7 +4,7 @@ import com.airbnb.epoxy.AutoModel
 import com.airbnb.epoxy.Typed2EpoxyController
 import org.odddev.fantlab.*
 
-class AuthorController(private val listener: IAutorActions) : Typed2EpoxyController<AutorFull?, Boolean>() {
+class AuthorController(private val handler: IAutorActions) : Typed2EpoxyController<AutorFull?, Boolean>() {
 
 	@AutoModel
 	lateinit var biography: AuthorBiographyItemBindingModel_
@@ -35,7 +35,7 @@ class AuthorController(private val listener: IAutorActions) : Typed2EpoxyControl
 				.biography(author.biography.anons)
 				.addTo(this)
 		biographyFooter
-				.handler(listener)
+				.handler(handler)
 				.addTo(this)
 
 		DividerItemBindingModel_()
@@ -44,7 +44,7 @@ class AuthorController(private val listener: IAutorActions) : Typed2EpoxyControl
 
 		awardsHeader
 				.count(author.awards.size)
-				.handler(listener)
+				.handler(handler)
 				.addIf(author.awards.isNotEmpty(), this)
 
 		val awards = author.awards
@@ -56,6 +56,7 @@ class AuthorController(private val listener: IAutorActions) : Typed2EpoxyControl
 						AuthorAwardsItemBindingModel_()
 								.id(it.hashCode())
 								.award(it)
+								.handler(handler)
 								.addTo(this)
 					}
 				}
@@ -76,7 +77,7 @@ class AuthorController(private val listener: IAutorActions) : Typed2EpoxyControl
 
 		worksHeader
 				.count(authorWorks.size)
-				.handler(listener)
+				.handler(handler)
 				.addTo(this)
 
 		(0..2)
@@ -86,6 +87,7 @@ class AuthorController(private val listener: IAutorActions) : Typed2EpoxyControl
 						AuthorWorksItemBindingModel_()
 								.id(it.hashCode())
 								.work(it)
+								.handler(handler)
 								.addTo(this)
 					}
 				}

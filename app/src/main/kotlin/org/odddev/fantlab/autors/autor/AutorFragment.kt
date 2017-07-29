@@ -100,10 +100,22 @@ class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 	}
 
 	override fun showAwards() {
+		// todo открыть все награды автора
 		Snackbar.make(binding.root, "Awards > Contests > Contest > Nomination", Snackbar.LENGTH_SHORT).show()
 	}
 
+	override fun showAward(award: AutorFull.Award) {
+		// todo открыть конкретное награждение
+		Snackbar.make(binding.root, "Awards > Award ${award.id}", Snackbar.LENGTH_SHORT).show()
+	}
+
 	override fun showWorks() {
+		// todo открыть все произведения автора
 		Snackbar.make(binding.root, "Works", Snackbar.LENGTH_SHORT).show()
+	}
+
+	override fun showWork(work: AutorFull.Work) {
+		// todo открыть конкретное произведение автора
+		Snackbar.make(binding.root, "Works > Work ${work.id}", Snackbar.LENGTH_SHORT).show()
 	}
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	>
+	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<data>
 
@@ -12,6 +11,11 @@
 		<variable
 			name="work"
 			type="org.odddev.fantlab.autors.autor.AutorFull.Work"
+			/>
+
+		<variable
+			name="handler"
+			type="org.odddev.fantlab.autors.autor.IAutorActions"
 			/>
 
 	</data>
@@ -32,6 +36,7 @@
 			android:clickable="true"
 			android:focusable="true"
 			android:gravity="center_vertical"
+			android:onClick="@{v -> handler.showWork(work)}"
 			android:orientation="vertical"
 			android:paddingBottom="@dimen/spacing_small"
 			android:paddingLeft="@dimen/spacing_medium"
