@@ -7,7 +7,7 @@ import org.odddev.fantlab.*
 class AuthorController(private val listener: IAutorActions) : TypedEpoxyController<AutorFull>() {
 
 	@AutoModel
-	lateinit var biographyModel: AuthorBiographyItemBindingModel_
+	lateinit var biography: AuthorBiographyItemBindingModel_
 
 	@AutoModel
 	lateinit var biographyFooter: AuthorBiographyFooterItemBindingModel_
@@ -19,18 +19,28 @@ class AuthorController(private val listener: IAutorActions) : TypedEpoxyControll
 	lateinit var worksHeader: AuthorWorksHeaderItemBindingModel_
 
 	override fun buildModels(author: AutorFull) {
-		biographyModel
+		DividerItemBindingModel_()
+				.id(0)
+				.addTo(this)
+
+		biography
 				.biography(author.biography.anons)
 				.addTo(this)
 		biographyFooter
 				.handler(listener)
 				.addTo(this)
+
+		DividerItemBindingModel_()
+				.id(1)
+				.addTo(this)
+
 		awardsHeader
 				.count(author.awards.size)
 				.handler(listener)
 				.addIf(author.awards.isNotEmpty(), this)
 
-		val awards = author.awards.reversed()
+		val awards = author.awards
+				.reversed()
 		(0..2)
 				.map { awards.getOrNull(it) }
 				.forEach {
@@ -42,25 +52,27 @@ class AuthorController(private val listener: IAutorActions) : TypedEpoxyControll
 					}
 				}
 
-		val worksCount = (0..author.works.size() - 1)
-				.sumBy { author.works[author.works.keyAt(it)].size }
-		worksHeader
-				.count(worksCount)
-				.handler(listener)
-				.addTo(this)
-
 		val allWorks = ArrayList<AutorFull.Work>()
 		for (i in (0..author.works.size() - 1)) {
 			allWorks.addAll(author.works[author.works.keyAt(i)])
 		}
 
-		val best = allWorks
+		DividerItemBindingModel_()
+				.id(2)
+				.addTo(this)
+
+		val authorWorks = allWorks
 				.distinctBy { it.id }
 				.filter { it.autors.any { it.id == author.id } }
 				.sortedByDescending { it.rating }
-				.take(3)
+
+		worksHeader
+				.count(authorWorks.size)
+				.handler(listener)
+				.addTo(this)
+
 		(0..2)
-				.map { best.getOrNull(it) }
+				.map { authorWorks.getOrNull(it) }
 				.forEach {
 					it?.let {
 						AuthorWorksItemBindingModel_()
@@ -69,5 +81,9 @@ class AuthorController(private val listener: IAutorActions) : TypedEpoxyControll
 								.addTo(this)
 					}
 				}
+
+		DividerItemBindingModel_()
+				.id(3)
+				.addTo(this)
 	}
 }

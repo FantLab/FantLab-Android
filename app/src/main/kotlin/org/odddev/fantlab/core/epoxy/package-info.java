@@ -1,4 +1,5 @@
 @EpoxyDataBindingLayouts({
+	R.layout.divider_item,
 	R.layout.autor_item,
 	R.layout.letter_item,
 	R.layout.author_biography_item,
