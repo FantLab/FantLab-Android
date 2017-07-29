@@ -22,14 +22,14 @@ class AuthorController(private val listener: IAutorActions) : Typed2EpoxyControl
 	lateinit var loading: LoadingItemBindingModel_
 
 	override fun buildModels(author: AutorFull?, loadingMore: Boolean) {
+		DividerItemBindingModel_()
+				.id(0)
+				.addTo(this)
+
 		loading
 				.addIf(author == null && loadingMore, this)
 
 		author ?: return
-
-		DividerItemBindingModel_()
-				.id(0)
-				.addTo(this)
 
 		biography
 				.biography(author.biography.anons)
