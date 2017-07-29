@@ -82,11 +82,12 @@ class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 	private fun initRecyclerView() {
 		binding.content.layoutManager = LinearLayoutManager(context)
 		binding.content.adapter = controller.adapter
+		controller.setData(null, true)
 	}
 
 	override fun showAutor(autor: AutorFull) {
 		binding.autor = autor
-		controller.setData(autor)
+		controller.setData(autor, false)
 		bio = Gson().toJson(autor.biography)
 	}
 

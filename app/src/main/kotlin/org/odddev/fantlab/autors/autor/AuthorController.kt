@@ -1,10 +1,10 @@
 package org.odddev.fantlab.autors.autor
 
 import com.airbnb.epoxy.AutoModel
-import com.airbnb.epoxy.TypedEpoxyController
+import com.airbnb.epoxy.Typed2EpoxyController
 import org.odddev.fantlab.*
 
-class AuthorController(private val listener: IAutorActions) : TypedEpoxyController<AutorFull>() {
+class AuthorController(private val listener: IAutorActions) : Typed2EpoxyController<AutorFull?, Boolean>() {
 
 	@AutoModel
 	lateinit var biography: AuthorBiographyItemBindingModel_
@@ -18,7 +18,15 @@ class AuthorController(private val listener: IAutorActions) : TypedEpoxyControll
 	@AutoModel
 	lateinit var worksHeader: AuthorWorksHeaderItemBindingModel_
 
-	override fun buildModels(author: AutorFull) {
+	@AutoModel
+	lateinit var loading: LoadingItemBindingModel_
+
+	override fun buildModels(author: AutorFull?, loadingMore: Boolean) {
+		loading
+				.addIf(author == null && loadingMore, this)
+
+		author ?: return
+
 		DividerItemBindingModel_()
 				.id(0)
 				.addTo(this)
@@ -85,5 +93,8 @@ class AuthorController(private val listener: IAutorActions) : TypedEpoxyControll
 		DividerItemBindingModel_()
 				.id(3)
 				.addTo(this)
+
+		loading
+				.addIf(loadingMore, this)
 	}
 }
