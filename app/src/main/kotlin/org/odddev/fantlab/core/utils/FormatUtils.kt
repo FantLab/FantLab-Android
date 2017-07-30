@@ -33,10 +33,6 @@ fun CharSequence.formatText(): Spanned {
 			.replace("[PHOTO]", "")
 			.replace("\r?\n".toRegex(), "<br/>")
 
-	//todo загрузка img
-	//todo нормальная обработка тегов [q],[h], обработка [LIST], [VIDEO] (see https://stackoverflow.com/a/42370792)
-	//todo smiles :)
-
 	return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
 		Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
 	else

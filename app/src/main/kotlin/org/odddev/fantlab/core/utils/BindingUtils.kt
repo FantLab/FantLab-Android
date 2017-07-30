@@ -70,7 +70,6 @@ object BindingUtils {
 		} else {
 			textView.typeface = Typeface.create(fontName, Typeface.NORMAL)
 		}
-		// todo организовать кеш шрифтов
 	}
 
 	@BindingConversion

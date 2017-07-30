@@ -28,7 +28,6 @@ class BiographyFragment : MvpAppCompatFragment {
 		val bundle = Bundle()
 		bundle.putString(EXTRA_BIO, bio)
 		arguments = bundle
-		// todo выпилить этот ужас после добавления базы
 	}
 
 	override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
