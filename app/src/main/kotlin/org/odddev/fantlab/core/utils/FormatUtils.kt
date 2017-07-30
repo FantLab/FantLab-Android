@@ -4,6 +4,8 @@ import android.content.Context
 import android.text.Html
 import android.text.Spanned
 import android.text.format.DateFormat
+import org.odddev.fantlab.R
+import org.odddev.fantlab.autors.autor.AutorFull
 import java.util.*
 
 @Suppress("DEPRECATION")
@@ -39,6 +41,18 @@ fun CharSequence.formatText(): Spanned {
 		Html.fromHtml(html)
 }
 
-fun Calendar.format(context: Context): String {
-	return DateFormat.getMediumDateFormat(context).format(this.time)
+fun Calendar.format(context: Context): String = DateFormat.getMediumDateFormat(context).format(this.time)
+
+/* Format for layouts */
+
+fun formatWorkTitle(work: AutorFull.Work): String {
+	val name = if (work.name.isEmpty()) work.nameOrig else work.name
+	return if (work.year != -1) "$name, ${work.year}" else name
+}
+
+fun formatWorkSubtitle(context: Context, work: AutorFull.Work): String {
+	val mark = if (work.midmark == -1.0F) "" else "${work.midmark} / ${work.voters}"
+	val responseCount = if (work.responseCount == -1) ""
+	else context.resources.getQuantityString(R.plurals.work_response_count, work.responseCount, work.responseCount)
+	return if (mark.isEmpty()) "" else (if (responseCount.isEmpty()) mark else "$mark, $responseCount")
 }

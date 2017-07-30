@@ -8,6 +8,8 @@
 
 		<import type="android.text.TextUtils" />
 
+		<import type="org.odddev.fantlab.core.utils.FormatUtilsKt" />
+
 		<variable
 			name="work"
 			type="org.odddev.fantlab.autors.autor.AutorFull.Work"
@@ -49,7 +51,7 @@
 				android:layout_height="wrap_content"
 				android:ellipsize="end"
 				android:maxLines="2"
-				android:text="@{(!TextUtils.isEmpty(work.name) ? work.name : work.nameOrig) + `, ` + String.valueOf(work.year)}"
+				android:text="@{FormatUtilsKt.formatWorkTitle(work)}"
 				android:textColor="@color/black"
 				android:textSize="@dimen/text_medial"
 				/>
@@ -59,9 +61,10 @@
 				android:layout_height="wrap_content"
 				android:ellipsize="end"
 				android:maxLines="1"
-				android:text="@{String.valueOf(work.midmark) + ` / ` + String.valueOf(work.voters) + `, ` + String.valueOf(work.responseCount) + ` отзывов`}"
+				android:text="@{FormatUtilsKt.formatWorkSubtitle(context, work)}"
 				android:textColor="@color/blue"
 				android:textSize="@dimen/text_medial"
+				android:visibility="@{!TextUtils.isEmpty(FormatUtilsKt.formatWorkSubtitle(context, work))}"
 				/>
 
 		</LinearLayout>

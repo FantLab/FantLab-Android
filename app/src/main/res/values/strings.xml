@@ -78,6 +78,12 @@
 	<string name="author_awards_more">Все (%d)</string>
 	<string name="author_works_header">Произведения</string>
 	<string name="author_works_more">Все (%d)</string>
+	<plurals name="work_response_count">
+		<item quantity="zero">нет отзывов</item>
+		<item quantity="one">%1$d отзыв</item>
+		<item quantity="few">%1$d отзыва</item>
+		<item quantity="many">%1$d отзывов</item>
+	</plurals>
 
 	<!-- Biography screen -->
 	<string name="autor_bio_toolbar_title">Биография</string>

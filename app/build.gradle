@@ -79,7 +79,7 @@ android {
 }
 
 kapt {
-	//generateStubs = true
+	generateStubs = true
 	correctErrorTypes = true
 }
 
