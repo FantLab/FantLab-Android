@@ -7,7 +7,7 @@
 	</style>
 
 	<style name="AppTheme.Launcher">
-		<item name="android:windowBackground">@drawable/background</item>
+		<item name="android:windowBackground">@color/color_primary_dark</item>
 	</style>
 
 	<style name="AppTheme.NoActionBar">
