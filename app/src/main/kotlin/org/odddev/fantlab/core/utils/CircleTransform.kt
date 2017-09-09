@@ -20,7 +20,7 @@ internal class CircleTransform(context: Context) : BitmapTransformation(context)
 		val squared = Bitmap.createBitmap(source, x, y, size, size)
 
 		var result = pool.get(size, size, Bitmap.Config.ARGB_8888)
-		result ?: run {result = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)}
+		result ?: run { result = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888) }
 
 		val canvas = Canvas(result)
 		val paint = Paint()

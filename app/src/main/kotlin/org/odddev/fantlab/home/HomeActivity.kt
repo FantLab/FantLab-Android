@@ -50,19 +50,21 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 		binding.navigationView.inflateMenu(if (loggedIn) R.menu.nav_drawer_user else R.menu.nav_drawer_guest)
 
 		binding.navigationView.setNavigationItemSelectedListener(
-				{ item -> run {
-					@NavDrawerRouter.NAV_DRAWER_ITEM val navDrawerItemId = item.itemId
+				{ item ->
+					run {
+						@NavDrawerRouter.NAV_DRAWER_ITEM val navDrawerItemId = item.itemId
 
-					selectedNavDrawerItemId = navDrawerItemId
+						selectedNavDrawerItemId = navDrawerItemId
 
-					binding.navigationView.setCheckedItem(navDrawerItemId)
-					binding.drawerLayout.closeDrawer(GravityCompat.START)
+						binding.navigationView.setCheckedItem(navDrawerItemId)
+						binding.drawerLayout.closeDrawer(GravityCompat.START)
 
-					if (navDrawerItemId == R.id.nav_logout) presenter.clearCookie()
+						if (navDrawerItemId == R.id.nav_logout) presenter.clearCookie()
 
-					router.routeToNavDrawerItem(navDrawerItemId)
-					true
-				}})
+						router.routeToNavDrawerItem(navDrawerItemId)
+						true
+					}
+				})
 		binding.navigationView.menu.performIdentifierAction(itemId, 0)
 	}
 

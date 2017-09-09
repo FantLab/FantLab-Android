@@ -31,7 +31,8 @@ class AutorPresenter : MvpPresenter<IAutorView>() {
 								this.autor = autor
 								viewState.showAutor(this.autor as AutorFull)
 							},
-							{ error -> run {
+							{ error ->
+								run {
 									Timber.e(error)
 									viewState.showError(error.message ?: "Error")
 								}

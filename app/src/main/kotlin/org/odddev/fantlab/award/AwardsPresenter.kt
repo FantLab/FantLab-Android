@@ -33,10 +33,12 @@ class AwardsPresenter : MvpPresenter<IAwardsView>() {
 								this.awards = awards
 								viewState.showAwards(awards)
 							},
-							{ error -> run {
-								Timber.e(error)
-								viewState.showError(error.message ?: "Error")
-							}}))
+							{ error ->
+								run {
+									Timber.e(error)
+									viewState.showError(error.message ?: "Error")
+								}
+							}))
 
 		}
 	}

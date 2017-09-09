@@ -17,36 +17,22 @@ android {
 
 		archivesBaseName = "fantlab-${versionName}"
 	}
-	dataBinding {
-		enabled = true
-	}
 	buildTypes {
-		def STRING = "String"
-		def BASE_URL = "BASE_URL"
-		def IMAGES_URL = "IMAGES_URL"
-
 		debug {
-			buildConfigField STRING, BASE_URL, "\"https://api.fantlab.ru\""
-			buildConfigField STRING, IMAGES_URL, "\"https://fantlab.ru/images\""
-
 			versionNameSuffix '-DEBUG'
 
 			minifyEnabled false
 			shrinkResources false
-
-			return true
 		}
 
 		release {
-			buildConfigField STRING, BASE_URL, "\"https://api.fantlab.ru\""
-			buildConfigField STRING, IMAGES_URL, "\"https://fantlab.ru/images\""
-
 			minifyEnabled true
 			shrinkResources true
 			signingConfig signingConfigs.debug
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 	}
+	dataBinding { enabled = true }
 	lintOptions {
 		warningsAsErrors true
 		abortOnError true
@@ -56,12 +42,8 @@ android {
 		exclude 'META-INF/NOTICE.txt'
 		exclude 'META-INF/LICENSE'
 		exclude 'META-INF/LICENSE.txt'
-
-		return true
 	}
-	sourceSets {
-		main.java.srcDirs += 'src/main/kotlin'
-	}
+	sourceSets { main.java.srcDirs += 'src/main/kotlin' }
 }
 
 kapt {

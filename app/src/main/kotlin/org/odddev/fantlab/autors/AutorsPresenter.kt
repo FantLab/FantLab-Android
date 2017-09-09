@@ -34,10 +34,12 @@ class AutorsPresenter : MvpPresenter<IAutorsView>() {
 								this.autors = autors.getAutorsList()
 								viewState.showAutors(this.autors as List<Autor>, false)
 							},
-							{ error -> run {
-								Timber.e(error)
-								viewState.showError(error.message ?: "Error")
-							}}
+							{ error ->
+								run {
+									Timber.e(error)
+									viewState.showError(error.message ?: "Error")
+								}
+							}
 					)
 			)
 		}
@@ -51,8 +53,8 @@ class AutorsPresenter : MvpPresenter<IAutorsView>() {
 				.collectInto(ArrayList<Autor>(), { list, author -> list.add(author) })
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
-						{
-							list -> viewState.showAutors(list, true)
+						{ list ->
+							viewState.showAutors(list, true)
 						}
 				)
 		)

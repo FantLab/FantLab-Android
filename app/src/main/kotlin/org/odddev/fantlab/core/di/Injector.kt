@@ -9,5 +9,5 @@ object Injector {
 	}
 
 	fun getAppComponent(): AppComponent =
-		appComponent as? AppComponent ?: throw RuntimeException("AppComponent not initialized yet!")
+			appComponent ?: throw RuntimeException("AppComponent not initialized yet!")
 }

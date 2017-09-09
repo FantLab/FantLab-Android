@@ -17,8 +17,8 @@ class HomeProvider : IHomeProvider {
 	}
 
 	override fun getUserName() = Observable.just<String>(storageManager.loadUsername())
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
+			.subscribeOn(Schedulers.io())
+			.observeOn(AndroidSchedulers.mainThread())
 
 	override fun clearCookie() {
 		storageManager.clearCookie()

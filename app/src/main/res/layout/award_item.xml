@@ -7,7 +7,7 @@
 
 	<data>
 
-		<import type="org.odddev.fantlab.BuildConfig" />
+		<import type="org.odddev.fantlab.core.Const" />
 
 		<import type="android.text.TextUtils" />
 
@@ -36,7 +36,7 @@
 			app:isCircle="@{true}"
 			app:layout_constraintVertical_bias="0.5"
 			app:placeholder="@{@drawable/not_found}"
-			app:srcUri="@{BuildConfig.IMAGES_URL + @string/award_image_url(award.awardId)}"
+			app:srcUri="@{Const.getImagesUrl() + @string/award_image_url(award.awardId)}"
 			tools:ignore="ContentDescription"
 			/>
 

@@ -7,12 +7,14 @@ import java.lang.reflect.Type
 class EditionDeserializer : JsonDeserializer<Edition> {
 
 	fun JsonArray.parseCreators(creators: ArrayList<Edition.Creator>) {
-		this.map { it.asJsonObject }.mapTo(creators) { Edition.Creator(
-				id = it.get("id").asInt,
-				isOpened = it.get("is_opened").getField()?.asInt == 1,
-				name = it.get("name").asString,
-				type = it.get("type").asString
-		) }
+		this.map { it.asJsonObject }.mapTo(creators) {
+			Edition.Creator(
+					id = it.get("id").asInt,
+					isOpened = it.get("is_opened").getField()?.asInt == 1,
+					name = it.get("name").asString,
+					type = it.get("type").asString
+			)
+		}
 	}
 
 	fun JsonObject.parsePicture(): Edition.Picture = Edition.Picture(

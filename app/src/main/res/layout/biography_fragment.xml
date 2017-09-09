@@ -7,7 +7,7 @@
 
 	<data>
 
-		<import type="android.text.TextUtils"/>
+		<import type="android.text.TextUtils" />
 
 		<variable
 			name="birthday"
@@ -28,7 +28,7 @@
 			name="text"
 			type="android.text.Spanned"
 			/>
-		
+
 		<variable
 			name="source"
 			type="android.text.Spanned"
@@ -160,7 +160,7 @@
 					android:text="@{source}"
 					android:visibility="@{!TextUtils.isEmpty(source)}"
 					/>
-				
+
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
