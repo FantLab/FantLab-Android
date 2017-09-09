@@ -23,5 +23,6 @@
 	<dimen name="recycler_item_image_size">56dp</dimen>
 	<dimen name="long_button_corner">2dp</dimen>
 	<dimen name="cardview_margin">-2dp</dimen>
+	<dimen name="auth_cardview_width">280dp</dimen>
 
 </resources>

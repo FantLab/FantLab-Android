@@ -1,6 +1,7 @@
 package org.odddev.fantlab.core.network
 
 import io.reactivex.Observable
+import io.reactivex.Single
 import okhttp3.ResponseBody
 import org.odddev.fantlab.autors.AutorsResponse
 import org.odddev.fantlab.autors.autor.AutorFull
@@ -13,7 +14,7 @@ interface IServerApi {
 	@FormUrlEncoded
 	@POST("/login")
 	fun login(@Field("login") login: String,
-			  @Field("password") password: String): Observable<Response<ResponseBody>>
+			  @Field("password") password: String): Single<Response<ResponseBody>>
 
 	// includeNonFantastic = 0/1
 	@GET("/awards.json")

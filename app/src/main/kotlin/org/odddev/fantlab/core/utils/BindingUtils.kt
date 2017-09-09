@@ -23,12 +23,6 @@ object BindingUtils {
 		view.setOnClickListener { runnable.run() }
 	}
 
-	@BindingAdapter("onCheck")
-	@JvmStatic
-	fun bindOnCheck(button: CompoundButton, runnable: Runnable) {
-		button.setOnCheckedChangeListener { _, checked -> if (checked) runnable.run() }
-	}
-
 	@BindingAdapter("error")
 	@JvmStatic
 	fun bindError(textInputLayout: TextInputLayout, error: String?) {

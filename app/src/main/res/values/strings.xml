@@ -19,9 +19,7 @@
 	<string name="auth.caption">Вход</string>
 	<string name="auth.login.button">Вход</string>
 	<string name="auth.login.error">Имя пользователя и/или пароль неверны</string>
-	<string name="auth.register.button">Регистрация</string>
-	<string name="auth.forgot.button">Забыли пароль?</string>
-	<string name="auth.entry.button">Продолжить без регистрации</string>
+	<string name="auth.entry.button">Войти без логина / пароля</string>
 
 	<!-- Register -->
 	<string name="register.caption">Регистрация</string>

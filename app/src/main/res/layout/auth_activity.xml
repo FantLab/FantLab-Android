@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	>
+
+	<data>
+
+		<import type="org.odddev.fantlab.auth.AuthValidator" />
+
+		<variable
+			name="authValidator"
+			type="AuthValidator"
+			/>
+
+	</data>
+
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/color_primary_dark"
+		>
+
+		<android.support.v7.widget.CardView
+			android:layout_width="@dimen/auth_cardview_width"
+			android:layout_height="wrap_content"
+			app:cardBackgroundColor="@android:color/white"
+			app:cardCornerRadius="@dimen/spacing_tiny"
+			app:cardPreventCornerOverlap="false"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			>
+
+			<android.support.constraint.ConstraintLayout
+				android:layout_width="@dimen/auth_cardview_width"
+				android:layout_height="wrap_content"
+				>
+
+				<View
+					android:id="@+id/view"
+					android:layout_width="@dimen/spacing_tiny"
+					android:layout_height="@dimen/spacing_big"
+					android:layout_marginTop="@dimen/spacing_big"
+					android:background="@color/color_primary_dark"
+					app:layout_constraintTop_toTopOf="parent"
+					/>
+
+				<TextView
+					android:id="@+id/auth_caption"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="@dimen/spacing_big"
+					android:layout_marginStart="@dimen/spacing_big"
+					android:layout_marginTop="@dimen/spacing_big"
+					android:text="@string/auth.caption"
+					android:textColor="@color/color_primary_dark"
+					android:textSize="@dimen/text_big"
+					app:font="@{@string/roboto_medium}"
+					app:layout_constraintStart_toEndOf="@id/view"
+					app:layout_constraintTop_toTopOf="parent"
+					/>
+
+				<android.support.design.widget.TextInputLayout
+					android:id="@+id/username"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="@dimen/spacing_big"
+					android:layout_marginRight="@dimen/spacing_big"
+					android:layout_marginTop="@dimen/spacing_small"
+					app:error="@{authValidator.fieldErrors[AuthValidator.USERNAME]}"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/auth_caption"
+					>
+
+					<android.support.design.widget.TextInputEditText
+						android:id="@+id/username_edit"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="@string/auth.username.input"
+						android:inputType="text"
+						android:maxLength="16"
+						android:text="@={authValidator.fields[AuthValidator.USERNAME]}"
+						/>
+
+				</android.support.design.widget.TextInputLayout>
+
+				<android.support.design.widget.TextInputLayout
+					android:id="@+id/password"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="@dimen/spacing_big"
+					android:layout_marginRight="@dimen/spacing_big"
+					app:error="@{authValidator.fieldErrors[AuthValidator.PASSWORD]}"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/username"
+					>
+
+					<android.support.design.widget.TextInputEditText
+						android:id="@+id/password_edit"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="@string/auth.password.input"
+						android:inputType="textPassword"
+						android:text="@={authValidator.fields[AuthValidator.PASSWORD]}"
+						/>
+
+				</android.support.design.widget.TextInputLayout>
+
+				<Button
+					android:id="@+id/login"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="@dimen/spacing_big"
+					android:layout_marginEnd="@dimen/spacing_big"
+					android:layout_marginLeft="@dimen/spacing_big"
+					android:layout_marginRight="@dimen/spacing_big"
+					android:layout_marginStart="@dimen/spacing_big"
+					android:layout_marginTop="@dimen/spacing_big"
+					android:background="@drawable/rounded_button"
+					android:padding="@dimen/spacing_medial"
+					android:text="@string/auth.login.button"
+					android:textColor="@color/white"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/password"
+					/>
+
+			</android.support.constraint.ConstraintLayout>
+
+		</android.support.v7.widget.CardView>
+
+		<Button
+			android:id="@+id/entry"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/spacing_small"
+			android:text="@string/auth.entry.button"
+			android:textAllCaps="true"
+			android:textColor="@color/white"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			style="?attr/borderlessButtonStyle"
+			/>
+
+	</android.support.constraint.ConstraintLayout>
+
+</layout>

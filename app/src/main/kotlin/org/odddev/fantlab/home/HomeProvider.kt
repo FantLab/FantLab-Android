@@ -23,4 +23,8 @@ class HomeProvider : IHomeProvider {
 	override fun clearCookie() {
 		storageManager.clearCookie()
 	}
+
+	override fun clearUserName() {
+		storageManager.clearUserName()
+	}
 }

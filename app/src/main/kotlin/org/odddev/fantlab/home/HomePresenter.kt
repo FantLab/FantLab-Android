@@ -27,6 +27,10 @@ class HomePresenter : MvpPresenter<IHomeView>() {
 		provider.clearCookie()
 	}
 
+	internal fun clearUserName() {
+		provider.clearUserName()
+	}
+
 	override fun onDestroy() {
 		disposables.clear()
 	}

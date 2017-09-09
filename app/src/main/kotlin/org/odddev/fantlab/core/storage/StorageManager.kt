@@ -31,5 +31,11 @@ class StorageManager(context: Context) {
 		editor.apply()
 	}
 
-	fun loadUsername(): String? = sharedPreferences.getString(USERNAME_KEY, "Guest")
+	fun loadUsername(): String? = sharedPreferences.getString(USERNAME_KEY, "Гость")
+
+	fun clearUserName() {
+		val editor = sharedPreferences.edit()
+		editor.remove(USERNAME_KEY)
+		editor.apply()
+	}
 }

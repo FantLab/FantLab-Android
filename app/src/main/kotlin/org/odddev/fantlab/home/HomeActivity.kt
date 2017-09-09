@@ -59,7 +59,10 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 						binding.navigationView.setCheckedItem(navDrawerItemId)
 						binding.drawerLayout.closeDrawer(GravityCompat.START)
 
-						if (navDrawerItemId == R.id.nav_logout) presenter.clearCookie()
+						if (navDrawerItemId == R.id.nav_logout) {
+							presenter.clearUserName()
+							presenter.clearCookie()
+						}
 
 						router.routeToNavDrawerItem(navDrawerItemId)
 						true
@@ -86,7 +89,7 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 	}
 
 	override fun showUserName(userName: String) {
-		if (!TextUtils.isEmpty(userName)) {
+		if (!userName.isEmpty()) {
 			headerBinding.username.text = userName
 			headerBinding.classProgress.setText(R.string.nav_drawer_user_class_progress)
 		}
