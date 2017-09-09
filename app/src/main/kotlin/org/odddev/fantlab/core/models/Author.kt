@@ -1,8 +1,10 @@
 package org.odddev.fantlab.core.models
 
+import android.support.annotation.Keep
 import android.util.SparseArray
 import java.util.*
 
+@Keep
 class Author(
 		val id: Int,
 		val anons: String,

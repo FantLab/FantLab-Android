@@ -1,5 +1,8 @@
 package org.odddev.fantlab.autors
 
+import android.support.annotation.Keep
+
+@Keep
 class Autor(
 		val id: Int,
 		val isFv: Boolean = false,

@@ -1,9 +1,11 @@
 package org.odddev.fantlab.autors.autor
 
+import android.support.annotation.Keep
 import android.util.SparseArray
 import android.util.SparseIntArray
 import java.util.*
 
+@Keep
 class AutorFull(
 		val id: Int,
 		val biography: Biography,

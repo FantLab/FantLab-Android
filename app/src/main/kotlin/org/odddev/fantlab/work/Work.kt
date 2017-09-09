@@ -1,9 +1,11 @@
 package org.odddev.fantlab.work
 
+import android.support.annotation.Keep
 import org.odddev.fantlab.autors.Autor
 import org.odddev.fantlab.autors.autor.AutorFull
 import org.odddev.fantlab.edition.Edition
 
+@Keep
 class Work(
 		val autors: List<Autor>,
 		val awards: List<AutorFull.Award>,

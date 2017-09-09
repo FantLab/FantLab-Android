@@ -1,5 +1,8 @@
 package org.odddev.fantlab.edition
 
+import android.support.annotation.Keep
+
+@Keep
 class Edition (
 		val autors: String = "", //shit in 'work' api [see 'creators']
 		val compiers: String = "", // -//-
