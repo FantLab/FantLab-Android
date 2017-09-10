@@ -106,7 +106,7 @@ class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 
 	override fun showAward(award: AutorFull.Award) {
 		// открыть конкретное награждение
-		Snackbar.make(binding.root, "Awards > Award ${award.id}", Snackbar.LENGTH_SHORT).show()
+		Snackbar.make(binding.root, "Awards > AuthorAward ${award.id}", Snackbar.LENGTH_SHORT).show()
 	}
 
 	override fun showWorks() {

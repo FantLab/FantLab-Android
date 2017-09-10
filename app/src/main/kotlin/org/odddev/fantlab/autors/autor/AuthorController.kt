@@ -62,7 +62,7 @@ class AuthorController(private val handler: IAutorActions) : Typed2EpoxyControll
 				}
 
 		val allWorks = ArrayList<AutorFull.Work>()
-		for (i in (0..author.works.size() - 1)) {
+		for (i in (0 until author.works.size())) {
 			allWorks.addAll(author.works[author.works.keyAt(i)])
 		}
 
