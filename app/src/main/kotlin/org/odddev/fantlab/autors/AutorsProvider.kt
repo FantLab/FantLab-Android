@@ -15,7 +15,7 @@ class AutorsProvider : IAutorsProvider {
 		Injector.getAppComponent().inject(this)
 	}
 
-	override fun getAutors() = serverApi.getAutors()
+	override fun getAutors() = serverApi.getAuthors()
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
 }

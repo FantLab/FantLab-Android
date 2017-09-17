@@ -31,7 +31,7 @@ class AutorsPresenter : MvpPresenter<IAutorsView>() {
 					.getAutors()
 					.subscribe(
 							{ autors ->
-								this.autors = autors.getAutorsList()
+								this.autors = autors.getAuthorsList()
 								viewState.showAutors(this.autors as List<Autor>, false)
 							},
 							{ error ->

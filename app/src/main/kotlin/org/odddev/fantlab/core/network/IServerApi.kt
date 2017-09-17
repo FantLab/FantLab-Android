@@ -3,7 +3,7 @@ package org.odddev.fantlab.core.network
 import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.ResponseBody
-import org.odddev.fantlab.autors.AutorsResponse
+import org.odddev.fantlab.autors.AuthorsResponse
 import org.odddev.fantlab.autors.autor.AutorFull
 import org.odddev.fantlab.award.Award
 import retrofit2.Response
@@ -30,17 +30,17 @@ interface IServerApi {
 				   @Query("include_works") includeWorks: Int): Observable<Unit>
 
 	@GET("/autorsall")
-	fun getAutors(): Observable<AutorsResponse>
+	fun getAuthors(): Observable<AuthorsResponse>
 
 	@GET("/autor/{id}/extended")
-	fun getAutor(@Path("id") id: Int): Observable<AutorFull>
+	fun getAuthor(@Path("id") id: Int): Observable<AutorFull>
 
 	@GET("/autor{id}/alleditions.json")
-	fun getAutorEditions(@Path("id") id: Int,
+	fun getAuthorEditions(@Path("id") id: Int,
 						 @Query("editions_blocks") includeEditionBlocks: Int): Observable<Unit>
 
 	@GET("/autor{id}/responses.json")
-	fun getAutorResponses(@Path("id") id: Int,
+	fun getAuthorResponses(@Path("id") id: Int,
 						  @Query("page") page: Int): Observable<Unit>
 
 	@GET("/work/{id}/extended")

@@ -4,5 +4,5 @@ import io.reactivex.Observable
 
 interface IAutorsProvider {
 
-	fun getAutors(): Observable<AutorsResponse>
+	fun getAutors(): Observable<AuthorsResponse>
 }
