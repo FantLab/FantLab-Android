@@ -5,9 +5,9 @@ import android.support.annotation.Keep
 @Keep
 data class Work(
 		// work_id
-		val id: Int,
-		// authors = {id, name, type}
-		val authors: List<String>? = null,                    // по-хорошему завести отдельную таблицу для связи
+		val workId: Int,
+		// position_level
+		val blockId: Int? = null,
 		// public_download_file
 		val canDownload: Boolean? = null,
 		// deep
@@ -30,16 +30,6 @@ data class Work(
 		val notFinished: Boolean? = null,
 		// plus
 		val plus: Boolean? = null,                            // используется в cycles_blocks
-		// position_index
-		val positionIndex: Int? = null,                       // используется в works_blocks
-		// position_is_node
-		val positionIsNode: Boolean? = null,                  // используется в works_blocks
-		// position_level
-		val positionLevel: Int? = null,                       // используется в works_blocks
-		// position_show_in_biblio
-		val positionShowInBiblio: Boolean? = null,            // используется в works_blocks
-		// position_show_subworks_in_biblio
-		val positionShowSubWorksInBiblio: Boolean? = null,    // используется в works_blocks
 		// work_preparing
 		val preparing: Boolean? = null,                       // в планах
 		// work_published
@@ -50,8 +40,8 @@ data class Work(
 		val rating: Float? = null,
 		// val_responsecount
 		val responseCount: Int? = null,
-		// work_root_saga = {prefix, work_id, work_name, work_type, work_type_id, work_type_in}
-		val rootSaga: List<String>? = null,                   // входит в ...
+		// work_root_saga -> work_id
+		val rootWorkId: Int? = null,
 		// work_type_id
 		val type: Int? = null,
 		// work_year_of_write

@@ -1,13 +1,12 @@
 package org.odddev.fantlab.core.models
 
 import android.support.annotation.Keep
-import android.util.SparseArray
 import java.util.*
 
 @Keep
 data class Author(
 		// autor_id
-		val id: Int,
+		val authorId: Int,
 		// anons
 		val anons: String? = null,
 		// biography
@@ -37,30 +36,24 @@ data class Author(
 		//val isFv: Boolean? = null,                 // есть только в /autors
 		// is_opened
 		val isOpened: Boolean? = null,
-		// la_resume
-		val laResume: List<String>? = null,
 		// last_modified
 		val lastModified: Calendar? = null,
 		// name
 		val name: String? = null,
 		// name_orig
 		val nameOrig: String? = null,
-		// name_pseudonyms = {is_real, name, name_orig}
-		val namePseudonyms: List<String>? = null,
 		// name_rp
 		val nameRp: String? = null,
 		// name_short
 		val nameShort: String? = null,
 		// registered_user_id
-		//val registeredUserId: Int? = null,         // пока не используется
+		val registeredUserId: Int? = null,
 		// registered_user_login
-		//val registeredUserLogin: String? = null,   // пока не используется
+		val registeredUserLogin: String? = null,
 		// registered_user_sex
-		//val registeredUserSex: Int? = null,        // пока не используется
+		val registeredUserSex: Int? = null,
 		// sex
 		val sex: String? = null,
-		// sites = {descr, site}
-		val sites: List<String>? = null,
 		// stat -> awardcount
 		val statAwardCount: Int? = null,
 		// stat -> editioncount

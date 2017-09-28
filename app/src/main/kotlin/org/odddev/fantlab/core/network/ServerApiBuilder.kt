@@ -7,10 +7,10 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.odddev.fantlab.autors.Autor
 import org.odddev.fantlab.autors.AutorDeserializer
-import org.odddev.fantlab.autors.autor.AuthorInfo
+import org.odddev.fantlab.autors.autor.AuthorPageInfo
 import org.odddev.fantlab.autors.autor.AutorFull
 import org.odddev.fantlab.autors.autor.AutorFullDeserializer
-import org.odddev.fantlab.autors.autor.AuthorInfoDeserializer
+import org.odddev.fantlab.autors.autor.AuthorPageInfoDeserializer
 import org.odddev.fantlab.award.Award
 import org.odddev.fantlab.award.AwardDeserializer
 import org.odddev.fantlab.core.Const
@@ -51,7 +51,7 @@ internal object ServerApiBuilder {
 	}
 
 	private fun createGson(): Gson = GsonBuilder()
-			.registerTypeAdapter(AuthorInfo::class.java, AuthorInfoDeserializer())
+			.registerTypeAdapter(AuthorPageInfo::class.java, AuthorPageInfoDeserializer())
 			.registerTypeAdapter(Award::class.java, AwardDeserializer())
 			.registerTypeAdapter(Autor::class.java, AutorDeserializer())
 			.registerTypeAdapter(AutorFull::class.java, AutorFullDeserializer())
