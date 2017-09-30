@@ -3,13 +3,13 @@ package org.odddev.fantlab.core.models
 import android.support.annotation.Keep
 
 @Keep
-data class Work(
+data class ChildWork(
 		// work_id
 		val workId: Int,
-		// [id блока: Циклы произведений, Участие в межавторских проектах etc]
-		val blockId: Int,
 		// public_download_file
 		val canDownload: Boolean? = null,
+		// deep
+		val deep: Int,
 		// work_description
 		val description: String? = null,
 		// work_lp [есть лингвопрофиль]
@@ -28,13 +28,15 @@ data class Work(
 		val nameOrig: String? = null,
 		// work_notfinished
 		val notFinished: Boolean? = null,
+		// plus
+		val plus: Boolean? = null,
 		// work_preparing [в планах]
 		val preparing: Boolean? = null,
 		// work_published
 		val published: Boolean? = null,
 		// publish_status
 		val publishStatus: String? = null,
-		// val_rating
+		// val_midmark_rating
 		val rating: Float? = null,
 		// val_responsecount
 		val responseCount: Int? = null,
@@ -49,7 +51,7 @@ data class Work(
 		// val_voters
 		val voters: Int? = null,
 		// [что за параметр?]
-		//val forChildren: Boolean? = null
-		// [номер в блоке]
+		//val forChildren: Boolean? = null,
+		// номер в блоке
 		val position: Int
 )

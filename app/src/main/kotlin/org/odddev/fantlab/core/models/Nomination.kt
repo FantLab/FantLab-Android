@@ -41,5 +41,6 @@ data class Nomination(
 		// work_rusname
 		val workRusName: String? = null,
 		// work_year
-		val workYear: Int? = null
+		val workYear: Int? = null,
+		val position: Int
 )

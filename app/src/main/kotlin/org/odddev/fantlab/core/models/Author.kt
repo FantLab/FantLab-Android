@@ -32,8 +32,10 @@ data class Author(
 		// fantastic
 		val fantastic: Int? = null,
 		// fl_blog_anons
-		//val flBlogAnons: String? = null,           // что за параметр?
-		//val isFv: Boolean? = null,                 // есть только в /autors
+		// [что за параметр?]
+		//val flBlogAnons: String? = null,
+		// [есть только в /autors]
+		//val isFv: Boolean? = null,
 		// is_opened
 		val isOpened: Boolean? = null,
 		// last_modified
