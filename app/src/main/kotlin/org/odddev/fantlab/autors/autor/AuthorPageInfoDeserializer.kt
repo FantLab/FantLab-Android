@@ -166,8 +166,8 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 					publishStatus = workObject.get("publish_status").getField()?.asString,
 					rating = workObject.get("val_rating").getField()?.asFloat,
 					responseCount = workObject.get("val_responsecount").getField()?.asInt,
-					rootWorkId = 0/*workObject.get("work_root_saga").getField()?.asJsonArray?.get(0)
-							?.asJsonObject?.get("work_id")?.asInt*/,
+					rootWorkId = workObject.get("work_root_saga").getField()?.asJsonArray?.get(0)
+							?.asJsonObject?.get("work_id")?.asInt,
 					type = workObject.get("work_type_id").getField()?.asInt,
 					writeYear = workObject.get("work_year_of_write").getField()?.asInt,
 					year = workObject.get("work_year").getField()?.asInt,
@@ -237,8 +237,8 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 					publishStatus = workObject.get("publish_status").getField()?.asString,
 					rating = workObject.get("val_midmark_rating").getField()?.asFloat,
 					responseCount = workObject.get("val_responsecount").getField()?.asInt,
-					rootWorkId = 0/*workObject.get("work_root_saga").getField()?.asJsonArray?.get(0)
-							?.asJsonObject?.get("work_id")?.asInt*/,
+					rootWorkId = workObject.get("work_root_saga").getField()?.asJsonArray?.get(0)
+							?.asJsonObject?.get("work_id")?.asInt,
 					type = workObject.get("work_type_id").getField()?.asInt,
 					writeYear = workObject.get("work_year_of_write").getField()?.asInt,
 					year = workObject.get("work_year").getField()?.asInt,
