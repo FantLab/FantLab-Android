@@ -5,7 +5,7 @@ import android.support.annotation.Keep
 @Keep
 data class ChildWork(
 		// work_id
-		val workId: Int,
+		val workId: Int? = null,
 		// public_download_file
 		val canDownload: Boolean? = null,
 		// deep

@@ -4,6 +4,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.ResponseBody
 import org.odddev.fantlab.autors.AuthorsResponse
+import org.odddev.fantlab.autors.autor.AuthorPageInfo
 import org.odddev.fantlab.autors.autor.AutorFull
 import org.odddev.fantlab.award.Award
 import retrofit2.Response
@@ -33,7 +34,7 @@ interface IServerApi {
 	fun getAuthors(): Observable<AuthorsResponse>
 
 	@GET("/autor/{id}/extended")
-	fun getAuthor(@Path("id") id: Int): Observable<AutorFull>
+	fun getAuthor(@Path("id") id: Int): Observable<AuthorPageInfo>
 
 	@GET("/autor{id}/alleditions.json")
 	fun getAuthorEditions(@Path("id") id: Int,

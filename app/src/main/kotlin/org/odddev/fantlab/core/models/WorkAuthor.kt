@@ -1,7 +1,10 @@
 package org.odddev.fantlab.core.models
 
+import android.support.annotation.Keep
+
+@Keep
 data class WorkAuthor(
-		val workId: Int,
+		val workId: Int? = null,
 		// id
 		val authorId: Int,
 		// type (тип автора для данного произведения; автор в произведении может оказаться художником)

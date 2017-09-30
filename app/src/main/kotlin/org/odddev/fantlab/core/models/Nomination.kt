@@ -6,6 +6,7 @@ import android.support.annotation.Keep
 data class Nomination(
 		// award_id
 		val awardId: Int,
+		val authorId: Int,
 		// contest_id
 		val contestId: Int? = null,
 		// contest_name

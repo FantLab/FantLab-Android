@@ -5,7 +5,7 @@ import android.support.annotation.Keep
 @Keep
 data class Work(
 		// work_id
-		val workId: Int,
+		val workId: Int? = null,
 		// [id блока: Циклы произведений, Участие в межавторских проектах etc]
 		val blockId: Int,
 		// public_download_file

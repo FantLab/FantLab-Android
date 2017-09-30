@@ -5,8 +5,8 @@ import org.odddev.fantlab.auth.AuthPresenter
 import org.odddev.fantlab.auth.AuthProvider
 import org.odddev.fantlab.autors.AutorsPresenter
 import org.odddev.fantlab.autors.AutorsProvider
-import org.odddev.fantlab.autors.autor.AutorPresenter
-import org.odddev.fantlab.autors.autor.AutorProvider
+import org.odddev.fantlab.autors.autor.AuthorPresenter
+import org.odddev.fantlab.autors.autor.AuthorProvider
 import org.odddev.fantlab.award.AwardsPresenter
 import org.odddev.fantlab.award.AwardsProvider
 import org.odddev.fantlab.core.network.HeaderInterceptor
@@ -37,13 +37,13 @@ interface AppComponent {
 
 	fun inject(homePresenter: HomePresenter)
 
-	fun inject(autorsProvider: AutorsProvider)
+	fun inject(authorsProvider: AutorsProvider)
 
-	fun inject(autorsPresenter: AutorsPresenter)
+	fun inject(authorsPresenter: AutorsPresenter)
 
-	fun inject(autorProvider: AutorProvider)
+	fun inject(authorProvider: AuthorProvider)
 
-	fun inject(autorPresenter: AutorPresenter)
+	fun inject(authorPresenter: AuthorPresenter)
 
 	fun inject(authPresenter: AuthPresenter)
 

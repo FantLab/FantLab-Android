@@ -3,11 +3,10 @@ package org.odddev.fantlab.home
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
-import android.text.TextUtils
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import org.odddev.fantlab.R
-import org.odddev.fantlab.autors.autor.AutorFragment
+import org.odddev.fantlab.autors.autor.AuthorFragment
 import org.odddev.fantlab.autors.autor.biography.BiographyFragment
 import org.odddev.fantlab.core.utils.FragmentUtils
 import org.odddev.fantlab.databinding.HomeActivityBinding
@@ -96,7 +95,7 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 	}
 
 	override fun openAutor(id: Int, name: String) {
-		FragmentUtils.replaceFragment(this, R.id.container, AutorFragment(id, name), true)
+		FragmentUtils.replaceFragment(this, R.id.container, AuthorFragment(id, name), true)
 	}
 
 	override fun showBiography(bio: String) {

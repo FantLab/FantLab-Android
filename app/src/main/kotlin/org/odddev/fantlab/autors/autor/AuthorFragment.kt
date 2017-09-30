@@ -17,7 +17,7 @@ import org.odddev.fantlab.R
 import org.odddev.fantlab.databinding.AutorFragmentBinding
 import org.odddev.fantlab.home.IActionsHandler
 
-class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
+class AuthorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 
 	private val EXTRA_ID = "id"
 	private val EXTRA_NAME = "name"
@@ -27,7 +27,7 @@ class AutorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 	private val controller: AuthorController by lazy { AuthorController(this) }
 
 	@InjectPresenter
-	lateinit var presenter: AutorPresenter
+	lateinit var presenter: AuthorPresenter
 
 	private lateinit var bio: String
 

@@ -3,20 +3,22 @@ package org.odddev.fantlab.autors.autor
 import com.google.gson.*
 import org.odddev.fantlab.core.models.*
 import org.odddev.fantlab.core.utils.*
+import timber.log.Timber
 import java.lang.reflect.Type
 import java.util.ArrayList
 
 class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 
 	private fun JsonObject.parseAuthor(
-			authors: HashSet<Author>,
+			authorId: Int,
+			authors: ArrayList<Author>,
 			laResume: ArrayList<LaResume>,
 			pseudonyms: ArrayList<Pseudonym>,
 			sites: ArrayList<Site>
 	) {
 		val statObject = this.getAsJsonObject("stat")
 		authors.add(Author(
-				authorId = this.get("autor_id").asInt,
+				authorId = authorId,
 				anons = this.get("anons").getField()?.asString,
 				biography = this.get("biography").getField()?.asString,
 				biographyNotes = this.get("biography_notes").getField()?.asString,
@@ -46,6 +48,7 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 		val laResumeArray = this.getAsJsonArray("la_resume")
 		laResumeArray.withIndex().forEach {
 			laResume.add(LaResume(
+					authorId = authorId,
 					resume = it.value.asString,
 					position = it.index
 			))
@@ -54,16 +57,18 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 		pseudonymsArray.withIndex().forEach {
 			val pseudonymObject = it.value.asJsonObject
 			pseudonyms.add(Pseudonym(
+					authorId = authorId,
 					isReal = pseudonymObject.get("is_real").asInt == 1,
 					name = pseudonymObject.get("name").asString,
 					nameOrig = pseudonymObject.get("name_orig").asString,
 					position = it.index
 			))
 		}
-		val sitesArray = this.getAsJsonArray("sites")
-		sitesArray.withIndex().forEach {
+		val sitesArray = this.get("sites").getField()?.asJsonArray
+		sitesArray?.withIndex()?.forEach {
 			val siteObject = it.value.asJsonObject
 			sites.add(Site(
+					authorId = authorId,
 					description = siteObject.get("descr").asString,
 					url = siteObject.get("site").asString,
 					position = it.index
@@ -71,10 +76,14 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 		}
 	}
 	
-	private fun JsonArray.parseNominations(nominations: ArrayList<Nomination>) {
+	private fun JsonArray.parseNominations(
+			authorId: Int,
+			nominations: ArrayList<Nomination>
+	) {
 		this.withIndex().forEach {
 			val nominationObject = it.value.asJsonObject
 			nominations.add(Nomination(
+					authorId = authorId,
 					awardId = nominationObject.get("award_id").asInt,
 					contestId = nominationObject.get("contest_id").getField()?.asInt,
 					contestName = nominationObject.get("contest_name").getField()?.asString,
@@ -101,7 +110,7 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 
 	private fun JsonObject.parseWorks(
 			works: ArrayList<Work>,
-			authors: HashSet<Author>,
+			authors: ArrayList<Author>,
 			workAuthors: ArrayList<WorkAuthor>
 	) {
 		for ((key, value) in this.entrySet()) {
@@ -118,12 +127,13 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 
 	private fun JsonArray.parseBlockWorks(
 			works: ArrayList<Work>,
-			authors: HashSet<Author>,
+			authors: ArrayList<Author>,
 			workAuthors: ArrayList<WorkAuthor>,
 			blockId: Int
 	) {
 		this.withIndex().forEach {
 			val workObject = it.value.asJsonObject
+			val workId = workObject.get("work_id").getField()?.asInt
 			val authorArray = workObject.getAsJsonArray("authors")
 			authorArray.withIndex().forEach {
 				val authorObject = it.value.asJsonObject
@@ -132,14 +142,14 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 						name = authorObject.get("name").asString
 				))
 				workAuthors.add(WorkAuthor(
-						workId = workObject.get("work_id").asInt,
+						workId = workId,
 						authorId = authorObject.get("id").asInt,
 						role = authorObject.get("type").asString,
 						position = it.index
 				))
 			}
 			works.add(Work(
-					workId = workObject.get("work_id").asInt,
+					workId = workId,
 					blockId = blockId,
 					canDownload = workObject.get("public_download_file").getField()?.asInt == 1,
 					description = workObject.get("work_description").getField()?.asString,
@@ -156,7 +166,8 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 					publishStatus = workObject.get("publish_status").getField()?.asString,
 					rating = workObject.get("val_rating").getField()?.asFloat,
 					responseCount = workObject.get("val_responsecount").getField()?.asInt,
-					rootWorkId = workObject.get("work_root_saga")?.asJsonObject?.get("work_id")?.asInt,
+					rootWorkId = 0/*workObject.get("work_root_saga").getField()?.asJsonArray?.get(0)
+							?.asJsonObject?.get("work_id")?.asInt*/,
 					type = workObject.get("work_type_id").getField()?.asInt,
 					writeYear = workObject.get("work_year_of_write").getField()?.asInt,
 					year = workObject.get("work_year").getField()?.asInt,
@@ -168,7 +179,7 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 
 	private fun JsonObject.parseChildWorks(
 			childWorks: ArrayList<ChildWork>,
-			authors: HashSet<Author>,
+			authors: ArrayList<Author>,
 			workAuthors: ArrayList<WorkAuthor>
 	) {
 		for ((_, value) in this.entrySet()) {
@@ -187,11 +198,12 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 
 	private fun JsonArray.parseCycleChildWorks(
 			childWorks: ArrayList<ChildWork>,
-			authors: HashSet<Author>,
+			authors: ArrayList<Author>,
 			workAuthors: ArrayList<WorkAuthor>
 	) {
 		this.withIndex().forEach {
 			val workObject = it.value.asJsonObject
+			val workId = workObject.get("work_id").getField()?.asInt
 			val authorArray = workObject.getAsJsonArray("authors")
 			authorArray.withIndex().forEach {
 				val authorObject = it.value.asJsonObject
@@ -200,14 +212,14 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 						name = authorObject.get("name").asString
 				))
 				workAuthors.add(WorkAuthor(
-						workId = workObject.get("work_id").asInt,
+						workId = workId,
 						authorId = authorObject.get("id").asInt,
 						role = authorObject.get("type").asString,
 						position = it.index
 				))
 			}
 			childWorks.add(ChildWork(
-					workId = workObject.get("work_id").asInt,
+					workId = workId,
 					canDownload = workObject.get("public_download_file").getField()?.asInt == 1,
 					deep = workObject.get("deep").asInt,
 					description = workObject.get("work_description").getField()?.asString,
@@ -225,7 +237,8 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 					publishStatus = workObject.get("publish_status").getField()?.asString,
 					rating = workObject.get("val_midmark_rating").getField()?.asFloat,
 					responseCount = workObject.get("val_responsecount").getField()?.asInt,
-					rootWorkId = workObject.get("work_root_saga")?.asJsonObject?.get("work_id")?.asInt,
+					rootWorkId = 0/*workObject.get("work_root_saga").getField()?.asJsonArray?.get(0)
+							?.asJsonObject?.get("work_id")?.asInt*/,
 					type = workObject.get("work_type_id").getField()?.asInt,
 					writeYear = workObject.get("work_year_of_write").getField()?.asInt,
 					year = workObject.get("work_year").getField()?.asInt,
@@ -242,37 +255,27 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 	): AuthorPageInfo {
 		val jsonObject = json.asJsonObject
 
-		val authors = hashSetOf<Author>()
+		val authorId = jsonObject.get("autor_id").asInt
+
+		val authors = arrayListOf<Author>()
 		val laResume = arrayListOf<LaResume>()
 		val pseudonyms = arrayListOf<Pseudonym>()
 		val sites = arrayListOf<Site>()
-		jsonObject.parseAuthor(authors, laResume, pseudonyms, sites)
+		jsonObject.parseAuthor(authorId, authors, laResume, pseudonyms, sites)
 
 		val nominations = arrayListOf<Nomination>()
 		val awards = jsonObject.get("awards").asJsonObject
-		awards.getAsJsonArray("nom")?.parseNominations(nominations)
-		awards.getAsJsonArray("win")?.parseNominations(nominations)
+		awards.getAsJsonArray("nom")?.parseNominations(authorId, nominations)
+		awards.getAsJsonArray("win")?.parseNominations(authorId, nominations)
 
 		val works = arrayListOf<Work>()
 		val childWorks = arrayListOf<ChildWork>()
 		val workAuthors = arrayListOf<WorkAuthor>()
-		val cyclesBlocks = jsonObject.getAsJsonObject("cycles_blocks")
-		cyclesBlocks?.parseWorks(
-				works,
-				authors,
-				workAuthors
-		)
-		cyclesBlocks?.parseChildWorks(
-				childWorks,
-				authors,
-				workAuthors
-		)
+		val cyclesBlocks = jsonObject.get("cycles_blocks").getField()?.asJsonObject
+		cyclesBlocks?.parseWorks(works, authors, workAuthors)
+		cyclesBlocks?.parseChildWorks(childWorks, authors, workAuthors)
 		val worksBlocks = jsonObject.getAsJsonObject("works_blocks")
-		worksBlocks?.parseWorks(
-				works,
-				authors,
-				workAuthors
-		)
+		worksBlocks?.parseWorks(works, authors, workAuthors)
 
 		return AuthorPageInfo(
 				authors = authors,

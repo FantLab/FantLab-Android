@@ -6,7 +6,7 @@ import org.odddev.fantlab.core.models.*
 
 @Keep
 data class AuthorPageInfo(
-		val authors: Set<Author>,
+		val authors: List<Author>,
 		val childWorks: List<ChildWork>,
 		val laResume: List<LaResume>,
 		val nominations: List<Nomination>,
