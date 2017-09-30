@@ -9,6 +9,47 @@ import java.util.ArrayList
 
 class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 
+	override fun deserialize(
+			json: JsonElement,
+			typeOfT: Type,
+			context: JsonDeserializationContext?
+	): AuthorPageInfo {
+		val jsonObject = json.asJsonObject
+
+		val authorId = jsonObject.get("autor_id").asInt
+
+		val authors = arrayListOf<Author>()
+		val laResume = arrayListOf<LaResume>()
+		val pseudonyms = arrayListOf<Pseudonym>()
+		val sites = arrayListOf<Site>()
+		jsonObject.parseAuthor(authorId, authors, laResume, pseudonyms, sites)
+
+		val nominations = arrayListOf<Nomination>()
+		val awards = jsonObject.get("awards").asJsonObject
+		awards.getAsJsonArray("nom")?.parseNominations(authorId, nominations)
+		awards.getAsJsonArray("win")?.parseNominations(authorId, nominations)
+
+		val works = arrayListOf<Work>()
+		val childWorks = arrayListOf<ChildWork>()
+		val workAuthors = arrayListOf<WorkAuthor>()
+		val cyclesBlocks = jsonObject.get("cycles_blocks").getField()?.asJsonObject
+		cyclesBlocks?.parseWorks(works, authors, workAuthors)
+		cyclesBlocks?.parseChildWorks(childWorks, authors, workAuthors)
+		val worksBlocks = jsonObject.getAsJsonObject("works_blocks")
+		worksBlocks?.parseWorks(works, authors, workAuthors)
+
+		return AuthorPageInfo(
+				authors = authors,
+				childWorks = childWorks,
+				laResume = laResume,
+				nominations = nominations,
+				pseudonyms = pseudonyms,
+				sites = sites,
+				works = works,
+				workAuthors = workAuthors
+		)
+	}
+
 	private fun JsonObject.parseAuthor(
 			authorId: Int,
 			authors: ArrayList<Author>,
@@ -75,7 +116,7 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 			))
 		}
 	}
-	
+
 	private fun JsonArray.parseNominations(
 			authorId: Int,
 			nominations: ArrayList<Nomination>
@@ -246,46 +287,5 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 					position = it.index
 			))
 		}
-	}
-
-	override fun deserialize(
-			json: JsonElement,
-			typeOfT: Type,
-			context: JsonDeserializationContext?
-	): AuthorPageInfo {
-		val jsonObject = json.asJsonObject
-
-		val authorId = jsonObject.get("autor_id").asInt
-
-		val authors = arrayListOf<Author>()
-		val laResume = arrayListOf<LaResume>()
-		val pseudonyms = arrayListOf<Pseudonym>()
-		val sites = arrayListOf<Site>()
-		jsonObject.parseAuthor(authorId, authors, laResume, pseudonyms, sites)
-
-		val nominations = arrayListOf<Nomination>()
-		val awards = jsonObject.get("awards").asJsonObject
-		awards.getAsJsonArray("nom")?.parseNominations(authorId, nominations)
-		awards.getAsJsonArray("win")?.parseNominations(authorId, nominations)
-
-		val works = arrayListOf<Work>()
-		val childWorks = arrayListOf<ChildWork>()
-		val workAuthors = arrayListOf<WorkAuthor>()
-		val cyclesBlocks = jsonObject.get("cycles_blocks").getField()?.asJsonObject
-		cyclesBlocks?.parseWorks(works, authors, workAuthors)
-		cyclesBlocks?.parseChildWorks(childWorks, authors, workAuthors)
-		val worksBlocks = jsonObject.getAsJsonObject("works_blocks")
-		worksBlocks?.parseWorks(works, authors, workAuthors)
-
-		return AuthorPageInfo(
-				authors = authors,
-				childWorks = childWorks,
-				laResume = laResume,
-				nominations = nominations,
-				pseudonyms = pseudonyms,
-				sites = sites,
-				works = works,
-				workAuthors = workAuthors
-		)
 	}
 }
