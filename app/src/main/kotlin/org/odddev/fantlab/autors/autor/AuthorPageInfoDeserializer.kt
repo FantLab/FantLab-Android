@@ -172,16 +172,16 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 			workAuthors: ArrayList<WorkAuthor>
 	) {
 		for ((_, value) in this.entrySet()) {
-			value.asJsonObject
-					.getAsJsonArray("list")
-					// fail
-					.asJsonObject
-					.getAsJsonArray("children")
-					?.parseCycleChildWorks(
-							childWorks,
-							authors,
-							workAuthors
-					)
+			val works = value.asJsonObject.getAsJsonArray("list")
+			for (work in works) {
+				work.asJsonObject
+						.getAsJsonArray("children")
+						?.parseCycleChildWorks(
+								childWorks,
+								authors,
+								workAuthors
+						)
+			}
 		}
 	}
 
