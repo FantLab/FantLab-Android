@@ -52,7 +52,7 @@ fun JsonObject.parseStat(): AutorFull.Stat = AutorFull.Stat(
 		response = this.get("responsecount").getField()?.asInt ?: -1
 )
 
-fun JsonArray.parseWorks(works: ArrayList<AutorFull.Work>) {
+fun JsonArray.parseBlockWorks(works: ArrayList<AutorFull.Work>) {
 	for (work in this) {
 		val workObject = work.asJsonObject
 		val autorLinks = ArrayList<AutorFull.AutorLink>()
@@ -87,6 +87,6 @@ fun JsonArray.parseWorks(works: ArrayList<AutorFull.Work>) {
 				forChildren = workObject.get("publish_for_children").getField()?.asInt == 1
 		))
 
-		workObject.getAsJsonArray("children")?.parseWorks(works)
+		workObject.getAsJsonArray("children")?.parseBlockWorks(works)
 	}
 }

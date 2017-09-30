@@ -15,7 +15,7 @@ class AutorFullDeserializer : JsonDeserializer<AutorFull> {
 	fun JsonObject.parseAllWorks(works: SparseArray<List<AutorFull.Work>>) {
 		for ((key, value) in this.entrySet()) {
 			val worksList = ArrayList<AutorFull.Work>()
-			value.asJsonObject.getAsJsonArray("list").parseWorks(worksList)
+			value.asJsonObject.getAsJsonArray("list").parseBlockWorks(worksList)
 			works.put(key.toInt(), worksList)
 		}
 	}

@@ -6,7 +6,7 @@ import org.odddev.fantlab.autors.autor.AutorFull
 import org.odddev.fantlab.core.utils.getField
 import org.odddev.fantlab.core.utils.parseAwards
 import org.odddev.fantlab.core.utils.parseStat
-import org.odddev.fantlab.core.utils.parseWorks
+import org.odddev.fantlab.core.utils.parseBlockWorks
 import org.odddev.fantlab.edition.Edition
 import java.lang.reflect.Type
 
@@ -65,7 +65,7 @@ class WorkDeserializer : JsonDeserializer<Work> {
 		jsonObject.getAsJsonObject("awards")?.getAsJsonArray("win")?.parseAwards(awards)
 
 		val children = ArrayList<AutorFull.Work>()
-		jsonObject.getAsJsonArray("children").parseWorks(children)
+		jsonObject.getAsJsonArray("children").parseBlockWorks(children)
 
 		val editions = ArrayList<Edition>()
 		jsonObject.getAsJsonArray("editions").parseEditions(editions)
