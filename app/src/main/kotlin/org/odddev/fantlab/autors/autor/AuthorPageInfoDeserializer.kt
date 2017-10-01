@@ -3,7 +3,6 @@ package org.odddev.fantlab.autors.autor
 import com.google.gson.*
 import org.odddev.fantlab.core.models.*
 import org.odddev.fantlab.core.utils.*
-import timber.log.Timber
 import java.lang.reflect.Type
 import java.util.ArrayList
 
@@ -78,13 +77,16 @@ class AuthorPageInfoDeserializer : JsonDeserializer<AuthorPageInfo> {
 				nameOrig = this.get("name_orig").getField()?.asString,
 				nameRp = this.get("name_rp").getField()?.asString,
 				nameShort = this.get("name_short").getField()?.asString,
+				registeredUserId = this.get("registered_user_id").getField()?.asInt,
+				registeredUserLogin = this.get("registered_user_login").getField()?.asString,
+				registeredUserSex = this.get("registered_user_sex").getField()?.asInt,
 				sex = this.get("sex").getField()?.asString,
-				statAwardCount = statObject.get("award_count").getField()?.asInt,
-				statEditionCount = statObject.get("edition_count").getField()?.asInt,
-				statMarkCount = statObject.get("mark_count").getField()?.asInt,
-				statMovieCount = statObject.get("movie_count").getField()?.asInt,
-				statResponseCount = statObject.get("response_count").getField()?.asInt,
-				statWorkCount = statObject.get("work_count").getField()?.asInt
+				statAwardCount = statObject.get("awardcount").getField()?.asInt,
+				statEditionCount = statObject.get("editioncount").getField()?.asInt,
+				statMarkCount = statObject.get("markcount").getField()?.asInt,
+				statMovieCount = statObject.get("moviecount").getField()?.asInt,
+				statResponseCount = statObject.get("responsecount").getField()?.asInt,
+				statWorkCount = statObject.get("workcount").getField()?.asInt
 		))
 		val laResumeArray = this.getAsJsonArray("la_resume")
 		laResumeArray.withIndex().forEach {

@@ -28,15 +28,7 @@ class AuthorPresenter : MvpPresenter<IAutorView>() {
 					.getAuthor(id)
 					.subscribe(
 							{
-								author -> Timber.d(
-									"authors: ${author.authors.size}\n" +
-											"childWorks: ${author.childWorks.size}\n" +
-											"laResume: ${author.laResume.size}\n" +
-											"nominations: ${author.nominations.size}\n" +
-											"pseudonyms: ${author.pseudonyms.size}\n" +
-											"sites: ${author.sites.size}\n" +
-											"works: ${author.works.size}\n" +
-											"workAuthors: ${author.workAuthors.size}\n")
+								authors -> viewState.showError("Ready")
 							},
 							{ error ->
 								run {
