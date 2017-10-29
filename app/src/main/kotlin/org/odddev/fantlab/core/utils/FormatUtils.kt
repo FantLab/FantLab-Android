@@ -41,7 +41,7 @@ fun CharSequence.formatText(): Spanned {
 		Html.fromHtml(html)
 }
 
-fun Calendar.format(context: Context): String = DateFormat.getMediumDateFormat(context).format(this.time)
+fun Calendar.format(context: Context?): String = DateFormat.getMediumDateFormat(context).format(this.time)
 
 /* Format for layouts */
 

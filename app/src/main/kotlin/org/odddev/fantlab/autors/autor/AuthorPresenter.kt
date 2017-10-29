@@ -22,10 +22,10 @@ class AuthorPresenter : MvpPresenter<IAutorView>() {
 		Injector.getAppComponent().inject(this)
 	}
 
-	internal fun getAutor(id: Int) {
+	internal fun getAutor(id: Int?) {
 		autor?.let { viewState.showAutor(it) } ?: run {
 			disposables.add(authorProvider
-					.getAuthor(id)
+					.getAuthor(id!!)
 					.subscribe(
 							{
 								authors -> viewState.showError("Ready")

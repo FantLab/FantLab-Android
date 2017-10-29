@@ -30,17 +30,17 @@ class BiographyFragment : MvpAppCompatFragment {
 		arguments = bundle
 	}
 
-	override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 							  savedInstanceState: Bundle?): View? {
 		binding = BiographyFragmentBinding.inflate(inflater, container, false)
 		return binding.root
 	}
 
-	override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		initToolbar()
 		setHasOptionsMenu(true)
 
-		val bio = Gson().fromJson(arguments.getString(EXTRA_BIO), AutorFull.Biography::class.java)
+		val bio = Gson().fromJson(arguments?.getString(EXTRA_BIO), AutorFull.Biography::class.java)
 		binding.birthday = bio.birthday?.format(context)
 		binding.deathday = bio.deathday?.format(context)
 		binding.sex = if (bio.sex == "m") 0 else 1
@@ -51,7 +51,7 @@ class BiographyFragment : MvpAppCompatFragment {
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
-			android.R.id.home -> activity.onBackPressed()
+			android.R.id.home -> activity?.onBackPressed()
 		}
 		return super.onOptionsItemSelected(item)
 	}

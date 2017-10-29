@@ -25,13 +25,13 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, IAuthorsActions {
 	@InjectPresenter
 	lateinit var presenter: AutorsPresenter
 
-	override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 							  savedInstanceState: Bundle?): View? {
 		binding = AutorsFragmentBinding.inflate(inflater, container, false)
 		return binding.root
 	}
 
-	override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		initToolbar()
 		setHasOptionsMenu(true)
 		initRecyclerView()
@@ -82,7 +82,8 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, IAuthorsActions {
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
-			android.R.id.home -> (activity.findViewById(R.id.drawer_layout) as DrawerLayout)
+			android.R.id.home ->
+				(activity?.findViewById<DrawerLayout>(R.id.drawer_layout) as DrawerLayout)
 					.openDrawer(GravityCompat.START)
 		}
 		return super.onOptionsItemSelected(item)

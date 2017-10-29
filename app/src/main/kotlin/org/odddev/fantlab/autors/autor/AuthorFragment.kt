@@ -41,18 +41,18 @@ class AuthorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 		arguments = bundle
 	}
 
-	override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 							  savedInstanceState: Bundle?): View? {
 		binding = AutorFragmentBinding.inflate(inflater, container, false)
 		return binding.root
 	}
 
-	override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		initToolbar()
 		setHasOptionsMenu(true)
 		initRecyclerView()
 
-		presenter.getAutor(arguments.getInt(EXTRA_ID))
+		presenter.getAutor(arguments?.getInt(EXTRA_ID))
 	}
 
 	override fun onAttach(context: Context?) {
@@ -63,7 +63,7 @@ class AuthorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
-			android.R.id.home -> activity.onBackPressed()
+			android.R.id.home -> activity?.onBackPressed()
 		}
 		return super.onOptionsItemSelected(item)
 	}
@@ -73,7 +73,7 @@ class AuthorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 		activity.setSupportActionBar(binding.toolbar)
 		val actionBar = activity.supportActionBar
 		actionBar?.apply {
-			title = arguments.getString(EXTRA_NAME)
+			title = arguments?.getString(EXTRA_NAME)
 			setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
 			setDisplayHomeAsUpEnabled(true)
 		}

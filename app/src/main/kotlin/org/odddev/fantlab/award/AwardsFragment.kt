@@ -23,13 +23,13 @@ class AwardsFragment : MvpAppCompatFragment(), IAwardsView {
 	@InjectPresenter
 	lateinit var presenter: AwardsPresenter
 
-	override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 							  savedInstanceState: Bundle?): View? {
 		binding = AwardsFragmentBinding.inflate(inflater, container, false)
 		return binding.root
 	}
 
-	override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		presenter.getAwards()
 
 		initToolbar()
@@ -57,7 +57,8 @@ class AwardsFragment : MvpAppCompatFragment(), IAwardsView {
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
-			android.R.id.home -> (activity.findViewById(R.id.drawer_layout) as DrawerLayout)
+			android.R.id.home ->
+				(activity?.findViewById<DrawerLayout>(R.id.drawer_layout) as DrawerLayout)
 					.openDrawer(GravityCompat.START)
 		}
 		return super.onOptionsItemSelected(item)

@@ -16,42 +16,58 @@ interface AuthorRecord : Parcelable, Persistable {
 	@get:Generated
 	val id: Int
 
+	// +
 	var authorId: Int
 
+	// +
 	var anons: String?
 
+	// +
 	var biography: String?
 
+	// +
 	var biographyNotes: String?
 
+	// +
 	var biographySource: String?
 
+	// +
 	var biographySourceUrl: String?
 
+	// +
 	//var birthDay: Calendar?
 
+	// +
 	var compiler: String?
 
+	// +
 	var countryId: Int?
 
 	var countryName: String?
 
+	// +
 	var curator: Int?
 
+	// +
 	//var deathDay: Calendar?
 
 	var fantastic: Int?
 
+	// +
 	var isOpened: Boolean?
 
 	//var lastModified: Calendar?
 
+	// +
 	var name: String?
 
+	// +
 	var nameOrig: String?
 
+	// +
 	var nameRp: String?
 
+	// +
 	var nameShort: String?
 
 	var registeredUserId: Int?
@@ -60,6 +76,7 @@ interface AuthorRecord : Parcelable, Persistable {
 
 	var registeredUserSex: Int?
 
+	// +
 	var sex: String?
 
 	var statAwardCount: Int?

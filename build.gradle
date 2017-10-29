@@ -8,7 +8,7 @@ buildscript {
 	dependencies {
 		classpath 'com.android.tools.build:gradle:2.3.3'
 		// still 1.1.2-2: see https://stackoverflow.com/a/44036101
-		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.2-2"
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.51"
 		//noinspection GradleDynamicVersion
 		classpath "io.fabric.tools:gradle:1.+"
 	}
@@ -19,6 +19,7 @@ allprojects {
 		jcenter()
 		maven { url "https://jitpack.io" }
 		maven { url 'https://maven.fabric.io/public' }
+		google()
 	}
 }
 

@@ -1,7 +1,6 @@
 package org.odddev.fantlab.autors.autor
 
 import android.support.annotation.Keep
-import android.util.SparseArray
 import org.odddev.fantlab.core.models.*
 
 @Keep
