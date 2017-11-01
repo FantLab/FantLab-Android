@@ -20,7 +20,6 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, IAuthorsActions {
 
 	private lateinit var binding: AutorsFragmentBinding
 	private lateinit var handler: IActionsHandler
-	private val controller: AuthorsController by lazy { AuthorsController(this) }
 
 	@InjectPresenter
 	lateinit var presenter: AutorsPresenter
@@ -77,7 +76,6 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, IAuthorsActions {
 	private fun initRecyclerView() {
 		val layoutManager = LinearLayoutManager(context)
 		binding.autors.layoutManager = layoutManager
-		binding.autors.adapter = controller.adapter
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -90,7 +88,6 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, IAuthorsActions {
 	}
 
 	override fun showAutors(autors: List<Autor>, scrollToTop: Boolean) {
-		controller.setData(autors)
 		if (scrollToTop) binding.autors.scrollToPosition(0)
 	}
 

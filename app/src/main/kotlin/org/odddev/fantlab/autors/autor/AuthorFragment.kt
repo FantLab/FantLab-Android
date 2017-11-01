@@ -24,7 +24,6 @@ class AuthorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 
 	private lateinit var binding: AutorFragmentBinding
 	private lateinit var handler: IActionsHandler
-	private val controller: AuthorController by lazy { AuthorController(this) }
 
 	@InjectPresenter
 	lateinit var presenter: AuthorPresenter
@@ -81,13 +80,10 @@ class AuthorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 
 	private fun initRecyclerView() {
 		binding.content.layoutManager = LinearLayoutManager(context)
-		binding.content.adapter = controller.adapter
-		controller.setData(null, true)
 	}
 
 	override fun showAutor(autor: AutorFull) {
 		binding.autor = autor
-		controller.setData(autor, false)
 		bio = Gson().toJson(autor.biography)
 	}
 

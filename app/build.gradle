@@ -51,14 +51,9 @@ kapt {
 }
 
 dependencies {
-	// see https://github.com/airbnb/epoxy/issues/236
-	kapt 'com.squareup:javapoet:1.8.0'
-
 	compile 'org.jetbrains.kotlin:kotlin-stdlib:1.1.4-2'
 
 	kapt "com.android.databinding:compiler:3.0.0"
-	compile 'com.airbnb.android:epoxy-databinding:2.2.0'
-	kapt 'com.airbnb.android:epoxy-processor:2.2.0'
 
 	compile 'android.arch.persistence.room:runtime:1.0.0-rc1'
 	kapt 'android.arch.persistence.room:compiler:1.0.0-rc1'
