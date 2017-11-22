@@ -29,7 +29,7 @@ interface IServerApi {
 				   @Query("include_works") includeWorks: Int): Observable<Unit>
 
 	@GET("/autorsall")
-	fun getAuthors(): Observable<AuthorsResponse>
+	fun getAuthors(): Single<AuthorsResponse>
 
 	@GET("/autor/{id}/extended")
 	fun getAuthor(@Path("id") id: Int): Observable<Void>

@@ -5,30 +5,11 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	>
 
-	<data>
-
-		<import type="org.odddev.fantlab.core.Const" />
-
-		<import type="android.text.TextUtils" />
-
-		<variable
-			name="author"
-			type="org.odddev.fantlab.authors.Author"
-			/>
-
-		<variable
-			name="listener"
-			type="org.odddev.fantlab.authors.IAuthorsActions"
-			/>
-
-	</data>
-
 	<android.support.constraint.ConstraintLayout
+		android:id="@+id/author"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:background="?android:attr/selectableItemBackground"
-		android:clickable="true"
-		android:onClick="@{v -> listener.onAuthorClicked(author)}"
 		android:paddingBottom="@dimen/spacing_small"
 		android:paddingLeft="@dimen/spacing_medium"
 		android:paddingRight="@dimen/spacing_medium"
@@ -39,21 +20,17 @@
 			android:id="@+id/avatar"
 			android:layout_width="@dimen/recycler_item_image_size"
 			android:layout_height="@dimen/recycler_item_image_size"
-			app:isCircle="@{true}"
 			app:layout_constraintVertical_bias="0.5"
-			app:placeholder="@{@drawable/not_found}"
-			app:srcUri="@{Const.getImagesUrl() + @string/author_image_url(author.id)}"
 			tools:ignore="ContentDescription"
 			/>
 
 		<TextView
-			android:id="@+id/author_name"
+			android:id="@+id/name"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="@dimen/spacing_small"
 			android:ellipsize="end"
 			android:maxLines="1"
-			android:text="@{author.nameShort.replace(`,`, ``)}"
 			android:textColor="@color/black"
 			android:textSize="@dimen/text_medium"
 			app:layout_constraintEnd_toEndOf="parent"
@@ -62,17 +39,17 @@
 			/>
 
 		<TextView
+			android:id="@+id/name_orig"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="@dimen/spacing_small"
 			android:ellipsize="end"
 			android:maxLines="2"
-			android:text="@{author.nameOrig}"
 			android:textSize="@dimen/text_medial"
 			app:font="@{@string/roboto_regular}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toEndOf="@id/avatar"
-			app:layout_constraintTop_toBottomOf="@id/author_name"
+			app:layout_constraintTop_toBottomOf="@id/name"
 			tools:ignore="RtlHardcoded"
 			/>
 

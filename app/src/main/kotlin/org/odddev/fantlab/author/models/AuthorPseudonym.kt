@@ -1,4 +1,4 @@
-package org.odddev.fantlab.authors.models
+package org.odddev.fantlab.author.models
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity

@@ -24,6 +24,8 @@ class AuthorsFragment : MvpAppCompatFragment(), IAuthorsView, IAuthorsActions {
 	@InjectPresenter
 	lateinit var presenter: AuthorsPresenter
 
+	lateinit var adapter: AuthorsAdapter
+
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 							  savedInstanceState: Bundle?): View? {
 		binding = AuthorsFragmentBinding.inflate(inflater, container, false)
@@ -76,6 +78,8 @@ class AuthorsFragment : MvpAppCompatFragment(), IAuthorsView, IAuthorsActions {
 	private fun initRecyclerView() {
 		val layoutManager = LinearLayoutManager(context)
 		binding.authors.layoutManager = layoutManager
+		adapter = AuthorsAdapter(this)
+		binding.authors.adapter = adapter
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -87,7 +91,8 @@ class AuthorsFragment : MvpAppCompatFragment(), IAuthorsView, IAuthorsActions {
 		return super.onOptionsItemSelected(item)
 	}
 
-	override fun showAuthors(authors: List<Author>, scrollToTop: Boolean) {
+	override fun showAuthors(authors: List<AuthorsResponse.Author>, scrollToTop: Boolean) {
+		adapter.setAuthors(authors)
 		if (scrollToTop) binding.authors.scrollToPosition(0)
 	}
 
@@ -95,7 +100,7 @@ class AuthorsFragment : MvpAppCompatFragment(), IAuthorsView, IAuthorsActions {
 		Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
 	}
 
-	override fun onAuthorClicked(author: Author) {
-		handler.openAuthor(author.id, author.name)
+	override fun onAuthorClicked(author: AuthorsResponse.Author) {
+		handler.openAuthor(author.authorId.toInt(), author.name)
 	}
 }

@@ -1,9 +1,26 @@
 package org.odddev.fantlab.authors
 
 import android.support.annotation.Keep
+import com.google.gson.annotations.SerializedName
 
 @Keep
-class AuthorsResponse(val list: List<Author>) {
+data class AuthorsResponse(
+		val list: List<Author>
+) {
 
-	fun getAuthorsList(): List<Author> = list
+	@Keep
+	data class Author(
+			@SerializedName("autor_id")
+			val authorId: String,
+			@SerializedName("is_fv")
+			val isFv: String,
+			val name: String,
+			@SerializedName("name_orig")
+			val nameOrig: String,
+			@SerializedName("name_rp")
+			val nameRp: String,
+			@SerializedName("name_short")
+			val nameShort: String,
+			val type: String
+	)
 }
