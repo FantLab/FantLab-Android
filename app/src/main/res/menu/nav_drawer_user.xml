@@ -13,7 +13,7 @@
 			android:title="@string/nav.authors"
 			/>
 
-		<item
+		<!--<item
 			android:id="@+id/nav_awards"
 			android:icon="@drawable/ic_insert_chart_black_24dp"
 			android:title="@string/nav.awards"
@@ -23,11 +23,11 @@
 			android:id="@+id/nav_search"
 			android:icon="@drawable/ic_search_black_24dp"
 			android:title="@string/nav.search"
-			/>
+			/>-->
 
 	</group>
 
-	<group
+	<!--<group
 		android:id="@+id/group_personal"
 		android:checkableBehavior="single"
 		>
@@ -38,7 +38,7 @@
 			android:title="@string/nav.profile"
 			/>
 
-	</group>
+	</group>-->
 
 	<group
 		android:id="@+id/group_exit"
