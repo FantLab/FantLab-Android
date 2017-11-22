@@ -11,7 +11,7 @@
 
 		<variable
 			name="author"
-			type="org.odddev.fantlab.authors.author.AuthorFull"
+			type="org.odddev.fantlab.author.AuthorFull"
 			/>
 
 	</data>

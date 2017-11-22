@@ -12,12 +12,12 @@
 
 		<variable
 			name="work"
-			type="org.odddev.fantlab.authors.author.AuthorFull.Work"
+			type="org.odddev.fantlab.author.AuthorFull.Work"
 			/>
 
 		<variable
 			name="handler"
-			type="org.odddev.fantlab.authors.author.IAuthorActions"
+			type="org.odddev.fantlab.author.IAuthorActions"
 			/>
 
 	</data>

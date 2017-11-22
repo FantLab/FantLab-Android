@@ -1,4 +1,4 @@
-package org.odddev.fantlab.authors.author
+package org.odddev.fantlab.author
 
 interface IAuthorActions {
 

@@ -6,8 +6,8 @@ import org.odddev.fantlab.auth.AuthProvider
 import org.odddev.fantlab.auth.IAuthProvider
 import org.odddev.fantlab.authors.AuthorsProvider
 import org.odddev.fantlab.authors.IAuthorsProvider
-import org.odddev.fantlab.authors.author.AuthorProvider
-import org.odddev.fantlab.authors.author.IAuthorProvider
+import org.odddev.fantlab.author.AuthorProvider
+import org.odddev.fantlab.author.IAuthorProvider
 import org.odddev.fantlab.award.AwardsProvider
 import org.odddev.fantlab.award.IAwardsProvider
 import org.odddev.fantlab.home.HomeProvider

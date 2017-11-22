@@ -9,7 +9,7 @@
 
 		<variable
 			name="handler"
-			type="org.odddev.fantlab.authors.author.IAuthorActions"
+			type="org.odddev.fantlab.author.IAuthorActions"
 			/>
 
 	</data>

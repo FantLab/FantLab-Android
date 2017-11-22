@@ -1,4 +1,4 @@
-package org.odddev.fantlab.authors.author.biography
+package org.odddev.fantlab.biography
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.google.gson.Gson
 import org.odddev.fantlab.R
-import org.odddev.fantlab.authors.author.AuthorFull
+import org.odddev.fantlab.author.AuthorFull
 import org.odddev.fantlab.core.utils.format
 import org.odddev.fantlab.core.utils.formatText
 import org.odddev.fantlab.databinding.BiographyFragmentBinding

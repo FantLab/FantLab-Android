@@ -6,8 +6,8 @@ import android.support.v4.view.GravityCompat
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import org.odddev.fantlab.R
-import org.odddev.fantlab.authors.author.AuthorFragment
-import org.odddev.fantlab.authors.author.biography.BiographyFragment
+import org.odddev.fantlab.author.AuthorFragment
+import org.odddev.fantlab.biography.BiographyFragment
 import org.odddev.fantlab.core.utils.FragmentUtils
 import org.odddev.fantlab.databinding.HomeActivityBinding
 import org.odddev.fantlab.databinding.NavDrawerHeaderBinding

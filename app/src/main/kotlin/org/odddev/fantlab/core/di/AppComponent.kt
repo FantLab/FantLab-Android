@@ -5,8 +5,8 @@ import org.odddev.fantlab.auth.AuthPresenter
 import org.odddev.fantlab.auth.AuthProvider
 import org.odddev.fantlab.authors.AuthorsPresenter
 import org.odddev.fantlab.authors.AuthorsProvider
-import org.odddev.fantlab.authors.author.AuthorPresenter
-import org.odddev.fantlab.authors.author.AuthorProvider
+import org.odddev.fantlab.author.AuthorPresenter
+import org.odddev.fantlab.author.AuthorProvider
 import org.odddev.fantlab.award.AwardsPresenter
 import org.odddev.fantlab.award.AwardsProvider
 import org.odddev.fantlab.core.network.HeaderInterceptor

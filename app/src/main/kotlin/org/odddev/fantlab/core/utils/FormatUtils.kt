@@ -5,7 +5,7 @@ import android.text.Html
 import android.text.Spanned
 import android.text.format.DateFormat
 import org.odddev.fantlab.R
-import org.odddev.fantlab.authors.author.AuthorFull
+import org.odddev.fantlab.author.AuthorFull
 import java.util.*
 
 @Suppress("DEPRECATION")
