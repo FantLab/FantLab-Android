@@ -4,10 +4,10 @@ import dagger.Module
 import dagger.Provides
 import org.odddev.fantlab.auth.AuthProvider
 import org.odddev.fantlab.auth.IAuthProvider
-import org.odddev.fantlab.autors.AutorsProvider
-import org.odddev.fantlab.autors.IAutorsProvider
-import org.odddev.fantlab.autors.autor.AuthorProvider
-import org.odddev.fantlab.autors.autor.IAuthorProvider
+import org.odddev.fantlab.authors.AuthorsProvider
+import org.odddev.fantlab.authors.IAuthorsProvider
+import org.odddev.fantlab.authors.author.AuthorProvider
+import org.odddev.fantlab.authors.author.IAuthorProvider
 import org.odddev.fantlab.award.AwardsProvider
 import org.odddev.fantlab.award.IAwardsProvider
 import org.odddev.fantlab.home.HomeProvider
@@ -26,7 +26,7 @@ class ProvidersModule {
 	fun provideHomeProvider(): IHomeProvider = HomeProvider()
 
 	@Provides
-	fun provideAuthorsProvider(): IAutorsProvider = AutorsProvider()
+	fun provideAuthorsProvider(): IAuthorsProvider = AuthorsProvider()
 
 	@Provides
 	fun provideAuthorProvider(): IAuthorProvider = AuthorProvider()

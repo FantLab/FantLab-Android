@@ -1,4 +1,4 @@
-package org.odddev.fantlab.autors
+package org.odddev.fantlab.authors
 
 import android.content.Context
 import android.os.Bundle
@@ -13,20 +13,20 @@ import android.view.*
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import org.odddev.fantlab.R
-import org.odddev.fantlab.databinding.AutorsFragmentBinding
+import org.odddev.fantlab.databinding.AuthorsFragmentBinding
 import org.odddev.fantlab.home.IActionsHandler
 
-class AutorsFragment : MvpAppCompatFragment(), IAutorsView, IAuthorsActions {
+class AuthorsFragment : MvpAppCompatFragment(), IAuthorsView, IAuthorsActions {
 
-	private lateinit var binding: AutorsFragmentBinding
+	private lateinit var binding: AuthorsFragmentBinding
 	private lateinit var handler: IActionsHandler
 
 	@InjectPresenter
-	lateinit var presenter: AutorsPresenter
+	lateinit var presenter: AuthorsPresenter
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 							  savedInstanceState: Bundle?): View? {
-		binding = AutorsFragmentBinding.inflate(inflater, container, false)
+		binding = AuthorsFragmentBinding.inflate(inflater, container, false)
 		return binding.root
 	}
 
@@ -35,7 +35,7 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, IAuthorsActions {
 		setHasOptionsMenu(true)
 		initRecyclerView()
 
-		presenter.getAutors()
+		presenter.getAuthors()
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -67,7 +67,7 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, IAuthorsActions {
 		activity.setSupportActionBar(binding.toolbar)
 		val actionBar = activity.supportActionBar
 		actionBar?.apply {
-			title = getString(R.string.autors_toolbar_title)
+			title = getString(R.string.authors_toolbar_title)
 			setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp)
 			setDisplayHomeAsUpEnabled(true)
 		}
@@ -75,7 +75,7 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, IAuthorsActions {
 
 	private fun initRecyclerView() {
 		val layoutManager = LinearLayoutManager(context)
-		binding.autors.layoutManager = layoutManager
+		binding.authors.layoutManager = layoutManager
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -87,15 +87,15 @@ class AutorsFragment : MvpAppCompatFragment(), IAutorsView, IAuthorsActions {
 		return super.onOptionsItemSelected(item)
 	}
 
-	override fun showAutors(autors: List<Autor>, scrollToTop: Boolean) {
-		if (scrollToTop) binding.autors.scrollToPosition(0)
+	override fun showAuthors(authors: List<Author>, scrollToTop: Boolean) {
+		if (scrollToTop) binding.authors.scrollToPosition(0)
 	}
 
 	override fun showError(message: String) {
 		Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
 	}
 
-	override fun onAuthorClicked(author: Autor) {
-		handler.openAutor(author.id, author.name)
+	override fun onAuthorClicked(author: Author) {
+		handler.openAuthor(author.id, author.name)
 	}
 }

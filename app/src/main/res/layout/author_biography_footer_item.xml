@@ -9,7 +9,7 @@
 
 		<variable
 			name="handler"
-			type="org.odddev.fantlab.autors.autor.IAutorActions"
+			type="org.odddev.fantlab.authors.author.IAuthorActions"
 			/>
 
 	</data>
@@ -23,7 +23,7 @@
 		>
 
 		<TextView
-			android:id="@+id/autor_bio"
+			android:id="@+id/author_bio"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:background="?attr/selectableItemBackground"
@@ -31,7 +31,7 @@
 			android:paddingBottom="@dimen/spacing_medium"
 			android:paddingRight="@dimen/spacing_medium"
 			android:paddingTop="@dimen/spacing_medium"
-			android:text="@string/autor_bio_details"
+			android:text="@string/author_bio_details"
 			android:textAllCaps="true"
 			android:textColor="@color/blue"
 			app:font="@{@string/roboto_medium}"

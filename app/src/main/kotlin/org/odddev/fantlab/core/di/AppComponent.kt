@@ -3,10 +3,10 @@ package org.odddev.fantlab.core.di
 import dagger.Component
 import org.odddev.fantlab.auth.AuthPresenter
 import org.odddev.fantlab.auth.AuthProvider
-import org.odddev.fantlab.autors.AutorsPresenter
-import org.odddev.fantlab.autors.AutorsProvider
-import org.odddev.fantlab.autors.autor.AuthorPresenter
-import org.odddev.fantlab.autors.autor.AuthorProvider
+import org.odddev.fantlab.authors.AuthorsPresenter
+import org.odddev.fantlab.authors.AuthorsProvider
+import org.odddev.fantlab.authors.author.AuthorPresenter
+import org.odddev.fantlab.authors.author.AuthorProvider
 import org.odddev.fantlab.award.AwardsPresenter
 import org.odddev.fantlab.award.AwardsProvider
 import org.odddev.fantlab.core.network.HeaderInterceptor
@@ -37,9 +37,9 @@ interface AppComponent {
 
 	fun inject(homePresenter: HomePresenter)
 
-	fun inject(authorsProvider: AutorsProvider)
+	fun inject(authorsProvider: AuthorsProvider)
 
-	fun inject(authorsPresenter: AutorsPresenter)
+	fun inject(authorsPresenter: AuthorsPresenter)
 
 	fun inject(authorProvider: AuthorProvider)
 

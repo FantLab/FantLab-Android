@@ -1,4 +1,4 @@
-package org.odddev.fantlab.autors.autor
+package org.odddev.fantlab.authors.author
 
 import android.support.annotation.Keep
 import android.util.SparseArray
@@ -6,7 +6,7 @@ import android.util.SparseIntArray
 import java.util.*
 
 @Keep
-class AutorFull(
+class AuthorFull(
 		val id: Int,
 		val biography: Biography,
 		val country: Country,
@@ -23,9 +23,9 @@ class AutorFull(
 		val myMarks: SparseIntArray,
 		val myResponses: List<Int>) {
 
-	fun getImageLink(): String = "/autors/$id"
+	fun getImageLink(): String = "/authors/$id"
 
-	fun getImagePreviewLink(): String = "/autors/small/$id"
+	fun getImagePreviewLink(): String = "/authors/small/$id"
 
 	class Biography(
 			val anons: String,
@@ -82,13 +82,13 @@ class AutorFull(
 			val workYear: Int
 	)
 
-	class AutorLink(
+	class AuthorLink(
 			val id: Int,
 			val name: String
 	)
 
 	class Work(
-			val autors: List<AutorLink>,
+			val authors: List<AuthorLink>,
 			val midmark: Float,
 			val rating: Float,
 			val responseCount: Int,

@@ -1,4 +1,4 @@
-package org.odddev.fantlab.autors.autor
+package org.odddev.fantlab.authors.author
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,15 +14,15 @@ import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.gson.Gson
 import org.odddev.fantlab.R
-import org.odddev.fantlab.databinding.AutorFragmentBinding
+import org.odddev.fantlab.databinding.AuthorFragmentBinding
 import org.odddev.fantlab.home.IActionsHandler
 
-class AuthorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
+class AuthorFragment : MvpAppCompatFragment, IAuthorView, IAuthorActions {
 
 	private val EXTRA_ID = "id"
 	private val EXTRA_NAME = "name"
 
-	private lateinit var binding: AutorFragmentBinding
+	private lateinit var binding: AuthorFragmentBinding
 	private lateinit var handler: IActionsHandler
 
 	@InjectPresenter
@@ -42,7 +42,7 @@ class AuthorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 							  savedInstanceState: Bundle?): View? {
-		binding = AutorFragmentBinding.inflate(inflater, container, false)
+		binding = AuthorFragmentBinding.inflate(inflater, container, false)
 		return binding.root
 	}
 
@@ -51,7 +51,7 @@ class AuthorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 		setHasOptionsMenu(true)
 		initRecyclerView()
 
-		presenter.getAutor(arguments?.getInt(EXTRA_ID))
+		presenter.getAuthor(arguments?.getInt(EXTRA_ID))
 	}
 
 	override fun onAttach(context: Context?) {
@@ -82,9 +82,9 @@ class AuthorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 		binding.content.layoutManager = LinearLayoutManager(context)
 	}
 
-	override fun showAutor(autor: AutorFull) {
-		binding.autor = autor
-		bio = Gson().toJson(autor.biography)
+	override fun showAuthor(author: AuthorFull) {
+		binding.author = author
+		bio = Gson().toJson(author.biography)
 	}
 
 	override fun showError(message: String) {
@@ -100,7 +100,7 @@ class AuthorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 		Snackbar.make(binding.root, "Awards > Contests > Contest > Nomination", Snackbar.LENGTH_SHORT).show()
 	}
 
-	override fun showAward(award: AutorFull.Award) {
+	override fun showAward(award: AuthorFull.Award) {
 		// открыть конкретное награждение
 		Snackbar.make(binding.root, "Awards > Nomination ${award.id}", Snackbar.LENGTH_SHORT).show()
 	}
@@ -110,7 +110,7 @@ class AuthorFragment : MvpAppCompatFragment, IAutorView, IAutorActions {
 		Snackbar.make(binding.root, "Works", Snackbar.LENGTH_SHORT).show()
 	}
 
-	override fun showWork(work: AutorFull.Work) {
+	override fun showWork(work: AuthorFull.Work) {
 		// открыть конкретное произведение автора
 		Snackbar.make(binding.root, "Works > Work ${work.id}", Snackbar.LENGTH_SHORT).show()
 	}

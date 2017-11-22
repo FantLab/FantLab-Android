@@ -1,4 +1,4 @@
-package org.odddev.fantlab.authors
+package org.odddev.fantlab.authors.models
 
 import android.arch.persistence.room.*
 

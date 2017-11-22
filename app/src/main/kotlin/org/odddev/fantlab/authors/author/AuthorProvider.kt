@@ -1,4 +1,4 @@
-package org.odddev.fantlab.autors.autor
+package org.odddev.fantlab.authors.author
 
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

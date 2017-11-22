@@ -14,7 +14,7 @@
 
 		<variable
 			name="handler"
-			type="org.odddev.fantlab.autors.autor.IAutorActions"
+			type="org.odddev.fantlab.authors.author.IAuthorActions"
 			/>
 
 	</data>

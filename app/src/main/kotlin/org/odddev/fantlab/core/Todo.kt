@@ -13,7 +13,7 @@ package org.odddev.fantlab.core
  * todo 10. FormatUtils: поправить обработку вложенных тегов
  * todo 11. FormatUtils: нормальная обработка тегов `[q`],`[h`], обработка `[LIST`], `[VIDEO`] (see https://stackoverflow.com/a/42370792)
  * todo 12. FormatUtils: smiles :)
- * todo 13. распарсить нормально Author, Work, Nomination (и убрать AutorFull)
+ * todo 13. распарсить нормально Author, Work, Nomination (и убрать AuthorFull)
  * todo 14. для порядка works в author завести модель AuthorWorks = { work_id, position, deep, type }
  * todo 15. для порядка authors в work завести модель WorkAuthors = { author_id, author_name, type }
  * */

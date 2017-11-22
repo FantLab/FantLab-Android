@@ -48,7 +48,7 @@
 	<string name="register.error">Ошибка регистрации</string>
 
 	<!-- Navigation drawer menu -->
-	<string name="nav.autors">Авторы и книги</string>
+	<string name="nav.authors">Авторы и книги</string>
 	<string name="nav.awards">Награды и премии</string>
 	<string name="nav.search">Поиск</string>
 	<string name="nav.profile">Профиль</string>
@@ -61,17 +61,17 @@
 	<string name="nav_drawer.user">Пользователь</string>
 	<string name="nav_drawer.user.class_progress">Грандмастер: 5000.00 / 10000</string>
 
-	<!-- Autors screen -->
-	<string name="autors_toolbar_title">Авторы</string>
-	<string name="autor.image.url">/autors/%s</string>
+	<!-- Authors screen -->
+	<string name="authors_toolbar_title">Авторы</string>
+	<string name="author.image.url">/authors/%s</string>
 
 	<!-- Awards screen -->
 	<string name="awards_toolbar_title">Премии</string>
 	<string name="award.image.url">/awards/%s</string>
 	<string name="award.short_description">%1$s, %2$s - %3$s</string>
 
-	<!-- Autor screen -->
-	<string name="autor_bio_details">Подробнее</string>
+	<!-- Author screen -->
+	<string name="author_bio_details">Подробнее</string>
 	<string name="author_awards_header">Награды и премии</string>
 	<string name="author_awards_more">Все (%d)</string>
 	<string name="author_works_header">Произведения</string>
@@ -84,15 +84,15 @@
 	</plurals>
 
 	<!-- Biography screen -->
-	<string name="autor_bio_toolbar_title">Биография</string>
-	<string-array name="autor_bio_birthday">
+	<string name="author_bio_toolbar_title">Биография</string>
+	<string-array name="author_bio_birthday">
 		<item>Родился:</item>
 		<item>Родилась:</item>
 	</string-array>
-	<string-array name="autor_bio_deathday">
+	<string-array name="author_bio_deathday">
 		<item>Умер:</item>
 		<item>Умерла:</item>
 	</string-array>
-	<string name="autor_bio_notes">Примечание к биографии:</string>
+	<string name="author_bio_notes">Примечание к биографии:</string>
 
 </resources>

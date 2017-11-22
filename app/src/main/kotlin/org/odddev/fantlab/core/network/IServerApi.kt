@@ -3,9 +3,7 @@ package org.odddev.fantlab.core.network
 import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.ResponseBody
-import org.odddev.fantlab.autors.AuthorsResponse
-import org.odddev.fantlab.autors.autor.AuthorPageInfo
-import org.odddev.fantlab.autors.autor.AutorFull
+import org.odddev.fantlab.authors.AuthorsResponse
 import org.odddev.fantlab.award.Award
 import retrofit2.Response
 import retrofit2.http.*
@@ -34,7 +32,7 @@ interface IServerApi {
 	fun getAuthors(): Observable<AuthorsResponse>
 
 	@GET("/autor/{id}/extended")
-	fun getAuthor(@Path("id") id: Int): Observable<AuthorPageInfo>
+	fun getAuthor(@Path("id") id: Int): Observable<Void>
 
 	@GET("/autor{id}/alleditions.json")
 	fun getAuthorEditions(@Path("id") id: Int,
@@ -90,7 +88,7 @@ interface IServerApi {
 	fun search(@Query("searchstr") query: String,
 			   @Query("page") page: Int): Observable<Unit>
 
-	// type = autors/works/editions/films/articles/persons/awards
+	// type = authors/works/editions/films/articles/persons/awards
 	@GET("/search-{type}.json")
 	fun searchByType(@Path("type") type: String,
 					 @Query("q") query: String,

@@ -1,4 +1,4 @@
-package org.odddev.fantlab.autors
+package org.odddev.fantlab.authors
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
@@ -11,28 +11,28 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @InjectViewState
-class AutorsPresenter : MvpPresenter<IAutorsView>() {
+class AuthorsPresenter : MvpPresenter<IAuthorsView>() {
 
-	private var autors: List<Autor>? = null
+	private var authors: List<Author>? = null
 
 	@Inject
 	lateinit var disposables: CompositeDisposable
 
 	@Inject
-	lateinit var autorsProvider: IAutorsProvider
+	lateinit var authorsProvider: IAuthorsProvider
 
 	init {
 		Injector.getAppComponent().inject(this)
 	}
 
-	internal fun getAutors() {
-		autors?.let { viewState.showAutors(it, false) } ?: run {
-			disposables.add(autorsProvider
-					.getAutors()
+	internal fun getAuthors() {
+		authors?.let { viewState.showAuthors(it, false) } ?: run {
+			disposables.add(authorsProvider
+					.getAuthors()
 					.subscribe(
-							{ autors ->
-								this.autors = autors.getAuthorsList()
-								viewState.showAutors(this.autors as List<Autor>, false)
+							{ authors ->
+								this.authors = authors.getAuthorsList()
+								viewState.showAuthors(this.authors as List<Author>, false)
 							},
 							{ error ->
 								run {
@@ -46,15 +46,15 @@ class AutorsPresenter : MvpPresenter<IAutorsView>() {
 	}
 
 	internal fun filter(query: String) {
-		disposables.add(Observable.fromArray(autors)
+		disposables.add(Observable.fromArray(authors)
 				.subscribeOn(Schedulers.io())
 				.flatMapIterable { author -> author }
 				.filter({ author -> author.name.contains(query, true) || author.nameOrig.contains(query, true) })
-				.collectInto(ArrayList<Autor>(), { list, author -> list.add(author) })
+				.collectInto(ArrayList<Author>(), { list, author -> list.add(author) })
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
 						{ list ->
-							viewState.showAutors(list, true)
+							viewState.showAuthors(list, true)
 						}
 				)
 		)

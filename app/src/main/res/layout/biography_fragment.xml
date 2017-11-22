@@ -88,13 +88,13 @@
 						android:textSize="14sp"
 						android:textColor="@color/black"
 						android:textStyle="bold"
-						android:text="@{@stringArray/autor_bio_birthday[sex]}"
+						android:text="@{@stringArray/author_bio_birthday[sex]}"
 						android:visibility="@{birthday != null}"
 						tools:text="Родился:"
 						/>
 
 					<TextView
-						android:id="@+id/autor_birthday"
+						android:id="@+id/author_birthday"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_marginLeft="@dimen/spacing_medium"
@@ -121,13 +121,13 @@
 						android:textSize="14sp"
 						android:textColor="@color/black"
 						android:textStyle="bold"
-						android:text="@{@stringArray/autor_bio_deathday[sex]}"
+						android:text="@{@stringArray/author_bio_deathday[sex]}"
 						android:visibility="@{deathday != null}"
 						tools:text="Умер:"
 						/>
 
 					<TextView
-						android:id="@+id/autor_deathday"
+						android:id="@+id/author_deathday"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:textSize="14sp"
@@ -142,7 +142,7 @@
 				</LinearLayout>
 
 				<TextView
-					android:id="@+id/autor_bio"
+					android:id="@+id/author_bio"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:textSize="14sp"
@@ -168,7 +168,7 @@
 					android:textSize="14sp"
 					android:textColor="@color/black"
 					android:textStyle="bold"
-					android:text="@string/autor_bio_notes"
+					android:text="@string/author_bio_notes"
 					android:visibility="@{!TextUtils.isEmpty(notes)}"
 					/>
 

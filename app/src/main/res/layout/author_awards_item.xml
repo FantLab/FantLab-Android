@@ -13,12 +13,12 @@
 
 		<variable
 			name="award"
-			type="org.odddev.fantlab.autors.autor.AutorFull.Award"
+			type="org.odddev.fantlab.authors.author.AuthorFull.Award"
 			/>
 
 		<variable
 			name="handler"
-			type="org.odddev.fantlab.autors.autor.IAutorActions"
+			type="org.odddev.fantlab.authors.author.IAuthorActions"
 			/>
 
 	</data>

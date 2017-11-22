@@ -1,4 +1,4 @@
-package org.odddev.fantlab.autors.autor.biography
+package org.odddev.fantlab.authors.author.biography
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.google.gson.Gson
 import org.odddev.fantlab.R
-import org.odddev.fantlab.autors.autor.AutorFull
+import org.odddev.fantlab.authors.author.AuthorFull
 import org.odddev.fantlab.core.utils.format
 import org.odddev.fantlab.core.utils.formatText
 import org.odddev.fantlab.databinding.BiographyFragmentBinding
@@ -40,7 +40,7 @@ class BiographyFragment : MvpAppCompatFragment {
 		initToolbar()
 		setHasOptionsMenu(true)
 
-		val bio = Gson().fromJson(arguments?.getString(EXTRA_BIO), AutorFull.Biography::class.java)
+		val bio = Gson().fromJson(arguments?.getString(EXTRA_BIO), AuthorFull.Biography::class.java)
 		binding.birthday = bio.birthday?.format(context)
 		binding.deathday = bio.deathday?.format(context)
 		binding.sex = if (bio.sex == "m") 0 else 1
@@ -61,7 +61,7 @@ class BiographyFragment : MvpAppCompatFragment {
 		activity.setSupportActionBar(binding.toolbar)
 		val actionBar = activity.supportActionBar
 		actionBar?.apply {
-			title = getString(R.string.autor_bio_toolbar_title)
+			title = getString(R.string.author_bio_toolbar_title)
 			setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
 			setDisplayHomeAsUpEnabled(true)
 		}

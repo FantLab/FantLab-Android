@@ -6,8 +6,8 @@ import android.support.v4.view.GravityCompat
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import org.odddev.fantlab.R
-import org.odddev.fantlab.autors.autor.AuthorFragment
-import org.odddev.fantlab.autors.autor.biography.BiographyFragment
+import org.odddev.fantlab.authors.author.AuthorFragment
+import org.odddev.fantlab.authors.author.biography.BiographyFragment
 import org.odddev.fantlab.core.utils.FragmentUtils
 import org.odddev.fantlab.databinding.HomeActivityBinding
 import org.odddev.fantlab.databinding.NavDrawerHeaderBinding
@@ -19,7 +19,7 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 	private lateinit var router: NavDrawerRouter
 
 	@NavDrawerRouter.NAV_DRAWER_ITEM
-	private var selectedNavDrawerItemId: Int = R.id.nav_autors
+	private var selectedNavDrawerItemId: Int = R.id.nav_authors
 
 	@InjectPresenter
 	lateinit var presenter: HomePresenter
@@ -27,7 +27,7 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
-		binding = DataBindingUtil.setContentView<HomeActivityBinding>(this, R.layout.home_activity)
+		binding = DataBindingUtil.setContentView(this, R.layout.home_activity)
 
 		router = NavDrawerRouter(this, R.id.container)
 
@@ -51,7 +51,7 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 		binding.navigationView.setNavigationItemSelectedListener(
 				{ item ->
 					run {
-						@NavDrawerRouter.NAV_DRAWER_ITEM val navDrawerItemId = item.itemId
+						val navDrawerItemId = item.itemId
 
 						selectedNavDrawerItemId = navDrawerItemId
 
@@ -94,7 +94,7 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 		}
 	}
 
-	override fun openAutor(id: Int, name: String) {
+	override fun openAuthor(id: Int, name: String) {
 		FragmentUtils.replaceFragment(this, R.id.container, AuthorFragment(id, name), true)
 	}
 

@@ -4,7 +4,7 @@ import android.support.annotation.Keep
 
 @Keep
 class Edition(
-		val autors: String = "", //shit in 'work' api [see 'creators']
+		val authors: String = "", //shit in 'work' api [see 'creators']
 		val compiers: String = "", // -//-
 		val translators: String = "", // -//-
 		val content: List<String> = ArrayList<String>(),

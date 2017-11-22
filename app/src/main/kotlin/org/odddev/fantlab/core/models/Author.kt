@@ -34,7 +34,7 @@ data class Author(
 		// fl_blog_anons
 		// [что за параметр?]
 		//val flBlogAnons: String? = null,
-		// [есть только в /autors]
+		// [есть только в /authors]
 		//val isFv: Boolean? = null,
 		// is_opened
 		val isOpened: Boolean? = null,
