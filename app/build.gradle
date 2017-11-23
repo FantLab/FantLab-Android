@@ -56,6 +56,7 @@ dependencies {
 	kapt "com.android.databinding:compiler:3.0.1"
 
 	compile 'android.arch.persistence.room:runtime:1.0.0'
+	compile "android.arch.persistence.room:rxjava2:1.0.0"
 	kapt 'android.arch.persistence.room:compiler:1.0.0'
 
 	compile 'com.arello-mobile:moxy:1.4.5'

@@ -1,8 +1,9 @@
 package org.odddev.fantlab.authors
 
-import io.reactivex.Single
+import io.reactivex.Flowable
+import org.odddev.fantlab.author.models.Author
 
 interface IAuthorsProvider {
 
-	fun getAuthors(): Single<AuthorsResponse>
+	fun getAuthors(): Flowable<List<Author>>
 }

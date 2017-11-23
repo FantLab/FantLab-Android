@@ -13,6 +13,7 @@ import android.view.*
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import org.odddev.fantlab.R
+import org.odddev.fantlab.author.models.Author
 import org.odddev.fantlab.databinding.AuthorsFragmentBinding
 import org.odddev.fantlab.home.IActionsHandler
 
@@ -91,7 +92,7 @@ class AuthorsFragment : MvpAppCompatFragment(), IAuthorsView, IAuthorsActions {
 		return super.onOptionsItemSelected(item)
 	}
 
-	override fun showAuthors(authors: List<AuthorsResponse.Author>, scrollToTop: Boolean) {
+	override fun showAuthors(authors: List<Author>, scrollToTop: Boolean) {
 		adapter.setAuthors(authors)
 		if (scrollToTop) binding.authors.scrollToPosition(0)
 	}
@@ -100,7 +101,7 @@ class AuthorsFragment : MvpAppCompatFragment(), IAuthorsView, IAuthorsActions {
 		Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
 	}
 
-	override fun onAuthorClicked(author: AuthorsResponse.Author) {
-		handler.openAuthor(author.authorId.toInt(), author.name)
+	override fun onAuthorClicked(author: Author) {
+		handler.openAuthor(author.authorId, author.rusName!!)
 	}
 }

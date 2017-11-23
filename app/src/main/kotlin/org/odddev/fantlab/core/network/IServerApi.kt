@@ -1,5 +1,6 @@
 package org.odddev.fantlab.core.network
 
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.ResponseBody
@@ -29,7 +30,7 @@ interface IServerApi {
 				   @Query("include_works") includeWorks: Int): Observable<Unit>
 
 	@GET("/autorsall")
-	fun getAuthors(): Single<AuthorsResponse>
+	fun getAuthors(): Flowable<AuthorsResponse>
 
 	@GET("/autor/{id}/extended")
 	fun getAuthor(@Path("id") id: Int): Observable<Void>

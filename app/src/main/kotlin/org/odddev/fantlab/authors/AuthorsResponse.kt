@@ -20,7 +20,6 @@ data class AuthorsResponse(
 			@SerializedName("name_rp")
 			val nameRp: String,
 			@SerializedName("name_short")
-			val nameShort: String,
-			val type: String
+			val nameShort: String
 	)
 }

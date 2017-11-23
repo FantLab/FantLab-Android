@@ -12,71 +12,71 @@ data class Author(
 		val authorId: Int,
 
 		@ColumnInfo(name = "shortrusname")
-		val shortRusName: String?,
+		val shortRusName: String? = null,
 
 		@ColumnInfo(name = "rusname")
-		val rusName: String?,
+		val rusName: String? = null,
 
 		@ColumnInfo(name = "rusname_rp")
-		val rusNameRp: String?,
+		val rusNameRp: String? = null,
 
 		@ColumnInfo
-		val name: String?,
+		val name: String? = null,
 
 		@ColumnInfo
-		val sex: Boolean?,
+		val sex: Boolean? = null,
 
 		@ColumnInfo(name = "country_id")
-		val countryId: Int?,
+		val countryId: Int? = null,
 
 		// todo date/calendar/etc (datetime in fact)
 		@ColumnInfo(name = "birthday")
-		val birthDay: String?,
+		val birthDay: String? = null,
 
 		// todo date/calendar/etc (datetime in fact)
 		@ColumnInfo(name = "deathday")
-		val deathDay: String?,
+		val deathDay: String? = null,
 
 		@ColumnInfo(name = "homepage")
-		val homePage: String?,
+		val homePage: String? = null,
 
 		@ColumnInfo
-		val blog: String?,
+		val blog: String? = null,
 
 		@ColumnInfo
-		val anons: String?,
+		val anons: String? = null,
 
 		@ColumnInfo
-		val biography: String?,
+		val biography: String? = null,
 
 		@ColumnInfo(name = "biography_comment")
-		val biographyComment: String?,
+		val biographyComment: String? = null,
 
 		@ColumnInfo
-		val source: String?,
+		val source: String? = null,
 
 		@ColumnInfo(name = "source_link")
-		val sourceLink: String?,
+		val sourceLink: String? = null,
 
 		@ColumnInfo(name = "add_info")
-		val addInfo: String?,
+		val addInfo: String? = null,
 
 		@ColumnInfo(name = "is_fv")
-		val isFv: Boolean?,
+		val isFv: Boolean? = null,
 
 		@ColumnInfo(name = "is_opened")
-		val isOpened: Boolean?,
+		val isOpened: Boolean? = null,
 
 		@ColumnInfo
-		val curator: Int?,
+		val curator: Int? = null,
 
 		@ColumnInfo
-		val compiler: String?,
+		val compiler: String? = null,
 
 		@ColumnInfo
-		val fantastic: Int?,
+		val fantastic: Int? = null,
 
 		// todo date/calendar/etc (datetime in fact)
 		@ColumnInfo(name = "date_change")
-		val lastModified: String?
+		val lastModified: String? = null
 )

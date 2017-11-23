@@ -19,8 +19,13 @@ import org.odddev.fantlab.launch.LaunchActivity
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(AppModule::class, ProvidersModule::class, PresentersModule::class,
-		NetworkModule::class, StorageModule::class))
+@Component(modules = arrayOf(
+		AppModule::class,
+		ProvidersModule::class,
+		PresentersModule::class,
+		NetworkModule::class,
+		StorageModule::class
+))
 interface AppComponent {
 
 	fun inject(networkChecker: NetworkChecker)

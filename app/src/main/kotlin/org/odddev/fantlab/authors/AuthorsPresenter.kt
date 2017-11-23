@@ -6,6 +6,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import org.odddev.fantlab.author.models.Author
 import org.odddev.fantlab.core.di.Injector
 import timber.log.Timber
 import javax.inject.Inject
@@ -13,7 +14,7 @@ import javax.inject.Inject
 @InjectViewState
 class AuthorsPresenter : MvpPresenter<IAuthorsView>() {
 
-	private var authors: List<AuthorsResponse.Author>? = null
+	private var authors: List<Author>? = null
 
 	@Inject
 	lateinit var disposables: CompositeDisposable
@@ -31,8 +32,8 @@ class AuthorsPresenter : MvpPresenter<IAuthorsView>() {
 					.getAuthors()
 					.subscribe(
 							{ authors ->
-								this.authors = authors.list
-								viewState.showAuthors(this.authors as List<AuthorsResponse.Author>, false)
+								this.authors = authors
+								viewState.showAuthors(this.authors as List<Author>, false)
 							},
 							{ error ->
 								run {
@@ -49,8 +50,8 @@ class AuthorsPresenter : MvpPresenter<IAuthorsView>() {
 		disposables.add(Observable.fromArray(authors)
 				.subscribeOn(Schedulers.io())
 				.flatMapIterable { author -> author }
-				.filter({ author -> author.name.contains(query, true) || author.nameOrig.contains(query, true) })
-				.collectInto(ArrayList<AuthorsResponse.Author>(), { list, author -> list.add(author) })
+				.filter({ author -> author.rusName?.contains(query, true)!! || author.name?.contains(query, true)!! })
+				.collectInto(ArrayList<Author>(), { list, author -> list.add(author) })
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
 						{ list ->
