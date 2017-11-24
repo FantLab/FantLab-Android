@@ -48,16 +48,13 @@ class AuthorsPresenter : MvpPresenter<IAuthorsView>() {
 
 	internal fun filter(query: String) {
 		disposables.add(Observable.fromArray(authors)
-				.subscribeOn(Schedulers.io())
 				.flatMapIterable { author -> author }
-				.filter({ author -> author.rusName?.contains(query, true)!! || author.name?.contains(query, true)!! })
+				.filter({ author -> author.rusName?.contains(query, true)!!
+						|| author.name?.contains(query, true)!! })
 				.collectInto(ArrayList<Author>(), { list, author -> list.add(author) })
+				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(
-						{ list ->
-							viewState.showAuthors(list, true)
-						}
-				)
+				.subscribe({ list -> viewState.showAuthors(list, true) })
 		)
 	}
 

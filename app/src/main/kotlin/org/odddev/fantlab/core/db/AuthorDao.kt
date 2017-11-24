@@ -8,8 +8,9 @@ import org.odddev.fantlab.authors.AuthorsResponse
 @Dao
 abstract class AuthorDao {
 
-	@Query("SELECT * FROM authors")
-	abstract fun get(): Flowable<List<Author>>
+	// todo возвращать не всего автора, а только отображаемую в списке информацию
+	@Query("SELECT * FROM authors ORDER BY _index")
+	abstract fun getByOrder(): Flowable<List<Author>>
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	abstract fun upsert(author: Collection<Author>)
@@ -17,15 +18,17 @@ abstract class AuthorDao {
 	@Transaction
 	open fun saveFromNetwork(response: AuthorsResponse): Flowable<List<Author>> {
 		val authors = response.list
+				.withIndex()
 				.map { author -> Author(
-						authorId = author.authorId.toInt(),
-						isFv = author.isFv.toInt() == 1,
-						rusName = author.name,
-						name = author.nameOrig,
-						rusNameRp = author.nameRp,
-						shortRusName = author.nameShort
+						authorId = author.value.authorId,
+						isFv = author.value.isFv == 1,
+						rusName = author.value.name,
+						name = author.value.nameOrig,
+						rusNameRp = author.value.nameRp,
+						shortRusName = author.value.nameShort,
+						index = author.index
 				) }
 		upsert(authors)
-		return get()
+		return getByOrder()
 	}
 }

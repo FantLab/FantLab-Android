@@ -11,9 +11,9 @@ data class AuthorsResponse(
 	@Keep
 	data class Author(
 			@SerializedName("autor_id")
-			val authorId: String,
+			val authorId: Int,
 			@SerializedName("is_fv")
-			val isFv: String,
+			val isFv: Int,
 			val name: String,
 			@SerializedName("name_orig")
 			val nameOrig: String,

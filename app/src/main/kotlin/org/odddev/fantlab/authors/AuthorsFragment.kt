@@ -21,11 +21,10 @@ class AuthorsFragment : MvpAppCompatFragment(), IAuthorsView, IAuthorsActions {
 
 	private lateinit var binding: AuthorsFragmentBinding
 	private lateinit var handler: IActionsHandler
+	private lateinit var adapter: AuthorsAdapter
 
 	@InjectPresenter
 	lateinit var presenter: AuthorsPresenter
-
-	lateinit var adapter: AuthorsAdapter
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 							  savedInstanceState: Bundle?): View? {
@@ -38,6 +37,7 @@ class AuthorsFragment : MvpAppCompatFragment(), IAuthorsView, IAuthorsActions {
 		setHasOptionsMenu(true)
 		initRecyclerView()
 
+		binding.progress.visibility = View.VISIBLE
 		presenter.getAuthors()
 	}
 
@@ -93,8 +93,11 @@ class AuthorsFragment : MvpAppCompatFragment(), IAuthorsView, IAuthorsActions {
 	}
 
 	override fun showAuthors(authors: List<Author>, scrollToTop: Boolean) {
+		binding.progress.visibility = View.GONE
 		adapter.setAuthors(authors)
-		if (scrollToTop) binding.authors.scrollToPosition(0)
+		if (scrollToTop) {
+			binding.authors.scrollToPosition(0)
+		}
 	}
 
 	override fun showError(message: String) {

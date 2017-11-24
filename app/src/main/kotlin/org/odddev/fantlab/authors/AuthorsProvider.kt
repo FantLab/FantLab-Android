@@ -1,12 +1,8 @@
 package org.odddev.fantlab.authors
 
 import io.reactivex.Flowable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import org.intellij.lang.annotations.Flow
-import org.odddev.fantlab.R.id.name
-import org.odddev.fantlab.author.models.Author
 import org.odddev.fantlab.core.db.MainDatabase
 import org.odddev.fantlab.core.di.Injector
 import org.odddev.fantlab.core.network.IServerApi
@@ -26,7 +22,7 @@ class AuthorsProvider : IAuthorsProvider {
 
 	override fun getAuthors() = Flowable.merge(
 			database.authorDao()
-					.get()
+					.getByOrder()
 					.distinctUntilChanged()
 					.subscribeOn(Schedulers.io()),
 			serverApi.getAuthors()
