@@ -5,5 +5,5 @@ import org.odddev.fantlab.author.models.Author
 
 interface IAuthorsProvider {
 
-	fun getAuthors(): Flowable<List<Author>>
+	fun getAuthors(): Flowable<List<AuthorInList>>
 }

@@ -14,7 +14,7 @@ import javax.inject.Inject
 @InjectViewState
 class AuthorsPresenter : MvpPresenter<IAuthorsView>() {
 
-	private var authors: List<Author>? = null
+	private var authors: List<AuthorInList>? = null
 
 	@Inject
 	lateinit var disposables: CompositeDisposable
@@ -33,7 +33,7 @@ class AuthorsPresenter : MvpPresenter<IAuthorsView>() {
 					.subscribe(
 							{ authors ->
 								this.authors = authors
-								viewState.showAuthors(this.authors as List<Author>, false)
+								viewState.showAuthors(this.authors as List<AuthorInList>, false)
 							},
 							{ error ->
 								run {
@@ -51,7 +51,7 @@ class AuthorsPresenter : MvpPresenter<IAuthorsView>() {
 				.flatMapIterable { author -> author }
 				.filter({ author -> author.rusName?.contains(query, true)!!
 						|| author.name?.contains(query, true)!! })
-				.collectInto(ArrayList<Author>(), { list, author -> list.add(author) })
+				.collectInto(ArrayList<AuthorInList>(), { list, author -> list.add(author) })
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe({ list -> viewState.showAuthors(list, true) })

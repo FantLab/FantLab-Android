@@ -92,7 +92,7 @@ class AuthorsFragment : MvpAppCompatFragment(), IAuthorsView, IAuthorsActions {
 		return super.onOptionsItemSelected(item)
 	}
 
-	override fun showAuthors(authors: List<Author>, scrollToTop: Boolean) {
+	override fun showAuthors(authors: List<AuthorInList>, scrollToTop: Boolean) {
 		binding.progress.visibility = View.GONE
 		adapter.setAuthors(authors)
 		if (scrollToTop) {
@@ -104,7 +104,7 @@ class AuthorsFragment : MvpAppCompatFragment(), IAuthorsView, IAuthorsActions {
 		Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
 	}
 
-	override fun onAuthorClicked(author: Author) {
+	override fun onAuthorClicked(author: AuthorInList) {
 		handler.openAuthor(author.authorId, author.rusName!!)
 	}
 }

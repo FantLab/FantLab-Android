@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import org.odddev.fantlab.R
-import org.odddev.fantlab.author.models.Author
 import org.odddev.fantlab.core.utils.CircleTransform
 import org.odddev.fantlab.databinding.AuthorItemBinding
 
 class AuthorsAdapter(val handler: IAuthorsActions?) : RecyclerView.Adapter<AuthorsAdapter.ViewHolder>() {
 
-	private var authors: List<Author> = ArrayList()
+	private var authors: List<AuthorInList> = ArrayList()
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
 			ViewHolder(AuthorItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -33,7 +32,7 @@ class AuthorsAdapter(val handler: IAuthorsActions?) : RecyclerView.Adapter<Autho
 
 	override fun getItemCount() = authors.size
 
-	internal fun setAuthors(authors: List<Author>) {
+	internal fun setAuthors(authors: List<AuthorInList>) {
 		this.authors = authors
 		notifyDataSetChanged()
 	}
