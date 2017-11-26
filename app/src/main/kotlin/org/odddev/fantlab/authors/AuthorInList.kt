@@ -15,4 +15,4 @@ data class AuthorInList(
 
 		@ColumnInfo
 		val name: String? = null
-)
+) : IAuthorItem

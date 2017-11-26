@@ -48,7 +48,7 @@
 	<string name="register.error">Ошибка регистрации</string>
 
 	<!-- Navigation drawer menu -->
-	<string name="nav.authors">Авторы и книги</string>
+	<string name="nav.items">Авторы и книги</string>
 	<string name="nav.awards">Награды и премии</string>
 	<string name="nav.search">Поиск</string>
 	<string name="nav.profile">Профиль</string>
@@ -63,7 +63,7 @@
 
 	<!-- Authors screen -->
 	<string name="authors_toolbar_title">Авторы</string>
-	<string name="author.image.url">/authors/%s</string>
+	<string name="author.image.url">/items/%s</string>
 
 	<!-- Awards screen -->
 	<string name="awards_toolbar_title">Премии</string>

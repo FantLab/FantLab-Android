@@ -5,42 +5,19 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	>
 
-	<data>
-
-		<variable
-			name="letter"
-			type="String"
-			/>
-
-	</data>
-
-	<LinearLayout
+	<TextView
+		android:id="@+id/letter"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:orientation="vertical"
+		android:maxLines="1"
 		android:paddingBottom="@dimen/spacing_small"
 		android:paddingLeft="@dimen/spacing_medium"
 		android:paddingRight="@dimen/spacing_medium"
 		android:paddingTop="@dimen/spacing_small"
-		>
-
-		<TextView
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:maxLines="1"
-			android:text="@{letter}"
-			android:textColor="@color/black"
-			android:textSize="@dimen/text_big"
-			app:font="@{@string/roboto_medium}"
-			tools:text="A"
-			/>
-
-		<View
-			android:layout_width="match_parent"
-			android:layout_height="0.5dp"
-			android:background="@color/black"
-			/>
-
-	</LinearLayout>
+		android:textColor="@color/blue"
+		android:textSize="@dimen/text_big"
+		app:font="@{@string/roboto_medium}"
+		tools:text="A"
+		/>
 
 </layout>
