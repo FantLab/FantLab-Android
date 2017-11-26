@@ -3,6 +3,7 @@ package org.odddev.fantlab.authors
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import org.odddev.fantlab.R
@@ -22,6 +23,7 @@ class AuthorsAdapter(val handler: IAuthorsActions?) : RecyclerView.Adapter<Autho
 		holder.binding.author.setOnClickListener { handler?.onAuthorClicked(author) }
 		holder.binding.name.text = author.shortRusName?.replace(",", "")
 		holder.binding.nameOrig.text = author.name
+		holder.binding.nameOrig.visibility = if (author.name.isNullOrEmpty()) View.GONE else View.VISIBLE
 		Glide.with(context)
 				.load("https://fantlab.ru/images/autors/${author.authorId}")
 				.placeholder(ContextCompat.getDrawable(context, R.drawable.not_found))
