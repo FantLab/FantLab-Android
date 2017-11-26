@@ -26,7 +26,7 @@ class AuthorsProvider : IAuthorsProvider {
 					.distinctUntilChanged()
 					.subscribeOn(Schedulers.io()),
 			serverApi.getAuthors()
-					.flatMap { response -> database.authorDao().saveFromNetwork(response) }
+					.flatMap { response -> database.authorDao().saveAuthorsFromResponse(response) }
 					.subscribeOn(Schedulers.io())
 	).observeOn(AndroidSchedulers.mainThread())
 }

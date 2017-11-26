@@ -4,6 +4,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.disposables.CompositeDisposable
 import org.odddev.fantlab.core.di.Injector
+import org.odddev.fantlab.core.storage.StorageManager
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -16,6 +17,9 @@ class AuthPresenter : MvpPresenter<IAuthView>() {
 	@Inject
 	lateinit var authProvider: IAuthProvider
 
+	@Inject
+	lateinit var storageManager: StorageManager
+
 	init {
 		Injector.getAppComponent().inject(this)
 	}
@@ -26,7 +30,12 @@ class AuthPresenter : MvpPresenter<IAuthView>() {
 					.login(validator.fields[AuthValidator.USERNAME] as String,
 							validator.fields[AuthValidator.PASSWORD] as String)
 					.subscribe(
-							{ this.showResult(it) },
+							{
+								if (it) {
+									storageManager.clearAnonymous()
+								}
+								this.showResult(it)
+							},
 							{ throwable ->
 								run {
 									this.showError(throwable.localizedMessage)
@@ -40,20 +49,13 @@ class AuthPresenter : MvpPresenter<IAuthView>() {
 		}
 	}
 
-	private fun showResult(hasCookie: Boolean) {
-		viewState.showAuthResult(hasCookie)
-	}
+	fun setAnonymous() = storageManager.saveAnonymus()
 
-	private fun showError(error: String) {
-		viewState.showError(error)
-	}
+	private fun showResult(hasCookie: Boolean) = viewState.showAuthResult(hasCookie)
 
-	private fun showFieldsInvalid() {
-		viewState.showFieldsInvalid()
-	}
+	private fun showError(error: String) = viewState.showError(error)
 
-	override fun onDestroy() {
-		compositeDisposable.clear()
-		super.onDestroy()
-	}
+	private fun showFieldsInvalid() = viewState.showFieldsInvalid()
+
+	override fun onDestroy() = compositeDisposable.clear()
 }

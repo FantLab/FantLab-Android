@@ -58,6 +58,7 @@ class AuthActivity : MvpAppCompatActivity(), IAuthView {
 
 		binding.entry.setOnClickListener {_ ->
 			run {
+				presenter.setAnonymous()
 				val intent = Intent(this, HomeActivity::class.java)
 				intent.putExtra("LOGGED_IN", false)
 				startActivity(intent)

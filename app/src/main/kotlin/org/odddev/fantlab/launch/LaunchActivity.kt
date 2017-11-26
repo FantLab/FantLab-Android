@@ -23,12 +23,19 @@ class LaunchActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 
 		val loggedIn = !storageManager.loadCookie().isNullOrEmpty()
-		if (loggedIn) {
-			val intent = Intent(this, HomeActivity::class.java)
-			intent.putExtra("LOGGED_IN", true)
-			startActivity(intent)
-		} else {
-			startActivity(Intent(this, AuthActivity::class.java))
+		val anonymous = storageManager.loadAnonymous()
+		when {
+			loggedIn -> {
+				val intent = Intent(this, HomeActivity::class.java)
+				intent.putExtra("LOGGED_IN", true)
+				startActivity(intent)
+			}
+			anonymous -> {
+				val intent = Intent(this, HomeActivity::class.java)
+				intent.putExtra("LOGGED_IN", false)
+				startActivity(intent)
+			}
+			else -> startActivity(Intent(this, AuthActivity::class.java))
 		}
 		finish()
 	}

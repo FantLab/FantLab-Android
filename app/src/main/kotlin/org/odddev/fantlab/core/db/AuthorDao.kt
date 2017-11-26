@@ -16,7 +16,7 @@ abstract class AuthorDao {
 	abstract fun upsert(author: Collection<Author>)
 
 	@Transaction
-	open fun saveFromNetwork(response: AuthorsResponse): Flowable<List<AuthorInList>> {
+	open fun saveAuthorsFromResponse(response: AuthorsResponse): Flowable<List<AuthorInList>> {
 		val authors = response.list
 				.withIndex()
 				.map { author -> Author(
