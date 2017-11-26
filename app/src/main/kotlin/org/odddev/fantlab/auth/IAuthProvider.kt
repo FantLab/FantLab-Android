@@ -1,8 +1,8 @@
 package org.odddev.fantlab.auth
 
-import io.reactivex.Single
+import io.reactivex.Flowable
 
 interface IAuthProvider {
 
-	fun login(username: String, password: String): Single<Boolean>
+	fun login(username: String, password: String): Flowable<Boolean>
 }

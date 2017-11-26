@@ -17,19 +17,24 @@ import org.odddev.fantlab.R
 
 object BindingUtils {
 
+	// todo удалить
 	@BindingAdapter("onClick")
 	@JvmStatic
 	fun bindOnClick(view: View, runnable: Runnable) {
 		view.setOnClickListener { runnable.run() }
 	}
 
+	// todo удалить
 	@BindingAdapter("error")
 	@JvmStatic
 	fun bindError(textInputLayout: TextInputLayout, error: String?) {
-		textInputLayout.isErrorEnabled = error != null
-		textInputLayout.error = error
+		with (textInputLayout) {
+			isErrorEnabled = error != null
+			this.error = error
+		}
 	}
 
+	// todo удалить
 	@BindingAdapter("srcUri", "isCircle", "placeholder")
 	@JvmStatic
 	fun bindSrcUri(imageView: ImageView, uri: String, isCircle: Boolean,
@@ -45,6 +50,7 @@ object BindingUtils {
 		builder.into(imageView)
 	}
 
+	// todo удалить
 	@BindingAdapter("srcUri")
 	@JvmStatic
 	fun bindSrcUri(imageView: ImageView, uri: String) {
@@ -54,6 +60,7 @@ object BindingUtils {
 				.into(imageView)
 	}
 
+	// todo перейти на саппортовские шрифты (https://developer.android.com/guide/topics/ui/look-and-feel/fonts-in-xml.html)
 	@BindingAdapter("font")
 	@JvmStatic
 	fun bindFont(textView: TextView, fontName: String) {
@@ -66,6 +73,7 @@ object BindingUtils {
 		}
 	}
 
+	// todo удалить
 	@BindingConversion
 	@JvmStatic
 	fun convertConditionToVisibility(condition: Boolean) = if (condition) View.VISIBLE else View.GONE

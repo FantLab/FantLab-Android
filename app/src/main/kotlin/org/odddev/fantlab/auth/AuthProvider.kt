@@ -1,6 +1,6 @@
 package org.odddev.fantlab.auth
 
-import io.reactivex.Single
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.odddev.fantlab.core.di.Injector
@@ -20,7 +20,7 @@ class AuthProvider : IAuthProvider{
 		Injector.getAppComponent().inject(this)
 	}
 
-	override fun login(username: String, password: String): Single<Boolean> {
+	override fun login(username: String, password: String): Flowable<Boolean> {
 		return serverApi.login(username, password)
 				.map({ response ->
 					run {

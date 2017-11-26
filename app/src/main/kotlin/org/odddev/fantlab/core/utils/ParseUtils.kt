@@ -1,15 +1,6 @@
 package org.odddev.fantlab.core.utils
 
-import com.google.gson.JsonElement
 import java.util.*
-
-fun JsonElement?.getField(): JsonElement? =
-		if (this == null
-				|| this.isJsonNull
-				|| this.toString().replace("\"","").isEmpty())
-			null
-		else
-			this
 
 fun String.parseToDate(): Calendar = Calendar.getInstance().apply {
 	set(Calendar.YEAR, this@parseToDate.substring(0..3).toInt())

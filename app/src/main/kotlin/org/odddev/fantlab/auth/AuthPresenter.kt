@@ -49,7 +49,7 @@ class AuthPresenter : MvpPresenter<IAuthView>() {
 		}
 	}
 
-	fun setAnonymous() = storageManager.saveAnonymus()
+	fun setAnonymous() = storageManager.saveAnonymous()
 
 	private fun showResult(hasCookie: Boolean) = viewState.showAuthResult(hasCookie)
 

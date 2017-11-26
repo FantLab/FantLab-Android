@@ -14,6 +14,9 @@ fun CharSequence.formatText(): Spanned {
 	//val simpleTag = "b|i|u|s|p"
 	val internalTag = "autor|award|work|edition|person|user|art|dictor|series|film|translator"
 	val urlTag = "url|URL"
+	// todo переделать обработку вложенных тегов
+	// todo нормальная обработка тегов `[q`],`[h`], обработка `[LIST`], `[VIDEO`] (see https://stackoverflow.com/a/42370792)
+	// todo smiles :)
 	val html = this
 			// простые теги могут быть вложенными, так что обращение \\1 не сработает для вложенных тегов
 			// как обойти покороче, пока не придумал

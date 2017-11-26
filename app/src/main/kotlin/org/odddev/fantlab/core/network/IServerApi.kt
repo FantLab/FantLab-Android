@@ -15,20 +15,7 @@ interface IServerApi {
 	@FormUrlEncoded
 	@POST("/login")
 	fun login(@Field("login") login: String,
-			  @Field("password") password: String): Single<Response<ResponseBody>>
-
-	// includeNonFantastic = 0/1
-	@GET("/awards.json")
-	fun getAwards(@Query("nonfant") includeNonFantastic: Int): Observable<List<Award>>
-
-	@GET("/award{id}.json")
-	fun getAward(@Path("id") id: Int,
-				 @Query("include_contests") includeContests: Int,
-				 @Query("include_nomi") includeNominations: Int): Observable<Award>
-
-	@GET("/contest{id}.json")
-	fun getContest(@Path("id") id: Int,
-				   @Query("include_works") includeWorks: Int): Observable<Unit>
+			  @Field("password") password: String): Flowable<Response<ResponseBody>>
 
 	@GET("/autorsall")
 	fun getAuthors(): Flowable<AuthorsResponse>
@@ -85,6 +72,19 @@ interface IServerApi {
 	@GET("/compare")
 	fun compareEditions(@Query("c1") firstSet: String,
 						@Query("c2") secondSet: String): Observable<Unit>
+
+	// includeNonFantastic = 0/1
+	@GET("/awards.json")
+	fun getAwards(@Query("nonfant") includeNonFantastic: Int): Observable<List<Award>>
+
+	@GET("/award{id}.json")
+	fun getAward(@Path("id") id: Int,
+				 @Query("include_contests") includeContests: Int,
+				 @Query("include_nomi") includeNominations: Int): Observable<Award>
+
+	@GET("/contest{id}.json")
+	fun getContest(@Path("id") id: Int,
+				   @Query("include_works") includeWorks: Int): Observable<Unit>
 
 	@GET("/searchmain")
 	fun search(@Query("searchstr") query: String,

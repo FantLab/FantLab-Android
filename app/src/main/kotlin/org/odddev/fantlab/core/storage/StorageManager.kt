@@ -6,9 +6,11 @@ import android.preference.PreferenceManager
 
 class StorageManager(context: Context) {
 
-	private val COOKIE_KEY = "COOKIE"
-	private val USERNAME_KEY = "USERNAME"
-	private val ANONYMOUS_KEY = "ANONYMOUS"
+	companion object {
+		private val COOKIE_KEY = "COOKIE"
+		private val USERNAME_KEY = "USERNAME"
+		private val ANONYMOUS_KEY = "ANONYMOUS"
+	}
 
 	private val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
@@ -41,7 +43,7 @@ class StorageManager(context: Context) {
 	}
 
 	// todo разрулить схему с логином/разлогином получше
-	fun saveAnonymus() {
+	fun saveAnonymous() {
 		sharedPreferences.edit()
 				.putBoolean(ANONYMOUS_KEY, true)
 				.apply()
