@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName
 data class AuthorsResponse(
 		val list: List<Author>
 ) {
-
 	@Keep
 	data class Author(
 			@SerializedName("autor_id")

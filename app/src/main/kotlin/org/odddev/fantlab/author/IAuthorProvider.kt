@@ -1,8 +1,8 @@
 package org.odddev.fantlab.author
 
-import io.reactivex.Observable
+import io.reactivex.Flowable
 
 interface IAuthorProvider {
 
-	fun getAuthor(id: Int): Observable<Void>
+	fun getAuthor(id: Int): Flowable<Void>
 }

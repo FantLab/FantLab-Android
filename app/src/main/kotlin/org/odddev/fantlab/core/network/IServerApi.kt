@@ -4,6 +4,7 @@ import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.ResponseBody
+import org.odddev.fantlab.author.AuthorResponse
 import org.odddev.fantlab.authors.AuthorsResponse
 import org.odddev.fantlab.award.Award
 import retrofit2.Response
@@ -33,7 +34,7 @@ interface IServerApi {
 	fun getAuthors(): Flowable<AuthorsResponse>
 
 	@GET("/autor/{id}/extended")
-	fun getAuthor(@Path("id") id: Int): Observable<Void>
+	fun getAuthor(@Path("id") id: Int): Flowable<AuthorResponse>
 
 	@GET("/autor{id}/alleditions.json")
 	fun getAuthorEditions(@Path("id") id: Int,

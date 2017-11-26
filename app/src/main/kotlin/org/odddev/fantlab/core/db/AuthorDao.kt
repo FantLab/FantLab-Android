@@ -1,10 +1,13 @@
 package org.odddev.fantlab.core.db
 
 import android.arch.persistence.room.*
+import com.google.gson.Gson
 import io.reactivex.Flowable
+import org.odddev.fantlab.author.AuthorResponse
 import org.odddev.fantlab.author.models.Author
 import org.odddev.fantlab.authors.AuthorInList
 import org.odddev.fantlab.authors.AuthorsResponse
+import timber.log.Timber
 
 @Dao
 abstract class AuthorDao {
@@ -30,5 +33,11 @@ abstract class AuthorDao {
 				) }
 		upsert(authors)
 		return getByOrder()
+	}
+
+	@Transaction
+	open fun saveAuthorFromResponse(response: AuthorResponse): Flowable<Void> {
+		Timber.d(Gson().toJson(response))
+		return Flowable.just(null)
 	}
 }
