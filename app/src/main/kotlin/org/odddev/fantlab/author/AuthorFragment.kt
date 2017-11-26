@@ -1,7 +1,6 @@
 package org.odddev.fantlab.author
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -12,23 +11,28 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.google.gson.Gson
+import com.bumptech.glide.Glide
 import org.odddev.fantlab.R
 import org.odddev.fantlab.databinding.AuthorFragmentBinding
 import org.odddev.fantlab.home.IActionsHandler
 
 class AuthorFragment : MvpAppCompatFragment, IAuthorView, IAuthorActions {
 
-	private val EXTRA_ID = "id"
-	private val EXTRA_NAME = "name"
+	companion object {
+		val EXTRA_ID = "id"
+		val EXTRA_NAME = "name"
+	}
 
-	private lateinit var binding: AuthorFragmentBinding
-	private lateinit var handler: IActionsHandler
+	private val binding: AuthorFragmentBinding by lazy {
+		AuthorFragmentBinding.inflate(LayoutInflater.from(context))
+	}
+
+	private val handler: IActionsHandler by lazy {
+		context as IActionsHandler
+	}
 
 	@InjectPresenter
 	lateinit var presenter: AuthorPresenter
-
-	private lateinit var bio: String
 
 	constructor() : super()
 
@@ -42,7 +46,6 @@ class AuthorFragment : MvpAppCompatFragment, IAuthorView, IAuthorActions {
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 							  savedInstanceState: Bundle?): View? {
-		binding = AuthorFragmentBinding.inflate(inflater, container, false)
 		return binding.root
 	}
 
@@ -52,12 +55,6 @@ class AuthorFragment : MvpAppCompatFragment, IAuthorView, IAuthorActions {
 		initRecyclerView()
 
 		presenter.getAuthor(arguments?.getInt(EXTRA_ID))
-	}
-
-	override fun onAttach(context: Context?) {
-		super.onAttach(context)
-
-		handler = context as IActionsHandler
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -76,6 +73,11 @@ class AuthorFragment : MvpAppCompatFragment, IAuthorView, IAuthorActions {
 			setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
 			setDisplayHomeAsUpEnabled(true)
 		}
+		Glide.with(context)
+				.load("https://fantlab.ru/images/autors/${arguments?.getInt(EXTRA_ID)}")
+				.placeholder(R.color.blue)
+				.error(R.color.blue)
+				.into(binding.photo)
 	}
 
 	private fun initRecyclerView() {
@@ -83,8 +85,7 @@ class AuthorFragment : MvpAppCompatFragment, IAuthorView, IAuthorActions {
 	}
 
 	override fun showAuthor(author: AuthorFull) {
-		binding.author = author
-		bio = Gson().toJson(author.biography)
+		binding.country.text = author.country.name
 	}
 
 	override fun showError(message: String) {
@@ -92,7 +93,7 @@ class AuthorFragment : MvpAppCompatFragment, IAuthorView, IAuthorActions {
 	}
 
 	override fun showBiography() {
-		handler.showBiography(bio)
+		handler.showBiography("")
 	}
 
 	override fun showAwards() {

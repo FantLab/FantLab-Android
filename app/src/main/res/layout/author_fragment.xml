@@ -5,17 +5,6 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	>
 
-	<data>
-
-		<import type="org.odddev.fantlab.core.Const" />
-
-		<variable
-			name="author"
-			type="org.odddev.fantlab.author.AuthorFull"
-			/>
-
-	</data>
-
 	<android.support.design.widget.CoordinatorLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
@@ -44,16 +33,17 @@
 				>
 
 				<ImageView
+					android:id="@+id/photo"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:fitsSystemWindows="true"
 					android:scaleType="centerCrop"
-					app:srcUri="@{Const.getImagesUrl() + author.imageLink}"
 					app:layout_collapseMode="parallax"
 					tools:ignore="ContentDescription"
 					/>
 
 				<TextView
+					android:id="@+id/country"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_gravity="bottom"
@@ -62,7 +52,6 @@
 					android:layout_marginRight="16dp"
 					android:textColor="@android:color/white"
 					android:textSize="14sp"
-					android:text="@{author.country.name}"
 					android:textAppearance="@style/TextAppearance.Design.CollapsingToolbar.Expanded.Shadow"
 					app:layout_collapseMode="parallax"
 					/>

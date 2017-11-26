@@ -1,6 +1,5 @@
 package org.odddev.fantlab.authors
 
-import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
@@ -13,22 +12,28 @@ import android.view.*
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import org.odddev.fantlab.R
-import org.odddev.fantlab.author.models.Author
 import org.odddev.fantlab.databinding.AuthorsFragmentBinding
 import org.odddev.fantlab.home.IActionsHandler
 
 class AuthorsFragment : MvpAppCompatFragment(), IAuthorsView, IAuthorsActions {
 
-	private lateinit var binding: AuthorsFragmentBinding
-	private lateinit var handler: IActionsHandler
-	private lateinit var adapter: AuthorsAdapter
+	private val binding: AuthorsFragmentBinding by lazy {
+		AuthorsFragmentBinding.inflate(LayoutInflater.from(context))
+	}
+
+	private val handler: IActionsHandler by lazy {
+		context as IActionsHandler
+	}
+
+	private val adapter: AuthorsAdapter by lazy {
+		AuthorsAdapter(this)
+	}
 
 	@InjectPresenter
 	lateinit var presenter: AuthorsPresenter
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 							  savedInstanceState: Bundle?): View? {
-		binding = AuthorsFragmentBinding.inflate(inflater, container, false)
 		return binding.root
 	}
 
@@ -59,12 +64,6 @@ class AuthorsFragment : MvpAppCompatFragment(), IAuthorsView, IAuthorsActions {
 		})
 	}
 
-	override fun onAttach(context: Context?) {
-		super.onAttach(context)
-
-		handler = context as IActionsHandler
-	}
-
 	private fun initToolbar() {
 		val activity = activity as AppCompatActivity
 		activity.setSupportActionBar(binding.toolbar)
@@ -79,7 +78,6 @@ class AuthorsFragment : MvpAppCompatFragment(), IAuthorsView, IAuthorsActions {
 	private fun initRecyclerView() {
 		val layoutManager = LinearLayoutManager(context)
 		binding.authors.layoutManager = layoutManager
-		adapter = AuthorsAdapter(this)
 		binding.authors.adapter = adapter
 	}
 
