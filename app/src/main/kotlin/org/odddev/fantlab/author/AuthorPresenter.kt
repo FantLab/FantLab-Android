@@ -25,7 +25,7 @@ class AuthorPresenter : MvpPresenter<IAuthorView>() {
 				.getAuthor(id!!)
 				.subscribe(
 						{
-							authors -> viewState.showError("Ready")
+							author -> viewState.showError("Ready")
 						},
 						{ error ->
 							run {

@@ -13,35 +13,35 @@ data class AuthorStat(
 
 		@PrimaryKey(autoGenerate = true)
 		@ColumnInfo
-		val id: Int,
+		val id: Int? = null,
 
 		@ColumnInfo(name = "autor_id")
 		val authorId: Int,
 
 		@ColumnInfo(name = "midmark")
-		val midMark: Int?,
+		val midMark: Int? = null,
 
 		@ColumnInfo
-		val marking: Int?,
+		val marking: Int? = null,
 
 		@ColumnInfo(name = "markcount")
-		val markCount: Int,
+		val markCount: Int? = null,
 
 		@ColumnInfo(name = "usercount")
-		val userCount: Int?,
+		val userCount: Int? = null,
 
 		@ColumnInfo(name = "responsecount")
-		val responseCount: Int,
+		val responseCount: Int? = null,
 
 		@ColumnInfo(name = "editioncount")
-		val editionCount: Int,
+		val editionCount: Int? = null,
 
 		@ColumnInfo(name = "moviecount")
-		val movieCount: Int,
+		val movieCount: Int? = null,
 
 		@ColumnInfo(name = "awardcount")
-		val awardCount: Int,
+		val awardCount: Int? = null,
 
 		@ColumnInfo(name = "nominationcount")
-		val nominationCount: Int
+		val nominationCount: Int? = null
 )

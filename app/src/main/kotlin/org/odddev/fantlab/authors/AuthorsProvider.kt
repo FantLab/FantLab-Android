@@ -22,7 +22,7 @@ class AuthorsProvider : IAuthorsProvider {
 
 	override fun getAuthors() = Flowable.merge(
 			database.authorDao()
-					.getByOrder()
+					.getByOrderInBg()
 					.distinctUntilChanged()
 					.subscribeOn(Schedulers.io()),
 			serverApi.getAuthors()

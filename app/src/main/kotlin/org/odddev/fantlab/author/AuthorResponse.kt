@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 data class AuthorResponse(
 		val anons: String? = null,
 		@SerializedName("autor_id")
-		val authorId: Int? = null,
+		val authorId: Int,
 		val awards: Awards? = null,
 		val biography: String? = null,
 		@SerializedName("biography_notes")

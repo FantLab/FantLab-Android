@@ -4,28 +4,29 @@ import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 
+// todo с val не компилируется (Cannot find setter for field). почему?
 @Entity(tableName = "autor_pseudonyms")
 data class AuthorPseudonym(
 
 		@PrimaryKey(autoGenerate = true)
 		@ColumnInfo
-		val id: Int,
+		var id: Int? = null,
 
 		@ColumnInfo(name = "autor_id")
-		val authorId: Int?,
+		var authorId: Int? = null,
 
 		@ColumnInfo(name = "shortrusname")
-		val shortRusName: String?,
+		var shortRusName: String? = null,
 
 		@ColumnInfo(name = "rusname")
-		val rusName: String?,
+		var rusName: String? = null,
 
 		@ColumnInfo(name = "rusname_rp")
-		val rusNameRp: String?,
+		var rusNameRp: String? = null,
 
 		@ColumnInfo
-		val name: String?,
+		var name: String? = null,
 
 		@ColumnInfo(name = "is_real")
-		val isReal: Boolean
+		var isReal: Boolean? = null
 )

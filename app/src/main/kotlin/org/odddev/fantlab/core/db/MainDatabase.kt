@@ -14,4 +14,8 @@ import org.odddev.fantlab.author.models.*
 abstract class MainDatabase : RoomDatabase() {
 
 	abstract fun authorDao(): AuthorDao
+
+	abstract fun authorPseudonymDao(): AuthorPseudonymDao
+
+	abstract fun authorStatDao(): AuthorStatDao
 }
