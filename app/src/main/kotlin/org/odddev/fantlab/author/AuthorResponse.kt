@@ -139,7 +139,7 @@ data class AuthorResponse(
 			@SerializedName("work_rusname")
 			val workRusName: String? = null,
 			@SerializedName("work_year")
-			val workYear: Int? = null
+			val workYear: String? = null // todo почему вместо числа может возвращаться пустая строка? О_о
 	)
 
 	@Keep
