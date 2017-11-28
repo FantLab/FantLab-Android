@@ -2,6 +2,7 @@ package org.odddev.fantlab.author
 
 import android.support.annotation.Keep
 import com.google.gson.annotations.SerializedName
+import org.odddev.fantlab.author.models.Author as DetailAuthor
 
 @Keep
 data class AuthorResponse(
@@ -61,7 +62,7 @@ data class AuthorResponse(
 ) {
 	@Keep
 	data class Author(
-			val id: Int? = null,
+			val id: Int,
 			val name: String? = null,
 			val type: String? = null
 	)
@@ -341,4 +342,49 @@ data class AuthorResponse(
 			@SerializedName("work_type_in")
 			val workTypeIn: String? = null
 	)
+
+	fun getWorkAuthors(): HashMap<Int, DetailAuthor> {
+		val authors = HashMap<Int, DetailAuthor>()
+		cyclesBlocks?.cycle?.getAuthors(authors)
+		cyclesBlocks?.serial?.getAuthors(authors)
+		cyclesBlocks?.epic?.getAuthors(authors)
+		cyclesBlocks?.conditionalCycle?.getAuthors(authors)
+		worksBlocks.novel?.getAuthors(authors)
+		worksBlocks.story?.getAuthors(authors)
+		worksBlocks.shortStory?.getAuthors(authors)
+		worksBlocks.storyShortStory?.getAuthors(authors)
+		worksBlocks.microStory?.getAuthors(authors)
+		worksBlocks.tale?.getAuthors(authors)
+		worksBlocks.documental?.getAuthors(authors)
+		worksBlocks.poem?.getAuthors(authors)
+		worksBlocks.piece?.getAuthors(authors)
+		worksBlocks.scenario?.getAuthors(authors)
+		worksBlocks.graphicNovel?.getAuthors(authors)
+		worksBlocks.disser?.getAuthors(authors)
+		worksBlocks.monography?.getAuthors(authors)
+		worksBlocks.study?.getAuthors(authors)
+		worksBlocks.article?.getAuthors(authors)
+		worksBlocks.essay?.getAuthors(authors)
+		worksBlocks.sketch?.getAuthors(authors)
+		worksBlocks.reportage?.getAuthors(authors)
+		worksBlocks.encyclopedy?.getAuthors(authors)
+		worksBlocks.collection?.getAuthors(authors)
+		worksBlocks.excerpt?.getAuthors(authors)
+		worksBlocks.review?.getAuthors(authors)
+		worksBlocks.interview?.getAuthors(authors)
+		worksBlocks.antology?.getAuthors(authors)
+		worksBlocks.magazine?.getAuthors(authors)
+		worksBlocks.other?.getAuthors(authors)
+		worksBlocks.notFinished?.getAuthors(authors)
+		return authors
+	}
+
+	private fun Block.getAuthors(authors: HashMap<Int, DetailAuthor>) =
+			this.list.map {
+				it.authors?.map {
+					if (it.type == "autor") {
+						authors.put(it.id, DetailAuthor(authorId = it.id, rusName = it.name))
+					}
+				}
+			}
 }

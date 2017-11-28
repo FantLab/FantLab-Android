@@ -10,10 +10,7 @@ import org.odddev.fantlab.authors.AuthorsResponse
 @Dao
 abstract class AuthorDao {
 
-	@Query("SELECT autor_id, shortrusname, rusname, name FROM authors ORDER BY _index")
-	abstract fun getByOrder(): List<AuthorInList>
-
-	@Query("SELECT autor_id, shortrusname, rusname, name FROM authors ORDER BY _index")
+	@Query("SELECT autor_id, shortrusname, rusname, name FROM authors WHERE is_opened = 1 ORDER BY shortrusname")
 	abstract fun getByOrderInBg(): Flowable<List<AuthorInList>>
 
 	@Query("SELECT * FROM authors WHERE autor_id = :authorId")
@@ -31,18 +28,22 @@ abstract class AuthorDao {
 	@Transaction
 	open fun saveAuthorsFromResponse(response: AuthorsResponse): Flowable<List<AuthorInList>> {
 		val authors = response.list
-				.withIndex()
 				.map { author -> Author(
-						authorId = author.value.authorId,
-						isFv = author.value.isFv == 1,
-						rusName = author.value.name,
-						name = author.value.nameOrig,
-						rusNameRp = author.value.nameRp,
-						shortRusName = author.value.nameShort,
-						index = author.index
+						authorId = author.authorId,
+						shortRusName = author.nameShort,
+						rusName = author.name,
+						rusNameRp = author.nameRp,
+						name = author.nameOrig,
+						isFv = author.isFv == 1,
+						isOpened = true
 				) }
 		upsert(authors)
 		return getByOrderInBg()
+	}
+
+	@Transaction
+	open fun saveWorksAuthorsFromResponse(response: AuthorResponse) {
+		upsert(response.getWorkAuthors().values)
 	}
 
 	@Transaction
@@ -72,8 +73,7 @@ abstract class AuthorDao {
 				curator = response.curator,
 				compiler = response.compiler,
 				fantastic = response.fantastic,
-				lastModified = response.lastModified,
-				index = shortAuthor.index
+				lastModified = response.lastModified
 		)
 		upsert(author)
 		return getInBg(authorId)

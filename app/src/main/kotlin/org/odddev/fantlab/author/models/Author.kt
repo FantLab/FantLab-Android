@@ -78,8 +78,5 @@ data class Author(
 
 		// todo date/calendar/etc (datetime in fact)
 		@ColumnInfo(name = "date_change")
-		val lastModified: String? = null,
-
-		@ColumnInfo(name = "_index")
-		val index: Int? = null
+		val lastModified: String? = null
 )

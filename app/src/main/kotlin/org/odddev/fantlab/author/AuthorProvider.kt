@@ -27,7 +27,7 @@ class AuthorProvider : IAuthorProvider {
 						run {
 							database.authorPseudonymDao().saveAuthorPseudonymsFromResponse(response)
 							database.authorStatDao().saveAuthorStatFromResponse(response)
-							// todo сохранить авторов из ворков тоже
+							database.authorDao().saveWorksAuthorsFromResponse(response)
 							database.authorDao().saveAuthorFromResponse(response)
 						}
 					}
