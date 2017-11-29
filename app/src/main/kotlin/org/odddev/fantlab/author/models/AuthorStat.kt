@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(
 		tableName = "autor_stats",
-		indices = arrayOf(Index(value = "autor_id", unique = true))
+		indices = [Index(value = ["autor_id"], unique = true)]
 )
 data class AuthorStat(
 

@@ -51,7 +51,7 @@ kapt {
 }
 
 dependencies {
-	compile 'org.jetbrains.kotlin:kotlin-stdlib:1.1.4-3'
+	compile 'org.jetbrains.kotlin:kotlin-stdlib:1.2.0'
 
 	kapt "com.android.databinding:compiler:3.0.1"
 
