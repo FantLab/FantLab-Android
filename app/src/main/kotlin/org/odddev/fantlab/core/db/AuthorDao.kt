@@ -14,7 +14,7 @@ abstract class AuthorDao {
 	abstract fun getAllAsFlowable(): Flowable<List<AuthorInList>>
 
 	@Query("SELECT * FROM autors WHERE autor_id = :authorId")
-	abstract fun get(authorId: Int): Author
+	abstract fun get(authorId: Int): Author?
 
 	@Query("SELECT * FROM autors WHERE autor_id = :authorId")
 	abstract fun getAsFlowable(authorId: Int): Flowable<Author>
@@ -42,7 +42,12 @@ abstract class AuthorDao {
 
 	@Transaction
 	open fun saveWorksAuthorsFromResponse(response: AuthorResponse) {
-		upsert(response.getWorkAuthors().values)
+		val workAuthors = response.getWorkAuthors()
+		val detailedWorkAuthors = HashSet<Author>()
+		for ((id, author) in workAuthors) {
+			detailedWorkAuthors.add(get(id) ?: author)
+		}
+		upsert(detailedWorkAuthors)
 	}
 
 	@Transaction
@@ -67,7 +72,7 @@ abstract class AuthorDao {
 				source = response.source,
 				sourceLink = response.sourceLink,
 				addInfo = null,
-				isFv = shortAuthor.isFv,
+				isFv = shortAuthor?.isFv,
 				isOpened = response.isOpened == 1,
 				curator = response.curator,
 				compiler = response.compiler,

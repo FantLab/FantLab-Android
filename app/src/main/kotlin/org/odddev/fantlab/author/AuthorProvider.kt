@@ -26,10 +26,13 @@ class AuthorProvider : IAuthorProvider {
 				.subscribeOn(Schedulers.io())
 				.subscribe {
 					response -> run {
+						database.authorDao().saveAuthorFromResponse(response)
 						database.authorPseudonymDao().saveAuthorPseudonymsFromResponse(response)
 						database.authorStatDao().saveAuthorStatFromResponse(response)
 						database.authorDao().saveWorksAuthorsFromResponse(response)
-						database.authorDao().saveAuthorFromResponse(response)
+					// todo аналогично сохранить художников
+					// todo сохранить ворки
+					// todo сохранить связи ворков друг с другом. вроде все, можно отрисовывать
 					}
 				}
 		return database.authorDao()
