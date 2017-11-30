@@ -7,7 +7,10 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(
 		tableName = "work_links",
-		indices = [(Index(value = ["parent_work_id"])), (Index(value = ["work_id"]))]
+		indices = [
+			(Index(value = ["parent_work_id"])),
+			(Index(value = ["work_id"]))
+		]
 )
 data class WorkLinks(
 

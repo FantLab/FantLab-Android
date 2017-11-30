@@ -20,13 +20,16 @@ class AuthorsProvider : IAuthorsProvider {
 		Injector.getAppComponent().inject(this)
 	}
 
-	override fun getAuthors() = Flowable.merge(
-			database.authorDao()
-					.getByOrderInBg()
-					.distinctUntilChanged()
-					.subscribeOn(Schedulers.io()),
-			serverApi.getAuthors()
-					.flatMap { response -> database.authorDao().saveAuthorsFromResponse(response) }
-					.subscribeOn(Schedulers.io())
-	).observeOn(AndroidSchedulers.mainThread())
+	override fun getAuthors(): Flowable<List<AuthorInList>> {
+		serverApi.getAuthors()
+				.subscribeOn(Schedulers.io())
+				.subscribe {
+					response -> database.authorDao().saveAuthorsFromResponse(response)
+				}
+		return database.authorDao()
+				.getAllAsFlowable()
+				.distinctUntilChanged()
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+	}
 }

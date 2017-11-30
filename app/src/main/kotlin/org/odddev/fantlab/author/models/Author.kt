@@ -4,7 +4,7 @@ import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 
-@Entity(tableName = "authors")
+@Entity(tableName = "autors")
 data class Author(
 
 		@PrimaryKey

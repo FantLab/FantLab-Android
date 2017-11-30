@@ -9,7 +9,7 @@ import org.odddev.fantlab.author.models.AuthorStat
 abstract class AuthorStatDao {
 
 	@Query("SELECT * FROM autor_stats WHERE autor_id = :authorId")
-	abstract fun getInBg(authorId: Int): Flowable<AuthorStat>
+	abstract fun getAsFlowable(authorId: Int): Flowable<AuthorStat>
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	abstract fun upsert(authorStat: AuthorStat)

@@ -1,6 +1,8 @@
 package org.odddev.fantlab.author.models
 
-import android.arch.persistence.room.*
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "works")
 data class Work(
@@ -94,8 +96,7 @@ data class Work(
 		val downloadFile: String?,
 
 		@ColumnInfo(name = "file_type")
-		@TypeConverters(FileTypeConverter::class)
-		val fileType: FileType?,
+		val fileType: String? = null,
 
 		@ColumnInfo(name = "public_download")
 		val publicDownload: Boolean,
@@ -141,23 +142,4 @@ data class Work(
 
 		@ColumnInfo(name = "pic_edition_id")
 		val picEditionId: Int?
-) {
-	enum class FileType(val fileType: String?) {
-		FB2("fb2"),
-		ZIP("zip")
-	}
-
-	class FileTypeConverter {
-
-		@TypeConverter
-		fun toFileType(fileType: String) =
-				when (fileType) {
-					"fb2" -> FileType.FB2
-					"zip" -> FileType.ZIP
-					else -> null
-				}
-
-		@TypeConverter
-		fun toString(fileType: FileType?) = fileType?.fileType
-	}
-}
+)

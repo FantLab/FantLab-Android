@@ -21,16 +21,21 @@ class AuthorProvider : IAuthorProvider {
 		Injector.getAppComponent().inject(this)
 	}
 
-	override fun getAuthor(id: Int): Flowable<Author> =
-			serverApi.getAuthor(id)
-					.flatMap { response ->
-						run {
-							database.authorPseudonymDao().saveAuthorPseudonymsFromResponse(response)
-							database.authorStatDao().saveAuthorStatFromResponse(response)
-							database.authorDao().saveWorksAuthorsFromResponse(response)
-							database.authorDao().saveAuthorFromResponse(response)
-						}
+	override fun getAuthor(id: Int): Flowable<Author> {
+		serverApi.getAuthor(id)
+				.subscribeOn(Schedulers.io())
+				.subscribe {
+					response -> run {
+						database.authorPseudonymDao().saveAuthorPseudonymsFromResponse(response)
+						database.authorStatDao().saveAuthorStatFromResponse(response)
+						database.authorDao().saveWorksAuthorsFromResponse(response)
+						database.authorDao().saveAuthorFromResponse(response)
 					}
-					.subscribeOn(Schedulers.io())
-					.observeOn(AndroidSchedulers.mainThread())
+				}
+		return database.authorDao()
+				.getAsFlowable(id)
+				.distinctUntilChanged()
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+	}
 }

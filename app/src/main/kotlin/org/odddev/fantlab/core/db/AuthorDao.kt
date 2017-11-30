@@ -10,14 +10,14 @@ import org.odddev.fantlab.authors.AuthorsResponse
 @Dao
 abstract class AuthorDao {
 
-	@Query("SELECT autor_id, shortrusname, rusname, name FROM authors WHERE is_opened = 1 ORDER BY shortrusname")
-	abstract fun getByOrderInBg(): Flowable<List<AuthorInList>>
+	@Query("SELECT autor_id, shortrusname, rusname, name FROM autors WHERE is_opened = 1 ORDER BY shortrusname")
+	abstract fun getAllAsFlowable(): Flowable<List<AuthorInList>>
 
-	@Query("SELECT * FROM authors WHERE autor_id = :authorId")
+	@Query("SELECT * FROM autors WHERE autor_id = :authorId")
 	abstract fun get(authorId: Int): Author
 
-	@Query("SELECT * FROM authors WHERE autor_id = :authorId")
-	abstract fun getInBg(authorId: Int): Flowable<Author>
+	@Query("SELECT * FROM autors WHERE autor_id = :authorId")
+	abstract fun getAsFlowable(authorId: Int): Flowable<Author>
 
 	@Insert(onConflict = OnConflictStrategy.IGNORE)
 	abstract fun upsert(authors: Collection<Author>)
@@ -26,7 +26,7 @@ abstract class AuthorDao {
 	abstract fun upsert(author: Author)
 
 	@Transaction
-	open fun saveAuthorsFromResponse(response: AuthorsResponse): Flowable<List<AuthorInList>> {
+	open fun saveAuthorsFromResponse(response: AuthorsResponse) {
 		val authors = response.list
 				.map { author -> Author(
 						authorId = author.authorId,
@@ -38,7 +38,6 @@ abstract class AuthorDao {
 						isOpened = true
 				) }
 		upsert(authors)
-		return getByOrderInBg()
 	}
 
 	@Transaction
@@ -47,7 +46,7 @@ abstract class AuthorDao {
 	}
 
 	@Transaction
-	open fun saveAuthorFromResponse(response: AuthorResponse): Flowable<Author> {
+	open fun saveAuthorFromResponse(response: AuthorResponse) {
 		val authorId = response.authorId
 		val shortAuthor = get(authorId)
 		val author = Author(
@@ -76,6 +75,5 @@ abstract class AuthorDao {
 				lastModified = response.lastModified
 		)
 		upsert(author)
-		return getInBg(authorId)
 	}
 }

@@ -2,16 +2,14 @@ package org.odddev.fantlab.core.db
 
 import android.arch.persistence.room.*
 import io.reactivex.Flowable
-import org.odddev.fantlab.R.id.name
 import org.odddev.fantlab.author.AuthorResponse
 import org.odddev.fantlab.author.models.AuthorPseudonym
-import org.odddev.fantlab.author.models.AuthorStat
 
 @Dao
 abstract class AuthorPseudonymDao {
 
 	@Query("SELECT * FROM autor_pseudonyms WHERE autor_id = :authorId")
-	abstract fun getInBg(authorId: Int): Flowable<AuthorPseudonym>
+	abstract fun getAsFlowable(authorId: Int): Flowable<AuthorPseudonym>
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	abstract fun upsert(authorPseudonyms: Collection<AuthorPseudonym>)
