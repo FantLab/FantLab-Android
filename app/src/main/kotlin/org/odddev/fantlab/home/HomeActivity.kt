@@ -101,4 +101,12 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 	override fun showBiography(bio: String) {
 		FragmentUtils.replaceFragment(this, R.id.container, BiographyFragment(bio), true)
 	}
+
+	override fun openWork(id: Int, name: String) {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
+
+	override fun openEdition(id: Int, name: String) {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
 }

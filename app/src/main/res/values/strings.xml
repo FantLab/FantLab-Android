@@ -95,4 +95,7 @@
 	</string-array>
 	<string name="author_bio_notes">Примечание к биографии:</string>
 
+	<!-- Search screen -->
+	<string name="search_toolbar_title">Поиск</string>
+
 </resources>

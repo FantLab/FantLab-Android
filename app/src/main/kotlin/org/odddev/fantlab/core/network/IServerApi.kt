@@ -2,11 +2,11 @@ package org.odddev.fantlab.core.network
 
 import io.reactivex.Flowable
 import io.reactivex.Observable
-import io.reactivex.Single
 import okhttp3.ResponseBody
 import org.odddev.fantlab.author.AuthorResponse
 import org.odddev.fantlab.authors.AuthorsResponse
 import org.odddev.fantlab.award.Award
+import org.odddev.fantlab.search.SearchResult
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -87,8 +87,7 @@ interface IServerApi {
 				   @Query("include_works") includeWorks: Int): Observable<Unit>
 
 	@GET("/searchmain")
-	fun search(@Query("searchstr") query: String,
-			   @Query("page") page: Int): Observable<Unit>
+	fun search(@Query("searchstr") query: String): Flowable<SearchResult>
 
 	// type = authors/works/editions/films/articles/persons/awards
 	@GET("/search-{type}.json")

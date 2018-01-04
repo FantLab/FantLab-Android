@@ -30,13 +30,13 @@
 			android:id="@+id/nav_awards"
 			android:icon="@drawable/ic_insert_chart_black_24dp"
 			android:title="@string/authorsards"
-			/>
+			/>-->
 
 		<item
 			android:id="@+id/nav_search"
 			android:icon="@drawable/ic_search_black_24dp"
 			android:title="@string/nav.search"
-			/>-->
+			/>
 
 	</group>
 
