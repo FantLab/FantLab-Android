@@ -26,9 +26,17 @@ class SearchFragment : MvpAppCompatFragment(), ISearchView, ISearchActions {
 		context as IActionsHandler
 	}
 
-	/*private val adapter: AuthorsAdapter by lazy {
-		AuthorsAdapter(this)
-	}*/
+	private val authorResultsAdapter: AuthorResultsAdapter by lazy {
+		AuthorResultsAdapter(this)
+	}
+
+	private val workResultsAdapter: WorkResultsAdapter by lazy {
+		WorkResultsAdapter(this)
+	}
+
+	private val editionResultsAdapter: EditionResultsAdapter by lazy {
+		EditionResultsAdapter(this)
+	}
 
 	@InjectPresenter
 	lateinit var presenter: SearchPresenter
@@ -83,11 +91,11 @@ class SearchFragment : MvpAppCompatFragment(), ISearchView, ISearchActions {
 	}
 
 	private fun initRecyclerViews() {
-		binding.authorResults.adapter = AuthorResultsAdapter(this)
+		binding.authorResults.adapter = authorResultsAdapter
 		ViewCompat.setNestedScrollingEnabled(binding.authorResults, false)
-		binding.workResults.adapter = WorkResultsAdapter(this)
+		binding.workResults.adapter = workResultsAdapter
 		ViewCompat.setNestedScrollingEnabled(binding.workResults, false)
-		binding.editionResults.adapter = EditionResultsAdapter(this)
+		binding.editionResults.adapter = editionResultsAdapter
 		ViewCompat.setNestedScrollingEnabled(binding.editionResults, false)
 	}
 
@@ -96,8 +104,7 @@ class SearchFragment : MvpAppCompatFragment(), ISearchView, ISearchActions {
 		binding.authorResults.visibility =
 				if (results.authorsSearchResult.authorsSearchResult.isNotEmpty()) View.VISIBLE
 				else View.GONE
-		(binding.authorResults.adapter as AuthorResultsAdapter)
-				.setAuthors(results.authorsSearchResult.authorsSearchResult)
+		authorResultsAdapter.setAuthors(results.authorsSearchResult.authorsSearchResult)
 		binding.allAuthorResults.visibility =
 				if (results.authorsSearchResult.total > 10) View.VISIBLE
 				else View.GONE
@@ -105,8 +112,7 @@ class SearchFragment : MvpAppCompatFragment(), ISearchView, ISearchActions {
 		binding.workResults.visibility =
 				if (results.worksSearchResult.worksSearchResult.isNotEmpty()) View.VISIBLE
 				else View.GONE
-		(binding.workResults.adapter as WorkResultsAdapter)
-				.setWorks(results.worksSearchResult.worksSearchResult)
+		workResultsAdapter.setWorks(results.worksSearchResult.worksSearchResult)
 		binding.allWorkResults.visibility =
 				if (results.worksSearchResult.total > 10) View.VISIBLE
 				else View.GONE
@@ -114,8 +120,7 @@ class SearchFragment : MvpAppCompatFragment(), ISearchView, ISearchActions {
 		binding.editionResults.visibility =
 				if (results.editionsSearchResult.editionsSearchResult.isNotEmpty()) View.VISIBLE
 				else View.GONE
-		(binding.editionResults.adapter as EditionResultsAdapter)
-				.setEditions(results.editionsSearchResult.editionsSearchResult)
+		editionResultsAdapter.setEditions(results.editionsSearchResult.editionsSearchResult)
 		binding.allEditionResults.visibility =
 				if (results.editionsSearchResult.total > 10) View.VISIBLE
 				else View.GONE
