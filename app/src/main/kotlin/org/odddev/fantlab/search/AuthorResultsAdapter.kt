@@ -10,14 +10,15 @@ import org.odddev.fantlab.R
 import org.odddev.fantlab.core.utils.CircleTransform
 import org.odddev.fantlab.databinding.SearchAuthorItemBinding
 
-class ResultsAdapter(val handler: ISearchActions?) : RecyclerView.Adapter<ResultsAdapter.AuthorViewHolder>() {
+class AuthorResultsAdapter(val handler: ISearchActions?)
+	: RecyclerView.Adapter<AuthorResultsAdapter.AuthorViewHolder>() {
 
 	private var items: ArrayList<AuthorSearchResult> = ArrayList()
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
 			AuthorViewHolder(SearchAuthorItemBinding.inflate(LayoutInflater.from(parent.context)))
 
-	override fun onBindViewHolder(holder: ResultsAdapter.AuthorViewHolder, position: Int) {
+	override fun onBindViewHolder(holder: AuthorResultsAdapter.AuthorViewHolder, position: Int) {
 		val context = holder.binding.root.context
 		val author = items[position]
 
@@ -37,8 +38,8 @@ class ResultsAdapter(val handler: ISearchActions?) : RecyclerView.Adapter<Result
 
 		holder.binding.pseudonyms.text = author.pseudoNames
 		holder.binding.pseudonyms.visibility =
-				if (holder.binding.pseudonyms.text.isEmpty()) View.GONE
-				else View.VISIBLE
+				if (holder.binding.pseudonyms.text.isNotEmpty()) View.VISIBLE
+				else View.GONE
 
 		val info = StringBuilder()
 		if (author.country.isNotEmpty()) {
@@ -59,8 +60,8 @@ class ResultsAdapter(val handler: ISearchActions?) : RecyclerView.Adapter<Result
 		}
 		holder.binding.info.text = info.toString()
 		holder.binding.info.visibility =
-				if (holder.binding.info.text.isEmpty()) View.GONE
-				else View.VISIBLE
+				if (holder.binding.info.text.isNotEmpty()) View.VISIBLE
+				else View.GONE
 
 		val stat = StringBuilder()
 		if (author.responseCount != 0) {
@@ -80,8 +81,8 @@ class ResultsAdapter(val handler: ISearchActions?) : RecyclerView.Adapter<Result
 		}
 		holder.binding.stat.text = stat.toString()
 		holder.binding.stat.visibility =
-				if (holder.binding.stat.text.isEmpty()) View.GONE
-				else View.VISIBLE
+				if (holder.binding.stat.text.isNotEmpty()) View.VISIBLE
+				else View.GONE
 
 		Glide.with(context)
 				.load("https://fantlab.ru/images/autors/${author.authorId}")

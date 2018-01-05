@@ -6,7 +6,7 @@
 	>
 
 	<LinearLayout
-		android:id="@+id/author"
+		android:id="@+id/work"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:background="?android:attr/selectableItemBackground"
@@ -18,7 +18,7 @@
 		>
 
 		<ImageView
-			android:id="@+id/avatar"
+			android:id="@+id/cover"
 			android:layout_width="@dimen/recycler_item_image_size"
 			android:layout_height="@dimen/recycler_item_image_size"
 			android:layout_gravity="top"
@@ -29,11 +29,22 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center_vertical"
 			android:orientation="vertical"
 			android:paddingLeft="@dimen/spacing_medium"
 			tools:ignore="RtlHardcoded,RtlSymmetry"
 			>
+
+			<TextView
+				android:id="@+id/author"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:ellipsize="end"
+				android:maxLines="1"
+				android:textColor="@color/black"
+				android:textSize="@dimen/text_medium"
+				app:font="@{@string/roboto_regular}"
+				tools:text="Эдмонд Гамильтон"
+				/>
 
 			<TextView
 				android:id="@+id/name"
@@ -44,11 +55,11 @@
 				android:textColor="@color/black"
 				android:textSize="@dimen/text_medium"
 				app:font="@{@string/roboto_regular}"
-				tools:text="Эдмонд Гамильтон / Edmond Hamilton"
+				tools:text="Звёздные короли / Star Kings"
 				/>
 
 			<TextView
-				android:id="@+id/pseudonyms"
+				android:id="@+id/alt_names"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:ellipsize="end"
@@ -56,7 +67,7 @@
 				android:textSize="@dimen/text_medial"
 				app:font="@{@string/roboto_regular}"
 				tools:ignore="RtlHardcoded"
-				tools:text="Хью Дэвидсон, Hugh Davidson, Брэтт Стерлинг, Brett Sterling"
+				tools:text="Битва Империи; Последняя битва; Beyond the Moon"
 				/>
 
 			<TextView
@@ -69,20 +80,7 @@
 				android:textSize="@dimen/text_medial"
 				app:font="@{@string/roboto_regular}"
 				tools:ignore="RtlHardcoded"
-				tools:text="США, 1904 - 1977"
-				/>
-
-			<TextView
-				android:id="@+id/stat"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:ellipsize="end"
-				android:maxLines="1"
-				android:textColor="@color/black"
-				android:textSize="@dimen/text_medial"
-				app:font="@{@string/roboto_regular}"
-				tools:ignore="RtlHardcoded"
-				tools:text="отзывов: 418, изданий: 311"
+				tools:text="1947, роман"
 				/>
 
 		</LinearLayout>

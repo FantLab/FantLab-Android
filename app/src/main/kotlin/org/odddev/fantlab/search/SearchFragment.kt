@@ -3,6 +3,7 @@ package org.odddev.fantlab.search
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
+import android.support.v4.view.ViewCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -84,35 +85,41 @@ class SearchFragment : MvpAppCompatFragment(), ISearchView, ISearchActions {
 
 	private fun initRecyclerViews() {
 		binding.authorResults.layoutManager = LinearLayoutManager(context)
-		binding.authorResults.adapter = ResultsAdapter(this)
+		binding.authorResults.adapter = AuthorResultsAdapter(this)
+		ViewCompat.setNestedScrollingEnabled(binding.authorResults, false)
 		binding.workResults.layoutManager = LinearLayoutManager(context)
+		binding.workResults.adapter = WorkResultsAdapter(this)
+		ViewCompat.setNestedScrollingEnabled(binding.workResults, false)
 		binding.editionResults.layoutManager = LinearLayoutManager(context)
+		ViewCompat.setNestedScrollingEnabled(binding.editionResults, false)
 	}
 
 	override fun showResults(results: SearchResult) {
 		binding.progress.visibility = View.GONE
 		binding.authorResults.visibility =
-				if (results.authorsSearchResult.authorsSearchResult.isEmpty()) View.GONE
-				else View.VISIBLE
-		(binding.authorResults.adapter as ResultsAdapter)
+				if (results.authorsSearchResult.authorsSearchResult.isNotEmpty()) View.VISIBLE
+				else View.GONE
+		(binding.authorResults.adapter as AuthorResultsAdapter)
 				.setAuthors(results.authorsSearchResult.authorsSearchResult)
 		binding.allAuthorResults.visibility =
-				if (results.authorsSearchResult.total <= 10) View.GONE
-				else View.VISIBLE
+				if (results.authorsSearchResult.total > 10) View.VISIBLE
+				else View.GONE
 
 		binding.workResults.visibility =
-				if (results.worksSearchResult.worksSearchResult.isEmpty()) View.GONE
-				else View.VISIBLE
+				if (results.worksSearchResult.worksSearchResult.isNotEmpty()) View.VISIBLE
+				else View.GONE
+		(binding.workResults.adapter as WorkResultsAdapter)
+				.setWorks(results.worksSearchResult.worksSearchResult)
 		binding.allWorkResults.visibility =
-				if (results.worksSearchResult.total <= 10) View.GONE
-				else View.VISIBLE
+				if (results.worksSearchResult.total > 10) View.VISIBLE
+				else View.GONE
 
 		binding.editionResults.visibility =
-				if (results.editionsSearchResult.editionsSearchResult.isEmpty()) View.GONE
-				else View.VISIBLE
+				if (results.editionsSearchResult.editionsSearchResult.isNotEmpty()) View.VISIBLE
+				else View.GONE
 		binding.allEditionResults.visibility =
-				if (results.editionsSearchResult.total <= 10) View.GONE
-				else View.VISIBLE
+				if (results.editionsSearchResult.total > 10) View.VISIBLE
+				else View.GONE
 	}
 
 	override fun showError(message: String) {

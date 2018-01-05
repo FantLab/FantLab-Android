@@ -25,5 +25,6 @@ data class WorkSearchResult(
 		val workType: String,
 		val rusName: String,
 		val workId: Int,
-		val year: Int
+		val year: Int,
+		val coverEditionId: Int
 )
