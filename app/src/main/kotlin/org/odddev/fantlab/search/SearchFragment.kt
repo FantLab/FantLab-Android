@@ -83,13 +83,10 @@ class SearchFragment : MvpAppCompatFragment(), ISearchView, ISearchActions {
 	}
 
 	private fun initRecyclerViews() {
-		//binding.authorResults.layoutManager = LinearLayoutManager(context)
 		binding.authorResults.adapter = AuthorResultsAdapter(this)
 		ViewCompat.setNestedScrollingEnabled(binding.authorResults, false)
-		//binding.workResults.layoutManager = LinearLayoutManager(context)
 		binding.workResults.adapter = WorkResultsAdapter(this)
 		ViewCompat.setNestedScrollingEnabled(binding.workResults, false)
-		//binding.editionResults.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 		binding.editionResults.adapter = EditionResultsAdapter(this)
 		ViewCompat.setNestedScrollingEnabled(binding.editionResults, false)
 	}
