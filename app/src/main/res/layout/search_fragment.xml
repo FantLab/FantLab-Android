@@ -70,6 +70,7 @@
 					android:id="@+id/author_results"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					app:layoutManager="android.support.v7.widget.LinearLayoutManager"
 					tools:itemCount="1"
 					tools:listitem="@layout/search_author_item"
 					/>
@@ -87,6 +88,7 @@
 					android:id="@+id/work_results"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					app:layoutManager="android.support.v7.widget.LinearLayoutManager"
 					tools:itemCount="1"
 					tools:listitem="@layout/search_work_item"
 					/>
@@ -104,6 +106,10 @@
 					android:id="@+id/edition_results"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					tools:listitem="@layout/search_edition_item"
+					tools:itemCount="4"
+					android:orientation="horizontal"
+					app:layoutManager="android.support.v7.widget.LinearLayoutManager"
 					/>
 
 				<Button

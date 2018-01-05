@@ -6,7 +6,6 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -84,13 +83,14 @@ class SearchFragment : MvpAppCompatFragment(), ISearchView, ISearchActions {
 	}
 
 	private fun initRecyclerViews() {
-		binding.authorResults.layoutManager = LinearLayoutManager(context)
+		//binding.authorResults.layoutManager = LinearLayoutManager(context)
 		binding.authorResults.adapter = AuthorResultsAdapter(this)
 		ViewCompat.setNestedScrollingEnabled(binding.authorResults, false)
-		binding.workResults.layoutManager = LinearLayoutManager(context)
+		//binding.workResults.layoutManager = LinearLayoutManager(context)
 		binding.workResults.adapter = WorkResultsAdapter(this)
 		ViewCompat.setNestedScrollingEnabled(binding.workResults, false)
-		binding.editionResults.layoutManager = LinearLayoutManager(context)
+		//binding.editionResults.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+		binding.editionResults.adapter = EditionResultsAdapter(this)
 		ViewCompat.setNestedScrollingEnabled(binding.editionResults, false)
 	}
 
@@ -117,6 +117,8 @@ class SearchFragment : MvpAppCompatFragment(), ISearchView, ISearchActions {
 		binding.editionResults.visibility =
 				if (results.editionsSearchResult.editionsSearchResult.isNotEmpty()) View.VISIBLE
 				else View.GONE
+		(binding.editionResults.adapter as EditionResultsAdapter)
+				.setEditions(results.editionsSearchResult.editionsSearchResult)
 		binding.allEditionResults.visibility =
 				if (results.editionsSearchResult.total > 10) View.VISIBLE
 				else View.GONE
