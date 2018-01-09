@@ -4,20 +4,20 @@
 
 	<data>
 
-		<import type="org.odddev.fantlab.BuildConfig" />
+		<import type="ru.fantlab.android.BuildConfig" />
 
 		<import type="android.text.TextUtils" />
 
-		<import type="org.odddev.fantlab.core.utils.FormatUtilsKt" />
+		<import type="ru.fantlab.android.core.utils.FormatUtilsKt" />
 
 		<variable
 			name="work"
-			type="org.odddev.fantlab.author.AuthorFull.Work"
+			type="ru.fantlab.android.author.AuthorFull.Work"
 			/>
 
 		<variable
 			name="handler"
-			type="org.odddev.fantlab.author.IAuthorActions"
+			type="ru.fantlab.android.author.IAuthorActions"
 			/>
 
 	</data>

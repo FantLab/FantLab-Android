@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	package="org.odddev.fantlab"
+	package="ru.fantlab.android"
 	>
 
 	<uses-permission android:name="android.permission.INTERNET" />
 
 	<application
-		android:name=".core.FantlabApplication"
+		android:name="ru.fantlab.android.core.FantlabApplication"
 		android:allowBackup="true"
 		android:fullBackupContent="@xml/backup_scheme"
 		android:icon="@mipmap/ic_launcher"
@@ -17,7 +17,7 @@
 		>
 
 		<activity
-			android:name=".launch.LaunchActivity"
+			android:name="ru.fantlab.android.launch.LaunchActivity"
 			android:screenOrientation="portrait"
 			android:theme="@style/AppTheme.Launch"
 			>
@@ -27,11 +27,11 @@
 			</intent-filter>
 		</activity>
 		<activity
-			android:name=".auth.AuthActivity"
+			android:name="ru.fantlab.android.auth.AuthActivity"
 			android:screenOrientation="portrait"
 			/>
 		<activity
-			android:name=".home.HomeActivity"
+			android:name="ru.fantlab.android.home.HomeActivity"
 			android:screenOrientation="portrait"
 			/>
 
