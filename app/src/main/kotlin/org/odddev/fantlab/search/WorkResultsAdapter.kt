@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import org.odddev.fantlab.R
-import org.odddev.fantlab.core.utils.CircleTransform
 import org.odddev.fantlab.databinding.SearchWorkItemBinding
 
 class WorkResultsAdapter(val handler: ISearchActions?)
@@ -63,7 +62,6 @@ class WorkResultsAdapter(val handler: ISearchActions?)
 				.load("https://fantlab.ru/images/editions/big/${work.coverEditionId}")
 				.placeholder(ContextCompat.getDrawable(context, R.drawable.not_found))
 				.error(ContextCompat.getDrawable(context, R.drawable.not_found))
-				.transform(CircleTransform(context))
 				.into(holder.binding.cover)
 	}
 

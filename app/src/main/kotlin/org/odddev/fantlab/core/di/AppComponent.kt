@@ -13,6 +13,8 @@ import org.odddev.fantlab.core.network.HeaderInterceptor
 import org.odddev.fantlab.core.network.NetworkChecker
 import org.odddev.fantlab.core.network.NetworkModule
 import org.odddev.fantlab.core.storage.StorageModule
+import org.odddev.fantlab.edition.EditionPresenter
+import org.odddev.fantlab.edition.EditionProvider
 import org.odddev.fantlab.home.HomePresenter
 import org.odddev.fantlab.home.HomeProvider
 import org.odddev.fantlab.launch.LaunchActivity
@@ -59,4 +61,8 @@ interface AppComponent {
 	fun inject(searchProvider: SearchProvider)
 
 	fun inject(searchPresenter: SearchPresenter)
+
+	fun inject(editionPresenter: EditionPresenter)
+
+	fun inject(editionProvider: EditionProvider)
 }

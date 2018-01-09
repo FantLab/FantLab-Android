@@ -10,6 +10,8 @@ import org.odddev.fantlab.authors.AuthorsProvider
 import org.odddev.fantlab.authors.IAuthorsProvider
 import org.odddev.fantlab.award.AwardsProvider
 import org.odddev.fantlab.award.IAwardsProvider
+import org.odddev.fantlab.edition.EditionProvider
+import org.odddev.fantlab.edition.IEditionProvider
 import org.odddev.fantlab.home.HomeProvider
 import org.odddev.fantlab.home.IHomeProvider
 import org.odddev.fantlab.search.ISearchProvider
@@ -35,4 +37,7 @@ class ProvidersModule {
 
 	@Provides
 	fun provideSearchProvider(): ISearchProvider = SearchProvider()
+
+	@Provides
+	fun provideEditionProvider(): IEditionProvider = EditionProvider()
 }

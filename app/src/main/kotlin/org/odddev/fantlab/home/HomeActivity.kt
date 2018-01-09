@@ -3,6 +3,7 @@ package org.odddev.fantlab.home
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
+import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import org.odddev.fantlab.R
@@ -107,6 +108,7 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 	}
 
 	override fun openEdition(id: Int, name: String) {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		// todo открыть экран издания
+		Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
 	}
 }
