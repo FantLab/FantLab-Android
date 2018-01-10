@@ -3,5 +3,9 @@
 
 	<string name="app_name" translatable="false">Fantlab</string>
 	<string name="app_name_full" translatable="false">Fantlab for Android</string>
+	<string name="light_theme_mode" translatable="false">Light Theme</string>
+	<string name="dark_theme_mode" translatable="false">Dark Theme</string>
 
+	<string name="in_progress">Loading, please wait…</string>
+	<string name="error">Error</string>
 </resources>
