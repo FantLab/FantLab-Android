@@ -6,7 +6,7 @@
 
 	<data>
 
-		<import type="ru.fantlab.android.old.auth.AuthValidator" />
+		<import type="ru.fantlab.android.ui.auth.AuthValidator" />
 
 		<variable
 			name="authValidator"
@@ -83,7 +83,6 @@
 						android:hint="@string/auth.username.input"
 						android:inputType="text"
 						android:maxLength="16"
-						android:text="@={authValidator.fields[AuthValidator.USERNAME]}"
 						/>
 
 				</android.support.design.widget.TextInputLayout>
@@ -106,7 +105,6 @@
 						android:layout_height="wrap_content"
 						android:hint="@string/auth.password.input"
 						android:inputType="textPassword"
-						android:text="@={authValidator.fields[AuthValidator.PASSWORD]}"
 						/>
 
 				</android.support.design.widget.TextInputLayout>

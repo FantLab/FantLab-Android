@@ -1,0 +1,28 @@
+<resources>
+
+	<!-- Text sizes -->
+	<dimen name="text_normal">12sp</dimen>
+	<dimen name="text_medial">14sp</dimen>
+	<dimen name="text_medium">16sp</dimen>
+	<dimen name="text_big">20sp</dimen>
+
+	<!-- Spacings -->
+	<dimen name="spacing_void">0dp</dimen>
+	<dimen name="spacing_tiny">4dp</dimen>
+	<dimen name="spacing_small">8dp</dimen>
+	<dimen name="spacing_medial">12dp</dimen>
+	<dimen name="spacing_medium">16dp</dimen>
+	<dimen name="spacing_big">24dp</dimen>
+	<dimen name="spacing_large">72dp</dimen>
+
+	<!-- Others -->
+	<dimen name="rounded_button_radius">4dp</dimen>
+	<dimen name="nav_drawer_width">280dp</dimen>
+	<dimen name="nav_drawer_header_height">164dp</dimen>
+	<dimen name="avatar_size">64dp</dimen>
+	<dimen name="recycler_item_image_size">56dp</dimen>
+	<dimen name="long_button_corner">2dp</dimen>
+	<dimen name="cardview_margin">-2dp</dimen>
+	<dimen name="auth_cardview_width">280dp</dimen>
+
+</resources>

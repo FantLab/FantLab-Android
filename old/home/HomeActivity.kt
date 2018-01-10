@@ -7,11 +7,11 @@ import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import ru.fantlab.android.R
+import ru.fantlab.android.databinding.HomeActivityBinding
+import ru.fantlab.android.databinding.NavDrawerHeaderBinding
 import ru.fantlab.android.old.author.AuthorFragment
 import ru.fantlab.android.old.biography.BiographyFragment
 import ru.fantlab.android.old.core.utils.FragmentUtils
-import ru.fantlab.android.databinding.HomeActivityBinding
-import ru.fantlab.android.databinding.NavDrawerHeaderBinding
 
 class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 
@@ -28,7 +28,7 @@ class HomeActivity : MvpAppCompatActivity(), IHomeView, IActionsHandler {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
-		binding = DataBindingUtil.setContentView(this, R.layout.home_activity)
+		binding = DataBindingUtil.setContentView(this, R.layout.home_activity)!!
 
 		router = NavDrawerRouter(this, R.id.container)
 

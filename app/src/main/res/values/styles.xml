@@ -1,27 +1,3 @@
 <resources>
 
-	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-		<item name="colorPrimary">@color/color_primary</item>
-		<item name="colorPrimaryDark">@color/color_primary_dark</item>
-		<item name="colorAccent">@color/color_accent</item>
-	</style>
-
-	<style name="AppTheme.Launch">
-		<item name="android:windowBackground">@color/color_primary_dark</item>
-	</style>
-
-	<style name="AppTheme.NoActionBar">
-		<item name="windowActionBar">false</item>
-		<item name="windowNoTitle">true</item>
-	</style>
-
-	<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-	<style name="TextAppearance.Design.CollapsingToolbar.Expanded.Shadow">
-		<item name="android:shadowDy">0</item>
-		<item name="android:shadowDx">0</item>
-		<item name="android:shadowRadius">8</item>
-		<item name="android:shadowColor">@android:color/black</item>
-	</style>
-
 </resources>

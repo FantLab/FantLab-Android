@@ -5,6 +5,7 @@ import android.databinding.BindingConversion
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.view.View
 import android.widget.ImageView
@@ -31,6 +32,13 @@ object BindingUtils {
 			isErrorEnabled = error != null
 			this.error = error
 		}
+	}
+
+	// todo удалить
+	@BindingAdapter("text")
+	@JvmStatic
+	fun bindText(textInputEditText: TextInputEditText, text: String?) {
+		textInputEditText.setText(text)
 	}
 
 	// todo удалить

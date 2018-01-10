@@ -19,7 +19,7 @@ class AuthActivity : MvpAppCompatActivity(), IAuthView {
 	lateinit var presenter: AuthPresenter
 
 	private val binding: AuthActivityBinding by lazy {
-		DataBindingUtil.setContentView<AuthActivityBinding>(this, R.layout.auth_activity)
+		DataBindingUtil.setContentView<AuthActivityBinding>(this, R.layout.auth_activity)!!
 	}
 
 	private val authValidator: AuthValidator by lazy { AuthValidator(this) }
