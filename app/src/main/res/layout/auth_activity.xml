@@ -6,7 +6,7 @@
 
 	<data>
 
-		<import type="ru.fantlab.android.auth.AuthValidator" />
+		<import type="ru.fantlab.android.old.auth.AuthValidator" />
 
 		<variable
 			name="authValidator"

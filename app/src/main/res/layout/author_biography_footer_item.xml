@@ -9,7 +9,7 @@
 
 		<variable
 			name="handler"
-			type="ru.fantlab.android.author.IAuthorActions"
+			type="ru.fantlab.android.old.author.IAuthorActions"
 			/>
 
 	</data>

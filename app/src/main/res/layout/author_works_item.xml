@@ -8,16 +8,16 @@
 
 		<import type="android.text.TextUtils" />
 
-		<import type="ru.fantlab.android.core.utils.FormatUtilsKt" />
+		<import type="ru.fantlab.android.old.core.utils.FormatUtilsKt" />
 
 		<variable
 			name="work"
-			type="ru.fantlab.android.author.AuthorFull.Work"
+			type="ru.fantlab.android.old.author.AuthorFull.Work"
 			/>
 
 		<variable
 			name="handler"
-			type="ru.fantlab.android.author.IAuthorActions"
+			type="ru.fantlab.android.old.author.IAuthorActions"
 			/>
 
 	</data>

@@ -7,18 +7,18 @@
 
 	<data>
 
-		<import type="ru.fantlab.android.core.Const" />
+		<import type="ru.fantlab.android.old.core.Const" />
 
 		<import type="android.text.TextUtils" />
 
 		<variable
 			name="award"
-			type="ru.fantlab.android.author.AuthorFull.Award"
+			type="ru.fantlab.android.old.author.AuthorFull.Award"
 			/>
 
 		<variable
 			name="handler"
-			type="ru.fantlab.android.author.IAuthorActions"
+			type="ru.fantlab.android.old.author.IAuthorActions"
 			/>
 
 	</data>

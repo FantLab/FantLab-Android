@@ -7,13 +7,13 @@
 
 	<data>
 
-		<import type="ru.fantlab.android.core.Const" />
+		<import type="ru.fantlab.android.old.core.Const" />
 
 		<import type="android.text.TextUtils" />
 
 		<variable
 			name="award"
-			type="ru.fantlab.android.award.Award"
+			type="ru.fantlab.android.old.award.Award"
 			/>
 
 	</data>
