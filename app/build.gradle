@@ -84,6 +84,7 @@ dependencies {
 	implementation "com.android.support:design:${support_version}"
 	implementation "com.android.support:cardview-v7:${support_version}"
 	implementation "com.android.support:recyclerview-v7:${support_version}"
+	implementation "com.android.support:preference-v14:${support_version}"
 	implementation "net.grandcentrix.thirtyinch:thirtyinch:${thirtyinch_version}"
 	implementation "net.grandcentrix.thirtyinch:thirtyinch-rx2:${thirtyinch_version}"
 	implementation "com.squareup.retrofit2:retrofit:${retrofit_version}"
@@ -103,6 +104,8 @@ dependencies {
 	implementation "com.facebook.stetho:stetho:${stetho_version}"
 	implementation "com.facebook.stetho:stetho-okhttp3:${stetho_version}"
 	implementation "com.jakewharton.timber:timber:4.5.1"
+	implementation 'it.sephiroth.android.library.bottomnavigation:bottom-navigation:2.0.2'
+	implementation 'cn.gavinliu.android.lib:ShapedImageView:0.8.3'
 	kapt "com.evernote:android-state-processor:${state_version}"
 	kapt "com.jakewharton:butterknife-compiler:${butterKnife_version}"
 	kapt "io.requery:requery-processor:${requery_version}"

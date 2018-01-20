@@ -51,4 +51,12 @@ class ProgressDialogFragment : BaseDialogFragment<BaseMvp.View, BasePresenter<Ba
 	override fun providePresenter(): BasePresenter<BaseMvp.View> {
 		return BasePresenter()
 	}
+
+	override fun onMessageDialogActionClicked(isOk: Boolean, bundle: Bundle?) {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
+
+	override fun onDialogDismissed() {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
 }

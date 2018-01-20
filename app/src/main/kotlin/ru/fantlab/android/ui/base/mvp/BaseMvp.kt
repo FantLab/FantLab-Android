@@ -7,13 +7,14 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
 import net.grandcentrix.thirtyinch.TiView
 import net.grandcentrix.thirtyinch.callonmainthread.CallOnMainThread
+import ru.fantlab.android.ui.widgets.dialog.MessageDialogView
 
 /**
  * Created by Kosh on 25 May 2016, 9:09 PM
  */
 interface BaseMvp {
 
-	interface View : TiView {
+	interface View : TiView, MessageDialogView.MessageDialogViewActionCallback, OnScrollTopListener {
 
 		@CallOnMainThread
 		fun showProgress(@StringRes resId: Int, cancelable: Boolean = true)
@@ -41,8 +42,6 @@ interface BaseMvp {
 		fun onOpenSettings()
 
 		fun onOpenUrlInBrowser()
-
-		fun onScrollTop(index: Int)
 	}
 
 	interface Presenter {
@@ -77,5 +76,10 @@ interface BaseMvp {
 		fun setPreviousTotal(previousTotal: Int)
 
 		fun onCallApi(page: Int, parameter: P?): Boolean
+	}
+
+	interface OnScrollTopListener {
+
+		fun onScrollTop(index: Int)
 	}
 }

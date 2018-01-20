@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:visibility="visible"
+	>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:layout_marginBottom="?actionBarSize"
+		android:gravity="center"
+		android:minHeight="250dp"
+		android:orientation="vertical"
+		>
+
+		<ru.fantlab.android.ui.widgets.FontTextView
+			android:id="@+id/empty_text"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:autoLink="all"
+			android:gravity="center"
+			android:padding="@dimen/spacing_xs_large"
+			android:text="@string/no_data"
+			android:textColor="?colorAccent"
+			style="@style/TextAppearance.AppCompat.Medium"
+			/>
+
+		<ru.fantlab.android.ui.widgets.FontButton
+			android:id="@+id/reload"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/spacing_xs_large"
+			android:gravity="center"
+			android:text="@string/reload"
+			android:textAppearance="@style/TextAppearance.AppCompat.Title"
+			android:textColor="@color/material_amber_800"
+			style="@style/Widget.AppCompat.Button.Borderless.Colored"
+			/>
+
+	</LinearLayout>
+
+</merge>
