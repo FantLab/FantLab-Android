@@ -8,7 +8,7 @@ branches:
 
 before_install:
   - chmod +x gradlew
-  -  yes | sdkmanager --licenses
+  -  yes | sdkmanager
 
 licenses:
   - android-sdk-license-.+
