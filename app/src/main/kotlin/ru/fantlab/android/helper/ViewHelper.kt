@@ -1,6 +1,8 @@
 package ru.fantlab.android.helper
 
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
@@ -45,5 +47,13 @@ object ViewHelper {
 
 	fun toPx(context: Context, dp: Int): Int {
 		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, dp.toFloat(), context.resources.displayMetrics).toInt()
+	}
+
+	private fun isTablet(resources: Resources): Boolean {
+		return resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
+	}
+
+	fun isTablet(context: Context?): Boolean {
+		return context != null && isTablet(context.resources)
 	}
 }

@@ -28,15 +28,27 @@
 	<string name="deep_orange_theme_mode" translatable="false">Deep Orange</string>
 
 	<string name="in_progress">Loading, please wait…</string>
+	<string name="cancel">Cancel</string>
+	<string name="ok">OK</string>
 	<string name="error">Error</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
 	<string name="no_data">No data available</string>
 	<string name="reload">Reload</string>
 	<string name="press_again_to_exit">Press once again to exit</string>
 	<string name="logout">Logout</string>
+	<string name="confirm_message">Are you sure?</string>
 	<string name="home">Home</string>
 	<string name="profile">Profile</string>
 	<string name="news">News</string>
 	<string name="forum">Forum</string>
 	<string name="blogs">Blogs</string>
+	<string name="unauthorized_user">Unauthorized user</string>
+	<string name="sign_in_to_fantlab">Sign in using your Fantlab account</string>
+	<string name="username">Username</string>
+	<string name="password">Password</string>
+	<string name="or_character">OR</string>
+	<string name="proceed_without_login">Proceed without login</string>
+	<string name="required_field">Required field</string>
 
 </resources>

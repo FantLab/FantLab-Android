@@ -21,17 +21,22 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.Optional
+import com.bumptech.glide.Glide
 import com.evernote.android.state.State
 import com.evernote.android.state.StateSaver
 import es.dmoral.toasty.Toasty
+import io.reactivex.Observable
 import net.grandcentrix.thirtyinch.TiActivity
 import ru.fantlab.android.App
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.model.AbstractLogin
 import ru.fantlab.android.helper.*
 import ru.fantlab.android.provider.theme.ThemeEngine
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
+import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.modules.main.MainActivity
+import ru.fantlab.android.ui.widgets.dialog.MessageDialogView
 import ru.fantlab.android.ui.widgets.dialog.ProgressDialogFragment
 import java.util.*
 
@@ -229,16 +234,35 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	override fun isLoggedIn(): Boolean {
-		// todo вставить реальную проверку
-		return false
+		return AbstractLogin.getUser() != null
 	}
 
 	override fun onRequireLogin() {
-		// todo реализовать
+		Toasty.warning(App.instance, getString(R.string.unauthorized_user), Toast.LENGTH_LONG).show()
+		val glide = Glide.get(App.instance)
+		presenter.manageViewDisposable(Observable.fromCallable<Any> {
+			glide.clearDiskCache()
+			PrefGetter.setToken(null)
+			AbstractLogin.logout()
+			true
+		}.observe().subscribe({
+			glide.clearMemory()
+			val intent = Intent(this, LoginActivity::class.java)
+			intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+			startActivity(intent)
+			finishAffinity()
+		}))
 	}
 
 	override fun onLogoutPressed() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		MessageDialogView.newInstance(
+				bundleTitle = getString(R.string.logout),
+				bundleMsg = getString(R.string.confirm_message),
+				bundle = Bundler.start()
+						.put(BundleConstant.YES_NO_EXTRA, true)
+						.put("logout", true)
+						.end()
+		).show(supportFragmentManager, MessageDialogView.TAG)
 	}
 
 	override fun onThemeChanged() {
@@ -311,11 +335,11 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 			setSupportActionBar(it)
 			if (canBack()) {
 				val supportActionBar = supportActionBar
-				if (supportActionBar != null) {
-					supportActionBar.setHomeAsUpIndicator(R.drawable.ic_back)
-					supportActionBar.setDisplayHomeAsUpEnabled(true)
+				supportActionBar?.let {
+					it.setHomeAsUpIndicator(R.drawable.ic_back)
+					it.setDisplayHomeAsUpEnabled(true)
 					if (canBack()) {
-						getToolbarNavigationIcon(it)?.setOnLongClickListener({
+						getToolbarNavigationIcon(toolbar)?.setOnLongClickListener({
 							val intent = Intent(this, MainActivity::class.java)
 							startActivity(intent)
 							finish()

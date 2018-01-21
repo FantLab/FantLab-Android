@@ -12,9 +12,8 @@ class App : Application() {
 
 	companion object {
 		lateinit var instance: App
+		lateinit var dataStore: ReactiveEntityStore<Persistable>
 	}
-
-	private lateinit var dataStore: ReactiveEntityStore<Persistable>
 
 	override fun onCreate() {
 		super.onCreate()

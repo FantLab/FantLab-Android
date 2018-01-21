@@ -32,9 +32,14 @@ object PrefGetter {
 		DEEP_ORANGE
 	}
 
+	private val TOKEN = "token"
 	private val WHATS_NEW_VERSION = "whats_new"
 	private val APP_LANGUAGE = "app_language"
 	private val NAV_DRAWER_GUIDE = "nav_drawer_guide"
+
+	fun setToken(token: String?) {
+		PrefHelper[TOKEN] = token
+	}
 
 	fun getThemeType(): ThemeType {
 		return getThemeType(App.instance.resources)

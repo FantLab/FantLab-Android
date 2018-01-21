@@ -50,7 +50,7 @@ class Bundler {
 		return this
 	}
 
-	fun put(key: String, value: Bundle): Bundler {
+	fun put(key: String, value: Bundle?): Bundler {
 		bundle.putBundle(key, value)
 		return this
 	}
