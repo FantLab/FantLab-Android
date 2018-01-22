@@ -234,7 +234,9 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	override fun isLoggedIn(): Boolean {
-		return AbstractLogin.getUser() != null
+		return PrefGetter.getToken() != null
+		// todo убрать первую строку и раскомментировать вторую после появления инфы об юзере
+		//return AbstractLogin.getUser() != null
 	}
 
 	override fun onRequireLogin() {

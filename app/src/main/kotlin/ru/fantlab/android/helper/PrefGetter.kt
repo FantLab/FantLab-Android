@@ -41,6 +41,10 @@ object PrefGetter {
 		PrefHelper[TOKEN] = token
 	}
 
+	fun getToken(): String? {
+		return PrefHelper.getString(TOKEN)
+	}
+
 	fun getThemeType(): ThemeType {
 		return getThemeType(App.instance.resources)
 	}

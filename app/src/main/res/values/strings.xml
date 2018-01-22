@@ -50,5 +50,6 @@
 	<string name="or_character">OR</string>
 	<string name="proceed_without_login">Proceed without login</string>
 	<string name="required_field">Required field</string>
+	<string name="failed_login">Sign in failed</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package ru.fantlab.android.helper
 
+import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.app.Dialog
@@ -8,12 +9,64 @@ import android.support.v4.app.DialogFragment
 import android.support.v4.view.ViewCompat
 import android.view.View
 import android.view.ViewAnimationUtils
+import android.view.ViewTreeObserver
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.LinearInterpolator
 import java.util.*
 
 object AnimHelper {
 
 	private val interpolator = LinearInterpolator()
+
+	@UiThread
+	fun animateVisibility(view: View?, show: Boolean, visibility: Int = View.GONE) {
+		if (view == null) {
+			return
+		}
+		if (!ViewCompat.isAttachedToWindow(view)) {
+			view.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+				override fun onPreDraw(): Boolean {
+					view.viewTreeObserver.removeOnPreDrawListener(this)
+					animateSafeVisibility(show, view, visibility)
+					return true
+				}
+			})
+		} else {
+			animateSafeVisibility(show, view, visibility)
+		}
+	}
+
+	@UiThread
+	private fun animateSafeVisibility(show: Boolean, view: View, visibility: Int) {
+		view.animate().cancel()
+		val animator = view.animate().setDuration(200).alpha(if (show) 1f else 0f).setInterpolator(AccelerateInterpolator())
+				.setListener(object : AnimatorListenerAdapter() {
+					override fun onAnimationStart(animation: Animator) {
+						super.onAnimationStart(animation)
+						if (show) {
+							with(view) {
+								scaleX = 1f
+								scaleY = 1f
+								this.visibility = View.VISIBLE
+							}
+						}
+					}
+
+					override fun onAnimationEnd(animation: Animator) {
+						super.onAnimationEnd(animation)
+						if (!show) {
+							with(view) {
+								this.visibility = visibility
+								scaleX = 0f
+								scaleY = 0f
+							}
+						}
+						animation.removeListener(this)
+						view.clearAnimation()
+					}
+				})
+		animator.scaleX((if (show) 1 else 0).toFloat()).scaleY((if (show) 1 else 0).toFloat())
+	}
 
 	@UiThread
 	fun revealDialog(dialog: Dialog, animDuration: Int) {

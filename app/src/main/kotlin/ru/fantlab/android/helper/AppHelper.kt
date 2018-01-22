@@ -5,9 +5,16 @@ import android.content.res.Resources
 import android.os.Build
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import java.util.*
 
 object AppHelper {
+
+	fun hideKeyboard(view: View?) {
+		val inputManager = view?.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+		inputManager?.hideSoftInputFromWindow(view.windowToken, 0)
+	}
 
 	fun getFragmentByTag(fragmentManager: FragmentManager, tag: String): Fragment = fragmentManager.findFragmentByTag(tag)
 

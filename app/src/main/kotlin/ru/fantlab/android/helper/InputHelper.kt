@@ -1,6 +1,8 @@
 package ru.fantlab.android.helper
 
+import android.support.design.widget.TextInputLayout
 import android.text.TextUtils
+import android.widget.EditText
 
 /**
  * Created by kosh20111 on 3/11/2015. CopyRights @
@@ -19,5 +21,13 @@ object InputHelper {
 
 	fun isEmpty(text: Any?): Boolean {
 		return text == null || isEmpty(text.toString())
+	}
+
+	fun toString(textInputLayout: TextInputLayout?): String {
+		return if (textInputLayout?.editText != null) toString(textInputLayout.editText) else ""
+	}
+
+	fun toString(editText: EditText?): String {
+		return editText?.text.toString()
 	}
 }
