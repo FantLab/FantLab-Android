@@ -41,8 +41,10 @@
 	<string name="home">Home</string>
 	<string name="profile">Profile</string>
 	<string name="news">News</string>
+	<string name="responses">Responses</string>
 	<string name="forum">Forum</string>
 	<string name="blogs">Blogs</string>
+	<string name="search">Search</string>
 	<string name="unauthorized_user">Unauthorized user</string>
 	<string name="sign_in_to_fantlab">Sign in using your Fantlab account</string>
 	<string name="username">Username</string>
