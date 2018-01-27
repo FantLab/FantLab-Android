@@ -20,29 +20,23 @@ import ru.fantlab.android.ui.base.BaseActivity
 
 class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.View {
 
-	@JvmField
 	@BindView(R.id.usernameEditText)
-	var usernameEditText: TextInputEditText? = null
+	lateinit var usernameEditText: TextInputEditText
 
-	@JvmField
 	@BindView(R.id.username)
-	var username: TextInputLayout? = null
+	lateinit var username: TextInputLayout
 
-	@JvmField
 	@BindView(R.id.passwordEditText)
-	var passwordEditText: TextInputEditText? = null
+	lateinit var passwordEditText: TextInputEditText
 
-	@JvmField
 	@BindView(R.id.password)
-	var password: TextInputLayout? = null
+	lateinit var password: TextInputLayout
 
-	@JvmField
 	@BindView(R.id.login)
-	var login: FloatingActionButton? = null
+	lateinit var login: FloatingActionButton
 
-	@JvmField
 	@BindView(R.id.progress)
-	var progress: ProgressBar? = null
+	lateinit var progress: ProgressBar
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		setTheme(R.style.LoginTheme)
@@ -71,11 +65,11 @@ class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.Vi
 	}
 
 	override fun onEmptyUserName(isEmpty: Boolean) {
-		username?.error = if (isEmpty) getString(R.string.required_field) else null
+		username.error = if (isEmpty) getString(R.string.required_field) else null
 	}
 
 	override fun onEmptyPassword(isEmpty: Boolean) {
-		password?.error = if (isEmpty) getString(R.string.required_field) else null
+		password.error = if (isEmpty) getString(R.string.required_field) else null
 	}
 
 	override fun onSuccessfullyLoggedIn() {
@@ -84,8 +78,8 @@ class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.Vi
 	}
 
 	override fun hideProgress() {
-		progress?.visibility = View.GONE
-		login?.show()
+		progress.visibility = View.GONE
+		login.show()
 	}
 
 	override fun showErrorMessage(msgRes: String) {
@@ -104,13 +98,13 @@ class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.Vi
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
-		login?.hide()
+		login.hide()
 		AppHelper.hideKeyboard(login)
 		AnimHelper.animateVisibility(progress, true)
 	}
 
 	private fun doLogin() {
-		if (progress?.visibility == View.GONE) {
+		if (progress.visibility == View.GONE) {
 			presenter.login(InputHelper.toString(username), InputHelper.toString(password))
 		}
 	}

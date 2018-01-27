@@ -23,19 +23,12 @@ import ru.fantlab.android.helper.PrefGetter
 
 class AvatarLayout : FrameLayout {
 
-	@JvmField
 	@BindView(R.id.avatar)
-	var avatar: ShapedImageView? = null
+	lateinit var avatar: ShapedImageView
 
 	private var login: String? = null
 	private var isOrg: Boolean = false
 	private var isEnterprise: Boolean = false
-
-	@OnClick(R.id.avatar)
-	internal fun onClick(view: View) {
-		if (InputHelper.isEmpty(login)) return
-		//UserPagerActivity.startActivity(view.context, login, isOrg, isEnterprise, -1)
-	}
 
 	constructor(context: Context) : super(context)
 
@@ -52,20 +45,26 @@ class AvatarLayout : FrameLayout {
 		ButterKnife.bind(this)
 		setBackground()
 		if (PrefGetter.isRectAvatar()) {
-			avatar?.setShape(ShapedImageView.SHAPE_MODE_ROUND_RECT, 15f)
+			avatar.setShape(ShapedImageView.SHAPE_MODE_ROUND_RECT, 15f)
 		}
+	}
+
+	@OnClick(R.id.avatar)
+	internal fun onClick(view: View) {
+		if (InputHelper.isEmpty(login)) return
+		//UserPagerActivity.startActivity(view.context, login, isOrg, isEnterprise, -1)
 	}
 
 	fun setUrl(url: String?, login: String?, isOrg: Boolean, isEnterprise: Boolean) {
 		this.login = login
 		this.isOrg = isOrg
 		this.isEnterprise = isEnterprise
-		avatar?.contentDescription = login
+		avatar.contentDescription = login
 		if (login != null) {
-			TooltipCompat.setTooltipText(avatar!!, login)
+			TooltipCompat.setTooltipText(avatar, login)
 		} else {
-			avatar?.setOnClickListener(null)
-			avatar?.setOnLongClickListener(null)
+			avatar.setOnClickListener(null)
+			avatar.setOnLongClickListener(null)
 		}
 		Glide.with(context)
 				.load(url)

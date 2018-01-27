@@ -26,21 +26,17 @@ open class MessageDialogView : BaseBottomSheetDialog() {
 		fun onDialogDismissed()
 	}
 
-	@JvmField
 	@BindView(R.id.title)
-	var title: FontTextView? = null
+	lateinit var title: FontTextView
 
-	@JvmField
 	@BindView(R.id.message)
-	var message: FontTextView? = null
+	lateinit var message: FontTextView
 
-	@JvmField
 	@BindView(R.id.cancel)
-	var cancel: FontButton? = null
+	lateinit var cancel: FontButton
 
-	@JvmField
 	@BindView(R.id.ok)
-	var ok: FontButton? = null
+	lateinit var ok: FontButton
 
 	private var callback: MessageDialogViewActionCallback? = null
 
@@ -74,12 +70,12 @@ open class MessageDialogView : BaseBottomSheetDialog() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		val bundle = arguments
-		title?.text = bundle?.getString("bundleTitle")
+		title.text = bundle?.getString("bundleTitle")
 		val msg = bundle?.getString("bundleMsg")
-		message?.text = msg
+		message.text = msg
 		bundle?.let {
 			val hideCancel = it.getBoolean("hideCancel")
-			if (hideCancel) cancel?.visibility = View.GONE
+			if (hideCancel) cancel.visibility = View.GONE
 			initButton(it)
 		}
 	}
@@ -89,20 +85,20 @@ open class MessageDialogView : BaseBottomSheetDialog() {
 		if (extra != null) {
 			val yesNo = extra.getBoolean(BundleConstant.YES_NO_EXTRA)
 			if (yesNo) {
-				ok?.setText(R.string.yes)
-				cancel?.setText(R.string.no)
+				ok.setText(R.string.yes)
+				cancel.setText(R.string.no)
 			} else {
 				val hideButtons = extra.getBoolean("hide_buttons")
 				val primaryExtra = extra.getString("primary_extra")
 				val secondaryExtra = extra.getString("secondary_extra")
 				if (hideButtons) {
-					ok?.visibility = View.GONE
-					cancel?.visibility = View.GONE
+					ok.visibility = View.GONE
+					cancel.visibility = View.GONE
 				} else if (!InputHelper.isEmpty(primaryExtra)) {
-					ok?.text = primaryExtra
-					if (!InputHelper.isEmpty(secondaryExtra)) cancel?.text = secondaryExtra
-					ok?.visibility = View.VISIBLE
-					cancel?.visibility = View.VISIBLE
+					ok.text = primaryExtra
+					if (!InputHelper.isEmpty(secondaryExtra)) cancel.text = secondaryExtra
+					ok.visibility = View.VISIBLE
+					cancel.visibility = View.VISIBLE
 				}
 			}
 		}

@@ -18,15 +18,11 @@ import ru.fantlab.android.R
  */
 open class StateLayout : NestedScrollView {
 
-	private var onReloadListener: View.OnClickListener? = null
-
-	@JvmField
 	@BindView(R.id.empty_text)
-	var emptyText: FontTextView? = null
+	lateinit var emptyText: FontTextView
 
-	@JvmField
 	@BindView(R.id.reload)
-	var reload: FontButton? = null
+	lateinit var reload: FontButton
 
 	@State
 	var layoutState = HIDDEN
@@ -37,10 +33,7 @@ open class StateLayout : NestedScrollView {
 	@State
 	var showReload = true
 
-	@OnClick(R.id.reload)
-	internal fun onReload() {
-		onReloadListener?.onClick(reload)
-	}
+	private var onReloadListener: View.OnClickListener? = null
 
 	constructor(context: Context) : super(context)
 
@@ -48,24 +41,29 @@ open class StateLayout : NestedScrollView {
 
 	constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
+	@OnClick(R.id.reload)
+	internal fun onReload() {
+		onReloadListener?.onClick(reload)
+	}
+
 	fun showProgress() {
 		layoutState = SHOW_PROGRESS_STATE
 		visibility = View.VISIBLE
-		emptyText?.visibility = View.GONE
-		reload?.visibility = View.GONE
+		emptyText.visibility = View.GONE
+		reload.visibility = View.GONE
 	}
 
 	fun hideProgress() {
 		layoutState = HIDE_PROGRESS_STATE
-		emptyText?.visibility = View.VISIBLE
-		reload?.visibility = View.VISIBLE
+		emptyText.visibility = View.VISIBLE
+		reload.visibility = View.VISIBLE
 		visibility = View.GONE
 	}
 
 	fun hideReload() {
 		layoutState = HIDE_RELOAD_STATE
-		reload?.visibility = View.GONE
-		emptyText?.visibility = View.GONE
+		reload.visibility = View.GONE
+		emptyText.visibility = View.GONE
 		visibility = View.GONE
 	}
 
@@ -78,8 +76,8 @@ open class StateLayout : NestedScrollView {
 		hideProgress()
 		if (showReload) {
 			layoutState = SHOW_RELOAD_STATE
-			reload?.visibility = View.VISIBLE
-			emptyText?.visibility = View.VISIBLE
+			reload.visibility = View.VISIBLE
+			emptyText.visibility = View.VISIBLE
 			visibility = View.VISIBLE
 		}
 	}
@@ -91,7 +89,7 @@ open class StateLayout : NestedScrollView {
 	private fun setEmptyText(text: String?) {
 		text?.let {
 			this.emptyTextValue = "$it\n\n¯\\_(ツ)_/¯"
-			emptyText?.text = emptyTextValue
+			emptyText.text = emptyTextValue
 		}
 	}
 
@@ -99,7 +97,7 @@ open class StateLayout : NestedScrollView {
 		hideProgress()
 		hideReload()
 		visibility = View.VISIBLE
-		emptyText?.visibility = View.VISIBLE
+		emptyText.visibility = View.VISIBLE
 		layoutState = SHOW_EMPTY_STATE// last so it override visibility state.
 	}
 
@@ -121,7 +119,7 @@ open class StateLayout : NestedScrollView {
 		View.inflate(context, R.layout.empty_layout, this)
 		if (isInEditMode) return
 		ButterKnife.bind(this)
-		emptyText?.freezesText = true
+		emptyText.freezesText = true
 	}
 
 	override fun onDetachedFromWindow() {

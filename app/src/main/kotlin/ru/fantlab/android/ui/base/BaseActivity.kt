@@ -46,25 +46,20 @@ import java.util.*
 abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	: TiActivity<P, V>(), BaseMvp.View, NavigationView.OnNavigationItemSelectedListener {
 
-	@JvmField
 	@BindView(R.id.toolbar)
-	var toolbar: Toolbar? = null
+	lateinit var toolbar: Toolbar
 
-	@JvmField
 	@BindView(R.id.appbar)
-	var appbar: AppBarLayout? = null
+	lateinit var appbar: AppBarLayout
 
-	@JvmField
 	@BindView(R.id.drawer)
-	var drawer: DrawerLayout? = null
+	lateinit var drawer: DrawerLayout
 
-	@JvmField
 	@BindView(R.id.extrasNav)
-	var extraNav: NavigationView? = null
+	lateinit var extraNav: NavigationView
 
-	@JvmField
 	@BindView(R.id.accountsNav)
-	var accountsNav: NavigationView? = null
+	lateinit var accountsNav: NavigationView
 
 	@State
 	var isProgressShowing: Boolean = false
@@ -129,7 +124,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	override fun onBackPressed() {
-		if (drawer?.isDrawerOpen(GravityCompat.START) == true) {
+		if (drawer.isDrawerOpen(GravityCompat.START)) {
 			closeDrawer()
 		} else {
 			val clickTwiceToExit = !PrefGetter.isTwiceBackButtonDisabled()
@@ -181,11 +176,9 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	protected fun selectMenuItem(@IdRes id: Int) {
-		extraNav?.let {
-			with(it.menu.findItem(id)) {
-				isCheckable = true
-				isChecked = true
-			}
+		with(extraNav.menu.findItem(id)) {
+			isCheckable = true
+			isChecked = true
 		}
 	}
 
@@ -363,7 +356,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	protected fun hideShowShadow(show: Boolean) {
-		appbar?.elevation = if (show) resources.getDimension(R.dimen.spacing_micro) else 0.0f
+		appbar.elevation = if (show) resources.getDimension(R.dimen.spacing_micro) else 0.0f
 	}
 
 	protected fun changeStatusBarColor(isTransparent: Boolean) {
@@ -390,37 +383,35 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	protected fun setupNavigationView() {
-		extraNav?.setNavigationItemSelectedListener(this)
+		extraNav.setNavigationItemSelectedListener(this)
 		//mainNavDrawer.setupViewDrawer()
 	}
 
 	private fun setupDrawer() {
 		if (this !is MainActivity) {
 			if (!PrefGetter.isNavDrawerHintShowed()) {
-				drawer?.let {
-					it.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-						override fun onPreDraw(): Boolean {
-							it.openDrawer(GravityCompat.START)
-							it.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
-								override fun onDrawerOpened(drawerView: View) {
-									super.onDrawerOpened(drawerView)
-									drawerView.postDelayed({
-										closeDrawer()
-										drawer?.removeDrawerListener(this)
-									}, 1000)
-								}
-							})
-							it.viewTreeObserver.removeOnPreDrawListener(this)
-							return true
-						}
-					})
-				}
+				drawer.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+					override fun onPreDraw(): Boolean {
+						drawer.openDrawer(GravityCompat.START)
+						drawer.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
+							override fun onDrawerOpened(drawerView: View) {
+								super.onDrawerOpened(drawerView)
+								drawerView.postDelayed({
+									closeDrawer()
+									drawer.removeDrawerListener(this)
+								}, 1000)
+							}
+						})
+						drawer.viewTreeObserver.removeOnPreDrawListener(this)
+						return true
+					}
+				})
 			}
 		}
 	}
 
 	protected fun closeDrawer() {
-		drawer?.closeDrawer(GravityCompat.START)
+		drawer.closeDrawer(GravityCompat.START)
 	}
 
 	protected fun onRestartApp() {

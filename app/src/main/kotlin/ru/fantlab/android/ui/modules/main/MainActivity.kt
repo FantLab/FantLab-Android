@@ -17,13 +17,11 @@ import ru.fantlab.android.ui.modules.main.news.NewsFragment
 
 class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 
-	@JvmField
 	@BindView(R.id.bottomNavigation)
-	var bottomNavigation: BottomNavigation? = null
+	lateinit var bottomNavigation: BottomNavigation
 
-	@JvmField
 	@BindView(R.id.fab)
-	var fab: FloatingActionButton? = null
+	lateinit var fab: FloatingActionButton
 
 	@State
 	var navType = MainMvp.NavigationType.NEWS
@@ -75,8 +73,8 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 
 	override fun onNavigationChanged(navType: MainMvp.NavigationType) {
 		this.navType = navType
-		if (bottomNavigation?.selectedIndex != navType.ordinal) {
-			bottomNavigation?.setSelectedIndex(navType.ordinal, true)
+		if (bottomNavigation.selectedIndex != navType.ordinal) {
+			bottomNavigation.setSelectedIndex(navType.ordinal, true)
 		}
 		hideShowShadow(navType == MainMvp.NavigationType.NEWS)
 		presenter.onModuleChanged(supportFragmentManager, navType)
@@ -92,8 +90,8 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 						.commit()
 			}
 			val myTypeface = TypeFaceHelper.typeface
-			bottomNavigation?.setDefaultTypeface(myTypeface)
-			bottomNavigation?.setOnMenuItemClickListener(presenter)
+			bottomNavigation.setDefaultTypeface(myTypeface)
+			bottomNavigation.setOnMenuItemClickListener(presenter)
 		}
 	}
 }
