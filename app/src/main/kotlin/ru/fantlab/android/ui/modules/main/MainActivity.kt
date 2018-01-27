@@ -11,7 +11,9 @@ import com.evernote.android.state.State
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.helper.TypeFaceHelper
 import ru.fantlab.android.ui.base.BaseActivity
+import ru.fantlab.android.ui.modules.main.news.NewsFragment
 
 class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 
@@ -30,7 +32,7 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 		super.onCreate(savedInstanceState)
 		hideShowShadow(navType == MainMvp.NavigationType.NEWS)
 		setToolbarIcon(R.drawable.ic_menu)
-		//onInit(savedInstanceState)
+		onInit(savedInstanceState)
 		onNewIntent(intent)
 	}
 
@@ -78,5 +80,20 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 		}
 		hideShowShadow(navType == MainMvp.NavigationType.NEWS)
 		presenter.onModuleChanged(supportFragmentManager, navType)
+	}
+
+	private fun onInit(savedInstanceState: Bundle?) {
+		if (isLoggedIn()) {
+			if (savedInstanceState == null) {
+				hideShowShadow(navType == MainMvp.NavigationType.NEWS)
+				supportFragmentManager
+						.beginTransaction()
+						.replace(R.id.container, NewsFragment(), NewsFragment.TAG)
+						.commit()
+			}
+			val myTypeface = TypeFaceHelper.typeface
+			bottomNavigation?.setDefaultTypeface(myTypeface)
+			bottomNavigation?.setOnMenuItemClickListener(presenter)
+		}
 	}
 }

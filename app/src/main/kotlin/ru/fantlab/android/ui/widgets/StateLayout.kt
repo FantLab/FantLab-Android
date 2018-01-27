@@ -16,7 +16,7 @@ import ru.fantlab.android.R
 /**
  * Created by Kosh on 20 Nov 2016, 12:21 AM
  */
-class StateLayout : NestedScrollView {
+open class StateLayout : NestedScrollView {
 
 	private var onReloadListener: View.OnClickListener? = null
 
@@ -74,7 +74,7 @@ class StateLayout : NestedScrollView {
 		showReload()
 	}
 
-	protected fun showReload() {
+	private fun showReload() {
 		hideProgress()
 		if (showReload) {
 			layoutState = SHOW_RELOAD_STATE
@@ -88,14 +88,14 @@ class StateLayout : NestedScrollView {
 		setEmptyText(resources.getString(resId))
 	}
 
-	fun setEmptyText(text: String?) {
+	private fun setEmptyText(text: String?) {
 		text?.let {
 			this.emptyTextValue = "$it\n\n¯\\_(ツ)_/¯"
 			emptyText?.text = emptyTextValue
 		}
 	}
 
-	fun showEmptyState() {
+	private fun showEmptyState() {
 		hideProgress()
 		hideReload()
 		visibility = View.VISIBLE

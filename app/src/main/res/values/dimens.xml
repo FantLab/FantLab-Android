@@ -4,10 +4,12 @@
 	<dimen name="spacing_xs_large">16dp</dimen>
 	<dimen name="spacing_s_large">24dp</dimen>
 	<dimen name="spacing_large">32dp</dimen>
+	<dimen name="spacing_xlarge">48dp</dimen>
 	<dimen name="keyline_1">72dp</dimen>
 	<dimen name="keyline_2">76dp</dimen>
 	<dimen name="fab_spacing">86dp</dimen> <!-- keyline + fab margin -->
 	<dimen name="fab_margin">16dp</dimen>
 	<dimen name="large_icon_zie">48dp</dimen>
 	<dimen name="divider_height">1px</dimen>
+	<integer name="micro_spans">1</integer>
 </resources>

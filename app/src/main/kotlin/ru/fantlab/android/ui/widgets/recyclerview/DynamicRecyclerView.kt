@@ -84,7 +84,7 @@ class DynamicRecyclerView @JvmOverloads constructor(context: Context, attrs: Att
 		emptyView?.visibility = if (!showRecyclerView) View.VISIBLE else View.GONE
 	}
 
-	fun setEmptyView(emptyView: StateLayout, parentView: View? = null) {
+	fun setEmptyView(emptyView: StateLayout?, parentView: View? = null) {
 		this.emptyView = emptyView
 		this.parentView = parentView
 		showEmptyView()

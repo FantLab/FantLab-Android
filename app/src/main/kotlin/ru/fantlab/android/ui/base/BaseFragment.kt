@@ -13,7 +13,6 @@ import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.evernote.android.state.StateSaver
 import net.grandcentrix.thirtyinch.TiFragment
-import ru.fantlab.android.data.dao.model.AbstractLogin
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
@@ -72,9 +71,9 @@ abstract class BaseFragment<V : BaseMvp.View, P : BasePresenter<V>> : TiFragment
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		if (AbstractLogin.getUser() != null) {
+		//if (AbstractLogin.getUser() != null) {
 			onFragmentCreated(view, savedInstanceState)
-		}
+		//}
 	}
 
 	override fun onDestroyView() {

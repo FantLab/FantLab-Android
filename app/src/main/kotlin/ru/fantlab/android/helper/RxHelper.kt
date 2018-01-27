@@ -11,7 +11,7 @@ fun <T> Observable<T>.observe() : Observable<T> =
 				.observeOn(AndroidSchedulers.mainThread())
 				.doOnError({ it.printStackTrace() })
 
-fun <T> Single<T>.observe() : Single<T> =
+fun <T> Single<T>.single() : Single<T> =
 		this
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())

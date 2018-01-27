@@ -5,6 +5,7 @@
 	<string name="app_name_full" translatable="false">Fantlab for Android</string>
 	<string name="scroll_behavior" translatable="false">@string/appbar_scrolling_view_behavior</string>
 	<string name="linear_layout_manager" translatable="false">ru.fantlab.android.ui.widgets.recyclerview.layout_manager.LinearManager</string>
+	<string name="staggered_layout_manager" translatable="false">ru.fantlab.android.ui.widgets.recyclerview.layout_manager.StaggeredManager</string>
 	<string name="bbn_fab_default_behavior" translatable="false">ru.fantlab.android.ui.widgets.FloatingActionButtonBehavior</string>
 	<string name="custom_tablet_provider" translatable="false">ru.fantlab.android.ui.widgets.TabletBehavior</string>
 	<string name="icon_transition" translatable="false">profile_image_transition</string>
@@ -34,6 +35,7 @@
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
 	<string name="no_data">No data available</string>
+	<string name="no_news">No news</string>
 	<string name="reload">Reload</string>
 	<string name="press_again_to_exit">Press once again to exit</string>
 	<string name="logout">Logout</string>

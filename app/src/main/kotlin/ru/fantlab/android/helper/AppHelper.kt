@@ -16,7 +16,7 @@ object AppHelper {
 		inputManager?.hideSoftInputFromWindow(view.windowToken, 0)
 	}
 
-	fun getFragmentByTag(fragmentManager: FragmentManager, tag: String): Fragment = fragmentManager.findFragmentByTag(tag)
+	fun getFragmentByTag(fragmentManager: FragmentManager, tag: String): Fragment? = fragmentManager.findFragmentByTag(tag)
 
 	fun isNightMode(resources: Resources): Boolean = PrefGetter.getThemeType(resources) != PrefGetter.ThemeType.LIGHT
 
