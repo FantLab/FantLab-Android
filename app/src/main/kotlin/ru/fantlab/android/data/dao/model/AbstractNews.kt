@@ -7,6 +7,7 @@ import io.requery.Entity
 import io.requery.Key
 import ru.fantlab.android.App
 import ru.fantlab.android.helper.single
+import timber.log.Timber
 import java.util.*
 
 // todo заменить на реальные поля
@@ -52,12 +53,7 @@ abstract class AbstractNews {
 				}
 
 				s.onComplete()
-			}.single().subscribe(
-					{ /*donothing*/ },
-					{
-						throwable: Throwable -> throwable.printStackTrace()
-					}
-			)
+			}.single().subscribe({ }, Timber::e)
 		}
 
 		fun getNews(): Single<List<News>> {

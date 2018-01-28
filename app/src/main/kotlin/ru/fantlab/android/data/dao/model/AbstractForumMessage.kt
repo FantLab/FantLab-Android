@@ -7,6 +7,7 @@ import io.requery.Entity
 import io.requery.Key
 import ru.fantlab.android.App
 import ru.fantlab.android.helper.single
+import timber.log.Timber
 
 // todo заменить на реальные поля
 @Entity
@@ -35,12 +36,7 @@ abstract class AbstractForumMessage {
 				}
 
 				s.onComplete()
-			}.single().subscribe(
-					{ /*donothing*/ },
-					{
-						throwable: Throwable -> throwable.printStackTrace()
-					}
-			)
+			}.single().subscribe({ }, Timber::e)
 		}
 
 		fun getMessages(): Single<List<ForumMessage>> {

@@ -11,6 +11,7 @@ import net.grandcentrix.thirtyinch.rx2.RxTiPresenterDisposableHandler
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.observe
 import ru.fantlab.android.ui.base.mvp.BaseMvp
+import timber.log.Timber
 
 /**
  * Created by Kosh on 25 May 2016, 9:12 PM
@@ -33,10 +34,7 @@ open class BasePresenter<V : BaseMvp.View> : TiPresenter<V>(), BaseMvp.Presenter
 	}
 
 	override fun <T> manageObservable(observable: Observable<T>?) {
-		observable?.let { manageDisposable(it.observe().subscribe(
-				{ /**/ },
-				{ throwable -> throwable.printStackTrace() }
-		)) }
+		observable?.let { manageDisposable(it.observe().subscribe({ }, Timber::e)) }
 	}
 
 	override fun manageViewDisposable(vararg disposables: Disposable) {

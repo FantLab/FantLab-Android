@@ -7,6 +7,7 @@ import ru.fantlab.android.data.dao.model.ForumMessage
 import ru.fantlab.android.helper.observe
 import ru.fantlab.android.provider.StubProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
+import timber.log.Timber
 import java.util.*
 
 class ForumFeedPresenter : BasePresenter<ForumFeedMvp.View>(), ForumFeedMvp.Presenter {
@@ -69,9 +70,7 @@ class ForumFeedPresenter : BasePresenter<ForumFeedMvp.View>(), ForumFeedMvp.Pres
 									sendToView { view -> view.onNotifyAdapter(modelList, 1) }
 								}
 							},
-							{ throwable ->
-								throwable.printStackTrace()
-							}
+							Timber::e
 					)
 			)
 		} else {
