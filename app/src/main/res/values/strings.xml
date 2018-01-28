@@ -36,6 +36,7 @@
 	<string name="no">No</string>
 	<string name="no_data">No data available</string>
 	<string name="no_news">No news</string>
+	<string name="no_responses">No responses</string>
 	<string name="reload">Reload</string>
 	<string name="press_again_to_exit">Press once again to exit</string>
 	<string name="logout">Logout</string>

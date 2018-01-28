@@ -1,23 +1,23 @@
-package ru.fantlab.android.ui.modules.main.news
+package ru.fantlab.android.ui.modules.main.responses
 
 import android.view.View
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.model.AbstractNews
-import ru.fantlab.android.data.dao.model.News
+import ru.fantlab.android.data.dao.model.AbstractResponse
+import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.observe
 import ru.fantlab.android.provider.StubProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import java.util.*
 
-class NewsPresenter : BasePresenter<NewsMvp.View>(), NewsMvp.Presenter {
+class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Presenter {
 
-	private var newsModels: ArrayList<News> = ArrayList()
+	private var responseModels: ArrayList<Response> = ArrayList()
 	private var page: Int = 0
 	private var previousTotal: Int = 0
 	private var lastPage = Int.MAX_VALUE
 
 	override fun onFragmentCreated() {
-		if (newsModels.isEmpty()) {
+		if (responseModels.isEmpty()) {
 			onCallApi(1)
 		}
 	}
@@ -32,11 +32,11 @@ class NewsPresenter : BasePresenter<NewsMvp.View>(), NewsMvp.Presenter {
 			return false
 		}
 		setCurrentPage(page)
-		makeRestCall(/*RestProvider.getCommonService()*/StubProvider.getNews(page), Consumer { response ->
+		makeRestCall(/*RestProvider.getCommonService()*/StubProvider.getResponses(page), Consumer { response ->
 			run {
 				lastPage = response.last
 				if (getCurrentPage() == 1) {
-					manageDisposable(AbstractNews.save(response.items))
+					manageDisposable(AbstractResponse.save(response.items))
 				}
 				sendToView { view -> view.onNotifyAdapter(response.items, page) }
 			}
@@ -58,12 +58,12 @@ class NewsPresenter : BasePresenter<NewsMvp.View>(), NewsMvp.Presenter {
 
 	override fun onCallApi(page: Int, parameter: Any?): Boolean = onCallApi(page)
 
-	override fun getNews(): ArrayList<News> = newsModels
+	override fun getResponses(): ArrayList<Response> = responseModels
 
 	override fun onWorkOffline() {
-		if (newsModels.isEmpty()) {
+		if (responseModels.isEmpty()) {
 			manageDisposable(
-					AbstractNews.getNews().toObservable().observe().subscribe(
+					AbstractResponse.getResponses().toObservable().observe().subscribe(
 							{ modelList ->
 								modelList?.let {
 									sendToView { view -> view.onNotifyAdapter(modelList, 1) }
@@ -79,11 +79,11 @@ class NewsPresenter : BasePresenter<NewsMvp.View>(), NewsMvp.Presenter {
 		}
 	}
 
-	override fun onItemClick(position: Int, v: View?, item: News?) {
+	override fun onItemClick(position: Int, v: View?, item: Response?) {
 		// todo implement
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: News?) {
+	override fun onItemLongClick(position: Int, v: View?, item: Response?) {
 		// todo implement
 	}
 }

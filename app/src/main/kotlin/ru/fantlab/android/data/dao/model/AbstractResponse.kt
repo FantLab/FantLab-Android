@@ -7,43 +7,26 @@ import io.requery.Entity
 import io.requery.Key
 import ru.fantlab.android.App
 import ru.fantlab.android.helper.single
-import java.util.*
 
 // todo заменить на реальные поля
 @Entity
-abstract class AbstractNews {
+abstract class AbstractResponse {
 
 	@JvmField
 	@Column
 	@Key
 	var id: Int? = null
 
-	@JvmField
-	@Column
-	var title: String? = null
-
-	@JvmField
-	@Column
-	var description: String? = null
-
-	@JvmField
-	@Column
-	var pubDate: Date? = null
-
-	@JvmField
-	@Column
-	var author: String? = null
-
 	companion object {
 
-		fun save(news: List<News>?): Disposable {
+		fun save(responses: List<Response>?): Disposable {
 			return Single.fromPublisher<Any> { s ->
 				try {
 					val dataSource = App.dataStore.toBlocking()
-					if (news != null && !news.isEmpty()) {
-						for (newsEntry in news) {
-							dataSource.delete(News::class.java).where(News.ID.eq(newsEntry.id)).get().value()
-							dataSource.insert(newsEntry)
+					if (responses != null && !responses.isEmpty()) {
+						for (response in responses) {
+							dataSource.delete(Response::class.java).where(Response.ID.eq(response.id)).get().value()
+							dataSource.insert(response)
 						}
 					}
 					s.onNext("")
@@ -60,10 +43,10 @@ abstract class AbstractNews {
 			)
 		}
 
-		fun getNews(): Single<List<News>> {
+		fun getResponses(): Single<List<Response>> {
 			return App.dataStore
-					.select(News::class.java)
-					//.orderBy(News.PUB_DATE.desc())
+					.select(Response::class.java)
+					//.orderBy(Response.PUB_DATE.desc())
 					.get()
 					.observable()
 					.toList()

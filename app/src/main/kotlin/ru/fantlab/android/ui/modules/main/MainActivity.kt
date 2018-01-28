@@ -2,7 +2,6 @@ package ru.fantlab.android.ui.modules.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.v4.view.GravityCompat
 import android.view.Menu
 import android.view.MenuItem
@@ -20,15 +19,12 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 	@BindView(R.id.bottomNavigation)
 	lateinit var bottomNavigation: BottomNavigation
 
-	@BindView(R.id.fab)
-	lateinit var fab: FloatingActionButton
-
 	@State
 	var navType = MainMvp.NavigationType.NEWS
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		hideShowShadow(navType == MainMvp.NavigationType.NEWS)
+		hideShowShadow(true)
 		setToolbarIcon(R.drawable.ic_menu)
 		onInit(savedInstanceState)
 		onNewIntent(intent)
@@ -50,7 +46,7 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		return when {
 			item.itemId == android.R.id.home -> {
-				drawer?.openDrawer(GravityCompat.START)
+				drawer.openDrawer(GravityCompat.START)
 				true
 			}
 			item.itemId == R.id.search -> {
@@ -76,14 +72,14 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 		if (bottomNavigation.selectedIndex != navType.ordinal) {
 			bottomNavigation.setSelectedIndex(navType.ordinal, true)
 		}
-		hideShowShadow(navType == MainMvp.NavigationType.NEWS)
+		hideShowShadow(true)
 		presenter.onModuleChanged(supportFragmentManager, navType)
 	}
 
 	private fun onInit(savedInstanceState: Bundle?) {
 		if (isLoggedIn()) {
 			if (savedInstanceState == null) {
-				hideShowShadow(navType == MainMvp.NavigationType.NEWS)
+				hideShowShadow(true)
 				supportFragmentManager
 						.beginTransaction()
 						.replace(R.id.container, NewsFragment(), NewsFragment.TAG)
