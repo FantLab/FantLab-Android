@@ -46,7 +46,7 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		return when {
 			item.itemId == android.R.id.home -> {
-				drawer.openDrawer(GravityCompat.START)
+				drawer?.openDrawer(GravityCompat.START)
 				true
 			}
 			item.itemId == R.id.search -> {

@@ -46,20 +46,25 @@ import java.util.*
 abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	: TiActivity<P, V>(), BaseMvp.View, NavigationView.OnNavigationItemSelectedListener {
 
+	@JvmField
 	@BindView(R.id.toolbar)
-	lateinit var toolbar: Toolbar
+	var toolbar: Toolbar? = null
 
+	@JvmField
 	@BindView(R.id.appbar)
-	lateinit var appbar: AppBarLayout
+	var appbar: AppBarLayout? = null
 
+	@JvmField
 	@BindView(R.id.drawer)
-	lateinit var drawer: DrawerLayout
+	var drawer: DrawerLayout? = null
 
+	@JvmField
 	@BindView(R.id.extrasNav)
-	lateinit var extraNav: NavigationView
+	var extraNav: NavigationView? = null
 
+	@JvmField
 	@BindView(R.id.accountsNav)
-	lateinit var accountsNav: NavigationView
+	var accountsNav: NavigationView? = null
 
 	@State
 	var isProgressShowing: Boolean = false
@@ -69,7 +74,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 
 	private var toast: Toast? = null
 	private var backPressTimer: Long = 0
-	//private var mainNavDrawer: MainNavDrawer? = null
+	private var mainNavDrawer: MainNavDrawer? = null
 
 	@LayoutRes
 	protected abstract fun layout(): Int
@@ -93,9 +98,10 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		showChangelog()
 		initPresenterBundle(savedInstanceState)
 		setupToolbarAndStatusBar(toolbar)
-		//mainNavDrawer = MainNavDrawer(this, extraNav, accountsNav)
+		mainNavDrawer = MainNavDrawer(this, extraNav, accountsNav)
 		setupNavigationView()
 		setupDrawer()
+		selectHome()
 	}
 
 	override fun onSaveInstanceState(outState: Bundle) {
@@ -124,7 +130,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	override fun onBackPressed() {
-		if (drawer.isDrawerOpen(GravityCompat.START)) {
+		if (drawer != null && drawer!!.isDrawerOpen(GravityCompat.START)) {
 			closeDrawer()
 		} else {
 			val clickTwiceToExit = !PrefGetter.isTwiceBackButtonDisabled()
@@ -176,9 +182,11 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	protected fun selectMenuItem(@IdRes id: Int) {
-		with(extraNav.menu.findItem(id)) {
-			isCheckable = true
-			isChecked = true
+		extraNav?.let {
+			with(it.menu.findItem(id)) {
+				isCheckable = true
+				isChecked = true
+			}
 		}
 	}
 
@@ -287,7 +295,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 
 	override fun onNavigationItemSelected(item: MenuItem): Boolean {
 		closeDrawer()
-		//mainNavDrawer.onMainNavItemClick(item)
+		mainNavDrawer?.onMainNavItemClick(item)
 		return false
 
 	}
@@ -356,7 +364,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	protected fun hideShowShadow(show: Boolean) {
-		appbar.elevation = if (show) resources.getDimension(R.dimen.spacing_micro) else 0.0f
+		appbar?.elevation = if (show) resources.getDimension(R.dimen.spacing_micro) else 0.0f
 	}
 
 	protected fun changeStatusBarColor(isTransparent: Boolean) {
@@ -383,35 +391,37 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	protected fun setupNavigationView() {
-		extraNav.setNavigationItemSelectedListener(this)
-		//mainNavDrawer.setupViewDrawer()
+		extraNav?.setNavigationItemSelectedListener(this)
+		mainNavDrawer?.setupViewDrawer()
 	}
 
 	private fun setupDrawer() {
 		if (this !is MainActivity) {
 			if (!PrefGetter.isNavDrawerHintShowed()) {
-				drawer.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-					override fun onPreDraw(): Boolean {
-						drawer.openDrawer(GravityCompat.START)
-						drawer.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
-							override fun onDrawerOpened(drawerView: View) {
-								super.onDrawerOpened(drawerView)
-								drawerView.postDelayed({
-									closeDrawer()
-									drawer.removeDrawerListener(this)
-								}, 1000)
-							}
-						})
-						drawer.viewTreeObserver.removeOnPreDrawListener(this)
-						return true
-					}
-				})
+				drawer?.let {
+					it.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+						override fun onPreDraw(): Boolean {
+							it.openDrawer(GravityCompat.START)
+							it.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
+								override fun onDrawerOpened(drawerView: View) {
+									super.onDrawerOpened(drawerView)
+									drawerView.postDelayed({
+										closeDrawer()
+										it.removeDrawerListener(this)
+									}, 1000)
+								}
+							})
+							it.viewTreeObserver.removeOnPreDrawListener(this)
+							return true
+						}
+					})
+				}
 			}
 		}
 	}
 
-	protected fun closeDrawer() {
-		drawer.closeDrawer(GravityCompat.START)
+	fun closeDrawer() {
+		drawer?.closeDrawer(GravityCompat.START)
 	}
 
 	protected fun onRestartApp() {
@@ -419,5 +429,17 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
 		startActivity(intent)
 		finishAndRemoveTask()
+	}
+
+	protected fun selectHome() {
+		extraNav?.let {
+			it.menu.findItem(R.id.mainView).isCheckable = true
+			it.menu.findItem(R.id.mainView).isChecked = true
+		}
+	}
+
+	protected fun selectProfile() {
+		selectHome()
+		selectMenuItem(R.id.profile)
 	}
 }

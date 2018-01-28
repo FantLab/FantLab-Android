@@ -19,6 +19,14 @@ abstract class AbstractLogin {
 	@Column
 	var isLoggedIn: Boolean? = null
 
+	@JvmField
+	@Column
+	var name: String? = null
+
+	@JvmField
+	@Column
+	var avatarUrl: String? = null
+
 	companion object {
 
 		fun getUser(): Login? {

@@ -27,8 +27,6 @@ class AvatarLayout : FrameLayout {
 	lateinit var avatar: ShapedImageView
 
 	private var login: String? = null
-	private var isOrg: Boolean = false
-	private var isEnterprise: Boolean = false
 
 	constructor(context: Context) : super(context)
 
@@ -55,10 +53,8 @@ class AvatarLayout : FrameLayout {
 		//UserPagerActivity.startActivity(view.context, login, isOrg, isEnterprise, -1)
 	}
 
-	fun setUrl(url: String?, login: String?, isOrg: Boolean, isEnterprise: Boolean) {
+	fun setUrl(url: String?, login: String?) {
 		this.login = login
-		this.isOrg = isOrg
-		this.isEnterprise = isEnterprise
 		avatar.contentDescription = login
 		if (login != null) {
 			TooltipCompat.setTooltipText(avatar, login)
