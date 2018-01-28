@@ -3,14 +3,14 @@ package ru.fantlab.android.ui.adapter.viewholder
 import android.support.annotation.NonNull
 import android.view.View
 import android.view.ViewGroup
-import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.data.dao.model.ForumMessage
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, ResponseViewHolder, *>)
-	: BaseViewHolder<Response>(itemView, adapter) {
+class ForumMessageViewHolder(itemView: View, adapter: BaseRecyclerAdapter<ForumMessage, ForumMessageViewHolder, *>)
+	: BaseViewHolder<ForumMessage>(itemView, adapter) {
 
-	override fun bind(t: Response) {
+	override fun bind(t: ForumMessage) {
 		// todo implement
 	}
 

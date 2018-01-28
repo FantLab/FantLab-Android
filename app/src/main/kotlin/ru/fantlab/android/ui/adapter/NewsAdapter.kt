@@ -7,8 +7,8 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.util.*
 
-class NewsAdapter @JvmOverloads constructor(events: ArrayList<News>, private val noImage: Boolean = false)
-	: BaseRecyclerAdapter<News, NewsViewHolder, BaseViewHolder.OnItemClickListener<News>>(events) {
+class NewsAdapter @JvmOverloads constructor(news: ArrayList<News>, private val noImage: Boolean = false)
+	: BaseRecyclerAdapter<News, NewsViewHolder, BaseViewHolder.OnItemClickListener<News>>(news) {
 
 	override fun viewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
 		return NewsViewHolder(NewsViewHolder.getView(parent, noImage), this)

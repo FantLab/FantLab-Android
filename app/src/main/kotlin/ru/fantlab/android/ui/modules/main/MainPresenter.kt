@@ -7,6 +7,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.helper.ActivityHelper
 import ru.fantlab.android.helper.AppHelper.getFragmentByTag
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
+import ru.fantlab.android.ui.modules.main.forumfeed.ForumFeedFragment
 import ru.fantlab.android.ui.modules.main.news.NewsFragment
 import ru.fantlab.android.ui.modules.main.responses.ResponsesFragment
 
@@ -16,7 +17,7 @@ class MainPresenter : BasePresenter<MainMvp.View>(), MainMvp.Presenter {
 		val currentVisible = ActivityHelper.getVisibleFragment(fragmentManager)
 		val homeView = getFragmentByTag(fragmentManager, NewsFragment.TAG) as? NewsFragment
 		val responsesView = getFragmentByTag(fragmentManager, ResponsesFragment.TAG) as? ResponsesFragment
-		//val forumView = getFragmentByTag(fragmentManager, ForumFeedFragment.TAG) as ForumFeedFragment
+		val forumView = getFragmentByTag(fragmentManager, ForumFeedFragment.TAG) as? ForumFeedFragment
 		when (type) {
 			MainMvp.NavigationType.NEWS -> {
 				if (homeView == null) {
@@ -32,13 +33,13 @@ class MainPresenter : BasePresenter<MainMvp.View>(), MainMvp.Presenter {
 					onShowHideFragment(fragmentManager, responsesView, currentVisible)
 				}
 			}
-			/*MainMvp.NavigationType.FORUM -> {
+			MainMvp.NavigationType.FORUM -> {
 				if (forumView == null) {
-					onAddAndHide(fragmentManager, ForumFeedFragment.newInstance(), currentVisible)
+					onAddAndHide(fragmentManager, ForumFeedFragment(), currentVisible)
 				} else {
 					onShowHideFragment(fragmentManager, forumView, currentVisible)
 				}
-			}*/
+			}
 		}
 	}
 

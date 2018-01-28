@@ -7,7 +7,8 @@ import ru.fantlab.android.data.dao.model.News
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class NewsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<News, NewsViewHolder, *>) : BaseViewHolder<News>(itemView, adapter) {
+class NewsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<News, NewsViewHolder, *>)
+	: BaseViewHolder<News>(itemView, adapter) {
 
 	override fun bind(t: News) {
 		// todo implement
