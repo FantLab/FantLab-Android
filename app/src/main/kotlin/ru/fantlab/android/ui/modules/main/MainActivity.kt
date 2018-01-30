@@ -13,6 +13,7 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.TypeFaceHelper
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.main.news.NewsFragment
+import ru.fantlab.android.ui.modules.search.SearchActivity
 
 class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 
@@ -50,7 +51,7 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 				true
 			}
 			item.itemId == R.id.search -> {
-				//startActivity(Intent(this, SearchActivity::class.java))
+				startActivity(Intent(this, SearchActivity::class.java))
 				true
 			}
 			else -> super.onOptionsItemSelected(item)

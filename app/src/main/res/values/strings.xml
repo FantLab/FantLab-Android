@@ -49,6 +49,7 @@
 	<string name="forum">Forum</string>
 	<string name="blogs">Blogs</string>
 	<string name="search">Search</string>
+	<string name="clear">Clear</string>
 	<string name="unauthorized_user">Unauthorized user</string>
 	<string name="sign_in_to_fantlab">Sign in using your Fantlab account</string>
 	<string name="username">Username</string>
@@ -57,5 +58,10 @@
 	<string name="proceed_without_login">Proceed without login</string>
 	<string name="required_field">Required field</string>
 	<string name="failed_login">Sign in failed</string>
+	<string name="minimum_three_chars">Minimum characters (2)</string>
+	<string name="authors">Authors</string>
+	<string name="works">Works</string>
+	<string name="editions">Editions</string>
+	<string name="awards">Awards</string>
 
 </resources>

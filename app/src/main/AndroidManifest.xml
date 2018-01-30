@@ -48,6 +48,13 @@
 					android:scheme="fantlab"/>
 			</intent-filter>
 		</activity>
+		<activity
+			android:name=".ui.modules.search.SearchActivity"
+			android:parentActivityName=".ui.modules.main.MainActivity">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".ui.modules.main.MainActivity"/>
+		</activity>
 
 		<meta-data
 			android:name="io.fabric.ApiKey"

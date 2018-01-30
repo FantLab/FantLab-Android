@@ -7,7 +7,10 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
+import android.support.design.widget.TabLayout
 import android.util.TypedValue
+import android.widget.LinearLayout
+import android.widget.TextView
 import ru.fantlab.android.R
 
 object ViewHelper {
@@ -55,5 +58,9 @@ object ViewHelper {
 
 	fun isTablet(context: Context?): Boolean {
 		return context != null && isTablet(context.resources)
+	}
+
+	fun getTabTextView(tabs: TabLayout, tabIndex: Int): TextView {
+		return ((tabs.getChildAt(0) as LinearLayout).getChildAt(tabIndex) as LinearLayout).getChildAt(1) as TextView
 	}
 }
