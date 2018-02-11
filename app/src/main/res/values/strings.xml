@@ -63,5 +63,6 @@
 	<string name="works">Works</string>
 	<string name="editions">Editions</string>
 	<string name="awards">Awards</string>
+	<string name="search_results_warning">Too many responses \nShowing the max API allows</string>
 
 </resources>

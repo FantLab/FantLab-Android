@@ -36,14 +36,14 @@ class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 			editText.dismissDropDown()
 			AppHelper.hideKeyboard(editText)
 			val query = InputHelper.toString(editText)
-			/*val repos = viewPager.adapter?.instantiateItem(viewPager, 0) as SearchAuthorsFragment
-			val users = viewPager.adapter?.instantiateItem(viewPager, 1) as SearchWorksFragment
-			val issues = viewPager.adapter?.instantiateItem(viewPager, 2) as SearchEditionsFragment
-			val code = viewPager.adapter?.instantiateItem(viewPager, 3) as SearchAwardsFragment
-			repos.onQueueSearch(query)
-			users.onQueueSearch(query)
-			issues.onQueueSearch(query)
-			code.onQueueSearch(query, true)*/
+			/*val authors = viewPager.adapter?.instantiateItem(viewPager, 0) as SearchAuthorsFragment
+			val works = viewPager.adapter?.instantiateItem(viewPager, 1) as SearchWorksFragment
+			val editions = viewPager.adapter?.instantiateItem(viewPager, 2) as SearchEditionsFragment
+			val awards = viewPager.adapter?.instantiateItem(viewPager, 3) as SearchAwardsFragment
+			authors.onQueueSearch(query)
+			works.onQueueSearch(query)
+			editions.onQueueSearch(query)
+			awards.onQueueSearch(query, true)*/
 			val noneMatch = hints.none { value -> value.text.equals(query, ignoreCase = true) }
 			if (noneMatch) {
 				val searchHistory = SearchHistory()

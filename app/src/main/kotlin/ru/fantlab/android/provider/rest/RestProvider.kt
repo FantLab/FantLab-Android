@@ -8,8 +8,12 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.fantlab.android.BuildConfig
+import ru.fantlab.android.data.dao.Pageable
+import ru.fantlab.android.data.dao.SearchAuthorsModel
 import ru.fantlab.android.data.service.CommonRestService
+import ru.fantlab.android.data.service.SearchService
 import ru.fantlab.android.provider.rest.interceptors.AuthenticationInterceptor
+import ru.fantlab.android.provider.rest.interceptors.PaginationInterceptor
 import java.lang.reflect.Modifier
 
 object RestProvider {
@@ -31,8 +35,7 @@ object RestProvider {
 						.setLevel(HttpLoggingInterceptor.Level.BODY))
 			}
 			client.addInterceptor(AuthenticationInterceptor())
-			// todo впилить PaginationInterceptor (сейчас невозможно, поскольку в списках не везде отдается массив)
-			//client.addInterceptor(PaginationInterceptor())
+			client.addInterceptor(PaginationInterceptor())
 			okHttpClient = client.build()
 		}
 		return okHttpClient!!
@@ -45,6 +48,10 @@ object RestProvider {
 				.addConverterFactory(GsonConverterFactory.create(gson))
 				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 				.build()
+	}
+
+	fun getSearchService() : SearchService {
+		return provideRetrofit().create(SearchService::class.java)
 	}
 
 	fun getCommonService(): CommonRestService {
