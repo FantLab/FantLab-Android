@@ -93,7 +93,7 @@ open class StateLayout : NestedScrollView {
 		}
 	}
 
-	private fun showEmptyState() {
+	public fun showEmptyState() {
 		hideProgress()
 		hideReload()
 		visibility = View.VISIBLE

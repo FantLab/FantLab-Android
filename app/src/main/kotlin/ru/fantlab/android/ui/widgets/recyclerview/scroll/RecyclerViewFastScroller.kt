@@ -157,8 +157,8 @@ class RecyclerViewFastScroller : FrameLayout {
 			this.recyclerView = recyclerView
 			this.layoutManager = recyclerView.layoutManager
 			this.recyclerView?.addOnScrollListener(onScrollListener)
-			if (!registeredObserver) {
-				recyclerView.adapter?.registerAdapterDataObserver(observer)
+			if (recyclerView.adapter != null && !registeredObserver) {
+				recyclerView.adapter.registerAdapterDataObserver(observer)
 				registeredObserver = true
 			}
 			hideShow()
@@ -172,17 +172,17 @@ class RecyclerViewFastScroller : FrameLayout {
 				it.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
 					override fun onPreDraw(): Boolean {
 						it.viewTreeObserver.removeOnPreDrawListener(this)
-						iniHeight()
+						initHeight()
 						return true
 					}
 				})
 			} else {
-				iniHeight()
+				initHeight()
 			}
 		}
 	}
 
-	protected fun iniHeight() {
+	protected fun initHeight() {
 		if (scrollerView.isSelected) return
 		recyclerView?.let {
 			val verticalScrollOffset = it.computeVerticalScrollOffset()

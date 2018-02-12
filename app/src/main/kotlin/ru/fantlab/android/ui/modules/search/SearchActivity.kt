@@ -95,7 +95,7 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 		setupTab(count, index)
 	}
 
-	@OnTextChanged(value = [(R.id.searchEditText)], callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+	@OnTextChanged(value = R.id.searchEditText, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
 	fun onTextChange(s: Editable) {
 		val text = s.toString()
 		AnimHelper.animateVisibility(clear, text.isNotEmpty())
@@ -112,7 +112,7 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 		return true
 	}
 
-	@OnClick(value = [(R.id.clear)])
+	@OnClick(value = R.id.clear)
 	fun onClear(view: View) {
 		if (view.id == R.id.clear) {
 			searchEditText.setText("")

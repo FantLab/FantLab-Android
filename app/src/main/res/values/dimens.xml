@@ -12,4 +12,7 @@
 	<dimen name="large_icon_zie">48dp</dimen>
 	<dimen name="divider_height">1px</dimen>
 	<integer name="micro_spans">1</integer>
+	<dimen name="grid_spacing">0dp</dimen>
+	<dimen name="avatar_margin">16dp</dimen>
+	<dimen name="avatar_margin_end">16dp</dimen>
 </resources>

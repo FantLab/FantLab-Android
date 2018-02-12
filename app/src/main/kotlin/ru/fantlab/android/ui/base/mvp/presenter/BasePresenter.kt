@@ -52,7 +52,7 @@ open class BasePresenter<V : BaseMvp.View> : TiPresenter<V>(), BaseMvp.Presenter
 	}
 
 	override fun onError(throwable: Throwable) {
-		TODO("not implemented")
+		//TODO("not implemented")
 	}
 
 	override fun <T> makeRestCall(observable: Observable<T>, onNext: Consumer<T>, cancelable: Boolean) {

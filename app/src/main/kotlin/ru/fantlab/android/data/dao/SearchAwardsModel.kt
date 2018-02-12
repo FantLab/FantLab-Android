@@ -3,16 +3,16 @@ package ru.fantlab.android.data.dao
 import com.google.gson.annotations.SerializedName
 
 data class SearchAwardsModel(
-		val awardId: Int,
-		val country: String,
-		val countryId: Int,
-		val description: String,
-		val langId: Int,
-		val name: String,
-		val notes: String,
+		var awardId: Int,
+		var country: String,
+		var countryId: Int,
+		var description: String,
+		var langId: Int,
+		var name: String,
+		var notes: String,
 		@SerializedName("rusname")
-		val rusName: String,
-		val type: Int,
-		val yearClose: Int,
-		val yearOpen: Int
+		var rusName: String,
+		var type: Int,
+		var yearClose: Int,
+		var yearOpen: Int
 )

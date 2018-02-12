@@ -2,10 +2,10 @@ package ru.fantlab.android.ui.modules.search.authors
 
 import android.view.View
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.SearchAuthorsModel
 import ru.fantlab.android.provider.rest.RestProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
-import ru.fantlab.android.R
 
 
 class SearchAuthorsPresenter : BasePresenter<SearchAuthorsMvp.View>(), SearchAuthorsMvp.Presenter {
@@ -51,11 +51,10 @@ class SearchAuthorsPresenter : BasePresenter<SearchAuthorsMvp.View>(), SearchAut
 				lastPage = response.last
 				sendToView { view ->
 					run {
-						view.onNotifyAdapter(if (response.incompleteResults) null else response.items, page)
+						view.onNotifyAdapter(response.items, page)
 						if (!response.incompleteResults) {
 							view.onSetTabCount(response.totalCount)
 						} else {
-							view.onSetTabCount(0)
 							view.showMessage(R.string.error, R.string.search_results_warning)
 						}
 					}

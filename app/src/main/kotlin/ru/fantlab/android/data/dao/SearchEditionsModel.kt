@@ -4,17 +4,17 @@ import com.google.gson.annotations.SerializedName
 
 data class SearchEditionsModel(
 		@SerializedName("autors")
-		val authors: String,
-		val comment: String,
-		val compilers: String,
-		val correct: Int,
-		val editionId: Int,
-		val isbn1: String,
-		val isbn2: String,
-		val name: String,
-		val notes: String,
-		val planDate: Any, // what real type?
-		val publisher: String,
-		val series: String,
-		val year: Int
+		var authors: String,
+		var comment: String,
+		var compilers: String,
+		var correct: Int,
+		var editionId: Int,
+		var isbn1: String,
+		var isbn2: String,
+		var name: String,
+		var notes: String,
+		var planDate: Any, // what real type?
+		var publisher: String,
+		var series: String,
+		var year: Int
 )

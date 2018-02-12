@@ -4,66 +4,66 @@ import com.google.gson.annotations.SerializedName
 
 data class SearchWorksModel(
 		@SerializedName("all_autor_name")
-		val allAuthorName: String,
+		var allAuthorName: String,
 		@SerializedName("all_autor_rusname")
-		val allAuthorRusName: String,
+		var allAuthorRusName: String,
 		@SerializedName("altname")
-		val altName: String,
+		var altName: String,
 		@SerializedName("autor1_id")
-		val author1Id: Int,
+		var author1Id: Int,
 		@SerializedName("autor1_is_opened")
-		val author1IsOpened: Int,
+		var author1IsOpened: Int,
 		@SerializedName("autor1_rusname")
-		val author1RusName: String,
+		var author1RusName: String,
 		@SerializedName("autor2_id")
-		val author2Id: Int,
+		var author2Id: Int,
 		@SerializedName("autor2_is_opened")
-		val author2IsOpened: Int,
+		var author2IsOpened: Int,
 		@SerializedName("autor2_rusname")
-		val author2RusName: String,
+		var author2RusName: String,
 		@SerializedName("autor3_id")
-		val author3Id: Int,
+		var author3Id: Int,
 		@SerializedName("autor3_is_opened")
-		val author3IsOpened: Int,
+		var author3IsOpened: Int,
 		@SerializedName("autor3_rusname")
-		val author3RusName: String,
+		var author3RusName: String,
 		@SerializedName("autor4_id")
-		val author4Id: Int,
+		var author4Id: Int,
 		@SerializedName("autor4_is_opened")
-		val author4IsOpened: Int,
+		var author4IsOpened: Int,
 		@SerializedName("autor4_rusname")
-		val author4RusName: String,
+		var author4RusName: String,
 		@SerializedName("autor5_id")
-		val author5Id: Int,
+		var author5Id: Int,
 		@SerializedName("autor5_is_opened")
-		val author5IsOpened: Int,
+		var author5IsOpened: Int,
 		@SerializedName("autor5_rusname")
-		val author5RusName: String,
+		var author5RusName: String,
 		@SerializedName("autor_id")
-		val authorId: Int,
+		var authorId: Int,
 		@SerializedName("autor_is_opened")
-		val authorIsOpened: Int,
+		var authorIsOpened: Int,
 		@SerializedName("autor_rusname")
-		val authorRusName: String,
+		var authorRusName: String,
 		@SerializedName("fullname")
-		val fullName: String,
-		val keywords: String,
-		val level: Int,
+		var fullName: String,
+		var keywords: String,
+		var level: Int,
 		@SerializedName("markcount")
-		val markCount: Int,
+		var markCount: Int,
 		@SerializedName("midmark")
-		val midMark: ArrayList<Float>,
-		val name: String,
+		var midMark: ArrayList<Float>,
+		var name: String,
 		@SerializedName("name_eng")
-		val typeName: String,
+		var typeName: String,
 		@SerializedName("name_show_im")
-		val typeRusName: String,
-		val parentWorkId: Int,
-		val parentWorkIdPresent: Int,
-		val picEditionId: String,
-		val picEditionIdAuto: Int,
+		var typeRusName: String,
+		var parentWorkId: Int,
+		var parentWorkIdPresent: Int,
+		var picEditionId: String,
+		var picEditionIdAuto: Int,
 		@SerializedName("rusname")
-		val rusName: String,
-		val workId: Int,
-		val year: Int
+		var rusName: String,
+		var workId: Int,
+		var year: Int
 )

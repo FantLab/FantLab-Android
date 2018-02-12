@@ -4,26 +4,26 @@ import com.google.gson.annotations.SerializedName
 
 data class SearchAuthorsModel(
 		@SerializedName("autor_id")
-		val authorId: Int,
+		var authorId: Int,
 		@SerializedName("birthyear")
-		val birthYear: Int,
-		val country: String,
-		val countryId: Int,
+		var birthYear: Int,
+		var country: String,
+		var countryId: Int,
 		@SerializedName("deathyear")
-		val deathYear: Int,
+		var deathYear: Int,
 		@SerializedName("editioncount")
-		val editionCount: Int,
-		val isOpened: Boolean,
+		var editionCount: Int,
+		var isOpened: Int,
 		@SerializedName("markcount")
-		val markCount: Int,
+		var markCount: Int,
 		@SerializedName("midmark")
-		val midMark: Int,
+		var midMark: Int,
 		@SerializedName("moviecount")
-		val movieCount: Int,
-		val name: String,
-		val pseudoNames: String,
+		var movieCount: Int,
+		var name: String,
+		var pseudoNames: String,
 		@SerializedName("responsecount")
-		val responseCount: Int,
+		var responseCount: Int,
 		@SerializedName("rusname")
-		val rusName: String
+		var rusName: String
 )
