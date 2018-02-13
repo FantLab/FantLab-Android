@@ -41,7 +41,7 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 		authors.text = if (work.allAuthorRusName.isNotEmpty()) work.allAuthorRusName else work.allAuthorName
 		title.text = StringBuilder()
 				.append(if (work.rusName.isNotEmpty()) work.rusName else work.name)
-				.append(if (work.rusName.isNotEmpty()) " / ${work.name}" else "")
+				.append(if (work.name.isNotEmpty()) " / ${work.name}" else "")
 		year.text = if (work.year != 0) work.year.toString() else "N/A"
 		if (work.markCount != 0) {
 			rating.text = String.format("%s / %s",

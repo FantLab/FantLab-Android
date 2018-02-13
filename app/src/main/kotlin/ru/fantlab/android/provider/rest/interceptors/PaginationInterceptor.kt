@@ -26,10 +26,10 @@ class PaginationInterceptor : Interceptor {
 
 		val totalStartIndex = body.indexOf("\"total\":")
 		val totalEndIndex = body.indexOf(",", startIndex = totalStartIndex)
-		val totalCount = body.substring(totalStartIndex + "\"total\":".length, totalEndIndex)
+		val totalCount = body.substring(totalStartIndex + "\"total\":".length, totalEndIndex).toInt()
 
 		val resultsPerPage = 25
-		val lastPage = totalCount.toInt() / resultsPerPage
+		val lastPage = totalCount / resultsPerPage
 		val lastString = "\"last\":${lastPage + 1}"
 
 		var currentPage = request.url().queryParameter("page")?.toInt()
@@ -44,14 +44,18 @@ class PaginationInterceptor : Interceptor {
 
 		val totalFoundStartIndex = body.indexOf("\"total_found\":")
 		val totalFoundEndIndex = body.indexOf(",", startIndex = totalFoundStartIndex)
-		val totalFoundCount = body.substring(totalFoundStartIndex + "\"total_found\":".length, totalFoundEndIndex)
+		val totalFoundCount = body.substring(totalFoundStartIndex + "\"total_found\":".length, totalFoundEndIndex).toInt()
 		val totalCountString = "\"total_count\":$totalFoundCount"
 		val incompleteResultsString = "\"incomplete_results\":${(totalFoundCount > totalCount) && (currentPage == lastPage)}"
 
-		val itemsStartIndex = body.indexOf("\"matches\":")
-		val itemsEndIndex = body.indexOf("}]", startIndex = itemsStartIndex)
-		val items = body.substring(itemsStartIndex + "\"matches\":".length, itemsEndIndex)
-		val itemsString = "\"items\":$items}]"
+		val itemsString = if (totalFoundCount == 0) {
+			"\"items\":[]"
+		} else {
+			val itemsStartIndex = body.indexOf("\"matches\":")
+			val itemsEndIndex = body.indexOf("}]", startIndex = itemsStartIndex)
+			val items = body.substring(itemsStartIndex + "\"matches\":".length, itemsEndIndex)
+			"\"items\":$items}]"
+		}
 
 		val json = "{$nextString,$lastString,$totalCountString,$incompleteResultsString,$itemsString}"
 		return response.newBuilder().body(ResponseBody.create(response.body()!!.contentType(), json)).build()

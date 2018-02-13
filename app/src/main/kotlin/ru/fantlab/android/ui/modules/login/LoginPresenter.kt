@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.login
 
+import io.reactivex.functions.Consumer
 import okhttp3.ResponseBody
 import retrofit2.Response
 import ru.fantlab.android.R
@@ -8,7 +9,6 @@ import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.LoginProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
-import java.util.function.Consumer
 
 class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 
@@ -20,14 +20,9 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 		view?.onEmptyPassword(passwordIsEmpty)
 		if (!usernameIsEmpty && !passwordIsEmpty) {
 			try {
-				makeRestCall(
-						LoginProvider.getLoginRestService().login(username, password),
-						object : Consumer<Response<ResponseBody>>, io.reactivex.functions.Consumer<Response<ResponseBody>> {
-							override fun accept(response: Response<ResponseBody>) {
-								onTokenResponse(response)
-							}
-						}
-				)
+				makeRestCall(LoginProvider.getLoginRestService().login(username, password), Consumer { response ->
+					onTokenResponse(response)
+				})
 			} catch (e: Exception) {
 				sendToView { view -> view.showErrorMessage("The app was about to crash!!(${e.message})") }
 			}
