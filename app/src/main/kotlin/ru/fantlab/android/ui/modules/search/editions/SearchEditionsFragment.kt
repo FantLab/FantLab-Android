@@ -89,7 +89,7 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 	}
 
 	override fun onSetTabCount(count: Int) {
-		countCallback?.onSetCount(count, 0)
+		countCallback?.onSetCount(count, 2)
 	}
 
 	override fun onSetSearchQuery(query: String) {

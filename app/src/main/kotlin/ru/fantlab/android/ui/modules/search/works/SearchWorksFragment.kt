@@ -89,7 +89,7 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 	}
 
 	override fun onSetTabCount(count: Int) {
-		countCallback?.onSetCount(count, 0)
+		countCallback?.onSetCount(count, 1)
 	}
 
 	override fun onSetSearchQuery(query: String) {

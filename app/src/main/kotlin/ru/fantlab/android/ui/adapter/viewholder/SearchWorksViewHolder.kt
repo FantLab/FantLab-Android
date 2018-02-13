@@ -29,9 +29,6 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 	@BindView(R.id.rating)
 	lateinit var rating: FontTextView
 
-	@BindView(R.id.type)
-	lateinit var type: FontTextView
-
 	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun bind(work: SearchWorkModel) {
@@ -45,7 +42,7 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 		title.text = StringBuilder()
 				.append(if (work.rusName.isNotEmpty()) work.rusName else work.name)
 				.append(if (work.rusName.isNotEmpty()) " / ${work.name}" else "")
-		year.text = if (work.year != 0) numberFormat.format(work.year.toLong()) else "N/A"
+		year.text = if (work.year != 0) work.year.toString() else "N/A"
 		if (work.markCount != 0) {
 			rating.text = String.format("%s / %s",
 					numberFormat.format(work.midMark[0].toDouble()),
@@ -54,7 +51,6 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 		} else {
 			rating.visibility = View.GONE
 		}
-		type.text = work.typeRusName
 	}
 
 	companion object {

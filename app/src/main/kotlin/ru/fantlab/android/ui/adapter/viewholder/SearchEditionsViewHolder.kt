@@ -9,7 +9,6 @@ import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
-import java.text.NumberFormat
 
 class SearchEditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchEditionModel, SearchEditionsViewHolder, *>)
 	: BaseViewHolder<SearchEditionModel>(itemView, adapter) {
@@ -26,18 +25,16 @@ class SearchEditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Sear
 	@BindView(R.id.year)
 	lateinit var year: FontTextView
 
-	private val numberFormat = NumberFormat.getNumberInstance()
-
 	override fun bind(edition: SearchEditionModel) {
 		avatarLayout.setUrl("https://data.fantlab.ru/images/editions/big/${edition.editionId}", "")
 		if (edition.authors.isNotEmpty()) {
-			authors.text = edition.authors.replace("\\[*]".toRegex(), "")
+			authors.text = edition.authors.replace("\\[.*?\\]".toRegex(), "")
 			authors.visibility = View.VISIBLE
 		} else {
 			authors.visibility = View.GONE
 		}
-		title.text = edition.name
-		year.text = if (edition.year.isNotEmpty()) numberFormat.format(edition.year.toLong()) else "N/A"
+		title.text = edition.name.replace("\\[.*?\\]".toRegex(), "")
+		year.text = if (edition.year.isNotEmpty()) edition.year else "N/A"
 	}
 
 	companion object {

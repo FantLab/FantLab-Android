@@ -100,17 +100,6 @@
 					style="@style/TextAppearance.AppCompat.Caption"
 					/>
 
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/type"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center"
-					android:gravity="start|center"
-					android:textColor="?android:attr/textColorSecondary"
-					tools:text="рассказ"
-					style="@style/TextAppearance.AppCompat.Caption"
-					/>
-
 			</ru.fantlab.android.ui.widgets.AutoLinearLayout>
 
 		</LinearLayout>

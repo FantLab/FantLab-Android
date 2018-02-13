@@ -89,7 +89,7 @@ class SearchAwardsFragment : BaseFragment<SearchAwardsMvp.View, SearchAwardsPres
 	}
 
 	override fun onSetTabCount(count: Int) {
-		countCallback?.onSetCount(count, 0)
+		countCallback?.onSetCount(count, 3)
 	}
 
 	override fun onSetSearchQuery(query: String) {
