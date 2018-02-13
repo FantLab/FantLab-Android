@@ -2,7 +2,7 @@ package ru.fantlab.android.data.dao
 
 import com.google.gson.annotations.SerializedName
 
-data class SearchAuthorsModel(
+data class SearchAuthorModel(
 		@SerializedName("autor_id")
 		var authorId: Int,
 		@SerializedName("birthyear")

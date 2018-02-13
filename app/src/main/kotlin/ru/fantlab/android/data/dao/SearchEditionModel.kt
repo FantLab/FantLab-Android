@@ -2,7 +2,7 @@ package ru.fantlab.android.data.dao
 
 import com.google.gson.annotations.SerializedName
 
-data class SearchEditionsModel(
+data class SearchEditionModel(
 		@SerializedName("autors")
 		var authors: String,
 		var comment: String,
@@ -16,5 +16,5 @@ data class SearchEditionsModel(
 		var planDate: Any, // what real type?
 		var publisher: String,
 		var series: String,
-		var year: Int
+		var year: String
 )

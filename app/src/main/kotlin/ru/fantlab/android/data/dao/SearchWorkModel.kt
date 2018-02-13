@@ -2,7 +2,7 @@ package ru.fantlab.android.data.dao
 
 import com.google.gson.annotations.SerializedName
 
-data class SearchWorksModel(
+data class SearchWorkModel(
 		@SerializedName("all_autor_name")
 		var allAuthorName: String,
 		@SerializedName("all_autor_rusname")
@@ -61,7 +61,7 @@ data class SearchWorksModel(
 		var parentWorkId: Int,
 		var parentWorkIdPresent: Int,
 		var picEditionId: String,
-		var picEditionIdAuto: Int,
+		var picEditionIdAuto: String,
 		@SerializedName("rusname")
 		var rusName: String,
 		var workId: Int,

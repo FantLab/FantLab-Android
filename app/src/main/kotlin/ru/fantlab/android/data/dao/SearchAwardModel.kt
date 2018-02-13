@@ -2,7 +2,7 @@ package ru.fantlab.android.data.dao
 
 import com.google.gson.annotations.SerializedName
 
-data class SearchAwardsModel(
+data class SearchAwardModel(
 		var awardId: Int,
 		var country: String,
 		var countryId: Int,

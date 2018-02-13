@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.search.authors
+package ru.fantlab.android.ui.modules.search.awards
 
 import android.content.Context
 import android.os.Bundle
@@ -8,18 +8,18 @@ import android.view.View
 import butterknife.BindView
 import com.evernote.android.state.State
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.SearchAuthorModel
+import ru.fantlab.android.data.dao.SearchAwardModel
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
-import ru.fantlab.android.ui.adapter.SearchAuthorsAdapter
+import ru.fantlab.android.ui.adapter.SearchAwardsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.search.SearchMvp
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 
-class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsPresenter>(),
-		SearchAuthorsMvp.View {
+class SearchAwardsFragment : BaseFragment<SearchAwardsMvp.View, SearchAwardsPresenter>(),
+		SearchAwardsMvp.View {
 
 	@BindView(R.id.recycler)
 	lateinit var recycler: DynamicRecyclerView
@@ -37,7 +37,7 @@ class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsP
 	var searchQuery = ""
 
 	private val onLoadMore: OnLoadMore<String> by lazy { OnLoadMore(presenter, searchQuery) }
-	private val adapter: SearchAuthorsAdapter by lazy { SearchAuthorsAdapter(presenter.getAuthors()) }
+	private val adapter: SearchAwardsAdapter by lazy { SearchAwardsAdapter(presenter.getAwards()) }
 	private var countCallback: SearchMvp.View? = null
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,7 +52,7 @@ class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsP
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
-		if (!InputHelper.isEmpty(searchQuery) && presenter.getAuthors().isEmpty() && !presenter.isApiCalled()) {
+		if (!InputHelper.isEmpty(searchQuery) && presenter.getAwards().isEmpty() && !presenter.isApiCalled()) {
 			onRefresh()
 		}
 		if (InputHelper.isEmpty(searchQuery)) {
@@ -73,9 +73,9 @@ class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsP
 		super.onDetach()
 	}
 
-	override fun providePresenter(): SearchAuthorsPresenter = SearchAuthorsPresenter()
+	override fun providePresenter(): SearchAwardsPresenter = SearchAwardsPresenter()
 
-	override fun onNotifyAdapter(items: List<SearchAuthorModel>?, page: Int) {
+	override fun onNotifyAdapter(items: List<SearchAwardModel>?, page: Int) {
 		hideProgress()
 		if (items == null || items.isEmpty()) {
 			adapter.clear()
@@ -115,8 +115,8 @@ class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsP
 		return onLoadMore
 	}
 
-	override fun onItemClicked(item: SearchAuthorModel) {
-		// todo переход на экран автора
+	override fun onItemClicked(item: SearchAwardModel) {
+		// todo переход на экран премии
 		showMessage("Clicked", item.name)
 	}
 

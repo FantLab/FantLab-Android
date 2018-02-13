@@ -8,8 +8,6 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.fantlab.android.BuildConfig
-import ru.fantlab.android.data.dao.Pageable
-import ru.fantlab.android.data.dao.SearchAuthorsModel
 import ru.fantlab.android.data.service.CommonRestService
 import ru.fantlab.android.data.service.SearchService
 import ru.fantlab.android.provider.rest.interceptors.AuthenticationInterceptor

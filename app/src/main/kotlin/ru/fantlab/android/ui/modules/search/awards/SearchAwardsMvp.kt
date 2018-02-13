@@ -1,18 +1,18 @@
-package ru.fantlab.android.ui.modules.search.authors
+package ru.fantlab.android.ui.modules.search.awards
 
 import android.support.v4.widget.SwipeRefreshLayout
-import ru.fantlab.android.data.dao.SearchAuthorModel
+import ru.fantlab.android.data.dao.SearchAwardModel
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-interface SearchAuthorsMvp {
+interface SearchAwardsMvp {
 
 	interface View : BaseMvp.View,
 			SwipeRefreshLayout.OnRefreshListener,
 			android.view.View.OnClickListener {
 
-		fun onNotifyAdapter(items: List<SearchAuthorModel>?, page: Int)
+		fun onNotifyAdapter(items: List<SearchAwardModel>?, page: Int)
 
 		fun onSetTabCount(count: Int)
 
@@ -22,13 +22,13 @@ interface SearchAuthorsMvp {
 
 		fun getLoadMore(): OnLoadMore<String>
 
-		fun onItemClicked(item: SearchAuthorModel)
+		fun onItemClicked(item: SearchAwardModel)
 	}
 
 	interface Presenter : BaseMvp.Presenter,
-			BaseViewHolder.OnItemClickListener<SearchAuthorModel>,
+			BaseViewHolder.OnItemClickListener<SearchAwardModel>,
 			BaseMvp.PaginationListener<String> {
 
-		fun getAuthors() : ArrayList<SearchAuthorModel>
+		fun getAwards() : ArrayList<SearchAwardModel>
 	}
 }

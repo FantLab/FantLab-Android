@@ -3,12 +3,11 @@ package ru.fantlab.android.ui.modules.search
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.text.Editable
-import android.view.View
+import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import butterknife.BindView
 import butterknife.OnClick
 import butterknife.OnEditorAction
-import butterknife.OnTextChanged
 import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
@@ -53,6 +52,18 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 		tabs.setupWithViewPager(pager)
 		searchEditText.setAdapter(adapter)
 		searchEditText.setOnItemClickListener { _, _, _, _ -> presenter.onSearchClicked(pager, searchEditText) }
+		searchEditText.addTextChangedListener(object : TextWatcher {
+			override fun afterTextChanged(s: Editable?) {
+				val text = s.toString()
+				AnimHelper.animateVisibility(clear, text.isNotEmpty())
+			}
+
+			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+			}
+
+			override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+			}
+		})
 		if (!tabsCountSet.isEmpty()) {
 			for (model in tabsCountSet) {
 				setupTab(count = model.count, index = model.tabIndex)
@@ -70,6 +81,7 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 				onScrollTop(tab.position)
 			}
 		})
+		clear.setOnClickListener { searchEditText.setText("") }
 	}
 
 	override fun layout(): Int = R.layout.search_layout
@@ -95,12 +107,6 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 		setupTab(count, index)
 	}
 
-	@OnTextChanged(value = R.id.searchEditText, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-	fun onTextChange(s: Editable) {
-		val text = s.toString()
-		AnimHelper.animateVisibility(clear, text.isNotEmpty())
-	}
-
 	@OnClick(R.id.search)
 	fun onSearchClicked() {
 		presenter.onSearchClicked(pager, searchEditText)
@@ -110,13 +116,6 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 	fun onEditor(): Boolean {
 		onSearchClicked()
 		return true
-	}
-
-	@OnClick(value = R.id.clear)
-	fun onClear(view: View) {
-		if (view.id == R.id.clear) {
-			searchEditText.setText("")
-		}
 	}
 
 	private fun setupTab(count: Int, index: Int) {

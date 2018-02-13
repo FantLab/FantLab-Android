@@ -10,6 +10,9 @@ import ru.fantlab.android.helper.AppHelper
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.search.authors.SearchAuthorsFragment
+import ru.fantlab.android.ui.modules.search.awards.SearchAwardsFragment
+import ru.fantlab.android.ui.modules.search.editions.SearchEditionsFragment
+import ru.fantlab.android.ui.modules.search.works.SearchWorksFragment
 import java.util.*
 
 class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
@@ -38,13 +41,13 @@ class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 			AppHelper.hideKeyboard(editText)
 			val query = InputHelper.toString(editText)
 			val authors = viewPager.adapter?.instantiateItem(viewPager, 0) as SearchAuthorsFragment
-			/*val works = viewPager.adapter?.instantiateItem(viewPager, 1) as SearchWorksFragment
+			val works = viewPager.adapter?.instantiateItem(viewPager, 1) as SearchWorksFragment
 			val editions = viewPager.adapter?.instantiateItem(viewPager, 2) as SearchEditionsFragment
-			val awards = viewPager.adapter?.instantiateItem(viewPager, 3) as SearchAwardsFragment*/
+			val awards = viewPager.adapter?.instantiateItem(viewPager, 3) as SearchAwardsFragment
 			authors.onQueueSearch(query)
-			/*works.onQueueSearch(query)
+			works.onQueueSearch(query)
 			editions.onQueueSearch(query)
-			awards.onQueueSearch(query, true)*/
+			awards.onQueueSearch(query)
 			val noneMatch = hints.none { value -> value.text.equals(query, ignoreCase = true) }
 			if (noneMatch) {
 				val searchHistory = SearchHistory()

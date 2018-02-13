@@ -4,15 +4,15 @@ import android.view.View
 import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.SearchAuthorsModel
+import ru.fantlab.android.data.dao.SearchAuthorModel
 import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.text.NumberFormat
 
-class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchAuthorsModel, SearchAuthorsViewHolder, *>)
-	: BaseViewHolder<SearchAuthorsModel>(itemView, adapter) {
+class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchAuthorModel, SearchAuthorsViewHolder, *>)
+	: BaseViewHolder<SearchAuthorModel>(itemView, adapter) {
 
 	@BindView(R.id.avatarLayout)
 	lateinit var avatarLayout: AvatarLayout
@@ -43,7 +43,7 @@ class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Searc
 
 	private val numberFormat = NumberFormat.getNumberInstance()
 
-	override fun bind(author: SearchAuthorsModel) {
+	override fun bind(author: SearchAuthorModel) {
 		avatarLayout.setUrl("https://data.fantlab.ru/images/autors/${author.authorId}", "")
 		name.text = StringBuilder()
 				.append(author.rusName)
@@ -54,8 +54,7 @@ class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Searc
 		} else {
 			pseudoNames.visibility = View.GONE
 		}
-		country.text = StringBuilder()
-				.append(if (author.country.isNotEmpty()) author.country else "N/A")
+		country.text = if (author.country.isNotEmpty()) author.country else "N/A"
 		dates.text = StringBuilder()
 				.append(if (author.birthYear != 0) author.birthYear else "N/A")
 				.append(if (author.deathYear != 0) " - ${author.deathYear}" else "")
@@ -89,7 +88,7 @@ class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Searc
 
 	companion object {
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<SearchAuthorsModel, SearchAuthorsViewHolder, *>) : SearchAuthorsViewHolder
+		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<SearchAuthorModel, SearchAuthorsViewHolder, *>) : SearchAuthorsViewHolder
 				= SearchAuthorsViewHolder(getView(viewGroup, R.layout.search_authors_row_item), adapter)
 	}
 }

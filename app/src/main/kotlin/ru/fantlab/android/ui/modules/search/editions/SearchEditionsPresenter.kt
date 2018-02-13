@@ -1,28 +1,27 @@
-package ru.fantlab.android.ui.modules.search.authors
+package ru.fantlab.android.ui.modules.search.editions
 
 import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.SearchAuthorModel
+import ru.fantlab.android.data.dao.SearchEditionModel
 import ru.fantlab.android.provider.rest.RestProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
+class SearchEditionsPresenter : BasePresenter<SearchEditionsMvp.View>(), SearchEditionsMvp.Presenter {
 
-class SearchAuthorsPresenter : BasePresenter<SearchAuthorsMvp.View>(), SearchAuthorsMvp.Presenter {
-
-	private var authors: ArrayList<SearchAuthorModel> = ArrayList()
+	private var editions: ArrayList<SearchEditionModel> = ArrayList()
 	private var page: Int = 0
 	private var previousTotal: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 
-	override fun onItemClick(position: Int, v: View?, item: SearchAuthorModel) {
+	override fun onItemClick(position: Int, v: View?, item: SearchEditionModel) {
 		view?.onItemClicked(item)
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: SearchAuthorModel?) {
+	override fun onItemLongClick(position: Int, v: View?, item: SearchEditionModel?) {
 	}
 
-	override fun getAuthors(): ArrayList<SearchAuthorModel> = authors
+	override fun getEditions(): ArrayList<SearchEditionModel> = editions
 
 	override fun getCurrentPage(): Int = page
 
@@ -46,7 +45,7 @@ class SearchAuthorsPresenter : BasePresenter<SearchAuthorsMvp.View>(), SearchAut
 			sendToView { view -> view.hideProgress() }
 			return false
 		}
-		makeRestCall(RestProvider.getSearchService().searchAuthors(parameter, page), Consumer { response ->
+		makeRestCall(RestProvider.getSearchService().searchEditions(parameter, page), Consumer { response ->
 			run {
 				lastPage = response.last
 				sendToView { view ->
