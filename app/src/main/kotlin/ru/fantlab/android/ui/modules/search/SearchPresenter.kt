@@ -13,25 +13,27 @@ import ru.fantlab.android.ui.modules.search.authors.SearchAuthorsFragment
 import ru.fantlab.android.ui.modules.search.awards.SearchAwardsFragment
 import ru.fantlab.android.ui.modules.search.editions.SearchEditionsFragment
 import ru.fantlab.android.ui.modules.search.works.SearchWorksFragment
-import java.util.*
 
 class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 
-	private val hints = ArrayList<SearchHistory>()
+	private val hints = ArrayList<String>()
 
 	override fun onAttachView(view: SearchMvp.View) {
 		super.onAttachView(view)
 		if (hints.isEmpty()) {
 			manageDisposable(AbstractSearchHistory.getHistory()
-					.subscribe({ strings ->
+					.subscribe({ histories ->
 						hints.clear()
-						if (strings != null) hints.addAll(strings)
+						val strings = ArrayList<String>()
+						histories.mapTo(strings) { it.text ?: "" }
+						hints.addAll(strings)
 						view.onNotifyAdapter(null)
-					}))
+					})
+			)
 		}
 	}
 
-	override fun getHints(): ArrayList<SearchHistory> = hints
+	override fun getHints(): ArrayList<String> = hints
 
 	override fun onSearchClicked(viewPager: ViewPager, editText: AutoCompleteTextView) {
 		val isEmpty = InputHelper.isEmpty(editText) || InputHelper.toString(editText as EditText).length < 2
@@ -48,12 +50,12 @@ class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 			works.onQueueSearch(query)
 			editions.onQueueSearch(query)
 			awards.onQueueSearch(query)
-			val noneMatch = hints.none { value -> value.text.equals(query, ignoreCase = true) }
+			val noneMatch = hints.none { value -> value.equals(query, ignoreCase = true) }
 			if (noneMatch) {
 				val searchHistory = SearchHistory()
 				searchHistory.text = query
 				manageObservable(searchHistory.save(searchHistory).toObservable())
-				sendToView { view -> view.onNotifyAdapter(searchHistory) }
+				sendToView { view -> view.onNotifyAdapter(query) }
 			}
 		}
 	}

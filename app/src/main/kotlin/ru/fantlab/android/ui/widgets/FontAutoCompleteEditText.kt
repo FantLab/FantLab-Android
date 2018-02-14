@@ -26,7 +26,6 @@ class FontAutoCompleteEditText : AppCompatAutoCompleteTextView {
 
 	private fun init() {
 		if (isInEditMode) return
-		if (isInEditMode) return
 		inputType = inputType or EditorInfo.IME_FLAG_NO_EXTRACT_UI or EditorInfo.IME_FLAG_NO_FULLSCREEN
 		imeOptions = imeOptions or EditorInfo.IME_FLAG_NO_FULLSCREEN
 		TypeFaceHelper.applyTypeface(this)

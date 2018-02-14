@@ -3,7 +3,6 @@ package ru.fantlab.android.ui.modules.search
 import android.support.annotation.IntRange
 import android.support.v4.view.ViewPager
 import android.widget.AutoCompleteTextView
-import ru.fantlab.android.data.dao.model.SearchHistory
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import java.util.*
 
@@ -15,14 +14,14 @@ interface SearchMvp {
 
 	interface View : BaseMvp.View {
 
-		fun onNotifyAdapter(query: SearchHistory?)
+		fun onNotifyAdapter(query: String?)
 
 		fun onSetCount(count: Int, @IntRange(from = 0, to = 3) index: Int)
 	}
 
 	interface Presenter : BaseMvp.Presenter {
 
-		fun getHints(): ArrayList<SearchHistory>
+		fun getHints(): ArrayList<String>
 
 		fun onSearchClicked(viewPager: ViewPager, editText: AutoCompleteTextView)
 	}

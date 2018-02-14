@@ -12,7 +12,6 @@ import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
-import ru.fantlab.android.data.dao.model.SearchHistory
 import ru.fantlab.android.helper.AnimHelper
 import ru.fantlab.android.helper.ViewHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
@@ -41,7 +40,7 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 	var tabsCountSet: HashSet<TabsCountStateModel> = LinkedHashSet<TabsCountStateModel>()
 
 	private val numberFormat = NumberFormat.getNumberInstance()
-	private val adapter: ArrayAdapter<SearchHistory> by lazy {
+	private val adapter: ArrayAdapter<String> by lazy {
 		ArrayAdapter(this, android.R.layout.simple_list_item_1, presenter.getHints())
 	}
 
@@ -94,7 +93,7 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 
 	override fun isSecured(): Boolean = false
 
-	override fun onNotifyAdapter(query: SearchHistory?) {
+	override fun onNotifyAdapter(query: String?) {
 		if (query == null)
 			adapter.notifyDataSetChanged()
 		else
