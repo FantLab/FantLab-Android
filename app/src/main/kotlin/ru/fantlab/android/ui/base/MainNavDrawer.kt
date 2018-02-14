@@ -38,7 +38,7 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 
 	private fun setupView(view: View) {
 		userModel?.let {
-			(view.findViewById<View>(R.id.navAvatarLayout) as AvatarLayout).setUrl(it.avatarUrl, null)
+			(view.findViewById<View>(R.id.navAvatarLayout) as AvatarLayout).setUrl(it.avatarUrl)
 			(view.findViewById<View>(R.id.navUsername) as TextView).text = it.login
 			val navFullName = view.findViewById<FontTextView>(R.id.navFullName)
 			when (it.name.isNullOrBlank()) {

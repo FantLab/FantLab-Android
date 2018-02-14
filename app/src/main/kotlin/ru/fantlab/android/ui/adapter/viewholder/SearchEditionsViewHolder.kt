@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.SearchEditionModel
-import ru.fantlab.android.ui.widgets.AvatarLayout
+import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
@@ -13,8 +13,8 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 class SearchEditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchEditionModel, SearchEditionsViewHolder, *>)
 	: BaseViewHolder<SearchEditionModel>(itemView, adapter) {
 
-	@BindView(R.id.avatarLayout)
-	lateinit var avatarLayout: AvatarLayout
+	@BindView(R.id.coverLayout)
+	lateinit var coverLayout: CoverLayout
 
 	@BindView(R.id.authors)
 	lateinit var authors: FontTextView
@@ -26,7 +26,7 @@ class SearchEditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Sear
 	lateinit var year: FontTextView
 
 	override fun bind(edition: SearchEditionModel) {
-		avatarLayout.setUrl("https://data.fantlab.ru/images/editions/big/${edition.editionId}", "")
+		coverLayout.setUrl("https://data.fantlab.ru/images/editions/big/${edition.editionId}")
 
 		if (edition.authors.isNotEmpty()) {
 			authors.text = edition.authors.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")

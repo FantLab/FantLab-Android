@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.SearchWorkModel
-import ru.fantlab.android.ui.widgets.AvatarLayout
+import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
@@ -14,8 +14,8 @@ import java.text.NumberFormat
 class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchWorkModel, SearchWorksViewHolder, *>)
 	: BaseViewHolder<SearchWorkModel>(itemView, adapter) {
 
-	@BindView(R.id.avatarLayout)
-	lateinit var avatarLayout: AvatarLayout
+	@BindView(R.id.coverLayout)
+	lateinit var coverLayout: CoverLayout
 
 	@BindView(R.id.authors)
 	lateinit var authors: FontTextView
@@ -37,7 +37,7 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 		} else {
 			0 // no image
 		}
-		avatarLayout.setUrl("https://data.fantlab.ru/images/editions/big/$coverId", "")
+		coverLayout.setUrl("https://data.fantlab.ru/images/editions/big/$coverId")
 
 		val authorsText = when {
 			// сначала пытаемся вычленить автора из названия (хак для журналов)

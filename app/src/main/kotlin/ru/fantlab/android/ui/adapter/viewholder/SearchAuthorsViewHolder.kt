@@ -44,7 +44,7 @@ class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Searc
 	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun bind(author: SearchAuthorModel) {
-		avatarLayout.setUrl("https://data.fantlab.ru/images/autors/${author.authorId}", "")
+		avatarLayout.setUrl("https://data.fantlab.ru/images/autors/${author.authorId}")
 
 		name.text = if (author.rusName.isNotEmpty()) {
 			if (author.name.isNotEmpty()) {

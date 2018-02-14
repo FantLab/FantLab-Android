@@ -26,7 +26,7 @@ class SearchAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Search
 	lateinit var dates: FontTextView
 
 	override fun bind(award: SearchAwardModel) {
-		avatarLayout.setUrl("https://data.fantlab.ru/images/awards/${award.awardId}", "")
+		avatarLayout.setUrl("https://data.fantlab.ru/images/awards/${award.awardId}")
 
 		name.text = if (award.rusName.isNotEmpty()) {
 			if (award.name.isNotEmpty()) {
