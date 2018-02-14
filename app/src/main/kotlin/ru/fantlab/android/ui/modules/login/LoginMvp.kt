@@ -15,6 +15,8 @@ interface LoginMvp {
 
 	interface Presenter : BaseMvp.Presenter {
 
+		fun proceedWithoutLogin()
+
 		fun login(username: String, password: String)
 	}
 }

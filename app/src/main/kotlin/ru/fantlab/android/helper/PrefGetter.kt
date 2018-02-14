@@ -37,6 +37,12 @@ object PrefGetter {
 	private val APP_LANGUAGE = "app_language"
 	private val NAV_DRAWER_GUIDE = "nav_drawer_guide"
 
+	fun setProceedWithoutLogin(proceed: Boolean) {
+		PrefHelper["proceed_without_login"] = proceed
+	}
+
+	fun proceedWithoutLogin(): Boolean = PrefHelper.getBoolean("proceed_without_login")
+
 	fun setToken(token: String?) {
 		PrefHelper[TOKEN] = token
 	}

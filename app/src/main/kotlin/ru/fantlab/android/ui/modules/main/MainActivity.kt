@@ -64,8 +64,6 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 
 	override fun canBack(): Boolean = false
 
-	override fun isSecured(): Boolean = false
-
 	override fun providePresenter(): MainPresenter = MainPresenter()
 
 	override fun onNavigationChanged(navType: MainMvp.NavigationType) {

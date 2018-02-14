@@ -29,7 +29,7 @@
 		android:id="@+id/forum"
 		android:color="?colorPrimary"
 		android:contentDescription="@string/forum"
-		android:icon="@drawable/ic_home"
+		android:icon="@drawable/ic_forum"
 		android:title="@string/forum"
 		/>
 

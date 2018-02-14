@@ -1,11 +1,8 @@
 package ru.fantlab.android.ui.modules.login
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.view.View
 import android.widget.ProgressBar
@@ -20,14 +17,8 @@ import ru.fantlab.android.ui.base.BaseActivity
 
 class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.View {
 
-	@BindView(R.id.usernameEditText)
-	lateinit var usernameEditText: TextInputEditText
-
 	@BindView(R.id.username)
 	lateinit var username: TextInputLayout
-
-	@BindView(R.id.passwordEditText)
-	lateinit var passwordEditText: TextInputEditText
 
 	@BindView(R.id.password)
 	lateinit var password: TextInputLayout
@@ -51,11 +42,14 @@ class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.Vi
 
 	override fun canBack(): Boolean = false
 
-	override fun isSecured(): Boolean = true
-
 	@OnClick(R.id.login)
-	fun onClick() {
+	fun onClickLogin() {
 		doLogin()
+	}
+
+	@OnClick(R.id.proceedWithoutLogin)
+	fun onClickProceedWithoutLogin() {
+		presenter.proceedWithoutLogin()
 	}
 
 	@OnEditorAction(R.id.passwordEditText)
@@ -103,19 +97,11 @@ class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.Vi
 		AnimHelper.animateVisibility(progress, true)
 	}
 
+	override fun validateAuth(): Boolean = true
+
 	private fun doLogin() {
 		if (progress.visibility == View.GONE) {
 			presenter.login(InputHelper.toString(username), InputHelper.toString(password))
-		}
-	}
-
-	companion object {
-
-		fun start(activity: Activity) {
-			val intent = Intent(activity, LoginActivity::class.java)
-			intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-			activity.startActivity(intent)
-			activity.finish()
 		}
 	}
 }

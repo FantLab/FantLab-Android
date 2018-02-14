@@ -83,8 +83,6 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 
 	protected abstract fun canBack(): Boolean
 
-	protected abstract fun isSecured(): Boolean
-
 	override fun onCreate(savedInstanceState: Bundle?) {
 		setTaskName(null)
 		setupTheme()
@@ -308,12 +306,10 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		ThemeEngine.apply(this)
 	}
 
-	private fun validateAuth(): Boolean {
-		if (!isSecured()) {
-			if (!isLoggedIn()) {
-				onRequireLogin()
-				return false
-			}
+	open fun validateAuth(): Boolean {
+		if (!PrefGetter.proceedWithoutLogin() && !isLoggedIn()) {
+			onRequireLogin()
+			return false
 		}
 		return true
 	}
@@ -428,7 +424,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		val intent = Intent(this, MainActivity::class.java)
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
 		startActivity(intent)
-		finishAndRemoveTask()
+		finish()
 	}
 
 	protected fun selectHome() {

@@ -38,14 +38,14 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 
 	private fun setupView(view: View) {
 		userModel?.let {
-			(view.findViewById<View>(R.id.navAvatarLayout) as AvatarLayout).setUrl(it.avatarUrl)
+			(view.findViewById<View>(R.id.navAvatarLayout) as AvatarLayout).setUrl("https://${it.avatar}")
 			(view.findViewById<View>(R.id.navUsername) as TextView).text = it.login
 			val navFullName = view.findViewById<FontTextView>(R.id.navFullName)
-			when (it.name.isNullOrBlank()) {
+			when (it.fio.isNullOrBlank()) {
 				true -> navFullName.visibility = View.GONE
 				else -> {
 					navFullName.visibility = View.VISIBLE
-					navFullName.text = it.name
+					navFullName.text = it.fio
 				}
 			}
 			view.findViewById<View>(R.id.navAccHolder).setOnClickListener {

@@ -91,8 +91,6 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 
 	override fun providePresenter(): SearchPresenter = SearchPresenter()
 
-	override fun isSecured(): Boolean = false
-
 	override fun onNotifyAdapter(query: String?) {
 		if (query == null)
 			adapter.notifyDataSetChanged()

@@ -11,6 +11,8 @@ interface LoginRestService {
 
 	@FormUrlEncoded
 	@POST("login")
-	fun login(@Field("login") login: String,
-			  @Field("password") password: String): Observable<Response<ResponseBody>>
+	fun login(
+			@Field("login") login: String,
+			@Field("password") password: String
+	): Observable<Response<ResponseBody>>
 }
