@@ -27,17 +27,22 @@ class SearchEditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Sear
 
 	override fun bind(edition: SearchEditionModel) {
 		avatarLayout.setUrl("https://data.fantlab.ru/images/editions/big/${edition.editionId}", "")
+
 		if (edition.authors.isNotEmpty()) {
-			authors.text = edition.authors.replace("\\[.*?\\]".toRegex(), "")
+			authors.text = edition.authors.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")
 			authors.visibility = View.VISIBLE
 		} else {
 			authors.visibility = View.GONE
 		}
-		title.text = edition.name.replace("\\[.*?\\]".toRegex(), "")
+
+		title.text = edition.name.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")
+
 		year.text = if (edition.year.isNotEmpty()) edition.year else "N/A"
 	}
 
 	companion object {
+
+		private val ANY_CHARACTERS_IN_BRACKETS_REGEX = "\\[.*?]".toRegex()
 
 		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<SearchEditionModel, SearchEditionsViewHolder, *>) : SearchEditionsViewHolder
 				= SearchEditionsViewHolder(getView(viewGroup, R.layout.search_editions_row_item), adapter)

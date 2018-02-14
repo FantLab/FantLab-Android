@@ -27,10 +27,19 @@ class SearchAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Search
 
 	override fun bind(award: SearchAwardModel) {
 		avatarLayout.setUrl("https://data.fantlab.ru/images/awards/${award.awardId}", "")
-		name.text = StringBuilder()
-				.append(award.rusName)
-				.append(if (award.name.isNotEmpty()) " / ${award.name}" else "")
+
+		name.text = if (award.rusName.isNotEmpty()) {
+			if (award.name.isNotEmpty()) {
+				String.format("%s / %s", award.rusName, award.name)
+			} else {
+				award.rusName
+			}
+		} else {
+			award.name
+		}
+
 		country.text = if (award.country.isNotEmpty()) award.country else "N/A"
+
 		dates.text = StringBuilder()
 				.append(if (award.yearOpen != 0) award.yearOpen else "N/A")
 				.append(if (award.yearClose != 0) " - ${award.yearClose}" else "")

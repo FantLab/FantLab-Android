@@ -8,6 +8,11 @@ import okhttp3.ResponseBody
 
 class PaginationInterceptor : Interceptor {
 
+	companion object {
+
+		private val SEARCH_RESULTS_PER_PAGE = 25
+	}
+
 	override fun intercept(chain: Interceptor.Chain): Response {
 		val request = chain.request()
 		val response = chain.proceed(request)
@@ -28,8 +33,7 @@ class PaginationInterceptor : Interceptor {
 		val totalEndIndex = body.indexOf(",", startIndex = totalStartIndex)
 		val totalCount = body.substring(totalStartIndex + "\"total\":".length, totalEndIndex).toInt()
 
-		val resultsPerPage = 25
-		val lastPage = totalCount / resultsPerPage
+		val lastPage = (totalCount - 1) / SEARCH_RESULTS_PER_PAGE
 		val lastString = "\"last\":${lastPage + 1}"
 
 		var currentPage = request.url().queryParameter("page")?.toInt()

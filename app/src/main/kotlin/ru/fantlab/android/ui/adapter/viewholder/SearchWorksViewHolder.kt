@@ -38,11 +38,59 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 			0 // no image
 		}
 		avatarLayout.setUrl("https://data.fantlab.ru/images/editions/big/$coverId", "")
-		authors.text = if (work.allAuthorRusName.isNotEmpty()) work.allAuthorRusName else work.allAuthorName
-		title.text = StringBuilder()
-				.append(if (work.rusName.isNotEmpty()) work.rusName else work.name)
-				.append(if (work.name.isNotEmpty()) " / ${work.name}" else "")
+
+		val authorsText = when {
+			// сначала пытаемся вычленить автора из названия (хак для журналов)
+			// прим.: решение все равно покрывает не все возможные случаи из-за косяков в базе
+			work.rusName.contains(AUTHORS_REGEX) -> {
+				// произведение без отдельной/открытой страницы с несколькими авторами
+				work.rusName.substring(work.rusName.lastIndexOf("Авторы", ignoreCase = true) + "Авторы".length + 1).trim()
+			}
+			work.rusName.contains(AUTHOR_REGEX) -> {
+				// произведение без отдельной/открытой страницы с одним автором
+				work.rusName.substring(work.rusName.lastIndexOf("Автор", ignoreCase = true) + "Автор".length + 1).trim()
+			}
+			work.name.contains(AUTHORS_REGEX) -> {
+				// произведение без отдельной/открытой страницы и перевода с несколькими авторами
+				work.name.substring(work.name.lastIndexOf("Авторы", ignoreCase = true) + "Авторы".length + 1).trim()
+			}
+			work.name.contains(AUTHOR_REGEX) -> {
+				// произведение без отдельной/открытой страницы и перевода с одним автором
+				work.name.substring(work.name.lastIndexOf("Автор", ignoreCase = true) + "Автор".length + 1).trim()
+			}
+			work.allAuthorRusName.isNotEmpty() -> work.allAuthorRusName
+			work.allAuthorName.isNotEmpty() -> work.allAuthorName
+			else -> ""
+		}
+		if (authorsText.isNotEmpty()) {
+			authors.text = authorsText
+			authors.visibility = View.VISIBLE
+		} else {
+			authors.visibility = View.GONE
+		}
+
+		val rusName = if (work.rusName.contains(AUTHORS_REGEX) || work.rusName.contains(AUTHOR_REGEX)) {
+			work.rusName.substring(0, work.rusName.lastIndexOf("//")).trim()
+		} else {
+			work.rusName
+		}
+		val name = if (work.name.contains(AUTHORS_REGEX) || work.name.contains(AUTHOR_REGEX)) {
+			work.name.substring(0, work.name.lastIndexOf("//")).trim()
+		} else {
+			work.name
+		}
+		title.text = if (rusName.isNotEmpty()) {
+			if (name.isNotEmpty()) {
+				String.format("%s / %s", rusName, name)
+			} else {
+				rusName
+			}
+		} else {
+			name
+		}
+
 		year.text = if (work.year != 0) work.year.toString() else "N/A"
+
 		if (work.markCount != 0) {
 			rating.text = String.format("%s / %s",
 					numberFormat.format(work.midMark[0].toDouble()),
@@ -55,7 +103,10 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 
 	companion object {
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<SearchWorkModel, SearchWorksViewHolder, *>) : SearchWorksViewHolder
+		private val AUTHORS_REGEX = "//\\s*Авторы:*".toRegex(RegexOption.IGNORE_CASE)
+		private val AUTHOR_REGEX = "//\\s*Автор:*".toRegex(RegexOption.IGNORE_CASE)
+
+		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<SearchWorkModel, SearchWorksViewHolder, *>): SearchWorksViewHolder
 				= SearchWorksViewHolder(getView(viewGroup, R.layout.search_works_row_item), adapter)
 	}
 }
