@@ -7,6 +7,7 @@ import ru.fantlab.android.provider.db.DbProvider
 import ru.fantlab.android.provider.fabric.FabricProvider
 import ru.fantlab.android.provider.stetho.StethoProvider
 import ru.fantlab.android.provider.timber.TimberProvider
+import shortbread.Shortbread
 
 class App : Application() {
 
@@ -28,5 +29,6 @@ class App : Application() {
 			StethoProvider.initStetho(this)
 		}
 		dataStore = DbProvider.initDataStore(this, 1)
+		Shortbread.create(this)
 	}
 }

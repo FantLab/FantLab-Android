@@ -1,10 +1,16 @@
 package ru.fantlab.android.helper
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.ContextWrapper
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v4.app.ShareCompat
+import android.widget.Toast
+import es.dmoral.toasty.Toasty
+import ru.fantlab.android.App
+import ru.fantlab.android.R
 
 object ActivityHelper {
 
@@ -25,5 +31,18 @@ object ActivityHelper {
 					.forEach { return it }
 		}
 		return null
+	}
+
+	fun shareUrl(context: Context, url: String) {
+		val activity = getActivity(context) ?: throw IllegalArgumentException("Context given is not an instance of activity ${context.javaClass.name}")
+		try {
+			ShareCompat.IntentBuilder.from(activity)
+					.setChooserTitle(context.getString(R.string.share))
+					.setType("text/plain")
+					.setText(url)
+					.startChooser()
+		} catch (e: ActivityNotFoundException) {
+			Toasty.error(App.instance, e.message!!, Toast.LENGTH_LONG).show()
+		}
 	}
 }

@@ -1,10 +1,13 @@
 package ru.fantlab.android.ui.adapter.viewholder
 
+import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.SearchAuthorModel
+import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
+import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
 import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
@@ -32,8 +35,8 @@ class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Searc
 	@BindView(R.id.rating)
 	lateinit var rating: FontTextView
 
-	@BindView(R.id.reviews)
-	lateinit var reviews: FontTextView
+	@BindView(R.id.responses)
+	lateinit var responses: FontTextView
 
 	@BindView(R.id.editions)
 	lateinit var editions: FontTextView
@@ -44,7 +47,12 @@ class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Searc
 	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun bind(author: SearchAuthorModel) {
-		avatarLayout.setUrl("https://data.fantlab.ru/images/autors/${author.authorId}")
+		avatarLayout.setUrl(Uri.Builder().scheme(PROTOCOL_HTTPS)
+				.authority(HOST_DATA)
+				.appendPath("images")
+				.appendPath("autors")
+				.appendPath(author.authorId.toString())
+				.toString())
 
 		name.text = if (author.rusName.isNotEmpty()) {
 			if (author.name.isNotEmpty()) {
@@ -79,10 +87,10 @@ class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Searc
 		}
 
 		if (author.responseCount != 0) {
-			reviews.text = numberFormat.format(author.responseCount.toLong())
-			reviews.visibility = View.VISIBLE
+			responses.text = numberFormat.format(author.responseCount.toLong())
+			responses.visibility = View.VISIBLE
 		} else {
-			reviews.visibility = View.GONE
+			responses.visibility = View.GONE
 		}
 
 		if (author.editionCount != 0) {

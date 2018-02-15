@@ -1,10 +1,13 @@
 package ru.fantlab.android.ui.adapter.viewholder
 
+import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.SearchEditionModel
+import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
+import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
@@ -26,7 +29,13 @@ class SearchEditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Sear
 	lateinit var year: FontTextView
 
 	override fun bind(edition: SearchEditionModel) {
-		coverLayout.setUrl("https://data.fantlab.ru/images/editions/big/${edition.editionId}")
+		coverLayout.setUrl(Uri.Builder().scheme(PROTOCOL_HTTPS)
+				.authority(HOST_DATA)
+				.appendPath("images")
+				.appendPath("editions")
+				.appendPath("big")
+				.appendPath(edition.editionId.toString())
+				.toString())
 
 		if (edition.authors.isNotEmpty()) {
 			authors.text = edition.authors.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")

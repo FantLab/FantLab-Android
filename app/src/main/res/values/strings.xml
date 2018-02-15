@@ -27,6 +27,7 @@
 	<string name="amber_theme_mode" translatable="false">Amber</string>
 	<string name="orange_theme_mode" translatable="false">Orange</string>
 	<string name="deep_orange_theme_mode" translatable="false">Deep Orange</string>
+	<string name="share">Share</string>
 
 	<string name="in_progress">Loading, please wait…</string>
 	<string name="cancel">Cancel</string>
@@ -59,10 +60,13 @@
 	<string name="required_field">Required field</string>
 	<string name="failed_login">Sign in failed</string>
 	<string name="minimum_three_chars">Minimum characters (2)</string>
+	<string name="user">User</string>
 	<string name="authors">Authors</string>
 	<string name="works">Works</string>
 	<string name="editions">Editions</string>
 	<string name="awards">Awards</string>
 	<string name="search_results_warning">Too many results \nShowing the max API allows</string>
 	<string name="no_search_results">No search results</string>
+	<string name="overview">Overview</string>
+	<string name="marks">Marks</string>
 </resources>

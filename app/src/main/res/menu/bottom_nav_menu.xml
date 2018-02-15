@@ -21,7 +21,7 @@
 		android:id="@+id/responses"
 		android:color="?colorPrimary"
 		android:contentDescription="@string/responses"
-		android:icon="@drawable/ic_review"
+		android:icon="@drawable/ic_response"
 		android:title="@string/responses"
 		/>
 

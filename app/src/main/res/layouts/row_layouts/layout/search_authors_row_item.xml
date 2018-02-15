@@ -118,7 +118,7 @@
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/reviews"
+					android:id="@+id/responses"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_gravity="center"

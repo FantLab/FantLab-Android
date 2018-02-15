@@ -106,8 +106,10 @@ dependencies {
 	implementation "com.jakewharton.timber:timber:4.5.1"
 	implementation 'it.sephiroth.android.library.bottomnavigation:bottom-navigation:2.0.2'
 	implementation 'cn.gavinliu.android.lib:ShapedImageView:0.8.3'
+	implementation 'com.github.matthiasrobbers:shortbread:1.0.1'
 	kapt "com.evernote:android-state-processor:${state_version}"
 	kapt "com.jakewharton:butterknife-compiler:${butterKnife_version}"
 	kapt "io.requery:requery-processor:${requery_version}"
+	kapt 'com.github.matthiasrobbers:shortbread-compiler:1.0.1'
 	testImplementation "junit:junit:${junit_version}"
 }

@@ -1,10 +1,13 @@
 package ru.fantlab.android.ui.adapter.viewholder
 
+import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.SearchAwardModel
+import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
+import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
 import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
@@ -26,7 +29,13 @@ class SearchAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Search
 	lateinit var dates: FontTextView
 
 	override fun bind(award: SearchAwardModel) {
-		avatarLayout.setUrl("https://data.fantlab.ru/images/awards/${award.awardId}")
+		avatarLayout.setUrl(
+				Uri.Builder().scheme(PROTOCOL_HTTPS)
+				.authority(HOST_DATA)
+				.appendPath("images")
+				.appendPath("awards")
+				.appendPath(award.awardId.toString())
+				.toString())
 
 		name.text = if (award.rusName.isNotEmpty()) {
 			if (award.name.isNotEmpty()) {
