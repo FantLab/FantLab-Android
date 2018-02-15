@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import butterknife.BindView
-import butterknife.OnClick
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
@@ -54,15 +53,6 @@ open class MessageDialogView : BaseBottomSheetDialog() {
 		callback = null
 	}
 
-	@OnClick(R.id.cancel, R.id.ok)
-	fun onClick(view: View) {
-		callback?.let {
-			isAlreadyHidden = true
-			it.onMessageDialogActionClicked(view.id == R.id.ok, arguments?.getBundle("bundle"))
-		}
-		dismiss()
-	}
-
 	override fun layoutRes(): Int {
 		return R.layout.message_dialog
 	}
@@ -77,6 +67,20 @@ open class MessageDialogView : BaseBottomSheetDialog() {
 			val hideCancel = it.getBoolean("hideCancel")
 			if (hideCancel) cancel.visibility = View.GONE
 			initButton(it)
+		}
+		ok.setOnClickListener {
+			callback?.let {
+				isAlreadyHidden = true
+				it.onMessageDialogActionClicked(true, arguments?.getBundle("bundle"))
+			}
+			dismiss()
+		}
+		cancel.setOnClickListener {
+			callback?.let {
+				isAlreadyHidden = true
+				it.onMessageDialogActionClicked(false, arguments?.getBundle("bundle"))
+			}
+			dismiss()
 		}
 	}
 
