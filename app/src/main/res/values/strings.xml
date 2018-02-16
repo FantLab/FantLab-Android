@@ -9,6 +9,7 @@
 	<string name="bbn_fab_default_behavior" translatable="false">ru.fantlab.android.ui.widgets.FloatingActionButtonBehavior</string>
 	<string name="custom_tablet_provider" translatable="false">ru.fantlab.android.ui.widgets.TabletBehavior</string>
 	<string name="icon_transition" translatable="false">profile_image_transition</string>
+	<string name="title_transition" translatable="false">profile_title_transition</string>
 	<string name="light_theme_mode" translatable="false">Light Theme</string>
 	<string name="dark_theme_mode" translatable="false">Dark Theme</string>
 	<string name="red_theme_mode" translatable="false">Red</string>
@@ -69,4 +70,8 @@
 	<string name="no_search_results">No search results</string>
 	<string name="overview">Overview</string>
 	<string name="marks">Marks</string>
+	<string name="network_error">Error occurred while communicating to the server</string>
+	<string name="unexpected_error">Unexpected error while requesting API</string>
+	<string name="request_error">Error requesting server, please try again later</string>
+	<string name="gender">Gender</string>
 </resources>

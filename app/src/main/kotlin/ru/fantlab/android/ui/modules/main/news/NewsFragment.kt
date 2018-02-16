@@ -28,7 +28,7 @@ class NewsFragment : BaseFragment<NewsMvp.View, NewsPresenter>(), NewsMvp.View {
 	@BindView(R.id.fastScroller)
 	lateinit var fastScroller: RecyclerViewFastScroller
 
-	private val adapter: NewsAdapter by lazy { NewsAdapter(presenter.getNews()) }
+	private val adapter: NewsAdapter by lazy { NewsAdapter(presenter.news) }
 
 	private val onLoadMore: OnLoadMore<Any> by lazy { OnLoadMore(presenter) }
 
@@ -44,7 +44,7 @@ class NewsFragment : BaseFragment<NewsMvp.View, NewsPresenter>(), NewsMvp.View {
 		recycler.adapter = adapter
 		recycler.addOnScrollListener(getLoadMore())
 		fastScroller.attachRecyclerView(recycler)
-		if (presenter.getNews().isEmpty() && !presenter.isApiCalled()) {
+		if (presenter.news.isEmpty() && !presenter.isApiCalled()) {
 			presenter.onFragmentCreated()
 		}
 	}

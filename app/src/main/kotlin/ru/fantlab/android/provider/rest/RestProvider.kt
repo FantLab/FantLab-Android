@@ -4,6 +4,7 @@ import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -40,14 +41,15 @@ object RestProvider {
 		return okHttpClient!!
 	}
 
-	private fun provideRetrofit(): Retrofit {
-		return Retrofit.Builder()
+	private fun provideRetrofit(): Retrofit =
+		Retrofit.Builder()
 				.baseUrl(BuildConfig.REST_URL)
 				.client(provideOkHttpClient())
 				.addConverterFactory(GsonConverterFactory.create(gson))
 				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 				.build()
-	}
+
+	fun getErrorCode(throwable: Throwable): Int = (throwable as? HttpException)?.code() ?: -1
 
 	fun getSearchService(): SearchService = provideRetrofit().create(SearchService::class.java)
 

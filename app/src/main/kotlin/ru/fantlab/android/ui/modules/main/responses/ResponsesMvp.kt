@@ -5,7 +5,6 @@ import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
-import java.util.*
 
 interface ResponsesMvp {
 
@@ -26,8 +25,6 @@ interface ResponsesMvp {
 		fun onFragmentCreated()
 
 		fun onCallApi(page: Int): Boolean
-
-		fun getResponses(): ArrayList<Response>
 
 		fun onWorkOffline()
 	}

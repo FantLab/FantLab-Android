@@ -28,7 +28,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 	@BindView(R.id.fastScroller)
 	lateinit var fastScroller: RecyclerViewFastScroller
 
-	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses()) }
+	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.responses) }
 
 	private val onLoadMore: OnLoadMore<Any> by lazy { OnLoadMore(presenter) }
 
@@ -44,7 +44,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 		recycler.adapter = adapter
 		recycler.addOnScrollListener(getLoadMore())
 		fastScroller.attachRecyclerView(recycler)
-		if (presenter.getResponses().isEmpty() && !presenter.isApiCalled()) {
+		if (presenter.responses.isEmpty() && !presenter.isApiCalled()) {
 			presenter.onFragmentCreated()
 		}
 	}

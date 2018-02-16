@@ -2,8 +2,9 @@ package ru.fantlab.android.ui.modules.main.responses
 
 import android.view.View
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.model.AbstractResponse
 import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.data.dao.model.getResponses
+import ru.fantlab.android.data.dao.model.save
 import ru.fantlab.android.helper.observe
 import ru.fantlab.android.provider.StubProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -12,13 +13,13 @@ import java.util.*
 
 class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Presenter {
 
-	private var responseModels: ArrayList<Response> = ArrayList()
+	var responses: ArrayList<Response> = ArrayList()
 	private var page: Int = 0
 	private var previousTotal: Int = 0
 	private var lastPage = Int.MAX_VALUE
 
 	override fun onFragmentCreated() {
-		if (responseModels.isEmpty()) {
+		if (responses.isEmpty()) {
 			onCallApi(1)
 		}
 	}
@@ -37,7 +38,7 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 			run {
 				lastPage = response.last
 				if (getCurrentPage() == 1) {
-					manageDisposable(AbstractResponse.save(response.items))
+					manageDisposable(response.items.save())
 				}
 				sendToView { view -> view.onNotifyAdapter(response.items, page) }
 			}
@@ -59,12 +60,10 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 
 	override fun onCallApi(page: Int, parameter: Any?): Boolean = onCallApi(page)
 
-	override fun getResponses(): ArrayList<Response> = responseModels
-
 	override fun onWorkOffline() {
-		if (responseModels.isEmpty()) {
+		if (responses.isEmpty()) {
 			manageDisposable(
-					AbstractResponse.getResponses().toObservable().observe().subscribe(
+					getResponses().toObservable().observe().subscribe(
 							{ modelList ->
 								modelList?.let {
 									sendToView { view -> view.onNotifyAdapter(modelList, 1) }

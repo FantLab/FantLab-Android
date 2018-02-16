@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.AbstractLogin
 import ru.fantlab.android.data.dao.model.Login
+import ru.fantlab.android.data.dao.model.getLoggedUser
 import ru.fantlab.android.ui.modules.main.MainActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.widgets.AvatarLayout
@@ -24,7 +24,7 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 	: BaseViewHolder.OnItemClickListener<Login> {
 
 	private var menusHolder: ViewGroup? = null
-	private val userModel: Login? = AbstractLogin.getUser()
+	private val userModel: Login? = getLoggedUser()
 
 	init {
 		menusHolder = view.findViewById(R.id.menusHolder)

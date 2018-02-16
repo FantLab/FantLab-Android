@@ -2,8 +2,9 @@ package ru.fantlab.android.ui.modules.main.forumfeed
 
 import android.view.View
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.model.AbstractForumMessage
 import ru.fantlab.android.data.dao.model.ForumMessage
+import ru.fantlab.android.data.dao.model.getForumMessages
+import ru.fantlab.android.data.dao.model.save
 import ru.fantlab.android.helper.observe
 import ru.fantlab.android.provider.StubProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -37,7 +38,7 @@ class ForumFeedPresenter : BasePresenter<ForumFeedMvp.View>(), ForumFeedMvp.Pres
 			run {
 				lastPage = response.last
 				if (getCurrentPage() == 1) {
-					manageDisposable(AbstractForumMessage.save(response.items))
+					manageDisposable(response.items.save())
 				}
 				sendToView { view -> view.onNotifyAdapter(response.items, page) }
 			}
@@ -64,7 +65,7 @@ class ForumFeedPresenter : BasePresenter<ForumFeedMvp.View>(), ForumFeedMvp.Pres
 	override fun onWorkOffline() {
 		if (messageModels.isEmpty()) {
 			manageDisposable(
-					AbstractForumMessage.getMessages().toObservable().observe().subscribe(
+					getForumMessages().toObservable().observe().subscribe(
 							{ modelList ->
 								modelList?.let {
 									sendToView { view -> view.onNotifyAdapter(modelList, 1) }

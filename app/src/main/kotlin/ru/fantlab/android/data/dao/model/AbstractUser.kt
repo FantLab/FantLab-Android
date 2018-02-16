@@ -3,15 +3,14 @@ package ru.fantlab.android.data.dao.model
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import io.reactivex.Observable
 import io.requery.Column
 import io.requery.Entity
 import ru.fantlab.android.App
-import ru.fantlab.android.helper.PrefGetter
+import ru.fantlab.android.data.dao.model.Login.USER_ID
 import java.util.*
 
 @Entity
-abstract class AbstractLogin() : Parcelable {
+abstract class AbstractUser() : Parcelable {
 
 	@JvmField
 	@Column
@@ -170,10 +169,6 @@ abstract class AbstractLogin() : Parcelable {
 	@Column
 	var dateOfBlockEnd: Date? = null
 
-	@JvmField
-	@Column
-	var token: String? = null
-
 	constructor(parcel: Parcel) : this() {
 		userId = parcel.readValue(Int::class.java.classLoader) as? Int
 		login = parcel.readString()
@@ -206,7 +201,6 @@ abstract class AbstractLogin() : Parcelable {
 		authorIsOpened = parcel.readValue(Int::class.java.classLoader) as? Int
 		blogId = parcel.readValue(Int::class.java.classLoader) as? Int
 		block = parcel.readValue(Int::class.java.classLoader) as? Int
-		token = parcel.readString()
 	}
 
 	override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -241,49 +235,35 @@ abstract class AbstractLogin() : Parcelable {
 		parcel.writeValue(authorIsOpened)
 		parcel.writeValue(blogId)
 		parcel.writeValue(block)
-		parcel.writeString(token)
 	}
 
 	override fun describeContents(): Int {
 		return 0
 	}
 
-	companion object CREATOR : Parcelable.Creator<Login> {
-		override fun createFromParcel(parcel: Parcel): Login {
-			return Login(parcel)
+	companion object CREATOR : Parcelable.Creator<User> {
+		override fun createFromParcel(parcel: Parcel): User {
+			return User(parcel)
 		}
 
-		override fun newArray(size: Int): Array<Login?> {
+		override fun newArray(size: Int): Array<User?> {
 			return arrayOfNulls(size)
 		}
 	}
 }
 
-fun getLoggedUser(): Login? {
+fun User.save() {
+	if (getUser(this.userId!!) != null) {
+		App.dataStore.toBlocking().update(this)
+	} else {
+		App.dataStore.toBlocking().insert(this)
+	}
+}
+
+fun getUser(id: Int): User? {
 	return App.dataStore
-			.select(Login::class.java)
+			.select(User::class.java)
+			.where(USER_ID.eq(id))
 			.get()
 			.firstOrNull()
-}
-
-fun logout() {
-	val loggedUser = getLoggedUser() ?: return
-	App.dataStore.toBlocking().delete(loggedUser)
-}
-
-fun Login.saveLoggedUser(): Observable<Boolean> {
-	return Observable.fromPublisher { s ->
-		this.token = PrefGetter.getToken()
-		App.dataStore
-				.toBlocking()
-				.delete(Login::class.java)
-				.where(Login.USER_ID.eq(this.userId))
-				.get()
-				.value()
-		App.dataStore
-				.toBlocking()
-				.insert(this)
-		s.onNext(true)
-		s.onComplete()
-	}
 }

@@ -4,8 +4,8 @@ import io.reactivex.functions.Consumer
 import okhttp3.ResponseBody
 import retrofit2.Response
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.AbstractLogin
 import ru.fantlab.android.data.dao.model.Login
+import ru.fantlab.android.data.dao.model.saveLoggedUser
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.LoginProvider
@@ -39,7 +39,7 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 		response.headers().values("Set-Cookie").map {
 			if (!InputHelper.isEmpty(it) && it.startsWith("fl_s")) {
 				PrefGetter.setToken(it.substring(0, it.indexOf(";")))
-				makeRestCall(RestProvider.getUserService().getUser(/*username*/58246), Consumer { response ->
+				makeRestCall(RestProvider.getUserService().getLoggedUser(/*username*/58246), Consumer { response ->
 					onUserResponse(response)
 				})
 				return
@@ -49,7 +49,7 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 
 	private fun onUserResponse(userModel: Login?) {
 		if (userModel != null) {
-			manageObservable(AbstractLogin.saveLogin(userModel)
+			manageObservable(userModel.saveLoggedUser()
 					.doOnComplete({
 						PrefGetter.setProceedWithoutLogin(false)
 						sendToView { view -> view.onSuccessfullyLoggedIn() }

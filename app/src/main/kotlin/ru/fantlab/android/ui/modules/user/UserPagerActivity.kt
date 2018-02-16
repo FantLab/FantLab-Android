@@ -16,7 +16,7 @@ import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
-import ru.fantlab.android.data.dao.model.AbstractLogin
+import ru.fantlab.android.data.dao.model.getLoggedUser
 import ru.fantlab.android.helper.*
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DEFAULT
 import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
@@ -63,7 +63,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		val currentUser = AbstractLogin.getUser()
+		val currentUser = getLoggedUser()
 		if (currentUser == null) {
 			onRequireLogin()
 			return
@@ -87,7 +87,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		}
 		val adapter = FragmentsPagerAdapter(
 				supportFragmentManager,
-				FragmentPagerAdapterModel.buildForProfile(this, login!!)
+				FragmentPagerAdapterModel.buildForProfile(this, userId)
 		)
 		pager.adapter = adapter
 		tabs.tabGravity = TabLayout.GRAVITY_FILL
@@ -149,10 +149,10 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	}
 
 	private fun hideShowFab(position: Int) {
-		if (position == 1) {
-			fab.show()
-		} else {
-			fab.hide()
+		when (position) {
+			1 -> fab.show()
+			2 -> fab.show()
+			else -> fab.hide()
 		}
 	}
 

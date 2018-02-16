@@ -1,5 +1,7 @@
 package ru.fantlab.android.data.dao.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import io.reactivex.Single
 import io.requery.Column
 import io.requery.Entity
@@ -7,38 +9,58 @@ import ru.fantlab.android.App
 import ru.fantlab.android.helper.single
 
 @Entity
-abstract class AbstractSearchHistory {
+abstract class AbstractSearchHistory() : Parcelable {
 
 	@JvmField
 	@Column(unique = true)
 	var text: String? = null
 
-	fun save(entity: SearchHistory): Single<SearchHistory> {
-		return App.dataStore
-				.delete(SearchHistory::class.java)
-				.where(SearchHistory.TEXT.eq(entity.text))
-				.get()
-				.single()
-				.flatMap { App.dataStore.insert(entity) }
-				.single()
+	@Suppress("ConvertSecondaryConstructorToPrimary")
+	constructor(parcel: Parcel) : this() {
+		text = parcel.readString()
 	}
 
-	companion object {
+	override fun writeToParcel(parcel: Parcel, flags: Int) {
+		parcel.writeString(text)
+	}
 
-		fun getHistory(): Single<List<SearchHistory>> {
-			return App.dataStore
-					.select(SearchHistory::class.java)
-					.groupBy(SearchHistory.TEXT.asc())
-					.get()
-					.observable()
-					.toList()
+	override fun describeContents(): Int {
+		return 0
+	}
+
+	companion object CREATOR : Parcelable.Creator<SearchHistory> {
+		override fun createFromParcel(parcel: Parcel): SearchHistory {
+			return SearchHistory(parcel)
 		}
 
-		fun deleteAll() {
-			App.dataStore
-					.delete(SearchHistory::class.java)
-					.get()
-					.value()
+		override fun newArray(size: Int): Array<SearchHistory?> {
+			return arrayOfNulls(size)
 		}
 	}
+}
+
+fun SearchHistory.save(): Single<SearchHistory> {
+	return App.dataStore
+			.delete(SearchHistory::class.java)
+			.where(SearchHistory.TEXT.eq(this.text))
+			.get()
+			.single()
+			.flatMap { App.dataStore.insert(this) }
+			.single()
+}
+
+fun getSearchHistory(): Single<List<SearchHistory>> {
+	return App.dataStore
+			.select(SearchHistory::class.java)
+			.groupBy(SearchHistory.TEXT.asc())
+			.get()
+			.observable()
+			.toList()
+}
+
+fun deleteSearchHistory() {
+	App.dataStore
+			.delete(SearchHistory::class.java)
+			.get()
+			.value()
 }
