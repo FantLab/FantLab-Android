@@ -124,7 +124,7 @@
 					android:layout_gravity="center"
 					android:layout_marginEnd="@dimen/spacing_micro"
 					android:drawablePadding="@dimen/spacing_micro"
-					android:drawableStart="@drawable/ic_review_small"
+					android:drawableStart="@drawable/ic_response_small"
 					android:gravity="start|center"
 					android:textColor="?android:attr/textColorSecondary"
 					android:visibility="gone"

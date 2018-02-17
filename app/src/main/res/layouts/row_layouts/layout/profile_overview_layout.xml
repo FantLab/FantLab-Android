@@ -100,6 +100,58 @@
 						/>
 
 					<LinearLayout
+						android:id="@+id/actionsLayout"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:gravity="center"
+						android:orientation="horizontal"
+						android:paddingBottom="@dimen/spacing_xs_large"
+						android:paddingTop="@dimen/spacing_xs_large"
+						tools:showIn="@layout/profile_overview_layout"
+						>
+
+						<ru.fantlab.android.ui.widgets.FontButton
+							android:id="@+id/author"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:background="?selectableItemBackground"
+							android:ellipsize="end"
+							android:maxLines="1"
+							android:text="@string/author_page"
+							android:textColor="?android:textColorSecondary"
+							style="@style/TextAppearance.AppCompat.Subhead"
+							/>
+
+						<View
+							android:id="@+id/divider"
+							android:layout_width="1dp"
+							android:layout_height="24dp"
+							android:layout_gravity="center"
+							android:layout_marginEnd="@dimen/spacing_normal"
+							android:layout_marginStart="@dimen/spacing_normal"
+							android:background="@drawable/right_border"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontButton
+							android:id="@+id/blog"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:background="?selectableItemBackground"
+							android:ellipsize="end"
+							android:maxLines="1"
+							android:text="@string/read_blog"
+							android:textColor="?android:textColorSecondary"
+							style="@style/TextAppearance.AppCompat.Subhead"
+							/>
+
+					</LinearLayout>
+
+					<include layout="@layout/profile_overview_icons_layout"/>
+
+					<LinearLayout
 						android:id="@+id/section_container"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
@@ -160,6 +212,25 @@
 							tools:text="8 hours ago"
 							style="@style/Base.TextAppearance.AppCompat.Subhead"
 							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/block"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:background="@drawable/top_border"
+							android:drawablePadding="@dimen/spacing_xs_large"
+							android:drawableStart="@drawable/ic_block"
+							android:gravity="center|start"
+							android:paddingBottom="@dimen/spacing_xs_large"
+							android:paddingTop="@dimen/spacing_xs_large"
+							android:textColor="@color/material_red_700"
+							tools:text="Feb 16, 2018 - Feb 19, 2018"
+							style="@style/Base.TextAppearance.AppCompat.Subhead"
+							/>
+
+						<!--
+						todo добавить информацию об авторе и блоге
+						-->
 
 					</LinearLayout>
 

@@ -74,4 +74,16 @@
 	<string name="unexpected_error">Unexpected error while requesting API</string>
 	<string name="request_error">Error requesting server, please try again later</string>
 	<string name="gender">Gender</string>
+	<string name="block_permanent">User blocked permanently</string>
+	<string name="author_page">Author page</string>
+	<string name="read_blog">Read blog</string>
+	<string name="mark_count">Mark count</string>
+	<string name="response_count">Response count</string>
+	<string name="votes_count">Votes for responses count</string>
+	<string name="description_count">Description count</string>
+	<string name="classification_count">Classified works count</string>
+	<string name="ticket_count">Ticket count</string>
+	<string name="forum_messages_count">Forum messages count</string>
+	<string name="topic_count">New forum topic count</string>
+	<string name="bookcase_count">Bookcase count</string>
 </resources>

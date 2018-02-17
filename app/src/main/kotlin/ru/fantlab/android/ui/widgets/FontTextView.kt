@@ -77,10 +77,9 @@ class FontTextView @JvmOverloads constructor(context: Context, attrs: AttributeS
 		if (color != -1) {
 			this.tintColor = color
 			val drawables = compoundDrawablesRelative
-			for (drawable in drawables) {
-				if (drawable == null) continue
-				ViewHelper.tintDrawable(drawable, color)
-			}
+			drawables
+					.filterNotNull()
+					.forEach { ViewHelper.tintDrawable(it, color) }
 		}
 	}
 

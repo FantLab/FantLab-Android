@@ -41,6 +41,7 @@ class ForumFeedPresenter : BasePresenter<ForumFeedMvp.View>(), ForumFeedMvp.Pres
 					manageDisposable(response.items.save())
 				}
 				sendToView { view -> view.onNotifyAdapter(response.items, page) }
+				sendToView { view -> view.showErrorMessage("API not ready yet") }
 			}
 		})
 		return true
