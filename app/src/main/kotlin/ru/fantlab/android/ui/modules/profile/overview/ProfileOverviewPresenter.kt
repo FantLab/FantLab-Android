@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.profile
+package ru.fantlab.android.ui.modules.profile.overview
 
 import android.os.Bundle
 import io.reactivex.functions.Consumer
@@ -24,8 +24,8 @@ class ProfileOverviewPresenter : BasePresenter<ProfileOverviewMvp.View>(), Profi
 		userId = bundle.getInt(BundleConstant.EXTRA)
 		userId?.let {
 			makeRestCall(RestProvider.getUserService().getUser(it), Consumer { user ->
-				onSendUserToView(user)
 				user?.save()
+				onSendUserToView(user)
 			})
 		}
 	}

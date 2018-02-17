@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.profile
+package ru.fantlab.android.ui.modules.profile.overview
 
 import android.os.Bundle
 import ru.fantlab.android.data.dao.model.User

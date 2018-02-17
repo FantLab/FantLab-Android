@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.profile
+package ru.fantlab.android.ui.modules.profile.overview
 
 import android.os.Bundle
 import android.support.annotation.StringRes
@@ -67,7 +67,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		} else {
 			user = savedInstanceState.getParcelable("user")
 			if (user != null) {
-				onInitViews(user!!)
+				onInitViews(user)
 			} else {
 				presenter.onFragmentCreated(arguments)
 			}

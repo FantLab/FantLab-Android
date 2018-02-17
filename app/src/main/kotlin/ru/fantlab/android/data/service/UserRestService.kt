@@ -3,8 +3,11 @@ package ru.fantlab.android.data.service
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
+import ru.fantlab.android.data.dao.Pageable
 import ru.fantlab.android.data.dao.model.Login
 import ru.fantlab.android.data.dao.model.User
+import ru.fantlab.android.data.dao.model.UserMark
 
 interface UserRestService {
 
@@ -17,4 +20,10 @@ interface UserRestService {
 
 	@GET("user/{login}")
 	fun getLoggedUser(@Path(value = "login") login: String) : Observable<Login>
+
+	@GET("user/{id}/marks")
+	fun getMarks(
+			@Path(value = "id") id: Int,
+			@Query(value = "page") page: Int
+	) : Observable<Pageable<UserMark>>
 }

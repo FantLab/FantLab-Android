@@ -64,6 +64,11 @@ class SearchAwardsFragment : BaseFragment<SearchAwardsMvp.View, SearchAwardsPres
 		super.onDetach()
 	}
 
+	override fun onDestroyView() {
+		recycler.removeOnScrollListener(getLoadMore())
+		super.onDestroyView()
+	}
+
 	override fun providePresenter(): SearchAwardsPresenter = SearchAwardsPresenter()
 
 	override fun onNotifyAdapter(items: List<SearchAwardModel>?, page: Int) {

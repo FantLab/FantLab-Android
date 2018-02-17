@@ -1,41 +1,41 @@
-package ru.fantlab.android.ui.modules.search.editions
+package ru.fantlab.android.ui.modules.profile.marks
 
-import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
 import butterknife.BindView
-import com.evernote.android.state.State
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.SearchEditionModel
-import ru.fantlab.android.helper.InputHelper
+import ru.fantlab.android.data.dao.model.UserMark
+import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
-import ru.fantlab.android.ui.adapter.SearchEditionsAdapter
+import ru.fantlab.android.ui.adapter.ProfileMarksAdapter
 import ru.fantlab.android.ui.base.BaseFragment
-import ru.fantlab.android.ui.modules.search.SearchMvp
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 
-class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditionsPresenter>(),
-		SearchEditionsMvp.View {
+class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPresenter>(),
+		ProfileMarksMvp.View {
 
 	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
-	@State var searchQuery = ""
+	private var userId: Int? = null
+	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, userId) }
+	private val adapter: ProfileMarksAdapter by lazy { ProfileMarksAdapter(presenter.getMarks()) }
 
-	private val onLoadMore: OnLoadMore<String> by lazy { OnLoadMore(presenter, searchQuery) }
-	private val adapter: SearchEditionsAdapter by lazy { SearchEditionsAdapter(presenter.getEditions()) }
-	private var countCallback: SearchMvp.View? = null
+	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
+
+	override fun providePresenter(): ProfileMarksPresenter = ProfileMarksPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
 			stateLayout.hideProgress()
 		}
-		stateLayout.setEmptyText(R.string.no_search_results)
+		stateLayout.setEmptyText(R.string.no_marks)
 		getLoadMore().initialize(presenter.getCurrentPage(), presenter.getPreviousTotal())
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
@@ -43,25 +43,18 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
-		if (!InputHelper.isEmpty(searchQuery) && presenter.getEditions().isEmpty() && !presenter.isApiCalled()) {
+		if (savedInstanceState == null) {
+			userId = arguments?.getInt(BundleConstant.EXTRA)
+		} else {
+			userId = savedInstanceState.getInt(BundleConstant.EXTRA)
+			if (userId == null) {
+				userId = arguments?.getInt(BundleConstant.EXTRA)
+			}
+		}
+		if (presenter.getMarks().isEmpty() && !presenter.isApiCalled()) {
 			onRefresh()
 		}
-		if (InputHelper.isEmpty(searchQuery)) {
-			stateLayout.showEmptyState()
-		}
 		fastScroller.attachRecyclerView(recycler)
-	}
-
-	override fun onAttach(context: Context?) {
-		super.onAttach(context)
-		if (context is SearchMvp.View) {
-			countCallback = context
-		}
-	}
-
-	override fun onDetach() {
-		countCallback = null
-		super.onDetach()
 	}
 
 	override fun onDestroyView() {
@@ -69,9 +62,7 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 		super.onDestroyView()
 	}
 
-	override fun providePresenter(): SearchEditionsPresenter = SearchEditionsPresenter()
-
-	override fun onNotifyAdapter(items: List<SearchEditionModel>?, page: Int) {
+	override fun onNotifyAdapter(items: List<UserMark>?, page: Int) {
 		hideProgress()
 		if (items == null || items.isEmpty()) {
 			adapter.clear()
@@ -84,46 +75,18 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 		}
 	}
 
-	override fun onSetTabCount(count: Int) {
-		countCallback?.onSetCount(count, 2)
-	}
-
-	override fun onSetSearchQuery(query: String) {
-		this.searchQuery = query
-		getLoadMore().reset()
-		adapter.clear()
-		if (!InputHelper.isEmpty(query)) {
-			recycler.removeOnScrollListener(getLoadMore())
-			recycler.addOnScrollListener(getLoadMore())
-			onRefresh()
-		}
-	}
-
-	override fun onQueueSearch(query: String) {
-		this.searchQuery = query
-		view?.let {
-			onSetSearchQuery(query)
-		}
-	}
-
-	override fun getLoadMore(): OnLoadMore<String> {
-		onLoadMore.parameter = searchQuery
+	override fun getLoadMore(): OnLoadMore<Int> {
+		onLoadMore.parameter = userId
 		return onLoadMore
 	}
 
-	override fun onItemClicked(item: SearchEditionModel) {
-		// todo переход на экран издания
+	override fun onItemClicked(item: UserMark) {
+		// todo переход на экран произведения
 		showMessage("Click", "Not implemented yet")
 	}
 
-	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
-
 	override fun onRefresh() {
-		if (searchQuery.isEmpty()) {
-			refresh.isRefreshing = false
-			return
-		}
-		presenter.onCallApi(1, searchQuery)
+		presenter.onCallApi(1, userId)
 	}
 
 	override fun onClick(v: View?) {
@@ -152,5 +115,14 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 	private fun showReload() {
 		hideProgress()
 		stateLayout.showReload(adapter.itemCount)
+	}
+
+	companion object {
+
+		fun newInstance(userId: Int): ProfileMarksFragment {
+			val view = ProfileMarksFragment()
+			view.arguments = Bundler.start().put(BundleConstant.EXTRA, userId).end()
+			return view
+		}
 	}
 }

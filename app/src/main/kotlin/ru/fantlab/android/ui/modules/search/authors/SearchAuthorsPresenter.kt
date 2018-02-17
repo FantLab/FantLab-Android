@@ -55,7 +55,7 @@ class SearchAuthorsPresenter : BasePresenter<SearchAuthorsMvp.View>(), SearchAut
 						if (!response.incompleteResults) {
 							view.onSetTabCount(response.totalCount)
 						} else {
-							view.showMessage(R.string.error, R.string.search_results_warning)
+							view.showMessage(R.string.error, R.string.results_warning)
 						}
 					}
 				}

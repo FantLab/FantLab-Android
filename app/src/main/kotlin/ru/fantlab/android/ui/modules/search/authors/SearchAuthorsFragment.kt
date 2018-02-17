@@ -26,7 +26,6 @@ class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsP
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 	@State var searchQuery = ""
-
 	private val onLoadMore: OnLoadMore<String> by lazy { OnLoadMore(presenter, searchQuery) }
 	private val adapter: SearchAuthorsAdapter by lazy { SearchAuthorsAdapter(presenter.getAuthors()) }
 	private var countCallback: SearchMvp.View? = null
@@ -62,6 +61,11 @@ class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsP
 	override fun onDetach() {
 		countCallback = null
 		super.onDetach()
+	}
+
+	override fun onDestroyView() {
+		recycler.removeOnScrollListener(getLoadMore())
+		super.onDestroyView()
 	}
 
 	override fun providePresenter(): SearchAuthorsPresenter = SearchAuthorsPresenter()

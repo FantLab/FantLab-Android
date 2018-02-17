@@ -54,7 +54,7 @@ class SearchWorksPresenter : BasePresenter<SearchWorksMvp.View>(), SearchWorksMv
 						if (!response.incompleteResults) {
 							view.onSetTabCount(response.totalCount)
 						} else {
-							view.showMessage(R.string.error, R.string.search_results_warning)
+							view.showMessage(R.string.error, R.string.results_warning)
 						}
 					}
 				}

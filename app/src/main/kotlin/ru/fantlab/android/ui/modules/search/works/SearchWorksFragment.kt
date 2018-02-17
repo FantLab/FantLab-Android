@@ -63,6 +63,11 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 		super.onDetach()
 	}
 
+	override fun onDestroyView() {
+		recycler.removeOnScrollListener(getLoadMore())
+		super.onDestroyView()
+	}
+
 	override fun providePresenter(): SearchWorksPresenter = SearchWorksPresenter()
 
 	override fun onNotifyAdapter(items: List<SearchWorkModel>?, page: Int) {
