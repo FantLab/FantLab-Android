@@ -8,7 +8,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import butterknife.BindView
-import es.dmoral.toasty.Toasty
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.User
 import ru.fantlab.android.helper.BundleConstant
@@ -18,15 +17,15 @@ import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.FontButton
 import ru.fantlab.android.ui.widgets.FontTextView
+import java.text.NumberFormat
 
 class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOverviewPresenter>(),
 		ProfileOverviewMvp.View {
 
 	@BindView(R.id.login) lateinit var login: FontTextView
 	@BindView(R.id.fio) lateinit var fio: FontTextView
-	@BindView(R.id.sign) lateinit var sign: FontTextView
 	@BindView(R.id.avatarLayout) lateinit var avatarLayout: AvatarLayout
-	@BindView(R.id.actionsLayout) lateinit var actionsLayout: ViewGroup
+	@BindView(R.id.level) lateinit var level: FontTextView
 	@BindView(R.id.author) lateinit var author: FontButton
 	@BindView(R.id.divider) lateinit var divider: View
 	@BindView(R.id.blog) lateinit var blog: FontButton
@@ -52,9 +51,11 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 	@BindView(R.id.location) lateinit var location: FontTextView
 	@BindView(R.id.regDate) lateinit var regDate: FontTextView
 	@BindView(R.id.lastActionDate) lateinit var lastActionDate: FontTextView
+	@BindView(R.id.sign) lateinit var sign: FontTextView
 	@BindView(R.id.block) lateinit var block: FontTextView
 	@BindView(R.id.progress) lateinit var progress: View
 	var user: User? = null
+	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun fragmentLayout(): Int = R.layout.profile_overview_layout
 
@@ -93,16 +94,17 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 					.append(")")
 		}
 		login.text = user.login
-		if (user.sign.isNullOrEmpty()) {
-			sign.visibility = View.GONE
-		} else {
-			sign.text = user.sign
-		}
 		avatarLayout.setUrl("https://${user.avatar}")
+		val userLevel = numberFormat.format(user.level!!.toDouble())
+		val maxClassLevel = numberFormat.format(classRanges[user.userClass!!].toLong())
+		level.text = StringBuilder()
+				.append(user.className)
+				.append(", ")
+				.append(if (user.userClass!! < 7) "$userLevel / $maxClassLevel" else userLevel)
 		if (user.authorId != null) {
 			author.setOnClickListener {
 				// todo переход на экран автора
-				Toasty.info(context!!, user.authorName ?: user.authorNameOrig ?: "").show()
+				showMessage("Click", "Not implemented yet")
 			}
 		} else {
 			author.visibility = View.GONE
@@ -111,14 +113,11 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		if (user.blogId != null) {
 			blog.setOnClickListener {
 				// todo переход в блог
-				Toasty.info(context!!, user.blogId.toString()).show()
+				showMessage("Click", "Not implemented yet")
 			}
 		} else {
 			divider.visibility = View.GONE
 			blog.visibility = View.GONE
-		}
-		if (user.authorId == null && user.blogId == null) {
-			actionsLayout.visibility = View.GONE
 		}
 
 		TooltipCompat.setTooltipText(marksLayout, getString(R.string.mark_count))
@@ -153,6 +152,11 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		}
 		regDate.text = user.dateOfReg.getTimeAgo()
 		lastActionDate.text = user.dateOfLastAction.getTimeAgo()
+		if (user.sign.isNullOrEmpty()) {
+			sign.visibility = View.GONE
+		} else {
+			sign.text = user.sign
+		}
 		if (user.block == 1) {
 			block.text = if (user.dateOfBlockEnd != null) {
 				String.format("%s - %s", user.dateOfBlock.getTimeAgo(), user.dateOfBlockEnd.getTimeAgo())
@@ -183,6 +187,8 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 	}
 
 	companion object {
+
+		val classRanges = arrayOf(200, 800, 2000, 4000, 7000, 10000, 15000, -1)
 
 		fun newInstance(userId: Int): ProfileOverviewFragment {
 			val view = ProfileOverviewFragment()

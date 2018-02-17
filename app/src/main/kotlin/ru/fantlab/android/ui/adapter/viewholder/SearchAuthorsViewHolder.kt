@@ -17,33 +17,15 @@ import java.text.NumberFormat
 class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchAuthorModel, SearchAuthorsViewHolder, *>)
 	: BaseViewHolder<SearchAuthorModel>(itemView, adapter) {
 
-	@BindView(R.id.avatarLayout)
-	lateinit var avatarLayout: AvatarLayout
-
-	@BindView(R.id.name)
-	lateinit var name: FontTextView
-
-	@BindView(R.id.pseudo_names)
-	lateinit var pseudoNames: FontTextView
-
-	@BindView(R.id.country)
-	lateinit var country: FontTextView
-
-	@BindView(R.id.dates)
-	lateinit var dates: FontTextView
-
-	@BindView(R.id.rating)
-	lateinit var rating: FontTextView
-
-	@BindView(R.id.responses)
-	lateinit var responses: FontTextView
-
-	@BindView(R.id.editions)
-	lateinit var editions: FontTextView
-
-	@BindView(R.id.movies)
-	lateinit var movies: FontTextView
-
+	@BindView(R.id.avatarLayout) lateinit var avatarLayout: AvatarLayout
+	@BindView(R.id.name) lateinit var name: FontTextView
+	@BindView(R.id.pseudo_names) lateinit var pseudoNames: FontTextView
+	@BindView(R.id.country) lateinit var country: FontTextView
+	@BindView(R.id.dates) lateinit var dates: FontTextView
+	@BindView(R.id.rating) lateinit var rating: FontTextView
+	@BindView(R.id.responses) lateinit var responses: FontTextView
+	@BindView(R.id.editions) lateinit var editions: FontTextView
+	@BindView(R.id.movies) lateinit var movies: FontTextView
 	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun bind(author: SearchAuthorModel) {

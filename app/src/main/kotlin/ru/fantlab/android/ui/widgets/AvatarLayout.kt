@@ -20,8 +20,7 @@ import ru.fantlab.android.helper.PrefGetter
 
 class AvatarLayout : FrameLayout {
 
-	@BindView(R.id.image)
-	lateinit var avatar: ShapedImageView
+	@BindView(R.id.image) lateinit var avatar: ShapedImageView
 
 	constructor(context: Context) : super(context)
 

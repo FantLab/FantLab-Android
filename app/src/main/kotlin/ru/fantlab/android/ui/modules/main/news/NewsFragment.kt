@@ -16,20 +16,11 @@ import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScrolle
 
 class NewsFragment : BaseFragment<NewsMvp.View, NewsPresenter>(), NewsMvp.View {
 
-	@BindView(R.id.recycler)
-	lateinit var recycler: DynamicRecyclerView
-
-	@BindView(R.id.refresh)
-	lateinit var refresh: SwipeRefreshLayout
-
-	@BindView(R.id.stateLayout)
-	lateinit var stateLayout: StateLayout
-
-	@BindView(R.id.fastScroller)
-	lateinit var fastScroller: RecyclerViewFastScroller
-
+	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
+	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
+	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
+	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 	private val adapter: NewsAdapter by lazy { NewsAdapter(presenter.news) }
-
 	private val onLoadMore: OnLoadMore<Any> by lazy { OnLoadMore(presenter) }
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list

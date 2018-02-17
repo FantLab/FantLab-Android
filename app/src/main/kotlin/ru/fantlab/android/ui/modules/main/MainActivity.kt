@@ -17,11 +17,8 @@ import ru.fantlab.android.ui.modules.search.SearchActivity
 
 class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 
-	@BindView(R.id.bottomNavigation)
-	lateinit var bottomNavigation: BottomNavigation
-
-	@State
-	var navType = MainMvp.NavigationType.NEWS
+	@BindView(R.id.bottomNavigation) lateinit var bottomNavigation: BottomNavigation
+	@State var navType = MainMvp.NavigationType.NEWS
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)

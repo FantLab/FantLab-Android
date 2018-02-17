@@ -17,21 +17,11 @@ import java.text.NumberFormat
 class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchWorkModel, SearchWorksViewHolder, *>)
 	: BaseViewHolder<SearchWorkModel>(itemView, adapter) {
 
-	@BindView(R.id.coverLayout)
-	lateinit var coverLayout: CoverLayout
-
-	@BindView(R.id.authors)
-	lateinit var authors: FontTextView
-
-	@BindView(R.id.title)
-	lateinit var title: FontTextView
-
-	@BindView(R.id.year)
-	lateinit var year: FontTextView
-
-	@BindView(R.id.rating)
-	lateinit var rating: FontTextView
-
+	@BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
+	@BindView(R.id.authors) lateinit var authors: FontTextView
+	@BindView(R.id.title) lateinit var title: FontTextView
+	@BindView(R.id.year) lateinit var year: FontTextView
+	@BindView(R.id.rating) lateinit var rating: FontTextView
 	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun bind(work: SearchWorkModel) {

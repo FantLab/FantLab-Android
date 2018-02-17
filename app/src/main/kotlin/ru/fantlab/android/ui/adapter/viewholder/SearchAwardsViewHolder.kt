@@ -16,17 +16,10 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 class SearchAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchAwardModel, SearchAwardsViewHolder, *>)
 	: BaseViewHolder<SearchAwardModel>(itemView, adapter) {
 
-	@BindView(R.id.avatarLayout)
-	lateinit var avatarLayout: AvatarLayout
-
-	@BindView(R.id.name)
-	lateinit var name: FontTextView
-
-	@BindView(R.id.country)
-	lateinit var country: FontTextView
-
-	@BindView(R.id.dates)
-	lateinit var dates: FontTextView
+	@BindView(R.id.avatarLayout) lateinit var avatarLayout: AvatarLayout
+	@BindView(R.id.name) lateinit var name: FontTextView
+	@BindView(R.id.country) lateinit var country: FontTextView
+	@BindView(R.id.dates) lateinit var dates: FontTextView
 
 	override fun bind(award: SearchAwardModel) {
 		avatarLayout.setUrl(

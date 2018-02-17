@@ -47,32 +47,13 @@ import java.util.*
 abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	: TiActivity<P, V>(), BaseMvp.View, NavigationView.OnNavigationItemSelectedListener {
 
-	@JvmField
-	@BindView(R.id.toolbar)
-	var toolbar: Toolbar? = null
-
-	@JvmField
-	@BindView(R.id.appbar)
-	var appbar: AppBarLayout? = null
-
-	@JvmField
-	@BindView(R.id.drawer)
-	var drawer: DrawerLayout? = null
-
-	@JvmField
-	@BindView(R.id.extrasNav)
-	var extraNav: NavigationView? = null
-
-	@JvmField
-	@BindView(R.id.accountsNav)
-	var accountsNav: NavigationView? = null
-
-	@State
-	var isProgressShowing: Boolean = false
-
-	@State
-	var presenterStateBundle = Bundle()
-
+	@JvmField @BindView(R.id.toolbar) var toolbar: Toolbar? = null
+	@JvmField @BindView(R.id.appbar) var appbar: AppBarLayout? = null
+	@JvmField @BindView(R.id.drawer) var drawer: DrawerLayout? = null
+	@JvmField @BindView(R.id.extrasNav) var extraNav: NavigationView? = null
+	@JvmField @BindView(R.id.accountsNav) var accountsNav: NavigationView? = null
+	@State var isProgressShowing: Boolean = false
+	@State var presenterStateBundle = Bundle()
 	private var toast: Toast? = null
 	private var backPressTimer: Long = 0
 	private var mainNavDrawer: MainNavDrawer? = null

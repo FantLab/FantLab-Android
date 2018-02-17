@@ -18,21 +18,11 @@ import ru.fantlab.android.R
  */
 open class StateLayout : NestedScrollView {
 
-	@BindView(R.id.empty_text)
-	lateinit var emptyText: FontTextView
-
-	@BindView(R.id.reload)
-	lateinit var reload: FontButton
-
-	@State
-	var layoutState = HIDDEN
-
-	@State
-	var emptyTextValue: String? = null
-
-	@State
-	var showReload = true
-
+	@BindView(R.id.empty_text) lateinit var emptyText: FontTextView
+	@BindView(R.id.reload) lateinit var reload: FontButton
+	@State var layoutState = HIDDEN
+	@State var emptyTextValue: String? = null
+	@State var showReload = true
 	private var onReloadListener: View.OnClickListener? = null
 
 	constructor(context: Context) : super(context)
@@ -42,7 +32,7 @@ open class StateLayout : NestedScrollView {
 	constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
 	@OnClick(R.id.reload)
-	internal fun onReload() {
+	fun onReload() {
 		onReloadListener?.onClick(reload)
 	}
 
@@ -93,7 +83,7 @@ open class StateLayout : NestedScrollView {
 		}
 	}
 
-	public fun showEmptyState() {
+	fun showEmptyState() {
 		hideProgress()
 		hideReload()
 		visibility = View.VISIBLE

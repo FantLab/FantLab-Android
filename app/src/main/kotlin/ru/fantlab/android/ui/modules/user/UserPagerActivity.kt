@@ -32,26 +32,13 @@ import java.util.*
 @Shortcut(id = "profile", icon = R.drawable.ic_profile, shortLabelRes = R.string.profile, backStack = [MainActivity::class], rank = 0)
 class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPagerMvp.View>>(), UserPagerMvp.View {
 
-	@BindView(R.id.tabs)
-	lateinit var tabs: TabLayout
-
-	@BindView(R.id.tabbedPager)
-	lateinit var pager: ViewPagerView
-
-	@BindView(R.id.fab)
-	lateinit var fab: FloatingActionButton
-
-	@State
-	var index: Int = 0
-
-	@State
-	var login: String? = null
-
-	@State
-	var userId: Int = 0
-
-	@State
-	var counts = HashSet<TabsCountStateModel>()
+	@BindView(R.id.tabs) lateinit var tabs: TabLayout
+	@BindView(R.id.tabbedPager) lateinit var pager: ViewPagerView
+	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
+	@State var index: Int = 0
+	@State var login: String? = null
+	@State var userId: Int = 0
+	@State var counts = HashSet<TabsCountStateModel>()
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
@@ -150,7 +137,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 	private fun hideShowFab(position: Int) {
 		when (position) {
-			1 -> fab.show()
+			//1 -> fab.show()
 			2 -> fab.show()
 			else -> fab.hide()
 		}

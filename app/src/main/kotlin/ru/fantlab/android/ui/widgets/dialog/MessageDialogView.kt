@@ -25,18 +25,10 @@ open class MessageDialogView : BaseBottomSheetDialog() {
 		fun onDialogDismissed()
 	}
 
-	@BindView(R.id.title)
-	lateinit var title: FontTextView
-
-	@BindView(R.id.message)
-	lateinit var message: FontTextView
-
-	@BindView(R.id.cancel)
-	lateinit var cancel: FontButton
-
-	@BindView(R.id.ok)
-	lateinit var ok: FontButton
-
+	@BindView(R.id.title) lateinit var title: FontTextView
+	@BindView(R.id.message) lateinit var message: FontTextView
+	@BindView(R.id.cancel) lateinit var cancel: FontButton
+	@BindView(R.id.ok) lateinit var ok: FontButton
 	private var callback: MessageDialogViewActionCallback? = null
 
 	override fun onAttach(context: Context) {

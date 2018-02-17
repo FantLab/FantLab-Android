@@ -84,23 +84,20 @@
 								style="@style/Base.TextAppearance.AppCompat.Title"
 								/>
 
+							<ru.fantlab.android.ui.widgets.FontTextView
+								android:id="@+id/level"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:transitionName="@string/title_transition"
+								tools:text="философ, 3868.54 из 4000"
+								style="@style/Base.TextAppearance.AppCompat.Subhead"
+								/>
+
 						</LinearLayout>
 
 					</LinearLayout>
 
-					<ru.fantlab.android.ui.widgets.FontTextView
-						android:id="@+id/sign"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:autoLink="all"
-						android:paddingBottom="@dimen/spacing_normal"
-						android:paddingTop="@dimen/spacing_normal"
-						tools:text="Подпись на форуме"
-						style="@style/Base.TextAppearance.AppCompat.Small"
-						/>
-
 					<LinearLayout
-						android:id="@+id/actionsLayout"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_gravity="center"
@@ -149,7 +146,7 @@
 
 					</LinearLayout>
 
-					<include layout="@layout/profile_overview_icons_layout"/>
+					<include layout="@layout/profile_overview_icons_layout" />
 
 					<LinearLayout
 						android:id="@+id/section_container"
@@ -214,6 +211,20 @@
 							/>
 
 						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/sign"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:background="@drawable/top_border"
+							android:drawablePadding="@dimen/spacing_xs_large"
+							android:drawableStart="@drawable/ic_sign"
+							android:gravity="center|start"
+							android:paddingBottom="@dimen/spacing_xs_large"
+							android:paddingTop="@dimen/spacing_xs_large"
+							tools:text="Подпись на форуме"
+							style="@style/Base.TextAppearance.AppCompat.Subhead"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
 							android:id="@+id/block"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
@@ -228,110 +239,11 @@
 							style="@style/Base.TextAppearance.AppCompat.Subhead"
 							/>
 
-						<!--
-						todo добавить информацию об авторе и блоге
-						-->
-
 					</LinearLayout>
 
 				</LinearLayout>
 
 			</android.support.v7.widget.CardView>
-
-			<!--<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/organizationsCaption"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="@dimen/spacing_normal"
-				android:layout_marginTop="@dimen/spacing_normal"
-				android:paddingLeft="@dimen/spacing_xs_large"
-				android:paddingRight="@dimen/spacing_xs_large"
-				android:text="@string/organizations"
-				android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-				android:visibility="gone"
-				tools:visibility="visible"
-				/>
-
-			<android.support.v7.widget.CardView
-				android:id="@+id/orgsCard"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:visibility="gone"
-				app:cardBackgroundColor="?card_background"
-				app:cardCornerRadius="0dp"
-				app:contentPaddingBottom="@dimen/spacing_normal"
-				app:contentPaddingLeft="@dimen/spacing_xs_large"
-				app:contentPaddingRight="@dimen/spacing_xs_large"
-				app:contentPaddingTop="@dimen/spacing_normal"
-				tools:visibility="visible"
-				>
-
-				<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-					android:id="@+id/orgsList"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:nestedScrollingEnabled="false"
-					android:orientation="vertical"
-					app:layoutManager="@string/grid_layout_manager"
-					app:spanCount="3"
-					tools:listitem="@layout/profile_org_row_item"
-					/>
-
-			</android.support.v7.widget.CardView>
-
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/pinnedReposTextView"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="@dimen/spacing_normal"
-				android:layout_marginTop="@dimen/spacing_normal"
-				android:paddingLeft="@dimen/spacing_xs_large"
-				android:paddingRight="@dimen/spacing_xs_large"
-				android:text="@string/pinned"
-				android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-				android:visibility="gone"
-				tools:visibility="visible"
-				/>
-
-			<android.support.v7.widget.CardView
-				android:id="@+id/pinnedReposCard"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:visibility="gone"
-				app:cardBackgroundColor="?card_background"
-				app:cardCornerRadius="0dp"
-				app:contentPaddingBottom="@dimen/spacing_normal"
-				app:contentPaddingLeft="@dimen/spacing_xs_large"
-				app:contentPaddingRight="@dimen/spacing_xs_large"
-				app:contentPaddingTop="@dimen/spacing_normal"
-				tools:visibility="visible"
-				>
-
-				<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-					android:id="@+id/pinnedList"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:nestedScrollingEnabled="false"
-					android:orientation="vertical"
-					app:layoutManager="@string/grid_layout_manager"
-					app:spanCount="@integer/small_spans"
-					/>
-
-			</android.support.v7.widget.CardView>
-
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/contributionsCaption"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="@dimen/spacing_normal"
-				android:layout_marginTop="@dimen/spacing_normal"
-				android:paddingLeft="@dimen/spacing_xs_large"
-				android:paddingRight="@dimen/spacing_xs_large"
-				android:text="@string/contributions"
-				android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-				android:visibility="gone"
-				tools:visibility="visible"
-				/>-->
 
 		</LinearLayout>
 

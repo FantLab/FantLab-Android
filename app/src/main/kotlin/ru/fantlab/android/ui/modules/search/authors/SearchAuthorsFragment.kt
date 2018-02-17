@@ -21,20 +21,11 @@ import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScrolle
 class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsPresenter>(),
 		SearchAuthorsMvp.View {
 
-	@BindView(R.id.recycler)
-	lateinit var recycler: DynamicRecyclerView
-
-	@BindView(R.id.refresh)
-	lateinit var refresh: SwipeRefreshLayout
-
-	@BindView(R.id.stateLayout)
-	lateinit var stateLayout: StateLayout
-
-	@BindView(R.id.fastScroller)
-	lateinit var fastScroller: RecyclerViewFastScroller
-
-	@State
-	var searchQuery = ""
+	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
+	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
+	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
+	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+	@State var searchQuery = ""
 
 	private val onLoadMore: OnLoadMore<String> by lazy { OnLoadMore(presenter, searchQuery) }
 	private val adapter: SearchAuthorsAdapter by lazy { SearchAuthorsAdapter(presenter.getAuthors()) }
@@ -117,7 +108,7 @@ class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsP
 
 	override fun onItemClicked(item: SearchAuthorModel) {
 		// todo переход на экран автора
-		showMessage("Clicked", item.name)
+		showMessage("Click", "Not implemented yet")
 	}
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list

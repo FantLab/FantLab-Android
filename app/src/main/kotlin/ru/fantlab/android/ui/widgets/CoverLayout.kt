@@ -19,8 +19,7 @@ import ru.fantlab.android.R
 
 class CoverLayout : FrameLayout {
 
-	@BindView(R.id.image)
-	lateinit var cover: ShapedImageView
+	@BindView(R.id.image) lateinit var cover: ShapedImageView
 
 	constructor(context: Context) : super(context)
 

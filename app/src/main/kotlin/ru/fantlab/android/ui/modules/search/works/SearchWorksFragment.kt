@@ -21,21 +21,11 @@ import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScrolle
 class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresenter>(),
 		SearchWorksMvp.View {
 
-	@BindView(R.id.recycler)
-	lateinit var recycler: DynamicRecyclerView
-
-	@BindView(R.id.refresh)
-	lateinit var refresh: SwipeRefreshLayout
-
-	@BindView(R.id.stateLayout)
-	lateinit var stateLayout: StateLayout
-
-	@BindView(R.id.fastScroller)
-	lateinit var fastScroller: RecyclerViewFastScroller
-
-	@State
-	var searchQuery = ""
-
+	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
+	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
+	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
+	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+	@State var searchQuery = ""
 	private val onLoadMore: OnLoadMore<String> by lazy { OnLoadMore(presenter, searchQuery) }
 	private val adapter: SearchWorksAdapter by lazy { SearchWorksAdapter(presenter.getWorks()) }
 	private var countCallback: SearchMvp.View? = null
@@ -117,7 +107,7 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 
 	override fun onItemClicked(item: SearchWorkModel) {
 		// todo переход на экран ворка
-		showMessage("Clicked", item.name)
+		showMessage("Click", "Not implemented yet")
 	}
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list

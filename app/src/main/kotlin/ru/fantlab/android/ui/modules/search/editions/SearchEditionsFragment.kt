@@ -21,20 +21,11 @@ import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScrolle
 class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditionsPresenter>(),
 		SearchEditionsMvp.View {
 
-	@BindView(R.id.recycler)
-	lateinit var recycler: DynamicRecyclerView
-
-	@BindView(R.id.refresh)
-	lateinit var refresh: SwipeRefreshLayout
-
-	@BindView(R.id.stateLayout)
-	lateinit var stateLayout: StateLayout
-
-	@BindView(R.id.fastScroller)
-	lateinit var fastScroller: RecyclerViewFastScroller
-
-	@State
-	var searchQuery = ""
+	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
+	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
+	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
+	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+	@State var searchQuery = ""
 
 	private val onLoadMore: OnLoadMore<String> by lazy { OnLoadMore(presenter, searchQuery) }
 	private val adapter: SearchEditionsAdapter by lazy { SearchEditionsAdapter(presenter.getEditions()) }
@@ -117,7 +108,7 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 
 	override fun onItemClicked(item: SearchEditionModel) {
 		// todo переход на экран издания
-		showMessage("Clicked", item.name)
+		showMessage("Click", "Not implemented yet")
 	}
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list

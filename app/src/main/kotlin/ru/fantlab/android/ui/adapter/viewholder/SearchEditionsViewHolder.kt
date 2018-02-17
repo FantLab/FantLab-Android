@@ -16,17 +16,10 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 class SearchEditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchEditionModel, SearchEditionsViewHolder, *>)
 	: BaseViewHolder<SearchEditionModel>(itemView, adapter) {
 
-	@BindView(R.id.coverLayout)
-	lateinit var coverLayout: CoverLayout
-
-	@BindView(R.id.authors)
-	lateinit var authors: FontTextView
-
-	@BindView(R.id.title)
-	lateinit var title: FontTextView
-
-	@BindView(R.id.year)
-	lateinit var year: FontTextView
+	@BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
+	@BindView(R.id.authors) lateinit var authors: FontTextView
+	@BindView(R.id.title) lateinit var title: FontTextView
+	@BindView(R.id.year) lateinit var year: FontTextView
 
 	override fun bind(edition: SearchEditionModel) {
 		coverLayout.setUrl(Uri.Builder().scheme(PROTOCOL_HTTPS)

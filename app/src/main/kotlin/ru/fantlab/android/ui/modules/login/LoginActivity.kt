@@ -17,17 +17,10 @@ import ru.fantlab.android.ui.base.BaseActivity
 
 class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.View {
 
-	@BindView(R.id.username)
-	lateinit var username: TextInputLayout
-
-	@BindView(R.id.password)
-	lateinit var password: TextInputLayout
-
-	@BindView(R.id.login)
-	lateinit var login: FloatingActionButton
-
-	@BindView(R.id.progress)
-	lateinit var progress: ProgressBar
+	@BindView(R.id.username) lateinit var username: TextInputLayout
+	@BindView(R.id.password) lateinit var password: TextInputLayout
+	@BindView(R.id.login) lateinit var login: FloatingActionButton
+	@BindView(R.id.progress) lateinit var progress: ProgressBar
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		setTheme(R.style.LoginTheme)

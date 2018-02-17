@@ -21,20 +21,11 @@ import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScrolle
 class SearchAwardsFragment : BaseFragment<SearchAwardsMvp.View, SearchAwardsPresenter>(),
 		SearchAwardsMvp.View {
 
-	@BindView(R.id.recycler)
-	lateinit var recycler: DynamicRecyclerView
-
-	@BindView(R.id.refresh)
-	lateinit var refresh: SwipeRefreshLayout
-
-	@BindView(R.id.stateLayout)
-	lateinit var stateLayout: StateLayout
-
-	@BindView(R.id.fastScroller)
-	lateinit var fastScroller: RecyclerViewFastScroller
-
-	@State
-	var searchQuery = ""
+	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
+	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
+	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
+	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+	@State var searchQuery = ""
 
 	private val onLoadMore: OnLoadMore<String> by lazy { OnLoadMore(presenter, searchQuery) }
 	private val adapter: SearchAwardsAdapter by lazy { SearchAwardsAdapter(presenter.getAwards()) }
@@ -117,7 +108,7 @@ class SearchAwardsFragment : BaseFragment<SearchAwardsMvp.View, SearchAwardsPres
 
 	override fun onItemClicked(item: SearchAwardModel) {
 		// todo переход на экран премии
-		showMessage("Clicked", item.name)
+		showMessage("Click", "Not implemented yet")
 	}
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list

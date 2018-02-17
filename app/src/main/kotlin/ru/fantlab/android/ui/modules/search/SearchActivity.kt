@@ -27,21 +27,11 @@ import java.util.*
 @Shortcut(id = "search", icon = R.drawable.ic_search, shortLabelRes = R.string.search, backStack = [MainActivity::class], rank = 1)
 class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMvp.View {
 
-	@BindView(R.id.searchEditText)
-	lateinit var searchEditText: FontAutoCompleteEditText
-
-	@BindView(R.id.clear)
-	lateinit var clear: ForegroundImageView
-
-	@BindView(R.id.tabs)
-	lateinit var tabs: TabLayout
-
-	@BindView(R.id.pager)
-	lateinit var pager: ViewPagerView
-
-	@State
-	var tabsCountSet: HashSet<TabsCountStateModel> = LinkedHashSet<TabsCountStateModel>()
-
+	@BindView(R.id.searchEditText) lateinit var searchEditText: FontAutoCompleteEditText
+	@BindView(R.id.clear) lateinit var clear: ForegroundImageView
+	@BindView(R.id.tabs) lateinit var tabs: TabLayout
+	@BindView(R.id.pager) lateinit var pager: ViewPagerView
+	@State var tabsCountSet: HashSet<TabsCountStateModel> = LinkedHashSet<TabsCountStateModel>()
 	private val numberFormat = NumberFormat.getNumberInstance()
 	private val adapter: ArrayAdapter<String> by lazy {
 		ArrayAdapter(this, android.R.layout.simple_list_item_1, presenter.getHints())
