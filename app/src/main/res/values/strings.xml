@@ -51,6 +51,8 @@
 	<string name="forum">Forum</string>
 	<string name="blogs">Blogs</string>
 	<string name="search">Search</string>
+	<string name="scan_barcode">Scan barcode</string>
+	<string name="scan_canceled">Scan canceled</string>
 	<string name="clear">Clear</string>
 	<string name="unauthorized_user">Unauthorized user</string>
 	<string name="sign_in_to_fantlab">Sign in using your Fantlab account</string>

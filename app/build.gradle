@@ -107,6 +107,8 @@ dependencies {
 	implementation 'it.sephiroth.android.library.bottomnavigation:bottom-navigation:2.0.2'
 	implementation 'cn.gavinliu.android.lib:ShapedImageView:0.8.3'
 	implementation 'com.github.matthiasrobbers:shortbread:1.0.1'
+	implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+	implementation 'com.google.zxing:core:3.2.1'
 	kapt "com.evernote:android-state-processor:${state_version}"
 	kapt "com.jakewharton:butterknife-compiler:${butterKnife_version}"
 	kapt "io.requery:requery-processor:${requery_version}"

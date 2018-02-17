@@ -100,7 +100,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		return super.onOptionsItemSelected(item)
 	}
 
-	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		if (resultCode == Activity.RESULT_OK) {
 			if (requestCode == BundleConstant.REFRESH_CODE) {
 				onThemeChanged()

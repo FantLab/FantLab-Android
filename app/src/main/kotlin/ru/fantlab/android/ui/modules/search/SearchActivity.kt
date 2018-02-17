@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.search
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.text.Editable
@@ -9,6 +10,7 @@ import butterknife.BindView
 import butterknife.OnClick
 import butterknife.OnEditorAction
 import com.evernote.android.state.State
+import com.google.zxing.integration.android.IntentIntegrator
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
@@ -24,6 +26,8 @@ import shortbread.Shortcut
 import java.text.NumberFormat
 import java.util.*
 
+
+
 @Shortcut(id = "search", icon = R.drawable.ic_search, shortLabelRes = R.string.search, backStack = [MainActivity::class], rank = 1)
 class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMvp.View {
 
@@ -36,6 +40,14 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 	private val adapter: ArrayAdapter<String> by lazy {
 		ArrayAdapter(this, android.R.layout.simple_list_item_1, presenter.getHints())
 	}
+
+	override fun layout(): Int = R.layout.search_layout
+
+	override fun isTransparent(): Boolean = false
+
+	override fun canBack(): Boolean = true
+
+	override fun providePresenter(): SearchPresenter = SearchPresenter()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -76,13 +88,43 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 		clear.setOnClickListener { searchEditText.setText("") }
 	}
 
-	override fun layout(): Int = R.layout.search_layout
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		super.onActivityResult(requestCode, resultCode, data)
+		val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+		result?.let {
+			if (result.contents == null) {
+				showMessage("Result", getString(R.string.scan_canceled))
+			} else {
+				searchEditText.setText(result.contents)
+				presenter.onSearchClicked(pager, searchEditText)
+				pager.currentItem = 2
+			}
+		}
+	}
 
-	override fun isTransparent(): Boolean = false
+	@OnClick(R.id.search)
+	fun onSearchClicked() {
+		presenter.onSearchClicked(pager, searchEditText)
+	}
 
-	override fun canBack(): Boolean = true
+	@OnClick(R.id.scan_barcode)
+	fun onScanBarcodeClicked() {
+		val integrator = IntentIntegrator(this)
+		with(integrator) {
+			setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)
+			setPrompt("Scan")
+			setCameraId(0)
+			setBeepEnabled(false)
+			setBarcodeImageEnabled(false)
+			initiateScan()
+		}
+	}
 
-	override fun providePresenter(): SearchPresenter = SearchPresenter()
+	@OnEditorAction(R.id.searchEditText)
+	fun onEditor(): Boolean {
+		onSearchClicked()
+		return true
+	}
 
 	override fun onNotifyAdapter(query: String?) {
 		if (query == null)
@@ -95,17 +137,6 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 		val model = TabsCountStateModel(count = count, tabIndex = index)
 		tabsCountSet.add(model)
 		setupTab(count, index)
-	}
-
-	@OnClick(R.id.search)
-	fun onSearchClicked() {
-		presenter.onSearchClicked(pager, searchEditText)
-	}
-
-	@OnEditorAction(R.id.searchEditText)
-	fun onEditor(): Boolean {
-		onSearchClicked()
-		return true
 	}
 
 	private fun setupTab(count: Int, index: Int) {
