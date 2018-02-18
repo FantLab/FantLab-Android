@@ -53,7 +53,7 @@ class FontTextView @JvmOverloads constructor(context: Context, attrs: AttributeS
 		try {
 			super.setText(text, type)
 		} catch (e: Exception) {
-			setText("I tried, but your OEM just sucks because they modify the framework components and therefore causing the app to crash!\nFantlab")
+			setText("I tried, but your OEM just sucks because they modify the framework components and therefore causing the app to crash!\nFantLab")
 			Crashlytics.logException(e)
 		}
 	}

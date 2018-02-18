@@ -5,17 +5,15 @@ import android.os.Parcelable
 import io.reactivex.Single
 import io.requery.Column
 import io.requery.Entity
+import io.requery.Table
 import ru.fantlab.android.App
 import ru.fantlab.android.helper.single
 
-@Entity
+@Entity @Table(name = "search_history")
 abstract class AbstractSearchHistory() : Parcelable {
 
-	@JvmField
-	@Column(unique = true)
-	var text: String? = null
+	@JvmField @Column(unique = true) var text: String? = null
 
-	@Suppress("ConvertSecondaryConstructorToPrimary")
 	constructor(parcel: Parcel) : this() {
 		text = parcel.readString()
 	}

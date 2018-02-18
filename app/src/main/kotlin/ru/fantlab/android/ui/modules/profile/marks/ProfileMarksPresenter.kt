@@ -67,7 +67,6 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 
 	override fun onWorkOffline(userId: Int) {
 		if (marks.isEmpty()) {
-			lastPage = 0 // hack
 			manageDisposable(
 					getUserMarks(userId).toObservable()
 							.observe()

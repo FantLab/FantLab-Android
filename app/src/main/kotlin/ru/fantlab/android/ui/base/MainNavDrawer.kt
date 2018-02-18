@@ -74,7 +74,7 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 						UserPagerActivity.startActivity(view, it.login!!, it.userId!!, 0)
 					}
 				//item.itemId == R.id.settings -> view.onOpenSettings()
-				//item.itemId == R.id.about -> view.startActivity(Intent(view, FantlabAboutActivity::class.java))
+				//item.itemId == R.id.about -> view.startActivity(Intent(view, AboutActivity::class.java))
 				//item.itemId == R.id.reportBug -> view.startActivity(CreateIssueActivity.startForResult(view))
 				}
 			}

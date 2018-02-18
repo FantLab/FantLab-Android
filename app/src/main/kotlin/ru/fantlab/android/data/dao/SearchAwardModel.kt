@@ -10,8 +10,7 @@ data class SearchAwardModel(
 		var langId: Int,
 		var name: String,
 		var notes: String,
-		@SerializedName("rusname")
-		var rusName: String,
+		@SerializedName("rusname") var rusName: String,
 		var type: Int,
 		var yearClose: Int,
 		var yearOpen: Int

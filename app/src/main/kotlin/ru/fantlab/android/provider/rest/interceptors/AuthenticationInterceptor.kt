@@ -12,7 +12,7 @@ class AuthenticationInterceptor : Interceptor {
 	override fun intercept(chain: Interceptor.Chain): Response {
 		val original = chain.request()
 		val builder = original.newBuilder()
-		builder.header("User-Agent", "Fantlab for Android v${BuildConfig.VERSION_NAME}")
+		builder.header("User-Agent", "FantLab for Android v${BuildConfig.VERSION_NAME}")
 		val token = PrefGetter.getToken()
 		token?.let {
 			builder.header("Cookie", it)

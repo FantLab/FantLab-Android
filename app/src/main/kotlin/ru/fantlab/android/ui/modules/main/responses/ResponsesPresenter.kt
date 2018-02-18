@@ -64,7 +64,7 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 	override fun onWorkOffline() {
 		if (responses.isEmpty()) {
 			manageDisposable(
-					getResponses().toObservable().observe().subscribe(
+					getResponses(1).toObservable().observe().subscribe(
 							{ modelList ->
 								modelList?.let {
 									sendToView { view -> view.onNotifyAdapter(modelList, 1) }

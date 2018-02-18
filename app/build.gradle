@@ -6,7 +6,7 @@ apply plugin: "io.fabric"
 android {
 	// todo add signingConfigs
 	compileSdkVersion 27
-	buildToolsVersion "27.0.2"
+	buildToolsVersion "27.0.3"
 	defaultConfig {
 		applicationId "ru.fantlab.android"
 		// todo backport to 16

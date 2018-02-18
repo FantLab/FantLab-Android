@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name" translatable="false">Fantlab</string>
-	<string name="app_name_full" translatable="false">Fantlab for Android</string>
+	<string name="app_name" translatable="false">FantLab</string>
+	<string name="app_name_full" translatable="false">FantLab for Android</string>
 	<string name="scroll_behavior" translatable="false">@string/appbar_scrolling_view_behavior</string>
 	<string name="linear_layout_manager" translatable="false">ru.fantlab.android.ui.widgets.recyclerview.layout_manager.LinearManager</string>
 	<string name="staggered_layout_manager" translatable="false">ru.fantlab.android.ui.widgets.recyclerview.layout_manager.StaggeredManager</string>
@@ -55,7 +55,7 @@
 	<string name="scan_canceled">Scan canceled</string>
 	<string name="clear">Clear</string>
 	<string name="unauthorized_user">Unauthorized user</string>
-	<string name="sign_in_to_fantlab">Sign in using your Fantlab account</string>
+	<string name="sign_in_to_fantlab">Sign in using your FantLab account</string>
 	<string name="username">Username</string>
 	<string name="password">Password</string>
 	<string name="or_character">OR</string>

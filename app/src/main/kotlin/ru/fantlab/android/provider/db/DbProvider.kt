@@ -14,7 +14,7 @@ object DbProvider {
 
 	fun initDataStore(context: Context, version: Int): ReactiveEntityStore<Persistable> {
 		val model = Models.DEFAULT
-		val source = DatabaseSource(context, model, "Fantlab-DB", version)
+		val source = DatabaseSource(context, model, "FantLab-DB", version)
 		val configuration = source.configuration
 		if (BuildConfig.DEBUG) {
 			source.setTableCreationMode(TableCreationMode.CREATE_NOT_EXISTS)
