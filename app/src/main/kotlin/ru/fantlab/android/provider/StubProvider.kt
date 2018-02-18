@@ -35,4 +35,8 @@ object StubProvider : CommonRestService, UserRestService {
 	override fun getMarks(id: Int, page: Int): Observable<Pageable<UserMark>> {
 		return Observable.just(Pageable(last = 1, items = ArrayList()))
 	}
+
+	override fun getResponses(id: Int, page: Int): Observable<Pageable<Response>> {
+		return Observable.just(Pageable(last = 1, items = ArrayList()))
+	}
 }

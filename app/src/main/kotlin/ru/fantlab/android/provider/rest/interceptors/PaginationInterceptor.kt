@@ -5,12 +5,28 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.ResponseBody
 
-
+/**
+ * Задача - сформировать объект вида
+ * @sample
+ * {
+ *     last: Int,                     # последняя страница
+ *     total_count: Int,              # всего результатов
+ *     incomplete_results: Boolean,   # неполные результаты?
+ *                                    # (на следующей странице результатов уже не будет, поскольку API отдать больше не может)
+ *     matches: [                     # массив результатов
+ *         ...
+ *     ]
+ * }
+ */
 class PaginationInterceptor : Interceptor {
 
 	companion object {
 
 		private val SEARCH_RESULTS_PER_PAGE = 25
+
+		private val RESPONSES_PER_PAGE = 50
+		// todo грязный хак, поскольку API не отдает количество результатов в самом запросе
+		var totalResponsesCount: Int = 0
 	}
 
 	override fun intercept(chain: Interceptor.Chain): Response {
@@ -18,8 +34,10 @@ class PaginationInterceptor : Interceptor {
 		val response = chain.proceed(request)
 		if (response.isSuccessful) {
 			request.url().pathSegments().map {
-				if (it.contains("search-")) { // search
+				if (it.contains("search-")) {
 					return interceptSearch(request, response)
+				} else if (it.contains("responses")) {
+					return interceptResponses(request, response)
 				}
 			}
 		}
@@ -40,16 +58,12 @@ class PaginationInterceptor : Interceptor {
 		if (currentPage == null) {
 			currentPage = 1
 		}
-		val nextString = if (currentPage <= lastPage) {
-			"\"next\":${currentPage + 1}"
-		} else {
-			"\"next\":0"
-		}
 
 		val totalFoundStartIndex = body.indexOf("\"total_found\":")
 		val totalFoundEndIndex = body.indexOf(",", startIndex = totalFoundStartIndex)
 		val totalFoundCount = body.substring(totalFoundStartIndex + "\"total_found\":".length, totalFoundEndIndex).toInt()
 		val totalCountString = "\"total_count\":$totalFoundCount"
+
 		val incompleteResultsString = "\"incomplete_results\":${(totalFoundCount > totalCount) && (currentPage == lastPage)}"
 
 		val itemsString = if (totalFoundCount == 0) {
@@ -61,7 +75,23 @@ class PaginationInterceptor : Interceptor {
 			"\"items\":$items}]"
 		}
 
-		val json = "{$nextString,$lastString,$totalCountString,$incompleteResultsString,$itemsString}"
+		val json = "{$lastString,$totalCountString,$incompleteResultsString,$itemsString}"
+		return response.newBuilder().body(ResponseBody.create(response.body()!!.contentType(), json)).build()
+	}
+
+	private fun interceptResponses(request: Request, response: Response): Response {
+		val body = response.body()!!.string()
+
+		val lastPage = (totalResponsesCount - 1) / RESPONSES_PER_PAGE
+		val lastString = "\"last\":${lastPage + 1}"
+
+		val totalCountString = "\"total_count\":$totalResponsesCount"
+
+		val incompleteResultsString = "\"incomplete_results\":false"
+
+		val itemsString = "\"items\":$body"
+
+		val json = "{$lastString,$totalCountString,$incompleteResultsString,$itemsString}"
 		return response.newBuilder().body(ResponseBody.create(response.body()!!.contentType(), json)).build()
 	}
 }

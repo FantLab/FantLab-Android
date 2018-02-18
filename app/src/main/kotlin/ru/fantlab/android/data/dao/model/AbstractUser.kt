@@ -8,7 +8,7 @@ import io.requery.Entity
 import io.requery.Key
 import io.requery.Table
 import ru.fantlab.android.App
-import ru.fantlab.android.data.dao.model.Login.USER_ID
+import ru.fantlab.android.data.dao.model.User.USER_ID
 import java.util.*
 
 @Entity @Table(name = "user")

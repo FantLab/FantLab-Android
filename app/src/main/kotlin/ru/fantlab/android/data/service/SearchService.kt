@@ -10,24 +10,24 @@ interface SearchService {
 	@GET("search-autors")
 	fun searchAuthors(
 			@Query(value = "q") query: String,
-			@Query(value = "page") page: Int
-	) : Observable<Pageable<SearchAuthorModel>>
+			@Query(value = "page") page: Int = 1
+	): Observable<Pageable<SearchAuthorModel>>
 
 	@GET("search-works")
 	fun searchWorks(
 			@Query(value = "q") query: String,
-			@Query(value = "page") page: Int
-	) : Observable<Pageable<SearchWorkModel>>
+			@Query(value = "page") page: Int = 1
+	): Observable<Pageable<SearchWorkModel>>
 
 	@GET("search-editions")
 	fun searchEditions(
 			@Query(value = "q") query: String,
-			@Query(value = "page") page: Int
-	) : Observable<Pageable<SearchEditionModel>>
+			@Query(value = "page") page: Int = 1
+	): Observable<Pageable<SearchEditionModel>>
 
 	@GET("search-awards")
 	fun searchAwards(
 			@Query(value = "q") query: String,
-			@Query(value = "page") page: Int
-	) : Observable<Pageable<SearchAwardModel>>
+			@Query(value = "page") page: Int = 1
+	): Observable<Pageable<SearchAwardModel>>
 }

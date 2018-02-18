@@ -77,11 +77,11 @@ abstract class AbstractResponse() : Parcelable {
 	}
 }
 
-fun List<Response>?.save(): Disposable {
+fun List<Response>.save(): Disposable {
 	return Single.fromPublisher<String> { s ->
 		try {
 			val dataSource = App.dataStore.toBlocking()
-			if (this != null && !this.isEmpty()) {
+			if (!this.isEmpty()) {
 				for (response in this) {
 					dataSource.delete(Response::class.java)
 							.where(Response.RESPONSE_ID.eq(response.responseId))

@@ -7,6 +7,7 @@ import ru.fantlab.android.data.dao.model.getUser
 import ru.fantlab.android.data.dao.model.save
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.RestProvider
+import ru.fantlab.android.provider.rest.interceptors.PaginationInterceptor
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class ProfileOverviewPresenter : BasePresenter<ProfileOverviewMvp.View>(), ProfileOverviewMvp.Presenter {
@@ -25,6 +26,8 @@ class ProfileOverviewPresenter : BasePresenter<ProfileOverviewMvp.View>(), Profi
 		userId?.let {
 			makeRestCall(RestProvider.getUserService().getUser(it), Consumer { user ->
 				user?.save()
+				// todo грязный хак, поскольку у нас нет информации о количестве отзывов в запросе на их список
+				PaginationInterceptor.totalResponsesCount = user?.responseCount!!
 				onSendUserToView(user)
 			})
 		}
