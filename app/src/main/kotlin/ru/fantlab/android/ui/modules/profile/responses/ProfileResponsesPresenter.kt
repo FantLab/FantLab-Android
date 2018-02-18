@@ -69,7 +69,9 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 			manageDisposable(
 					getResponses(userId).toObservable()
 							.observe()
-							.subscribe { responses -> sendToView { it.onNotifyAdapter(responses, 1) } }
+							.subscribe { responses -> sendToView {
+								it.onNotifyAdapter(responses, 1)
+							} }
 			)
 		} else {
 			sendToView { it.hideProgress() }

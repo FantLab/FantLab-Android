@@ -69,9 +69,7 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 			}
 		})
 		if (!tabsCountSet.isEmpty()) {
-			for (model in tabsCountSet) {
-				setupTab(count = model.count, index = model.tabIndex)
-			}
+			tabsCountSet.forEach { setupTab(count = it.count, index = it.tabIndex) }
 		}
 		if (savedInstanceState == null && intent != null) {
 			if (intent.hasExtra("search")) {
@@ -134,8 +132,7 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 	}
 
 	override fun onSetCount(count: Int, index: Int) {
-		val model = TabsCountStateModel(count = count, tabIndex = index)
-		tabsCountSet.add(model)
+		tabsCountSet.add(TabsCountStateModel(count = count, tabIndex = index))
 		setupTab(count, index)
 	}
 

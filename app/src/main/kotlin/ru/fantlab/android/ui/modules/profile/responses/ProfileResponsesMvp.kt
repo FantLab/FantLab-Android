@@ -25,7 +25,7 @@ interface ProfileResponsesMvp {
 			BaseViewHolder.OnItemClickListener<Response>,
 			BaseMvp.PaginationListener<Int> {
 
-		fun getResponses() : ArrayList<Response>
+		fun getResponses(): ArrayList<Response>
 
 		fun onWorkOffline(userId: Int)
 	}

@@ -29,6 +29,6 @@ interface SearchAwardsMvp {
 			BaseViewHolder.OnItemClickListener<SearchAwardModel>,
 			BaseMvp.PaginationListener<String> {
 
-		fun getAwards() : ArrayList<SearchAwardModel>
+		fun getAwards(): ArrayList<SearchAwardModel>
 	}
 }

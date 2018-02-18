@@ -29,6 +29,6 @@ interface SearchWorksMvp {
 			BaseViewHolder.OnItemClickListener<SearchWorkModel>,
 			BaseMvp.PaginationListener<String> {
 
-		fun getWorks() : ArrayList<SearchWorkModel>
+		fun getWorks(): ArrayList<SearchWorkModel>
 	}
 }

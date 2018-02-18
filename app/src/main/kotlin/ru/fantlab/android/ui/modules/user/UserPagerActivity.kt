@@ -39,7 +39,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	@State var index: Int = 0
 	@State var login: String? = null
 	@State var userId: Int = 0
-	@State var counts = HashSet<TabsCountStateModel>()
+	@State var tabsCountSet = HashSet<TabsCountStateModel>()
 	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
@@ -99,8 +99,8 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 				hideShowFab(position)
 			}
 		})
-		if (savedInstanceState != null && !counts.isEmpty()) {
-			counts.forEach { count -> updateCount(count) }
+		if (savedInstanceState != null && !tabsCountSet.isEmpty()) {
+			tabsCountSet.forEach { setupTab(count = it.count, index = it.tabIndex) }
 		}
 		hideShowFab(pager.currentItem)
 	}
@@ -130,11 +130,8 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	}
 
 	override fun onSetBadge(tabIndex: Int, count: Int) {
-		val model = TabsCountStateModel()
-		model.tabIndex = tabIndex
-		model.count = count
-		counts.add(model)
-		updateCount(model)
+		tabsCountSet.add(TabsCountStateModel(count = count, tabIndex = tabIndex))
+		setupTab(count, tabIndex)
 	}
 
 	private fun hideShowFab(position: Int) {
@@ -145,10 +142,10 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		}
 	}
 
-	private fun updateCount(model: TabsCountStateModel) {
-		val textView = ViewHelper.getTabTextView(tabs, model.tabIndex)
-		when (model.tabIndex) {
-			2 -> textView.text = String.format("%s(%s)", getString(R.string.responses), numberFormat.format(model.count.toLong()))
+	private fun setupTab(count: Int, index: Int) {
+		val textView = ViewHelper.getTabTextView(tabs, index)
+		when (index) {
+			2 -> textView.text = String.format("%s(%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
 		}
 	}
 

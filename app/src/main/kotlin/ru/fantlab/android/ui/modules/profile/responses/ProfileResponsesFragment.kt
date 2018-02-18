@@ -54,6 +54,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 				userId = arguments?.getInt(BundleConstant.EXTRA)
 			}
 		}
+		recycler.addOnScrollListener(getLoadMore())
 		if (presenter.getResponses().isEmpty() && !presenter.isApiCalled()) {
 			onRefresh()
 		}
