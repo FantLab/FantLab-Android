@@ -16,6 +16,8 @@ interface ProfileResponsesMvp {
 
 		fun getLoadMore(): OnLoadMore<Int>
 
+		fun onSetTabCount(count: Int)
+
 		fun onItemClicked(item: Response)
 	}
 

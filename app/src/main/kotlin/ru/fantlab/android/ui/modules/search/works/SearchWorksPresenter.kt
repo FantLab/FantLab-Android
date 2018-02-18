@@ -46,17 +46,13 @@ class SearchWorksPresenter : BasePresenter<SearchWorksMvp.View>(), SearchWorksMv
 			return false
 		}
 		makeRestCall(RestProvider.getSearchService().searchWorks(parameter, page), Consumer { response ->
-			run {
-				lastPage = response.last
-				sendToView { view ->
-					run {
-						view.onNotifyAdapter(response.items, page)
-						if (!response.incompleteResults) {
-							view.onSetTabCount(response.totalCount)
-						} else {
-							view.showMessage(R.string.error, R.string.results_warning)
-						}
-					}
+			lastPage = response.last
+			sendToView { view ->
+				view.onNotifyAdapter(response.items, page)
+				if (!response.incompleteResults) {
+					view.onSetTabCount(response.totalCount)
+				} else {
+					view.showMessage(R.string.error, R.string.results_warning)
 				}
 			}
 		})

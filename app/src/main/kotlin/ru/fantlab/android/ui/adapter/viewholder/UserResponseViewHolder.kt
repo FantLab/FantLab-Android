@@ -14,7 +14,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 class UserResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, UserResponseViewHolder, *>)
 	: BaseViewHolder<Response>(itemView, adapter) {
 
-	@BindView(R.id.avatarLayout) lateinit var avatarLayout: AvatarLayout
+	@JvmField @BindView(R.id.avatarLayout) var avatarLayout: AvatarLayout? = null
 	@BindView(R.id.info) lateinit var info: FontTextView
 	@BindView(R.id.workName) lateinit var workName: FontTextView
 	@BindView(R.id.text) lateinit var text: FontTextView
@@ -38,7 +38,7 @@ class UserResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Respon
 		text.text = response.responseText!!
 				.replace("(\r\n)+".toRegex(), "\n")    // пустые переносы строк
 				.replace("\\[.*]".toRegex(), "")       // bb-коды
-				.replace(":.*:".toRegex(), "")         // смайлы
+				.replace(":\\w+:".toRegex(), "")       // смайлы
 		if (response.mark == null) {
 			rating.visibility = View.GONE
 		} else {
@@ -49,7 +49,16 @@ class UserResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Respon
 
 	companion object {
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<Response, UserResponseViewHolder, *>) : UserResponseViewHolder
-				= UserResponseViewHolder(getView(viewGroup, R.layout.response_row_item), adapter)
+		fun newInstance(
+				viewGroup: ViewGroup,
+				noImage: Boolean,
+				adapter: BaseRecyclerAdapter<Response, UserResponseViewHolder, *>
+		): UserResponseViewHolder {
+			return if (noImage) {
+				UserResponseViewHolder(getView(viewGroup, R.layout.response_row_no_image_item), adapter)
+			} else {
+				UserResponseViewHolder(getView(viewGroup, R.layout.response_row_item), adapter)
+			}
+		}
 	}
 }

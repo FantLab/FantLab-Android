@@ -27,6 +27,7 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.main.MainActivity
 import ru.fantlab.android.ui.widgets.ViewPagerView
 import shortbread.Shortcut
+import java.text.NumberFormat
 import java.util.*
 
 @Shortcut(id = "profile", icon = R.drawable.ic_profile, shortLabelRes = R.string.profile, backStack = [MainActivity::class], rank = 0)
@@ -39,6 +40,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	@State var login: String? = null
 	@State var userId: Int = 0
 	@State var counts = HashSet<TabsCountStateModel>()
+	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
@@ -137,20 +139,17 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 	private fun hideShowFab(position: Int) {
 		when (position) {
-			//1 -> fab.show()
-			2 -> fab.show()
+			1 -> fab.hide()/*fab.show()*/
+			2 -> fab.hide()/*fab.show()*/
 			else -> fab.hide()
 		}
 	}
 
 	private fun updateCount(model: TabsCountStateModel) {
-		val tv = ViewHelper.getTabTextView(tabs, model.tabIndex)
-		/*tv.text = SpannableBuilder.builder()
-				.append(text = getString(R.string.starred))
-				.append(text = "   ")
-				.append(text = "(")
-				.bold(model.count.toString())
-				.append(text = ")")*/
+		val textView = ViewHelper.getTabTextView(tabs, model.tabIndex)
+		when (model.tabIndex) {
+			2 -> textView.text = String.format("%s(%s)", getString(R.string.responses), numberFormat.format(model.count.toLong()))
+		}
 	}
 
 	companion object {

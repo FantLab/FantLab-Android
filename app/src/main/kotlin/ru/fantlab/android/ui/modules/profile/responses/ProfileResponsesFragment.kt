@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.profile.responses
 
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
@@ -12,6 +13,7 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ProfileResponsesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.user.UserPagerMvp
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
@@ -25,7 +27,8 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 	private var userId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, userId) }
-	private val adapter: ProfileResponsesAdapter by lazy { ProfileResponsesAdapter(presenter.getResponses()) }
+	private val adapter: ProfileResponsesAdapter by lazy { ProfileResponsesAdapter(presenter.getResponses(), true) }
+	private var countCallback: UserPagerMvp.View? = null
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
 
@@ -57,6 +60,18 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 		fastScroller.attachRecyclerView(recycler)
 	}
 
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is UserPagerMvp.View) {
+			countCallback = context
+		}
+	}
+
+	override fun onDetach() {
+		countCallback = null
+		super.onDetach()
+	}
+
 	override fun onDestroyView() {
 		recycler.removeOnScrollListener(getLoadMore())
 		super.onDestroyView()
@@ -78,6 +93,10 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	override fun getLoadMore(): OnLoadMore<Int> {
 		onLoadMore.parameter = userId
 		return onLoadMore
+	}
+
+	override fun onSetTabCount(count: Int) {
+		countCallback?.onSetBadge(2, count)
 	}
 
 	override fun onItemClicked(item: Response) {

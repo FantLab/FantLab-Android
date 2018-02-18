@@ -49,10 +49,11 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 			return false
 		}
 		makeRestCall(RestProvider.getUserService().getResponses(parameter, page), Consumer { response ->
-			run {
-				lastPage = response.last
-				manageDisposable(response.items.save())
-				sendToView { view -> view.onNotifyAdapter(response.items, page) }
+			lastPage = response.last
+			manageDisposable(response.items.save())
+			sendToView { view ->
+				view.onNotifyAdapter(response.items, page)
+				view.onSetTabCount(response.totalCount)
 			}
 		})
 		return true

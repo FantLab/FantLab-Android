@@ -35,14 +35,12 @@ class NewsPresenter : BasePresenter<NewsMvp.View>(), NewsMvp.Presenter {
 		}
 		setCurrentPage(page)
 		makeRestCall(/*RestProvider.getCommonService()*/StubProvider.getNews(page), Consumer { response ->
-			run {
-				lastPage = response.last
-				if (getCurrentPage() == 1) {
-					manageDisposable(response.items.save())
-				}
-				sendToView { view -> view.onNotifyAdapter(response.items, page) }
-				sendToView { view -> view.showErrorMessage("API not ready yet") }
+			lastPage = response.last
+			if (getCurrentPage() == 1) {
+				manageDisposable(response.items.save())
 			}
+			sendToView { view -> view.onNotifyAdapter(response.items, page) }
+			sendToView { view -> view.showErrorMessage("API not ready yet") }
 		})
 		return true
 	}

@@ -9,7 +9,6 @@ import ru.fantlab.android.BuildConfig
 /**
  * Created by kosh on 14/08/2017.
  */
-
 object FabricProvider {
 
 	fun initFabric(context: Context) {

@@ -48,12 +48,10 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 			return false
 		}
 		makeRestCall(/*RestProvider.getUserService().getMarks(parameter, page)*/StubProvider.getMarks(parameter, page), Consumer { response ->
-			run {
-				lastPage = response.last
-				manageDisposable(response.items.save(parameter))
-				sendToView { view -> view.onNotifyAdapter(response.items, page) }
-				sendToView { view -> view.showErrorMessage("API not ready yet") }
-			}
+			lastPage = response.last
+			manageDisposable(response.items.save(parameter))
+			sendToView { view -> view.onNotifyAdapter(response.items, page) }
+			sendToView { view -> view.showErrorMessage("API not ready yet") }
 		})
 		return true
 	}
