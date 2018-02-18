@@ -16,7 +16,7 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 
 	override fun proceedWithoutLogin() {
 		PrefGetter.setProceedWithoutLogin(true)
-		sendToView { view -> view.onSuccessfullyLoggedIn() }
+		sendToView { it.onSuccessfullyLoggedIn() }
 	}
 
 	override fun login(username: String, password: String) {
@@ -26,11 +26,11 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 		view?.onEmptyPassword(passwordIsEmpty)
 		if (!usernameIsEmpty && !passwordIsEmpty) {
 			try {
-				makeRestCall(LoginProvider.getLoginRestService().login(username, password), Consumer { response ->
-					onTokenResponse(username, response)
+				makeRestCall(LoginProvider.getLoginRestService().login(username, password), Consumer {
+					onTokenResponse(username, it)
 				})
 			} catch (e: Exception) {
-				sendToView { view -> view.showErrorMessage("The app was about to crash! (${e.message})") }
+				sendToView { it.showErrorMessage("The app was about to crash! (${e.message})") }
 			}
 		}
 	}
@@ -39,8 +39,10 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 		response.headers().values("Set-Cookie").map {
 			if (!InputHelper.isEmpty(it) && it.startsWith("fl_s")) {
 				PrefGetter.setToken(it.substring(0, it.indexOf(";")))
-				makeRestCall(RestProvider.getUserService().getLoggedUser(/*username*/58246), Consumer { response ->
-					onUserResponse(response)
+				makeRestCall(RestProvider.getUserService().getUserId(username), Consumer {
+					makeRestCall(RestProvider.getUserService().getLoggedUser(it.userId), Consumer {
+						onUserResponse(it)
+					})
 				})
 				return
 			}
@@ -50,13 +52,14 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 	private fun onUserResponse(userModel: Login?) {
 		if (userModel != null) {
 			manageObservable(userModel.saveLoggedUser()
-					.doOnComplete({
+					.doOnComplete {
 						PrefGetter.setProceedWithoutLogin(false)
-						sendToView { view -> view.onSuccessfullyLoggedIn() }
-					}))
+						sendToView { it.onSuccessfullyLoggedIn() }
+					}
+			)
 			return
 		} else {
-			sendToView { view -> view.showMessage(R.string.error, R.string.failed_login) }
+			sendToView { it.showMessage(R.string.error, R.string.failed_login) }
 		}
 	}
 }

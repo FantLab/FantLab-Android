@@ -68,6 +68,6 @@ class MainPresenter : BasePresenter<MainMvp.View>(), MainMvp.Presenter {
 	}
 
 	override fun onMenuItemReselect(@IdRes id: Int, position: Int, fromUser: Boolean) {
-		sendToView { view -> view.onScrollTop(position) }
+		sendToView { it.onScrollTop(position) }
 	}
 }

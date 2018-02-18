@@ -38,19 +38,19 @@ class SearchEditionsPresenter : BasePresenter<SearchEditionsMvp.View>(), SearchE
 	override fun onCallApi(page: Int, parameter: String?): Boolean {
 		if (page == 1) {
 			lastPage = Integer.MAX_VALUE
-			sendToView { view -> view.getLoadMore().reset() }
+			sendToView { it.getLoadMore().reset() }
 		}
 		setCurrentPage(page)
 		if (page > lastPage || lastPage == 0 || parameter == null) {
-			sendToView { view -> view.hideProgress() }
+			sendToView { it.hideProgress() }
 			return false
 		}
-		makeRestCall(RestProvider.getSearchService().searchEditions(parameter, page), Consumer { response ->
-			lastPage = response.last
+		makeRestCall(RestProvider.getSearchService().searchEditions(parameter, page), Consumer {
+			lastPage = it.last
 			sendToView { view ->
-				view.onNotifyAdapter(response.items, page)
-				if (!response.incompleteResults) {
-					view.onSetTabCount(response.totalCount)
+				view.onNotifyAdapter(it.items, page)
+				if (!it.incompleteResults) {
+					view.onSetTabCount(it.totalCount)
 				} else {
 					view.showMessage(R.string.error, R.string.results_warning)
 				}

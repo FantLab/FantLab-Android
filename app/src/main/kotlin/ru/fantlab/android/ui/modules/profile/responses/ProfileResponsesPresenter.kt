@@ -41,28 +41,26 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 	override fun onCallApi(page: Int, parameter: Int?): Boolean {
 		if (page == 1) {
 			lastPage = Integer.MAX_VALUE
-			sendToView { view -> view.getLoadMore().reset() }
+			sendToView { it.getLoadMore().reset() }
 		}
 		setCurrentPage(page)
 		if (page > lastPage || lastPage == 0 || parameter == null) {
-			sendToView { view -> view.hideProgress() }
+			sendToView { it.hideProgress() }
 			return false
 		}
-		makeRestCall(RestProvider.getUserService().getResponses(parameter, page), Consumer { response ->
-			lastPage = response.last
-			manageDisposable(response.items.save())
+		makeRestCall(RestProvider.getUserService().getResponses(parameter, page), Consumer {
+			lastPage = it.last
+			manageDisposable(it.items.save())
 			sendToView { view ->
-				view.onNotifyAdapter(response.items, page)
-				view.onSetTabCount(response.totalCount)
+				view.onNotifyAdapter(it.items, page)
+				view.onSetTabCount(it.totalCount)
 			}
 		})
 		return true
 	}
 
 	override fun onError(throwable: Throwable) {
-		sendToView { view ->
-			view.getLoadMore().parameter?.let { onWorkOffline(it) }
-		}
+		sendToView { it.getLoadMore().parameter?.let { onWorkOffline(it) } }
 		super.onError(throwable)
 	}
 
@@ -71,10 +69,10 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 			manageDisposable(
 					getResponses(userId).toObservable()
 							.observe()
-							.subscribe({ sendToView { view -> view.onNotifyAdapter(it, 1) } })
+							.subscribe { responses -> sendToView { it.onNotifyAdapter(responses, 1) } }
 			)
 		} else {
-			sendToView { view -> view.hideProgress() }
+			sendToView { it.hideProgress() }
 		}
 	}
 }

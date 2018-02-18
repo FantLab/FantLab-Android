@@ -61,10 +61,10 @@ open class BasePresenter<V : BaseMvp.View> : TiPresenter<V>(), BaseMvp.Presenter
 		throwable.printStackTrace()
 		val code = RestProvider.getErrorCode(throwable)
 		if (code == 401) {
-			sendToView { view -> view.onRequireLogin() }
+			sendToView { it.onRequireLogin() }
 			return
 		}
-		sendToView { v -> v.showMessage(R.string.error, getPrettifiedErrorMessage(throwable)) }
+		sendToView { it.showMessage(R.string.error, getPrettifiedErrorMessage(throwable)) }
 	}
 
 	override fun <T> makeRestCall(observable: Observable<T>, onNext: Consumer<T>, cancelable: Boolean) {

@@ -27,10 +27,10 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 	override fun onCallApi(page: Int): Boolean {
 		if (page == 1) {
 			lastPage = Int.MAX_VALUE
-			sendToView { view -> view.getLoadMore().reset() }
+			sendToView { it.getLoadMore().reset() }
 		}
 		if (page > lastPage || lastPage == 0) {
-			sendToView { view -> view.hideProgress() }
+			sendToView { it.hideProgress() }
 			return false
 		}
 		setCurrentPage(page)
@@ -39,8 +39,8 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 			if (getCurrentPage() == 1) {
 				manageDisposable(response.items.save())
 			}
-			sendToView { view -> view.onNotifyAdapter(response.items, page) }
-			sendToView { view -> view.showErrorMessage("API not ready yet") }
+			sendToView { it.onNotifyAdapter(response.items, page) }
+			sendToView { it.showErrorMessage("API not ready yet") }
 		})
 		return true
 	}
@@ -65,14 +65,14 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 					getResponses(1).toObservable().observe().subscribe(
 							{ modelList ->
 								modelList?.let {
-									sendToView { view -> view.onNotifyAdapter(modelList, 1) }
+									sendToView { it.onNotifyAdapter(modelList, 1) }
 								}
 							},
 							Timber::e
 					)
 			)
 		} else {
-			sendToView { view -> view.hideProgress() }
+			sendToView { it.hideProgress() }
 		}
 	}
 

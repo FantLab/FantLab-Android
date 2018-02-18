@@ -40,25 +40,25 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 	override fun onCallApi(page: Int, parameter: Int?): Boolean {
 		if (page == 1) {
 			lastPage = Integer.MAX_VALUE
-			sendToView { view -> view.getLoadMore().reset() }
+			sendToView { it.getLoadMore().reset() }
 		}
 		setCurrentPage(page)
 		if (page > lastPage || lastPage == 0 || parameter == null) {
-			sendToView { view -> view.hideProgress() }
+			sendToView { it.hideProgress() }
 			return false
 		}
 		makeRestCall(/*RestProvider.getUserService().getMarks(parameter, page)*/StubProvider.getMarks(parameter, page), Consumer { response ->
 			lastPage = response.last
 			manageDisposable(response.items.save(parameter))
-			sendToView { view -> view.onNotifyAdapter(response.items, page) }
-			sendToView { view -> view.showErrorMessage("API not ready yet") }
+			sendToView { it.onNotifyAdapter(response.items, page) }
+			sendToView { it.showErrorMessage("API not ready yet") }
 		})
 		return true
 	}
 
 	override fun onError(throwable: Throwable) {
-		sendToView { view ->
-			view.getLoadMore().parameter?.let { onWorkOffline(it) }
+		sendToView {
+			it.getLoadMore().parameter?.let { onWorkOffline(it) }
 		}
 		super.onError(throwable)
 	}
@@ -68,10 +68,10 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 			manageDisposable(
 					getUserMarks(userId).toObservable()
 							.observe()
-							.subscribe({ sendToView { view -> view.onNotifyAdapter(it, 1) } })
+							.subscribe { works -> sendToView { it.onNotifyAdapter(works, 1) } }
 			)
 		} else {
-			sendToView { view -> view.hideProgress() }
+			sendToView { it.hideProgress() }
 		}
 	}
 }

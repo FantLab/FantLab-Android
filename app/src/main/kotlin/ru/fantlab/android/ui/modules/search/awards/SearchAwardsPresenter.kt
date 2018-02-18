@@ -38,21 +38,21 @@ class SearchAwardsPresenter : BasePresenter<SearchAwardsMvp.View>(), SearchAward
 	override fun onCallApi(page: Int, parameter: String?): Boolean {
 		if (page == 1) {
 			lastPage = Integer.MAX_VALUE
-			sendToView { view -> view.getLoadMore().reset() }
+			sendToView { it.getLoadMore().reset() }
 		}
 		setCurrentPage(page)
 		if (page > lastPage || lastPage == 0 || parameter == null) {
-			sendToView { view -> view.hideProgress() }
+			sendToView { it.hideProgress() }
 			return false
 		}
 		makeRestCall(RestProvider.getSearchService().searchAwards(parameter, page), Consumer { response ->
 			lastPage = response.last
-			sendToView { view ->
-				view.onNotifyAdapter(response.items, page)
+			sendToView {
+				it.onNotifyAdapter(response.items, page)
 				if (!response.incompleteResults) {
-					view.onSetTabCount(response.totalCount)
+					it.onSetTabCount(response.totalCount)
 				} else {
-					view.showMessage(R.string.error, R.string.results_warning)
+					it.showMessage(R.string.error, R.string.results_warning)
 				}
 			}
 		})

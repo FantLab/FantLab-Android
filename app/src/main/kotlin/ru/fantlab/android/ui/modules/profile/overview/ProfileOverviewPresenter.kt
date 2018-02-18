@@ -25,9 +25,9 @@ class ProfileOverviewPresenter : BasePresenter<ProfileOverviewMvp.View>(), Profi
 		userId = bundle.getInt(BundleConstant.EXTRA)
 		userId?.let {
 			makeRestCall(RestProvider.getUserService().getUser(it), Consumer { user ->
-				user?.save()
+				user.save()
 				// todo грязный хак, поскольку у нас нет информации о количестве отзывов в запросе на их список
-				PaginationInterceptor.totalResponsesCount = user?.responseCount!!
+				PaginationInterceptor.totalResponsesCount = user.responseCount!!
 				onSendUserToView(user)
 			})
 		}
@@ -44,6 +44,6 @@ class ProfileOverviewPresenter : BasePresenter<ProfileOverviewMvp.View>(), Profi
 	}
 
 	override fun onSendUserToView(user: User?) {
-		sendToView { view -> view.onInitViews(user) }
+		sendToView { it.onInitViews(user) }
 	}
 }

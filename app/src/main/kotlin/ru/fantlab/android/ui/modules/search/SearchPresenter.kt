@@ -23,13 +23,13 @@ class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 		super.onAttachView(view)
 		if (hints.isEmpty()) {
 			manageDisposable(getSearchHistory()
-					.subscribe({ histories ->
+					.subscribe { histories ->
 						hints.clear()
 						val strings = ArrayList<String>()
 						histories.mapTo(strings) { it.text ?: "" }
 						hints.addAll(strings)
 						view.onNotifyAdapter(null)
-					})
+					}
 			)
 		}
 	}
@@ -51,12 +51,12 @@ class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 			works.onQueueSearch(query)
 			editions.onQueueSearch(query)
 			awards.onQueueSearch(query)
-			val noneMatch = hints.none { value -> value.equals(query, ignoreCase = true) }
+			val noneMatch = hints.none { it.equals(query, ignoreCase = true) }
 			if (noneMatch) {
 				val searchHistory = SearchHistory()
 				searchHistory.text = query
 				manageObservable(searchHistory.save().toObservable())
-				sendToView { view -> view.onNotifyAdapter(query) }
+				sendToView { it.onNotifyAdapter(query) }
 			}
 		}
 	}

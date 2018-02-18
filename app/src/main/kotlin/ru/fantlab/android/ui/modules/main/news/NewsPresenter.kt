@@ -27,20 +27,21 @@ class NewsPresenter : BasePresenter<NewsMvp.View>(), NewsMvp.Presenter {
 	override fun onCallApi(page: Int): Boolean {
 		if (page == 1) {
 			lastPage = Int.MAX_VALUE
-			sendToView { view -> view.getLoadMore().reset() }
+			sendToView { it.getLoadMore().reset() }
 		}
 		if (page > lastPage || lastPage == 0) {
-			sendToView { view -> view.hideProgress() }
+			sendToView { it.hideProgress() }
 			return false
 		}
 		setCurrentPage(page)
-		makeRestCall(/*RestProvider.getCommonService()*/StubProvider.getNews(page), Consumer { response ->
-			lastPage = response.last
+		makeRestCall(/*RestProvider.getCommonService()*/StubProvider.getNews(page), Consumer {
+			lastPage = it.last
+			val items = it.items
 			if (getCurrentPage() == 1) {
-				manageDisposable(response.items.save())
+				manageDisposable(items.save())
 			}
-			sendToView { view -> view.onNotifyAdapter(response.items, page) }
-			sendToView { view -> view.showErrorMessage("API not ready yet") }
+			sendToView { it.onNotifyAdapter(items, page) }
+			sendToView { it.showErrorMessage("API not ready yet") }
 		})
 		return true
 	}
@@ -65,14 +66,14 @@ class NewsPresenter : BasePresenter<NewsMvp.View>(), NewsMvp.Presenter {
 					getNews().toObservable().observe().subscribe(
 							{ modelList ->
 								modelList?.let {
-									sendToView { view -> view.onNotifyAdapter(modelList, 1) }
+									sendToView { it.onNotifyAdapter(modelList, 1) }
 								}
 							},
 							Timber::e
 					)
 			)
 		} else {
-			sendToView { view -> view.hideProgress() }
+			sendToView { it.hideProgress() }
 		}
 	}
 
