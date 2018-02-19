@@ -23,10 +23,7 @@ class PaginationInterceptor : Interceptor {
 	companion object {
 
 		private val SEARCH_RESULTS_PER_PAGE = 25
-
 		private val RESPONSES_PER_PAGE = 50
-		// todo грязный хак, поскольку API не отдает количество результатов в самом запросе
-		var totalResponsesCount: Int = 0
 	}
 
 	override fun intercept(chain: Interceptor.Chain): Response {
@@ -82,16 +79,15 @@ class PaginationInterceptor : Interceptor {
 	private fun interceptResponses(request: Request, response: Response): Response {
 		val body = response.body()!!.string()
 
-		val lastPage = (totalResponsesCount - 1) / RESPONSES_PER_PAGE
-		val lastString = "\"last\":${lastPage + 1}"
+		val totalCountStartIndex = body.indexOf("\"total_count\":")
+		val totalCount = body.substring(totalCountStartIndex + "\"total_count\":\"".length, body.length - 2).toInt()
 
-		val totalCountString = "\"total_count\":$totalResponsesCount"
+		val lastPage = (totalCount - 1) / RESPONSES_PER_PAGE
+		val lastString = "\"last\":${lastPage + 1}"
 
 		val incompleteResultsString = "\"incomplete_results\":false"
 
-		val itemsString = "\"items\":$body"
-
-		val json = "{$lastString,$totalCountString,$incompleteResultsString,$itemsString}"
+		val json = "{$lastString,$incompleteResultsString,${body.substring(1)}"
 		return response.newBuilder().body(ResponseBody.create(response.body()!!.contentType(), json)).build()
 	}
 }
