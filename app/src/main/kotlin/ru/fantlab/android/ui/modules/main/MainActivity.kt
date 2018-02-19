@@ -73,17 +73,15 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 	}
 
 	private fun onInit(savedInstanceState: Bundle?) {
-		if (isLoggedIn()) {
-			if (savedInstanceState == null) {
-				hideShowShadow(true)
-				supportFragmentManager
-						.beginTransaction()
-						.replace(R.id.container, NewsFragment(), NewsFragment.TAG)
-						.commit()
-			}
-			val myTypeface = TypeFaceHelper.typeface
-			bottomNavigation.setDefaultTypeface(myTypeface)
-			bottomNavigation.setOnMenuItemClickListener(presenter)
+		if (savedInstanceState == null) {
+			hideShowShadow(true)
+			supportFragmentManager
+					.beginTransaction()
+					.replace(R.id.container, NewsFragment(), NewsFragment.TAG)
+					.commit()
 		}
+		val myTypeface = TypeFaceHelper.typeface
+		bottomNavigation.setDefaultTypeface(myTypeface)
+		bottomNavigation.setOnMenuItemClickListener(presenter)
 	}
 }

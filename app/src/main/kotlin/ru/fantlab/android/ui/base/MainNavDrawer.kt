@@ -7,10 +7,10 @@ import android.support.transition.TransitionManager
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Login
 import ru.fantlab.android.data.dao.model.getLoggedUser
+import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.modules.main.MainActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.widgets.AvatarLayout
@@ -38,16 +38,15 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 	}
 
 	private fun setupView(view: View) {
-		userModel?.let {
-			(view.findViewById<View>(R.id.navAvatarLayout) as AvatarLayout).setUrl("https://${it.avatar}")
-			(view.findViewById<View>(R.id.navUsername) as TextView).text = it.login
+		if (userModel != null) {
+			view.findViewById<AvatarLayout>(R.id.navAvatarLayout).setUrl("https://${userModel.avatar}")
+			view.findViewById<FontTextView>(R.id.navUsername).text = userModel.login
 			val navFullName = view.findViewById<FontTextView>(R.id.navFullName)
-			when (it.fio.isNullOrBlank()) {
-				true -> navFullName.visibility = View.GONE
-				else -> {
-					navFullName.visibility = View.VISIBLE
-					navFullName.text = it.fio
-				}
+			if (userModel.fio.isNullOrBlank()) {
+				navFullName.visibility = View.GONE
+			} else {
+				navFullName.visibility = View.VISIBLE
+				navFullName.text = userModel.fio
 			}
 			view.findViewById<View>(R.id.navAccHolder).setOnClickListener {
 				if (extraNav != null && accountsNav != null) {
@@ -56,6 +55,14 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 					view.findViewById<View>(R.id.navToggle).rotation = if (accountsNav.visibility == View.VISIBLE) 180f else 0f
 				}
 			}
+		} else {
+			with(view) {
+				// аватар Р.Букашки
+				findViewById<AvatarLayout>(R.id.navAvatarLayout).setUrl("https://data.fantlab.ru/images/users/2_1")
+				findViewById<FontTextView>(R.id.navFullName).text = view.context.getString(R.string.guest)
+				findViewById<View>(R.id.navUsername).visibility = View.GONE
+				findViewById<View>(R.id.navToggle).visibility = View.INVISIBLE
+			}
 		}
 	}
 
@@ -63,14 +70,20 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 		if (item.isChecked) return
 		Handler().postDelayed({
 			if (!view.isFinishing()) {
-				when {
-					item.itemId == R.id.mainView -> {
+				when (item.itemId) {
+					R.id.sign_in -> {
+						val intent = Intent(view, LoginActivity::class.java)
+						intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+						view.startActivity(intent)
+						view.finish()
+					}
+					R.id.mainView -> {
 						val intent = Intent(view, MainActivity::class.java)
 						intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
 						view.startActivity(intent)
 						view.finish()
 					}
-					item.itemId == R.id.profile -> userModel?.let {
+					R.id.profile -> userModel?.let {
 						UserPagerActivity.startActivity(view, it.login!!, it.userId!!, 0)
 					}
 				//item.itemId == R.id.settings -> view.onOpenSettings()

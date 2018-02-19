@@ -161,7 +161,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		onLogoutPressed()
 	}
 
-	protected fun selectMenuItem(@IdRes id: Int) {
+	private fun selectMenuItem(@IdRes id: Int) {
 		extraNav?.let {
 			with(it.menu.findItem(id)) {
 				isCheckable = true
@@ -343,7 +343,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		appbar?.elevation = if (show) resources.getDimension(R.dimen.spacing_micro) else 0.0f
 	}
 
-	protected fun changeStatusBarColor(isTransparent: Boolean) {
+	private fun changeStatusBarColor(isTransparent: Boolean) {
 		if (!isTransparent) {
 			window.statusBarColor = ViewHelper.getPrimaryDarkColor(this)
 		}
@@ -366,8 +366,15 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		return navIcon
 	}
 
-	protected fun setupNavigationView() {
-		extraNav?.setNavigationItemSelectedListener(this)
+	private fun setupNavigationView() {
+		val isLoggedIn = isLoggedIn()
+		extraNav?.let {
+			with(it) {
+				setNavigationItemSelectedListener(this@BaseActivity)
+				menu?.findItem(R.id.sign_in)?.isVisible = !isLoggedIn
+				menu?.findItem(R.id.profile)?.isVisible = isLoggedIn
+			}
+		}
 		mainNavDrawer?.setupViewDrawer()
 	}
 
@@ -407,7 +414,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		finish()
 	}
 
-	protected fun selectHome() {
+	private fun selectHome() {
 		extraNav?.let {
 			it.menu.findItem(R.id.mainView).isCheckable = true
 			it.menu.findItem(R.id.mainView).isChecked = true

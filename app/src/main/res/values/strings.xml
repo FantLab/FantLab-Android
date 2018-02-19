@@ -44,6 +44,7 @@
 	<string name="press_again_to_exit">Press once again to exit</string>
 	<string name="logout">Logout</string>
 	<string name="confirm_message">Are you sure?</string>
+	<string name="guest">Guest</string>
 	<string name="home">Home</string>
 	<string name="profile">Profile</string>
 	<string name="news">News</string>
@@ -56,6 +57,7 @@
 	<string name="clear">Clear</string>
 	<string name="unauthorized_user">Unauthorized user</string>
 	<string name="sign_in_to_fantlab">Sign in using your FantLab account</string>
+	<string name="sign_in">Sign in</string>
 	<string name="username">Username</string>
 	<string name="password">Password</string>
 	<string name="or_character">OR</string>
