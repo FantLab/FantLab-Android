@@ -13,8 +13,8 @@ import ru.fantlab.android.data.dao.model.UserMark
 
 interface UserRestService {
 
-	@GET("userlogin/{login}")
-	fun getUserId(@Path(value = "login") login: String): Observable<UserId>
+	@GET("userlogin")
+	fun getUserId(@Query(value = "usersearch") login: String): Observable<UserId>
 
 	@GET("user/{id}")
 	fun getLoggedUser(@Path(value = "id") id: Int): Observable<Login>
