@@ -10,6 +10,7 @@ import com.evernote.android.state.State
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.helper.TypeFaceHelper
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.main.news.NewsFragment
@@ -73,15 +74,17 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 	}
 
 	private fun onInit(savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			hideShowShadow(true)
-			supportFragmentManager
-					.beginTransaction()
-					.replace(R.id.container, NewsFragment(), NewsFragment.TAG)
-					.commit()
+		if (isLoggedIn() || PrefGetter.proceedWithoutLogin()) {
+			if (savedInstanceState == null) {
+				hideShowShadow(true)
+				supportFragmentManager
+						.beginTransaction()
+						.replace(R.id.container, NewsFragment(), NewsFragment.TAG)
+						.commit()
+			}
+			val myTypeface = TypeFaceHelper.typeface
+			bottomNavigation.setDefaultTypeface(myTypeface)
+			bottomNavigation.setOnMenuItemClickListener(presenter)
 		}
-		val myTypeface = TypeFaceHelper.typeface
-		bottomNavigation.setDefaultTypeface(myTypeface)
-		bottomNavigation.setOnMenuItemClickListener(presenter)
 	}
 }
