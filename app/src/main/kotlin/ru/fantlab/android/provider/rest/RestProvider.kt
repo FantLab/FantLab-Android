@@ -9,6 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.fantlab.android.BuildConfig
+import ru.fantlab.android.data.service.AuthorRestService
 import ru.fantlab.android.data.service.CommonRestService
 import ru.fantlab.android.data.service.SearchService
 import ru.fantlab.android.data.service.UserRestService
@@ -54,6 +55,8 @@ object RestProvider {
 	fun getSearchService(): SearchService = provideRetrofit().create(SearchService::class.java)
 
 	fun getUserService(): UserRestService = provideRetrofit().create(UserRestService::class.java)
+
+	fun getAuthorService(): AuthorRestService = provideRetrofit().create(AuthorRestService::class.java)
 
 	fun getCommonService(): CommonRestService = provideRetrofit().create(CommonRestService::class.java)
 }
