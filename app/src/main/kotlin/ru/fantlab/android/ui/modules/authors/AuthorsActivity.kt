@@ -9,6 +9,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.AuthorInList
 import ru.fantlab.android.ui.adapter.AuthorsAdapter
 import ru.fantlab.android.ui.base.BaseActivity
+import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
@@ -32,7 +33,7 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		hideShowShadow(true)
-		selectMenuItem(R.id.bibliographies)
+		selectMenuItem(R.id.bibliographies, true)
 		if (savedInstanceState == null) {
 			stateLayout.hideProgress()
 		}
@@ -59,8 +60,7 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 	}
 
 	override fun onItemClicked(item: AuthorInList) {
-		// todo переход на экран автора
-		showMessage("Click", "Not implemented yet")
+		AuthorPagerActivity.startActivity(this, item.id!!, item.name!!, 0)
 	}
 
 	override fun onRefresh() {

@@ -81,7 +81,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		mainNavDrawer = MainNavDrawer(this, extraNav, accountsNav)
 		setupNavigationView()
 		setupDrawer()
-		selectHome()
+		selectMenuItem(R.id.mainView, true)
 	}
 
 	override fun onSaveInstanceState(outState: Bundle) {
@@ -161,11 +161,13 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		onLogoutPressed()
 	}
 
-	protected fun selectMenuItem(@IdRes id: Int) {
+	protected fun selectMenuItem(@IdRes id: Int, check: Boolean) {
 		extraNav?.let {
-			with(it.menu.findItem(id)) {
-				isCheckable = true
-				isChecked = true
+			it.menu.findItem(id)?.let {
+				with(it) {
+					isCheckable = check
+					isChecked = check
+				}
 			}
 		}
 	}
@@ -411,17 +413,5 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
 		startActivity(intent)
 		finish()
-	}
-
-	private fun selectHome() {
-		extraNav?.let {
-			it.menu.findItem(R.id.mainView).isCheckable = true
-			it.menu.findItem(R.id.mainView).isChecked = true
-		}
-	}
-
-	protected fun selectProfile() {
-		selectHome()
-		selectMenuItem(R.id.profile)
 	}
 }

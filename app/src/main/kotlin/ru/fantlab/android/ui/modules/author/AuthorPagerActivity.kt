@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.user
+package ru.fantlab.android.ui.modules.author
 
 import android.app.Application
 import android.app.Service
@@ -16,29 +16,28 @@ import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
-import ru.fantlab.android.data.dao.model.getLoggedUser
-import ru.fantlab.android.helper.*
-import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DEFAULT
-import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
+import ru.fantlab.android.helper.ActivityHelper
+import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.ViewHelper
+import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
-import ru.fantlab.android.ui.modules.main.MainActivity
 import ru.fantlab.android.ui.widgets.ViewPagerView
-import shortbread.Shortcut
 import java.text.NumberFormat
 import java.util.*
 
-@Shortcut(id = "profile", icon = R.drawable.ic_profile, shortLabelRes = R.string.profile, backStack = [MainActivity::class], rank = 0)
-class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPagerMvp.View>>(), UserPagerMvp.View {
+class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<AuthorPagerMvp.View>>(),
+		AuthorPagerMvp.View {
 
 	@BindView(R.id.tabs) lateinit var tabs: TabLayout
 	@BindView(R.id.tabbedPager) lateinit var pager: ViewPagerView
 	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
 	@State var index: Int = 0
-	@State var login: String? = null
-	@State var userId: Int = 0
+	@State var authorId: Int = 0
+	@State var authorName: String = ""
 	@State var tabsCountSet = HashSet<TabsCountStateModel>()
 	private val numberFormat = NumberFormat.getNumberInstance()
 
@@ -48,35 +47,25 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 	override fun canBack(): Boolean = true
 
-	override fun providePresenter(): BasePresenter<UserPagerMvp.View> = BasePresenter()
+	override fun providePresenter(): BasePresenter<AuthorPagerMvp.View> = BasePresenter()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		val currentUser = getLoggedUser()
-		if (currentUser == null) {
-			onRequireLogin()
-			return
-		}
 		if (savedInstanceState == null) {
-			userId = intent?.extras?.getInt(BundleConstant.EXTRA_TWO, -1) ?: -1
-			index = intent?.extras?.getInt(BundleConstant.EXTRA_THREE, -1) ?: -1
-			login = intent?.extras?.getString(BundleConstant.EXTRA)
-			if (login == null) {
-				login = currentUser.login
-			}
+			authorId = intent?.extras?.getInt(BundleConstant.EXTRA, -1) ?: -1
+			authorName = intent?.extras?.getString(BundleConstant.EXTRA_TWO) ?: ""
+			index = intent?.extras?.getInt(BundleConstant.EXTRA_TWO, -1) ?: -1
 		}
-		if (InputHelper.isEmpty(login)) {
+		if (authorId == -1) {
 			finish()
 			return
 		}
-		setTaskName(login)
-		title = login
-		if (login.equals(currentUser.login, ignoreCase = true)) {
-			selectMenuItem(R.id.profile, true)
-		}
+		setTaskName(authorName)
+		title = authorName
+		selectMenuItem(R.id.mainView, false)
 		val adapter = FragmentsPagerAdapter(
 				supportFragmentManager,
-				FragmentPagerAdapterModel.buildForProfile(this, userId)
+				FragmentPagerAdapterModel.buildForAuthor(this, authorId)
 		)
 		pager.adapter = adapter
 		tabs.tabGravity = TabLayout.GRAVITY_FILL
@@ -113,13 +102,11 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
 			R.id.share -> {
-				if (userId != -1) {
-					ActivityHelper.shareUrl(this, Uri.Builder().scheme(PROTOCOL_HTTPS)
-							.authority(HOST_DEFAULT)
-							.appendPath("user$userId")
-							.toString())
-					return true
-				}
+				ActivityHelper.shareUrl(this, Uri.Builder().scheme(LinkParserHelper.PROTOCOL_HTTPS)
+						.authority(LinkParserHelper.HOST_DEFAULT)
+						.appendPath("autor$authorId")
+						.toString())
+				return true
 			}
 		}
 		return super.onOptionsItemSelected(item)
@@ -127,7 +114,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 	override fun onScrollTop(index: Int) {
 		if (pager.adapter == null) return
-		val fragment = pager.adapter?.instantiateItem(pager, index) as? BaseFragment<*,*>
+		val fragment = pager.adapter?.instantiateItem(pager, index) as? BaseFragment<*, *>
 		if (fragment is BaseFragment) {
 			fragment.onScrollTop(index)
 		}
@@ -142,6 +129,8 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		when (position) {
 			1 -> fab.hide()/*fab.show()*/
 			2 -> fab.hide()/*fab.show()*/
+			3 -> fab.hide()/*fab.show()*/
+			4 -> fab.hide()/*fab.show()*/
 			else -> fab.hide()
 		}
 	}
@@ -149,17 +138,20 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	private fun setupTab(count: Int, index: Int) {
 		val textView = ViewHelper.getTabTextView(tabs, index)
 		when (index) {
-			2 -> textView.text = String.format("%s(%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
+			1 -> textView.text = String.format("%s(%s)", getString(R.string.works), numberFormat.format(count.toLong()))
+			2 -> textView.text = String.format("%s(%s)", getString(R.string.editions), numberFormat.format(count.toLong()))
+			3 -> textView.text = String.format("%s(%s)", getString(R.string.awards), numberFormat.format(count.toLong()))
+			4 -> textView.text = String.format("%s(%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
 		}
 	}
 
 	companion object {
 
-		fun startActivity(context: Context, login: String, userId: Int, index: Int = -1) {
-			val intent = Intent(context, UserPagerActivity::class.java)
+		fun startActivity(context: Context, authorId: Int, authorName: String, index: Int = -1) {
+			val intent = Intent(context, AuthorPagerActivity::class.java)
 			intent.putExtras(Bundler.start()
-					.put(BundleConstant.EXTRA, login)
-					.put(BundleConstant.EXTRA_TWO, userId)
+					.put(BundleConstant.EXTRA, authorId)
+					.put(BundleConstant.EXTRA_TWO, authorName)
 					.put(BundleConstant.EXTRA_THREE, index)
 					.end())
 			if (context is Service || context is Application) {

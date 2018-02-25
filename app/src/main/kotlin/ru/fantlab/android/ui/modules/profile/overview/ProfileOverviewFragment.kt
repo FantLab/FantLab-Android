@@ -14,6 +14,7 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.getTimeAgo
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.FontButton
 import ru.fantlab.android.ui.widgets.FontTextView
@@ -103,8 +104,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 				.append(if (user.userClass!! < 7) "$userLevel / $maxClassLevel" else userLevel)
 		if (user.authorId != null) {
 			author.setOnClickListener {
-				// todo переход на экран автора
-				showMessage("Click", "Not implemented yet")
+				AuthorPagerActivity.startActivity(view!!.context, user.authorId!!, user.authorName!!, 0)
 			}
 		} else {
 			author.visibility = View.GONE

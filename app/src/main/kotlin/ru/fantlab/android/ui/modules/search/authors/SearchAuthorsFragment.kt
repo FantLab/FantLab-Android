@@ -13,6 +13,7 @@ import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.SearchAuthorsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.search.SearchMvp
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -111,8 +112,7 @@ class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsP
 	}
 
 	override fun onItemClicked(item: SearchAuthorModel) {
-		// todo переход на экран автора
-		showMessage("Click", "Not implemented yet")
+		AuthorPagerActivity.startActivity(context!!, item.authorId, item.rusName, 0)
 	}
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
