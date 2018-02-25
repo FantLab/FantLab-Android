@@ -34,7 +34,7 @@ class PaginationInterceptor : Interceptor {
 				if (it.contains("search-")) {
 					return interceptSearch(request, response)
 				} else if (it.contains("responses")) {
-					return interceptResponses(request, response)
+					return interceptResponses(response)
 				}
 			}
 		}
@@ -76,7 +76,7 @@ class PaginationInterceptor : Interceptor {
 		return response.newBuilder().body(ResponseBody.create(response.body()!!.contentType(), json)).build()
 	}
 
-	private fun interceptResponses(request: Request, response: Response): Response {
+	private fun interceptResponses(response: Response): Response {
 		val body = response.body()!!.string()
 
 		val totalCountStartIndex = body.indexOf("\"total_count\":")

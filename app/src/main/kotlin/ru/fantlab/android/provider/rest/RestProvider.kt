@@ -15,12 +15,13 @@ import ru.fantlab.android.data.service.SearchService
 import ru.fantlab.android.data.service.UserRestService
 import ru.fantlab.android.provider.rest.interceptors.AuthenticationInterceptor
 import ru.fantlab.android.provider.rest.interceptors.PaginationInterceptor
+import ru.fantlab.android.provider.rest.interceptors.TransformInterceptor
 import java.lang.reflect.Modifier
 
 object RestProvider {
 
 	private var okHttpClient: OkHttpClient? = null
-	private val gson = GsonBuilder()
+	val gson = GsonBuilder()
 			.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
 			.excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
 			.setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -37,6 +38,7 @@ object RestProvider {
 			}
 			client.addInterceptor(AuthenticationInterceptor())
 			client.addInterceptor(PaginationInterceptor())
+			client.addInterceptor(TransformInterceptor())
 			okHttpClient = client.build()
 		}
 		return okHttpClient!!

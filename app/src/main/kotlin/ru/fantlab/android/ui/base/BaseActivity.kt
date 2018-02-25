@@ -161,7 +161,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		onLogoutPressed()
 	}
 
-	private fun selectMenuItem(@IdRes id: Int) {
+	protected fun selectMenuItem(@IdRes id: Int) {
 		extraNav?.let {
 			with(it.menu.findItem(id)) {
 				isCheckable = true
@@ -275,7 +275,6 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		closeDrawer()
 		mainNavDrawer?.onMainNavItemClick(item)
 		return false
-
 	}
 
 	protected fun setTaskName(name: String?) {

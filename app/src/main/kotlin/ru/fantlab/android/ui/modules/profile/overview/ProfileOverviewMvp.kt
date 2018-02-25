@@ -16,7 +16,5 @@ interface ProfileOverviewMvp {
 		fun onFragmentCreated(bundle: Bundle?)
 
 		fun onWorkOffline(id: Int)
-
-		fun onSendUserToView(user: User?)
 	}
 }

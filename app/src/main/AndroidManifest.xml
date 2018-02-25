@@ -57,6 +57,14 @@
 				android:value=".ui.modules.main.MainActivity"/>
 		</activity>
 		<activity
+			android:name=".ui.modules.authors.AuthorsActivity"
+			android:label="@string/authors"
+			android:parentActivityName=".ui.modules.main.MainActivity">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".ui.modules.main.MainActivity"/>
+		</activity>
+		<activity
 			android:name=".ui.modules.search.SearchActivity"
 			android:parentActivityName=".ui.modules.main.MainActivity">
 			<meta-data

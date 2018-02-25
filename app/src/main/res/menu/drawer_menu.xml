@@ -18,11 +18,19 @@
 			/>
 	</group>
 
-	<group android:id="@+id/profile_group">
+	<group android:id="@+id/group_one">
 		<item
 			android:id="@+id/profile"
 			android:icon="@drawable/ic_profile"
 			android:title="@string/profile"
+			/>
+	</group>
+
+	<group android:id="@+id/group_two">
+		<item
+			android:id="@+id/bibliographies"
+			android:icon="@drawable/ic_book"
+			android:title="@string/bibliographies"
 			/>
 	</group>
 

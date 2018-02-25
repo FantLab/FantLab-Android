@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Login
 import ru.fantlab.android.data.dao.model.getLoggedUser
+import ru.fantlab.android.ui.modules.authors.AuthorsActivity
 import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.modules.main.MainActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
@@ -86,9 +87,9 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 					R.id.profile -> userModel?.let {
 						UserPagerActivity.startActivity(view, it.login!!, it.userId!!, 0)
 					}
+					R.id.bibliographies -> view.startActivity(Intent(view, AuthorsActivity::class.java))
 				//item.itemId == R.id.settings -> view.onOpenSettings()
 				//item.itemId == R.id.about -> view.startActivity(Intent(view, AboutActivity::class.java))
-				//item.itemId == R.id.reportBug -> view.startActivity(CreateIssueActivity.startForResult(view))
 				}
 			}
 		}, 250)
