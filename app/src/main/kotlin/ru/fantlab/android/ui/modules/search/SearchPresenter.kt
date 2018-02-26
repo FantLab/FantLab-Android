@@ -53,8 +53,7 @@ class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 			awards.onQueueSearch(query)
 			val noneMatch = hints.none { it.equals(query, ignoreCase = true) }
 			if (noneMatch) {
-				val searchHistory = SearchHistory()
-				searchHistory.text = query
+				val searchHistory = SearchHistory(query)
 				manageObservable(searchHistory.save().toObservable())
 				sendToView { it.onNotifyAdapter(query) }
 			}

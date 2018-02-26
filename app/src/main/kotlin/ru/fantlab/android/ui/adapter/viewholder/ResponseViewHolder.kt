@@ -34,10 +34,10 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 		info.text = StringBuilder()
 				.append(response.userName)
 				.append(", ")
-				.append(response.responseDate!!.getTimeAgo())
+				.append(response.responseDate.getTimeAgo())
 
-		workName.text = if (!response.workName.isNullOrEmpty()) {
-			if (!response.workNameOrig.isNullOrEmpty()) {
+		workName.text = if (response.workName.isNotEmpty()) {
+			if (response.workNameOrig.isNotEmpty()) {
 				String.format("%s / %s", response.workName, response.workNameOrig)
 			} else {
 				response.workName
@@ -46,7 +46,7 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 			response.workNameOrig
 		}
 
-		text.text = response.responseText!!
+		text.text = response.responseText
 				.replace("(\r\n)+".toRegex(), "\n")    // пустые переносы строк
 				.replace("\\[.*]".toRegex(), "")       // bb-коды
 				.replace(":\\w+:".toRegex(), "")       // смайлы

@@ -27,17 +27,17 @@ class AuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<AuthorInLis
 				.appendPath(author.id.toString())
 				.toString())
 
-		name.text = if (author.nameShort.isNullOrEmpty()) {
-			author.nameOrig
-		} else {
+		name.text = if (author.nameShort.isNotEmpty()) {
 			author.nameShort
+		} else {
+			author.nameOrig
 		}
 
-		if (author.nameOrig.isNullOrEmpty()) {
-			nameOrig.visibility = View.GONE
-		} else {
+		if (author.nameOrig.isNotEmpty()) {
 			nameOrig.text = author.nameOrig
 			nameOrig.visibility = View.VISIBLE
+		} else {
+			nameOrig.visibility = View.GONE
 		}
 	}
 

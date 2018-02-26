@@ -22,11 +22,11 @@ object StubProvider : CommonRestService, UserRestService {
 	}
 
 	override fun getUser(id: Int): Observable<User> {
-		return Observable.just(User())
+		return Observable.just(null)
 	}
 
 	override fun getLoggedUser(id: Int): Observable<Login> {
-		return Observable.just(Login())
+		return Observable.just(null)
 	}
 
 	override fun getUserId(login: String): Observable<UserId> {

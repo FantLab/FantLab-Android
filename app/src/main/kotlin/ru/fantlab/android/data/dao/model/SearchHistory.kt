@@ -3,25 +3,23 @@ package ru.fantlab.android.data.dao.model
 import android.os.Parcel
 import android.os.Parcelable
 import io.reactivex.Single
-import io.requery.Column
-import io.requery.Entity
-import io.requery.Table
+import io.requery.*
 import ru.fantlab.android.App
+import ru.fantlab.android.data.dao.model.SearchHistoryType.TEXT
 import ru.fantlab.android.helper.single
 
 @Entity @Table(name = "search_history")
-abstract class AbstractSearchHistory() : Parcelable {
+data class SearchHistory(
+		@get:Column(unique = true) var text: String
+) : Persistable, Parcelable {
 
-	@JvmField @Column(unique = true) var text: String? = null
-
-	constructor(parcel: Parcel) : this() {
-		text = parcel.readString()
-	}
+	constructor(parcel: Parcel) : this(parcel.readString())
 
 	override fun writeToParcel(parcel: Parcel, flags: Int) {
 		parcel.writeString(text)
 	}
 
+	@Transient
 	override fun describeContents(): Int {
 		return 0
 	}
@@ -40,7 +38,7 @@ abstract class AbstractSearchHistory() : Parcelable {
 fun SearchHistory.save(): Single<SearchHistory> {
 	return App.dataStore
 			.delete(SearchHistory::class.java)
-			.where(SearchHistory.TEXT.eq(this.text))
+			.where(TEXT.eq(this.text))
 			.get()
 			.single()
 			.flatMap { App.dataStore.insert(this) }
@@ -50,7 +48,7 @@ fun SearchHistory.save(): Single<SearchHistory> {
 fun getSearchHistory(): Single<List<SearchHistory>> {
 	return App.dataStore
 			.select(SearchHistory::class.java)
-			.groupBy(SearchHistory.TEXT.asc())
+			.groupBy(TEXT.asc())
 			.get()
 			.observable()
 			.toList()

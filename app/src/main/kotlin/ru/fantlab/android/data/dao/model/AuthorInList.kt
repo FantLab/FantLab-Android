@@ -5,36 +5,35 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
-import io.requery.Column
-import io.requery.Entity
-import io.requery.Key
-import io.requery.Table
+import io.requery.*
 import ru.fantlab.android.App
+import ru.fantlab.android.data.dao.model.AuthorInListType.ID
+import ru.fantlab.android.data.dao.model.AuthorInListType.NAME_SHORT
 import ru.fantlab.android.helper.single
 import timber.log.Timber
 
 @Entity @Table(name = "author_in_list")
-abstract class AbstractAuthorInList() : Parcelable {
+data class AuthorInList(
+		@SerializedName("autor_id") @get:Column(name = "author_id") @get:Key var id: Int,
+		@get:Column var name: String,
+		@get:Column var nameOrig: String,
+		@get:Column var nameShort: String
+) : Persistable, Parcelable {
 
-	@JvmField @SerializedName("autor_id") @Column(name = "author_id") @Key var id: Int? = null
-	@JvmField @Column var name: String? = null
-	@JvmField @Column var nameOrig: String? = null
-	@JvmField @Column var nameShort: String? = null
-
-	constructor(parcel: Parcel) : this() {
-		id = parcel.readValue(Int::class.java.classLoader) as? Int
-		name = parcel.readString()
-		nameOrig = parcel.readString()
-		nameShort = parcel.readString()
-	}
+	constructor(parcel: Parcel) : this(
+			parcel.readInt(),
+			parcel.readString(),
+			parcel.readString(),
+			parcel.readString())
 
 	override fun writeToParcel(parcel: Parcel, flags: Int) {
-		parcel.writeValue(id)
+		parcel.writeInt(id)
 		parcel.writeString(name)
 		parcel.writeString(nameOrig)
 		parcel.writeString(nameShort)
 	}
 
+	@Transient
 	override fun describeContents(): Int {
 		return 0
 	}
@@ -57,7 +56,7 @@ fun List<AuthorInList>.save(): Disposable {
 			if (!this.isEmpty()) {
 				for (author in this) {
 					dataSource.delete(AuthorInList::class.java)
-							.where(AuthorInList.ID.eq(author.id))
+							.where(ID.eq(author.id))
 							.get()
 							.value()
 					dataSource.insert(author)
@@ -74,7 +73,7 @@ fun List<AuthorInList>.save(): Disposable {
 fun getAuthorsList(): Single<List<AuthorInList>> {
 	return App.dataStore
 			.select(AuthorInList::class.java)
-			.orderBy(AuthorInList.NAME_SHORT.asc())
+			.orderBy(NAME_SHORT.asc())
 			.get()
 			.observable()
 			.toList()
