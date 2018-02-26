@@ -9,8 +9,7 @@ import io.requery.Entity
 import io.requery.Key
 import io.requery.Table
 import ru.fantlab.android.App
-import ru.fantlab.android.data.dao.model.Response.RESPONSE_DATE
-import ru.fantlab.android.data.dao.model.Response.USER_ID
+import ru.fantlab.android.data.dao.model.Response.*
 import ru.fantlab.android.helper.single
 import timber.log.Timber
 import java.util.*
@@ -114,6 +113,17 @@ fun getAuthorResponses(authorId: Int): Single<List<Response>> {
 			.select(Response::class.java)
 			// todo исправить после фикса API
 			//.where(AUTHOR_ID.eq(authorId))
+			.orderBy(RESPONSE_DATE.desc())
+			.get()
+			.observable()
+			.toList()
+			.single()
+}
+
+fun getWorkResponses(workId: Int): Single<List<Response>> {
+	return App.dataStore
+			.select(Response::class.java)
+			.where(WORK_ID.eq(workId))
 			.orderBy(RESPONSE_DATE.desc())
 			.get()
 			.observable()
