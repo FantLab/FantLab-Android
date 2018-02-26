@@ -98,10 +98,22 @@ fun List<Response>.save(): Disposable {
 	}.single().subscribe({ }, Timber::e)
 }
 
-fun getResponses(userId: Int): Single<List<Response>> {
+fun getUserResponses(userId: Int): Single<List<Response>> {
 	return App.dataStore
 			.select(Response::class.java)
 			.where(USER_ID.eq(userId))
+			.orderBy(RESPONSE_DATE.desc())
+			.get()
+			.observable()
+			.toList()
+			.single()
+}
+
+fun getAuthorResponses(authorId: Int): Single<List<Response>> {
+	return App.dataStore
+			.select(Response::class.java)
+			// todo исправить после фикса API
+			//.where(AUTHOR_ID.eq(authorId))
 			.orderBy(RESPONSE_DATE.desc())
 			.get()
 			.observable()

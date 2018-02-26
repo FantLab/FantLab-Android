@@ -1,16 +1,16 @@
-package ru.fantlab.android.ui.modules.profile.responses
+package ru.fantlab.android.ui.modules.author.responses
 
 import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Response
-import ru.fantlab.android.data.dao.model.getUserResponses
+import ru.fantlab.android.data.dao.model.getAuthorResponses
 import ru.fantlab.android.data.dao.model.save
 import ru.fantlab.android.helper.observe
 import ru.fantlab.android.provider.rest.RestProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
-class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
-		ProfileResponsesMvp.Presenter {
+class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
+		AuthorResponsesMvp.Presenter {
 
 	private var responses: ArrayList<Response> = ArrayList()
 	private var page: Int = 0
@@ -48,7 +48,7 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 			sendToView { it.hideProgress() }
 			return false
 		}
-		makeRestCall(RestProvider.getUserService().getResponses(parameter, page), Consumer {
+		makeRestCall(RestProvider.getAuthorService().getResponses(parameter, page), Consumer {
 			lastPage = it.last
 			manageDisposable(it.items.save())
 			sendToView { view ->
@@ -64,10 +64,10 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 		super.onError(throwable)
 	}
 
-	override fun onWorkOffline(userId: Int) {
+	override fun onWorkOffline(authorId: Int) {
 		if (responses.isEmpty()) {
 			manageDisposable(
-					getUserResponses(userId).toObservable()
+					getAuthorResponses(authorId).toObservable()
 							.observe()
 							.subscribe { responses -> sendToView {
 								it.onNotifyAdapter(responses, 1)

@@ -7,12 +7,11 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.util.*
 
-class ResponsesAdapter @JvmOverloads constructor(responses: ArrayList<Response>, private val noImage: Boolean = false)
+class ResponsesAdapter constructor(responses: ArrayList<Response>, private val noImage: Boolean = false)
 	: BaseRecyclerAdapter<Response, ResponseViewHolder, BaseViewHolder.OnItemClickListener<Response>>(responses) {
 
-	override fun viewHolder(parent: ViewGroup, viewType: Int): ResponseViewHolder {
-		return ResponseViewHolder(ResponseViewHolder.getView(parent, noImage), this)
-	}
+	override fun viewHolder(parent: ViewGroup, viewType: Int): ResponseViewHolder =
+			ResponseViewHolder.newInstance(parent, noImage, this)
 
 	override fun onBindView(holder: ResponseViewHolder, position: Int) {
 		holder.bind(getItem(position))

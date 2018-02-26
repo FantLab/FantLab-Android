@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.profile.responses
+package ru.fantlab.android.ui.modules.author.responses
 
 import android.content.Context
 import android.os.Bundle
@@ -13,26 +13,26 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ResponsesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
-import ru.fantlab.android.ui.modules.user.UserPagerMvp
+import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 
-class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileResponsesPresenter>(),
-		ProfileResponsesMvp.View {
+class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResponsesPresenter>(),
+		AuthorResponsesMvp.View {
 
 	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
-	private var userId: Int? = null
-	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, userId) }
-	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses(), true) }
-	private var countCallback: UserPagerMvp.View? = null
+	private var authorId: Int? = null
+	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, authorId) }
+	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses()) }
+	private var countCallback: AuthorPagerMvp.View? = null
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
 
-	override fun providePresenter(): ProfileResponsesPresenter = ProfileResponsesPresenter()
+	override fun providePresenter(): AuthorResponsesPresenter = AuthorResponsesPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -47,11 +47,11 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
 		if (savedInstanceState == null) {
-			userId = arguments?.getInt(BundleConstant.EXTRA)
+			authorId = arguments?.getInt(BundleConstant.EXTRA)
 		} else {
-			userId = savedInstanceState.getInt(BundleConstant.EXTRA)
-			if (userId == null) {
-				userId = arguments?.getInt(BundleConstant.EXTRA)
+			authorId = savedInstanceState.getInt(BundleConstant.EXTRA)
+			if (authorId == null) {
+				authorId = arguments?.getInt(BundleConstant.EXTRA)
 			}
 		}
 		recycler.addOnScrollListener(getLoadMore())
@@ -63,7 +63,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 
 	override fun onAttach(context: Context?) {
 		super.onAttach(context)
-		if (context is UserPagerMvp.View) {
+		if (context is AuthorPagerMvp.View) {
 			countCallback = context
 		}
 	}
@@ -92,12 +92,12 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	}
 
 	override fun getLoadMore(): OnLoadMore<Int> {
-		onLoadMore.parameter = userId
+		onLoadMore.parameter = authorId
 		return onLoadMore
 	}
 
 	override fun onSetTabCount(count: Int) {
-		countCallback?.onSetBadge(2, count)
+		countCallback?.onSetBadge(4, count)
 	}
 
 	override fun onItemClicked(item: Response) {
@@ -106,7 +106,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	}
 
 	override fun onRefresh() {
-		presenter.onCallApi(1, userId)
+		presenter.onCallApi(1, authorId)
 	}
 
 	override fun onClick(v: View?) {
@@ -139,9 +139,9 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 
 	companion object {
 
-		fun newInstance(userId: Int): ProfileResponsesFragment {
-			val view = ProfileResponsesFragment()
-			view.arguments = Bundler.start().put(BundleConstant.EXTRA, userId).end()
+		fun newInstance(authorId: Int): AuthorResponsesFragment {
+			val view = AuthorResponsesFragment()
+			view.arguments = Bundler.start().put(BundleConstant.EXTRA, authorId).end()
 			return view
 		}
 	}

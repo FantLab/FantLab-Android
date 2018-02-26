@@ -3,7 +3,7 @@ package ru.fantlab.android.ui.modules.main.responses
 import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Response
-import ru.fantlab.android.data.dao.model.getResponses
+import ru.fantlab.android.data.dao.model.getUserResponses
 import ru.fantlab.android.data.dao.model.save
 import ru.fantlab.android.helper.observe
 import ru.fantlab.android.provider.StubProvider
@@ -62,7 +62,7 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 	override fun onWorkOffline() {
 		if (responses.isEmpty()) {
 			manageDisposable(
-					getResponses(1).toObservable().observe().subscribe(
+					getUserResponses(1).toObservable().observe().subscribe(
 							{ modelList ->
 								modelList?.let {
 									sendToView { it.onNotifyAdapter(modelList, 1) }

@@ -3,6 +3,7 @@ package ru.fantlab.android.data.dao
 import android.content.Context
 import android.support.v4.app.Fragment
 import ru.fantlab.android.R
+import ru.fantlab.android.ui.modules.author.responses.AuthorResponsesFragment
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
 import ru.fantlab.android.ui.modules.profile.overview.ProfileOverviewFragment
 import ru.fantlab.android.ui.modules.profile.responses.ProfileResponsesFragment
@@ -42,7 +43,7 @@ data class FragmentPagerAdapterModel(
 					FragmentPagerAdapterModel(context.getString(R.string.works), SearchWorksFragment()),
 					FragmentPagerAdapterModel(context.getString(R.string.editions), SearchEditionsFragment()),
 					FragmentPagerAdapterModel(context.getString(R.string.awards), SearchAwardsFragment()),
-					FragmentPagerAdapterModel(context.getString(R.string.responses), SearchAwardsFragment())
+					FragmentPagerAdapterModel(context.getString(R.string.responses), AuthorResponsesFragment.newInstance(authorId))
 			)
 		}
 
