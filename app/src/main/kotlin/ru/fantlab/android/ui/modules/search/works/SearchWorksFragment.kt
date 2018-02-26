@@ -14,6 +14,7 @@ import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.SearchWorksAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.search.SearchMvp
+import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
@@ -111,8 +112,7 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 	}
 
 	override fun onItemClicked(item: SearchWorkModel) {
-		// todo переход на экран ворка
-		showMessage("Click", "Not implemented yet")
+		WorkPagerActivity.startActivity(context!!, item.workId, item.rusName, 0)
 	}
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list

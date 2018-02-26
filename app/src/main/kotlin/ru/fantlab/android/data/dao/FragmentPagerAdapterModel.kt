@@ -45,5 +45,16 @@ data class FragmentPagerAdapterModel(
 					FragmentPagerAdapterModel(context.getString(R.string.responses), SearchAwardsFragment())
 			)
 		}
+
+		fun buildForWork(context: Context, workId: Int): MutableList<FragmentPagerAdapterModel> {
+			return mutableListOf(
+					FragmentPagerAdapterModel(context.getString(R.string.overview), SearchAuthorsFragment()),
+					FragmentPagerAdapterModel(context.getString(R.string.classification), SearchWorksFragment()),
+					FragmentPagerAdapterModel(context.getString(R.string.responses), SearchWorksFragment()),
+					FragmentPagerAdapterModel(context.getString(R.string.editions), SearchEditionsFragment()),
+					FragmentPagerAdapterModel(context.getString(R.string.awards), SearchAwardsFragment()),
+					FragmentPagerAdapterModel(context.getString(R.string.analogs), SearchAwardsFragment())
+			)
+		}
 	}
 }

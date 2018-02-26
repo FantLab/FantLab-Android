@@ -66,11 +66,17 @@
 		</activity>
 		<activity
 			android:name=".ui.modules.author.AuthorPagerActivity"
-			android:label="@string/user"
 			android:parentActivityName=".ui.modules.authors.AuthorsActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value=".ui.modules.authors.AuthorsActivity"/>
+		</activity>
+		<activity
+			android:name=".ui.modules.work.WorkPagerActivity"
+			android:parentActivityName=".ui.modules.author.AuthorPagerActivity">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".ui.modules.author.AuthorPagerActivity"/>
 		</activity>
 		<activity
 			android:name=".ui.modules.search.SearchActivity"
