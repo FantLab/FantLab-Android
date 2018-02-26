@@ -13,6 +13,7 @@ import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.SearchEditionsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
 import ru.fantlab.android.ui.modules.search.SearchMvp
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -112,8 +113,7 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 	}
 
 	override fun onItemClicked(item: SearchEditionModel) {
-		// todo переход на экран издания
-		showMessage("Click", "Not implemented yet")
+		EditionPagerActivity.startActivity(context!!, item.editionId, item.name, 0)
 	}
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list

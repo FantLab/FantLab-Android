@@ -56,5 +56,13 @@ data class FragmentPagerAdapterModel(
 					FragmentPagerAdapterModel(context.getString(R.string.analogs), SearchAwardsFragment())
 			)
 		}
+
+		fun buildForEdition(context: Context, editionId: Int): MutableList<FragmentPagerAdapterModel> {
+			return mutableListOf(
+					FragmentPagerAdapterModel(context.getString(R.string.overview), SearchAuthorsFragment()),
+					FragmentPagerAdapterModel(context.getString(R.string.content), SearchWorksFragment()),
+					FragmentPagerAdapterModel(context.getString(R.string.photo), SearchEditionsFragment())
+			)
+		}
 	}
 }
