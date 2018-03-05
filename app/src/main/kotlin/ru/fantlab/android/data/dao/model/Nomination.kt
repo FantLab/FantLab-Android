@@ -24,7 +24,7 @@ data class Nomination(
 		@SerializedName("nomination_rusname") @get:Column(name = "nomination_rus_name") var nominationRusName: String,
 		@get:Column(name = "work_id") var workId: Int,
 		@get:Column(name = "work_name") var workName: String,
-		@get:Column(name = "work_rusname") var workRusName: String,
+		@SerializedName("work_rusname") @get:Column(name = "work_rus_name") var workRusName: String,
 		@get:Column(name = "work_year") var workYear: String,
 		@get:Column(name = "author_id") var authorId: Int?
 ) : Persistable, Parcelable {

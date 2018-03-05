@@ -19,12 +19,17 @@ data class Response(
 		@get:Column(name = "votes") var responseVotes: Int,
 		@get:Column var mark: Int?,
 		@get:Column(name = "work_id") var workId: Int,
+		@get:Column(name = "work_author") var workAuthor: String,
+		@get:Column(name = "work_author_orig") var workAuthorOrig: String,
 		@get:Column(name = "work_name") var workName: String,
 		@get:Column(name = "work_name_orig") var workNameOrig: String,
+		@get:Column(name = "work_type") var workType: String,
 		@get:Column(name = "work_type_id") var workTypeId: Int,
+		@get:Column(name = "work_image") var workImage: String,
 		@get:Column(name = "user_id") var userId: Int,
 		@get:Column(name = "user_name") var userName: String,
-		@get:Column(name = "user_sex") var userSex: String
+		@get:Column(name = "user_sex") var userSex: String,
+		@get:Column(name = "user_avatar") var userAvatar: String
 ) : Persistable, Parcelable {
 
 	constructor(parcel: Parcel) : this(
@@ -36,8 +41,13 @@ data class Response(
 			parcel.readInt(),
 			parcel.readString(),
 			parcel.readString(),
+			parcel.readString(),
+			parcel.readString(),
+			parcel.readString(),
 			parcel.readInt(),
+			parcel.readString(),
 			parcel.readInt(),
+			parcel.readString(),
 			parcel.readString(),
 			parcel.readString())
 
@@ -48,12 +58,17 @@ data class Response(
 		parcel.writeInt(responseVotes)
 		parcel.writeValue(mark)
 		parcel.writeInt(workId)
+		parcel.writeString(workAuthor)
+		parcel.writeString(workAuthorOrig)
 		parcel.writeString(workName)
 		parcel.writeString(workNameOrig)
+		parcel.writeString(workType)
 		parcel.writeInt(workTypeId)
+		parcel.writeString(workImage)
 		parcel.writeInt(userId)
 		parcel.writeString(userName)
 		parcel.writeString(userSex)
+		parcel.writeString(userAvatar)
 	}
 
 	@Transient

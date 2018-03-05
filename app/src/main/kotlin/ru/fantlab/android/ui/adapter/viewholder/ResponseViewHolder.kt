@@ -1,14 +1,12 @@
 package ru.fantlab.android.ui.adapter.viewholder
 
-import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.getTimeAgo
-import ru.fantlab.android.provider.scheme.LinkParserHelper
-import ru.fantlab.android.ui.widgets.AvatarLayout
+import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
@@ -16,7 +14,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, ResponseViewHolder, *>)
 	: BaseViewHolder<Response>(itemView, adapter) {
 
-	@JvmField @BindView(R.id.avatarLayout) var avatarLayout: AvatarLayout? = null
+	@JvmField @BindView(R.id.coverLayout) var coverLayout: CoverLayout? = null
 	@BindView(R.id.info) lateinit var info: FontTextView
 	@BindView(R.id.workName) lateinit var workName: FontTextView
 	@BindView(R.id.text) lateinit var text: FontTextView
@@ -24,13 +22,7 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 	@BindView(R.id.votes) lateinit var votes: FontTextView
 
 	override fun bind(response: Response) {
-		avatarLayout?.setUrl(Uri.Builder().scheme(LinkParserHelper.PROTOCOL_HTTPS)
-				.authority(LinkParserHelper.HOST_DATA)
-				.appendPath("images")
-				.appendPath("users")
-				.appendPath("${response.userId}_1") // todo поправить после правок API
-				.toString())
-
+		coverLayout?.setUrl("https:${response.workImage}")
 		info.text = StringBuilder()
 				.append(response.userName)
 				.append(", ")

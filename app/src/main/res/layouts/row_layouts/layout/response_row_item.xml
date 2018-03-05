@@ -20,10 +20,10 @@
 		android:orientation="horizontal"
 		>
 
-		<ru.fantlab.android.ui.widgets.AvatarLayout
-			android:id="@+id/avatarLayout"
+		<ru.fantlab.android.ui.widgets.CoverLayout
+			android:id="@+id/coverLayout"
 			android:layout_width="48dp"
-			android:layout_height="48dp"
+			android:layout_height="64dp"
 			android:layout_marginEnd="@dimen/avatar_margin_end"
 			android:layout_marginStart="@dimen/avatar_margin"
 			/>

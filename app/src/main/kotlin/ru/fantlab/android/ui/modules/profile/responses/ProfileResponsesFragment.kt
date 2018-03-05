@@ -27,7 +27,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 	private var userId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, userId) }
-	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses(), true) }
+	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses()) }
 	private var countCallback: UserPagerMvp.View? = null
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list

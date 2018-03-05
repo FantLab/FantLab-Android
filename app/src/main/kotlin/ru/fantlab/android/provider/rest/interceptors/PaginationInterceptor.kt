@@ -24,6 +24,7 @@ class PaginationInterceptor : Interceptor {
 
 		private val SEARCH_RESULTS_PER_PAGE = 25
 		private val RESPONSES_PER_PAGE = 50
+		private val LAST_RESPONSES_MAX_PAGE = 20
 	}
 
 	override fun intercept(chain: Interceptor.Chain): Response {
@@ -34,7 +35,11 @@ class PaginationInterceptor : Interceptor {
 				if (it.contains("search-")) {
 					return interceptSearch(request, response)
 				} else if (it.contains("responses")) {
-					return interceptResponses(response)
+					return interceptResponses(
+							request,
+							response,
+							request.url().pathSegments().size == 1
+					)
 				}
 			}
 		}
@@ -76,7 +81,7 @@ class PaginationInterceptor : Interceptor {
 		return response.newBuilder().body(ResponseBody.create(response.body()!!.contentType(), json)).build()
 	}
 
-	private fun interceptResponses(response: Response): Response {
+	private fun interceptResponses(request: Request, response: Response, isLastResponses: Boolean): Response {
 		val body = response.body()!!.string()
 
 		val totalCountStartIndex = body.indexOf("\"total_count\":")
@@ -86,6 +91,14 @@ class PaginationInterceptor : Interceptor {
 		val lastString = "\"last\":${lastPage + 1}"
 
 		val incompleteResultsString = "\"incomplete_results\":false"
+
+		/*var currentPage = request.url().queryParameter("page")?.toInt()
+		if (currentPage == null) {
+			currentPage = 1
+		}
+
+		val incompleteResults = if (isLastResponses) currentPage == LAST_RESPONSES_MAX_PAGE else false
+		val incompleteResultsString = "\"incomplete_results\":$incompleteResults"*/
 
 		val json = "{$lastString,$incompleteResultsString,${body.substring(1)}"
 		return response.newBuilder().body(ResponseBody.create(response.body()!!.contentType(), json)).build()

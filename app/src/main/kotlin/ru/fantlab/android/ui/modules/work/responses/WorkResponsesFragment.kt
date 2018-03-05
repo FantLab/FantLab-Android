@@ -27,7 +27,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 	private var workId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, workId) }
-	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses()) }
+	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses(), true) }
 	private var countCallback: WorkPagerMvp.View? = null
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list

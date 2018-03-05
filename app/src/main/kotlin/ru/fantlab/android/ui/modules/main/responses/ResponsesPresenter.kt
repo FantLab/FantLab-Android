@@ -6,7 +6,7 @@ import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.data.dao.model.getUserResponses
 import ru.fantlab.android.data.dao.model.save
 import ru.fantlab.android.helper.observe
-import ru.fantlab.android.provider.StubProvider
+import ru.fantlab.android.provider.rest.RestProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import timber.log.Timber
 import java.util.*
@@ -34,13 +34,12 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 			return false
 		}
 		setCurrentPage(page)
-		makeRestCall(/*RestProvider.getCommonService()*/StubProvider.getResponses(page), Consumer { response ->
+		makeRestCall(RestProvider.getCommonService().getResponses(page), Consumer { response ->
 			lastPage = response.last
 			if (getCurrentPage() == 1) {
 				manageDisposable(response.items.save())
 			}
 			sendToView { it.onNotifyAdapter(response.items, page) }
-			sendToView { it.showErrorMessage("API not ready yet") }
 		})
 		return true
 	}

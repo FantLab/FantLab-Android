@@ -13,7 +13,7 @@ interface CommonRestService {
 	@GET("news.json")
 	fun getNews(@Query("page") page: Int): Observable<Pageable<News>>
 
-	@GET("responses.json")
+	@GET("responses")
 	fun getResponses(@Query("page") page: Int): Observable<Pageable<Response>>
 
 	@GET("feed.json")
