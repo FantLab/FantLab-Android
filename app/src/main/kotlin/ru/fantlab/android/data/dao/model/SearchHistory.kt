@@ -1,39 +1,21 @@
 package ru.fantlab.android.data.dao.model
 
-import android.os.Parcel
 import android.os.Parcelable
 import io.reactivex.Single
-import io.requery.*
+import io.requery.Column
+import io.requery.Entity
+import io.requery.Persistable
+import io.requery.Table
+import kotlinx.android.parcel.Parcelize
 import ru.fantlab.android.App
 import ru.fantlab.android.data.dao.model.SearchHistoryType.TEXT
 import ru.fantlab.android.helper.single
 
+@Parcelize
 @Entity @Table(name = "search_history")
 data class SearchHistory(
 		@get:Column(unique = true) var text: String
-) : Persistable, Parcelable {
-
-	constructor(parcel: Parcel) : this(parcel.readString())
-
-	override fun writeToParcel(parcel: Parcel, flags: Int) {
-		parcel.writeString(text)
-	}
-
-	@Transient
-	override fun describeContents(): Int {
-		return 0
-	}
-
-	companion object CREATOR : Parcelable.Creator<SearchHistory> {
-		override fun createFromParcel(parcel: Parcel): SearchHistory {
-			return SearchHistory(parcel)
-		}
-
-		override fun newArray(size: Int): Array<SearchHistory?> {
-			return arrayOfNulls(size)
-		}
-	}
-}
+) : Persistable, Parcelable
 
 fun SearchHistory.save(): Single<SearchHistory> {
 	return App.dataStore

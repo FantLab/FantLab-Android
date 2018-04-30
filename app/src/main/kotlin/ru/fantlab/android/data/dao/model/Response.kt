@@ -1,16 +1,17 @@
 package ru.fantlab.android.data.dao.model
 
-import android.os.Parcel
 import android.os.Parcelable
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import io.requery.*
+import kotlinx.android.parcel.Parcelize
 import ru.fantlab.android.App
 import ru.fantlab.android.data.dao.model.ResponseType.*
 import ru.fantlab.android.helper.single
 import timber.log.Timber
 import java.util.*
 
+@Parcelize
 @Entity @Table(name = "response")
 data class Response(
 		@get:Column(name = "id") @get:Key var responseId: Int,
@@ -30,62 +31,7 @@ data class Response(
 		@get:Column(name = "user_name") var userName: String,
 		@get:Column(name = "user_sex") var userSex: String,
 		@get:Column(name = "user_avatar") var userAvatar: String
-) : Persistable, Parcelable {
-
-	constructor(parcel: Parcel) : this(
-			parcel.readInt(),
-			Date(parcel.readLong()),
-			parcel.readString(),
-			parcel.readInt(),
-			parcel.readValue(Int::class.java.classLoader) as? Int,
-			parcel.readInt(),
-			parcel.readString(),
-			parcel.readString(),
-			parcel.readString(),
-			parcel.readString(),
-			parcel.readString(),
-			parcel.readInt(),
-			parcel.readString(),
-			parcel.readInt(),
-			parcel.readString(),
-			parcel.readString(),
-			parcel.readString())
-
-	override fun writeToParcel(parcel: Parcel, flags: Int) {
-		parcel.writeInt(responseId)
-		parcel.writeLong(responseDate.time)
-		parcel.writeString(responseText)
-		parcel.writeInt(responseVotes)
-		parcel.writeValue(mark)
-		parcel.writeInt(workId)
-		parcel.writeString(workAuthor)
-		parcel.writeString(workAuthorOrig)
-		parcel.writeString(workName)
-		parcel.writeString(workNameOrig)
-		parcel.writeString(workType)
-		parcel.writeInt(workTypeId)
-		parcel.writeString(workImage)
-		parcel.writeInt(userId)
-		parcel.writeString(userName)
-		parcel.writeString(userSex)
-		parcel.writeString(userAvatar)
-	}
-
-	@Transient
-	override fun describeContents(): Int {
-		return 0
-	}
-
-	companion object CREATOR : Parcelable.Creator<Response> {
-		override fun createFromParcel(parcel: Parcel): Response {
-			return Response(parcel)
-		}
-
-		override fun newArray(size: Int): Array<Response?> {
-			return arrayOfNulls(size)
-		}
-	}
-}
+) : Persistable, Parcelable
 
 fun List<Response>.save(): Disposable {
 	return Single.fromPublisher<String> { s ->

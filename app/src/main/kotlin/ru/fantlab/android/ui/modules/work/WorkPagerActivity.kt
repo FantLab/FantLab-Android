@@ -54,7 +54,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 		if (savedInstanceState == null) {
 			workId = intent?.extras?.getInt(BundleConstant.EXTRA, -1) ?: -1
 			workName = intent?.extras?.getString(BundleConstant.EXTRA_TWO) ?: ""
-			index = intent?.extras?.getInt(BundleConstant.EXTRA_TWO, -1) ?: -1
+			index = intent?.extras?.getInt(BundleConstant.EXTRA_THREE, -1) ?: -1
 		}
 		if (workId == -1) {
 			finish()

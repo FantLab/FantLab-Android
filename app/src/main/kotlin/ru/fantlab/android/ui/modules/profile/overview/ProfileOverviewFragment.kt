@@ -55,7 +55,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 	@BindView(R.id.sign) lateinit var sign: FontTextView
 	@BindView(R.id.block) lateinit var block: FontTextView
 	@BindView(R.id.progress) lateinit var progress: View
-	var user: User? = null
+	private var user: User? = null
 	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun fragmentLayout(): Int = R.layout.profile_overview_layout
@@ -85,7 +85,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		if (user == null) return
 		this.user = user
 		val gender = if (user.sex == "m") /* male */ "\u2642" else /* female */ "\u2640"
-		fio.text = if (user.fio.isNullOrEmpty()) {
+		fio.text = if (user.fio.isEmpty()) {
 			gender
 		} else {
 			StringBuilder()

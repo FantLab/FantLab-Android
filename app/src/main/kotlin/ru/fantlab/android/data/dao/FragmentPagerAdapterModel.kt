@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v4.app.Fragment
 import ru.fantlab.android.R
 import ru.fantlab.android.ui.modules.author.responses.AuthorResponsesFragment
+import ru.fantlab.android.ui.modules.edition.overview.EditionOverviewFragment
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
 import ru.fantlab.android.ui.modules.profile.overview.ProfileOverviewFragment
 import ru.fantlab.android.ui.modules.profile.responses.ProfileResponsesFragment
@@ -61,7 +62,7 @@ data class FragmentPagerAdapterModel(
 
 		fun buildForEdition(context: Context, editionId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
-					FragmentPagerAdapterModel(context.getString(R.string.overview), SearchAuthorsFragment()),
+					FragmentPagerAdapterModel(context.getString(R.string.overview), EditionOverviewFragment.newInstance(editionId)),
 					FragmentPagerAdapterModel(context.getString(R.string.content), SearchWorksFragment()),
 					FragmentPagerAdapterModel(context.getString(R.string.photo), SearchEditionsFragment())
 			)

@@ -54,7 +54,7 @@ class EditionPagerActivity : BaseActivity<EditionPagerMvp.View, BasePresenter<Ed
 		if (savedInstanceState == null) {
 			editionId = intent?.extras?.getInt(BundleConstant.EXTRA, -1) ?: -1
 			editionName = intent?.extras?.getString(BundleConstant.EXTRA_TWO) ?: ""
-			index = intent?.extras?.getInt(BundleConstant.EXTRA_TWO, -1) ?: -1
+			index = intent?.extras?.getInt(BundleConstant.EXTRA_THREE, -1) ?: -1
 		}
 		if (editionId == -1) {
 			finish()

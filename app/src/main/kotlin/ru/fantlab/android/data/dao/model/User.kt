@@ -1,13 +1,14 @@
 package ru.fantlab.android.data.dao.model
 
-import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import io.requery.*
+import kotlinx.android.parcel.Parcelize
 import ru.fantlab.android.App
 import ru.fantlab.android.data.dao.model.UserType.USER_ID
 import java.util.*
 
+@Parcelize
 @Entity @Table(name = "user")
 data class User(
 		@get:Column(name = "id") @get:Key var userId: Int,
@@ -46,100 +47,7 @@ data class User(
 		@get:Column(name = "blocked") var block: Int,
 		@get:Column(name = "block_start_date") var dateOfBlock: Date?,
 		@get:Column(name = "block_end_date") var dateOfBlockEnd: Date?
-) : Persistable, Parcelable {
-
-	constructor(parcel: Parcel) : this(
-			parcel.readInt(),
-			parcel.readString(),
-			parcel.readString(),
-			parcel.readString(),
-			parcel.readString(),
-			parcel.readLong().let { if (it == -1L) null else Date(it) },
-			parcel.readInt(),
-			parcel.readString(),
-			parcel.readFloat(),
-			parcel.readString(),
-			parcel.readString(),
-			parcel.readValue(Int::class.java.classLoader) as? Int,
-			parcel.readString(),
-			parcel.readValue(Int::class.java.classLoader) as? Int,
-			Date(parcel.readLong()),
-			Date(parcel.readLong()),
-			parcel.readLong(),
-			parcel.readString(),
-			parcel.readInt(),
-			parcel.readInt(),
-			parcel.readInt(),
-			parcel.readInt(),
-			parcel.readInt(),
-			parcel.readInt(),
-			parcel.readInt(),
-			parcel.readInt(),
-			parcel.readInt(),
-			parcel.readInt(),
-			parcel.readValue(Int::class.java.classLoader) as? Int,
-			parcel.readString(),
-			parcel.readString(),
-			parcel.readValue(Int::class.java.classLoader) as? Int,
-			parcel.readValue(Int::class.java.classLoader) as? Int,
-			parcel.readInt(),
-			parcel.readLong().let { if (it == -1L) null else Date(it) },
-			parcel.readLong().let { if (it == -1L) null else Date(it) })
-
-	override fun writeToParcel(parcel: Parcel, flags: Int) {
-		parcel.writeInt(userId)
-		parcel.writeString(login)
-		parcel.writeString(avatar)
-		parcel.writeString(fio)
-		parcel.writeString(sex)
-		parcel.writeLong(birthDay?.time ?: -1L)
-		parcel.writeInt(userClass)
-		parcel.writeString(className)
-		parcel.writeFloat(level)
-		parcel.writeString(location)
-		parcel.writeString(countryName)
-		parcel.writeValue(countryId)
-		parcel.writeString(cityName)
-		parcel.writeValue(cityId)
-		parcel.writeLong(dateOfReg.time)
-		parcel.writeLong(dateOfLastAction.time)
-		parcel.writeLong(userTimer)
-		parcel.writeString(sign)
-		parcel.writeInt(markCount)
-		parcel.writeInt(responseCount)
-		parcel.writeInt(descriptionCount)
-		parcel.writeInt(classifCount)
-		parcel.writeInt(voteCount)
-		parcel.writeInt(topicCount)
-		parcel.writeInt(messageCount)
-		parcel.writeInt(bookcaseCount)
-		parcel.writeInt(curatorAuthors)
-		parcel.writeInt(ticketsCount)
-		parcel.writeValue(authorId)
-		parcel.writeString(authorName)
-		parcel.writeString(authorNameOrig)
-		parcel.writeValue(authorIsOpened)
-		parcel.writeValue(blogId)
-		parcel.writeInt(block)
-		parcel.writeLong(dateOfBlock?.time ?: -1L)
-		parcel.writeLong(dateOfBlockEnd?.time ?: -1L)
-	}
-
-	@Transient
-	override fun describeContents(): Int {
-		return 0
-	}
-
-	companion object CREATOR : Parcelable.Creator<User> {
-		override fun createFromParcel(parcel: Parcel): User {
-			return User(parcel)
-		}
-
-		override fun newArray(size: Int): Array<User?> {
-			return arrayOfNulls(size)
-		}
-	}
-}
+) : Persistable, Parcelable
 
 fun User.save() {
 	if (getUser(this.userId) != null) {
