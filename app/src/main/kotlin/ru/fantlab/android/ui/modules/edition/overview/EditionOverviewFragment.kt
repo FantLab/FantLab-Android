@@ -9,7 +9,7 @@ import android.view.View
 import butterknife.BindView
 import kotlinx.android.synthetic.main.edition_overview_layout.*
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.Edition
+import ru.fantlab.android.data.dao.newmodel.Edition
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.base.BaseFragment
@@ -61,10 +61,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 		var prefix: String
 		val authorsList = edition.creators.authors
 		if (authorsList != null && authorsList.isNotEmpty()) {
-			authorsList.map { author ->
-				sb.append(author.name)
-						.append(", ")
-			}
+			authorsList.map { sb.append(it.name).append(", ") }
 			authors.text = sb.substring(0, sb.lastIndex - 1)
 		} else {
 			authors.visibility = View.GONE
@@ -75,10 +72,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 			sb = SpannableStringBuilder()
 			prefix = if (compilersList.size > 1) "Составители: " else "Составитель: "
 			sb.append(prefix)
-			compilersList.map { compiler ->
-				sb.append(compiler.name)
-						.append(", ")
-			}
+			compilersList.map { sb.append(it.name).append(", ") }
 			compilers.text = sb.substring(0, sb.lastIndex - 1)
 		} else {
 			compilers.visibility = View.GONE
@@ -87,21 +81,13 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 		sb.append(edition.type)
 				.append(", ")
 		if (edition.additionalTypes.isNotEmpty()) {
-			edition.additionalTypes.map { type ->
-				type?.let {
-					sb.append(it)
-							.append(", ")
-				}
-			}
+			edition.additionalTypes.map { sb.append(it).append(", ") }
 		}
 		types.text = sb.substring(0, sb.lastIndex - 1)
 		val publishersList = edition.creators.publishers
 		if (publishersList != null && publishersList.isNotEmpty()) {
 			sb = SpannableStringBuilder()
-			publishersList.map { publisher ->
-				sb.append(publisher.name)
-						.append(", ")
-			}
+			publishersList.map { sb.append(it.name).append(", ") }
 			sb.append(edition.year.toString())
 			publishers.text = sb
 		} else {
@@ -111,12 +97,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 			sb = SpannableStringBuilder()
 			prefix = if (edition.series.size > 1) "Cерии: " else "Cерия: "
 			sb.append(prefix)
-			edition.series.map { series ->
-				series?.let {
-					sb.append(it.name)
-							.append(", ")
-				}
-			}
+			edition.series.map { sb.append(it.name).append(", ") }
 			series.text = sb.substring(0, sb.lastIndex - 1)
 		} else {
 			series.visibility = View.GONE
@@ -129,12 +110,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 		if (edition.isbns.isNotEmpty()) {
 			sb = SpannableStringBuilder()
 			sb.append("ISBN: ")
-			edition.isbns.map { isbn ->
-				isbn?.let {
-					sb.append(it)
-							.append(", ")
-				}
-			}
+			edition.isbns.map { sb.append(it).append(", ") }
 			isbns.text = sb.substring(0, sb.lastIndex - 1)
 		} else {
 			isbns.visibility = View.GONE

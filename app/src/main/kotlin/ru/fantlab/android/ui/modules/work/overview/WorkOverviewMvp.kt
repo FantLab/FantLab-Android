@@ -1,14 +1,14 @@
-package ru.fantlab.android.ui.modules.edition.overview
+package ru.fantlab.android.ui.modules.work.overview
 
 import android.os.Bundle
-import ru.fantlab.android.data.dao.newmodel.Edition
+import ru.fantlab.android.data.dao.newmodel.Work
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 
-interface EditionOverviewMvp {
+interface WorkOverviewMvp {
 
 	interface View : BaseMvp.View {
 
-		fun onInitViews(edition: Edition)
+		fun onInitViews(work: Work)
 	}
 
 	interface Presenter : BaseMvp.Presenter {

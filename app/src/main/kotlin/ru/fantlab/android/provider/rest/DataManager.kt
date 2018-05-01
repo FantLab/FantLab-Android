@@ -2,7 +2,7 @@ package ru.fantlab.android.provider.rest
 
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.rx.rx_object
-import ru.fantlab.android.data.dao.model.Edition
+import ru.fantlab.android.data.dao.newmodel.Edition
 
 object DataManager {
 
