@@ -102,11 +102,15 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 		} else {
 			series.visibility = View.GONE
 		}
-		sb = SpannableStringBuilder()
-		sb.append("Тираж: ")
-				.append(edition.copyCount.toString())
-				.append(" экз.")
-		copyCount.text = sb
+		if (edition.copyCount != 0) {
+			sb = SpannableStringBuilder()
+			sb.append("Тираж: ")
+					.append(edition.copyCount.toString())
+					.append(" экз.")
+			copyCount.text = sb
+		} else {
+			copyCount.visibility = View.GONE
+		}
 		if (edition.isbns.isNotEmpty()) {
 			sb = SpannableStringBuilder()
 			sb.append("ISBN: ")
@@ -119,14 +123,18 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 		sb.append("Тип обложки: ")
 				.append(edition.coverType)
 		coverType.text = sb
-		sb = SpannableStringBuilder()
-		sb.append("Формат: ")
-				.append(edition.format)
-				.append(" (")
-				.append(edition.formatMm)
-				.append(" мм")
-				.append(")")
-		format.text = sb
+		if (edition.format != "0" && edition.formatMm != null) {
+			sb = SpannableStringBuilder()
+			sb.append("Формат: ")
+					.append(edition.format)
+					.append(" (")
+					.append(edition.formatMm)
+					.append(" мм")
+					.append(")")
+			format.text = sb
+		} else {
+			format.visibility = View.GONE
+		}
 		sb = SpannableStringBuilder()
 		sb.append("Страниц: ")
 				.append(edition.pages.toString())

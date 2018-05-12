@@ -20,7 +20,7 @@ data class Edition(
 		@SerializedName("edition_type") val type: String,
 		@SerializedName("edition_type_plus") val additionalTypes: List<String>,
 		val format: String,
-		@SerializedName("format_mm") val formatMm: String,
+		@SerializedName("format_mm") val formatMm: String?,
 		val image: String,
 		@SerializedName("image_preview") val preview: String,
 		@SerializedName("images_plus") val additionalImages: AdditionalImages?,
@@ -64,30 +64,23 @@ data class Edition(
 
 	@Parcelize
 	data class AdditionalImages(
-			val cover: Cover,
-			val plus: List<Image>?,
-			val spine: Spine?
+			val cover: List<Cover>,
+			val plus: List<Image>?
 	) : Parcelable
 
-	// известный максимум обложек с корешками - 3
 	@Parcelize
 	data class Cover(
-			@SerializedName("1") val cover1: Image,
-			@SerializedName("2") val cover2: Image,
-			@SerializedName("3") val cover3: Image
-	) : Parcelable
-
-	@Parcelize
-	data class Spine(
-			@SerializedName("1") val spine1: Image,
-			@SerializedName("2") val spine2: Image,
-			@SerializedName("3") val spine3: Image
+			val image: String,
+			@SerializedName("image_preview") val preview: String?,
+			@SerializedName("image_spine") val spine: String?,
+			@SerializedName("pic_text") val text: String
 	) : Parcelable
 
 	@Parcelize
 	data class Image(
 			val image: String,
-			@SerializedName("image_preview") val preview: String?
+			@SerializedName("image_preview") val preview: String?,
+			@SerializedName("pic_text") val text: String
 	) : Parcelable
 
 	@Parcelize
