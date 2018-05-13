@@ -1,19 +1,17 @@
 package ru.fantlab.android.data.dao.newmodel
 
+import com.github.kittinunf.fuel.core.ResponseDeserializable
+import com.google.gson.JsonParser
 import com.google.gson.annotations.SerializedName
+import ru.fantlab.android.provider.rest.DataManager
 
 data class EditionsBlocks(
-		// todo посмотреть в базе, выписать остальные типы
-		@SerializedName("1") val booksPlan: EditionsBlock,
-		@SerializedName("10") val paper: EditionsBlock,
-		@SerializedName("30") val audio: EditionsBlock,
-		@SerializedName("34") val digital: EditionsBlock,
-		@SerializedName("80") val foreign: EditionsBlock
+		val editionsBlocks: ArrayList<EditionsBlock>
 ) {
 	data class EditionsBlock(
 			val block: String,
 			val id: Int,
-			val list: List<Edition>,
+			val list: ArrayList<Edition>,
 			val name: String,
 			val title: String
 	)
@@ -31,7 +29,23 @@ data class EditionsBlocks(
 			val name: String,
 			@SerializedName("plandate") val planDate: Long?,
 			@SerializedName("plandate_txt") val planYear: String,
+			val translators: String?,
 			val type: Int,
 			val year: Int
 	)
+
+	class Deserializer : ResponseDeserializable<EditionsBlocks> {
+
+		private val editionsBlocks: ArrayList<EditionsBlock> = arrayListOf()
+
+		override fun deserialize(content: String): EditionsBlocks {
+			val jsonObject = JsonParser().parse(content).asJsonObject
+			jsonObject.entrySet().map {
+				val blockObject = it.value.asJsonObject
+				val block = DataManager.gson.fromJson(blockObject.toString(), EditionsBlock::class.java)
+				editionsBlocks.add(block)
+			}
+			return EditionsBlocks(editionsBlocks)
+		}
+	}
 }

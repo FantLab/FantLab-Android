@@ -1,7 +1,5 @@
 package ru.fantlab.android.data.dao.newmodel
 
-import com.github.kittinunf.fuel.core.ResponseDeserializable
-import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
 data class Nomination(
@@ -21,10 +19,4 @@ data class Nomination(
 		@SerializedName("nomination_id") val nominationId: Int,
 		@SerializedName("nomination_name") val nominationName: String,
 		@SerializedName("nomination_rusname") val nominationRusName: String
-) {
-	class Deserializer : ResponseDeserializable<Nomination> {
-		override fun deserialize(content: String): Nomination {
-			return Gson().fromJson(content, Nomination::class.java)
-		}
-	}
-}
+)

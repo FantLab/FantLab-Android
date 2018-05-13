@@ -1,13 +1,12 @@
 package ru.fantlab.android.data.dao.newmodel
 
-import com.github.kittinunf.fuel.core.ResponseDeserializable
-import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
 data class Work(
-		val authors: List<Author>,
+		val authors: ArrayList<Author>,
 		val image: String?,
-		@SerializedName("publish_statuses") val publishStatuses: List<String>,
+		@SerializedName("image_preview") val preview: String,
+		@SerializedName("publish_statuses") val publishStatuses: ArrayList<String>,
 		val rating: Rating,
 		val title: String,
 		@SerializedName("val_responsecount") val responseCount: Int,
@@ -16,7 +15,7 @@ data class Work(
 		@SerializedName("work_id") val id: Int,
 		@SerializedName("work_lp") val hasLinguaProfile: Int?,
 		@SerializedName("work_name") val name: String,
-		@SerializedName("work_name_alts") val nameAlts: List<String>,
+		@SerializedName("work_name_alts") val nameAlts: ArrayList<String>,
 		@SerializedName("work_name_bonus") val nameBonus: String?,
 		@SerializedName("work_name_orig") val nameOrig: String,
 		@SerializedName("work_notes") val notes: String,
@@ -42,10 +41,4 @@ data class Work(
 			val rating: Float,
 			@SerializedName("voters") val votersCount: Int
 	)
-
-	class Deserializer : ResponseDeserializable<Work> {
-		override fun deserialize(content: String): Work {
-			return Gson().fromJson(content, Work::class.java)
-		}
-	}
 }

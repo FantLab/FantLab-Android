@@ -1,11 +1,9 @@
 package ru.fantlab.android.data.dao.newmodel
 
-import com.github.kittinunf.fuel.core.ResponseDeserializable
-import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
 data class ChildWork(
-		val authors: List<Author>,
+		val authors: ArrayList<Author>,
 		val deep: Int,
 		val plus: Int?,
 		@SerializedName("publish_status") val publishStatus: String,
@@ -23,7 +21,7 @@ data class ChildWork(
 		@SerializedName("work_parent") val parentId: Int,
 		@SerializedName("work_preparing") val preparing: Int,
 		@SerializedName("work_published") val published: Int,
-		@SerializedName("work_root_saga") val rootSagas: List<RootSaga>,
+		@SerializedName("work_root_saga") val rootSagas: ArrayList<WorkRootSaga>,
 		@SerializedName("work_type") val type: String?,
 		@SerializedName("work_type_id") val typeId: Int,
 		@SerializedName("work_type_name") val typeName: String?,
@@ -35,19 +33,4 @@ data class ChildWork(
 			val name: String,
 			val type: String
 	)
-
-	data class RootSaga(
-			val prefix: String,
-			@SerializedName("work_id") val workId: Int,
-			@SerializedName("work_name") val workName: String,
-			@SerializedName("work_type") val workType: String,
-			@SerializedName("work_type_id") val workTypeId: Int,
-			@SerializedName("work_type_in") val workTypeIn: String
-	)
-
-	class Deserializer : ResponseDeserializable<ChildWork> {
-		override fun deserialize(content: String): ChildWork {
-			return Gson().fromJson(content, ChildWork::class.java)
-		}
-	}
 }

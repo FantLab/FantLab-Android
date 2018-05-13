@@ -92,8 +92,7 @@ data class Edition(
 	) : Parcelable
 
 	class Deserializer : ResponseDeserializable<Edition> {
-		override fun deserialize(content: String): Edition {
-			return Gson().fromJson(content, Edition::class.java)
-		}
+		override fun deserialize(content: String): Edition =
+			Gson().fromJson(content, Edition::class.java)
 	}
 }
