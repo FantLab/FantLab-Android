@@ -1,7 +1,8 @@
-package ru.fantlab.android.data.dao.newmodel
+package ru.fantlab.android.data.dao.response
 
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.JsonParser
+import ru.fantlab.android.data.dao.newmodel.*
 import ru.fantlab.android.provider.rest.DataManager
 
 data class WorkResponse(

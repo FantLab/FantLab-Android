@@ -3,8 +3,8 @@ package ru.fantlab.android.provider.rest
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.rx.rx_object
 import com.google.gson.Gson
-import ru.fantlab.android.data.dao.newmodel.Edition
-import ru.fantlab.android.data.dao.newmodel.WorkResponse
+import ru.fantlab.android.data.dao.response.EditionResponse
+import ru.fantlab.android.data.dao.response.WorkResponse
 
 object DataManager {
 
@@ -44,8 +44,7 @@ object DataManager {
 					"content" to showContent.toInt(),
 					"images_plus" to showAdditionalImages.toInt()
 			))
-			// EditionResponse
-			.rx_object(Edition.Deserializer())
+			.rx_object(EditionResponse.Deserializer())
 }
 
 fun String.toAbsolutePath() = "https://api.fantlab.ru$this"

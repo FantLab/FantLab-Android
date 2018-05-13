@@ -5,7 +5,6 @@ import io.reactivex.functions.Consumer
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
-import timber.log.Timber
 
 class EditionOverviewPresenter : BasePresenter<EditionOverviewMvp.View>(),
 		EditionOverviewMvp.Presenter {
@@ -23,9 +22,8 @@ class EditionOverviewPresenter : BasePresenter<EditionOverviewMvp.View>(),
 					DataManager.getEdition(it, false, false)
 							.map { it.get() }
 							.toObservable(),
-					Consumer { edition ->
-						Timber.d(edition.toString())
-						sendToView { it.onInitViews(edition) }
+					Consumer { editionResponse ->
+						sendToView { it.onInitViews(editionResponse.edition) }
 					}
 			)}
 	}
