@@ -1,6 +1,7 @@
 package ru.fantlab.android.data.dao.response
 
 import com.github.kittinunf.fuel.core.ResponseDeserializable
+import com.google.gson.JsonNull
 import com.google.gson.JsonParser
 import ru.fantlab.android.data.dao.newmodel.*
 import ru.fantlab.android.provider.rest.DataManager
@@ -37,37 +38,59 @@ data class WorkResponse(
 		override fun deserialize(content: String): WorkResponse {
 			val jsonObject = JsonParser().parse(content).asJsonObject
 			work = DataManager.gson.fromJson(jsonObject, Work::class.java)
-			var `object` = jsonObject.getAsJsonObject("awards")
-			awards = DataManager.gson.fromJson(`object`, Awards::class.java)
-			var array = jsonObject.getAsJsonArray("children")
-			array.map {
-				children.add(DataManager.gson.fromJson(it.asJsonObject, ChildWork::class.java))
+			if (jsonObject["awards"] != JsonNull.INSTANCE) {
+				val `object` = jsonObject.getAsJsonObject("awards")
+				awards = DataManager.gson.fromJson(`object`, Awards::class.java)
 			}
-			array = jsonObject.getAsJsonArray("classificatory")
-			array.map {
-				classificatory.add(DataManager.gson.fromJson(it.asJsonObject, GenreGroup::class.java))
+			if (jsonObject["children"] != JsonNull.INSTANCE) {
+				val array = jsonObject.getAsJsonArray("children")
+				array.map {
+					children.add(DataManager.gson.fromJson(it.asJsonObject, ChildWork::class.java))
+				}
 			}
-			`object` = jsonObject.getAsJsonObject("editions_blocks")
-			editionsBlocks = EditionsBlocks.Deserializer().deserialize(`object`.toString())
-			`object` = jsonObject.getAsJsonObject("editions_info")
-			editionsInfo = EditionsInfo.Deserializer().deserialize(`object`.toString())
-			`object` = jsonObject.getAsJsonObject("films")
-			films = DataManager.gson.fromJson(`object`, Films::class.java)
-			array = jsonObject.getAsJsonArray("la_resume")
-			array.map {
-				linguaProfile.add(it.asJsonPrimitive.asString)
+			if (jsonObject["classificatory"] != JsonNull.INSTANCE) {
+				val array = jsonObject.getAsJsonArray("classificatory")
+				array.map {
+					classificatory.add(DataManager.gson.fromJson(it.asJsonObject, GenreGroup::class.java))
+				}
 			}
-			`object` = jsonObject.getAsJsonObject("parents")
-			parents = DataManager.gson.fromJson(`object`, ParentWorks::class.java)
-			array = jsonObject.getAsJsonArray("work_root_saga")
-			array.map {
-				rootSagas.add(DataManager.gson.fromJson(it.asJsonObject, WorkRootSaga::class.java))
+			if (jsonObject["editions_blocks"] != JsonNull.INSTANCE) {
+				val `object` = jsonObject.getAsJsonObject("editions_blocks")
+				editionsBlocks = EditionsBlocks.Deserializer().deserialize(`object`.toString())
 			}
-			`object` = jsonObject.getAsJsonObject("stat")
-			statistics = DataManager.gson.fromJson(`object`, Statistics::class.java)
-			array = jsonObject.getAsJsonArray("translations")
-			array.map {
-				translations.add(DataManager.gson.fromJson(it.asJsonObject, Translation::class.java))
+			if (jsonObject["editions_info"] != JsonNull.INSTANCE) {
+				val `object` = jsonObject.getAsJsonObject("editions_info")
+				editionsInfo = EditionsInfo.Deserializer().deserialize(`object`.toString())
+			}
+			if (jsonObject["films"] != JsonNull.INSTANCE) {
+				val `object` = jsonObject.getAsJsonObject("films")
+				films = DataManager.gson.fromJson(`object`, Films::class.java)
+			}
+			if (jsonObject["la_resume"] != JsonNull.INSTANCE) {
+				val array = jsonObject.getAsJsonArray("la_resume")
+				array.map {
+					linguaProfile.add(it.asJsonPrimitive.asString)
+				}
+			}
+			if (jsonObject["parents"] != JsonNull.INSTANCE) {
+				val `object` = jsonObject.getAsJsonObject("parents")
+				parents = DataManager.gson.fromJson(`object`, ParentWorks::class.java)
+			}
+			if (jsonObject["work_root_saga"] != JsonNull.INSTANCE) {
+				val array = jsonObject.getAsJsonArray("work_root_saga")
+				array.map {
+					rootSagas.add(DataManager.gson.fromJson(it.asJsonObject, WorkRootSaga::class.java))
+				}
+			}
+			if (jsonObject["stat"] != JsonNull.INSTANCE) {
+				val `object` = jsonObject.getAsJsonObject("stat")
+				statistics = DataManager.gson.fromJson(`object`, Statistics::class.java)
+			}
+			if (jsonObject["translations"] != JsonNull.INSTANCE) {
+				val array = jsonObject.getAsJsonArray("translations")
+				array.map {
+					translations.add(DataManager.gson.fromJson(it.asJsonObject, Translation::class.java))
+				}
 			}
 			return WorkResponse(
 					work,

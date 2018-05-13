@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.edition.overview
+package ru.fantlab.android.ui.modules.work.overview
 
 import android.os.Bundle
 import io.reactivex.functions.Consumer
@@ -6,35 +6,34 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
-class EditionOverviewPresenter : BasePresenter<EditionOverviewMvp.View>(),
-		EditionOverviewMvp.Presenter {
+class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
+		WorkOverviewMvp.Presenter {
 
 	@com.evernote.android.state.State
-	var editionId: Int? = null
+	var workId: Int? = null
 
 	override fun onFragmentCreated(bundle: Bundle?) {
 		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
-			throw NullPointerException("Either bundle or Edition is null")
+			throw NullPointerException("Either bundle or Work is null")
 		}
-		editionId = bundle.getInt(BundleConstant.EXTRA)
-		editionId?.let {
+		workId = bundle.getInt(BundleConstant.EXTRA)
+		workId?.let {
 			makeRestCall(
-					DataManager.getEdition(it)
+					DataManager.getWork(it)
 							.map { it.get() }
 							.toObservable(),
-					Consumer { editionResponse ->
-						sendToView { it.onInitViews(editionResponse.edition) }
+					Consumer { workResponse ->
+						sendToView { it.onInitViews(workResponse.work) }
 					}
 			)}
 	}
 
 	override fun onError(throwable: Throwable) {
-		editionId?.let { onWorkOffline(it) }
+		workId?.let { onWorkOffline(it) }
 		super.onError(throwable)
 	}
 
 	override fun onWorkOffline(id: Int) {
-		// todo загрузить из базы и распарсить
 		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
 }

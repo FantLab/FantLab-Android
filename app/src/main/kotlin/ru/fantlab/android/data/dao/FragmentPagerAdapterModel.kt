@@ -12,6 +12,7 @@ import ru.fantlab.android.ui.modules.search.authors.SearchAuthorsFragment
 import ru.fantlab.android.ui.modules.search.awards.SearchAwardsFragment
 import ru.fantlab.android.ui.modules.search.editions.SearchEditionsFragment
 import ru.fantlab.android.ui.modules.search.works.SearchWorksFragment
+import ru.fantlab.android.ui.modules.work.overview.WorkOverviewFragment
 import ru.fantlab.android.ui.modules.work.responses.WorkResponsesFragment
 
 data class FragmentPagerAdapterModel(
@@ -51,7 +52,7 @@ data class FragmentPagerAdapterModel(
 
 		fun buildForWork(context: Context, workId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
-					FragmentPagerAdapterModel(context.getString(R.string.overview), SearchAuthorsFragment()),
+					FragmentPagerAdapterModel(context.getString(R.string.overview), WorkOverviewFragment.newInstance(workId)),
 					FragmentPagerAdapterModel(context.getString(R.string.classification), SearchWorksFragment()),
 					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId)),
 					FragmentPagerAdapterModel(context.getString(R.string.editions), SearchEditionsFragment()),
