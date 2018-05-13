@@ -24,6 +24,9 @@ data class Edition(
 		@SerializedName("lang_code") val languageCode: String,
 		val notes: String,
 		val pages: Int,
+		@SerializedName("plan_date") val planDate: String,
+		@SerializedName("plan_description") val planDescription: String,
+		@SerializedName("preread") val preRead: Int,
 		val series: ArrayList<Series>,
 		@SerializedName("type") val typeId: Int,
 		val year: Int
