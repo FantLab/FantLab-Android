@@ -3,12 +3,30 @@ package ru.fantlab.android.provider.rest
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.rx.rx_object
 import com.google.gson.Gson
+import ru.fantlab.android.data.dao.response.AuthorResponse
 import ru.fantlab.android.data.dao.response.EditionResponse
 import ru.fantlab.android.data.dao.response.WorkResponse
 
 object DataManager {
 
 	val gson = Gson()
+
+	fun getAuthor(
+			id: Int,
+			showBiography: Boolean = false,
+			showAwards: Boolean = false,
+			showLinguaProfile: Boolean = false,
+			showBiblioBlocks: Boolean = false,
+			sortOption: String = "year"
+	) = "/autor/$id".toAbsolutePath()
+			.httpGet(listOf(
+					"biography" to showBiography.toInt(),
+					"awards" to showAwards.toInt(),
+					"la_resume" to showLinguaProfile.toInt(),
+					"biblio_blocks" to showBiblioBlocks.toInt(),
+					"sort" to sortOption
+			))
+			.rx_object(AuthorResponse.Deserializer())
 
 	fun getWork(
 			id: Int,
