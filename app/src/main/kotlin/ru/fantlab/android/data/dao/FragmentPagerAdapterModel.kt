@@ -6,6 +6,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.ui.modules.author.editions.AuthorEditionsFragment
 import ru.fantlab.android.ui.modules.author.overview.AuthorOverviewFragment
 import ru.fantlab.android.ui.modules.author.responses.AuthorResponsesFragment
+import ru.fantlab.android.ui.modules.author.works.AuthorWorksFragment
 import ru.fantlab.android.ui.modules.edition.overview.EditionOverviewFragment
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
 import ru.fantlab.android.ui.modules.profile.overview.ProfileOverviewFragment
@@ -37,15 +38,14 @@ data class FragmentPagerAdapterModel(
 			return mutableListOf(
 					FragmentPagerAdapterModel(context.getString(R.string.authors), SearchAuthorsFragment()),
 					FragmentPagerAdapterModel(context.getString(R.string.works), SearchWorksFragment()),
-					FragmentPagerAdapterModel(context.getString(R.string.editions), SearchEditionsFragment())/*,
-					FragmentPagerAdapterModel(context.getString(R.string.awards), SearchAwardsFragment())*/
+					FragmentPagerAdapterModel(context.getString(R.string.editions), SearchEditionsFragment())
 			)
 		}
 
 		fun buildForAuthor(context: Context, authorId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
 					FragmentPagerAdapterModel(context.getString(R.string.overview), AuthorOverviewFragment.newInstance(authorId)),
-					FragmentPagerAdapterModel(context.getString(R.string.works), SearchWorksFragment()),
+					FragmentPagerAdapterModel(context.getString(R.string.works), AuthorWorksFragment.newInstance(authorId)),
 					FragmentPagerAdapterModel(context.getString(R.string.editions), AuthorEditionsFragment.newInstance(authorId)),
 					FragmentPagerAdapterModel(context.getString(R.string.responses), AuthorResponsesFragment.newInstance(authorId))
 			)
@@ -57,7 +57,6 @@ data class FragmentPagerAdapterModel(
 					FragmentPagerAdapterModel(context.getString(R.string.classification), SearchWorksFragment()),
 					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId)),
 					FragmentPagerAdapterModel(context.getString(R.string.editions), SearchEditionsFragment()),
-					//FragmentPagerAdapterModel(context.getString(R.string.awards), SearchAwardsFragment()),
 					FragmentPagerAdapterModel(context.getString(R.string.analogs), SearchAwardsFragment())
 			)
 		}
