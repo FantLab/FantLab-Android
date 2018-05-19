@@ -30,7 +30,14 @@ object DataManager {
 			))
 			.rx_object(AuthorResponse.Deserializer())
 
-	// getAuthorEditions
+	fun getAuthorEditions(
+			authorId: Int,
+			showEditionsBlocks: Boolean = false
+	) = "/autor/$authorId/alleditions".toAbsolutePath()
+			.httpGet(listOf(
+					"editions_blocks" to showEditionsBlocks.toInt()
+			))
+			.rx_object(AuthorEditionsResponse.Deserializer())
 
 	fun getAuthorResponses(
 			authorId: Int,

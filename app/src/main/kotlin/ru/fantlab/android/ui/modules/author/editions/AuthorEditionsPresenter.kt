@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.author.overview
+package ru.fantlab.android.ui.modules.author.editions
 
 import android.os.Bundle
 import io.reactivex.functions.Consumer
@@ -6,8 +6,8 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
-class AuthorOverviewPresenter : BasePresenter<AuthorOverviewMvp.View>(),
-		AuthorOverviewMvp.Presenter {
+class AuthorEditionsPresenter : BasePresenter<AuthorEditionsMvp.View>(),
+		AuthorEditionsMvp.Presenter {
 
 	@com.evernote.android.state.State
 	var authorId: Int? = null
@@ -19,11 +19,11 @@ class AuthorOverviewPresenter : BasePresenter<AuthorOverviewMvp.View>(),
 		authorId = bundle.getInt(BundleConstant.EXTRA)
 		authorId?.let {
 			makeRestCall(
-					DataManager.getAuthor(it, showBiography = true)
+					DataManager.getAuthorEditions(it, true)
 							.map { it.get() }
 							.toObservable(),
-					Consumer { authorResponse ->
-						sendToView { it.onInitViews(authorResponse.author) }
+					Consumer { authorEditionsResponse ->
+						sendToView { it.onInitViews(authorEditionsResponse) }
 					}
 			)
 		}

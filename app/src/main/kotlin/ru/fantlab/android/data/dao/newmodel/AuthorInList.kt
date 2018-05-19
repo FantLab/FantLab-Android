@@ -1,7 +1,10 @@
 package ru.fantlab.android.data.dao.newmodel
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class AuthorInList(
 		val id: Int,
 		val name: String,
@@ -10,4 +13,4 @@ data class AuthorInList(
 		@SerializedName("name_short") val nameShort: String,
 		val type: String,
 		val url: String
-)
+) : Parcelable

@@ -1,7 +1,10 @@
 package ru.fantlab.android.data.dao.newmodel
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class WorkRootSaga(
 		val prefix: String?,
 		@SerializedName("work_id") val id: Int,
@@ -10,4 +13,4 @@ data class WorkRootSaga(
 		@SerializedName("work_type_id") val typeId: Int,
 		@SerializedName("work_type_in") val typeIn: String,
 		@SerializedName("work_year") val year: Int?
-)
+) : Parcelable

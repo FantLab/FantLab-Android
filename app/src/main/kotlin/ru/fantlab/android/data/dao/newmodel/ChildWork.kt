@@ -1,7 +1,10 @@
 package ru.fantlab.android.data.dao.newmodel
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ChildWork(
 		val authors: ArrayList<Author>,
 		val deep: Int,
@@ -27,10 +30,11 @@ data class ChildWork(
 		@SerializedName("work_type_name") val typeName: String?,
 		@SerializedName("work_year") val year: Int?,
 		@SerializedName("work_year_of_write") val yearOfWrite: Int?
-) {
+) : Parcelable {
+	@Parcelize
 	data class Author(
 			val id: Int,
 			val name: String,
 			val type: String
-	)
+	) : Parcelable
 }

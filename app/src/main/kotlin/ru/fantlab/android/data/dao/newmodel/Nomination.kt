@@ -1,7 +1,10 @@
 package ru.fantlab.android.data.dao.newmodel
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Nomination(
 		@SerializedName("award_icon") val awardIcon: String,
 		@SerializedName("award_id") val awardId: Int,
@@ -19,4 +22,4 @@ data class Nomination(
 		@SerializedName("nomination_id") val nominationId: Int,
 		@SerializedName("nomination_name") val nominationName: String,
 		@SerializedName("nomination_rusname") val nominationRusName: String
-)
+) : Parcelable

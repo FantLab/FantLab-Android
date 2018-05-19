@@ -1,21 +1,26 @@
 package ru.fantlab.android.data.dao.newmodel
 
+import android.os.Parcelable
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.JsonParser
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import ru.fantlab.android.provider.rest.DataManager
 
+@Parcelize
 data class EditionsBlocks(
 		val editionsBlocks: ArrayList<EditionsBlock>
-) {
+) : Parcelable {
+	@Parcelize
 	data class EditionsBlock(
 			val block: String,
 			val id: Int,
 			val list: ArrayList<Edition>,
 			val name: String,
 			val title: String
-	)
+	) : Parcelable
 
+	@Parcelize
 	data class Edition(
 			@SerializedName("autors") val authors: String,
 			val compilers: String,
@@ -32,7 +37,7 @@ data class EditionsBlocks(
 			val translators: String?,
 			val type: Int,
 			val year: Int
-	)
+	) : Parcelable
 
 	class Deserializer : ResponseDeserializable<EditionsBlocks> {
 

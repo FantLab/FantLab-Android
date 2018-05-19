@@ -1,7 +1,10 @@
 package ru.fantlab.android.data.dao.newmodel
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Response(
 		@SerializedName("mark") val mark: Int?,
 		@SerializedName("response_date") val date: String,
@@ -21,4 +24,4 @@ data class Response(
 		@SerializedName("work_name_orig") val workNameOrig: String,
 		@SerializedName("work_type") val workType: String,
 		@SerializedName("work_type_id") val workTypeId: Int
-)
+) : Parcelable
