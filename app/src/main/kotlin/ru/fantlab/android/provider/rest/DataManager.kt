@@ -4,6 +4,7 @@ import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.rx.rx_object
 import com.google.gson.Gson
 import ru.fantlab.android.data.dao.response.AuthorResponse
+import ru.fantlab.android.data.dao.response.AuthorsResponse
 import ru.fantlab.android.data.dao.response.EditionResponse
 import ru.fantlab.android.data.dao.response.WorkResponse
 
@@ -11,7 +12,9 @@ object DataManager {
 
 	val gson = Gson()
 
-	// getAuthors
+	fun getAuthors() = "/autorsall".toAbsolutePath()
+			.httpGet()
+			.rx_object(AuthorsResponse.Deserializer())
 
 	fun getAuthor(
 			id: Int,

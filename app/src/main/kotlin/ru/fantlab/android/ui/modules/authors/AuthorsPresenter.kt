@@ -2,13 +2,9 @@ package ru.fantlab.android.ui.modules.authors
 
 import android.view.View
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.model.AuthorInList
-import ru.fantlab.android.data.dao.model.getAuthorsList
-import ru.fantlab.android.data.dao.model.save
-import ru.fantlab.android.helper.observe
-import ru.fantlab.android.provider.rest.RestProvider
+import ru.fantlab.android.data.dao.newmodel.AuthorInList
+import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
-import timber.log.Timber
 
 class AuthorsPresenter : BasePresenter<AuthorsMvp.View>(), AuthorsMvp.Presenter {
 
@@ -29,22 +25,17 @@ class AuthorsPresenter : BasePresenter<AuthorsMvp.View>(), AuthorsMvp.Presenter 
 	}
 
 	override fun onWorkOffline() {
-		manageDisposable(
-				getAuthorsList().toObservable().observe().subscribe(
-						{ authors ->
-							authors?.let {
-								sendToView { it.onNotifyAdapter(authors) }
-							}
-						},
-						Timber::e
-				)
-		)
+		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
 
 	override fun onReload() {
-		makeRestCall(RestProvider.getAuthorService().getList(), Consumer { authors ->
-			authors.save()
-			sendToView { it.onNotifyAdapter(authors) }
-		})
+		makeRestCall(
+				DataManager.getAuthors()
+						.map { it.get() }
+						.toObservable(),
+				Consumer { authorsResponse ->
+					sendToView { it.onNotifyAdapter(authorsResponse.authors) }
+				}
+		)
 	}
 }

@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.modules.authors
 
 import android.support.v4.widget.SwipeRefreshLayout
-import ru.fantlab.android.data.dao.model.AuthorInList
+import ru.fantlab.android.data.dao.newmodel.AuthorInList
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
@@ -11,7 +11,7 @@ interface AuthorsMvp {
 			SwipeRefreshLayout.OnRefreshListener,
 			android.view.View.OnClickListener {
 
-		fun onNotifyAdapter(items: List<AuthorInList>?)
+		fun onNotifyAdapter(items: ArrayList<AuthorInList>)
 
 		fun onItemClicked(item: AuthorInList)
 	}

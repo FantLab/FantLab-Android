@@ -6,7 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.AuthorInList
+import ru.fantlab.android.data.dao.newmodel.AuthorInList
 import ru.fantlab.android.ui.adapter.AuthorsAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
@@ -50,9 +50,9 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 		fastScroller.attachRecyclerView(recycler)
 	}
 
-	override fun onNotifyAdapter(items: List<AuthorInList>?) {
+	override fun onNotifyAdapter(items: ArrayList<AuthorInList>) {
 		hideProgress()
-		if (items == null || items.isEmpty()) {
+		if (items.isEmpty()) {
 			adapter.clear()
 			return
 		}
@@ -60,7 +60,7 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 	}
 
 	override fun onItemClicked(item: AuthorInList) {
-		AuthorPagerActivity.startActivity(this, item.id!!, item.name!!, 0)
+		AuthorPagerActivity.startActivity(this, item.id, item.name, 0)
 	}
 
 	override fun onRefresh() {
