@@ -54,7 +54,7 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 		if (savedInstanceState == null) {
 			authorId = intent?.extras?.getInt(BundleConstant.EXTRA, -1) ?: -1
 			authorName = intent?.extras?.getString(BundleConstant.EXTRA_TWO) ?: ""
-			index = intent?.extras?.getInt(BundleConstant.EXTRA_TWO, -1) ?: -1
+			index = intent?.extras?.getInt(BundleConstant.EXTRA_THREE, -1) ?: -1
 		}
 		if (authorId == -1) {
 			finish()

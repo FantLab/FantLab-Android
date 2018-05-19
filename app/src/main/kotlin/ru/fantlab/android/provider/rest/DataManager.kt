@@ -11,6 +11,8 @@ object DataManager {
 
 	val gson = Gson()
 
+	// getAuthors
+
 	fun getAuthor(
 			id: Int,
 			showBiography: Boolean = false,
@@ -27,6 +29,10 @@ object DataManager {
 					"sort" to sortOption
 			))
 			.rx_object(AuthorResponse.Deserializer())
+
+	// getAuthorEditions
+
+	// getAuthorResponses
 
 	fun getWork(
 			id: Int,
@@ -53,6 +59,10 @@ object DataManager {
 			))
 			.rx_object(WorkResponse.Deserializer())
 
+	// getWorkResponses
+
+	// getWorkAnalogs
+
 	fun getEdition(
 			id: Int,
 			showContent: Boolean = false,
@@ -63,6 +73,24 @@ object DataManager {
 					"images_plus" to showAdditionalImages.toInt()
 			))
 			.rx_object(EditionResponse.Deserializer())
+
+	// getUser
+
+	// getUserMarks
+
+	// getUserResponses
+
+	// login
+
+	// getUserId
+
+	// searchAuthors
+
+	// searchWorks
+
+	// searchEditions
+
+	// getLastResponses
 }
 
 fun String.toAbsolutePath() = "https://api.fantlab.ru$this"

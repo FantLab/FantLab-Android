@@ -26,7 +26,7 @@ data class WorkResponse(
 		private var awards: Awards? = null
 		private val children: ArrayList<ChildWork> = arrayListOf()
 		private val classificatory: ArrayList<GenreGroup> = arrayListOf()
-		private var editionsBlocks: EditionsBlocks? = null
+		private var editions: EditionsBlocks? = null
 		private var editionsInfo: EditionsInfo? = null
 		private var films: Films? = null
 		private val linguaProfile: ArrayList<String> = arrayListOf()
@@ -56,7 +56,7 @@ data class WorkResponse(
 			}
 			if (jsonObject["editions_blocks"] != JsonNull.INSTANCE) {
 				val `object` = jsonObject.getAsJsonObject("editions_blocks")
-				editionsBlocks = EditionsBlocks.Deserializer().deserialize(`object`.toString())
+				editions = EditionsBlocks.Deserializer().deserialize(`object`.toString())
 			}
 			if (jsonObject["editions_info"] != JsonNull.INSTANCE) {
 				val `object` = jsonObject.getAsJsonObject("editions_info")
@@ -97,7 +97,7 @@ data class WorkResponse(
 					awards,
 					children,
 					classificatory,
-					editionsBlocks,
+					editions,
 					editionsInfo,
 					films,
 					linguaProfile,

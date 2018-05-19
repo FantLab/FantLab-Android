@@ -1,7 +1,10 @@
 package ru.fantlab.android.data.dao.newmodel
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Statistics(
 		@SerializedName("awardcount") val awardCount: Int?,
 		@SerializedName("editioncount") val editionCount: Int?,
@@ -9,4 +12,4 @@ data class Statistics(
 		@SerializedName("moviecount") val movieCount: Int?,
 		@SerializedName("responsecount") val responseCount: Int?,
 		@SerializedName("workcount") val workCount: Int?
-)
+) : Parcelable

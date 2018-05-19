@@ -3,6 +3,7 @@ package ru.fantlab.android.data.dao
 import android.content.Context
 import android.support.v4.app.Fragment
 import ru.fantlab.android.R
+import ru.fantlab.android.ui.modules.author.overview.AuthorOverviewFragment
 import ru.fantlab.android.ui.modules.author.responses.AuthorResponsesFragment
 import ru.fantlab.android.ui.modules.edition.overview.EditionOverviewFragment
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
@@ -42,7 +43,7 @@ data class FragmentPagerAdapterModel(
 
 		fun buildForAuthor(context: Context, authorId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
-					FragmentPagerAdapterModel(context.getString(R.string.overview), SearchAuthorsFragment()),
+					FragmentPagerAdapterModel(context.getString(R.string.overview), AuthorOverviewFragment.newInstance(authorId)),
 					FragmentPagerAdapterModel(context.getString(R.string.works), SearchWorksFragment()),
 					FragmentPagerAdapterModel(context.getString(R.string.editions), SearchEditionsFragment()),
 					FragmentPagerAdapterModel(context.getString(R.string.awards), SearchAwardsFragment()),
