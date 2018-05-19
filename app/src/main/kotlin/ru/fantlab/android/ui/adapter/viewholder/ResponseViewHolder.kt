@@ -4,12 +4,14 @@ import android.view.View
 import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.data.dao.newmodel.Response
 import ru.fantlab.android.helper.getTimeAgo
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, ResponseViewHolder, *>)
 	: BaseViewHolder<Response>(itemView, adapter) {
@@ -23,10 +25,11 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 
 	override fun bind(response: Response) {
 		coverLayout?.setUrl("https:${response.workImage}")
+		val date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("ru")).parse(response.date)
 		info.text = StringBuilder()
 				.append(response.userName)
 				.append(", ")
-				.append(response.responseDate.getTimeAgo())
+				.append(date.getTimeAgo())
 
 		workName.text = if (response.workName.isNotEmpty()) {
 			if (response.workNameOrig.isNotEmpty()) {
@@ -38,7 +41,7 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 			response.workNameOrig
 		}
 
-		text.text = response.responseText
+		text.text = response.text
 				.replace("(\r\n)+".toRegex(), "\n")    // пустые переносы строк
 				.replace("\\[.*]".toRegex(), "")       // bb-коды
 				.replace(":\\w+:".toRegex(), "")       // смайлы
@@ -49,7 +52,7 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 			rating.text = response.mark.toString()
 		}
 
-		votes.text = response.responseVotes.toString()
+		votes.text = response.voteCount.toString()
 	}
 
 	companion object {

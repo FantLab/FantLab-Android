@@ -3,10 +3,7 @@ package ru.fantlab.android.provider.rest
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.rx.rx_object
 import com.google.gson.Gson
-import ru.fantlab.android.data.dao.response.AuthorResponse
-import ru.fantlab.android.data.dao.response.AuthorsResponse
-import ru.fantlab.android.data.dao.response.EditionResponse
-import ru.fantlab.android.data.dao.response.WorkResponse
+import ru.fantlab.android.data.dao.response.*
 
 object DataManager {
 
@@ -35,7 +32,16 @@ object DataManager {
 
 	// getAuthorEditions
 
-	// getAuthorResponses
+	fun getAuthorResponses(
+			authorId: Int,
+			page: Int = 1,
+			sortOption: String = "date"
+	) = "/autor/$authorId/responses".toAbsolutePath()
+			.httpGet(listOf(
+					"page" to page,
+					"sort" to sortOption
+			))
+			.rx_object(ResponsesResponse.Deserializer())
 
 	fun getWork(
 			id: Int,

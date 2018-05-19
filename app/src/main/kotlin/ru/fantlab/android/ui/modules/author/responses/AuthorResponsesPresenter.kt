@@ -2,11 +2,8 @@ package ru.fantlab.android.ui.modules.author.responses
 
 import android.view.View
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.model.Response
-import ru.fantlab.android.data.dao.model.getAuthorResponses
-import ru.fantlab.android.data.dao.model.save
-import ru.fantlab.android.helper.observe
-import ru.fantlab.android.provider.rest.RestProvider
+import ru.fantlab.android.data.dao.newmodel.Response
+import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
@@ -48,14 +45,16 @@ class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
 			sendToView { it.hideProgress() }
 			return false
 		}
-		makeRestCall(RestProvider.getAuthorService().getResponses(parameter, page), Consumer {
-			lastPage = it.last
-			manageDisposable(it.items.save())
-			sendToView { view ->
-				view.onNotifyAdapter(it.items, page)
-				view.onSetTabCount(it.totalCount)
-			}
-		})
+		makeRestCall(DataManager.getAuthorResponses(parameter, page)
+				.map { it.get() }
+				.toObservable(),
+				Consumer {
+					lastPage = it.responses.last
+					sendToView { view ->
+						view.onNotifyAdapter(it.responses.items, page)
+						view.onSetTabCount(it.responses.totalCount)
+					}
+				})
 		return true
 	}
 
@@ -65,16 +64,6 @@ class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
 	}
 
 	override fun onWorkOffline(authorId: Int) {
-		if (responses.isEmpty()) {
-			manageDisposable(
-					getAuthorResponses(authorId).toObservable()
-							.observe()
-							.subscribe { responses -> sendToView {
-								it.onNotifyAdapter(responses, 1)
-							} }
-			)
-		} else {
-			sendToView { it.hideProgress() }
-		}
+		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
 }

@@ -7,7 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.data.dao.newmodel.Response
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
@@ -78,9 +78,9 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 		super.onDestroyView()
 	}
 
-	override fun onNotifyAdapter(items: List<Response>?, page: Int) {
+	override fun onNotifyAdapter(items: ArrayList<Response>, page: Int) {
 		hideProgress()
-		if (items == null || items.isEmpty()) {
+		if (items.isEmpty()) {
 			adapter.clear()
 			return
 		}
@@ -97,7 +97,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	}
 
 	override fun onSetTabCount(count: Int) {
-		countCallback?.onSetBadge(4, count)
+		countCallback?.onSetBadge(3, count)
 	}
 
 	override fun onItemClicked(item: Response) {

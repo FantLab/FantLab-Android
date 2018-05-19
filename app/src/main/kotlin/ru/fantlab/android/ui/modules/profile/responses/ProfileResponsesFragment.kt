@@ -11,7 +11,6 @@ import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
-import ru.fantlab.android.ui.adapter.ResponsesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.user.UserPagerMvp
 import ru.fantlab.android.ui.widgets.StateLayout
@@ -27,7 +26,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 	private var userId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, userId) }
-	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses()) }
+	//private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses()) }
 	private var countCallback: UserPagerMvp.View? = null
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
@@ -43,8 +42,8 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
-		adapter.listener = presenter
-		recycler.adapter = adapter
+		//adapter.listener = presenter
+		//recycler.adapter = adapter
 		recycler.addKeyLineDivider()
 		if (savedInstanceState == null) {
 			userId = arguments?.getInt(BundleConstant.EXTRA)
@@ -81,13 +80,13 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	override fun onNotifyAdapter(items: List<Response>?, page: Int) {
 		hideProgress()
 		if (items == null || items.isEmpty()) {
-			adapter.clear()
+			//adapter.clear()
 			return
 		}
 		if (page <= 1) {
-			adapter.insertItems(items)
+			//adapter.insertItems(items)
 		} else {
-			adapter.addItems(items)
+			//adapter.addItems(items)
 		}
 	}
 
@@ -134,7 +133,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 
 	private fun showReload() {
 		hideProgress()
-		stateLayout.showReload(adapter.itemCount)
+		//stateLayout.showReload(adapter.itemCount)
 	}
 
 	companion object {

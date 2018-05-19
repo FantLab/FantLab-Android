@@ -130,7 +130,6 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 			1 -> fab.hide()/*fab.show()*/
 			2 -> fab.hide()/*fab.show()*/
 			3 -> fab.hide()/*fab.show()*/
-			4 -> fab.hide()/*fab.show()*/
 			else -> fab.hide()
 		}
 	}
@@ -140,8 +139,7 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 		when (index) {
 			1 -> textView.text = String.format("%s(%s)", getString(R.string.works), numberFormat.format(count.toLong()))
 			2 -> textView.text = String.format("%s(%s)", getString(R.string.editions), numberFormat.format(count.toLong()))
-			3 -> textView.text = String.format("%s(%s)", getString(R.string.awards), numberFormat.format(count.toLong()))
-			4 -> textView.text = String.format("%s(%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
+			3 -> textView.text = String.format("%s(%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
 		}
 	}
 

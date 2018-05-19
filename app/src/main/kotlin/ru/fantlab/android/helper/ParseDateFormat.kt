@@ -3,8 +3,6 @@ package ru.fantlab.android.helper
 import android.text.format.DateUtils
 import java.util.*
 
-class ParseDateFormat
-
 fun Date?.getTimeAgo(): CharSequence {
 	this?.let {
 		val now = System.currentTimeMillis()
