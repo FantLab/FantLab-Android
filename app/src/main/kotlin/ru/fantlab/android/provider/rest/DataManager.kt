@@ -4,13 +4,15 @@ import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.rx.rx_object
 import com.google.gson.Gson
 import ru.fantlab.android.data.dao.response.*
+import ru.fantlab.android.helper.PrefGetter
 
 object DataManager {
 
 	val gson = Gson()
 
-	fun getAuthors() = "/autorsall".toAbsolutePath()
+	fun getAuthors() = "/autorsall"
 			.httpGet()
+			.header("Cookie" to (PrefGetter.getToken() ?: ""))
 			.rx_object(AuthorsResponse.Deserializer())
 
 	fun getAuthor(
@@ -20,7 +22,7 @@ object DataManager {
 			showLinguaProfile: Boolean = false,
 			showBiblioBlocks: Boolean = false,
 			sortOption: BiblioSortOption = BiblioSortOption.BY_YEAR
-	) = "/autor/$id".toAbsolutePath()
+	) = "/autor/$id"
 			.httpGet(listOf(
 					"biography" to showBiography.toInt(),
 					"awards" to showAwards.toInt(),
@@ -28,27 +30,30 @@ object DataManager {
 					"biblio_blocks" to showBiblioBlocks.toInt(),
 					"sort" to sortOption.value
 			))
+			.header("Cookie" to (PrefGetter.getToken() ?: ""))
 			.rx_object(AuthorResponse.Deserializer())
 
 	fun getAuthorEditions(
 			authorId: Int,
 			showEditionsBlocks: Boolean = false
-	) = "/autor/$authorId/alleditions".toAbsolutePath()
+	) = "/autor/$authorId/alleditions"
 			.httpGet(listOf(
 					"editions_blocks" to showEditionsBlocks.toInt()
 			))
+			.header("Cookie" to (PrefGetter.getToken() ?: ""))
 			.rx_object(AuthorEditionsResponse.Deserializer())
 
 	fun getAuthorResponses(
 			authorId: Int,
 			page: Int = 1,
 			sortOption: ResponsesSortOption = ResponsesSortOption.BY_DATE
-	) = "/autor/$authorId/responses".toAbsolutePath()
+	) = "/autor/$authorId/responses"
 			.httpGet(listOf(
 					"page" to page,
 					"sort" to sortOption.value
 			))
-			.rx_object(ResponsesResponse.Deserializer(50))
+			.header("Cookie" to (PrefGetter.getToken() ?: ""))
+			.rx_object(ResponsesResponse.Deserializer(perPage = 50))
 
 	fun getWork(
 			id: Int,
@@ -61,7 +66,7 @@ object DataManager {
 			showLinguaProfile: Boolean = false,
 			showParents: Boolean = false,
 			showTranslations: Boolean = false
-	) = "/work/$id".toAbsolutePath()
+	) = "/work/$id"
 			.httpGet(listOf(
 					"awards" to showAwards.toInt(),
 					"children" to showChildren.toInt(),
@@ -73,34 +78,38 @@ object DataManager {
 					"parents" to showParents.toInt(),
 					"translations" to showTranslations.toInt()
 			))
+			.header("Cookie" to (PrefGetter.getToken() ?: ""))
 			.rx_object(WorkResponse.Deserializer())
 
 	fun getWorkResponses(
 			workId: Int,
 			page: Int = 1,
 			sortOption: ResponsesSortOption = ResponsesSortOption.BY_RATING
-	) = "/work/$workId/responses".toAbsolutePath()
+	) = "/work/$workId/responses"
 			.httpGet(listOf(
 					"page" to page,
 					"sort" to sortOption.value
 			))
-			.rx_object(ResponsesResponse.Deserializer(15))
+			.header("Cookie" to (PrefGetter.getToken() ?: ""))
+			.rx_object(ResponsesResponse.Deserializer(perPage = 15))
 
 	fun getWorkAnalogs(
 			workId: Int
-	) = "/work/$workId/analogs".toAbsolutePath()
+	) = "/work/$workId/analogs"
 			.httpGet()
+			.header("Cookie" to (PrefGetter.getToken() ?: ""))
 			.rx_object(WorkAnalogsResponse.Deserializer())
 
 	fun getEdition(
 			id: Int,
 			showContent: Boolean = false,
 			showAdditionalImages: Boolean = false
-	) = "/edition/$id".toAbsolutePath()
+	) = "/edition/$id"
 			.httpGet(listOf(
 					"content" to showContent.toInt(),
 					"images_plus" to showAdditionalImages.toInt()
 			))
+			.header("Cookie" to (PrefGetter.getToken() ?: ""))
 			.rx_object(EditionResponse.Deserializer())
 
 	// getUser
@@ -136,7 +145,5 @@ enum class ResponsesSortOption(val value: String) {
 	BY_RATING("rating"),
 	BY_MARK("mark")
 }
-
-fun String.toAbsolutePath() = "https://api.fantlab.ru$this"
 
 fun Boolean.toInt(): Int = if (this) 1 else 0

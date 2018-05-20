@@ -1,6 +1,7 @@
 package ru.fantlab.android
 
 import android.app.Application
+import com.github.kittinunf.fuel.core.FuelManager
 import io.requery.Persistable
 import io.requery.reactivex.ReactiveEntityStore
 import ru.fantlab.android.provider.db.DbProvider
@@ -30,5 +31,9 @@ class App : Application() {
 		}
 		dataStore = DbProvider.initDataStore(this, 1)
 		Shortbread.create(this)
+		FuelManager.instance.apply {
+			basePath = "https://api.fantlab.ru/"
+			baseHeaders = mapOf("User-Agent" to "FantLab for Android v${BuildConfig.VERSION_NAME}")
+		}
 	}
 }
