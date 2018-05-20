@@ -135,7 +135,7 @@ class EditionPagerActivity : BaseActivity<EditionPagerMvp.View, BasePresenter<Ed
 	private fun setupTab(count: Int, index: Int) {
 		val textView = ViewHelper.getTabTextView(tabs, index)
 		when (index) {
-			2 -> textView.text = String.format("%s(%s)", getString(R.string.photo), numberFormat.format(count.toLong()))
+			2 -> textView.text = String.format("%s(%s)", getString(R.string.photos), numberFormat.format(count.toLong()))
 		}
 	}
 

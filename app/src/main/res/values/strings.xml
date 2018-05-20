@@ -74,7 +74,7 @@
 	<string name="editions">Editions</string>
 	<string name="awards">Awards</string>
 	<string name="content">Content</string>
-	<string name="photo">Photo</string>
+	<string name="photos">Photos</string>
 	<string name="results_warning">Too many results \nShowing the max API allows</string>
 	<string name="no_search_results">No search results</string>
 	<string name="no_results">No results</string>

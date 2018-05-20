@@ -9,6 +9,7 @@ import ru.fantlab.android.ui.modules.author.responses.AuthorResponsesFragment
 import ru.fantlab.android.ui.modules.author.works.AuthorWorksFragment
 import ru.fantlab.android.ui.modules.edition.content.EditionContentFragment
 import ru.fantlab.android.ui.modules.edition.overview.EditionOverviewFragment
+import ru.fantlab.android.ui.modules.edition.photos.EditionPhotosFragment
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
 import ru.fantlab.android.ui.modules.profile.overview.ProfileOverviewFragment
 import ru.fantlab.android.ui.modules.profile.responses.ProfileResponsesFragment
@@ -68,7 +69,7 @@ data class FragmentPagerAdapterModel(
 			return mutableListOf(
 					FragmentPagerAdapterModel(context.getString(R.string.overview), EditionOverviewFragment.newInstance(editionId)),
 					FragmentPagerAdapterModel(context.getString(R.string.content), EditionContentFragment.newInstance(editionId)),
-					FragmentPagerAdapterModel(context.getString(R.string.photo), SearchEditionsFragment())
+					FragmentPagerAdapterModel(context.getString(R.string.photos), EditionPhotosFragment.newInstance(editionId))
 			)
 		}
 	}
