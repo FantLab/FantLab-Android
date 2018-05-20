@@ -9,7 +9,7 @@ import ru.fantlab.android.provider.rest.DataManager
 data class ResponsesResponse(
 		val responses: Pageable<Response>
 ) {
-	class Deserializer : ResponseDeserializable<ResponsesResponse> {
+	class Deserializer(private val perPage: Int) : ResponseDeserializable<ResponsesResponse> {
 
 		override fun deserialize(content: String): ResponsesResponse {
 			val jsonObject = JsonParser().parse(content).asJsonObject
@@ -19,13 +19,9 @@ data class ResponsesResponse(
 				items.add(DataManager.gson.fromJson(it, Response::class.java))
 			}
 			val totalCount = jsonObject.getAsJsonPrimitive("total_count").asInt
-			val lastPage = (totalCount - 1) / RESPONSES_PER_PAGE + 1
+			val lastPage = (totalCount - 1) / perPage + 1
 			val responses = Pageable(lastPage, totalCount, false, items)
 			return ResponsesResponse(responses)
 		}
-	}
-
-	companion object {
-		private const val RESPONSES_PER_PAGE = 50
 	}
 }

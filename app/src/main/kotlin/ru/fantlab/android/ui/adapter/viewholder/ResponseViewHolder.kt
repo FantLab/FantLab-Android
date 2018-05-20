@@ -50,6 +50,7 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 			rating.visibility = View.GONE
 		} else {
 			rating.text = response.mark.toString()
+			rating.visibility = View.VISIBLE
 		}
 
 		votes.text = response.voteCount.toString()

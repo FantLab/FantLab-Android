@@ -19,14 +19,14 @@ object DataManager {
 			showAwards: Boolean = false,
 			showLinguaProfile: Boolean = false,
 			showBiblioBlocks: Boolean = false,
-			sortOption: String = "year"
+			sortOption: BiblioSortOption = BiblioSortOption.BY_YEAR
 	) = "/autor/$id".toAbsolutePath()
 			.httpGet(listOf(
 					"biography" to showBiography.toInt(),
 					"awards" to showAwards.toInt(),
 					"la_resume" to showLinguaProfile.toInt(),
 					"biblio_blocks" to showBiblioBlocks.toInt(),
-					"sort" to sortOption
+					"sort" to sortOption.value
 			))
 			.rx_object(AuthorResponse.Deserializer())
 
@@ -42,13 +42,13 @@ object DataManager {
 	fun getAuthorResponses(
 			authorId: Int,
 			page: Int = 1,
-			sortOption: String = "date"
+			sortOption: ResponsesSortOption = ResponsesSortOption.BY_DATE
 	) = "/autor/$authorId/responses".toAbsolutePath()
 			.httpGet(listOf(
 					"page" to page,
-					"sort" to sortOption
+					"sort" to sortOption.value
 			))
-			.rx_object(ResponsesResponse.Deserializer())
+			.rx_object(ResponsesResponse.Deserializer(50))
 
 	fun getWork(
 			id: Int,
@@ -75,7 +75,16 @@ object DataManager {
 			))
 			.rx_object(WorkResponse.Deserializer())
 
-	// getWorkResponses
+	fun getWorkResponses(
+			workId: Int,
+			page: Int = 1,
+			sortOption: ResponsesSortOption = ResponsesSortOption.BY_RATING
+	) = "/work/$workId/responses".toAbsolutePath()
+			.httpGet(listOf(
+					"page" to page,
+					"sort" to sortOption.value
+			))
+			.rx_object(ResponsesResponse.Deserializer(15))
 
 	// getWorkAnalogs
 
@@ -107,6 +116,21 @@ object DataManager {
 	// searchEditions
 
 	// getLastResponses
+}
+
+enum class BiblioSortOption(val value: String) {
+	BY_YEAR("year"),
+	BY_RATING("rating"),
+	BY_MARK_COUNT("markcount"),
+	BY_RUS_NAME("rusname"),
+	BY_NAME("name"),
+	BY_WRITE_YEAR("writeyear")
+}
+
+enum class ResponsesSortOption(val value: String) {
+	BY_DATE("date"),
+	BY_RATING("rating"),
+	BY_MARK("mark")
 }
 
 fun String.toAbsolutePath() = "https://api.fantlab.ru$this"
