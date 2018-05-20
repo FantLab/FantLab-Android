@@ -86,7 +86,11 @@ object DataManager {
 			))
 			.rx_object(ResponsesResponse.Deserializer(15))
 
-	// getWorkAnalogs
+	fun getWorkAnalogs(
+			workId: Int
+	) = "/work/$workId/analogs".toAbsolutePath()
+			.httpGet()
+			.rx_object(WorkAnalogsResponse.Deserializer())
 
 	fun getEdition(
 			id: Int,

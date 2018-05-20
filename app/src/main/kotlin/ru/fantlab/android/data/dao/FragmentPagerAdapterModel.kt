@@ -12,9 +12,9 @@ import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
 import ru.fantlab.android.ui.modules.profile.overview.ProfileOverviewFragment
 import ru.fantlab.android.ui.modules.profile.responses.ProfileResponsesFragment
 import ru.fantlab.android.ui.modules.search.authors.SearchAuthorsFragment
-import ru.fantlab.android.ui.modules.search.awards.SearchAwardsFragment
 import ru.fantlab.android.ui.modules.search.editions.SearchEditionsFragment
 import ru.fantlab.android.ui.modules.search.works.SearchWorksFragment
+import ru.fantlab.android.ui.modules.work.analogs.WorkAnalogsFragment
 import ru.fantlab.android.ui.modules.work.overview.WorkOverviewFragment
 import ru.fantlab.android.ui.modules.work.responses.WorkResponsesFragment
 
@@ -57,7 +57,7 @@ data class FragmentPagerAdapterModel(
 					FragmentPagerAdapterModel(context.getString(R.string.classification), SearchWorksFragment()),
 					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId)),
 					FragmentPagerAdapterModel(context.getString(R.string.editions), SearchEditionsFragment()),
-					FragmentPagerAdapterModel(context.getString(R.string.analogs), SearchAwardsFragment())
+					FragmentPagerAdapterModel(context.getString(R.string.analogs), WorkAnalogsFragment.newInstance(workId))
 			)
 		}
 
