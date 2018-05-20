@@ -51,7 +51,7 @@ data class EditionsInfo(
 			val jsonObject = JsonParser().parse(content).asJsonObject
 			allCount = jsonObject.getAsJsonPrimitive("all").asInt
 			var `object` = jsonObject.getAsJsonObject("booktype")
-			`object`.entrySet().map {
+			`object`?.entrySet()?.map {
 				val bookTypeObject = it.value.asJsonObject
 				val bookType = DataManager.gson.fromJson(bookTypeObject.toString(), BookType::class.java)
 				bookTypes.add(bookType)
@@ -61,7 +61,7 @@ data class EditionsInfo(
 				isbns.add(it.toString())
 			}
 			`object` = jsonObject.getAsJsonObject("langs")
-			`object`.entrySet().map {
+			`object`?.entrySet()?.map {
 				val languageObject = it.value.asJsonObject
 				val language = DataManager.gson.fromJson(languageObject.toString(), Language::class.java)
 				languages.add(language)
