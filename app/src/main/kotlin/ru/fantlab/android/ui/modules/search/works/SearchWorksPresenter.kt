@@ -3,25 +3,25 @@ package ru.fantlab.android.ui.modules.search.works
 import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.SearchWorkModel
-import ru.fantlab.android.provider.rest.RestProvider
+import ru.fantlab.android.data.dao.newmodel.SearchWork
+import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class SearchWorksPresenter : BasePresenter<SearchWorksMvp.View>(), SearchWorksMvp.Presenter {
 
-	private var works: ArrayList<SearchWorkModel> = ArrayList()
+	private var works: ArrayList<SearchWork> = arrayListOf()
 	private var page: Int = 0
 	private var previousTotal: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 
-	override fun onItemClick(position: Int, v: View?, item: SearchWorkModel) {
+	override fun onItemClick(position: Int, v: View?, item: SearchWork) {
 		view?.onItemClicked(item)
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: SearchWorkModel?) {
+	override fun onItemLongClick(position: Int, v: View?, item: SearchWork) {
 	}
 
-	override fun getWorks(): ArrayList<SearchWorkModel> = works
+	override fun getWorks(): ArrayList<SearchWork> = works
 
 	override fun getCurrentPage(): Int = page
 
@@ -45,17 +45,24 @@ class SearchWorksPresenter : BasePresenter<SearchWorksMvp.View>(), SearchWorksMv
 			sendToView { it.hideProgress() }
 			return false
 		}
-		makeRestCall(RestProvider.getSearchService().searchWorks(parameter, page), Consumer { response ->
-			lastPage = response.last
+		if (previousTotal == 1000) {
 			sendToView {
-				it.onNotifyAdapter(response.items, page)
-				if (!response.incompleteResults) {
-					it.onSetTabCount(response.totalCount)
-				} else {
-					it.showMessage(R.string.error, R.string.results_warning)
-				}
+				it.hideProgress()
+				it.showMessage(R.string.error, R.string.results_warning)
 			}
-		})
+			return false
+		}
+		makeRestCall(
+				DataManager.searchWorks(parameter, page)
+						.map { it.get() }
+						.toObservable(),
+				Consumer { response ->
+					lastPage = response.works.last
+					sendToView {
+						it.onNotifyAdapter(response.works.items, page)
+						it.onSetTabCount(response.works.totalCount)
+					}
+				})
 		return true
 	}
 }

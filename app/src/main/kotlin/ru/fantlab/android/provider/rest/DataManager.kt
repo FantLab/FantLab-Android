@@ -121,9 +121,17 @@ object DataManager {
 					"q" to query,
 					"page" to page
 			))
-			.rx_object(SearchAuthorResponse.Deserializer(perPage = 25))
+			.rx_object(SearchAuthorsResponse.Deserializer(perPage = 25))
 
-	// searchWorks
+	fun searchWorks(
+			query: String,
+			page: Int = 1
+	) = "search-works"
+			.httpGet(listOf(
+					"q" to query,
+					"page" to page
+			))
+			.rx_object(SearchWorksResponse.Deserializer(perPage = 25))
 
 	// searchEditions
 

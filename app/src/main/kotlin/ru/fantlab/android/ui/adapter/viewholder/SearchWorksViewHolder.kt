@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.SearchWorkModel
+import ru.fantlab.android.data.dao.newmodel.SearchWork
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
 import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
 import ru.fantlab.android.ui.widgets.CoverLayout
@@ -14,8 +14,8 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.text.NumberFormat
 
-class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchWorkModel, SearchWorksViewHolder, *>)
-	: BaseViewHolder<SearchWorkModel>(itemView, adapter) {
+class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchWork, SearchWorksViewHolder, *>)
+	: BaseViewHolder<SearchWork>(itemView, adapter) {
 
 	@BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
 	@BindView(R.id.authors) lateinit var authors: FontTextView
@@ -24,9 +24,9 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 	@BindView(R.id.rating) lateinit var rating: FontTextView
 	private val numberFormat = NumberFormat.getNumberInstance()
 
-	override fun bind(work: SearchWorkModel) {
-		val coverId = if (work.picEditionIdAuto.isNotEmpty()) {
-			work.picEditionIdAuto.toInt()
+	override fun bind(work: SearchWork) {
+		val coverId = if (work.pictureEditionIdAuto.isNotEmpty()) {
+			work.pictureEditionIdAuto.toInt()
 		} else {
 			0 // no image
 		}
@@ -105,7 +105,7 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 		private val AUTHORS_REGEX = "//\\s*Авторы:*".toRegex(RegexOption.IGNORE_CASE)
 		private val AUTHOR_REGEX = "//\\s*Автор:*".toRegex(RegexOption.IGNORE_CASE)
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<SearchWorkModel, SearchWorksViewHolder, *>): SearchWorksViewHolder
+		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<SearchWork, SearchWorksViewHolder, *>): SearchWorksViewHolder
 				= SearchWorksViewHolder(getView(viewGroup, R.layout.search_works_row_item), adapter)
 	}
 }

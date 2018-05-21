@@ -6,12 +6,12 @@ import ru.fantlab.android.data.dao.Pageable
 import ru.fantlab.android.data.dao.newmodel.SearchAuthor
 import ru.fantlab.android.provider.rest.DataManager
 
-data class SearchAuthorResponse(
+data class SearchAuthorsResponse(
 		val authors: Pageable<SearchAuthor>
 ) {
-	class Deserializer(private val perPage: Int) : ResponseDeserializable<SearchAuthorResponse> {
+	class Deserializer(private val perPage: Int) : ResponseDeserializable<SearchAuthorsResponse> {
 
-		override fun deserialize(content: String): SearchAuthorResponse {
+		override fun deserialize(content: String): SearchAuthorsResponse {
 			val jsonObject = JsonParser().parse(content).asJsonObject
 			val items: ArrayList<SearchAuthor> = arrayListOf()
 			val array = jsonObject.getAsJsonArray("matches")
@@ -21,7 +21,7 @@ data class SearchAuthorResponse(
 			val totalCount = jsonObject.getAsJsonPrimitive("total_found").asInt
 			val lastPage = (totalCount - 1) / perPage + 1
 			val authors = Pageable(lastPage, totalCount, false, items)
-			return SearchAuthorResponse(authors)
+			return SearchAuthorsResponse(authors)
 		}
 	}
 }

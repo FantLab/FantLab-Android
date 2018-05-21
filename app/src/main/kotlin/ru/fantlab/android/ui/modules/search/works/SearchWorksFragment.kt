@@ -8,7 +8,7 @@ import android.view.View
 import butterknife.BindView
 import com.evernote.android.state.State
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.SearchWorkModel
+import ru.fantlab.android.data.dao.newmodel.SearchWork
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.SearchWorksAdapter
@@ -71,9 +71,9 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 
 	override fun providePresenter(): SearchWorksPresenter = SearchWorksPresenter()
 
-	override fun onNotifyAdapter(items: List<SearchWorkModel>?, page: Int) {
+	override fun onNotifyAdapter(items: ArrayList<SearchWork>, page: Int) {
 		hideProgress()
-		if (items == null || items.isEmpty()) {
+		if (items.isEmpty()) {
 			adapter.clear()
 			return
 		}
@@ -111,8 +111,8 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 		return onLoadMore
 	}
 
-	override fun onItemClicked(item: SearchWorkModel) {
-		WorkPagerActivity.startActivity(context!!, item.workId, item.rusName, 0)
+	override fun onItemClicked(item: SearchWork) {
+		WorkPagerActivity.startActivity(context!!, item.id, item.rusName, 0)
 	}
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list

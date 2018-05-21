@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.modules.search.works
 
 import android.support.v4.widget.SwipeRefreshLayout
-import ru.fantlab.android.data.dao.SearchWorkModel
+import ru.fantlab.android.data.dao.newmodel.SearchWork
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
@@ -12,7 +12,7 @@ interface SearchWorksMvp {
 			SwipeRefreshLayout.OnRefreshListener,
 			android.view.View.OnClickListener {
 
-		fun onNotifyAdapter(items: List<SearchWorkModel>?, page: Int)
+		fun onNotifyAdapter(items: ArrayList<SearchWork>, page: Int)
 
 		fun onSetTabCount(count: Int)
 
@@ -22,13 +22,13 @@ interface SearchWorksMvp {
 
 		fun getLoadMore(): OnLoadMore<String>
 
-		fun onItemClicked(item: SearchWorkModel)
+		fun onItemClicked(item: SearchWork)
 	}
 
 	interface Presenter : BaseMvp.Presenter,
-			BaseViewHolder.OnItemClickListener<SearchWorkModel>,
+			BaseViewHolder.OnItemClickListener<SearchWork>,
 			BaseMvp.PaginationListener<String> {
 
-		fun getWorks(): ArrayList<SearchWorkModel>
+		fun getWorks(): ArrayList<SearchWork>
 	}
 }
