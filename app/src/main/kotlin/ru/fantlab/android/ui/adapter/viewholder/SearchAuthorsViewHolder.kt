@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.SearchAuthorModel
+import ru.fantlab.android.data.dao.newmodel.SearchAuthor
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
 import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
 import ru.fantlab.android.ui.widgets.AvatarLayout
@@ -14,8 +14,8 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.text.NumberFormat
 
-class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchAuthorModel, SearchAuthorsViewHolder, *>)
-	: BaseViewHolder<SearchAuthorModel>(itemView, adapter) {
+class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchAuthor, SearchAuthorsViewHolder, *>)
+	: BaseViewHolder<SearchAuthor>(itemView, adapter) {
 
 	@BindView(R.id.avatarLayout) lateinit var avatarLayout: AvatarLayout
 	@BindView(R.id.name) lateinit var name: FontTextView
@@ -28,7 +28,7 @@ class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Searc
 	@BindView(R.id.movies) lateinit var movies: FontTextView
 	private val numberFormat = NumberFormat.getNumberInstance()
 
-	override fun bind(author: SearchAuthorModel) {
+	override fun bind(author: SearchAuthor) {
 		avatarLayout.setUrl(Uri.Builder().scheme(PROTOCOL_HTTPS)
 				.authority(HOST_DATA)
 				.appendPath("images")
@@ -92,7 +92,7 @@ class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Searc
 
 	companion object {
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<SearchAuthorModel, SearchAuthorsViewHolder, *>) : SearchAuthorsViewHolder
+		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<SearchAuthor, SearchAuthorsViewHolder, *>) : SearchAuthorsViewHolder
 				= SearchAuthorsViewHolder(getView(viewGroup, R.layout.search_authors_row_item), adapter)
 	}
 }

@@ -4,7 +4,6 @@ import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.rx.rx_object
 import com.google.gson.Gson
 import ru.fantlab.android.data.dao.response.*
-import ru.fantlab.android.helper.PrefGetter
 
 object DataManager {
 
@@ -12,7 +11,6 @@ object DataManager {
 
 	fun getAuthors() = "/autorsall"
 			.httpGet()
-			.header("Cookie" to (PrefGetter.getToken() ?: ""))
 			.rx_object(AuthorsResponse.Deserializer())
 
 	fun getAuthor(
@@ -30,7 +28,6 @@ object DataManager {
 					"biblio_blocks" to showBiblioBlocks.toInt(),
 					"sort" to sortOption.value
 			))
-			.header("Cookie" to (PrefGetter.getToken() ?: ""))
 			.rx_object(AuthorResponse.Deserializer())
 
 	fun getAuthorEditions(
@@ -40,7 +37,6 @@ object DataManager {
 			.httpGet(listOf(
 					"editions_blocks" to showEditionsBlocks.toInt()
 			))
-			.header("Cookie" to (PrefGetter.getToken() ?: ""))
 			.rx_object(AuthorEditionsResponse.Deserializer())
 
 	fun getAuthorResponses(
@@ -52,7 +48,6 @@ object DataManager {
 					"page" to page,
 					"sort" to sortOption.value
 			))
-			.header("Cookie" to (PrefGetter.getToken() ?: ""))
 			.rx_object(ResponsesResponse.Deserializer(perPage = 50))
 
 	fun getWork(
@@ -78,7 +73,6 @@ object DataManager {
 					"parents" to showParents.toInt(),
 					"translations" to showTranslations.toInt()
 			))
-			.header("Cookie" to (PrefGetter.getToken() ?: ""))
 			.rx_object(WorkResponse.Deserializer())
 
 	fun getWorkResponses(
@@ -90,14 +84,12 @@ object DataManager {
 					"page" to page,
 					"sort" to sortOption.value
 			))
-			.header("Cookie" to (PrefGetter.getToken() ?: ""))
 			.rx_object(ResponsesResponse.Deserializer(perPage = 15))
 
 	fun getWorkAnalogs(
 			workId: Int
 	) = "/work/$workId/analogs"
 			.httpGet()
-			.header("Cookie" to (PrefGetter.getToken() ?: ""))
 			.rx_object(WorkAnalogsResponse.Deserializer())
 
 	fun getEdition(
@@ -109,7 +101,6 @@ object DataManager {
 					"content" to showContent.toInt(),
 					"images_plus" to showAdditionalImages.toInt()
 			))
-			.header("Cookie" to (PrefGetter.getToken() ?: ""))
 			.rx_object(EditionResponse.Deserializer())
 
 	// getUser
@@ -122,7 +113,15 @@ object DataManager {
 
 	// getUserId
 
-	// searchAuthors
+	fun searchAuthors(
+			query: String,
+			page: Int = 1
+	) = "/search-autors"
+			.httpGet(listOf(
+					"q" to query,
+					"page" to page
+			))
+			.rx_object(SearchAuthorResponse.Deserializer(perPage = 25))
 
 	// searchWorks
 

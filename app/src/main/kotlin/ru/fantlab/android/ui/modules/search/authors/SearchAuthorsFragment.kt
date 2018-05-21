@@ -8,7 +8,7 @@ import android.view.View
 import butterknife.BindView
 import com.evernote.android.state.State
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.SearchAuthorModel
+import ru.fantlab.android.data.dao.newmodel.SearchAuthor
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.SearchAuthorsAdapter
@@ -71,9 +71,9 @@ class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsP
 
 	override fun providePresenter(): SearchAuthorsPresenter = SearchAuthorsPresenter()
 
-	override fun onNotifyAdapter(items: List<SearchAuthorModel>?, page: Int) {
+	override fun onNotifyAdapter(items: ArrayList<SearchAuthor>, page: Int) {
 		hideProgress()
-		if (items == null || items.isEmpty()) {
+		if (items.isEmpty()) {
 			adapter.clear()
 			return
 		}
@@ -111,7 +111,7 @@ class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsP
 		return onLoadMore
 	}
 
-	override fun onItemClicked(item: SearchAuthorModel) {
+	override fun onItemClicked(item: SearchAuthor) {
 		AuthorPagerActivity.startActivity(context!!, item.authorId, item.rusName, 0)
 	}
 

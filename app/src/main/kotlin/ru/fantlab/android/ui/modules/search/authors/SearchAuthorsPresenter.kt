@@ -3,26 +3,26 @@ package ru.fantlab.android.ui.modules.search.authors
 import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.SearchAuthorModel
-import ru.fantlab.android.provider.rest.RestProvider
+import ru.fantlab.android.data.dao.newmodel.SearchAuthor
+import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 
 class SearchAuthorsPresenter : BasePresenter<SearchAuthorsMvp.View>(), SearchAuthorsMvp.Presenter {
 
-	private var authors: ArrayList<SearchAuthorModel> = ArrayList()
+	private var authors: ArrayList<SearchAuthor> = arrayListOf()
 	private var page: Int = 0
 	private var previousTotal: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 
-	override fun onItemClick(position: Int, v: View?, item: SearchAuthorModel) {
+	override fun onItemClick(position: Int, v: View?, item: SearchAuthor) {
 		view?.onItemClicked(item)
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: SearchAuthorModel?) {
+	override fun onItemLongClick(position: Int, v: View?, item: SearchAuthor) {
 	}
 
-	override fun getAuthors(): ArrayList<SearchAuthorModel> = authors
+	override fun getAuthors(): ArrayList<SearchAuthor> = authors
 
 	override fun getCurrentPage(): Int = page
 
@@ -46,17 +46,24 @@ class SearchAuthorsPresenter : BasePresenter<SearchAuthorsMvp.View>(), SearchAut
 			sendToView { it.hideProgress() }
 			return false
 		}
-		makeRestCall(RestProvider.getSearchService().searchAuthors(parameter, page), Consumer { response ->
-			lastPage = response.last
+		if (previousTotal == 1000) {
 			sendToView {
-				it.onNotifyAdapter(response.items, page)
-				if (!response.incompleteResults) {
-					it.onSetTabCount(response.totalCount)
-				} else {
-					it.showMessage(R.string.error, R.string.results_warning)
-				}
+				it.hideProgress()
+				it.showMessage(R.string.error, R.string.results_warning)
 			}
-		})
+			return false
+		}
+		makeRestCall(
+				DataManager.searchAuthors(parameter, page)
+						.map { it.get() }
+						.toObservable(),
+				Consumer { response ->
+					lastPage = response.authors.last
+					sendToView {
+						it.onNotifyAdapter(response.authors.items, page)
+						it.onSetTabCount(response.authors.totalCount)
+					}
+				})
 		return true
 	}
 }

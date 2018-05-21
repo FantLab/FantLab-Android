@@ -4,6 +4,7 @@ import android.app.Application
 import com.github.kittinunf.fuel.core.FuelManager
 import io.requery.Persistable
 import io.requery.reactivex.ReactiveEntityStore
+import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.db.DbProvider
 import ru.fantlab.android.provider.fabric.FabricProvider
 import ru.fantlab.android.provider.stetho.StethoProvider
@@ -33,7 +34,10 @@ class App : Application() {
 		Shortbread.create(this)
 		FuelManager.instance.apply {
 			basePath = "https://api.fantlab.ru/"
-			baseHeaders = mapOf("User-Agent" to "FantLab for Android v${BuildConfig.VERSION_NAME}")
+			baseHeaders = mapOf(
+					"User-Agent" to "FantLab for Android v${BuildConfig.VERSION_NAME}",
+					"Cookie" to (PrefGetter.getToken() ?: "")
+			)
 		}
 	}
 }
