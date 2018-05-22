@@ -42,7 +42,8 @@ data class FragmentPagerAdapterModel(
 			return mutableListOf(
 					FragmentPagerAdapterModel(context.getString(R.string.authors), SearchAuthorsFragment()),
 					FragmentPagerAdapterModel(context.getString(R.string.works), SearchWorksFragment()),
-					FragmentPagerAdapterModel(context.getString(R.string.editions), SearchEditionsFragment())
+					FragmentPagerAdapterModel(context.getString(R.string.editions), SearchEditionsFragment())/*,
+					FragmentPagerAdapterModel(context.getString(R.string.awards), SearchAwardsFragment())*/
 			)
 		}
 

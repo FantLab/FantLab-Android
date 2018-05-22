@@ -62,7 +62,8 @@ class SearchEditionsPresenter : BasePresenter<SearchEditionsMvp.View>(), SearchE
 						it.onNotifyAdapter(response.editions.items, page)
 						it.onSetTabCount(response.editions.totalCount)
 					}
-				})
+				}
+		)
 		return true
 	}
 }

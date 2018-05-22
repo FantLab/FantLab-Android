@@ -27,7 +27,7 @@ class SearchEditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Sear
 				.appendPath("images")
 				.appendPath("editions")
 				.appendPath("big")
-				.appendPath(edition.editionId.toString())
+				.appendPath(edition.id.toString())
 				.toString())
 
 		if (edition.authors.isNotEmpty()) {

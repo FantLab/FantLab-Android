@@ -8,7 +8,7 @@ import android.view.View
 import butterknife.BindView
 import com.evernote.android.state.State
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.SearchAwardModel
+import ru.fantlab.android.data.dao.newmodel.SearchAward
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.SearchAwardsAdapter
@@ -71,9 +71,9 @@ class SearchAwardsFragment : BaseFragment<SearchAwardsMvp.View, SearchAwardsPres
 
 	override fun providePresenter(): SearchAwardsPresenter = SearchAwardsPresenter()
 
-	override fun onNotifyAdapter(items: List<SearchAwardModel>?, page: Int) {
+	override fun onNotifyAdapter(items: ArrayList<SearchAward>, page: Int) {
 		hideProgress()
-		if (items == null || items.isEmpty()) {
+		if (items.isEmpty()) {
 			adapter.clear()
 			return
 		}
@@ -111,8 +111,7 @@ class SearchAwardsFragment : BaseFragment<SearchAwardsMvp.View, SearchAwardsPres
 		return onLoadMore
 	}
 
-	override fun onItemClicked(item: SearchAwardModel) {
-		// todo переход на экран премии
+	override fun onItemClicked(item: SearchAward) {
 		showMessage("Click", "Not implemented yet")
 	}
 

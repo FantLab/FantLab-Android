@@ -3,25 +3,25 @@ package ru.fantlab.android.ui.modules.search.awards
 import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.SearchAwardModel
-import ru.fantlab.android.provider.rest.RestProvider
+import ru.fantlab.android.data.dao.newmodel.SearchAward
+import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class SearchAwardsPresenter : BasePresenter<SearchAwardsMvp.View>(), SearchAwardsMvp.Presenter {
 
-	private var awards: ArrayList<SearchAwardModel> = ArrayList()
+	private var awards: ArrayList<SearchAward> = ArrayList()
 	private var page: Int = 0
 	private var previousTotal: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 
-	override fun onItemClick(position: Int, v: View?, item: SearchAwardModel) {
+	override fun onItemClick(position: Int, v: View?, item: SearchAward) {
 		view?.onItemClicked(item)
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: SearchAwardModel?) {
+	override fun onItemLongClick(position: Int, v: View?, item: SearchAward) {
 	}
 
-	override fun getAwards(): ArrayList<SearchAwardModel> = awards
+	override fun getAwards(): ArrayList<SearchAward> = awards
 
 	override fun getCurrentPage(): Int = page
 
@@ -45,17 +45,25 @@ class SearchAwardsPresenter : BasePresenter<SearchAwardsMvp.View>(), SearchAward
 			sendToView { it.hideProgress() }
 			return false
 		}
-		makeRestCall(RestProvider.getSearchService().searchAwards(parameter, page), Consumer { response ->
-			lastPage = response.last
+		if (previousTotal == 1000) {
 			sendToView {
-				it.onNotifyAdapter(response.items, page)
-				if (!response.incompleteResults) {
-					it.onSetTabCount(response.totalCount)
-				} else {
-					it.showMessage(R.string.error, R.string.results_warning)
-				}
+				it.hideProgress()
+				it.showMessage(R.string.error, R.string.results_warning)
 			}
-		})
+			return false
+		}
+		makeRestCall(
+				DataManager.searchAwards(parameter, page)
+						.map { it.get() }
+						.toObservable(),
+				Consumer { response ->
+					lastPage = response.awards.last
+					sendToView {
+						it.onNotifyAdapter(response.awards.items, page)
+						it.onSetTabCount(response.awards.totalCount)
+					}
+				}
+		)
 		return true
 	}
 }

@@ -140,7 +140,7 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 			0 -> textView.text = String.format("%s(%s)", getString(R.string.authors), numberFormat.format(count.toLong()))
 			1 -> textView.text = String.format("%s(%s)", getString(R.string.works), numberFormat.format(count.toLong()))
 			2 -> textView.text = String.format("%s(%s)", getString(R.string.editions), numberFormat.format(count.toLong()))
-			3 -> textView.text = String.format("%s(%s)", getString(R.string.awards), numberFormat.format(count.toLong()))
+			//3 -> textView.text = String.format("%s(%s)", getString(R.string.awards), numberFormat.format(count.toLong()))
 		}
 	}
 }

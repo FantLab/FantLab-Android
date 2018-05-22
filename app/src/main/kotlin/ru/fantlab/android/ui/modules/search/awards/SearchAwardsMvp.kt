@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.modules.search.awards
 
 import android.support.v4.widget.SwipeRefreshLayout
-import ru.fantlab.android.data.dao.SearchAwardModel
+import ru.fantlab.android.data.dao.newmodel.SearchAward
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
@@ -12,7 +12,7 @@ interface SearchAwardsMvp {
 			SwipeRefreshLayout.OnRefreshListener,
 			android.view.View.OnClickListener {
 
-		fun onNotifyAdapter(items: List<SearchAwardModel>?, page: Int)
+		fun onNotifyAdapter(items: ArrayList<SearchAward>, page: Int)
 
 		fun onSetTabCount(count: Int)
 
@@ -22,13 +22,13 @@ interface SearchAwardsMvp {
 
 		fun getLoadMore(): OnLoadMore<String>
 
-		fun onItemClicked(item: SearchAwardModel)
+		fun onItemClicked(item: SearchAward)
 	}
 
 	interface Presenter : BaseMvp.Presenter,
-			BaseViewHolder.OnItemClickListener<SearchAwardModel>,
+			BaseViewHolder.OnItemClickListener<SearchAward>,
 			BaseMvp.PaginationListener<String> {
 
-		fun getAwards(): ArrayList<SearchAwardModel>
+		fun getAwards(): ArrayList<SearchAward>
 	}
 }

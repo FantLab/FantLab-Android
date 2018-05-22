@@ -10,7 +10,7 @@ data class SearchEdition(
 		val comment: String,
 		val compilers: String,
 		val correct: Int,
-		@SerializedName("edition_id") val editionId: Int,
+		@SerializedName("edition_id") val id: Int,
 		val isbn1: String,
 		val isbn2: String,
 		val name: String,

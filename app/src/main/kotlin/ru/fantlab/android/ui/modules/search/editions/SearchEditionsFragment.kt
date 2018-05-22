@@ -113,7 +113,7 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 	}
 
 	override fun onItemClicked(item: SearchEdition) {
-		EditionPagerActivity.startActivity(context!!, item.editionId, item.name, 0)
+		EditionPagerActivity.startActivity(context!!, item.id, item.name, 0)
 	}
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list

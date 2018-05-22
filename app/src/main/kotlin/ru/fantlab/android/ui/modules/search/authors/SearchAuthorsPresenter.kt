@@ -63,7 +63,8 @@ class SearchAuthorsPresenter : BasePresenter<SearchAuthorsMvp.View>(), SearchAut
 						it.onNotifyAdapter(response.authors.items, page)
 						it.onSetTabCount(response.authors.totalCount)
 					}
-				})
+				}
+		)
 		return true
 	}
 }

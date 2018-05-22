@@ -62,7 +62,8 @@ class SearchWorksPresenter : BasePresenter<SearchWorksMvp.View>(), SearchWorksMv
 						it.onNotifyAdapter(response.works.items, page)
 						it.onSetTabCount(response.works.totalCount)
 					}
-				})
+				}
+		)
 		return true
 	}
 }
