@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.modules.search.editions
 
 import android.support.v4.widget.SwipeRefreshLayout
-import ru.fantlab.android.data.dao.SearchEditionModel
+import ru.fantlab.android.data.dao.newmodel.SearchEdition
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
@@ -12,7 +12,7 @@ interface SearchEditionsMvp {
 			SwipeRefreshLayout.OnRefreshListener,
 			android.view.View.OnClickListener {
 
-		fun onNotifyAdapter(items: List<SearchEditionModel>?, page: Int)
+		fun onNotifyAdapter(items: ArrayList<SearchEdition>, page: Int)
 
 		fun onSetTabCount(count: Int)
 
@@ -22,13 +22,13 @@ interface SearchEditionsMvp {
 
 		fun getLoadMore(): OnLoadMore<String>
 
-		fun onItemClicked(item: SearchEditionModel)
+		fun onItemClicked(item: SearchEdition)
 	}
 
 	interface Presenter : BaseMvp.Presenter,
-			BaseViewHolder.OnItemClickListener<SearchEditionModel>,
+			BaseViewHolder.OnItemClickListener<SearchEdition>,
 			BaseMvp.PaginationListener<String> {
 
-		fun getEditions(): ArrayList<SearchEditionModel>
+		fun getEditions(): ArrayList<SearchEdition>
 	}
 }

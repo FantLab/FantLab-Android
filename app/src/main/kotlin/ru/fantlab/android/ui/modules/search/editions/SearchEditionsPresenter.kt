@@ -3,25 +3,25 @@ package ru.fantlab.android.ui.modules.search.editions
 import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.SearchEditionModel
-import ru.fantlab.android.provider.rest.RestProvider
+import ru.fantlab.android.data.dao.newmodel.SearchEdition
+import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class SearchEditionsPresenter : BasePresenter<SearchEditionsMvp.View>(), SearchEditionsMvp.Presenter {
 
-	private var editions: ArrayList<SearchEditionModel> = ArrayList()
+	private var editions: ArrayList<SearchEdition> = ArrayList()
 	private var page: Int = 0
 	private var previousTotal: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 
-	override fun onItemClick(position: Int, v: View?, item: SearchEditionModel) {
+	override fun onItemClick(position: Int, v: View?, item: SearchEdition) {
 		view?.onItemClicked(item)
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: SearchEditionModel?) {
+	override fun onItemLongClick(position: Int, v: View?, item: SearchEdition) {
 	}
 
-	override fun getEditions(): ArrayList<SearchEditionModel> = editions
+	override fun getEditions(): ArrayList<SearchEdition> = editions
 
 	override fun getCurrentPage(): Int = page
 
@@ -45,17 +45,24 @@ class SearchEditionsPresenter : BasePresenter<SearchEditionsMvp.View>(), SearchE
 			sendToView { it.hideProgress() }
 			return false
 		}
-		makeRestCall(RestProvider.getSearchService().searchEditions(parameter, page), Consumer {
-			lastPage = it.last
-			sendToView { view ->
-				view.onNotifyAdapter(it.items, page)
-				if (!it.incompleteResults) {
-					view.onSetTabCount(it.totalCount)
-				} else {
-					view.showMessage(R.string.error, R.string.results_warning)
-				}
+		if (previousTotal == 1000) {
+			sendToView {
+				it.hideProgress()
+				it.showMessage(R.string.error, R.string.results_warning)
 			}
-		})
+			return false
+		}
+		makeRestCall(
+				DataManager.searchEditions(parameter, page)
+						.map { it.get() }
+						.toObservable(),
+				Consumer { response ->
+					lastPage = response.editions.last
+					sendToView {
+						it.onNotifyAdapter(response.editions.items, page)
+						it.onSetTabCount(response.editions.totalCount)
+					}
+				})
 		return true
 	}
 }

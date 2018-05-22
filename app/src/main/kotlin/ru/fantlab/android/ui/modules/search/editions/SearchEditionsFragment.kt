@@ -8,7 +8,7 @@ import android.view.View
 import butterknife.BindView
 import com.evernote.android.state.State
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.SearchEditionModel
+import ru.fantlab.android.data.dao.newmodel.SearchEdition
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.SearchEditionsAdapter
@@ -72,9 +72,9 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 
 	override fun providePresenter(): SearchEditionsPresenter = SearchEditionsPresenter()
 
-	override fun onNotifyAdapter(items: List<SearchEditionModel>?, page: Int) {
+	override fun onNotifyAdapter(items: ArrayList<SearchEdition>, page: Int) {
 		hideProgress()
-		if (items == null || items.isEmpty()) {
+		if (items.isEmpty()) {
 			adapter.clear()
 			return
 		}
@@ -112,7 +112,7 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 		return onLoadMore
 	}
 
-	override fun onItemClicked(item: SearchEditionModel) {
+	override fun onItemClicked(item: SearchEdition) {
 		EditionPagerActivity.startActivity(context!!, item.editionId, item.name, 0)
 	}
 

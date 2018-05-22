@@ -133,7 +133,15 @@ object DataManager {
 			))
 			.rx_object(SearchWorksResponse.Deserializer(perPage = 25))
 
-	// searchEditions
+	fun searchEditions(
+			query: String,
+			page: Int = 1
+	) = "search-editions"
+			.httpGet(listOf(
+					"q" to query,
+					"page" to page
+			))
+			.rx_object(SearchEditionsResponse.Deserializer(perPage = 25))
 
 	// getLastResponses
 }
