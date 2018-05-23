@@ -166,7 +166,11 @@ object DataManager {
 			))
 			.rx_object(SearchAwardsResponse.Deserializer(perPage = 25))
 
-	// getLastResponses
+	fun getLastResponses(
+			page: Int = 1
+	) = "/responses"
+			.httpGet(listOf("page" to page))
+			.rx_object(ResponsesResponse.Deserializer(perPage = 50))
 }
 
 enum class BiblioSortOption(val value: String) {

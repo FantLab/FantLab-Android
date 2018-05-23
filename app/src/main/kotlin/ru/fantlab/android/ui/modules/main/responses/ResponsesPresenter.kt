@@ -2,13 +2,9 @@ package ru.fantlab.android.ui.modules.main.responses
 
 import android.view.View
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.model.Response
-import ru.fantlab.android.data.dao.model.getUserResponses
-import ru.fantlab.android.data.dao.model.save
-import ru.fantlab.android.helper.observe
-import ru.fantlab.android.provider.rest.RestProvider
+import ru.fantlab.android.data.dao.newmodel.Response
+import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
-import timber.log.Timber
 import java.util.*
 
 class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Presenter {
@@ -34,13 +30,18 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 			return false
 		}
 		setCurrentPage(page)
-		makeRestCall(RestProvider.getCommonService().getResponses(page), Consumer { response ->
-			lastPage = response.last
-			if (getCurrentPage() == 1) {
-				manageDisposable(response.items.save())
-			}
-			sendToView { it.onNotifyAdapter(response.items, page) }
-		})
+		makeRestCall(
+				DataManager.getLastResponses(page)
+						.map { it.get() }
+						.toObservable(),
+				Consumer { response ->
+					lastPage = response.responses.last
+					if (getCurrentPage() == 1) {
+						//manageDisposable(response.responses.items.save())
+					}
+					sendToView { it.onNotifyAdapter(response.responses.items, page) }
+				}
+		)
 		return true
 	}
 
@@ -59,27 +60,15 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 	override fun onCallApi(page: Int, parameter: Any?): Boolean = onCallApi(page)
 
 	override fun onWorkOffline() {
-		if (responses.isEmpty()) {
-			manageDisposable(
-					getUserResponses(1).toObservable().observe().subscribe(
-							{ modelList ->
-								modelList?.let {
-									sendToView { it.onNotifyAdapter(modelList, 1) }
-								}
-							},
-							Timber::e
-					)
-			)
-		} else {
-			sendToView { it.hideProgress() }
-		}
+		sendToView { it.hideProgress() }
+		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
 
-	override fun onItemClick(position: Int, v: View?, item: Response?) {
+	override fun onItemClick(position: Int, v: View?, item: Response) {
 		// todo implement
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: Response?) {
+	override fun onItemLongClick(position: Int, v: View?, item: Response) {
 		// todo implement
 	}
 }

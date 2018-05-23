@@ -6,8 +6,9 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.data.dao.newmodel.Response
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
+import ru.fantlab.android.ui.adapter.ResponsesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -19,7 +20,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
-	//private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.responses) }
+	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.responses) }
 	private val onLoadMore: OnLoadMore<Any> by lazy { OnLoadMore(presenter) }
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
@@ -29,9 +30,9 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
-		//adapter.listener = presenter
+		adapter.listener = presenter
 		getLoadMore().initialize(presenter.getCurrentPage(), presenter.getPreviousTotal())
-		//recycler.adapter = adapter
+		recycler.adapter = adapter
 		recycler.addOnScrollListener(getLoadMore())
 		fastScroller.attachRecyclerView(recycler)
 		if (presenter.responses.isEmpty() && !presenter.isApiCalled()) {
@@ -46,16 +47,16 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 
 	override fun providePresenter(): ResponsesPresenter = ResponsesPresenter()
 
-	override fun onNotifyAdapter(items: List<Response>?, page: Int) {
+	override fun onNotifyAdapter(items: ArrayList<Response>, page: Int) {
 		hideProgress()
-		if (items == null || items.isEmpty()) {
-			//adapter.clear()
+		if (items.isEmpty()) {
+			adapter.clear()
 			return
 		}
 		if (page <= 1) {
-			//adapter.insertItems(items)
+			adapter.insertItems(items)
 		} else {
-			//adapter.addItems(items)
+			adapter.addItems(items)
 		}
 	}
 
@@ -91,7 +92,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 
 	private fun showReload() {
 		hideProgress()
-		//stateLayout.showReload(adapter.itemCount)
+		stateLayout.showReload(adapter.itemCount)
 	}
 
 	override fun onScrollTop(index: Int) {
