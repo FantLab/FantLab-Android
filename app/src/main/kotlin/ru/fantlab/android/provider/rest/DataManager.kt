@@ -103,7 +103,11 @@ object DataManager {
 			))
 			.rx_object(EditionResponse.Deserializer())
 
-	// getUser
+	fun getUser(
+			id: Int
+	) = "/user/$id"
+			.httpGet()
+			.rx_object(UserResponse.Deserializer())
 
 	// getUserMarks
 

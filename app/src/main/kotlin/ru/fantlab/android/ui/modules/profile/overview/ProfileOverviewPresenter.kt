@@ -2,10 +2,8 @@ package ru.fantlab.android.ui.modules.profile.overview
 
 import android.os.Bundle
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.model.getUser
-import ru.fantlab.android.data.dao.model.save
 import ru.fantlab.android.helper.BundleConstant
-import ru.fantlab.android.provider.rest.RestProvider
+import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class ProfileOverviewPresenter : BasePresenter<ProfileOverviewMvp.View>(), ProfileOverviewMvp.Presenter {
@@ -19,10 +17,14 @@ class ProfileOverviewPresenter : BasePresenter<ProfileOverviewMvp.View>(), Profi
 		}
 		userId = bundle.getInt(BundleConstant.EXTRA)
 		userId?.let {
-			makeRestCall(RestProvider.getUserService().getUser(it), Consumer { user ->
-				user.save()
-				sendToView { it.onInitViews(user) }
-			})
+			makeRestCall(
+					DataManager.getUser(it)
+							.map { it.get() }
+							.toObservable(),
+					Consumer { response ->
+						sendToView { it.onInitViews(response.user) }
+					}
+			)
 		}
 	}
 
@@ -32,7 +34,6 @@ class ProfileOverviewPresenter : BasePresenter<ProfileOverviewMvp.View>(), Profi
 	}
 
 	override fun onWorkOffline(id: Int) {
-		val user = getUser(id) ?: return
-		sendToView { it.onInitViews(user) }
+		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
 }

@@ -9,10 +9,11 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.User
+import ru.fantlab.android.data.dao.newmodel.User
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.getTimeAgo
+import ru.fantlab.android.helper.parseFullDate
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.widgets.AvatarLayout
@@ -96,15 +97,15 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		}
 		login.text = user.login
 		avatarLayout.setUrl("https://${user.avatar}")
-		val userLevel = numberFormat.format(user.level!!.toDouble())
-		val maxClassLevel = numberFormat.format(classRanges[user.userClass!!].toLong())
+		val userLevel = numberFormat.format(user.level.toDouble())
+		val maxClassLevel = numberFormat.format(classRanges[user.`class`].toLong())
 		level.text = StringBuilder()
 				.append(user.className)
 				.append(", ")
-				.append(if (user.userClass!! < 7) "$userLevel / $maxClassLevel" else userLevel)
+				.append(if (user.`class` < 7) "$userLevel / $maxClassLevel" else userLevel)
 		if (user.authorId != null) {
 			author.setOnClickListener {
-				AuthorPagerActivity.startActivity(view!!.context, user.authorId!!, user.authorName!!, 0)
+				AuthorPagerActivity.startActivity(view!!.context, user.authorId, user.authorName!!, 0)
 			}
 		} else {
 			author.visibility = View.GONE
@@ -129,17 +130,17 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		TooltipCompat.setTooltipText(descriptionsLayout, getString(R.string.description_count))
 		descriptions.text = user.descriptionCount.toString()
 		TooltipCompat.setTooltipText(classificationsLayout, getString(R.string.classification_count))
-		classifications.text = user.classifCount.toString()
+		classifications.text = user.classificationCount.toString()
 		TooltipCompat.setTooltipText(ticketsLayout, getString(R.string.ticket_count))
-		tickets.text = user.ticketsCount.toString()
+		tickets.text = user.ticketCount.toString()
 		TooltipCompat.setTooltipText(messagesLayout, getString(R.string.forum_messages_count))
-		messages.text = user.messageCount.toString()
+		messages.text = user.forumMessageCount.toString()
 		TooltipCompat.setTooltipText(topicsLayout, getString(R.string.topic_count))
 		topics.text = user.topicCount.toString()
 		TooltipCompat.setTooltipText(bookcasesLayout, getString(R.string.bookcase_count))
 		bookcases.text = user.bookcaseCount.toString()
 
-		birthDay.text = user.birthDay.getTimeAgo()
+		birthDay.text = user.birthDay?.parseFullDate().getTimeAgo()
 		location.text = if (!user.countryName.isNullOrEmpty() && !user.cityName.isNullOrEmpty()) {
 			StringBuilder()
 					.append(user.countryName)
@@ -150,16 +151,20 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		} else {
 			"N/A"
 		}
-		regDate.text = user.dateOfReg.getTimeAgo()
-		lastActionDate.text = user.dateOfLastAction.getTimeAgo()
+		regDate.text = user.regDate.parseFullDate().getTimeAgo()
+		lastActionDate.text = user.lastActionDate.parseFullDate().getTimeAgo()
 		if (user.sign.isNullOrEmpty()) {
 			sign.visibility = View.GONE
 		} else {
 			sign.text = user.sign
 		}
-		if (user.block == 1) {
-			block.text = if (user.dateOfBlockEnd != null) {
-				String.format("%s - %s", user.dateOfBlock.getTimeAgo(), user.dateOfBlockEnd.getTimeAgo())
+		if (user.blocked == 1) {
+			block.text = if (user.blockEndDate != null) {
+				String.format(
+						"%s - %s",
+						user.blockDate!!.parseFullDate().getTimeAgo(),
+						user.blockEndDate.parseFullDate().getTimeAgo()
+				)
 			} else {
 				getString(R.string.block_permanent)
 			}
