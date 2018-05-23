@@ -2,11 +2,8 @@ package ru.fantlab.android.ui.modules.profile.responses
 
 import android.view.View
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.model.Response
-import ru.fantlab.android.data.dao.model.getUserResponses
-import ru.fantlab.android.data.dao.model.save
-import ru.fantlab.android.helper.observe
-import ru.fantlab.android.provider.rest.RestProvider
+import ru.fantlab.android.data.dao.newmodel.Response
+import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
@@ -48,14 +45,16 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 			sendToView { it.hideProgress() }
 			return false
 		}
-		makeRestCall(RestProvider.getUserService().getResponses(parameter, page), Consumer {
-			lastPage = it.last
-			manageDisposable(it.items.save())
-			sendToView { view ->
-				view.onNotifyAdapter(it.items, page)
-				view.onSetTabCount(it.totalCount)
-			}
-		})
+		makeRestCall(DataManager.getUserResponses(parameter, page)
+				.map { it.get() }
+				.toObservable(),
+				Consumer {
+					lastPage = it.responses.last
+					sendToView { view ->
+						view.onNotifyAdapter(it.responses.items, page)
+						view.onSetTabCount(it.responses.totalCount)
+					}
+				})
 		return true
 	}
 
@@ -65,16 +64,7 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 	}
 
 	override fun onWorkOffline(userId: Int) {
-		if (responses.isEmpty()) {
-			manageDisposable(
-					getUserResponses(userId).toObservable()
-							.observe()
-							.subscribe { responses -> sendToView {
-								it.onNotifyAdapter(responses, 1)
-							} }
-			)
-		} else {
-			sendToView { it.hideProgress() }
-		}
+		sendToView { it.hideProgress() }
+		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
 }

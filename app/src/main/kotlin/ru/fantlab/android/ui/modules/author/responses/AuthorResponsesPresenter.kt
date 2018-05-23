@@ -54,7 +54,8 @@ class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
 						view.onNotifyAdapter(it.responses.items, page)
 						view.onSetTabCount(it.responses.totalCount)
 					}
-				})
+				}
+		)
 		return true
 	}
 

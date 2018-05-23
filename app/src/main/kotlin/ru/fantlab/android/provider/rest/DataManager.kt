@@ -111,7 +111,16 @@ object DataManager {
 
 	// getUserMarks
 
-	// getUserResponses
+	fun getUserResponses(
+			userId: Int,
+			page: Int = 1,
+			sortOption: ResponsesSortOption = ResponsesSortOption.BY_DATE
+	) = "/user/$userId/responses"
+			.httpGet(listOf(
+					"page" to page,
+					"sort" to sortOption.value
+			))
+			.rx_object(ResponsesResponse.Deserializer(perPage = 50))
 
 	// login
 
