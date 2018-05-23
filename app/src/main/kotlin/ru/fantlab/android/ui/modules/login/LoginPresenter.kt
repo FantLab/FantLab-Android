@@ -4,10 +4,10 @@ import io.reactivex.functions.Consumer
 import okhttp3.ResponseBody
 import retrofit2.Response
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.Login
-import ru.fantlab.android.data.dao.model.saveLoggedUser
+import ru.fantlab.android.data.dao.newmodel.User
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.PrefGetter
+import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.provider.rest.LoginProvider
 import ru.fantlab.android.provider.rest.RestProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -50,27 +50,28 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 						showSignInFailed()
 						return@Consumer
 					}
-					makeRestCall(RestProvider.getUserService().getLoggedUser(it.userId), Consumer {
-						onUserResponse(it)
-					})
+					makeRestCall(
+							DataManager.getUser(it.userId)
+									.map { it.get() }
+									.toObservable(),
+							Consumer {
+								onUserResponse(it.user)
+							}
+					)
 				})
 				return
 			}
 		}
 	}
 
-	private fun onUserResponse(userModel: Login?) {
-		if (userModel != null) {
-			manageObservable(userModel.saveLoggedUser()
-					.doOnComplete {
-						PrefGetter.setProceedWithoutLogin(false)
-						sendToView { it.onSuccessfullyLoggedIn() }
-					}
-			)
-			return
-		} else {
-			showSignInFailed()
-		}
+	private fun onUserResponse(user: User) {
+		/*manageObservable(user.saveLoggedUser()
+				.doOnComplete {
+					PrefGetter.setProceedWithoutLogin(false)
+					sendToView { it.onSuccessfullyLoggedIn() }
+				}
+		)*/
+		return
 	}
 
 	private fun showSignInFailed() {
