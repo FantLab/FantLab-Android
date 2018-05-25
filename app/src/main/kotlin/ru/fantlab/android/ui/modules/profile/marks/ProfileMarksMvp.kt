@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.modules.profile.marks
 
 import android.support.v4.widget.SwipeRefreshLayout
-import ru.fantlab.android.data.dao.model.UserMark
+import ru.fantlab.android.data.dao.newmodel.Mark
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
@@ -12,18 +12,20 @@ interface ProfileMarksMvp {
 			SwipeRefreshLayout.OnRefreshListener,
 			android.view.View.OnClickListener {
 
-		fun onNotifyAdapter(items: List<UserMark>?, page: Int)
+		fun onNotifyAdapter(items: ArrayList<Mark>, page: Int)
 
 		fun getLoadMore(): OnLoadMore<Int>
 
-		fun onItemClicked(item: UserMark)
+		fun onSetTabCount(count: Int)
+
+		fun onItemClicked(item: Mark)
 	}
 
 	interface Presenter : BaseMvp.Presenter,
-			BaseViewHolder.OnItemClickListener<UserMark>,
+			BaseViewHolder.OnItemClickListener<Mark>,
 			BaseMvp.PaginationListener<Int> {
 
-		fun getMarks() : ArrayList<UserMark>
+		fun getMarks() : ArrayList<Mark>
 
 		fun onWorkOffline(userId: Int)
 	}

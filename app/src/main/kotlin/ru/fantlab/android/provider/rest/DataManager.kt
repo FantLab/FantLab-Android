@@ -109,7 +109,18 @@ object DataManager {
 			.httpGet()
 			.rx_object(UserResponse.Deserializer())
 
-	// getUserMarks
+	fun getUserMarks(
+			userId: Int,
+			page: Int = 1,
+			typeOption: MarksTypeOption = MarksTypeOption.ALL,
+			sortOption: MarksSortOption = MarksSortOption.BY_MARK
+	) = "/user/$userId/marks"
+			.httpGet(listOf(
+					"page" to page,
+					"type" to typeOption.value,
+					"sort" to sortOption.value
+			))
+			.rx_object(MarksResponse.Deserializer())
 
 	fun getUserResponses(
 			userId: Int,
@@ -180,6 +191,20 @@ enum class BiblioSortOption(val value: String) {
 	BY_RUS_NAME("rusname"),
 	BY_NAME("name"),
 	BY_WRITE_YEAR("writeyear")
+}
+
+enum class MarksTypeOption(val value: String) {
+	ALL("all"),
+	NOVEL("novel"),
+	STORY("story")
+}
+
+enum class MarksSortOption(val value: String) {
+	BY_MARK("mark"),
+	BY_NAME("name"),
+	BY_AUTHOR("autor"),
+	BY_DATE("date"),
+	BY_YEAR("year")
 }
 
 enum class ResponsesSortOption(val value: String) {

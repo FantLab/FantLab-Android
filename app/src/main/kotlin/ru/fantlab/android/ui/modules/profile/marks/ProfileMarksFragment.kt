@@ -1,17 +1,19 @@
 package ru.fantlab.android.ui.modules.profile.marks
 
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.UserMark
+import ru.fantlab.android.data.dao.newmodel.Mark
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ProfileMarksAdapter
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.user.UserPagerMvp
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
@@ -26,6 +28,7 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	private var userId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, userId) }
 	private val adapter: ProfileMarksAdapter by lazy { ProfileMarksAdapter(presenter.getMarks()) }
+	private var countCallback: UserPagerMvp.View? = null
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
 
@@ -57,14 +60,26 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 		fastScroller.attachRecyclerView(recycler)
 	}
 
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is UserPagerMvp.View) {
+			countCallback = context
+		}
+	}
+
+	override fun onDetach() {
+		countCallback = null
+		super.onDetach()
+	}
+
 	override fun onDestroyView() {
 		recycler.removeOnScrollListener(getLoadMore())
 		super.onDestroyView()
 	}
 
-	override fun onNotifyAdapter(items: List<UserMark>?, page: Int) {
+	override fun onNotifyAdapter(items: ArrayList<Mark>, page: Int) {
 		hideProgress()
-		if (items == null || items.isEmpty()) {
+		if (items.isEmpty()) {
 			adapter.clear()
 			return
 		}
@@ -80,7 +95,11 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 		return onLoadMore
 	}
 
-	override fun onItemClicked(item: UserMark) {
+	override fun onSetTabCount(count: Int) {
+		countCallback?.onSetBadge(1, count)
+	}
+
+	override fun onItemClicked(item: Mark) {
 		// todo переход на экран произведения
 		showMessage("Click", "Not implemented yet")
 	}

@@ -149,7 +149,8 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	private fun setupTab(count: Int, index: Int) {
 		val textView = ViewHelper.getTabTextView(tabs, index)
 		when (index) {
-			2 -> textView.text = String.format("%s(%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
+			1 -> textView.text = String.format("%s (%s)", getString(R.string.marks), numberFormat.format(count.toLong()))
+			2 -> textView.text = String.format("%s (%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
 		}
 	}
 

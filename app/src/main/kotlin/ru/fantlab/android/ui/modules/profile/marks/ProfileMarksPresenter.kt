@@ -2,28 +2,25 @@ package ru.fantlab.android.ui.modules.profile.marks
 
 import android.view.View
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.model.UserMark
-import ru.fantlab.android.data.dao.model.getUserMarks
-import ru.fantlab.android.data.dao.model.save
-import ru.fantlab.android.helper.observe
-import ru.fantlab.android.provider.StubProvider
+import ru.fantlab.android.data.dao.newmodel.Mark
+import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMarksMvp.Presenter {
 
-	private var marks: ArrayList<UserMark> = ArrayList()
+	private var marks: ArrayList<Mark> = ArrayList()
 	private var page: Int = 0
 	private var previousTotal: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 
-	override fun onItemClick(position: Int, v: View?, item: UserMark) {
+	override fun onItemClick(position: Int, v: View?, item: Mark) {
 		view?.onItemClicked(item)
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: UserMark?) {
+	override fun onItemLongClick(position: Int, v: View?, item: Mark) {
 	}
 
-	override fun getMarks(): ArrayList<UserMark> = marks
+	override fun getMarks(): ArrayList<Mark> = marks
 
 	override fun getCurrentPage(): Int = page
 
@@ -47,12 +44,16 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 			sendToView { it.hideProgress() }
 			return false
 		}
-		makeRestCall(/*RestProvider.getUserService().getMarks(parameter, page)*/StubProvider.getMarks(parameter, page), Consumer { response ->
-			lastPage = response.last
-			manageDisposable(response.items.save(parameter))
-			sendToView { it.onNotifyAdapter(response.items, page) }
-			sendToView { it.showErrorMessage("API not ready yet") }
-		})
+		makeRestCall(DataManager.getUserMarks(parameter, page)
+				.map { it.get() }
+				.toObservable(),
+				Consumer {
+					lastPage = it.marks.last
+					sendToView { view ->
+						view.onNotifyAdapter(it.marks.items, page)
+						view.onSetTabCount(it.marks.totalCount)
+					}
+				})
 		return true
 	}
 
@@ -64,14 +65,7 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 	}
 
 	override fun onWorkOffline(userId: Int) {
-		if (marks.isEmpty()) {
-			manageDisposable(
-					getUserMarks(userId).toObservable()
-							.observe()
-							.subscribe { works -> sendToView { it.onNotifyAdapter(works, 1) } }
-			)
-		} else {
-			sendToView { it.hideProgress() }
-		}
+		sendToView { it.hideProgress() }
+		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
 }
