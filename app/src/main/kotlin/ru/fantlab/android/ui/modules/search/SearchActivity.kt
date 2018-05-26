@@ -92,7 +92,7 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 				showMessage("Result", getString(R.string.scan_canceled))
 			} else {
 				searchEditText.setText(result.contents)
-				presenter.onSearchClicked(pager, searchEditText)
+				presenter.onSearchClicked(pager, searchEditText, true)
 				pager.currentItem = 2
 			}
 		}

@@ -27,6 +27,7 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 	@State var searchQuery = ""
+	@State var isIsbn = false
 
 	private val onLoadMore: OnLoadMore<String> by lazy { OnLoadMore(presenter, searchQuery) }
 	private val adapter: SearchEditionsAdapter by lazy { SearchEditionsAdapter(presenter.getEditions()) }
@@ -80,6 +81,9 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 		}
 		if (page <= 1) {
 			adapter.insertItems(items)
+			if (isIsbn && items.size == 1) {
+				onItemClicked(items[0])
+			}
 		} else {
 			adapter.addItems(items)
 		}
@@ -100,8 +104,9 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 		}
 	}
 
-	override fun onQueueSearch(query: String) {
+	override fun onQueueSearch(query: String, isIsbn: Boolean) {
 		this.searchQuery = query
+		this.isIsbn = isIsbn
 		view?.let {
 			onSetSearchQuery(query)
 		}

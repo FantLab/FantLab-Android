@@ -18,7 +18,7 @@ interface SearchEditionsMvp {
 
 		fun onSetSearchQuery(query: String)
 
-		fun onQueueSearch(query: String)
+		fun onQueueSearch(query: String, isIsbn: Boolean)
 
 		fun getLoadMore(): OnLoadMore<String>
 

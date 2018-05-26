@@ -25,7 +25,7 @@ class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 					.subscribe { histories ->
 						hints.clear()
 						val strings = ArrayList<String>()
-						histories.mapTo(strings) { it.text ?: "" }
+						histories.mapTo(strings) { it.text }
 						hints.addAll(strings)
 						view.onNotifyAdapter(null)
 					}
@@ -35,7 +35,7 @@ class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 
 	override fun getHints(): ArrayList<String> = hints
 
-	override fun onSearchClicked(viewPager: ViewPager, editText: AutoCompleteTextView) {
+	override fun onSearchClicked(viewPager: ViewPager, editText: AutoCompleteTextView, isIsbn: Boolean) {
 		val isEmpty = InputHelper.isEmpty(editText) || InputHelper.toString(editText as EditText).length < 2
 		editText.error = if (isEmpty) editText.resources.getString(R.string.minimum_three_chars) else null
 		if (!isEmpty) {
@@ -48,13 +48,15 @@ class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 			//val awards = viewPager.adapter?.instantiateItem(viewPager, 3) as SearchAwardsFragment
 			authors.onQueueSearch(query)
 			works.onQueueSearch(query)
-			editions.onQueueSearch(query)
+			editions.onQueueSearch(query, isIsbn)
 			//awards.onQueueSearch(query)
-			val noneMatch = hints.none { it.equals(query, ignoreCase = true) }
-			if (noneMatch) {
-				val searchHistory = SearchHistory(query)
-				manageObservable(searchHistory.save().toObservable())
-				sendToView { it.onNotifyAdapter(query) }
+			if (!isIsbn) {
+				val noneMatch = hints.none { it.equals(query, ignoreCase = true) }
+				if (noneMatch) {
+					val searchHistory = SearchHistory(query)
+					manageObservable(searchHistory.save().toObservable())
+					sendToView { it.onNotifyAdapter(query) }
+				}
 			}
 		}
 	}

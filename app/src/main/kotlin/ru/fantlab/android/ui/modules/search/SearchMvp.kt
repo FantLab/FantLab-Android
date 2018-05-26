@@ -23,6 +23,10 @@ interface SearchMvp {
 
 		fun getHints(): ArrayList<String>
 
-		fun onSearchClicked(viewPager: ViewPager, editText: AutoCompleteTextView)
+		fun onSearchClicked(
+				viewPager: ViewPager,
+				editText: AutoCompleteTextView,
+				isIsbn: Boolean = false
+		)
 	}
 }
