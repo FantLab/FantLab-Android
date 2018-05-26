@@ -1,27 +1,18 @@
 package ru.fantlab.android.ui.modules.main.forumfeed
 
-import android.view.View
-import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.model.ForumMessage
-import ru.fantlab.android.data.dao.model.getForumMessages
-import ru.fantlab.android.data.dao.model.save
-import ru.fantlab.android.helper.observe
-import ru.fantlab.android.provider.StubProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
-import timber.log.Timber
-import java.util.*
 
 class ForumFeedPresenter : BasePresenter<ForumFeedMvp.View>(), ForumFeedMvp.Presenter {
 
-	private var messageModels: ArrayList<ForumMessage> = ArrayList()
+	//private var messageModels: ArrayList<ForumMessage> = ArrayList()
 	private var page: Int = 0
 	private var previousTotal: Int = 0
 	private var lastPage = Int.MAX_VALUE
 
 	override fun onFragmentCreated() {
-		if (messageModels.isEmpty()) {
+		/*if (messageModels.isEmpty()) {
 			onCallApi(1)
-		}
+		}*/
 	}
 
 	override fun onCallApi(page: Int): Boolean {
@@ -34,14 +25,14 @@ class ForumFeedPresenter : BasePresenter<ForumFeedMvp.View>(), ForumFeedMvp.Pres
 			return false
 		}
 		setCurrentPage(page)
-		makeRestCall(/*RestProvider.getCommonService()*/StubProvider.getForumFeed(page), Consumer { response ->
+		/*makeRestCall(, Consumer { response ->
 			lastPage = response.last
 			if (getCurrentPage() == 1) {
 				manageDisposable(response.items.save())
 			}
 			sendToView { it.onNotifyAdapter(response.items, page) }
 			sendToView { it.showErrorMessage("API not ready yet") }
-		})
+		})*/
 		return true
 	}
 
@@ -59,10 +50,10 @@ class ForumFeedPresenter : BasePresenter<ForumFeedMvp.View>(), ForumFeedMvp.Pres
 
 	override fun onCallApi(page: Int, parameter: Any?): Boolean = onCallApi(page)
 
-	override fun getMessages(): ArrayList<ForumMessage> = messageModels
+	/*override fun getMessages(): ArrayList<ForumMessage> = messageModels*/
 
 	override fun onWorkOffline() {
-		if (messageModels.isEmpty()) {
+		/*if (messageModels.isEmpty()) {
 			manageDisposable(
 					getForumMessages().toObservable().observe().subscribe(
 							{ modelList ->
@@ -75,14 +66,12 @@ class ForumFeedPresenter : BasePresenter<ForumFeedMvp.View>(), ForumFeedMvp.Pres
 			)
 		} else {
 			sendToView { it.hideProgress() }
-		}
+		}*/
 	}
 
-	override fun onItemClick(position: Int, v: View?, item: ForumMessage?) {
-		// todo implement
+	/*override fun onItemClick(position: Int, v: View?, item: ForumMessage?) {
 	}
 
 	override fun onItemLongClick(position: Int, v: View?, item: ForumMessage?) {
-		// todo implement
-	}
+	}*/
 }

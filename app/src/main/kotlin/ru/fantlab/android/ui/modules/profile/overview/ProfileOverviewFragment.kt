@@ -9,7 +9,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.newmodel.User
+import ru.fantlab.android.data.dao.model.User
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.getTimeAgo
@@ -111,9 +111,9 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 			author.visibility = View.GONE
 			divider.visibility = View.GONE
 		}
-		if (user.blogId != null) {
+		if (/*user.blogId != null*/false /* раскомментировать, когда появится функционал блога */) {
 			blog.setOnClickListener {
-				// todo переход в блог
+				// goto blog screen
 				showMessage("Click", "Not implemented yet")
 			}
 		} else {

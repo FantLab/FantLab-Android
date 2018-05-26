@@ -2,7 +2,7 @@ package ru.fantlab.android.ui.modules.authors
 
 import android.view.View
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.newmodel.AuthorInList
+import ru.fantlab.android.data.dao.model.AuthorInList
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 

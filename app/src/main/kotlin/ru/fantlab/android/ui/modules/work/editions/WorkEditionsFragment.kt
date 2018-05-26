@@ -5,8 +5,8 @@ import android.support.annotation.StringRes
 import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.newmodel.EditionsBlocks
-import ru.fantlab.android.data.dao.newmodel.EditionsInfo
+import ru.fantlab.android.data.dao.model.EditionsBlocks
+import ru.fantlab.android.data.dao.model.EditionsInfo
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.base.BaseFragment

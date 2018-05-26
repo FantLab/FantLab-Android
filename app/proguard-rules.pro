@@ -7,10 +7,6 @@
 #    static ** CREATOR;
 #}
 
-# OkHttp
--dontwarn okio.**
--dontwarn retrofit2.Platform$Java8
-
 -dontwarn java.lang.invoke.*
 
 # Crashlytics

@@ -29,8 +29,6 @@ import io.reactivex.Observable
 import net.grandcentrix.thirtyinch.TiActivity
 import ru.fantlab.android.App
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.getLoggedUser
-import ru.fantlab.android.data.dao.model.logout
 import ru.fantlab.android.helper.*
 import ru.fantlab.android.provider.theme.ThemeEngine
 import ru.fantlab.android.ui.base.mvp.BaseMvp
@@ -217,7 +215,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	override fun isLoggedIn(): Boolean {
-		return getLoggedUser() != null
+		return false/*getLoggedUser() != null*/
 	}
 
 	override fun onRequireLogin() {
@@ -226,7 +224,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		presenter.manageViewDisposable(Observable.fromCallable<Any> {
 			glide.clearDiskCache()
 			PrefGetter.setToken(null)
-			logout()
+			//logout()
 			true
 		}.observe().subscribe({
 			glide.clearMemory()
@@ -263,11 +261,11 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	override fun onOpenSettings() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		// open settings
 	}
 
 	override fun onOpenUrlInBrowser() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		// open url in browser
 	}
 
 	override fun onScrollTop(index: Int) {
@@ -297,7 +295,6 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 
 	private fun showChangelog() {
 		if (PrefGetter.showWhatsNew()) {
-			// todo показать чейнджлог
 			//ChangelogBottomSheetDialog().show(supportFragmentManager, "ChangelogBottomSheetDialog")
 		}
 	}

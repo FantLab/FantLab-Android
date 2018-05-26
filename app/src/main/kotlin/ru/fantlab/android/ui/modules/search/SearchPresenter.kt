@@ -3,10 +3,8 @@ package ru.fantlab.android.ui.modules.search
 import android.support.v4.view.ViewPager
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
+import io.reactivex.Single
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.SearchHistory
-import ru.fantlab.android.data.dao.model.getSearchHistory
-import ru.fantlab.android.data.dao.model.save
 import ru.fantlab.android.helper.AppHelper
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -21,11 +19,11 @@ class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 	override fun onAttachView(view: SearchMvp.View) {
 		super.onAttachView(view)
 		if (hints.isEmpty()) {
-			manageDisposable(getSearchHistory()
+			manageDisposable(/*getSearchHistory()*/Single.just(arrayListOf<String>())
 					.subscribe { histories ->
 						hints.clear()
 						val strings = ArrayList<String>()
-						histories.mapTo(strings) { it.text }
+						histories.mapTo(strings) { it/*.text*/ }
 						hints.addAll(strings)
 						view.onNotifyAdapter(null)
 					}
@@ -53,8 +51,8 @@ class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 			if (!isIsbn) {
 				val noneMatch = hints.none { it.equals(query, ignoreCase = true) }
 				if (noneMatch) {
-					val searchHistory = SearchHistory(query)
-					manageObservable(searchHistory.save().toObservable())
+					/*val searchHistory = SearchHistory(query)
+					manageObservable(searchHistory.save().toObservable())*/
 					sendToView { it.onNotifyAdapter(query) }
 				}
 			}

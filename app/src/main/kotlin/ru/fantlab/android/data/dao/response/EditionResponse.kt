@@ -3,8 +3,8 @@ package ru.fantlab.android.data.dao.response
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.JsonNull
 import com.google.gson.JsonParser
-import ru.fantlab.android.data.dao.newmodel.AdditionalImages
-import ru.fantlab.android.data.dao.newmodel.Edition
+import ru.fantlab.android.data.dao.model.AdditionalImages
+import ru.fantlab.android.data.dao.model.Edition
 import ru.fantlab.android.provider.rest.DataManager
 
 data class EditionResponse(

@@ -3,8 +3,8 @@ package ru.fantlab.android.data.dao.response
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.JsonParser
 import ru.fantlab.android.data.dao.Pageable
-import ru.fantlab.android.data.dao.newmodel.Mark
-import ru.fantlab.android.data.dao.newmodel.MarksStatistics
+import ru.fantlab.android.data.dao.model.Mark
+import ru.fantlab.android.data.dao.model.MarksStatistics
 import ru.fantlab.android.provider.rest.DataManager
 
 data class MarksResponse(

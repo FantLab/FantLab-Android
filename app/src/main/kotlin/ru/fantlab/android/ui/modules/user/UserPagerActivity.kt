@@ -16,7 +16,6 @@ import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
-import ru.fantlab.android.data.dao.model.getLoggedUser
 import ru.fantlab.android.helper.*
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DEFAULT
 import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
@@ -52,7 +51,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		val currentUser = getLoggedUser()
+		val currentUser = null//getLoggedUser()
 		if (currentUser == null) {
 			onRequireLogin()
 			return
@@ -62,7 +61,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 			index = intent?.extras?.getInt(BundleConstant.EXTRA_THREE, -1) ?: -1
 			login = intent?.extras?.getString(BundleConstant.EXTRA)
 			if (login == null) {
-				login = currentUser.login
+				login = currentUser/*.login*/
 			}
 		}
 		if (InputHelper.isEmpty(login)) {
@@ -71,7 +70,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		}
 		setTaskName(login)
 		title = login
-		if (login.equals(currentUser.login, ignoreCase = true)) {
+		if (login.equals(currentUser/*.login*/, ignoreCase = true)) {
 			selectMenuItem(R.id.profile, true)
 		}
 		val adapter = FragmentsPagerAdapter(

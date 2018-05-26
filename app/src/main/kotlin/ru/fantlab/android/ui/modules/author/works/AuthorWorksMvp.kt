@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.modules.author.works
 
 import android.os.Bundle
-import ru.fantlab.android.data.dao.newmodel.WorksBlocks
+import ru.fantlab.android.data.dao.model.WorksBlocks
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 
 interface AuthorWorksMvp {

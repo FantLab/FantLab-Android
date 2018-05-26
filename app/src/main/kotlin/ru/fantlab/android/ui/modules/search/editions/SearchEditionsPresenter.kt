@@ -3,7 +3,7 @@ package ru.fantlab.android.ui.modules.search.editions
 import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.newmodel.SearchEdition
+import ru.fantlab.android.data.dao.model.SearchEdition
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 

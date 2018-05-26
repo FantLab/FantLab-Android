@@ -6,7 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.newmodel.AuthorInList
+import ru.fantlab.android.data.dao.model.AuthorInList
 import ru.fantlab.android.ui.adapter.AuthorsAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity

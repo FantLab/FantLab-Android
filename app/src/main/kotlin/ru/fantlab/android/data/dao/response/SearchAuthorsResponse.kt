@@ -3,7 +3,7 @@ package ru.fantlab.android.data.dao.response
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.JsonParser
 import ru.fantlab.android.data.dao.Pageable
-import ru.fantlab.android.data.dao.newmodel.SearchAuthor
+import ru.fantlab.android.data.dao.model.SearchAuthor
 import ru.fantlab.android.provider.rest.DataManager
 
 data class SearchAuthorsResponse(

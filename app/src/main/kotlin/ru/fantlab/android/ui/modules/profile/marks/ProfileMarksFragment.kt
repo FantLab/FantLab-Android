@@ -7,7 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.newmodel.Mark
+import ru.fantlab.android.data.dao.model.Mark
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
@@ -100,7 +100,7 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	}
 
 	override fun onItemClicked(item: Mark) {
-		// todo переход на экран произведения
+		// goto work screen
 		showMessage("Click", "Not implemented yet")
 	}
 

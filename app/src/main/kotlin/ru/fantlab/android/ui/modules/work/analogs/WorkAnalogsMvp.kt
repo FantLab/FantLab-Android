@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.modules.work.analogs
 
 import android.os.Bundle
-import ru.fantlab.android.data.dao.newmodel.WorkAnalog
+import ru.fantlab.android.data.dao.model.WorkAnalog
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 
 interface WorkAnalogsMvp {

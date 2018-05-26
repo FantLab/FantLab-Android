@@ -1,8 +1,8 @@
 package ru.fantlab.android.ui.modules.work.editions
 
 import android.os.Bundle
-import ru.fantlab.android.data.dao.newmodel.EditionsBlocks
-import ru.fantlab.android.data.dao.newmodel.EditionsInfo
+import ru.fantlab.android.data.dao.model.EditionsBlocks
+import ru.fantlab.android.data.dao.model.EditionsInfo
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 
 interface WorkEditionsMvp {

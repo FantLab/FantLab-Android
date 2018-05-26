@@ -2,7 +2,7 @@ package ru.fantlab.android.ui.modules.profile.responses
 
 import android.view.View
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.newmodel.Response
+import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 

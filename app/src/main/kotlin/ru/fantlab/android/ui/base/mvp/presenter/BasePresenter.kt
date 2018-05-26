@@ -9,10 +9,8 @@ import io.reactivex.functions.Action
 import io.reactivex.functions.Consumer
 import net.grandcentrix.thirtyinch.TiPresenter
 import net.grandcentrix.thirtyinch.rx2.RxTiPresenterDisposableHandler
-import retrofit2.HttpException
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.observe
-import ru.fantlab.android.provider.rest.RestProvider
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import timber.log.Timber
 import java.io.IOException
@@ -59,11 +57,11 @@ open class BasePresenter<V : BaseMvp.View> : TiPresenter<V>(), BaseMvp.Presenter
 	override fun onError(throwable: Throwable) {
 		apiCalled = true
 		throwable.printStackTrace()
-		val code = RestProvider.getErrorCode(throwable)
+		/*val code = (throwable as? HttpException)?.code() ?: -1
 		if (code == 401) {
 			sendToView { it.onRequireLogin() }
 			return
-		}
+		}*/
 		sendToView { it.showMessage(R.string.error, getPrettifiedErrorMessage(throwable)) }
 	}
 
@@ -83,7 +81,7 @@ open class BasePresenter<V : BaseMvp.View> : TiPresenter<V>(), BaseMvp.Presenter
 	@StringRes
 	private fun getPrettifiedErrorMessage(throwable: Throwable?): Int {
 		return when (throwable) {
-			is HttpException -> R.string.network_error
+			//is HttpException -> R.string.network_error
 			is IOException -> R.string.request_error
 			is TimeoutException -> R.string.unexpected_error
 			else -> R.string.network_error

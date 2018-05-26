@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.modules.search.authors
 
 import android.support.v4.widget.SwipeRefreshLayout
-import ru.fantlab.android.data.dao.newmodel.SearchAuthor
+import ru.fantlab.android.data.dao.model.SearchAuthor
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder

@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.adapter
 
 import android.view.ViewGroup
-import ru.fantlab.android.data.dao.newmodel.SearchAward
+import ru.fantlab.android.data.dao.model.SearchAward
 import ru.fantlab.android.ui.adapter.viewholder.SearchAwardsViewHolder
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder

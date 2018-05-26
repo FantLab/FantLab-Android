@@ -2,7 +2,7 @@ package ru.fantlab.android.ui.modules.login
 
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.newmodel.User
+import ru.fantlab.android.data.dao.model.User
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.DataManager

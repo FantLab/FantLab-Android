@@ -3,9 +3,9 @@ package ru.fantlab.android.data.dao.response
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.JsonNull
 import com.google.gson.JsonParser
-import ru.fantlab.android.data.dao.newmodel.EditionsBlocks
-import ru.fantlab.android.data.dao.newmodel.EditionsInfo
-import ru.fantlab.android.data.dao.newmodel.Statistics
+import ru.fantlab.android.data.dao.model.EditionsBlocks
+import ru.fantlab.android.data.dao.model.EditionsInfo
+import ru.fantlab.android.data.dao.model.Statistics
 import ru.fantlab.android.provider.rest.DataManager
 
 data class AuthorEditionsResponse(

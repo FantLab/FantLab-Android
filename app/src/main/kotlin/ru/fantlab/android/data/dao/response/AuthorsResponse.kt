@@ -2,7 +2,7 @@ package ru.fantlab.android.data.dao.response
 
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.JsonParser
-import ru.fantlab.android.data.dao.newmodel.AuthorInList
+import ru.fantlab.android.data.dao.model.AuthorInList
 import ru.fantlab.android.provider.rest.DataManager
 
 data class AuthorsResponse(

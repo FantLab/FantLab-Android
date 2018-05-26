@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.newmodel.AuthorInList
+import ru.fantlab.android.data.dao.model.AuthorInList
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.FontTextView

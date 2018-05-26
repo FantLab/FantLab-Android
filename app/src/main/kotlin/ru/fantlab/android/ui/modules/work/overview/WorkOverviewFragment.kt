@@ -6,7 +6,7 @@ import android.view.View
 import butterknife.BindView
 import com.google.gson.GsonBuilder
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.newmodel.Work
+import ru.fantlab.android.data.dao.model.Work
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.base.BaseFragment

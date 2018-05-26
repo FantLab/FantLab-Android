@@ -9,7 +9,7 @@ import android.view.View
 import butterknife.BindView
 import kotlinx.android.synthetic.main.edition_overview_layout.*
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.newmodel.Edition
+import ru.fantlab.android.data.dao.model.Edition
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.base.BaseFragment

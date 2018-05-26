@@ -2,7 +2,7 @@ package ru.fantlab.android.ui.modules.main.responses
 
 import android.view.View
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.newmodel.Response
+import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import java.util.*
@@ -65,10 +65,9 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 	}
 
 	override fun onItemClick(position: Int, v: View?, item: Response) {
-		// todo implement
+		// goto response screen
 	}
 
 	override fun onItemLongClick(position: Int, v: View?, item: Response) {
-		// todo implement
 	}
 }

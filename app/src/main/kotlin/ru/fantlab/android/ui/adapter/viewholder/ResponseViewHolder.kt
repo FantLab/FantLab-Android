@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.newmodel.Response
+import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.getTimeAgo
 import ru.fantlab.android.helper.parseFullDate
 import ru.fantlab.android.ui.widgets.CoverLayout

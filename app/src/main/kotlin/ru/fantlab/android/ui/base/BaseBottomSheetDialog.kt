@@ -116,7 +116,6 @@ abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
 			dismiss()
 		} catch (ignored: IllegalStateException) {
 		}
-		//FML FIXME
 	}
 
 	open fun onDismissedByScrolling() {}

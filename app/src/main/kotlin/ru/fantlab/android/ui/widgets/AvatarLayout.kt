@@ -46,7 +46,7 @@ class AvatarLayout : FrameLayout {
 	fun setUrl(url: String?) {
 		Glide.with(context)
 				.load(url)
-				// todo добавить заглушку
+				// добавить заглушку
 				//.fallback(ContextCompat.getDrawable(context, R.drawable.ic_fantlab_mascot))
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.dontAnimate()

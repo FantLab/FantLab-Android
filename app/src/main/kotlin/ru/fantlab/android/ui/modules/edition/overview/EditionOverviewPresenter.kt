@@ -34,7 +34,6 @@ class EditionOverviewPresenter : BasePresenter<EditionOverviewMvp.View>(),
 	}
 
 	override fun onWorkOffline(id: Int) {
-		// todo загрузить из базы и распарсить
 		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
 }

@@ -5,7 +5,7 @@ import android.support.annotation.StringRes
 import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.newmodel.Author
+import ru.fantlab.android.data.dao.model.Author
 import ru.fantlab.android.data.dao.response.AuthorEditionsResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler

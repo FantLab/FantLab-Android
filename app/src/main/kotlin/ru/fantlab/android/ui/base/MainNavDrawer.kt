@@ -8,8 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.Login
-import ru.fantlab.android.data.dao.model.getLoggedUser
+import ru.fantlab.android.data.dao.model.User
 import ru.fantlab.android.ui.modules.authors.AuthorsActivity
 import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.modules.main.MainActivity
@@ -22,10 +21,10 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
  * Created by Kosh on 09 Jul 2017, 3:50 PM
  */
 class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: NavigationView?, private val accountsNav: NavigationView?)
-	: BaseViewHolder.OnItemClickListener<Login> {
+	: BaseViewHolder.OnItemClickListener<User> {
 
 	private var menusHolder: ViewGroup? = null
-	private val userModel: Login? = getLoggedUser()
+	private val userModel: User? = null//getLoggedUser()
 
 	init {
 		menusHolder = view.findViewById(R.id.menusHolder)
@@ -43,7 +42,7 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 			view.findViewById<AvatarLayout>(R.id.navAvatarLayout).setUrl("https://${userModel.avatar}")
 			view.findViewById<FontTextView>(R.id.navUsername).text = userModel.login
 			val navFullName = view.findViewById<FontTextView>(R.id.navFullName)
-			if (userModel.fio.isNullOrBlank()) {
+			if (userModel.fio.isBlank()) {
 				navFullName.visibility = View.GONE
 			} else {
 				navFullName.visibility = View.VISIBLE
@@ -85,7 +84,7 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 						view.finish()
 					}
 					R.id.profile -> userModel?.let {
-						UserPagerActivity.startActivity(view, it.login!!, it.userId!!, 0)
+						UserPagerActivity.startActivity(view, it.login, it.id, 0)
 					}
 					R.id.bibliographies -> view.startActivity(Intent(view, AuthorsActivity::class.java))
 				//item.itemId == R.id.settings -> view.onOpenSettings()
@@ -95,9 +94,9 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 		}, 250)
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: Login) {
+	override fun onItemLongClick(position: Int, v: View?, item: User) {
 	}
 
-	override fun onItemClick(position: Int, v: View, item: Login) {
+	override fun onItemClick(position: Int, v: View, item: User) {
 	}
 }

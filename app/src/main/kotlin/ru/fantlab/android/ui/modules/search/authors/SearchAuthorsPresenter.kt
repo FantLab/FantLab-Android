@@ -3,7 +3,7 @@ package ru.fantlab.android.ui.modules.search.authors
 import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.newmodel.SearchAuthor
+import ru.fantlab.android.data.dao.model.SearchAuthor
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
