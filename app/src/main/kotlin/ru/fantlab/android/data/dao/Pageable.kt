@@ -1,8 +1,7 @@
 package ru.fantlab.android.data.dao
 
 data class Pageable<M>(
-		var last: Int = 0,
-		var totalCount: Int = 0,
-		var incompleteResults: Boolean = false,
-		var items: ArrayList<M>
+		val last: Int = 0,
+		val totalCount: Int = 0,
+		val items: ArrayList<M>
 )

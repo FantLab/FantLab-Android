@@ -22,7 +22,7 @@ data class MarksResponse(
 			}
 			val totalCount = jsonObject.getAsJsonPrimitive("total_count").asInt
 			val lastPage = (totalCount - 1) / PER_PAGE + 1
-			val marks = Pageable(lastPage, totalCount, false, items)
+			val marks = Pageable(lastPage, totalCount, items)
 			val `object` = jsonObject.getAsJsonObject("user_stat")
 			val marksStatistics = DataManager.gson.fromJson(`object`, MarksStatistics::class.java)
 			return MarksResponse(marks, marksStatistics)

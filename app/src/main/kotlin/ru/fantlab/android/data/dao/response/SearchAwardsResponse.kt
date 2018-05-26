@@ -20,7 +20,7 @@ data class SearchAwardsResponse(
 			}
 			val totalCount = jsonObject.getAsJsonPrimitive("total_found").asInt
 			val lastPage = (totalCount - 1) / perPage + 1
-			val awards = Pageable(lastPage, totalCount, false, items)
+			val awards = Pageable(lastPage, totalCount, items)
 			return SearchAwardsResponse(awards)
 		}
 	}

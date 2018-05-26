@@ -43,6 +43,7 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
+		recycler.addOnScrollListener(getLoadMore())
 		if (!InputHelper.isEmpty(searchQuery) && presenter.getWorks().isEmpty() && !presenter.isApiCalled()) {
 			onRefresh()
 		}
@@ -100,10 +101,7 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 	}
 
 	override fun onQueueSearch(query: String) {
-		this.searchQuery = query
-		view?.let {
-			onSetSearchQuery(query)
-		}
+		onSetSearchQuery(query)
 	}
 
 	override fun getLoadMore(): OnLoadMore<String> {

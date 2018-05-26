@@ -45,6 +45,7 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
+		recycler.addOnScrollListener(getLoadMore())
 		if (!InputHelper.isEmpty(searchQuery) && presenter.getEditions().isEmpty() && !presenter.isApiCalled()) {
 			onRefresh()
 		}
@@ -105,11 +106,8 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 	}
 
 	override fun onQueueSearch(query: String, isIsbn: Boolean) {
-		this.searchQuery = query
 		this.isIsbn = isIsbn
-		view?.let {
-			onSetSearchQuery(query)
-		}
+		onSetSearchQuery(query)
 	}
 
 	override fun getLoadMore(): OnLoadMore<String> {

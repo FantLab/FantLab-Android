@@ -43,6 +43,7 @@ class SearchAwardsFragment : BaseFragment<SearchAwardsMvp.View, SearchAwardsPres
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
+		recycler.addOnScrollListener(getLoadMore())
 		if (!InputHelper.isEmpty(searchQuery) && presenter.getAwards().isEmpty() && !presenter.isApiCalled()) {
 			onRefresh()
 		}
@@ -100,10 +101,7 @@ class SearchAwardsFragment : BaseFragment<SearchAwardsMvp.View, SearchAwardsPres
 	}
 
 	override fun onQueueSearch(query: String) {
-		this.searchQuery = query
-		view?.let {
-			onSetSearchQuery(query)
-		}
+		onSetSearchQuery(query)
 	}
 
 	override fun getLoadMore(): OnLoadMore<String> {

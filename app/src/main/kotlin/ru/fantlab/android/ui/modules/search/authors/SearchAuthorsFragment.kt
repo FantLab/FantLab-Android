@@ -43,6 +43,7 @@ class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsP
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
+		recycler.addOnScrollListener(getLoadMore())
 		if (!InputHelper.isEmpty(searchQuery) && presenter.getAuthors().isEmpty() && !presenter.isApiCalled()) {
 			onRefresh()
 		}
@@ -100,10 +101,7 @@ class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsP
 	}
 
 	override fun onQueueSearch(query: String) {
-		this.searchQuery = query
-		view?.let {
-			onSetSearchQuery(query)
-		}
+		onSetSearchQuery(query)
 	}
 
 	override fun getLoadMore(): OnLoadMore<String> {

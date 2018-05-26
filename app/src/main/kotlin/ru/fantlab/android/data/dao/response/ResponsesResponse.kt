@@ -20,7 +20,7 @@ data class ResponsesResponse(
 			}
 			val totalCount = jsonObject.getAsJsonPrimitive("total_count").asInt
 			val lastPage = (totalCount - 1) / perPage + 1
-			val responses = Pageable(lastPage, totalCount, false, items)
+			val responses = Pageable(lastPage, totalCount, items)
 			return ResponsesResponse(responses)
 		}
 	}
