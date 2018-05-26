@@ -14,13 +14,13 @@ interface ResponsesMvp {
 
 		fun onNotifyAdapter(items: ArrayList<Response>, page: Int)
 
-		fun getLoadMore(): OnLoadMore<Any>
+		fun getLoadMore(): OnLoadMore<String>
 	}
 
 	interface Presenter :
 			BaseMvp.Presenter,
 			BaseViewHolder.OnItemClickListener<Response>,
-			BaseMvp.PaginationListener<Any> {
+			BaseMvp.PaginationListener<String> {
 
 		fun onFragmentCreated()
 

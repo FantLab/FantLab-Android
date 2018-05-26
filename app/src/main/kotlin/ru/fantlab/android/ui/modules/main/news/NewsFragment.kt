@@ -19,7 +19,7 @@ class NewsFragment : BaseFragment<NewsMvp.View, NewsPresenter>(), NewsMvp.View {
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 	//private val adapter: NewsAdapter by lazy { NewsAdapter(presenter.news) }
-	private val onLoadMore: OnLoadMore<Any> by lazy { OnLoadMore(presenter) }
+	private val onLoadMore: OnLoadMore<String> by lazy { OnLoadMore(presenter) }
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
 
@@ -58,7 +58,7 @@ class NewsFragment : BaseFragment<NewsMvp.View, NewsPresenter>(), NewsMvp.View {
 		}
 	}*/
 
-	override fun getLoadMore(): OnLoadMore<Any> = onLoadMore
+	override fun getLoadMore() = onLoadMore
 
 	override fun onClick(v: View?) {
 		onRefresh()

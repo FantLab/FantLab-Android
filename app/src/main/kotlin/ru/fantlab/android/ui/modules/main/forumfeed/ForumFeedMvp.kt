@@ -12,13 +12,13 @@ interface ForumFeedMvp {
 
 		//fun onNotifyAdapter(items: List<ForumMessage>?, page: Int)
 
-		fun getLoadMore(): OnLoadMore<Any>
+		fun getLoadMore(): OnLoadMore<String>
 	}
 
 	interface Presenter :
 			BaseMvp.Presenter,
 			//BaseViewHolder.OnItemClickListener<ForumMessage>,
-			BaseMvp.PaginationListener<Any> {
+			BaseMvp.PaginationListener<String> {
 
 		fun onFragmentCreated()
 

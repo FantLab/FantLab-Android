@@ -9,7 +9,7 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMarksMvp.Presenter {
 
 	private var marks: ArrayList<Mark> = ArrayList()
-	private var page: Int = 0
+	private var page: Int = 1
 	private var previousTotal: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 

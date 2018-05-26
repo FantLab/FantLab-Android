@@ -10,7 +10,7 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 class SearchEditionsPresenter : BasePresenter<SearchEditionsMvp.View>(), SearchEditionsMvp.Presenter {
 
 	private var editions: ArrayList<SearchEdition> = ArrayList()
-	private var page: Int = 0
+	private var page: Int = 1
 	private var previousTotal: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 

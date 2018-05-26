@@ -49,7 +49,7 @@ class NewsPresenter : BasePresenter<NewsMvp.View>(), NewsMvp.Presenter {
 		this.previousTotal = previousTotal
 	}
 
-	override fun onCallApi(page: Int, parameter: Any?): Boolean = onCallApi(page)
+	override fun onCallApi(page: Int, parameter: String?): Boolean = onCallApi(page)
 
 	override fun onWorkOffline() {
 		/*if (news.isEmpty()) {

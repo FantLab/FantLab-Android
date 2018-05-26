@@ -12,13 +12,13 @@ interface NewsMvp {
 
 		//fun onNotifyAdapter(items: List<News>?, page: Int)
 
-		fun getLoadMore(): OnLoadMore<Any>
+		fun getLoadMore(): OnLoadMore<String>
 	}
 
 	interface Presenter :
 			BaseMvp.Presenter,
 			//BaseViewHolder.OnItemClickListener<News>,
-			BaseMvp.PaginationListener<Any> {
+			BaseMvp.PaginationListener<String> {
 
 		fun onFragmentCreated()
 

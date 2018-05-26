@@ -6,6 +6,7 @@ import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
 import butterknife.BindView
+import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.BundleConstant
@@ -25,7 +26,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
-	private var workId: Int? = null
+	@State var workId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, workId) }
 	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses(), true) }
 	private var countCallback: WorkPagerMvp.View? = null
@@ -39,7 +40,6 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 			stateLayout.hideProgress()
 		}
 		stateLayout.setEmptyText(R.string.no_responses)
-		getLoadMore().initialize(presenter.getCurrentPage(), presenter.getPreviousTotal())
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
@@ -48,12 +48,8 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 		recycler.addKeyLineDivider()
 		if (savedInstanceState == null) {
 			workId = arguments?.getInt(BundleConstant.EXTRA)
-		} else {
-			workId = savedInstanceState.getInt(BundleConstant.EXTRA)
-			if (workId == null) {
-				workId = arguments?.getInt(BundleConstant.EXTRA)
-			}
 		}
+		getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
 		recycler.addOnScrollListener(getLoadMore())
 		if (presenter.getResponses().isEmpty() && !presenter.isApiCalled()) {
 			onRefresh()
@@ -91,10 +87,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 		}
 	}
 
-	override fun getLoadMore(): OnLoadMore<Int> {
-		onLoadMore.parameter = workId
-		return onLoadMore
-	}
+	override fun getLoadMore() = onLoadMore
 
 	override fun onSetTabCount(count: Int) {
 		countCallback?.onSetBadge(2, count)

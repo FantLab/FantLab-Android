@@ -10,7 +10,7 @@ class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
 		AuthorResponsesMvp.Presenter {
 
 	private var responses: ArrayList<Response> = ArrayList()
-	private var page: Int = 0
+	private var page: Int = 1
 	private var previousTotal: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 

@@ -6,6 +6,7 @@ import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
 import butterknife.BindView
+import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.BundleConstant
@@ -25,7 +26,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
-	private var authorId: Int? = null
+	@State var authorId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, authorId) }
 	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses()) }
 	private var countCallback: AuthorPagerMvp.View? = null
@@ -39,7 +40,6 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 			stateLayout.hideProgress()
 		}
 		stateLayout.setEmptyText(R.string.no_responses)
-		getLoadMore().initialize(presenter.getCurrentPage(), presenter.getPreviousTotal())
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
@@ -48,12 +48,8 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 		recycler.addKeyLineDivider()
 		if (savedInstanceState == null) {
 			authorId = arguments?.getInt(BundleConstant.EXTRA)
-		} else {
-			authorId = savedInstanceState.getInt(BundleConstant.EXTRA)
-			if (authorId == null) {
-				authorId = arguments?.getInt(BundleConstant.EXTRA)
-			}
 		}
+		getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
 		recycler.addOnScrollListener(getLoadMore())
 		if (presenter.getResponses().isEmpty() && !presenter.isApiCalled()) {
 			onRefresh()
@@ -91,10 +87,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 		}
 	}
 
-	override fun getLoadMore(): OnLoadMore<Int> {
-		onLoadMore.parameter = authorId
-		return onLoadMore
-	}
+	override fun getLoadMore() = onLoadMore
 
 	override fun onSetTabCount(count: Int) {
 		countCallback?.onSetBadge(3, count)

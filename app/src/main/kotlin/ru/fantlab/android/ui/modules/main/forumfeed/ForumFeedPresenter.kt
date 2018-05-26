@@ -48,7 +48,7 @@ class ForumFeedPresenter : BasePresenter<ForumFeedMvp.View>(), ForumFeedMvp.Pres
 		this.previousTotal = previousTotal
 	}
 
-	override fun onCallApi(page: Int, parameter: Any?): Boolean = onCallApi(page)
+	override fun onCallApi(page: Int, parameter: String?): Boolean = onCallApi(page)
 
 	/*override fun getMessages(): ArrayList<ForumMessage> = messageModels*/
 

@@ -6,6 +6,7 @@ import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
 import butterknife.BindView
+import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Mark
 import ru.fantlab.android.helper.BundleConstant
@@ -25,7 +26,7 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
-	private var userId: Int? = null
+	@State var userId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, userId) }
 	private val adapter: ProfileMarksAdapter by lazy { ProfileMarksAdapter(presenter.getMarks()) }
 	private var countCallback: UserPagerMvp.View? = null
@@ -39,7 +40,6 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 			stateLayout.hideProgress()
 		}
 		stateLayout.setEmptyText(R.string.no_marks)
-		getLoadMore().initialize(presenter.getCurrentPage(), presenter.getPreviousTotal())
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
@@ -48,15 +48,12 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 		recycler.addKeyLineDivider()
 		if (savedInstanceState == null) {
 			userId = arguments?.getInt(BundleConstant.EXTRA)
-		} else {
-			userId = savedInstanceState.getInt(BundleConstant.EXTRA)
-			if (userId == null) {
-				userId = arguments?.getInt(BundleConstant.EXTRA)
-			}
 		}
 		if (presenter.getMarks().isEmpty() && !presenter.isApiCalled()) {
 			onRefresh()
 		}
+		getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
+		recycler.addOnScrollListener(getLoadMore())
 		fastScroller.attachRecyclerView(recycler)
 	}
 
@@ -90,10 +87,7 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 		}
 	}
 
-	override fun getLoadMore(): OnLoadMore<Int> {
-		onLoadMore.parameter = userId
-		return onLoadMore
-	}
+	override fun getLoadMore() = onLoadMore
 
 	override fun onSetTabCount(count: Int) {
 		countCallback?.onSetBadge(1, count)

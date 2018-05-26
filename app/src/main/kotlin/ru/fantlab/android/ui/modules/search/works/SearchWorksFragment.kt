@@ -36,7 +36,7 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 			stateLayout.hideProgress()
 		}
 		stateLayout.setEmptyText(R.string.no_search_results)
-		getLoadMore().initialize(presenter.getCurrentPage(), presenter.getPreviousTotal())
+		getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)

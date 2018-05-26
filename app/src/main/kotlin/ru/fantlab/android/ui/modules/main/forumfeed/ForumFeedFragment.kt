@@ -19,7 +19,7 @@ class ForumFeedFragment : BaseFragment<ForumFeedMvp.View, ForumFeedPresenter>(),
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 	//private val adapter: ForumFeedAdapter by lazy { ForumFeedAdapter(presenter.getMessages()) }
-	private val onLoadMore: OnLoadMore<Any> by lazy { OnLoadMore(presenter) }
+	private val onLoadMore: OnLoadMore<String> by lazy { OnLoadMore(presenter) }
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
 
@@ -58,7 +58,7 @@ class ForumFeedFragment : BaseFragment<ForumFeedMvp.View, ForumFeedPresenter>(),
 		}
 	}*/
 
-	override fun getLoadMore(): OnLoadMore<Any> = onLoadMore
+	override fun getLoadMore() = onLoadMore
 
 	override fun onClick(v: View?) {
 		onRefresh()
