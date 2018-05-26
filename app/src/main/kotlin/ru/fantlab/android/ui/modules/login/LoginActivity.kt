@@ -5,9 +5,9 @@ import android.support.annotation.StringRes
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TextInputLayout
 import android.view.View
+import android.widget.Button
 import android.widget.ProgressBar
 import butterknife.BindView
-import butterknife.OnClick
 import butterknife.OnEditorAction
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.AnimHelper
@@ -20,11 +20,19 @@ class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.Vi
 	@BindView(R.id.username) lateinit var username: TextInputLayout
 	@BindView(R.id.password) lateinit var password: TextInputLayout
 	@BindView(R.id.login) lateinit var login: FloatingActionButton
+	@BindView(R.id.proceedWithoutLogin) lateinit var proceedWithoutLogin: Button
 	@BindView(R.id.progress) lateinit var progress: ProgressBar
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		setTheme(R.style.LoginTheme)
 		super.onCreate(savedInstanceState)
+		login.setOnClickListener {
+			doLogin()
+			proceedWithoutLogin.isEnabled = false
+		}
+		proceedWithoutLogin.setOnClickListener {
+			presenter.proceedWithoutLogin()
+		}
 	}
 
 	override fun isTransparent(): Boolean = true
@@ -34,16 +42,6 @@ class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.Vi
 	override fun layout(): Int = R.layout.login_form_layout
 
 	override fun canBack(): Boolean = false
-
-	@OnClick(R.id.login)
-	fun onClickLogin() {
-		doLogin()
-	}
-
-	@OnClick(R.id.proceedWithoutLogin)
-	fun onClickProceedWithoutLogin() {
-		presenter.proceedWithoutLogin()
-	}
 
 	@OnEditorAction(R.id.passwordEditText)
 	fun onSendPassword(): Boolean {
@@ -67,6 +65,7 @@ class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.Vi
 	override fun hideProgress() {
 		progress.visibility = View.GONE
 		login.show()
+		proceedWithoutLogin.isEnabled = true
 	}
 
 	override fun showErrorMessage(msgRes: String) {
