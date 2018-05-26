@@ -1,7 +1,9 @@
 package ru.fantlab.android.provider.rest
 
 import com.github.kittinunf.fuel.httpGet
+import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.fuel.rx.rx_object
+import com.github.kittinunf.fuel.rx.rx_response
 import com.google.gson.Gson
 import ru.fantlab.android.data.dao.response.*
 
@@ -10,6 +12,7 @@ object DataManager {
 	val gson = Gson()
 
 	fun getAuthors() = "/autorsall"
+			.toAbsolutePathWithApiVersion()
 			.httpGet()
 			.rx_object(AuthorsResponse.Deserializer())
 
@@ -21,6 +24,7 @@ object DataManager {
 			showBiblioBlocks: Boolean = false,
 			sortOption: BiblioSortOption = BiblioSortOption.BY_YEAR
 	) = "/autor/$id"
+			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"biography" to showBiography.toInt(),
 					"awards" to showAwards.toInt(),
@@ -34,6 +38,7 @@ object DataManager {
 			authorId: Int,
 			showEditionsBlocks: Boolean = false
 	) = "/autor/$authorId/alleditions"
+			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"editions_blocks" to showEditionsBlocks.toInt()
 			))
@@ -44,6 +49,7 @@ object DataManager {
 			page: Int = 1,
 			sortOption: ResponsesSortOption = ResponsesSortOption.BY_DATE
 	) = "/autor/$authorId/responses"
+			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"page" to page,
 					"sort" to sortOption.value
@@ -62,6 +68,7 @@ object DataManager {
 			showParents: Boolean = false,
 			showTranslations: Boolean = false
 	) = "/work/$id"
+			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"awards" to showAwards.toInt(),
 					"children" to showChildren.toInt(),
@@ -80,6 +87,7 @@ object DataManager {
 			page: Int = 1,
 			sortOption: ResponsesSortOption = ResponsesSortOption.BY_RATING
 	) = "/work/$workId/responses"
+			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"page" to page,
 					"sort" to sortOption.value
@@ -89,6 +97,7 @@ object DataManager {
 	fun getWorkAnalogs(
 			workId: Int
 	) = "/work/$workId/analogs"
+			.toAbsolutePathWithApiVersion()
 			.httpGet()
 			.rx_object(WorkAnalogsResponse.Deserializer())
 
@@ -97,6 +106,7 @@ object DataManager {
 			showContent: Boolean = false,
 			showAdditionalImages: Boolean = false
 	) = "/edition/$id"
+			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"content" to showContent.toInt(),
 					"images_plus" to showAdditionalImages.toInt()
@@ -106,6 +116,7 @@ object DataManager {
 	fun getUser(
 			id: Int
 	) = "/user/$id"
+			.toAbsolutePathWithApiVersion()
 			.httpGet()
 			.rx_object(UserResponse.Deserializer())
 
@@ -115,6 +126,7 @@ object DataManager {
 			typeOption: MarksTypeOption = MarksTypeOption.ALL,
 			sortOption: MarksSortOption = MarksSortOption.BY_MARK
 	) = "/user/$userId/marks"
+			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"page" to page,
 					"type" to typeOption.value,
@@ -127,20 +139,38 @@ object DataManager {
 			page: Int = 1,
 			sortOption: ResponsesSortOption = ResponsesSortOption.BY_DATE
 	) = "/user/$userId/responses"
+			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"page" to page,
 					"sort" to sortOption.value
 			))
 			.rx_object(ResponsesResponse.Deserializer(perPage = 50))
 
-	// login
+	fun login(
+			login: String,
+			password: String
+	) = "/login"
+			.toAbsolutePath()
+			.httpPost(listOf(
+					"login" to login,
+					"password" to password
+			))
+			.rx_response()
 
-	// getUserId
+	fun getUserId(
+			login: String
+	) = "/userlogin"
+			.toAbsolutePathWithApiVersion()
+			.httpGet(listOf(
+					"usersearch" to login
+			))
+			.rx_object(UserIdResponse.Deserializer())
 
 	fun searchAuthors(
 			query: String,
 			page: Int = 1
 	) = "/search-autors"
+			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"q" to query,
 					"page" to page
@@ -151,6 +181,7 @@ object DataManager {
 			query: String,
 			page: Int = 1
 	) = "search-works"
+			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"q" to query,
 					"page" to page
@@ -161,6 +192,7 @@ object DataManager {
 			query: String,
 			page: Int = 1
 	) = "search-editions"
+			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"q" to query,
 					"page" to page
@@ -171,6 +203,7 @@ object DataManager {
 			query: String,
 			page: Int = 1
 	) = "search-awards"
+			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"q" to query,
 					"page" to page
@@ -180,6 +213,7 @@ object DataManager {
 	fun getLastResponses(
 			page: Int = 1
 	) = "/responses"
+			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf("page" to page))
 			.rx_object(ResponsesResponse.Deserializer(perPage = 50))
 }
@@ -212,5 +246,9 @@ enum class ResponsesSortOption(val value: String) {
 	BY_RATING("rating"),
 	BY_MARK("mark")
 }
+
+fun String.toAbsolutePath() = "https://fantlab.ru/$this"
+
+fun String.toAbsolutePathWithApiVersion() = "https://api.fantlab.ru/$this"
 
 fun Boolean.toInt(): Int = if (this) 1 else 0

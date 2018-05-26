@@ -13,7 +13,7 @@ data class MarksResponse(
 ) {
 	class Deserializer : ResponseDeserializable<MarksResponse> {
 
-		override fun deserialize(content: String): MarksResponse? {
+		override fun deserialize(content: String): MarksResponse {
 			val jsonObject = JsonParser().parse(content).asJsonObject
 			val items: ArrayList<Mark> = arrayListOf()
 			val array = jsonObject.getAsJsonArray("items")
