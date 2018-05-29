@@ -1,6 +1,9 @@
 package ru.fantlab.android.ui.modules.login
 
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
+import io.reactivex.schedulers.Schedulers
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.User
 import ru.fantlab.android.helper.InputHelper
@@ -61,13 +64,15 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 	}
 
 	private fun onUserResponse(user: User) {
-		/*manageObservable(user.saveLoggedUser()
-				.doOnComplete {
+		manageDisposable(
+				Single.fromCallable {
+					PrefGetter.setLoggedUser(user)
 					PrefGetter.setProceedWithoutLogin(false)
-					sendToView { it.onSuccessfullyLoggedIn() }
-				}
-		)*/
-		sendToView { it.onSuccessfullyLoggedIn() }
+				}.doOnSuccess { sendToView { it.onSuccessfullyLoggedIn() } }
+						.subscribeOn(Schedulers.io())
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribe()
+		)
 		return
 	}
 

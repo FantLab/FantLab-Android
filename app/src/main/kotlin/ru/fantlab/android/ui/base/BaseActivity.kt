@@ -215,7 +215,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	override fun isLoggedIn(): Boolean {
-		return false/*getLoggedUser() != null*/
+		return PrefGetter.getLoggedUser() != null
 	}
 
 	override fun onRequireLogin() {
@@ -224,7 +224,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		presenter.manageViewDisposable(Observable.fromCallable<Any> {
 			glide.clearDiskCache()
 			PrefGetter.setToken(null)
-			//logout()
+			PrefGetter.clearLoggedUser()
 			true
 		}.observe().subscribe({
 			glide.clearMemory()

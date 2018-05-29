@@ -125,14 +125,14 @@ object DataManager {
 			page: Int = 1,
 			typeOption: MarksTypeOption = MarksTypeOption.ALL,
 			sortOption: MarksSortOption = MarksSortOption.BY_MARK
-	) = "/user/$userId/marks"
+	) = "/user/$userId/marks/extended"
 			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"page" to page,
 					"type" to typeOption.value,
 					"sort" to sortOption.value
 			))
-			.rx_object(MarksResponse.Deserializer())
+			.rx_object(MarksResponse.Deserializer(perPage = 200))
 
 	fun getUserResponses(
 			userId: Int,

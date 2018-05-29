@@ -5,6 +5,8 @@ import android.content.res.Resources
 import ru.fantlab.android.App
 import ru.fantlab.android.BuildConfig
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.model.User
+import ru.fantlab.android.provider.rest.DataManager
 
 object PrefGetter {
 
@@ -32,10 +34,24 @@ object PrefGetter {
 		DEEP_ORANGE
 	}
 
-	private val TOKEN = "token"
-	private val WHATS_NEW_VERSION = "whats_new"
-	private val APP_LANGUAGE = "app_language"
-	private val NAV_DRAWER_GUIDE = "nav_drawer_guide"
+	private const val TOKEN = "token"
+	private const val WHATS_NEW_VERSION = "whats_new"
+	private const val APP_LANGUAGE = "app_language"
+	private const val NAV_DRAWER_GUIDE = "nav_drawer_guide"
+	private const val LOGGED_USER = "logged_user"
+
+	fun setLoggedUser(user: User) {
+		PrefHelper[LOGGED_USER] = DataManager.gson.toJson(user)
+	}
+
+	fun getLoggedUser(): User? {
+		val user = PrefHelper.getString(LOGGED_USER)
+		return DataManager.gson.fromJson(user, User::class.java)
+	}
+
+	fun clearLoggedUser() {
+		PrefHelper.clearKey(LOGGED_USER)
+	}
 
 	fun setProceedWithoutLogin(proceed: Boolean) {
 		PrefHelper["proceed_without_login"] = proceed
