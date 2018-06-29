@@ -10,6 +10,7 @@ import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ResponsesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
@@ -103,5 +104,9 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 	companion object {
 
 		val TAG: String = ResponsesFragment::class.java.simpleName
+	}
+
+	override fun onItemClicked(item: Response) {
+		WorkPagerActivity.startActivity(context!!, item.workId, item.workName, 0)
 	}
 }

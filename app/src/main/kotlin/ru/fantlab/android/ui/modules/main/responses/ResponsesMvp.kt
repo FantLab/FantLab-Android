@@ -15,6 +15,8 @@ interface ResponsesMvp {
 		fun onNotifyAdapter(items: ArrayList<Response>, page: Int)
 
 		fun getLoadMore(): OnLoadMore<String>
+
+		fun onItemClicked(item: Response)
 	}
 
 	interface Presenter :

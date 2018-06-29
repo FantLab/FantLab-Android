@@ -65,7 +65,7 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 	}
 
 	override fun onItemClick(position: Int, v: View?, item: Response) {
-		// goto response screen
+        view?.onItemClicked(item)
 	}
 
 	override fun onItemLongClick(position: Int, v: View?, item: Response) {

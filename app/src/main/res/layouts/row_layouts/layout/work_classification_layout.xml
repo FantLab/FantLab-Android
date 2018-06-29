@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
+            android:id="@+id/recycler"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="@string/staggered_layout_manager"
+            app:spanCount="@integer/micro_spans" />
+
+        <LinearLayout
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?android:attr/windowBackground"
+            android:visibility="gone"
+            >
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+    </FrameLayout>
+
+</android.support.v4.widget.NestedScrollView>

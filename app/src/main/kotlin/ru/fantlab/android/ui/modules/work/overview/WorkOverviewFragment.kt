@@ -10,13 +10,22 @@ import ru.fantlab.android.data.dao.model.Work
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.widgets.CoverLayout
+import ru.fantlab.android.ui.widgets.FontTextView
 import timber.log.Timber
 
 class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPresenter>(),
 		WorkOverviewMvp.View {
 
 	@BindView(R.id.progress) lateinit var progress: View
-	private var work: Work? = null
+    @JvmField @BindView(R.id.coverLayout) var coverLayout: CoverLayout? = null
+    @BindView(R.id.authors) lateinit var authors: FontTextView
+    @BindView(R.id.title) lateinit var name: FontTextView
+    @BindView(R.id.types) lateinit var types: FontTextView
+    @BindView(R.id.description) lateinit var description: FontTextView
+    @BindView(R.id.notes) lateinit var notes: FontTextView
+
+    private var work: Work? = null
 
 	override fun fragmentLayout() = R.layout.work_overview_layout
 
@@ -38,6 +47,20 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	override fun onInitViews(work: Work) {
 		hideProgress()
 		Timber.d("work: ${GsonBuilder().setPrettyPrinting().create().toJson(work)}")
+        coverLayout?.setUrl("https:${work.image}")
+        name.text = if (work.name.isNotEmpty()) {
+            if (work.nameOrig.isNotEmpty()) {
+                "${work.name} / ${work.nameOrig}"
+            } else {
+                work.name
+            }
+        } else {
+            work.nameOrig
+        }
+        authors.text = work.authors.joinToString(", ") { it.name }
+        types.text =  String.format("%s, %s", work.type, work.year)
+        description.text = work.description
+        notes.text = if (work.notes.isNotEmpty()) work.notes else getString(R.string.no_notes)
 	}
 
 	override fun onSaveInstanceState(outState: Bundle) {

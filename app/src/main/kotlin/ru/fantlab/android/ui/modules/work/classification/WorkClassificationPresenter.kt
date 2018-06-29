@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.work.classification
 
 import android.os.Bundle
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.data.dao.model.ClassificationGenre
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -11,6 +12,7 @@ class WorkClassificationPresenter : BasePresenter<WorkClassificationMvp.View>(),
 
 	@com.evernote.android.state.State
 	var workId: Int? = null
+    private var responses: ArrayList<ClassificationGenre> = ArrayList()
 
 	override fun onFragmentCreated(bundle: Bundle?) {
 		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
@@ -27,6 +29,8 @@ class WorkClassificationPresenter : BasePresenter<WorkClassificationMvp.View>(),
 					}
 			)}
 	}
+
+	override fun getResponses(): ArrayList<ClassificationGenre> = responses
 
 	override fun onError(throwable: Throwable) {
 		workId?.let { onWorkOffline(it) }

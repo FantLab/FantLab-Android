@@ -17,6 +17,9 @@ import com.evernote.android.state.StateSaver
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.TypeFaceHelper
 import ru.fantlab.android.helper.ViewHelper
+import android.view.ViewGroup
+
+
 
 /**
  * Created by Kosh on 8/18/2015. copyrights are reserved
@@ -46,6 +49,11 @@ class FontTextView @JvmOverloads constructor(context: Context, attrs: AttributeS
 	override fun setSelected(selected: Boolean) {
 		super.setSelected(selected)
 		this.selectedState = selected
+	}
+
+	fun setLevel(level: Int) {
+		val mlp = this.getLayoutParams() as ViewGroup.MarginLayoutParams
+		mlp.setMargins(ViewHelper.toPx(context, level * 20) , 0, 0, 0)
 	}
 
 	@SuppressLint("SetTextI18n")
