@@ -19,7 +19,7 @@ data class Response(
 		@SerializedName("work_author") val workAuthor: String,
 		@SerializedName("work_author_orig") val workAuthorOrig: String,
 		@SerializedName("work_id") val workId: Int,
-		@SerializedName("work_image") val workImage: String,
+		@SerializedName("work_image") val workImage: String?,
 		@SerializedName("work_name") val workName: String,
 		@SerializedName("work_name_orig") val workNameOrig: String,
 		@SerializedName("work_type") val workType: String,

@@ -15,6 +15,7 @@ import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ResponsesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
+import ru.fantlab.android.ui.modules.work.responses.overview.ResponseActivity
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
@@ -94,8 +95,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	}
 
 	override fun onItemClicked(item: Response) {
-		// goto response screen
-		showMessage("Click", "Not implemented yet")
+		ResponseActivity.startActivity(context!!, item, item.workId, item.workName)
 	}
 
 	override fun onRefresh() {

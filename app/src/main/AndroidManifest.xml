@@ -92,7 +92,13 @@
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value=".ui.modules.main.MainActivity"/>
 		</activity>
-
+		<activity
+			android:name="ru.fantlab.android.ui.modules.work.responses.overview.ResponseActivity"
+			android:parentActivityName=".ui.modules.main.MainActivity">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".ui.modules.main.MainActivity"/>
+		</activity>
 		<meta-data
 			android:name="io.fabric.ApiKey"
 			android:value="8f0a95903f61d5dc2716d25b1addf1e44755258d"
