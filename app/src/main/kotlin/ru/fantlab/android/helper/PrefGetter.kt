@@ -124,7 +124,7 @@ object PrefGetter {
 
 	fun getAppLanguage(): String {
 		val appLanguage = PrefHelper.getString(APP_LANGUAGE)
-		return appLanguage ?: "en"
+		return appLanguage ?: "ru"
 	}
 
 	fun showWhatsNew(): Boolean {
