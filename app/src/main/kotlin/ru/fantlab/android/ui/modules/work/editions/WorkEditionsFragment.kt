@@ -16,7 +16,6 @@ import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-import ru.fantlab.android.ui.widgets.recyclerview.SectionedRecyclerViewAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 import timber.log.Timber
 
@@ -62,18 +61,10 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
         recycler.setEmptyView(stateLayout, refresh)
         recycler.addKeyLineDivider()
         fastScroller.attachRecyclerView(recycler)
-
-        val sections : ArrayList<SectionedRecyclerViewAdapter.Section> = ArrayList()
-
         editions?.editionsBlocks!!.forEach {
-            sections.add(SectionedRecyclerViewAdapter.Section(adapter.itemCount, it.title))
             adapter.addItems(it.list)
         }
-
-        val sectionAdapter = SectionedRecyclerViewAdapter(context!!, R.layout.work_classification_section, R.id.section_text, adapter)
-        val dummy = arrayOfNulls<SectionedRecyclerViewAdapter.Section>(sections.size)
-        sectionAdapter.setSections(sections.toArray(dummy))
-        recycler.adapter = sectionAdapter
+        recycler.adapter = adapter
 	}
 
     override fun onAttach(context: Context?) {
