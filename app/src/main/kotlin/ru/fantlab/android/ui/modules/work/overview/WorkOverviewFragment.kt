@@ -59,7 +59,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
         }
         authors.text = work.authors.joinToString(", ") { it.name }
         types.text =  work.year?.let {"${work.type}, ${work.year}"} ?: run { work.type }
-        description.text = work.description
+        description.text = work.description.let { work.description } ?: getString(R.string.no_description)
         notes.text = if (work.notes.isNotEmpty()) work.notes else getString(R.string.no_notes)
 	}
 

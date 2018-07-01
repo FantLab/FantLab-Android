@@ -103,4 +103,5 @@
     <string name="no_analogs">No analogs</string>
     <string name="source">Source</string>
 	<string name="no_source">No source link</string>
+    <string name="no_description">No description</string>
 </resources>

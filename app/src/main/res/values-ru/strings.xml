@@ -74,4 +74,5 @@
     <string name="no_analogs">Нет похожих произведений</string>
 	<string name="source">Источник</string>
     <string name="no_source">Источник не указан</string>
+    <string name="no_description">Нет описания</string>
 </resources>
