@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.work.editions
 
 import android.os.Bundle
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.data.dao.model.EditionsBlocks
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -11,6 +12,7 @@ class WorkEditionsPresenter : BasePresenter<WorkEditionsMvp.View>(),
 
 	@com.evernote.android.state.State
 	var workId: Int? = null
+    private var editions: ArrayList<EditionsBlocks.Edition> = ArrayList()
 
 	override fun onFragmentCreated(bundle: Bundle?) {
 		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
@@ -23,7 +25,9 @@ class WorkEditionsPresenter : BasePresenter<WorkEditionsMvp.View>(),
 							.map { it.get() }
 							.toObservable(),
 					Consumer { workResponse ->
-						sendToView { it.onInitViews(workResponse.editionsBlocks, workResponse.editionsInfo!!) }
+						sendToView {
+                            it.onInitViews(workResponse.editionsBlocks, workResponse.editionsInfo!!)
+                        }
 					}
 			)}
 	}
@@ -36,4 +40,18 @@ class WorkEditionsPresenter : BasePresenter<WorkEditionsMvp.View>(),
 	override fun onWorkOffline(id: Int) {
 		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
+
+    override fun getEditions(): ArrayList<EditionsBlocks.Edition> = editions
+
+    fun onCallApi() {
+        workId?.let {
+            makeRestCall(
+                    DataManager.getWork(it, showEditionsBlocks = true, showEditionsInfo = true)
+                            .map { it.get() }
+                            .toObservable(),
+                    Consumer { workResponse ->
+                        sendToView { it.onNotifyAdapter() }
+                    }
+            )}
+    }
 }
