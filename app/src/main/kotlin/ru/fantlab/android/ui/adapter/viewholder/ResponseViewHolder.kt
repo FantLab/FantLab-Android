@@ -27,7 +27,7 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 		info.text = StringBuilder()
 				.append(response.userName)
 				.append(", ")
-				.append(response.date.parseFullDate().getTimeAgo())
+				.append(response.dateIso.parseFullDate(true).getTimeAgo())
 
 		workName.text = if (response.workName.isNotEmpty()) {
 			if (response.workNameOrig.isNotEmpty()) {

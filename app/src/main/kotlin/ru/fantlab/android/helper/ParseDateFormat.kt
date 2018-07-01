@@ -5,9 +5,9 @@ import android.text.format.DateUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun String.parseFullDate(): Date? {
+fun String.parseFullDate(isIso: Boolean = false): Date? {
 	return try {
-		SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("ru")).parse(this)
+		SimpleDateFormat(if (isIso) "yyyy-MM-dd'T'HH:mm:ssX" else "yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("ru")).parse(this)
 	} catch (e: ParseException) {
 		null
 	}

@@ -93,7 +93,7 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
     override fun onInitViews(response: Response) {
         coverLayout?.setUrl("https:${response.userAvatar}")
         username.text = response.userName
-        date.text = response.date.parseFullDate().getTimeAgo()
+        date.text = response.dateIso.parseFullDate(true).getTimeAgo()
 
         workTitle.text = if (response.workName.isNotEmpty()) {
             if (response.workNameOrig.isNotEmpty()) {
