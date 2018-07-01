@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.work.analogs
 
 import android.os.Bundle
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.data.dao.model.WorkAnalog
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -11,6 +12,7 @@ class WorkAnalogsPresenter : BasePresenter<WorkAnalogsMvp.View>(),
 
 	@com.evernote.android.state.State
 	var workId: Int? = null
+    private var analogs: ArrayList<WorkAnalog> = ArrayList()
 
 	override fun onFragmentCreated(bundle: Bundle?) {
 		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
@@ -23,7 +25,10 @@ class WorkAnalogsPresenter : BasePresenter<WorkAnalogsMvp.View>(),
 							.map { it.get() }
 							.toObservable(),
 					Consumer { workAnalogsResponse ->
-						sendToView { it.onInitViews(workAnalogsResponse.analogs) }
+						sendToView {
+                            it.onSetTabCount(workAnalogsResponse.analogs.size)
+                            it.onInitViews(workAnalogsResponse.analogs)
+                        }
 					}
 			)}
 	}
@@ -36,4 +41,18 @@ class WorkAnalogsPresenter : BasePresenter<WorkAnalogsMvp.View>(),
 	override fun onWorkOffline(id: Int) {
 		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
+
+    override fun getAnalogs(): ArrayList<WorkAnalog> = analogs
+
+    fun onCallApi() {
+        workId?.let {
+            makeRestCall(
+                    DataManager.getWorkAnalogs(it)
+                            .map { it.get() }
+                            .toObservable(),
+                    Consumer { workResponse ->
+                        sendToView { it.onNotifyAdapter() }
+                    }
+            )}
+    }
 }
