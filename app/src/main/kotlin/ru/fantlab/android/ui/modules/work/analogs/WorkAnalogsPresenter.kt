@@ -1,14 +1,17 @@
 package ru.fantlab.android.ui.modules.work.analogs
 
 import android.os.Bundle
+import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.WorkAnalog
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
+import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 class WorkAnalogsPresenter : BasePresenter<WorkAnalogsMvp.View>(),
-		WorkAnalogsMvp.Presenter {
+		WorkAnalogsMvp.Presenter,
+        BaseViewHolder.OnItemClickListener<WorkAnalog>{
 
 	@com.evernote.android.state.State
 	var workId: Int? = null
@@ -32,6 +35,13 @@ class WorkAnalogsPresenter : BasePresenter<WorkAnalogsMvp.View>(),
 					}
 			)}
 	}
+
+    override fun onItemClick(position: Int, v: View?, item: WorkAnalog) {
+        view?.onItemClicked(item)
+    }
+
+    override fun onItemLongClick(position: Int, v: View?, item: WorkAnalog?) {
+    }
 
 	override fun onError(throwable: Throwable) {
 		workId?.let { onWorkOffline(it) }

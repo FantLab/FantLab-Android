@@ -13,6 +13,7 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.AnalogsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -57,6 +58,7 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addKeyLineDivider()
         fastScroller.attachRecyclerView(recycler)
+        adapter.listener = presenter
         recycler.adapter = adapter
         adapter.addItems(analogs)
 	}
@@ -122,5 +124,9 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 
     override fun onClick(p0: View?) {
         onRefresh()
+    }
+
+    override fun onItemClicked(item: WorkAnalog) {
+        WorkPagerActivity.startActivity(context!!, item.id, item.rusName, 0)
     }
 }
