@@ -75,4 +75,5 @@
 	<string name="source">Источник</string>
     <string name="no_source">Источник не указан</string>
     <string name="no_description">Нет описания</string>
+    <string name="no_works">Нет произведений</string>
 </resources>
