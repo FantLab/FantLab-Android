@@ -61,9 +61,10 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
         recycler.setEmptyView(stateLayout, refresh)
         recycler.addKeyLineDivider()
         fastScroller.attachRecyclerView(recycler)
-        editions?.editionsBlocks!!.forEach {
+        editions?.editionsBlocks?.let {
+            it.forEach {
             adapter.addItems(it.list)
-        }
+        } }
         recycler.adapter = adapter
 	}
 
