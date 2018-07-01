@@ -23,7 +23,7 @@ class AuthorOverviewPresenter : BasePresenter<AuthorOverviewMvp.View>(),
 							.map { it.get() }
 							.toObservable(),
 					Consumer { authorResponse ->
-						sendToView { it.onInitViews(authorResponse.author) }
+						sendToView { it.onInitViews(authorResponse.author, authorResponse.biography) }
 					}
 			)
 		}

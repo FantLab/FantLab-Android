@@ -101,4 +101,6 @@
 	<string name="view_response">Review response</string>
     <string name="no_editions">No editions</string>
     <string name="no_analogs">No analogs</string>
+    <string name="source">Source</string>
+	<string name="no_source">No source link</string>
 </resources>

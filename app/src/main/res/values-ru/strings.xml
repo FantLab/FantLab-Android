@@ -72,4 +72,6 @@
 	<string name="view_response">Просмотр отзыва</string>
     <string name="no_editions">Нет изданий</string>
     <string name="no_analogs">Нет похожих произведений</string>
+	<string name="source">Источник</string>
+    <string name="no_source">Источник не указан</string>
 </resources>

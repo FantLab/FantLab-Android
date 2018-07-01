@@ -63,129 +63,29 @@
 							>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/authors"
+								android:id="@+id/country"
+								style="@style/Base.TextAppearance.AppCompat.Caption"
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
-								tools:text="Дэн Симмонс"
-								style="@style/Base.TextAppearance.AppCompat.Medium"
-								/>
+								tools:text="Дэн Симмонс" />
 
 							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/compilers"
+                                android:id="@+id/author"
+                                style="@style/Base.TextAppearance.AppCompat.Title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/spacing_micro"
+                                tools:text="Песни Гипериона: Гиперион. Падение Гипериона" />
+
+                            <ru.fantlab.android.ui.widgets.FontTextView
+								android:id="@+id/date"
+								style="@style/Base.TextAppearance.AppCompat.Caption"
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="Составитель: Владимир Харитонов"
-								style="@style/Base.TextAppearance.AppCompat.Medium"
-								/>
+								tools:text="Составитель: Владимир Харитонов" />
 
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/title"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="Песни Гипериона: Гиперион. Падение Гипериона"
-								style="@style/Base.TextAppearance.AppCompat.Title"
-								/>
-
-						</LinearLayout>
-
-					</android.support.v7.widget.CardView>
-
-					<android.support.v7.widget.CardView
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layout_marginBottom="@dimen/spacing_xs_large"
-						android:layout_marginEnd="@dimen/spacing_xs_large"
-						android:layout_marginStart="@dimen/spacing_xs_large"
-						android:elevation="@dimen/spacing_xs_large"
-						app:cardBackgroundColor="?card_background"
-						app:cardCornerRadius="0dp"
-						app:contentPaddingBottom="@dimen/spacing_normal"
-						app:contentPaddingLeft="@dimen/spacing_xs_large"
-						app:contentPaddingRight="@dimen/spacing_xs_large"
-						app:contentPaddingTop="@dimen/spacing_normal"
-						>
-
-						<LinearLayout
-							android:layout_width="match_parent"
-							android:layout_height="wrap_content"
-							android:orientation="vertical"
-							>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/types"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="авторский сборник, омнибус"
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/publishers"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="АСТ, 2003 г."
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/series"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="Серия: Библиотека фантастики"
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/copyCount"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="Тираж: 6000 экз."
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/isbns"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="ISBN: 5-17-016546-3"
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/coverType"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="Тип обложки: твёрдая"
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/format"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="Формат: 60x90/16 (145x215 мм)"
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/pagesCount"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="Страниц: 976"
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-						</LinearLayout>
+                        </LinearLayout>
 
 					</android.support.v7.widget.CardView>
 
@@ -233,13 +133,13 @@
 						>
 
 						<ru.fantlab.android.ui.widgets.FontTextView
-							android:id="@+id/notes"
+							android:id="@+id/source"
+							style="@style/Base.TextAppearance.AppCompat.Subhead"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:layout_marginTop="@dimen/spacing_micro"
-							tools:text="Доп. тираж 3000 экз. (2005 г.)."
-							style="@style/Base.TextAppearance.AppCompat.Subhead"
-							/>
+							android:autoLink="web"
+							tools:text="Доп. тираж 3000 экз. (2005 г.)." />
 
 					</android.support.v7.widget.CardView>
 
