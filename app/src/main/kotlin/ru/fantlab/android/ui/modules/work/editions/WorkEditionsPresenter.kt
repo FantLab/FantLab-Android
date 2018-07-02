@@ -1,6 +1,7 @@
 package ru.fantlab.android.ui.modules.work.editions
 
 import android.os.Bundle
+import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.EditionsBlocks
 import ru.fantlab.android.helper.BundleConstant
@@ -54,4 +55,12 @@ class WorkEditionsPresenter : BasePresenter<WorkEditionsMvp.View>(),
                     }
             )}
     }
+
+	override fun onItemClick(position: Int, v: View?, item: EditionsBlocks.Edition) {
+		view?.onItemClicked(item)
+	}
+
+    override fun onItemLongClick(position: Int, v: View?, item: EditionsBlocks.Edition) {
+    }
+
 }

@@ -7,8 +7,8 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.util.*
 
-class AnalogsAdapter constructor(authors: ArrayList<WorkAnalog>)
-	: BaseRecyclerAdapter<WorkAnalog, AnalogsViewHolder, BaseViewHolder.OnItemClickListener<WorkAnalog>>(authors) {
+class AnalogsAdapter constructor(analog: ArrayList<WorkAnalog>)
+	: BaseRecyclerAdapter<WorkAnalog, AnalogsViewHolder, BaseViewHolder.OnItemClickListener<WorkAnalog>>(analog) {
 
 	override fun viewHolder(parent: ViewGroup, viewType: Int): AnalogsViewHolder
 			= AnalogsViewHolder.newInstance(parent, this)

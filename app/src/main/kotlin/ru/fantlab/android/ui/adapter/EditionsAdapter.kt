@@ -7,8 +7,8 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.util.*
 
-class EditionsAdapter constructor(authors: ArrayList<EditionsBlocks.Edition>)
-	: BaseRecyclerAdapter<EditionsBlocks.Edition, EditionsViewHolder, BaseViewHolder.OnItemClickListener<EditionsBlocks.Edition>>(authors) {
+class EditionsAdapter constructor(edition: ArrayList<EditionsBlocks.Edition>)
+	: BaseRecyclerAdapter<EditionsBlocks.Edition, EditionsViewHolder, BaseViewHolder.OnItemClickListener<EditionsBlocks.Edition>>(edition) {
 
 	override fun viewHolder(parent: ViewGroup, viewType: Int): EditionsViewHolder
 			= EditionsViewHolder.newInstance(parent, this)

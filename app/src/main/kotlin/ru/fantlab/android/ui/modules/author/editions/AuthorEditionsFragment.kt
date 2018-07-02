@@ -8,12 +8,14 @@ import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Author
+import ru.fantlab.android.data.dao.model.EditionsBlocks
 import ru.fantlab.android.data.dao.response.AuthorEditionsResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.EditionsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
+import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
@@ -57,6 +59,7 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addKeyLineDivider()
+        adapter.listener = presenter
 		fastScroller.attachRecyclerView(recycler)
         authorEditionsResponse.editions?.editionsBlocks?.let {
 			it.forEach {
@@ -127,4 +130,8 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
         countCallback = null
         super.onDetach()
     }
+
+	override fun onItemClicked(item: EditionsBlocks.Edition) {
+		EditionPagerActivity.startActivity(context!!, item.editionId, item.name, 0)
+	}
 }

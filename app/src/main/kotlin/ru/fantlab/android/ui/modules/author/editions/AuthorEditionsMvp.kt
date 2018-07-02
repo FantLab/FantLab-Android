@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.EditionsBlocks
 import ru.fantlab.android.data.dao.response.AuthorEditionsResponse
 import ru.fantlab.android.ui.base.mvp.BaseMvp
+import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 interface AuthorEditionsMvp {
 
@@ -17,9 +18,12 @@ interface AuthorEditionsMvp {
 		fun onNotifyAdapter()
 
 		fun onSetTabCount(allCount: Int)
+
+		fun onItemClicked(item: EditionsBlocks.Edition)
 	}
 
-	interface Presenter : BaseMvp.Presenter {
+	interface Presenter : BaseMvp.Presenter,
+			BaseViewHolder.OnItemClickListener<EditionsBlocks.Edition>{
 
 		fun onFragmentCreated(bundle: Bundle?)
 

@@ -13,6 +13,7 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.EditionsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -60,6 +61,7 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
         refresh.setOnRefreshListener(this)
         recycler.setEmptyView(stateLayout, refresh)
         recycler.addKeyLineDivider()
+        adapter.listener = presenter
         fastScroller.attachRecyclerView(recycler)
         editions?.editionsBlocks?.let {
             it.forEach {
@@ -120,9 +122,8 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
         presenter.onCallApi()
     }
 
-    private fun showReload() {
-        hideProgress()
-        stateLayout.showReload(adapter.itemCount)
+    override fun onItemClicked(item: EditionsBlocks.Edition) {
+        EditionPagerActivity.startActivity(context!!, item.editionId, item.name, 0)
     }
 
     override fun onClick(v: View?) {
