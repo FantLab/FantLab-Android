@@ -11,6 +11,7 @@ class EditionContentPresenter : BasePresenter<EditionContentMvp.View>(),
 
 	@com.evernote.android.state.State
 	var editionId: Int? = null
+    private var content: ArrayList<String> = ArrayList()
 
 	override fun onFragmentCreated(bundle: Bundle?) {
 		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
@@ -36,4 +37,21 @@ class EditionContentPresenter : BasePresenter<EditionContentMvp.View>(),
 	override fun onWorkOffline(id: Int) {
 		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
+
+	fun onCallApi() {
+		editionId?.let {
+			makeRestCall(
+					DataManager.getEdition(it, showContent = true)
+							.map { it.get() }
+							.toObservable(),
+					Consumer { workResponse ->
+						sendToView { it.onNotifyAdapter() }
+					}
+			)}
+	}
+
+    override fun getContent(): ArrayList<String> = content
+
+
+
 }

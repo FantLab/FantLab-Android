@@ -105,4 +105,5 @@
 	<string name="no_source">No source link</string>
     <string name="no_description">No description</string>
     <string name="no_works">No works</string>
+    <string name="no_content">No content</string>
 </resources>
