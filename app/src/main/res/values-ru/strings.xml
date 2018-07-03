@@ -77,4 +77,10 @@
     <string name="no_description">Нет описания</string>
     <string name="no_works">Нет произведений</string>
     <string name="no_content">Нет содержания</string>
+    <string name="settings">Настройки</string>
+	<string name="theme_title">Тема оформления</string>
+    <string name="theme_color">Цветовая палитра</string>
+	<string name="language">Язык</string>
+    <string name="select">Выбрать</string>
+    <string name="change_theme_warning">Тема оформления изменена</string>
 </resources>
