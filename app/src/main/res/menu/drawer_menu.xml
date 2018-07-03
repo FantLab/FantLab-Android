@@ -34,6 +34,13 @@
 			/>
 	</group>
 
+	<group android:id="@+id/group_three">
+		<item
+			android:id="@+id/settingsView"
+			android:icon="@drawable/ic_settings"
+			android:title="@string/settings"
+			/>
+	</group>
 	<!--<group
 		android:id="@+id/group_three"
 		android:checkableBehavior="none">

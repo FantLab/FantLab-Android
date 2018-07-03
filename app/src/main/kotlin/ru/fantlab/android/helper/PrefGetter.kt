@@ -127,6 +127,10 @@ object PrefGetter {
 		return appLanguage ?: "ru"
 	}
 
+	fun setAppLanguage(language: String?) {
+		PrefHelper[APP_LANGUAGE] = language ?: "ru"
+	}
+
 	fun showWhatsNew(): Boolean {
 		return PrefHelper.getInt(WHATS_NEW_VERSION) != BuildConfig.VERSION_CODE
 	}

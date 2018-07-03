@@ -84,11 +84,13 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 						view.startActivity(intent)
 						view.finish()
 					}
+					R.id.settingsView -> {
+						view.onOpenSettings()
+					}
 					R.id.profile -> userModel?.let {
 						UserPagerActivity.startActivity(view, it.login, it.id, 0)
 					}
 					R.id.bibliographies -> view.startActivity(Intent(view, AuthorsActivity::class.java))
-				//item.itemId == R.id.settings -> view.onOpenSettings()
 				//item.itemId == R.id.about -> view.startActivity(Intent(view, AboutActivity::class.java))
 				}
 			}
