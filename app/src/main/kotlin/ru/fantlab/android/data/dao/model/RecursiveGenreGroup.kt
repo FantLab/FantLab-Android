@@ -5,13 +5,14 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class GenreGroup(
-		val genres: ArrayList<Pair<Int, Genre>>,
+data class RecursiveGenreGroup(
+		val genre: ArrayList<Genre>,
 		@SerializedName("genre_group_id") val genreGroupId: Int,
 		val label: String
 ) : Parcelable {
 	@Parcelize
 	data class Genre(
+			val genre: ArrayList<Genre>?,
 			@SerializedName("genre_id") val genreId: Int,
 			val label: String
 	) : Parcelable

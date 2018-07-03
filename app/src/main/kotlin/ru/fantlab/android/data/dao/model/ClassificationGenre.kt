@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ClassificationGenre(
-		@SerializedName("label") val label: String,
-        @SerializedName("genre_id") val genreId: Int,
-        @SerializedName("genre_level") val genreLevel: Int
-        )  : Parcelable
+		val label: String,
+		val genreId: Int,
+		val genreLevel: Int
+) : Parcelable
