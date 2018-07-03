@@ -180,7 +180,7 @@ object DataManager {
 	fun searchWorks(
 			query: String,
 			page: Int = 1
-	) = "search-works"
+	) = "/search-works"
 			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"q" to query,
@@ -191,7 +191,7 @@ object DataManager {
 	fun searchEditions(
 			query: String,
 			page: Int = 1
-	) = "search-editions"
+	) = "/search-editions"
 			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"q" to query,
@@ -202,7 +202,7 @@ object DataManager {
 	fun searchAwards(
 			query: String,
 			page: Int = 1
-	) = "search-awards"
+	) = "/search-awards"
 			.toAbsolutePathWithApiVersion()
 			.httpGet(listOf(
 					"q" to query,
@@ -247,8 +247,8 @@ enum class ResponsesSortOption(val value: String) {
 	BY_MARK("mark")
 }
 
-fun String.toAbsolutePath() = "https://fantlab.ru/$this"
+fun String.toAbsolutePath() = "https://fantlab.ru$this"
 
-fun String.toAbsolutePathWithApiVersion() = "https://api.fantlab.ru/$this"
+fun String.toAbsolutePathWithApiVersion() = "https://api.fantlab.ru$this"
 
 fun Boolean.toInt(): Int = if (this) 1 else 0

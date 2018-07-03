@@ -3,9 +3,11 @@ package ru.fantlab.android
 import android.app.Application
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.interceptors.validatorResponseInterceptor
+import ru.fantlab.android.data.service.dbResponseInterceptor
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.fabric.FabricProvider
 import ru.fantlab.android.provider.stetho.StethoProvider
+import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.provider.timber.TimberProvider
 import shortbread.Shortbread
 
@@ -23,6 +25,7 @@ class App : Application() {
 
 	private fun init() {
 		FabricProvider.initFabric(this)
+		DbProvider.initDatabase(this)
 		TimberProvider.setupTimber()
 		if (BuildConfig.DEBUG) {
 			StethoProvider.initStetho(this)
@@ -32,6 +35,7 @@ class App : Application() {
 			// to prevent from auto redirection
 			removeAllResponseInterceptors()
 			addResponseInterceptor(validatorResponseInterceptor(200..299))
+			addResponseInterceptor(dbResponseInterceptor())
 			baseHeaders = mapOf(
 					"User-Agent" to "FantLab for Android v${BuildConfig.VERSION_NAME}",
 					"Cookie" to (PrefGetter.getToken() ?: "")

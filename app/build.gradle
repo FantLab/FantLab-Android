@@ -4,21 +4,57 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
 apply plugin: "io.fabric"
 
+ext {
+	min_sdk = 21
+	compile_sdk = 27
+	target_sdk = 27
+	build_tools = '27.0.3'
+	version_code = 14
+	version_name = '0.1.4'
+
+	annotations = '16.0.2'
+	support = '27.1.1'
+	thirtyinch = '0.8.0'
+	rxjava = '2.1.12'
+	rxandroid = '2.0.2'
+	fuel = '1.12.1'
+	gson = '2.8.2'
+	room = '1.1.1'
+	android_state = '1.2.1'
+	butterknife = '8.5.1'
+	zxing = '3.3.0'
+	zxing_embedded = '3.6.0'
+	glide = '3.8.0'
+	shaped = '0.8.3'
+	toasty = '1.1.3'
+	bottom_navigation = '2.0.2'
+	shortbread = '1.0.1'
+	timber = '4.5.1'
+	stetho = '1.5.0'
+	// назвать переменную crashlytics нельзя
+	crashlytics_version = '2.9.1'
+}
+
 android {
-	compileSdkVersion 27
-	buildToolsVersion "27.0.3"
+	compileSdkVersion compile_sdk
+	buildToolsVersion build_tools
 	defaultConfig {
 		applicationId "ru.fantlab.android"
-		minSdkVersion 21
-		targetSdkVersion 27
-		versionCode 13
-		versionName "0.1.3"
+		minSdkVersion min_sdk
+		targetSdkVersion target_sdk
+		versionCode version_code
+		versionName version_name
 		archivesBaseName = "fantlab-${versionName}"
 		buildConfigField "String", "REST_URL", '"https://api.fantlab.ru/"'
-		buildConfigField "String", "API_VERSION", '"0.9.16"'
+		buildConfigField "String", "API_VERSION", '"0.9.17"'
 		javaCompileOptions {
 			annotationProcessorOptions {
 				includeCompileClasspath false
+			}
+		}
+		kapt {
+			arguments {
+				arg("room.schemaLocation", "$projectDir/schemas".toString())
 			}
 		}
 	}
@@ -83,37 +119,37 @@ repositories {
 }
 
 dependencies {
-	final FUEL_VERSION = '1.12.1'
+	implementation "com.android.support:appcompat-v7:$support"
+	implementation "com.android.support:design:$support"
+	implementation "com.android.support:cardview-v7:$support"
+	implementation "com.android.support:recyclerview-v7:$support"
+	implementation "com.android.support:preference-v14:$support"
 
-	implementation "com.android.support:appcompat-v7:${support_version}"
-	implementation "com.android.support:design:${support_version}"
-	implementation "com.android.support:cardview-v7:${support_version}"
-	implementation "com.android.support:recyclerview-v7:${support_version}"
-	implementation "com.android.support:preference-v14:${support_version}"
-	implementation "net.grandcentrix.thirtyinch:thirtyinch:${thirtyinch_version}"
-	implementation "net.grandcentrix.thirtyinch:thirtyinch-rx2:${thirtyinch_version}"
-	implementation "com.github.bumptech.glide:glide:${glide_version}"
-	implementation "com.jakewharton:butterknife:${butterKnife_version}"
-	implementation "io.reactivex.rxjava2:rxjava:2.1.8"
-	implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
-	implementation "com.github.GrenderG:Toasty:1.1.3"
-	implementation("com.crashlytics.sdk.android:crashlytics:2.7.1@aar") { transitive = true }
-	implementation "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
-	implementation "com.evernote:android-state:${state_version}"
-	implementation "com.facebook.stetho:stetho:${stetho_version}"
-	implementation "com.facebook.stetho:stetho-okhttp3:${stetho_version}"
-	implementation "com.jakewharton.timber:timber:4.5.1"
-	implementation 'it.sephiroth.android.library.bottomnavigation:bottom-navigation:2.0.2'
-	implementation 'cn.gavinliu.android.lib:ShapedImageView:0.8.3'
-	implementation 'com.github.matthiasrobbers:shortbread:1.0.1'
-	implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
-	implementation 'com.google.zxing:core:3.2.1'
-	kapt "com.evernote:android-state-processor:${state_version}"
-	kapt "com.jakewharton:butterknife-compiler:${butterKnife_version}"
-	kapt 'com.github.matthiasrobbers:shortbread-compiler:1.0.1'
-	testImplementation "junit:junit:${junit_version}"
-
-	implementation "com.github.kittinunf.fuel:fuel-android:$FUEL_VERSION"
-	implementation "com.github.kittinunf.fuel:fuel-rxjava:$FUEL_VERSION"
-	implementation "com.github.kittinunf.fuel:fuel-gson:$FUEL_VERSION"
+	implementation "org.jetbrains:annotations-java5:$annotations"
+	implementation "net.grandcentrix.thirtyinch:thirtyinch:$thirtyinch"
+	implementation "net.grandcentrix.thirtyinch:thirtyinch-rx2:$thirtyinch"
+	implementation "io.reactivex.rxjava2:rxjava:$rxjava"
+	implementation "io.reactivex.rxjava2:rxandroid:$rxandroid"
+	implementation "com.github.kittinunf.fuel:fuel-android:$fuel"
+	implementation "com.github.kittinunf.fuel:fuel-rxjava:$fuel"
+	implementation "com.github.kittinunf.fuel:fuel-gson:$fuel"
+	implementation "android.arch.persistence.room:runtime:$room"
+	implementation "android.arch.persistence.room:rxjava2:$room"
+	kapt "android.arch.persistence.room:compiler:$room"
+	implementation "com.evernote:android-state:$android_state"
+	kapt "com.evernote:android-state-processor:$android_state"
+	implementation "com.jakewharton:butterknife:$butterknife"
+	kapt "com.jakewharton:butterknife-compiler:$butterknife"
+	implementation "com.github.bumptech.glide:glide:$glide"
+	implementation "com.google.zxing:core:$zxing"
+	implementation("com.journeyapps:zxing-android-embedded:$zxing_embedded@aar") { transitive = false }
+	implementation "com.github.matthiasrobbers:shortbread:$shortbread"
+	kapt "com.github.matthiasrobbers:shortbread-compiler:$shortbread"
+	implementation "it.sephiroth.android.library.bottomnavigation:bottom-navigation:$bottom_navigation"
+	implementation "com.github.GrenderG:Toasty:$toasty"
+	implementation "cn.gavinliu.android.lib:ShapedImageView:$shaped"
+	implementation "com.jakewharton.timber:timber:$timber"
+	implementation("com.crashlytics.sdk.android:crashlytics:$crashlytics_version@aar") { transitive = true }
+	implementation "com.facebook.stetho:stetho:$stetho"
+	implementation "com.facebook.stetho:stetho-okhttp3:$stetho"
 }
