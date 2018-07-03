@@ -22,6 +22,7 @@
 
 		<activity
 			android:name="ru.fantlab.android.ui.modules.main.MainActivity"
+            android:launchMode="singleTask"
 			android:theme="@style/SplashTheme"
 			>
 			<intent-filter>
@@ -99,6 +100,10 @@
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value=".ui.modules.main.MainActivity"/>
 		</activity>
+		<activity
+			android:name=".ui.modules.settings.SettingsActivity"
+			android:configChanges="keyboard|orientation|screenSize"/>
+		<activity android:name=".ui.modules.theme.ThemeActivity"/>
 		<meta-data
 			android:name="io.fabric.ApiKey"
 			android:value="8f0a95903f61d5dc2716d25b1addf1e44755258d"

@@ -7,4 +7,5 @@ object BundleConstant {
 	val EXTRA_THREE = "extra3_id"
 	val YES_NO_EXTRA = "yes_no_extra"
 	var REFRESH_CODE = 64
+	val ITEM = "item"
 }

@@ -35,6 +35,7 @@ import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.modules.main.MainActivity
+import ru.fantlab.android.ui.modules.settings.SettingsActivity
 import ru.fantlab.android.ui.widgets.dialog.MessageDialogView
 import ru.fantlab.android.ui.widgets.dialog.ProgressDialogFragment
 import java.util.*
@@ -261,7 +262,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	override fun onOpenSettings() {
-		// open settings
+        startActivityForResult(Intent(this, SettingsActivity::class.java), BundleConstant.REFRESH_CODE)
 	}
 
 	override fun onOpenUrlInBrowser() {
