@@ -1,6 +1,7 @@
 package ru.fantlab.android.ui.modules.work.overview
 
 import android.os.Bundle
+import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
@@ -36,4 +37,9 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 	override fun onWorkOffline(id: Int) {
 		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
+
+	override fun onClick(v: View?) {
+		view?.onClick(v)
+	}
+
 }

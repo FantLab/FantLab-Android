@@ -12,8 +12,10 @@ import ru.fantlab.android.data.dao.model.Edition
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
+import ru.fantlab.android.ui.widgets.dialog.ListDialogView
 
 class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOverviewPresenter>(),
 		EditionOverviewMvp.View {
@@ -54,6 +56,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 	override fun providePresenter() = EditionOverviewPresenter()
 
 	override fun onInitViews(edition: Edition) {
+		this.edition = edition
 		hideProgress()
 		coverLayout.setUrl("https:${edition.image}")
 		var sb = SpannableStringBuilder()
@@ -62,6 +65,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 		if (authorsList != null && authorsList.isNotEmpty()) {
 			authorsList.map { sb.append(it.name).append(", ") }
 			authors.text = sb.substring(0, sb.lastIndex - 1)
+			authors.setOnClickListener(this)
 		} else {
 			authors.visibility = View.GONE
 		}
@@ -180,5 +184,21 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 			view.arguments = Bundler.start().put(BundleConstant.EXTRA, editionId).end()
 			return view
 		}
+	}
+
+	override fun onClick(v: View?) {
+		when (v?.id) {
+			R.id.authors -> {
+				val authorsList: java.util.ArrayList<Edition.Author>? = edition!!.creators.authors
+				val dialogView: ListDialogView<Edition.Author> = ListDialogView()
+				dialogView.initArguments(getString(R.string.authors), authorsList)
+				dialogView.show(childFragmentManager, "ListDialogView")
+			}
+		}
+	}
+
+	override fun <T> onItemSelected(item: T, position: Int) {
+		item as Edition.Author
+		AuthorPagerActivity.startActivity(context!!, item.id, item.name, 0)
 	}
 }

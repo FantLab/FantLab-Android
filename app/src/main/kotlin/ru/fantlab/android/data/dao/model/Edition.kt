@@ -44,7 +44,11 @@ data class Edition(
 			@SerializedName("is_opened") val isOpened: Int,
 			val name: String,
 			val type: String
-	) : Parcelable
+	) : Parcelable {
+		override fun toString(): String {
+			return name
+		}
+	}
 
 	@Parcelize
 	data class Compiler(
