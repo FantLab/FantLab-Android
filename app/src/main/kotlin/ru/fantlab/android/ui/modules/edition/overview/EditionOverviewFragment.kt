@@ -6,14 +6,18 @@ import android.support.v7.widget.CardView
 import android.text.SpannableStringBuilder
 import android.view.View
 import butterknife.BindView
+import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.edition_overview_layout.*
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.model.AdditionalImages
 import ru.fantlab.android.data.dao.model.Edition
+import ru.fantlab.android.data.dao.model.SliderModel
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
+import ru.fantlab.android.ui.widgets.GallerySlider
 
 class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOverviewPresenter>(),
 		EditionOverviewMvp.View {
@@ -35,6 +39,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 	@BindView(R.id.notes) lateinit var notes: FontTextView
 	@BindView(R.id.progress) lateinit var progress: View
 	private var edition: Edition? = null
+	@State var additionalImages: AdditionalImages? = null
 
 	override fun fragmentLayout() = R.layout.edition_overview_layout
 
@@ -44,7 +49,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 		} else {
 			edition = savedInstanceState.getParcelable("edition")
 			if (edition != null) {
-				onInitViews(edition!!)
+				onInitViews(edition!!, additionalImages)
 			} else {
 				presenter.onFragmentCreated(arguments)
 			}
@@ -53,9 +58,26 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 
 	override fun providePresenter() = EditionOverviewPresenter()
 
-	override fun onInitViews(edition: Edition) {
+	override fun onInitViews(edition: Edition, additionalImages: AdditionalImages?) {
 		hideProgress()
+		this.edition = edition
+		this.additionalImages = additionalImages
 		coverLayout.setUrl("https:${edition.image}")
+		coverLayout.setOnClickListener {
+			val slideImages = arrayListOf<SliderModel>()
+			additionalImages?.cover?.map { cover ->
+				cover.spine?.let { spine ->
+					slideImages.add(SliderModel("https:$spine", "Корешок"))
+				}
+				slideImages.add(SliderModel("https:${cover.image}", cover.text))
+			}
+			additionalImages?.plus?.map { image ->
+				slideImages.add(SliderModel("https:${image.image}", image.text))
+			}
+			if (slideImages.isNotEmpty()) {
+				GallerySlider(context).showSlider(slideImages, 0)
+			}
+		}
 		var sb = SpannableStringBuilder()
 		var prefix: String
 		val authorsList = edition.creators.authors

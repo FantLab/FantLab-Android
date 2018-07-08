@@ -9,19 +9,18 @@ import ru.fantlab.android.ui.modules.author.responses.AuthorResponsesFragment
 import ru.fantlab.android.ui.modules.author.works.AuthorWorksFragment
 import ru.fantlab.android.ui.modules.edition.content.EditionContentFragment
 import ru.fantlab.android.ui.modules.edition.overview.EditionOverviewFragment
-import ru.fantlab.android.ui.modules.edition.photos.EditionPhotosFragment
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
 import ru.fantlab.android.ui.modules.profile.overview.ProfileOverviewFragment
 import ru.fantlab.android.ui.modules.profile.responses.ProfileResponsesFragment
 import ru.fantlab.android.ui.modules.search.authors.SearchAuthorsFragment
 import ru.fantlab.android.ui.modules.search.editions.SearchEditionsFragment
 import ru.fantlab.android.ui.modules.search.works.SearchWorksFragment
+import ru.fantlab.android.ui.modules.theme.fragment.ThemeFragment
 import ru.fantlab.android.ui.modules.work.analogs.WorkAnalogsFragment
 import ru.fantlab.android.ui.modules.work.classification.WorkClassificationFragment
 import ru.fantlab.android.ui.modules.work.editions.WorkEditionsFragment
 import ru.fantlab.android.ui.modules.work.overview.WorkOverviewFragment
 import ru.fantlab.android.ui.modules.work.responses.WorkResponsesFragment
-import ru.fantlab.android.ui.modules.theme.fragment.ThemeFragment
 
 
 
@@ -72,8 +71,7 @@ data class FragmentPagerAdapterModel(
 		fun buildForEdition(context: Context, editionId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
 					FragmentPagerAdapterModel(context.getString(R.string.overview), EditionOverviewFragment.newInstance(editionId)),
-					FragmentPagerAdapterModel(context.getString(R.string.content), EditionContentFragment.newInstance(editionId)),
-					FragmentPagerAdapterModel(context.getString(R.string.photos), EditionPhotosFragment.newInstance(editionId))
+					FragmentPagerAdapterModel(context.getString(R.string.content), EditionContentFragment.newInstance(editionId))
 			)
 		}
 

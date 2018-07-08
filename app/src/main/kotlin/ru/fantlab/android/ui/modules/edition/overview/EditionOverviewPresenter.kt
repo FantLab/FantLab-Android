@@ -19,11 +19,14 @@ class EditionOverviewPresenter : BasePresenter<EditionOverviewMvp.View>(),
 		editionId = bundle.getInt(BundleConstant.EXTRA)
 		editionId?.let {
 			makeRestCall(
-					DataManager.getEdition(it)
+					DataManager.getEdition(it, showAdditionalImages = true)
 							.map { it.get() }
 							.toObservable(),
 					Consumer { editionResponse ->
-						sendToView { it.onInitViews(editionResponse.edition) }
+						sendToView { it.onInitViews(
+								editionResponse.edition,
+								editionResponse.additionalImages
+						) }
 					}
 			)}
 	}
