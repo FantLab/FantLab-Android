@@ -9,12 +9,14 @@ import ru.fantlab.android.provider.fabric.FabricProvider
 import ru.fantlab.android.provider.stetho.StethoProvider
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.provider.timber.TimberProvider
+import ru.fantlab.android.ui.widgets.CustomLinkMovementMethod
 import shortbread.Shortbread
 
 class App : Application() {
 
 	companion object {
 		lateinit var instance: App
+		lateinit var linkMovementMethod: CustomLinkMovementMethod
 	}
 
 	override fun onCreate() {
@@ -41,5 +43,6 @@ class App : Application() {
 					"Cookie" to (PrefGetter.getToken() ?: "")
 			)
 		}
+		linkMovementMethod = CustomLinkMovementMethod()
 	}
 }

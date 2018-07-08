@@ -3,7 +3,6 @@ package ru.fantlab.android.ui.modules.edition.overview
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v7.widget.CardView
-import android.text.Html
 import android.text.SpannableStringBuilder
 import android.view.View
 import butterknife.BindView
@@ -140,12 +139,12 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 				.append(edition.pages.toString())
 		pagesCount.text = sb
 		if (edition.description.isNotBlank()) {
-			description.text = Html.fromHtml(edition.description)
+			description.setHtml(edition.description)
 		} else {
 			descriptionCard.visibility = View.GONE
 		}
 		if (edition.notes.isNotBlank()) {
-			notes.text = Html.fromHtml(edition.notes)
+			notes.setHtml(edition.notes)
 		} else {
 			notesCard.visibility = View.GONE
 		}

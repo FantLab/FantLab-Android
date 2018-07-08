@@ -3,11 +3,13 @@ package ru.fantlab.android.ui.widgets
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.ScaleDrawable
+import android.os.Build
 import android.os.Parcelable
 import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatTextView
+import android.text.Html
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.TextView
@@ -18,7 +20,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.helper.TypeFaceHelper
 import ru.fantlab.android.helper.ViewHelper
 import android.view.ViewGroup
-
+import ru.fantlab.android.App
 
 
 /**
@@ -64,6 +66,13 @@ class FontTextView @JvmOverloads constructor(context: Context, attrs: AttributeS
 			setText("I tried, but your OEM just sucks because they modify the framework components and therefore causing the app to crash!\nFantLab")
 			Crashlytics.logException(e)
 		}
+	}
+
+	fun setHtml(text: String){
+		this.movementMethod = App.linkMovementMethod
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+			this.text = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
+		} else this.text = Html.fromHtml(text)
 	}
 
 	private fun init(context: Context, attributeSet: AttributeSet?) {
