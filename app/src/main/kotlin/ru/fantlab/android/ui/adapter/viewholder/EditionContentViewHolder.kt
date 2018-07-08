@@ -15,7 +15,7 @@ class EditionContentViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Stri
 	@BindView(R.id.label) lateinit var label: FontTextView
 
 	override fun bind(content: String) {
-		label.text = Html.fromHtml(content)
+		label.setHtml(content)
 	}
 
 	companion object {

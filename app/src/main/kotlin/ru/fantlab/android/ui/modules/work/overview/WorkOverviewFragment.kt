@@ -10,8 +10,10 @@ import ru.fantlab.android.data.dao.model.Work
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
+import ru.fantlab.android.ui.widgets.dialog.ListDialogView
 import timber.log.Timber
 
 class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPresenter>(),
@@ -45,6 +47,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	override fun providePresenter() = WorkOverviewPresenter()
 
 	override fun onInitViews(work: Work) {
+		this.work = work
 		hideProgress()
 		Timber.d("work: ${GsonBuilder().setPrettyPrinting().create().toJson(work)}")
         coverLayout?.setUrl("https:${work.image}")
@@ -58,7 +61,8 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
             work.nameOrig
         }
         authors.text = work.authors.joinToString(", ") { it.name }
-        types.text =  work.year?.let {"${work.type}, ${work.year}"} ?: run { work.type }
+		authors.setOnClickListener(this)
+		types.text =  work.year?.let {"${work.type}, ${work.year}"} ?: run { work.type }
         description.text = work.description.let { work.description } ?: getString(R.string.no_description)
         notes.text = if (work.notes.isNotEmpty()) work.notes else getString(R.string.no_notes)
 	}
@@ -94,4 +98,20 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			return view
 		}
 	}
+
+	override fun onClick(v: View?) {
+		when (v?.id) {
+			R.id.authors -> {
+				val dialogView:ListDialogView<Work.Author> = ListDialogView()
+				dialogView.initArguments(getString(R.string.authors), work!!.authors)
+				dialogView.show(childFragmentManager, "ListDialogView")
+			}
+		}
+	}
+
+	override fun <T> onItemSelected(item: T, position: Int) {
+		item as Work.Author
+		AuthorPagerActivity.startActivity(context!!, item.id, item.name, 0)
+	}
+
 }
