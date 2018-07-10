@@ -94,6 +94,7 @@ class GallerySlider(context: Context?) : FrameLayout(context), View.OnTouchListe
 			MotionEvent.ACTION_UP -> {
 				mode = SLIDE_NONE
 				if (hideSlider) {
+					hideSlider = false
 					dialog.dismiss()
 				} else {
 					moveTo(view, 0f, 250)
