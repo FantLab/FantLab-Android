@@ -21,9 +21,7 @@ class CustomLinkMovementMethod : LinkMovementMethod() {
 	private var clickableSpanUnderTouchOnActionDown: ClickableSpan? = null
 	private var activeTextViewHashcode: Int = 0
 
-	fun newInstance(): LinkMovementMethod {
-		return LinkMovementMethod()
-	}
+	fun newInstance() = LinkMovementMethod()
 
 	override fun onTouchEvent(textView: TextView, text: Spannable, event: MotionEvent): Boolean {
 		if (activeTextViewHashcode != textView.hashCode()) {

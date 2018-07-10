@@ -37,7 +37,6 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
         recycler.addDivider()
         recycler.adapter = adapter
         adapter.addItem(SettingsModel(R.drawable.ic_color, getString(R.string.theme_title), "", SettingsModel.THEME))
-        //adapter.addItem(SettingsModel(R.drawable.ic_color, getString(R.string.theme_color), "", SettingsModel.CODE_THEME))
         adapter.addItem(SettingsModel(R.drawable.ic_language, getString(R.string.language), "", SettingsModel.LANGUAGE))
     }
 
@@ -45,9 +44,6 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
         when (item.settingsType){
             SettingsModel.THEME -> {
                 startActivityForResult(Intent(this, ThemeActivity::class.java), THEME_CHANGE)
-            }
-            SettingsModel.CODE_THEME -> {
-                showMessage("Click", "Not implemented yet")
             }
             SettingsModel.LANGUAGE -> {
                 showLanguageList()

@@ -14,8 +14,7 @@ data class SettingsModel(
 ): Parcelable {
     companion object SettingType{
         val THEME: Int = 0
-        val CODE_THEME: Int = 1
-        val LANGUAGE: Int = 2
+        val LANGUAGE: Int = 1
     }
 }
 

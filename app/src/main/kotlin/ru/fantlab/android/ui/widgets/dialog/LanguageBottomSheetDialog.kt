@@ -68,7 +68,7 @@ class LanguageBottomSheetDialog : BaseBottomSheetDialog() {
             val tag = radioGroup.getChildAt(checkedId).tag as String
             if (!tag.equals(language, ignoreCase = true)) {
                 PrefGetter.setAppLanguage(tag)
-                if (callback != null) callback!!.onLanguageChanged(this::dismiss)
+                callback?.onLanguageChanged(this::dismiss)
             }
         }
     }

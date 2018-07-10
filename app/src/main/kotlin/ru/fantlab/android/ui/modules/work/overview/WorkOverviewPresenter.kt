@@ -39,7 +39,7 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 	}
 
 	override fun onClick(v: View?) {
-		view?.onClick(v)
+		sendToView { it.onClick(v) }
 	}
 
 }

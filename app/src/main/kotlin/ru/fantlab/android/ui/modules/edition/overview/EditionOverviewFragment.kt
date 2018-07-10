@@ -219,7 +219,6 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 	}
 
 	override fun <T> onItemSelected(item: T, position: Int) {
-		item as Edition.Author
-		AuthorPagerActivity.startActivity(context!!, item.id, item.name, 0)
+		AuthorPagerActivity.startActivity(context!!, (item as Edition.Author).id, item.name, 0)
 	}
 }

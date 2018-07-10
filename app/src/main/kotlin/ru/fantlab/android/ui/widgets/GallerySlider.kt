@@ -16,15 +16,18 @@ import ru.fantlab.android.ui.adapter.SliderAdapter
 
 class GallerySlider(context: Context?) : FrameLayout(context), View.OnTouchListener {
 	private var dialog: Dialog = Dialog(context, R.style.SliderTheme)
-	private var mode: Int = 0
-	private var x1: Float = 0f
-	private var y1: Float = 0f
-	private var cY = 0f
-	private var SLIDE_NONE = 0
-	private var SLIDE_PRESSED = 1
-	private var SLIDE_HORIZONTAL = 2
-	private var SLIDE_VERTICAL = 3
-	private var hideSlider = false
+
+	companion object {
+		var mode: Int = 0
+		var x1: Float = 0f
+		var y1: Float = 0f
+		var cY = 0f
+		var SLIDE_NONE = 0
+		var SLIDE_PRESSED = 1
+		var SLIDE_HORIZONTAL = 2
+		var SLIDE_VERTICAL = 3
+		var hideSlider = false
+	}
 
 	var dotsViews = emptyArray<ImageView?>()
 	var currentImageIndex: Int = 0

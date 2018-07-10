@@ -33,7 +33,7 @@ class AuthorWorksFragment : BaseFragment<AuthorWorksMvp.View, AuthorWorksPresent
 	private var cycles: WorksBlocks? = null
 	private var works: WorksBlocks? = null
 
-	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
+	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -63,10 +63,9 @@ class AuthorWorksFragment : BaseFragment<AuthorWorksMvp.View, AuthorWorksPresent
         fastScroller.attachRecyclerView(recycler)
         adapter.listener = presenter
         recycler.adapter = adapter
-        works.worksBlocks.let {
-            it.forEach {
-                adapter.addItems(it.list)
-            } }
+        works.worksBlocks.forEach{
+			adapter.addItems(it.list)
+		}
         onSetTabCount(adapter.itemCount)
 	}
 

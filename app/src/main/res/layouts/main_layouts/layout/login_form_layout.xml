@@ -138,6 +138,7 @@
 						android:gravity="center"
 						android:paddingBottom="@dimen/spacing_normal"
 						android:text="@string/or_character"
+						android:textAllCaps="true"
 						style="@style/TextAppearance.AppCompat.Small"
 						/>
 

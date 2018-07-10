@@ -61,10 +61,9 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 		recycler.addKeyLineDivider()
         adapter.listener = presenter
 		fastScroller.attachRecyclerView(recycler)
-        authorEditionsResponse.editions?.editionsBlocks?.let {
-			it.forEach {
-				adapter.addItems(it.list)
-			} }
+        authorEditionsResponse.editions?.editionsBlocks?.forEach{
+			adapter.addItems(it.list)
+		}
 		recycler.adapter = adapter
 	}
 

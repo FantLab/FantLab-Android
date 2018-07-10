@@ -40,9 +40,7 @@ data class Work(
 			@SerializedName("name_orig") val nameOrig: String,
 			val type: String
 	) : Parcelable{
-		override fun toString(): String {
-			return name
-		}
+		override fun toString() = name
 	}
 
 	@Parcelize

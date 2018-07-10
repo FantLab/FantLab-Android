@@ -19,7 +19,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 		AuthorOverviewMvp.View {
 
 	@BindView(R.id.progress) lateinit var progress: View
-    @JvmField @BindView(R.id.coverLayout) var coverLayout: CoverLayout? = null
+    @BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
     @BindView(R.id.author) lateinit var authorName: FontTextView
     @BindView(R.id.date) lateinit var date: FontTextView
     @BindView(R.id.country) lateinit var country: FontTextView
@@ -49,7 +49,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 	override fun onInitViews(author: Author, biography: Biography?) {
 		hideProgress()
 		Timber.d("author: ${GsonBuilder().setPrettyPrinting().create().toJson(author)}")
-        coverLayout?.setUrl("https:${author.image}")
+		coverLayout.setUrl("https:${author.image}")
 
         authorName.text = if (author.name.isNotEmpty()) {
             if (author.nameOriginal.isNotEmpty()) {

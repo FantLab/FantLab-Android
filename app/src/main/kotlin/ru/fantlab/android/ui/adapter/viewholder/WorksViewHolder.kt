@@ -19,19 +19,6 @@ class WorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorksBlocks.W
 	@BindView(R.id.year) lateinit var year: FontTextView
 
 	override fun bind(work: WorksBlocks.Work) {
-		/*
-
-		Нет ссылки в API на верное изображение
-
-		coverLayout.setUrl(Uri.Builder().scheme(PROTOCOL_HTTPS)
-				.authority(HOST_DATA)
-				.appendPath("images")
-				.appendPath("editions")
-				.appendPath("big")
-				.appendPath(work.id.toString())
-				.toString())
-
-		*/
 
 		if (work.authors.isNotEmpty()) {
 			authors.text = work.authors[0].name.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")
@@ -50,7 +37,7 @@ class WorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorksBlocks.W
             work.nameOrig
         }
 
-		year.text = if (work.year != null) work.year.toString() else "N/A"
+		year.text = work.year?.toString() ?: "N/A"
 
 	}
 

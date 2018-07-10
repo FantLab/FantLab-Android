@@ -63,7 +63,7 @@
 	<string name="sign_in">Sign in</string>
 	<string name="username">Username</string>
 	<string name="password">Password</string>
-	<string name="or_character">OR</string>
+	<string name="or_character">or</string>
 	<string name="proceed_without_login">Proceed without login</string>
 	<string name="required_field">Required field</string>
 	<string name="failed_login">Sign in failed</string>
@@ -103,12 +103,10 @@
     <string name="no_analogs">No analogs</string>
     <string name="source">Source</string>
 	<string name="no_source">No source link</string>
-    <string name="no_description">No description</string>
     <string name="no_works">No works</string>
     <string name="no_content">No content</string>
     <string name="settings">Settings</string>
 	<string name="theme_title">Theme</string>
-    <string name="theme_color">Color palette</string>
 	<string name="language">Language</string>
     <string name="select">Select</string>
     <string name="success">Success</string>

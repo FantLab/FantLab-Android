@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.annotation.StringRes
 import android.view.View
 import butterknife.BindView
-import com.google.gson.GsonBuilder
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Work
 import ru.fantlab.android.helper.BundleConstant
@@ -14,13 +13,12 @@ import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.dialog.ListDialogView
-import timber.log.Timber
 
 class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPresenter>(),
 		WorkOverviewMvp.View {
 
 	@BindView(R.id.progress) lateinit var progress: View
-    @JvmField @BindView(R.id.coverLayout) var coverLayout: CoverLayout? = null
+    @BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
     @BindView(R.id.authors) lateinit var authors: FontTextView
     @BindView(R.id.title) lateinit var name: FontTextView
     @BindView(R.id.types) lateinit var types: FontTextView
@@ -49,8 +47,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	override fun onInitViews(work: Work) {
 		this.work = work
 		hideProgress()
-		Timber.d("work: ${GsonBuilder().setPrettyPrinting().create().toJson(work)}")
-        coverLayout?.setUrl("https:${work.image}")
+		coverLayout.setUrl("https:${work.image}")
         name.text = if (work.name.isNotEmpty()) {
             if (work.nameOrig.isNotEmpty()) {
                 "${work.name} / ${work.nameOrig}"
@@ -62,8 +59,8 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
         }
         authors.text = work.authors.joinToString(", ") { it.name }
 		authors.setOnClickListener(this)
-		types.text =  work.year?.let {"${work.type}, ${work.year}"} ?: run { work.type }
-        description.text = work.description.let { work.description } ?: getString(R.string.no_description)
+		types.text = StringBuilder().append(if (work.year != null) "${work.type}, ${work.year}" else work.type)
+		if (!work.description.isNullOrEmpty()) description.text = work.description else description.visibility = View.GONE
         notes.text = if (work.notes.isNotEmpty()) work.notes else getString(R.string.no_notes)
 	}
 
@@ -103,15 +100,14 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		when (v?.id) {
 			R.id.authors -> {
 				val dialogView:ListDialogView<Work.Author> = ListDialogView()
-				dialogView.initArguments(getString(R.string.authors), work!!.authors)
+				dialogView.initArguments(getString(R.string.authors), work?.authors)
 				dialogView.show(childFragmentManager, "ListDialogView")
 			}
 		}
 	}
 
 	override fun <T> onItemSelected(item: T, position: Int) {
-		item as Work.Author
-		AuthorPagerActivity.startActivity(context!!, item.id, item.name, 0)
+		AuthorPagerActivity.startActivity(context!!, (item as Work.Author).id, item.name, 0)
 	}
 
 }

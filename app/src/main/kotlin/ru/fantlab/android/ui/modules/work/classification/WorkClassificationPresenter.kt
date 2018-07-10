@@ -12,7 +12,7 @@ class WorkClassificationPresenter : BasePresenter<WorkClassificationMvp.View>(),
 
 	@com.evernote.android.state.State
 	var workId: Int? = null
-    private var responses: ArrayList<ClassificationGenre> = ArrayList()
+    private var responses: ArrayList<ClassificationGenre> = arrayListOf()
 
 	override fun onFragmentCreated(bundle: Bundle?) {
 		if (bundle?.getInt(BundleConstant.EXTRA) == null) {

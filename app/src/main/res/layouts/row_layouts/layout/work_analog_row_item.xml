@@ -85,34 +85,6 @@
 					style="@style/TextAppearance.AppCompat.Caption"
 					/>
 
-				<!--<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/rating"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center"
-					android:layout_marginEnd="@dimen/spacing_micro"
-					android:drawablePadding="@dimen/spacing_micro"
-					android:drawableStart="@drawable/ic_star_small"
-					android:gravity="start|center"
-					android:textColor="?android:attr/textColorSecondary"
-					android:visibility="gone"
-					app:drawableColor="?android:attr/textColorSecondary"
-					tools:text="7.26 / 65"
-					tools:visibility="visible"
-					style="@style/TextAppearance.AppCompat.Caption"
-					/>
-
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/type"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center"
-					android:gravity="start|center"
-					android:textColor="?android:attr/textColorSecondary"
-					tools:text="рассказ"
-					style="@style/TextAppearance.AppCompat.Caption"
-					/>-->
-
 			</ru.fantlab.android.ui.widgets.AutoLinearLayout>
 
 		</LinearLayout>

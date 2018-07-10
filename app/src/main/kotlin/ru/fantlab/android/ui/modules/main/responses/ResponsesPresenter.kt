@@ -65,7 +65,7 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 	}
 
 	override fun onItemClick(position: Int, v: View?, item: Response) {
-        view?.onItemClicked(item)
+		sendToView { it.onItemClicked(item) }
 	}
 
 	override fun onItemLongClick(position: Int, v: View?, item: Response) {

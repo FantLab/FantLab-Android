@@ -25,16 +25,12 @@ class ListDialogView<T: Parcelable> : BaseDialogFragment<BaseMvp.View, BasePrese
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 	private var callbacks: ListDialogViewActionCallback? = null
 
-	interface ListDialogViewActionCallback {
-		fun <T> onItemSelected(item: T, position: Int)
+	init {
+		suppressAnimation = true
 	}
 
 	override fun fragmentLayout(): Int {
 		return R.layout.simple_list_dialog
-	}
-
-	init {
-		suppressAnimation = true
 	}
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +40,7 @@ class ListDialogView<T: Parcelable> : BaseDialogFragment<BaseMvp.View, BasePrese
 			return
 		}
 		val titleText = arguments!!.getString(BundleConstant.EXTRA)
-		title.text = titleText;
+		title.text = titleText
 		if (objects != null) {
 			val adapter = SimpleListAdapter<T>(objects)
 			adapter.listener = this
@@ -93,7 +89,11 @@ class ListDialogView<T: Parcelable> : BaseDialogFragment<BaseMvp.View, BasePrese
 
 	override fun onDetach() {
 		super.onDetach()
-		callbacks = null;
+		callbacks = null
+	}
+
+	interface ListDialogViewActionCallback {
+		fun <T> onItemSelected(item: T, position: Int)
 	}
 
 }

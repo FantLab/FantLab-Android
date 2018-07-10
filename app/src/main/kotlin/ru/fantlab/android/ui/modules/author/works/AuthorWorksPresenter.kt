@@ -49,7 +49,7 @@ class AuthorWorksPresenter : BasePresenter<AuthorWorksMvp.View>(),
 	override fun getWorks(): ArrayList<WorksBlocks.Work> = works
 
     override fun onItemClick(position: Int, v: View?, item: WorksBlocks.Work) {
-        view?.onItemClicked(item)
+		sendToView{ it.onItemClicked(item) }
     }
 
     override fun onItemLongClick(position: Int, v: View?, item: WorksBlocks.Work?) {

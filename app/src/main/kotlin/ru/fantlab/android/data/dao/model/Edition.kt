@@ -45,9 +45,7 @@ data class Edition(
 			val name: String,
 			val type: String
 	) : Parcelable {
-		override fun toString(): String {
-			return name
-		}
+		override fun toString() = name
 	}
 
 	@Parcelize
