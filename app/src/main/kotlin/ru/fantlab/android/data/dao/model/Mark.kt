@@ -15,6 +15,7 @@ data class Mark(
 		@SerializedName("user_name") val userName: String,
 		@SerializedName("user_sex") val userSex: String,
 		@SerializedName("user_work_classif_flag") val userClassifiedWork: Int,
+		@SerializedName("user_work_response_flag") val userResponseWork: Int,
 		@SerializedName("user_work_response_id") val responseId: Int,
 		@SerializedName("work_author") val workAuthor: String,
 		@SerializedName("work_author_orig") val workAuthorOrig: String,

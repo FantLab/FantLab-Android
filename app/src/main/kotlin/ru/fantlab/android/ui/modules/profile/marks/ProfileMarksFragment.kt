@@ -15,6 +15,7 @@ import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ProfileMarksAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.user.UserPagerMvp
+import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
@@ -94,8 +95,7 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	}
 
 	override fun onItemClicked(item: Mark) {
-		// goto work screen
-		showMessage("Click", "Not implemented yet")
+		WorkPagerActivity.startActivity(context!!, item.workId, item.workName, 0)
 	}
 
 	override fun onRefresh() {
