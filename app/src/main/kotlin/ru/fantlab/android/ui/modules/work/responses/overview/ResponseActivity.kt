@@ -16,6 +16,7 @@ import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.*
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.base.BaseActivity
+import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 
@@ -93,7 +94,8 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
     override fun onInitViews(response: Response) {
         coverLayout?.setUrl("https:${response.userAvatar}")
         username.text = response.userName
-        date.text = response.dateIso.parseFullDate(true).getTimeAgo()
+		username.setOnClickListener { UserPagerActivity.startActivity(this, response.userName, response.userId,0 ) }
+		date.text = response.dateIso.parseFullDate(true).getTimeAgo()
 
         workTitle.text = if (response.workName.isNotEmpty()) {
             if (response.workNameOrig.isNotEmpty()) {
