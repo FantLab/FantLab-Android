@@ -17,7 +17,8 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 		view?.onItemClicked(item)
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: Mark) {
+	override fun onItemLongClick(position: Int, v: View, item: Mark) {
+		view?.onItemLongClicked(position, v, item)
 	}
 
 	override fun getMarks(): ArrayList<Mark> = marks
@@ -55,6 +56,17 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 					}
 				})
 		return true
+	}
+
+	fun onSendMark(item: Mark, mark: Int, position: Int){
+		makeRestCall(DataManager.sendUserMark(item.workId, item.workId, mark)
+				.map { it.get() }
+				.toObservable(),
+				Consumer {
+					sendToView { view ->
+						view.onSetMark(position, mark)
+					}
+				})
 	}
 
 	override fun onError(throwable: Throwable) {

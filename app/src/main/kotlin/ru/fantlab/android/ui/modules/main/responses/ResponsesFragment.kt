@@ -6,12 +6,16 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.ContextMenuBuilder
+import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ResponsesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
+import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 
@@ -109,4 +113,30 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 	override fun onItemClicked(item: Response) {
 		WorkPagerActivity.startActivity(context!!, item.workId, item.workName, 0)
 	}
+
+	override fun onItemLongClicked(position: Int, v: View?, item: Response) {
+		val dialogView = ContextMenuDialogView()
+		dialogView.initArguments("main", ContextMenuBuilder.buildForResponses(context!!), item, position)
+		dialogView.show(childFragmentManager, "ContextMenuDialogView")
+	}
+
+	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
+		listItem as Response
+		when (item.id){
+			"vote" -> {
+				presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
+			}
+			"profile" -> {
+				UserPagerActivity.startActivity(context!!, listItem.userName, listItem.userId,0 )
+			}
+		}
+	}
+
+	override fun onSetVote(position: Int, votesCount: String) {
+		hideProgress()
+		adapter.getItem(position).voteCount = votesCount.toInt()
+		adapter.notifyItemChanged(position)
+
+	}
+
 }

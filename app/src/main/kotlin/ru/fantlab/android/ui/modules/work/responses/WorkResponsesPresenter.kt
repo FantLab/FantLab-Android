@@ -18,7 +18,8 @@ class WorkResponsesPresenter : BasePresenter<WorkResponsesMvp.View>(),
 		view?.onItemClicked(item)
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: Response?) {
+	override fun onItemLongClick(position: Int, v: View?, item: Response) {
+		view?.onItemLongClicked(position, v, item)
 	}
 
 	override fun getResponses(): ArrayList<Response> = responses

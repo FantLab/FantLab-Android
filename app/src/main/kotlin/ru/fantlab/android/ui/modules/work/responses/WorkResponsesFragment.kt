@@ -8,14 +8,15 @@ import android.view.View
 import butterknife.BindView
 import com.evernote.android.state.State
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ResponsesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
-import ru.fantlab.android.ui.modules.work.responses.overview.ResponseActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
+import ru.fantlab.android.ui.modules.work.responses.overview.ResponseActivity
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
@@ -96,6 +97,12 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 
 	override fun onItemClicked(item: Response) {
         ResponseActivity.startActivity(context!!, item, item.id, item.workName)
+	}
+
+	override fun onItemLongClicked(position: Int, v: View?, item: Response) {
+	}
+
+	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
 	}
 
 	override fun onRefresh() {

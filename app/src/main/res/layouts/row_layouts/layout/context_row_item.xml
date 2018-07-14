@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:foreground="?selectableItemBackgroundBorderless"
+	android:minHeight="?listPreferredItemHeightSmall"
+	android:orientation="vertical"
+	android:padding="@dimen/spacing_xs_large"
+	>
+
+	<ru.fantlab.android.ui.widgets.ForegroundImageView
+		android:id="@+id/icon"
+		android:layout_width="@dimen/bbn_fixed_item_icon_size"
+		android:layout_height="@dimen/bbn_fixed_item_icon_size"
+		android:layout_marginEnd="@dimen/spacing_xs_large"
+		/>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_centerVertical="true"
+		android:layout_toEndOf="@+id/icon"
+		android:ellipsize="end"
+		android:maxLines="3"
+		style="@style/TextAppearance.AppCompat.Subhead"
+		/>
+</RelativeLayout>

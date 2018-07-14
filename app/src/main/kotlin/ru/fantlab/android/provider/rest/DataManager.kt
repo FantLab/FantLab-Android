@@ -4,6 +4,7 @@ import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.fuel.rx.rx_object
 import com.github.kittinunf.fuel.rx.rx_response
+import com.github.kittinunf.fuel.rx.rx_string
 import com.google.gson.Gson
 import ru.fantlab.android.data.dao.response.*
 
@@ -145,6 +146,23 @@ object DataManager {
 					"sort" to sortOption.value
 			))
 			.rx_object(ResponsesResponse.Deserializer(perPage = 50))
+
+	fun sendUserMark(
+			workId: Int,
+			toWorkId: Int,
+			mark: Int
+	) = "/work$workId/ajaxsetmark${mark}towork$toWorkId"
+			.toAbsolutePath()
+			.httpGet()
+			.rx_object(MarkResponse.Deserializer())
+
+	fun sendResponseVote(
+			responseId: Int,
+			voteType: String
+	) = "/vote$responseId$voteType"
+			.toAbsolutePath()
+			.httpGet()
+			.rx_string()
 
 	fun login(
 			login: String,

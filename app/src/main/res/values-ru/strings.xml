@@ -81,4 +81,10 @@
 	<string name="language">Язык</string>
     <string name="select">Выбрать</string>
     <string name="change_theme_warning">Тема оформления изменена</string>
+	<string name="change_mark">Изменить оценку</string>
+	<string name="delete_mark">Удалить оценку</string>
+	<string name="select_mark">Выберите оценку</string>
+	<string name="select_action">Выберите действие</string>
+	<string name="show_profile">Просмотреть профиль</string>
+	<string name="vote">Проголосовать</string>
 </resources>

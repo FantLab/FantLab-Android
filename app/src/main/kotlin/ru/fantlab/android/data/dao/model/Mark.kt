@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Mark(
-		val mark: Int,
+		var mark: Int,
 		@SerializedName("mark_date") val date: String,
 		@SerializedName("mark_date_iso") val dateIso: String,
 		@SerializedName("mark_id") val id: Int,

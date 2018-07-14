@@ -8,15 +8,19 @@ import android.view.View
 import butterknife.BindView
 import com.evernote.android.state.State
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.ContextMenuBuilder
+import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Mark
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ProfileMarksAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.user.UserPagerMvp
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
+import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 
@@ -88,6 +92,17 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 		}
 	}
 
+	override fun onSetMark(position: Int, mark: Int) {
+		hideProgress()
+		if (mark == 0) {
+			adapter.removeItem(position)
+			onSetTabCount(adapter.itemCount)
+		} else {
+			adapter.getItem(position).mark = mark
+			adapter.notifyItemChanged(position)
+		}
+	}
+
 	override fun getLoadMore() = onLoadMore
 
 	override fun onSetTabCount(count: Int) {
@@ -97,6 +112,27 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	override fun onItemClicked(item: Mark) {
 		WorkPagerActivity.startActivity(context!!, item.workId, item.workName, 0)
 	}
+
+	override fun onItemLongClicked(position: Int, v: View?, item: Mark) {
+		if (isLoggedIn() && PrefGetter.getLoggedUser()?.id == userId) {
+			val dialogView = ContextMenuDialogView()
+			dialogView.initArguments("main", ContextMenuBuilder.buildForMarks(context!!), item, position)
+			dialogView.show(childFragmentManager, "ContextMenuDialogView")
+		}
+	}
+
+	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
+		listItem as Mark
+		when (item.id){
+			"mark" -> {
+			presenter.onSendMark(listItem, item.title.toInt(), position)
+			}
+			"delete" -> {
+			presenter.onSendMark(listItem, 0, position)
+			}
+		}
+	}
+
 
 	override fun onRefresh() {
 		presenter.onCallApi(1, userId)

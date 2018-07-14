@@ -3,6 +3,7 @@ package ru.fantlab.android.ui.modules.main.responses
 import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.data.dao.response.VoteResponse
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import java.util.*
@@ -45,6 +46,22 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 		return true
 	}
 
+	fun onSendVote(item: Response, position: Int, voteType: String){
+		makeRestCall(DataManager.sendResponseVote(item.id, voteType)
+				.map { it.get() }
+				.toObservable(),
+				Consumer { response ->
+					val result = VoteResponse.Parser().parse(response)
+					if (result != null) {
+						sendToView { view ->
+							view.onSetVote(position, result.votesCount)
+						}
+					} else {
+						sendToView { it.showErrorMessage(response) }
+					}
+				})
+	}
+
 	override fun getCurrentPage(): Int = page
 
 	override fun getPreviousTotal(): Int = previousTotal
@@ -68,6 +85,8 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 		sendToView { it.onItemClicked(item) }
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: Response) {
+	override fun onItemLongClick(position: Int, v: View, item: Response) {
+		view?.onItemLongClicked(position, v, item)
 	}
+
 }
