@@ -1,0 +1,66 @@
+[
+	{
+		"id": "biggrin",
+		"description": "смех"
+	},
+	{
+		"id": "confused",
+		"description": "вопрос"
+	},
+	{
+		"id": "smile",
+		"description": "улыбка"
+	},
+	{
+		"id": "wink",
+		"description": "подмигиваю"
+	},
+	{
+		"id": "gigi",
+		"description": "смех"
+	},
+	{
+		"id": "lol",
+		"description": "смех"
+	},
+	{
+		"id": "frown",
+		"description": "грусть"
+	},
+	{
+		"id": "insane",
+		"description": "смех"
+	},
+	{
+		"id": "abuse",
+		"description": "злой"
+	},
+	{
+		"id": "mad",
+		"description": "злой"
+	},
+	{
+		"id": "dont",
+		"description": "нет"
+	},
+	{
+		"id": "eek",
+		"description": "шок"
+	},
+	{
+		"id": "blush",
+		"description": "румянец"
+	},
+	{
+		"id": "beer",
+		"description": "пиво"
+	},
+	{
+		"id": "help",
+		"description": "помощь"
+	},
+	{
+		"id": "hb",
+		"description": "цветы"
+	}
+]

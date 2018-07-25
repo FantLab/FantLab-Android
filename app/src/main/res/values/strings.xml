@@ -5,6 +5,7 @@
 	<string name="app_name_full" translatable="false">FantLab for Android</string>
 	<string name="scroll_behavior" translatable="false">@string/appbar_scrolling_view_behavior</string>
 	<string name="linear_layout_manager" translatable="false">ru.fantlab.android.ui.widgets.recyclerview.layout_manager.LinearManager</string>
+	<string name="grid_layout_manager" translatable="false">ru.fantlab.android.ui.widgets.recyclerview.layout_manager.GridManager</string>
 	<string name="staggered_layout_manager" translatable="false">ru.fantlab.android.ui.widgets.recyclerview.layout_manager.StaggeredManager</string>
 	<string name="bbn_fab_default_behavior" translatable="false">ru.fantlab.android.ui.widgets.FloatingActionButtonBehavior</string>
 	<string name="custom_tablet_provider" translatable="false">ru.fantlab.android.ui.widgets.TabletBehavior</string>
@@ -116,5 +117,23 @@
 	<string name="select_mark">Select mark</string>
 	<string name="select_action">Select action</string>
 	<string name="show_profile">Show profile</string>
-	<string name="vote">Vote</string>
+	<string name="vote">Vote for review</string>
+	<string name="error_highlighting_editor">Error highlighting editor</string>
+	<string name="submit">Submit</string>
+	<string name="close">Close</string>
+	<string name="unsaved_data_warning">Are you sure you want to cancel the entry?</string>
+	<string name="discard">Discard</string>
+	<string name="comment">Comment</string>
+	<string name="type_here">Start type here</string>
+	<string name="title">Title</string>
+	<string name="link">Link</string>
+	<string name="insert">Insert</string>
+	<string name="markdown">Editor</string>
+	<string name="copy">Copy</string>
+	<string name="open">Open</string>
+	<string name="message">Message</string>
+	<string name="send_message">Send message</string>
+	<string name="no_title">Without title</string>
+	<string name="success_copied">Success copied</string>
+	<string name="not_recognized">Not recognized</string>
 </resources>

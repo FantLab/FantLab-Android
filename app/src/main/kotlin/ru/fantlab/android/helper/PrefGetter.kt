@@ -34,6 +34,9 @@ object PrefGetter {
 		DEEP_ORANGE
 	}
 
+	val LIGHT = 1
+	val DARK = 2
+
 	private const val TOKEN = "token"
 	private const val WHATS_NEW_VERSION = "whats_new"
 	private const val APP_LANGUAGE = "app_language"

@@ -1,9 +1,7 @@
 package ru.fantlab.android.helper
 
 import android.app.Activity
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.ContextWrapper
+import android.content.*
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.ShareCompat
@@ -44,5 +42,12 @@ object ActivityHelper {
 		} catch (e: ActivityNotFoundException) {
 			Toasty.error(App.instance, e.message!!, Toast.LENGTH_LONG).show()
 		}
+	}
+
+	fun copyToClipboard(context: Context, uri: String) {
+		val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+		val clip = ClipData.newPlainText(context.getString(R.string.app_name), uri)
+		clipboard.setPrimaryClip(clip)
+		Toasty.success(App.instance, context.getString(R.string.success_copied)).show()
 	}
 }

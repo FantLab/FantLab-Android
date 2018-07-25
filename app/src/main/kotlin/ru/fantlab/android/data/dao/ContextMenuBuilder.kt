@@ -41,7 +41,7 @@ class ContextMenuBuilder{
 			val actions =
 					arrayListOf(
 							ContextMenus.MenuItem(context.getString(R.string.show_profile), R.drawable.ic_profile, "profile"),
-							ContextMenus.MenuItem(context.getString(R.string.vote), R.drawable.ic_star, "votes")
+							ContextMenus.MenuItem(context.getString(R.string.vote), R.drawable.ic_star, "votes", true)
 					)
 			items.add(ContextMenus(context.getString(R.string.select_action), actions, "main"))
 
@@ -51,6 +51,19 @@ class ContextMenuBuilder{
 							ContextMenus.MenuItem("-1", R.drawable.ic_thumb_down, "vote")
 					)
 			items.add(ContextMenus(context.getString(R.string.select_mark), marks, "votes"))
+
+			return items
+		}
+
+		fun buildForProfile(context: Context): ArrayList<ContextMenus>{
+			val items = ArrayList<ContextMenus>()
+
+			val actions =
+					arrayListOf(
+							ContextMenus.MenuItem(context.getString(R.string.show_profile), R.drawable.ic_profile, "profile"),
+							ContextMenus.MenuItem(context.getString(R.string.send_message), R.drawable.ic_message, "message", true)
+					)
+			items.add(ContextMenus(context.getString(R.string.select_action), actions, "main"))
 
 			return items
 		}

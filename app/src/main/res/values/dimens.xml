@@ -15,4 +15,6 @@
 	<dimen name="grid_spacing">0dp</dimen>
 	<dimen name="avatar_margin">16dp</dimen>
 	<dimen name="avatar_margin_end">16dp</dimen>
+	<dimen name="header_icon_size">32dp</dimen>
+	<item name="drawable_callback" type="id">drawable_callback</item>
 </resources>

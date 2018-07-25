@@ -7,7 +7,6 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.getTimeAgo
 import ru.fantlab.android.helper.parseFullDate
-import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
@@ -29,7 +28,9 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 				.append(response.userName)
 				.append(", ")
 				.append(response.dateIso.parseFullDate(true).getTimeAgo())
-		info.setOnClickListener { UserPagerActivity.startActivity(itemView.context, response.userName, response.userId,0 ) }
+		info.setOnClickListener {
+			listener?.onOpenContextMenu(response)
+		}
 
 		workName.text = if (response.workName.isNotEmpty()) {
 			if (response.workNameOrig.isNotEmpty()) {
@@ -56,7 +57,12 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 		votes.text = response.voteCount.toString()
 	}
 
+	interface OnOpenContextMenu {
+		fun onOpenContextMenu(userItem: Response)
+	}
+
 	companion object {
+		private var listener: OnOpenContextMenu? = null
 
 		fun newInstance(
 				viewGroup: ViewGroup,
@@ -68,6 +74,10 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 			} else {
 				ResponseViewHolder(getView(viewGroup, R.layout.response_row_item), adapter)
 			}
+		}
+
+		fun setOnContextMenuListener(listener: ResponseViewHolder.OnOpenContextMenu) {
+			this.listener = listener
 		}
 	}
 }

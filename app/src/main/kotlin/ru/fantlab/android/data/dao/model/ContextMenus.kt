@@ -13,6 +13,7 @@ data class ContextMenus(
 	data class MenuItem(
 			val title: String,
 			val icon: Int,
-			val id: String
+			val id: String,
+			val logged: Boolean = false
 	) : Parcelable
 }

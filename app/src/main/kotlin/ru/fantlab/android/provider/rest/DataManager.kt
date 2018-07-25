@@ -164,6 +164,19 @@ object DataManager {
 			.httpGet()
 			.rx_string()
 
+	fun sendMessage(
+			userId: Int,
+			message: CharSequence?,
+			mode: String
+	) = "/user$userId/sendprivatemessage"
+			.toAbsolutePath()
+			.httpPost(listOf(
+					"message" to message,
+					"mode" to mode,
+					"action" to "/user$userId/sendprivatemessage"
+			))
+			.rx_string()
+
 	fun login(
 			login: String,
 			password: String

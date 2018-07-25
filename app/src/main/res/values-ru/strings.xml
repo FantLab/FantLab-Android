@@ -86,5 +86,23 @@
 	<string name="select_mark">Выберите оценку</string>
 	<string name="select_action">Выберите действие</string>
 	<string name="show_profile">Просмотреть профиль</string>
-	<string name="vote">Проголосовать</string>
+	<string name="vote">Проголосовать за отзыв</string>
+	<string name="error_highlighting_editor">Ошибка обработки текста</string>
+	<string name="submit">Подвердить</string>
+	<string name="close">Закрыть</string>
+	<string name="unsaved_data_warning">Вы действительно хотите отменить ввод?</string>
+	<string name="discard">Сбросить</string>
+	<string name="comment">Комментарий…</string>
+	<string name="type_here">Начните вводить текст</string>
+	<string name="title">Заголовок</string>
+	<string name="link">Ссылка</string>
+	<string name="insert">Вставить</string>
+	<string name="markdown">Редактор</string>
+	<string name="copy">Скопировать</string>
+	<string name="open">Открыть</string>
+	<string name="message">Сообщение</string>
+	<string name="send_message">Отправить сообщение</string>
+	<string name="no_title">Без заголовка</string>
+	<string name="success_copied">Успешно скопировано</string>
+	<string name="not_recognized">Внутренний тип ссылки не опознан</string>
 </resources>

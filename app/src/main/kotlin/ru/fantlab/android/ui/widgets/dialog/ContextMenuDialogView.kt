@@ -5,11 +5,15 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.Toast
 import butterknife.BindView
+import es.dmoral.toasty.Toasty
+import ru.fantlab.android.App
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.ui.adapter.ContextListAdapter
 import ru.fantlab.android.ui.base.BaseBottomSheetDialog
 import ru.fantlab.android.ui.widgets.FontTextView
@@ -60,6 +64,10 @@ class ContextMenuDialogView : BaseBottomSheetDialog(), BaseViewHolder.OnItemClic
 			val menuForLevel: List<ContextMenus> = menu.filter { it.parent == item.id }
 			if (menuForLevel.isEmpty() || id == item.id) {
 				dismiss()
+				if (PrefGetter.getLoggedUser() == null && item.logged) {
+					Toasty.error(App.instance, getString(R.string.unauthorized_user), Toast.LENGTH_SHORT).show()
+					return
+				}
 				callbacks!!.onItemSelected(item, listItem, positionItem)
 			} else {
 				id = item.id

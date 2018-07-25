@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.main.responses
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
@@ -9,9 +10,11 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ResponsesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
@@ -36,6 +39,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
+		adapter.setOnContextMenuListener(this)
 		recycler.adapter = adapter
 		getLoadMore().initialize(presenter.getCurrentPage(), presenter.getPreviousTotal())
 		recycler.addOnScrollListener(getLoadMore())
@@ -106,7 +110,6 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 	}
 
 	companion object {
-
 		val TAG: String = ResponsesFragment::class.java.simpleName
 	}
 
@@ -129,6 +132,12 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 			"profile" -> {
 				UserPagerActivity.startActivity(context!!, listItem.userName, listItem.userId,0 )
 			}
+			"message" -> {
+				startActivity(Intent(activity, EditorActivity::class.java)
+						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_MESSAGE)
+						.putExtra(BundleConstant.ID, listItem.userId)
+				)
+			}
 		}
 	}
 
@@ -137,6 +146,12 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 		adapter.getItem(position).voteCount = votesCount.toInt()
 		adapter.notifyItemChanged(position)
 
+	}
+
+	override fun onOpenContextMenu(userItem: Response) {
+		val dialogView = ContextMenuDialogView()
+		dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(context!!), userItem, 0)
+		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 
 }

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import java.util.*
 
+
 object AppHelper {
 
 	fun hideKeyboard(view: View?) {
