@@ -3,6 +3,7 @@ package ru.fantlab.android.ui.modules.profile.responses
 import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.data.dao.response.VoteResponse
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
@@ -66,5 +67,21 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 	override fun onWorkOffline(userId: Int) {
 		sendToView { it.hideProgress() }
 		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
+	}
+
+	fun onSendVote(item: Response, position: Int, voteType: String){
+		makeRestCall(DataManager.sendResponseVote(item.id, voteType)
+				.map { it.get() }
+				.toObservable(),
+				Consumer { response ->
+					val result = VoteResponse.Parser().parse(response)
+					if (result != null) {
+						sendToView { view ->
+							view.onSetVote(position, result.votesCount)
+						}
+					} else {
+						sendToView { it.showErrorMessage(response) }
+					}
+				})
 	}
 }
