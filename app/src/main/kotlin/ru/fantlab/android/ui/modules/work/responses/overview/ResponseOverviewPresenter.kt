@@ -1,6 +1,9 @@
 package ru.fantlab.android.ui.modules.work.responses.overview
 
+import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.data.dao.response.VoteResponse
+import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class ResponseOverviewPresenter : BasePresenter<ResponseOverviewMvp.View>(),
@@ -16,4 +19,20 @@ class ResponseOverviewPresenter : BasePresenter<ResponseOverviewMvp.View>(),
 	}
 
 	override fun getResponses(): Response = response!!
+
+	fun onSendVote(item: Response, position: Int, voteType: String){
+		makeRestCall(DataManager.sendResponseVote(item.id, voteType)
+				.map { it.get() }
+				.toObservable(),
+				Consumer { response ->
+					val result = VoteResponse.Parser().parse(response)
+					if (result != null) {
+						sendToView { view ->
+							view.onSetVote(position, result.votesCount)
+						}
+					} else {
+						sendToView { it.showErrorMessage(response) }
+					}
+				})
+	}
 }

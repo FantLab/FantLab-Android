@@ -12,13 +12,17 @@ import android.view.View
 import butterknife.BindView
 import com.evernote.android.state.State
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.ContextMenuBuilder
+import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.*
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.base.BaseActivity
+import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
+import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 
 class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverviewPresenter>(),
 		ResponseOverviewMvp.View {
@@ -94,7 +98,11 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
     override fun onInitViews(response: Response) {
         coverLayout?.setUrl("https:${response.userAvatar}")
         username.text = response.userName
-		username.setOnClickListener { UserPagerActivity.startActivity(this, response.userName, response.userId,0 ) }
+		username.setOnClickListener {
+			val dialogView = ContextMenuDialogView()
+			dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(this), response, 0)
+			dialogView.show(supportFragmentManager, "ContextMenuDialogView")
+		}
 		date.text = response.dateIso.parseFullDate(true).getTimeAgo()
 
         workTitle.text = if (response.workName.isNotEmpty()) {
@@ -121,5 +129,27 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 
         votes.text = response.voteCount.toString()
     }
+
+	override fun onSetVote(position: Int, votesCount: String) {
+		hideProgress()
+	}
+
+	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
+		listItem as Response
+		when (item.id){
+			"vote" -> {
+				presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
+			}
+			"profile" -> {
+				UserPagerActivity.startActivity(this, listItem.userName, listItem.userId,0 )
+			}
+			"message" -> {
+				startActivity(Intent(this, EditorActivity::class.java)
+						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_MESSAGE)
+						.putExtra(BundleConstant.ID, listItem.userId)
+				)
+			}
+		}
+	}
 
 }
