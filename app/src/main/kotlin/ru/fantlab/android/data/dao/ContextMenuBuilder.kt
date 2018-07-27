@@ -17,21 +17,6 @@ class ContextMenuBuilder{
 					)
 			items.add(ContextMenus(context.getString(R.string.select_action), actions, "main"))
 
-			val marks =
-					arrayListOf(
-							ContextMenus.MenuItem("1", R.drawable.ic_star, "mark"),
-							ContextMenus.MenuItem("2", R.drawable.ic_star, "mark"),
-							ContextMenus.MenuItem("3", R.drawable.ic_star, "mark"),
-							ContextMenus.MenuItem("4", R.drawable.ic_star, "mark"),
-							ContextMenus.MenuItem("5", R.drawable.ic_star, "mark"),
-							ContextMenus.MenuItem("6", R.drawable.ic_star, "mark"),
-							ContextMenus.MenuItem("7", R.drawable.ic_star, "mark"),
-							ContextMenus.MenuItem("8", R.drawable.ic_star, "mark"),
-							ContextMenus.MenuItem("9", R.drawable.ic_star, "mark"),
-							ContextMenus.MenuItem("10", R.drawable.ic_star, "mark")
-					)
-			items.add(ContextMenus(context.getString(R.string.select_mark), marks, "revote"))
-
 			return items
 		}
 
@@ -40,7 +25,6 @@ class ContextMenuBuilder{
 
 			val actions =
 					arrayListOf(
-							ContextMenus.MenuItem(context.getString(R.string.show_profile), R.drawable.ic_profile, "profile"),
 							ContextMenus.MenuItem(context.getString(R.string.vote), R.drawable.ic_star, "votes", true)
 					)
 			items.add(ContextMenus(context.getString(R.string.select_action), actions, "main"))

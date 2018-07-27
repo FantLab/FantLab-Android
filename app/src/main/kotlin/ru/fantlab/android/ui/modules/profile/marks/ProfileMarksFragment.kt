@@ -21,6 +21,7 @@ import ru.fantlab.android.ui.modules.user.UserPagerMvp
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
+import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 
@@ -124,13 +125,21 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
 		listItem as Mark
 		when (item.id){
-			"mark" -> {
-			presenter.onSendMark(listItem, item.title.toInt(), position)
+			"revote" -> {
+				RatingDialogView.newInstance(10, listItem.mark.toFloat(),
+						listItem,
+						"${listItem.workAuthor} - ${listItem.workName}",
+						position
+				).show(childFragmentManager, RatingDialogView.TAG)
 			}
 			"delete" -> {
 			presenter.onSendMark(listItem, 0, position)
 			}
 		}
+	}
+
+	override fun onRated(rating: Float, listItem: Any, position: Int) {
+		presenter.onSendMark(listItem as Mark, rating.toInt(), position)
 	}
 
 

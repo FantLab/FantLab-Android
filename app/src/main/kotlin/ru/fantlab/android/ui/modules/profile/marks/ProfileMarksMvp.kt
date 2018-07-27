@@ -5,6 +5,7 @@ import ru.fantlab.android.data.dao.model.Mark
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
+import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 interface ProfileMarksMvp {
@@ -12,7 +13,8 @@ interface ProfileMarksMvp {
 	interface View : BaseMvp.View,
 			SwipeRefreshLayout.OnRefreshListener,
 			android.view.View.OnClickListener,
-			ContextMenuDialogView.ListDialogViewActionCallback{
+			ContextMenuDialogView.ListDialogViewActionCallback,
+			RatingDialogView.RatingDialogViewActionCallback{
 
 		fun onNotifyAdapter(items: ArrayList<Mark>, page: Int)
 

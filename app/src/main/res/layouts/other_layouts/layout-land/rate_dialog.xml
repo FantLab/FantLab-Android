@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/layout"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:gravity="center_vertical"
+	android:orientation="vertical"
+	tools:context=".ui.modules.main.MainActivity"
+	>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/spacing_normal"
+		android:gravity="center"
+		android:text="@string/select_mark"
+		android:textStyle="bold"
+		style="@style/TextAppearance.AppCompat.Title"
+		/>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/caption"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/spacing_normal"
+		android:gravity="center"
+		android:text="@string/select_mark"
+		android:visibility="gone"
+		style="@style/TextAppearance.AppCompat.Caption"
+		/>
+
+	<ru.fantlab.android.ui.widgets.ratingbar.ScaleRatingBar
+		android:id="@+id/ratingBar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="@dimen/spacing_normal"
+		android:layout_marginTop="@dimen/spacing_normal"
+		android:gravity="center"
+		app:srb_starHeight="@dimen/star_size_large"
+		app:srb_starWidth="@dimen/star_size_large"
+		/>
+
+</LinearLayout>
