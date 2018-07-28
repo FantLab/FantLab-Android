@@ -18,6 +18,7 @@
 		android:supportsRtl="true"
 		android:theme="@style/SplashTheme"
 		tools:targetApi="n"
+		tools:replace="android:allowBackup"
 		>
 
 		<activity

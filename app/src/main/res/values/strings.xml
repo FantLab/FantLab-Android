@@ -136,4 +136,6 @@
 	<string name="no_title">Without title</string>
 	<string name="success_copied">Success copied</string>
 	<string name="not_recognized">Not recognized</string>
+	<string name="bibiography">Bibliography</string>
+	<string name="no_bibliography">No bibliography</string>
 </resources>

@@ -13,6 +13,7 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.WorkAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
+import ru.fantlab.android.ui.modules.author.overview.AuthorOverviewFragment
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -30,7 +31,6 @@ class AuthorWorksFragment : BaseFragment<AuthorWorksMvp.View, AuthorWorksPresent
 	private val adapter: WorkAdapter by lazy { WorkAdapter(presenter.getWorks()) }
     private var countCallback: AuthorPagerMvp.View? = null
 
-	private var cycles: WorksBlocks? = null
 	private var works: WorksBlocks? = null
 
 	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
@@ -39,10 +39,9 @@ class AuthorWorksFragment : BaseFragment<AuthorWorksMvp.View, AuthorWorksPresent
 		if (savedInstanceState == null) {
 			presenter.onFragmentCreated(arguments)
 		} else {
-			cycles = savedInstanceState.getParcelable("cycles")
 			works = savedInstanceState.getParcelable("works")
-			if (cycles != null && works != null) {
-				onInitViews(cycles!!, works!!)
+			if (works != null) {
+				onInitViews(works!!)
 			} else {
 				presenter.onFragmentCreated(arguments)
 			}
@@ -51,9 +50,8 @@ class AuthorWorksFragment : BaseFragment<AuthorWorksMvp.View, AuthorWorksPresent
 
 	override fun providePresenter() = AuthorWorksPresenter()
 
-	override fun onInitViews(cycles: WorksBlocks?, works: WorksBlocks) {
+	override fun onInitViews(works: WorksBlocks) {
 		hideProgress()
-		Timber.d("cycles: $cycles")
 		Timber.d("works: $works")
         stateLayout.setEmptyText(R.string.no_works)
         stateLayout.setOnReloadListener(this)
@@ -71,7 +69,7 @@ class AuthorWorksFragment : BaseFragment<AuthorWorksMvp.View, AuthorWorksPresent
 
 	override fun onSaveInstanceState(outState: Bundle) {
 		super.onSaveInstanceState(outState)
-		outState.putParcelable("cycles", cycles)
+		outState.putParcelable("works", works)
 	}
 
     override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {

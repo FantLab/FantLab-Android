@@ -105,4 +105,6 @@
 	<string name="no_title">Без заголовка</string>
 	<string name="success_copied">Успешно скопировано</string>
 	<string name="not_recognized">Внутренний тип ссылки не опознан</string>
+	<string name="bibiography">Библиография</string>
+	<string name="no_bibliography">Нет библиографии</string>
 </resources>

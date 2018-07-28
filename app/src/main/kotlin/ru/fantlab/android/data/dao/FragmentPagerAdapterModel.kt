@@ -3,6 +3,7 @@ package ru.fantlab.android.data.dao
 import android.content.Context
 import android.support.v4.app.Fragment
 import ru.fantlab.android.R
+import ru.fantlab.android.ui.modules.author.bibliography.AuthorBibliographyFragment
 import ru.fantlab.android.ui.modules.author.editions.AuthorEditionsFragment
 import ru.fantlab.android.ui.modules.author.overview.AuthorOverviewFragment
 import ru.fantlab.android.ui.modules.author.responses.AuthorResponsesFragment
@@ -54,7 +55,8 @@ data class FragmentPagerAdapterModel(
 					FragmentPagerAdapterModel(context.getString(R.string.overview), AuthorOverviewFragment.newInstance(authorId)),
 					FragmentPagerAdapterModel(context.getString(R.string.works), AuthorWorksFragment.newInstance(authorId)),
 					FragmentPagerAdapterModel(context.getString(R.string.editions), AuthorEditionsFragment.newInstance(authorId)),
-					FragmentPagerAdapterModel(context.getString(R.string.responses), AuthorResponsesFragment.newInstance(authorId))
+					FragmentPagerAdapterModel(context.getString(R.string.responses), AuthorResponsesFragment.newInstance(authorId)),
+					FragmentPagerAdapterModel(context.getString(R.string.bibiography), AuthorBibliographyFragment.newInstance(authorId))
 			)
 		}
 

@@ -1,21 +1,21 @@
-package ru.fantlab.android.ui.modules.author.works
+package ru.fantlab.android.ui.modules.author.bibliography
 
 import android.os.Bundle
 import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.WorksBlocks
+import ru.fantlab.android.data.dao.response.AuthorResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
-import java.util.*
+import ru.fantlab.android.ui.modules.author.works.AuthorWorksFragment
 
-class AuthorWorksPresenter : BasePresenter<AuthorWorksMvp.View>(),
-		AuthorWorksMvp.Presenter{
+class AuthorBibliographyPresenter : BasePresenter<AuthorBibliographyMvp.View>(),
+		AuthorBibliographyMvp.Presenter {
 
-    @com.evernote.android.state.State
+	@com.evernote.android.state.State
 	var authorId: Int? = null
-
-	private var works: ArrayList<WorksBlocks.Work> = ArrayList()
+	private var bibliography: WorksBlocks? = null
 
 	override fun onFragmentCreated(bundle: Bundle?) {
 		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
@@ -29,7 +29,7 @@ class AuthorWorksPresenter : BasePresenter<AuthorWorksMvp.View>(),
 							.toObservable(),
 					Consumer { authorResponse ->
 						sendToView { it.onInitViews(
-								authorResponse.works!!
+								authorResponse.cycles
 						) }
 					}
 			)
@@ -45,25 +45,22 @@ class AuthorWorksPresenter : BasePresenter<AuthorWorksMvp.View>(),
 		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
 
-	override fun getWorks(): ArrayList<WorksBlocks.Work> = works
+	override fun getBibliography(): WorksBlocks? = bibliography
 
-    override fun onItemClick(position: Int, v: View?, item: WorksBlocks.Work) {
-		sendToView{ it.onItemClicked(item) }
-    }
+	fun onCallApi() {
+		authorId?.let {
+			makeRestCall(
+					DataManager.getAuthor(it, showBiblioBlocks = true)
+							.map { it.get() }
+							.toObservable(),
+					Consumer { authorResponse ->
+						sendToView { it.onInitViews(
+								authorResponse.cycles
+						) }
+					}
+			)
+		}
+	}
 
-    override fun onItemLongClick(position: Int, v: View?, item: WorksBlocks.Work?) {
-    }
-
-    fun onCallApi() {
-        authorId?.let {
-            makeRestCall(
-                    DataManager.getAuthor(it, true)
-                            .map { it.get() }
-                            .toObservable(),
-                    Consumer { workResponse ->
-                        sendToView { it.onNotifyAdapter() }
-                    }
-            )}
-    }
 
 }

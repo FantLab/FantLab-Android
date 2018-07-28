@@ -12,7 +12,7 @@ interface AuthorWorksMvp {
             SwipeRefreshLayout.OnRefreshListener,
             android.view.View.OnClickListener {
 
-		fun onInitViews(cycles: WorksBlocks?, works: WorksBlocks)
+		fun onInitViews(works: WorksBlocks)
 
 		fun onSetTabCount(count: Int)
 
