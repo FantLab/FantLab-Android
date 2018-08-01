@@ -52,5 +52,19 @@ class ContextMenuBuilder{
 			return items
 		}
 
+		fun buildForResponseSorting(context: Context): ArrayList<ContextMenus>{
+			val items = ArrayList<ContextMenus>()
+
+			val actions =
+					arrayListOf(
+							ContextMenus.MenuItem(context.getString(R.string.sort_date), R.drawable.ic_time_small, "BY_DATE"),
+							ContextMenus.MenuItem(context.getString(R.string.sort_rating), R.drawable.ic_thumb_up_small, "BY_RATING"),
+							ContextMenus.MenuItem(context.getString(R.string.sort_mark), R.drawable.ic_star_small, "BY_MARK")
+					)
+			items.add(ContextMenus(context.getString(R.string.select_sort), actions, "main"))
+
+			return items
+		}
+
 	}
 }

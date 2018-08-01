@@ -45,7 +45,7 @@ data class Work(
 
 	@Parcelize
 	data class Rating(
-			val rating: Float,
-			@SerializedName("voters") val votersCount: Int
+			val rating: String,
+			@SerializedName("voters") val votersCount: String
 	) : Parcelable
 }

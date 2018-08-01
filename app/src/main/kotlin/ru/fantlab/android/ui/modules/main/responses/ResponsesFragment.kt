@@ -124,8 +124,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 	}
 
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
-		listItem as Response
-		when (item.id){
+		if (listItem is Response) when (item.id){
 			"vote" -> {
 				presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
 			}

@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import butterknife.BindView
 import com.evernote.android.state.State
 import ru.fantlab.android.R
@@ -21,6 +23,7 @@ import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.modules.work.responses.overview.ResponseActivity
+import ru.fantlab.android.ui.widgets.SortView
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -33,6 +36,8 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+	@BindView(R.id.sortview) lateinit var sortView: SortView
+	lateinit var sortButton : Button
 	@State var authorId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, authorId) }
 	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses()) }
@@ -63,6 +68,20 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 			onRefresh()
 		}
 		fastScroller.attachRecyclerView(recycler)
+
+		val menuView = LayoutInflater.from(context).inflate(R.layout.sort_view, null)
+		sortButton = menuView.findViewById(R.id.sortButton)
+		sortButton.setOnClickListener {
+			val dialogView = ContextMenuDialogView()
+			dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting(recycler.context))
+			dialogView.show(childFragmentManager, "ContextMenuDialogView")
+		}
+		sortView.setHeaderView(menuView)
+
+		refresh.isEnabled = false
+
+		onLoadMore.setOnScrollListener(this)
+		sortView.setOnSortViewListener(this)
 	}
 
 	override fun onAttach(context: Context?) {
@@ -160,13 +179,12 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	}
 
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
-		listItem as Response
-		when (item.id){
+		if (listItem is Response) when (item.id){
 			"vote" -> {
 				presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
 			}
 			"profile" -> {
-				UserPagerActivity.startActivity(context!!, listItem.userName, listItem.userId,0 )
+				UserPagerActivity.startActivity(recycler.context, listItem.userName, listItem.userId,0 )
 			}
 			"message" -> {
 				startActivity(Intent(activity, EditorActivity::class.java)
@@ -174,6 +192,21 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 						.putExtra(BundleConstant.ID, listItem.userId)
 				)
 			}
+		} else {
+			sortButton.text = StringBuilder()
+					.append(getString(R.string.sort_mode))
+					.append(" ")
+					.append(item.title.toLowerCase())
+			presenter.setCurrentSort(item.id)
 		}
+	}
+
+	override fun onMenuStateChanged(isOpened: Boolean) {
+		onLoadMore.setMenuShowed(isOpened)
+		refresh.isEnabled = isOpened
+	}
+
+	override fun onHideMenu() {
+		sortView.closeMenu()
 	}
 }

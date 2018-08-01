@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import butterknife.BindView
 import com.evernote.android.state.State
 import ru.fantlab.android.R
@@ -25,6 +27,7 @@ import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
+import ru.fantlab.android.ui.widgets.SortView
 
 class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesPresenter>(),
 		WorkResponsesMvp.View {
@@ -33,6 +36,8 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+	@BindView(R.id.sortview) lateinit var sortView: SortView
+	lateinit var sortButton : Button
 	@State var workId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, workId) }
 	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses(), true) }
@@ -63,6 +68,21 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 			onRefresh()
 		}
 		fastScroller.attachRecyclerView(recycler)
+
+		val menuView = LayoutInflater.from(context).inflate(R.layout.sort_view, null)
+		sortButton = menuView.findViewById(R.id.sortButton)
+		sortButton.setOnClickListener {
+			val dialogView = ContextMenuDialogView()
+			dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting(recycler.context))
+			dialogView.show(childFragmentManager, "ContextMenuDialogView")
+		}
+		sortView.setHeaderView(menuView)
+
+		refresh.isEnabled = false
+
+		onLoadMore.setOnScrollListener(this)
+		sortView.setOnSortViewListener(this)
+
 	}
 
 	override fun onAttach(context: Context?) {
@@ -109,13 +129,12 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	}
 
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
-		listItem as Response
-		when (item.id){
+		if (listItem is Response) when (item.id){
 			"vote" -> {
 				presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
 			}
 			"profile" -> {
-				UserPagerActivity.startActivity(context!!, listItem.userName, listItem.userId,0 )
+				UserPagerActivity.startActivity(recycler.context, listItem.userName, listItem.userId,0 )
 			}
 			"message" -> {
 				startActivity(Intent(activity, EditorActivity::class.java)
@@ -123,6 +142,12 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 						.putExtra(BundleConstant.ID, listItem.userId)
 				)
 			}
+		}  else {
+			sortButton.text = StringBuilder()
+					.append(getString(R.string.sort_mode))
+					.append(" ")
+					.append(item.title.toLowerCase())
+			presenter.setCurrentSort(item.id)
 		}
 	}
 
@@ -178,5 +203,14 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 		val dialogView = ContextMenuDialogView()
 		dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(context!!), userItem, 0)
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
+	}
+
+	override fun onMenuStateChanged(isOpened: Boolean) {
+		onLoadMore.setMenuShowed(isOpened)
+		refresh.isEnabled = isOpened
+	}
+
+	override fun onHideMenu() {
+		sortView.closeMenu()
 	}
 }

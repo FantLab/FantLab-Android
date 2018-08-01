@@ -138,4 +138,9 @@
 	<string name="not_recognized">Not recognized</string>
 	<string name="bibiography">Bibliography</string>
 	<string name="no_bibliography">No bibliography</string>
+	<string name="select_sort">Sort by…</string>
+	<string name="sort_mode">Sorted by</string>
+	<string name="sort_mark">Mark</string>
+	<string name="sort_rating">Rate</string>
+	<string name="sort_date">Date</string>
 </resources>

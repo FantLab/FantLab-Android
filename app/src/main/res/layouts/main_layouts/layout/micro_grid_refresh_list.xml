@@ -8,25 +8,31 @@
 	app:layout_behavior="@string/scroll_behavior"
 	tools:ignore="MergeRootFrame"
 	>
-
 	<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		>
-
 		<ru.fantlab.android.ui.widgets.AppbarRefreshLayout
 			android:id="@+id/refresh"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			>
 
-			<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-				android:id="@+id/recycler"
+			<ru.fantlab.android.ui.widgets.SortView
+				android:id="@+id/sortview"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				app:layoutManager="@string/staggered_layout_manager"
-				app:spanCount="@integer/micro_spans"
-				/>
+				app:menu_height="100"
+				>
+
+				<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
+					android:id="@+id/recycler"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					app:layoutManager="@string/staggered_layout_manager"
+					app:spanCount="@integer/micro_spans"
+					/>
+			</ru.fantlab.android.ui.widgets.SortView>
 
 		</ru.fantlab.android.ui.widgets.AppbarRefreshLayout>
 

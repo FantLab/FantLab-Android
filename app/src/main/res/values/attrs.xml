@@ -74,4 +74,8 @@
 		<attr name="srb_starHeight" format="dimension" />
 		<attr name="srb_stepSize" format="float" />
 	</declare-styleable>
+
+	<declare-styleable name="SortView">
+		<attr name="menu_height" format="integer"/>
+	</declare-styleable>
 </resources>

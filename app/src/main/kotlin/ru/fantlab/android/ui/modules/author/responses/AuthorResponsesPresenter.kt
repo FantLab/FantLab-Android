@@ -5,6 +5,7 @@ import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.data.dao.response.VoteResponse
 import ru.fantlab.android.provider.rest.DataManager
+import ru.fantlab.android.provider.rest.ResponsesSortOption
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
@@ -12,7 +13,9 @@ class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
 
 	private var responses: ArrayList<Response> = ArrayList()
 	private var page: Int = 1
+	private var sort: ResponsesSortOption? = null
 	private var previousTotal: Int = 0
+	private var authorId: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 
 	override fun onItemClick(position: Int, v: View?, item: Response) {
@@ -36,7 +39,13 @@ class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
 		this.previousTotal = previousTotal
 	}
 
+	fun setCurrentSort(sortValue: String){
+		sort = ResponsesSortOption.valueOf(sortValue)
+		onCallApi(1, authorId)
+	}
+
 	override fun onCallApi(page: Int, parameter: Int?): Boolean {
+		authorId = parameter!!
 		if (page == 1) {
 			lastPage = Integer.MAX_VALUE
 			sendToView { it.getLoadMore().reset() }
@@ -46,7 +55,7 @@ class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
 			sendToView { it.hideProgress() }
 			return false
 		}
-		makeRestCall(DataManager.getAuthorResponses(parameter, page)
+		makeRestCall(DataManager.getAuthorResponses(parameter, page, sort ?: ResponsesSortOption.BY_DATE)
 				.map { it.get() }
 				.toObservable(),
 				Consumer {

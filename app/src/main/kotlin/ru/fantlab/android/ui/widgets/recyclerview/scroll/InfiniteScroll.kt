@@ -16,8 +16,20 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 	private var layoutManager: RecyclerView.LayoutManager? = null
 	private var adapter: BaseRecyclerAdapter<*,*,*>? = null
 	private var newlyAdded = true
+	private var isUp = true
+	private var menuShowed = false
 
 	abstract fun onLoadMore(page: Int, totalItemsCount: Int): Boolean
+
+	private var listener: OnScrollResumed? = null
+
+	interface OnScrollResumed {
+		fun onHideMenu()
+	}
+
+	fun setOnScrollListener(listener: OnScrollResumed) {
+		this.listener = listener
+	}
 
 	private fun initLayoutManager(layoutManager: RecyclerView.LayoutManager) {
 		this.layoutManager = layoutManager
@@ -46,6 +58,11 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 			return
 		}
 		onScrolled(dy > 0)
+		if (isUp && menuShowed) {
+			menuShowed = false
+			listener?.onHideMenu()
+		}
+
 		if (layoutManager == null) {
 			initLayoutManager(recyclerView!!.layoutManager)
 		}
@@ -99,6 +116,11 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 		this.loading = true
 	}
 
-	fun onScrolled(isUp: Boolean) {
+	private fun onScrolled(isUp: Boolean) {
+		this.isUp = isUp
+	}
+
+	fun setMenuShowed(menuShowed: Boolean){
+		this.menuShowed = menuShowed
 	}
 }

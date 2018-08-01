@@ -39,7 +39,7 @@ class ContextMenuDialogView : BaseBottomSheetDialog(), BaseViewHolder.OnItemClic
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		id = arguments!!.getString(BundleConstant.EXTRA)
-		listItem = arguments!!.getParcelable(BundleConstant.EXTRA_TWO)
+		listItem = arguments!!.getParcelable(BundleConstant.EXTRA_TWO) ?: Any()
 		positionItem = arguments!!.getInt(BundleConstant.EXTRA_THREE)
 		menu = arguments!!.getParcelableArrayList<ContextMenus>(BundleConstant.ITEM)
 		childs = menu[0].items
@@ -99,6 +99,13 @@ class ContextMenuDialogView : BaseBottomSheetDialog(), BaseViewHolder.OnItemClic
 				.put(BundleConstant.EXTRA, id)
 				.put(BundleConstant.EXTRA_TWO, item)
 				.put(BundleConstant.EXTRA_THREE, position)
+				.put(BundleConstant.ITEM, objects!!)
+				.end()
+	}
+
+	fun initArguments(id: String, objects: ArrayList<ContextMenus>?) {
+		arguments = Bundler.start()
+				.put(BundleConstant.EXTRA, id)
 				.put(BundleConstant.ITEM, objects!!)
 				.end()
 	}
