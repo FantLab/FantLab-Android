@@ -56,7 +56,6 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
-		adapter.setOnContextMenuListener(this)
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
 		if (savedInstanceState == null) {
@@ -73,7 +72,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 		sortButton = menuView.findViewById(R.id.sortButton)
 		sortButton.setOnClickListener {
 			val dialogView = ContextMenuDialogView()
-			dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting(recycler.context))
+			dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting())
 			dialogView.show(childFragmentManager, "ContextMenuDialogView")
 		}
 		sortView.setHeaderView(menuView)
@@ -174,7 +173,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 
 	override fun onOpenContextMenu(userItem: Response) {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(context!!), userItem, 0)
+		dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(), userItem, 0)
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 
@@ -208,5 +207,10 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 
 	override fun onHideMenu() {
 		sortView.closeMenu()
+	}
+
+	override fun onStart() {
+		if (presenter != null) adapter.setOnContextMenuListener(this)
+		super.onStart()
 	}
 }

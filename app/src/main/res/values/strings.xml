@@ -143,4 +143,7 @@
 	<string name="sort_mark">Mark</string>
 	<string name="sort_rating">Rate</string>
 	<string name="sort_date">Date</string>
+	<string name="editor_review">Review Editor</string>
+	<string name="editor_comment">Comment Editor</string>
+	<string name="editor_message">Message Editor</string>
 </resources>

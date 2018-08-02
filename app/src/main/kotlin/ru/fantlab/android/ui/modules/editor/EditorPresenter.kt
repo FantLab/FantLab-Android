@@ -19,7 +19,7 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
         }
         when (extraType) {
 			EDITOR_NEW_REVIEW -> {
-                onEditorNewReview(itemId, prepareHTML(savedText))
+                onEditorNewReview(itemId, prepareHTML(savedText), "preview")
             }
 			EDITOR_NEW_MESSAGE -> {
 				if (itemId == PrefGetter.getLoggedUser()?.id){
@@ -41,7 +41,8 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 				replace("[li]", "*")
 	}
 
-	override fun onEditorNewReview(id: Int?, savedText: CharSequence?) {
+	override fun onEditorNewReview(id: Int?, savedText: CharSequence?, mode: String) {
+		onShowErrorMessage("Not implemented yet")
 	}
 
 	override fun onEditorNewMessage(id: Int?, savedText: CharSequence?, mode: String) {

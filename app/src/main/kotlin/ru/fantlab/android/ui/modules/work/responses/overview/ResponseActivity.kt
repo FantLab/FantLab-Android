@@ -100,7 +100,7 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
         username.text = response.userName
 		username.setOnClickListener {
 			val dialogView = ContextMenuDialogView()
-			dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(this), response, 0)
+			dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(), response, 0)
 			dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 		}
 		date.text = response.dateIso.parseFullDate(true).getTimeAgo()

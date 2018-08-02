@@ -181,6 +181,8 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 
     override fun getSavedText(): CharSequence? = editText.savedText
 
+    override fun getCurrentType(): String? = extraType
+
     override fun fragmentManager(): FragmentManager = supportFragmentManager
 
     private fun onCreate() {
@@ -202,10 +204,15 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
             participants = bundle.getStringArrayList("participants")
             when (extraType){
                 BundleConstant.EDITOR_NEW_REVIEW -> {
+                    title = getString(R.string.editor_review)
                     markDownLayout.visibility = View.INVISIBLE
                 }
                 BundleConstant.EDITOR_NEW_COMMENT -> {
+                    title = getString(R.string.editor_comment)
                     markDownLayout.editorIconsHolder.visibility = View.INVISIBLE
+                }
+                BundleConstant.EDITOR_NEW_MESSAGE -> {
+                    title = getString(R.string.editor_message)
                 }
             }
         }

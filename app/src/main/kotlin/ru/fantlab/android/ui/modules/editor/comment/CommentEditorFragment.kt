@@ -114,6 +114,8 @@ class CommentEditorFragment : BaseFragment<BaseMvp.View, BasePresenter<BaseMvp.V
 
     override fun getSavedText(): CharSequence? = commentText.savedText
 
+    override fun getCurrentType(): String? = ""
+
     fun onCreateComment(text: String, bundle: Bundle?) {
         arguments = Bundler.start().put(BundleConstant.ITEM, bundle).end()
         commentText.setText("${if (commentText.text.isNullOrBlank()) "" else "${commentText.text} "}$text")

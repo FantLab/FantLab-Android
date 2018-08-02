@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
 import butterknife.BindView
+import butterknife.OnClick
 import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
@@ -25,9 +26,11 @@ import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
+import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.widgets.ViewPagerView
 import java.text.NumberFormat
 import java.util.*
+
 
 class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPagerMvp.View>>(),
 		WorkPagerMvp.View {
@@ -128,11 +131,20 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	private fun hideShowFab(position: Int) {
 		when (position) {
 			1 -> fab.hide()/*fab.show()*/
-			2 -> fab.hide()/*fab.show()*/
+			2 -> {
+				fab.setImageResource(R.drawable.ic_response)
+				fab.show()
+			}
 			3 -> fab.hide()/*fab.show()*/
 			4 -> fab.hide()/*fab.show()*/
 			else -> fab.hide()
 		}
+	}
+
+	@OnClick(R.id.fab) fun onFabClicked() {
+		startActivity(Intent(this, EditorActivity::class.java)
+				.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_REVIEW)
+				.putExtra(BundleConstant.ID, workId))
 	}
 
 	private fun setupTab(count: Int, index: Int) {

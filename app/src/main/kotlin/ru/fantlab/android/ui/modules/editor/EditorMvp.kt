@@ -21,7 +21,7 @@ interface EditorMvp {
 
     interface Presenter : BaseMvp.Presenter {
 
-        fun onEditorNewReview(id: Int?, savedText: CharSequence?)
+        fun onEditorNewReview(id: Int?, savedText: CharSequence?, mode: String)
 
         fun onEditorNewMessage(id: Int?, savedText: CharSequence?, mode: String)
 

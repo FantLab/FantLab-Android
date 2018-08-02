@@ -15,6 +15,7 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Smile
+import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.ViewHelper
 import ru.fantlab.android.provider.markdown.MarkDownProvider
@@ -63,9 +64,12 @@ class MarkDownLayout : LinearLayout, SmileMvp.SmileCallback {
                     editText.setText(it.getSavedText())
                     editText.setSelection(selectionIndex)
                     editText.isEnabled = true
-                    editorIconsHolder.visibility = View.VISIBLE
+					if (markdownListener?.getCurrentType() == BundleConstant.EDITOR_NEW_COMMENT)
+						editorIconsHolder.visibility = View.INVISIBLE
+					else
+						editorIconsHolder.visibility = View.VISIBLE
                     addEmojiView.visibility = View.VISIBLE
-                    ViewHelper.showKeyboard(editText)
+					ViewHelper.showKeyboard(editText)
                 }
             }
         }
@@ -114,6 +118,7 @@ class MarkDownLayout : LinearLayout, SmileMvp.SmileCallback {
         fun getEditText(): EditText
         fun fragmentManager(): FragmentManager
         fun getSavedText(): CharSequence?
+        fun getCurrentType(): String?
     }
 
     fun onAppendLink(title: String, link: String, isLink: Boolean) {

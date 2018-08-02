@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
 import butterknife.BindView
+import butterknife.OnClick
 import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
@@ -23,6 +24,7 @@ import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
+import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.main.MainActivity
 import ru.fantlab.android.ui.widgets.ViewPagerView
 import shortbread.Shortcut
@@ -139,10 +141,20 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 	private fun hideShowFab(position: Int) {
 		when (position) {
+			0 -> {
+				fab.setImageResource(R.drawable.ic_message)
+				fab.show()
+			}
 			1 -> fab.hide()/*fab.show()*/
 			2 -> fab.hide()/*fab.show()*/
 			else -> fab.hide()
 		}
+	}
+
+	@OnClick(R.id.fab) fun onFabClicked() {
+		startActivity(Intent(this, EditorActivity::class.java)
+				.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_MESSAGE)
+				.putExtra(BundleConstant.ID, userId))
 	}
 
 	private fun setupTab(count: Int, index: Int) {

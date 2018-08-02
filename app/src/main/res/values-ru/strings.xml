@@ -88,7 +88,7 @@
 	<string name="show_profile">Просмотреть профиль</string>
 	<string name="vote">Проголосовать за отзыв</string>
 	<string name="error_highlighting_editor">Ошибка обработки текста</string>
-	<string name="submit">Подвердить</string>
+	<string name="submit">Отправить</string>
 	<string name="close">Закрыть</string>
 	<string name="unsaved_data_warning">Вы действительно хотите отменить ввод?</string>
 	<string name="discard">Сбросить</string>
@@ -112,4 +112,7 @@
 	<string name="sort_mark">Оценке</string>
 	<string name="sort_rating">Рейтингу</string>
 	<string name="sort_date">Дате</string>
+	<string name="editor_review">Редактор отзыва</string>
+	<string name="editor_comment">Редактор комментария</string>
+	<string name="editor_message">Редактор сообщения</string>
 </resources>

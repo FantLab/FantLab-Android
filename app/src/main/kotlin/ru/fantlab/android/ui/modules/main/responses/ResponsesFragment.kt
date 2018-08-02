@@ -39,7 +39,6 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
-		adapter.setOnContextMenuListener(this)
 		recycler.adapter = adapter
 		getLoadMore().initialize(presenter.getCurrentPage(), presenter.getPreviousTotal())
 		recycler.addOnScrollListener(getLoadMore())
@@ -119,7 +118,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 
 	override fun onItemLongClicked(position: Int, v: View?, item: Response) {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForResponses(context!!), item, position)
+		dialogView.initArguments("main", ContextMenuBuilder.buildForResponses(), item, position)
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 
@@ -149,8 +148,12 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 
 	override fun onOpenContextMenu(userItem: Response) {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(context!!), userItem, 0)
+		dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(), userItem, 0)
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 
+	override fun onStart() {
+		if (presenter != null) adapter.setOnContextMenuListener(this)
+		super.onStart()
+	}
 }
