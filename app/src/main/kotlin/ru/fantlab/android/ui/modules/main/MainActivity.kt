@@ -13,7 +13,7 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.helper.TypeFaceHelper
 import ru.fantlab.android.ui.base.BaseActivity
-import ru.fantlab.android.ui.modules.main.news.NewsFragment
+import ru.fantlab.android.ui.modules.main.responses.ResponsesFragment
 import ru.fantlab.android.ui.modules.search.SearchActivity
 
 class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
@@ -79,7 +79,7 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 				hideShowShadow(true)
 				supportFragmentManager
 						.beginTransaction()
-						.replace(R.id.container, NewsFragment(), NewsFragment.TAG)
+						.replace(R.id.container, ResponsesFragment(), ResponsesFragment.TAG)
 						.commit()
 			}
 			val myTypeface = TypeFaceHelper.typeface

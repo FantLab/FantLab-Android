@@ -7,4 +7,5 @@
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     app:bbn_entries="@menu/bottom_nav_menu"
+	android:visibility="gone"
     app:layout_behavior="@string/bbn_phone_view_behavior"/>
