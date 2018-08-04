@@ -8,24 +8,40 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Work
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.InputHelper
+import ru.fantlab.android.provider.markdown.MarkDownProvider
+import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
+import ru.fantlab.android.ui.adapter.AwardsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
+import ru.fantlab.android.ui.modules.work.analogs.WorkAnalogsFragment
+import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.dialog.ListDialogView
+import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 
 class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPresenter>(),
 		WorkOverviewMvp.View {
 
 	@BindView(R.id.progress) lateinit var progress: View
     @BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
-    @BindView(R.id.authors) lateinit var authors: FontTextView
+    @BindView(R.id.authorLayout) lateinit var authorLayout: AvatarLayout
+    @BindView(R.id.author) lateinit var author: FontTextView
+    @BindView(R.id.author2) lateinit var author2: FontTextView
     @BindView(R.id.title) lateinit var name: FontTextView
+    @BindView(R.id.title2) lateinit var name2: FontTextView
+    @BindView(R.id.rate) lateinit var rate: FontTextView
     @BindView(R.id.types) lateinit var types: FontTextView
     @BindView(R.id.description) lateinit var description: FontTextView
     @BindView(R.id.notes) lateinit var notes: FontTextView
+    @BindView(R.id.recyclerNoms) lateinit var nomsList: DynamicRecyclerView
+    @BindView(R.id.recyclerWins) lateinit var winsList: DynamicRecyclerView
 
     private var work: Work? = null
+
+	private val adapterNoms: AwardsAdapter by lazy { AwardsAdapter(presenter.getNoms()) }
+	private val adapterWins: AwardsAdapter by lazy { AwardsAdapter(presenter.getWins()) }
 
 	override fun fragmentLayout() = R.layout.work_overview_layout
 
@@ -48,20 +64,30 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		this.work = work
 		hideProgress()
 		coverLayout.setUrl("https:${work.image}")
-        name.text = if (work.name.isNotEmpty()) {
-            if (work.nameOrig.isNotEmpty()) {
-                "${work.name} / ${work.nameOrig}"
-            } else {
-                work.name
-            }
-        } else {
-            work.nameOrig
-        }
-        authors.text = work.authors.joinToString(", ") { it.name }
-		authors.setOnClickListener(this)
-		types.text = StringBuilder().append(if (work.year != null) "${work.type}, ${work.year}" else work.type)
-		if (!work.description.isNullOrEmpty()) description.text = work.description else description.visibility = View.GONE
-        notes.text = if (work.notes.isNotEmpty()) work.notes else getString(R.string.no_notes)
+		name.text = work.name
+		name2.text = work.nameOrig
+		types.text = if (work.year != null) "${work.type}, ${work.year}" else work.type
+		rate.text = StringBuilder()
+				.append(work.rating.rating)
+				.append(" - ")
+				.append(work.rating.votersCount)
+
+		if (work.notes.isNotEmpty()) MarkDownProvider.setMdText(notes, work.notes) else getString(R.string.no_notes)
+
+		if (!InputHelper.isEmpty(work.description)) work.description?.let { MarkDownProvider.setMdText(description, work.description) } else getString(R.string.no_description)
+
+		authorLayout.setUrl("https://$HOST_DATA/images/autors/${work.authors[0].id}")
+		author.text = work.authors[0].name
+		author2.text = work.authors[0].nameOrig
+		author.setOnClickListener(this)
+
+		nomsList.adapter = adapterNoms
+		winsList.adapter = adapterWins
+
+		childFragmentManager
+				.beginTransaction()
+				.add(R.id.similarContainer, WorkAnalogsFragment.newInstance(work.id), WorkAnalogsFragment.TAG)
+				.commit()
 	}
 
 	override fun onSaveInstanceState(outState: Bundle) {
@@ -98,7 +124,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun onClick(v: View?) {
 		when (v?.id) {
-			R.id.authors -> {
+			R.id.author -> {
 				val dialogView:ListDialogView<Work.Author> = ListDialogView()
 				dialogView.initArguments(getString(R.string.authors), work?.authors)
 				dialogView.show(childFragmentManager, "ListDialogView")

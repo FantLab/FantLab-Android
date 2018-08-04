@@ -1,6 +1,8 @@
 package ru.fantlab.android.ui.modules.work.overview
 
 import android.os.Bundle
+import ru.fantlab.android.data.dao.model.Awards
+import ru.fantlab.android.data.dao.model.Nomination
 import ru.fantlab.android.data.dao.model.Work
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.dialog.ListDialogView
@@ -19,6 +21,10 @@ interface WorkOverviewMvp {
 		fun onFragmentCreated(bundle: Bundle?)
 
 		fun onWorkOffline(id: Int)
+
+		fun getNoms(): ArrayList<Nomination>?
+
+		fun getWins(): ArrayList<Nomination>?
 
 	}
 }

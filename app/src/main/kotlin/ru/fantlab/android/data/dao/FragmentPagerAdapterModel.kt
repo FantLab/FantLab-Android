@@ -65,8 +65,7 @@ data class FragmentPagerAdapterModel(
 					FragmentPagerAdapterModel(context.getString(R.string.overview), WorkOverviewFragment.newInstance(workId)),
 					FragmentPagerAdapterModel(context.getString(R.string.classification), WorkClassificationFragment.newInstance(workId)),
 					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId)),
-					FragmentPagerAdapterModel(context.getString(R.string.editions), WorkEditionsFragment.newInstance(workId)),
-					FragmentPagerAdapterModel(context.getString(R.string.analogs), WorkAnalogsFragment.newInstance(workId))
+					FragmentPagerAdapterModel(context.getString(R.string.editions), WorkEditionsFragment.newInstance(workId))
 			)
 		}
 

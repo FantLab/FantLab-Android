@@ -69,6 +69,7 @@
 	<string name="bookcase_count">Личных книжных полок</string>
 	<string name="no_marks">Нет оценок</string>
 	<string name="no_notes">Нет примечаний</string>
+	<string name="no_description">Нет описания</string>
 	<string name="view_response">Просмотр отзыва</string>
     <string name="no_editions">Нет изданий</string>
     <string name="no_analogs">Нет похожих произведений</string>
@@ -115,4 +116,9 @@
 	<string name="editor_review">Редактор отзыва</string>
 	<string name="editor_comment">Редактор комментария</string>
 	<string name="editor_message">Редактор сообщения</string>
+	<string name="wins">Награды и премии</string>
+	<string name="noms">Номинации</string>
+	<string name="similar">Похожие книги</string>
+	<string name="about">О книге</string>
+	<string name="author">Автор</string>
 </resources>

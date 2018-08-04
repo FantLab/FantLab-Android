@@ -99,6 +99,7 @@
 	<string name="bookcase_count">Bookcase count</string>
 	<string name="no_marks">No marks</string>
 	<string name="no_notes">No notes</string>
+	<string name="no_description">No description</string>
 	<string name="view_response">Review response</string>
     <string name="no_editions">No editions</string>
     <string name="no_analogs">No analogs</string>
@@ -146,4 +147,9 @@
 	<string name="editor_review">Review Editor</string>
 	<string name="editor_comment">Comment Editor</string>
 	<string name="editor_message">Message Editor</string>
+	<string name="wins">Awards and prizes</string>
+	<string name="noms">Nominations</string>
+	<string name="similar">Similar books</string>
+	<string name="about">About book</string>
+	<string name="author">Author</string>
 </resources>

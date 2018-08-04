@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import butterknife.BindView
 import com.google.gson.GsonBuilder
@@ -24,15 +25,12 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 		WorkAnalogsMvp.View {
 
     @BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
-    @BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
-    @BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
-    @BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
 	private var workAnalogs: ArrayList<WorkAnalog>? = null
     private val adapter: AnalogsAdapter by lazy { AnalogsAdapter(presenter.getAnalogs()) }
     private var countCallback: WorkPagerMvp.View? = null
 
-	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
+	override fun fragmentLayout() = R.layout.analogs_list
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -50,14 +48,7 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 	override fun providePresenter() = WorkAnalogsPresenter()
 
 	override fun onInitViews(analogs: ArrayList<WorkAnalog>) {
-		hideProgress()
-		Timber.d("analogs: ${GsonBuilder().setPrettyPrinting().create().toJson(analogs)}")
-		stateLayout.setEmptyText(R.string.no_analogs)
-		stateLayout.setOnReloadListener(this)
-		refresh.setOnRefreshListener(this)
-		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addKeyLineDivider()
-        fastScroller.attachRecyclerView(recycler)
         adapter.listener = presenter
         recycler.adapter = adapter
         adapter.addItems(analogs)
@@ -69,13 +60,9 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
-        refresh.isRefreshing = true
-        stateLayout.showProgress()
 	}
 
 	override fun hideProgress() {
-        refresh.isRefreshing = false
-        stateLayout.hideProgress()
 	}
 
 	override fun showErrorMessage(msgRes: String) {
@@ -89,6 +76,7 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 	}
 
 	companion object {
+		val TAG: String = WorkAnalogsFragment::class.java.simpleName
 
 		fun newInstance(workId: Int): WorkAnalogsFragment {
 			val view = WorkAnalogsFragment()
@@ -110,7 +98,6 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
     }
 
     override fun onSetTabCount(count: Int) {
-        countCallback?.onSetBadge(4, count)
     }
 
     override fun onRefresh() {

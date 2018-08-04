@@ -3,6 +3,7 @@ package ru.fantlab.android.ui.modules.work.overview
 import android.os.Bundle
 import android.view.View
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.data.dao.model.Nomination
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -12,19 +13,24 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 
 	@com.evernote.android.state.State
 	var workId: Int? = null
+	private var noms: ArrayList<Nomination>? = ArrayList()
+	private var wins: ArrayList<Nomination>? = ArrayList()
 
 	override fun onFragmentCreated(bundle: Bundle?) {
 		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
 			throw NullPointerException("Either bundle or Work is null")
 		}
 		workId = bundle.getInt(BundleConstant.EXTRA)
-		workId?.let {
+		workId?.let { it ->
 			makeRestCall(
-					DataManager.getWork(it)
+					DataManager.getWork(it, showAwards = true)
 							.map { it.get() }
 							.toObservable(),
 					Consumer { workResponse ->
-						sendToView { it.onInitViews(workResponse.work) }
+						sendToView {
+							noms = workResponse.awards?.nominations
+							wins = workResponse.awards?.wins
+							it.onInitViews(workResponse.work) }
 					}
 			)}
 	}
@@ -41,5 +47,9 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 	override fun onClick(v: View?) {
 		sendToView { it.onClick(v) }
 	}
+
+	override fun getNoms(): ArrayList<Nomination>? = noms ?: ArrayList()
+
+	override fun getWins(): ArrayList<Nomination>? = wins ?: ArrayList()
 
 }
