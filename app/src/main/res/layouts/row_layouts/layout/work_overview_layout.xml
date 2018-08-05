@@ -24,7 +24,7 @@
 				android:id="@+id/topView"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:elevation="@dimen/spacing_xs_large"
+				android:elevation="@dimen/spacing_normal"
 				app:cardBackgroundColor="?card_background"
 				app:cardCornerRadius="0dp"
 				>
@@ -46,37 +46,16 @@
 							android:layout_height="wrap_content"
 							android:layout_below="@+id/types"
 							android:layout_marginTop="@dimen/spacing_normal"
-							android:layout_toEndOf="@+id/coverLayout"
+							android:layout_toEndOf="@+id/coverView"
 							style="@style/TextAppearance.AppCompat.Caption"
 							/>
-
-						<LinearLayout
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_alignBottom="@+id/coverLayout"
-							android:layout_alignStart="@+id/title"
-							android:layout_below="@+id/notes"
-							android:gravity="bottom"
-							android:orientation="vertical"
-							>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/rate"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:drawablePadding="@dimen/spacing_micro"
-								android:drawableStart="@drawable/ic_star_small"
-								style="@style/TextAppearance.AppCompat.Caption"
-								/>
-
-						</LinearLayout>
 
 						<ru.fantlab.android.ui.widgets.FontTextView
 							android:id="@+id/types"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:layout_below="@+id/title2"
-							android:layout_toEndOf="@+id/coverLayout"
+							android:layout_toEndOf="@+id/coverView"
 							style="@style/TextAppearance.AppCompat.Caption"
 							/>
 
@@ -85,8 +64,9 @@
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:layout_alignParentEnd="true"
-							android:layout_alignTop="@+id/coverLayout"
-							android:layout_toEndOf="@+id/coverLayout"
+							android:layout_alignTop="@+id/coverView"
+							android:layout_marginTop="@dimen/spacing_xs_large"
+							android:layout_toEndOf="@+id/coverView"
 							/>
 
 						<ru.fantlab.android.ui.widgets.FontTextView
@@ -94,18 +74,41 @@
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:layout_below="@+id/title"
-							android:layout_toEndOf="@+id/coverLayout"
+							android:layout_toEndOf="@+id/coverView"
 							style="@style/TextAppearance.AppCompat.Caption"
 							/>
 
-						<ru.fantlab.android.ui.widgets.CoverLayout
-							android:id="@+id/coverLayout"
-							android:layout_width="100dp"
-							android:layout_height="140dp"
-							android:layout_gravity="center_horizontal"
-							android:layout_margin="@dimen/spacing_xs_large"
-							android:elevation="1dp"
-							/>
+						<LinearLayout
+							android:id="@+id/coverView"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:gravity="center_horizontal"
+							android:orientation="vertical"
+							>
+
+							<ru.fantlab.android.ui.widgets.CoverLayout
+								android:id="@+id/coverLayout"
+								android:layout_width="100dp"
+								android:layout_height="140dp"
+								android:layout_gravity="center_horizontal"
+								android:layout_marginBottom="@dimen/spacing_normal"
+								android:layout_marginLeft="@dimen/spacing_xs_large"
+								android:layout_marginRight="@dimen/spacing_xs_large"
+								android:layout_marginTop="@dimen/spacing_xs_large"
+								android:elevation="1dp"
+								/>
+
+							<ru.fantlab.android.ui.widgets.FontTextView
+								android:id="@+id/rate"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_marginBottom="@dimen/spacing_normal"
+								android:drawablePadding="@dimen/spacing_micro"
+								android:drawableStart="@drawable/ic_star_small"
+								style="@style/TextAppearance.AppCompat.Caption"
+								/>
+						</LinearLayout>
+
 
 					</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
 				</LinearLayout>
@@ -116,8 +119,8 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_below="@+id/topView"
-				android:layout_marginTop="@dimen/spacing_xs_large"
-				android:elevation="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
+				android:elevation="@dimen/spacing_normal"
 				app:cardBackgroundColor="?card_background"
 				app:cardCornerRadius="0dp"
 				>
@@ -125,7 +128,6 @@
 				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-
 					android:orientation="vertical"
 					android:padding="4dp"
 					>
@@ -143,7 +145,7 @@
 						android:id="@+id/description"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:paddingLeft="@dimen/spacing_micro"
+						android:paddingStart="@dimen/spacing_micro"
 						style="@style/TextAppearance.AppCompat.Caption"
 						/>
 
@@ -155,8 +157,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_below="@+id/aboutView"
-			android:layout_marginTop="@dimen/spacing_xs_large"
-			android:elevation="@dimen/spacing_xs_large"
+			android:layout_marginTop="@dimen/spacing_normal"
+			android:elevation="@dimen/spacing_normal"
 			app:cardBackgroundColor="?card_background"
 			app:cardCornerRadius="0dp"
 			>
@@ -170,7 +172,7 @@
 
 				<ru.fantlab.android.ui.widgets.FontTextView
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
+					android:layout_height="0dp"
 					android:layout_marginBottom="@dimen/spacing_micro"
 					android:layout_weight="1"
 					android:text="@string/author"
@@ -180,7 +182,7 @@
 				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					android:layout_marginLeft="@dimen/spacing_micro"
+					android:layout_marginStart="@dimen/spacing_micro"
 					android:orientation="horizontal"
 					>
 
@@ -224,8 +226,8 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_below="@+id/authorView"
-				android:layout_marginTop="@dimen/spacing_xs_large"
-				android:elevation="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
+				android:elevation="@dimen/spacing_normal"
 				app:cardBackgroundColor="?card_background"
 				app:cardCornerRadius="0dp"
 				>
@@ -262,8 +264,8 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_below="@+id/winsView"
-				android:layout_marginTop="@dimen/spacing_xs_large"
-				android:elevation="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
+				android:elevation="@dimen/spacing_normal"
 				app:cardBackgroundColor="?card_background"
 				app:cardCornerRadius="0dp"
 				>
@@ -301,8 +303,8 @@
 				android:layout_height="wrap_content"
 				android:layout_below="@+id/nomsView"
 				android:layout_marginBottom="@dimen/spacing_micro"
-				android:layout_marginTop="@dimen/spacing_xs_large"
-				android:elevation="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
+				android:elevation="@dimen/spacing_normal"
 				app:cardBackgroundColor="?card_background"
 				app:cardCornerRadius="0dp"
 				>

@@ -6,7 +6,8 @@ import ru.fantlab.android.ui.base.mvp.BaseMvp
 
 interface ProfileOverviewMvp {
 
-	interface View : BaseMvp.View {
+	interface View : BaseMvp.View,
+			android.view.View.OnClickListener {
 
 		fun onInitViews(user: User?)
 	}

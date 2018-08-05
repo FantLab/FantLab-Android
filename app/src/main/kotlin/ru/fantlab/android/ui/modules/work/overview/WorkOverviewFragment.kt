@@ -65,7 +65,11 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		hideProgress()
 		coverLayout.setUrl("https:${work.image}")
 		name.text = work.name
-		name2.text = work.nameOrig
+		if (work.nameOrig.isBlank()) {
+			name2.visibility = View.GONE
+		} else {
+			name2.text = work.nameOrig
+		}
 		types.text = if (work.year != null) "${work.type}, ${work.year}" else work.type
 		rate.text = StringBuilder()
 				.append(work.rating.rating)

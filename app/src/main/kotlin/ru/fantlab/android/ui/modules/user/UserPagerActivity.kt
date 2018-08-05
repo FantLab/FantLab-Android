@@ -139,11 +139,17 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		setupTab(count, tabIndex)
 	}
 
+	override fun onSelectTab(tabIndex: Int){
+		pager.currentItem = tabIndex
+	}
+
 	private fun hideShowFab(position: Int) {
 		when (position) {
 			0 -> {
-				fab.setImageResource(R.drawable.ic_message)
-				fab.show()
+				if (userId != PrefGetter.getLoggedUser()?.id) {
+					fab.setImageResource(R.drawable.ic_message)
+					fab.show()
+				} else fab.hide()
 			}
 			1 -> fab.hide()/*fab.show()*/
 			2 -> fab.hide()/*fab.show()*/

@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.profile.overview
 
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v7.widget.TooltipCompat
@@ -16,6 +17,7 @@ import ru.fantlab.android.helper.getTimeAgo
 import ru.fantlab.android.helper.parseFullDate
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
+import ru.fantlab.android.ui.modules.user.UserPagerMvp
 import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.FontButton
 import ru.fantlab.android.ui.widgets.FontTextView
@@ -62,6 +64,8 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 	override fun fragmentLayout(): Int = R.layout.profile_overview_layout
 
 	override fun providePresenter(): ProfileOverviewPresenter = ProfileOverviewPresenter()
+
+	private var pagerCallback: UserPagerMvp.View? = null
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -122,8 +126,10 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		}
 
 		TooltipCompat.setTooltipText(marksLayout, getString(R.string.mark_count))
+		marksLayout.setOnClickListener(this)
 		marks.text = user.markCount.toString()
 		TooltipCompat.setTooltipText(responsesLayout, getString(R.string.response_count))
+		responsesLayout.setOnClickListener(this)
 		responses.text = user.responseCount.toString()
 		TooltipCompat.setTooltipText(votesLayout, getString(R.string.votes_count))
 		votes.text = user.voteCount.toString()
@@ -189,6 +195,31 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 	override fun showMessage(titleRes: Int, msgRes: Int) {
 		hideProgress()
 		super.showMessage(titleRes, msgRes)
+	}
+
+
+	override fun onClick(v: View) {
+		println(""+v.id)
+		when (v.id){
+			R.id.marksLayout -> {
+				pagerCallback?.onSelectTab(1)
+			}
+			R.id.responsesLayout -> {
+				pagerCallback?.onSelectTab(2)
+			}
+		}
+	}
+
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is UserPagerMvp.View) {
+			pagerCallback = context
+		}
+	}
+
+	override fun onDetach() {
+		pagerCallback = null
+		super.onDetach()
 	}
 
 	companion object {

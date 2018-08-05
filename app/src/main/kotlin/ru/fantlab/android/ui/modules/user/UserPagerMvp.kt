@@ -11,6 +11,8 @@ interface UserPagerMvp {
 	interface View : BaseMvp.View {
 
 		fun onSetBadge(tabIndex: Int, count: Int)
+
+		fun onSelectTab(tabIndex: Int)
 	}
 
 	interface Presenter : BaseMvp.Presenter
