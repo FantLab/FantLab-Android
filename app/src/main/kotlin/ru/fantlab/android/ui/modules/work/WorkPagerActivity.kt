@@ -131,7 +131,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 		when (position) {
 			1 -> {
 				val user = PrefGetter.getLoggedUser()
-				if (user != null && user.`class` >= 0){
+				if (user != null && user.`class` >= PHILOSOPHER_CLASS){
 					fab.setImageResource(R.drawable.ic_classif)
 					fab.show()
 				}
