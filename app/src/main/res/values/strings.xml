@@ -152,4 +152,14 @@
 	<string name="similar">Similar books</string>
 	<string name="about">About book</string>
 	<string name="author">Author</string>
+	<string name="classificator">Classifier</string>
+	<string name="genre">Genre</string>
+	<string name="characteristics">Characteristics</string>
+	<string name="locate">Scene</string>
+	<string name="age">Age</string>
+	<string name="linearity">Linearity</string>
+	<string name="time">Time</string>
+	<string name="story">Story</string>
+	<string name="class_sended">Classification sent</string>
+	<string name="class_needed">Necessary classification parameters are not selected</string>
 </resources>

@@ -8,6 +8,7 @@ import android.widget.TextView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Cycle
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
+import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import ru.fantlab.android.ui.widgets.treeview.TreeViewBinder
 
 class CycleViewHolder : TreeViewBinder<CycleViewHolder.ViewHolder>() {
@@ -20,7 +21,7 @@ class CycleViewHolder : TreeViewBinder<CycleViewHolder.ViewHolder>() {
 	}
 
 	override fun bindView(
-			holder: RecyclerView.ViewHolder, position: Int, node: TreeNode<*>
+			holder: RecyclerView.ViewHolder, position: Int, node: TreeNode<*>, onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
 	) {
 		(holder as CycleViewHolder.ViewHolder).ivArrow.rotation = 0f
 		holder.ivArrow.setImageResource(R.drawable.ic_keyboard_arrow_right_black_18dp)

@@ -199,7 +199,6 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 
 
 	override fun onClick(v: View) {
-		println(""+v.id)
 		when (v.id){
 			R.id.marksLayout -> {
 				pagerCallback?.onSelectTab(1)

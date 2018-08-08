@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	>
+
+	<ImageView
+		android:id="@+id/iv_arrow"
+		android:layout_width="18dp"
+		android:layout_height="45dp"
+		android:layout_gravity="center_vertical"
+		android:layout_margin="5dp"
+		android:src="@drawable/ic_keyboard_arrow_right_black_18dp"
+		/>
+
+	<CheckBox
+		android:id="@+id/checkbox"
+		android:layout_width="wrap_content"
+		android:layout_height="56dp"
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentTop="true"
+		android:gravity="center_vertical|end"
+		/>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/checkbox"
+		android:layout_toEndOf="@+id/iv_arrow"
+		android:layout_toStartOf="@+id/checkbox"
+		android:textSize="18sp"
+		/>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/description"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignStart="@+id/name"
+		android:layout_below="@+id/name"
+		android:visibility="gone"
+		style="@style/TextAppearance.AppCompat.Caption"
+		/>
+
+</RelativeLayout>

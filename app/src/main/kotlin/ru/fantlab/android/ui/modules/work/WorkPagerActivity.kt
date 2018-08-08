@@ -17,15 +17,14 @@ import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
-import ru.fantlab.android.helper.ActivityHelper
-import ru.fantlab.android.helper.BundleConstant
-import ru.fantlab.android.helper.Bundler
-import ru.fantlab.android.helper.ViewHelper
+import ru.fantlab.android.helper.*
+import ru.fantlab.android.helper.PrefGetter.PHILOSOPHER_CLASS
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
+import ru.fantlab.android.ui.modules.classificator.ClassificatorPagerActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.widgets.ViewPagerView
 import java.text.NumberFormat
@@ -130,7 +129,13 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 
 	private fun hideShowFab(position: Int) {
 		when (position) {
-			1 -> fab.hide()/*fab.show()*/
+			1 -> {
+				val user = PrefGetter.getLoggedUser()
+				if (user != null && user.`class` >= 0){
+					fab.setImageResource(R.drawable.ic_classif)
+					fab.show()
+				}
+			}
 			2 -> {
 				fab.setImageResource(R.drawable.ic_response)
 				fab.show()
@@ -142,9 +147,16 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	}
 
 	@OnClick(R.id.fab) fun onFabClicked() {
-		startActivity(Intent(this, EditorActivity::class.java)
-				.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_REVIEW)
-				.putExtra(BundleConstant.ID, workId))
+		when (pager.currentItem){
+			1 -> {
+				ClassificatorPagerActivity.startActivity(this, workId)
+			}
+			2 -> {
+				startActivity(Intent(this, EditorActivity::class.java)
+						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_REVIEW)
+						.putExtra(BundleConstant.ID, workId))
+			}
+		}
 	}
 
 	private fun setupTab(count: Int, index: Int) {

@@ -7,6 +7,7 @@ import android.widget.TextView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.CycleWork
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
+import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import ru.fantlab.android.ui.widgets.treeview.TreeViewBinder
 
 class CycleWorkViewHolder : TreeViewBinder<CycleWorkViewHolder.ViewHolder>() {
@@ -19,7 +20,7 @@ class CycleWorkViewHolder : TreeViewBinder<CycleWorkViewHolder.ViewHolder>() {
 	}
 
 	override fun bindView(
-			holder: RecyclerView.ViewHolder, position: Int, node: TreeNode<*>
+			holder: RecyclerView.ViewHolder, position: Int, node: TreeNode<*>, onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
 	) {
 		val fileNode = node.content as CycleWork?
 		(holder as CycleWorkViewHolder.ViewHolder).tvName.text = fileNode!!.title

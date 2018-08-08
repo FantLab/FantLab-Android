@@ -121,4 +121,14 @@
 	<string name="similar">Похожие книги</string>
 	<string name="about">О книге</string>
 	<string name="author">Автор</string>
+	<string name="classificator">Классификатор</string>
+	<string name="genre">Жанр</string>
+	<string name="characteristics">Характеристики</string>
+	<string name="locate">Место действия</string>
+	<string name="age">Возраст</string>
+	<string name="linearity">Линейность</string>
+	<string name="time">Время</string>
+	<string name="story">Сюжет</string>
+	<string name="class_sended">Классификация отправлена</string>
+	<string name="class_needed">Не выбраны необходимые параметры классификации</string>
 </resources>

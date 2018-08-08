@@ -87,7 +87,7 @@ class TreeViewAdapter(nodes: List<TreeNode<*>>?, private val viewBinders: List<T
 		})
 		for (viewBinder in viewBinders) {
 			if (viewBinder.layoutId == displayNodes[position].content!!.layoutId)
-				viewBinder.bindView(holder, position, displayNodes[position])
+				viewBinder.bindView(holder, position, displayNodes[position], onTreeNodeListener)
 		}
 	}
 
@@ -149,6 +149,7 @@ class TreeViewAdapter(nodes: List<TreeNode<*>>?, private val viewBinders: List<T
 
 		fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder)
 
+		fun onSelected(extra: Int, add: Boolean)
 	}
 
 	fun refresh(treeNodes: List<TreeNode<*>>) {

@@ -177,6 +177,14 @@ object DataManager {
 			))
 			.rx_string()
 
+	fun sendClassification(
+			workId: Int,
+			query: String
+	) = "/genrevote$workId&?$query"
+			.toAbsolutePathWithApiVersion()
+			.httpGet()
+			.rx_string()
+
 	fun login(
 			login: String,
 			password: String
