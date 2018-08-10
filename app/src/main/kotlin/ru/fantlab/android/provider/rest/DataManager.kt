@@ -17,6 +17,17 @@ object DataManager {
 			.httpGet()
 			.rx_object(AuthorsResponse.Deserializer())
 
+	fun getAwards(
+			nonfant: Boolean,
+			sortOption: AwardsSortOption = AwardsSortOption.BY_NAME
+	) = "/awards"
+			.toAbsolutePathWithApiVersion()
+			.httpGet(listOf(
+					"nonfant" to nonfant.toInt(),
+					"sort" to sortOption.value
+			))
+			.rx_object(AwardsResponse.Deserializer())
+
 	fun getAuthor(
 			id: Int,
 			showBiography: Boolean = false,
@@ -284,6 +295,13 @@ enum class ResponsesSortOption(val value: String) {
 	BY_DATE("date"),
 	BY_RATING("rating"),
 	BY_MARK("mark")
+}
+
+enum class AwardsSortOption(val value: String) {
+	BY_NAME("name"),
+	BY_COUNTRY("country"),
+	BY_TYPE("type"),
+	BY_LANG("lang")
 }
 
 fun String.toAbsolutePath() = "https://fantlab.ru$this"

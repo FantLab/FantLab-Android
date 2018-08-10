@@ -113,6 +113,10 @@
 	<string name="sort_mark">Оценке</string>
 	<string name="sort_rating">Рейтингу</string>
 	<string name="sort_date">Дате</string>
+	<string name="sort_name">Названию</string>
+	<string name="sort_country">Стране</string>
+	<string name="sort_type">Типу</string>
+	<string name="sort_lang">Языку</string>
 	<string name="editor_review">Редактор отзыва</string>
 	<string name="editor_comment">Редактор комментария</string>
 	<string name="editor_message">Редактор сообщения</string>
@@ -131,4 +135,5 @@
 	<string name="story">Сюжет</string>
 	<string name="class_sended">Классификация отправлена</string>
 	<string name="class_needed">Не выбраны необходимые параметры классификации</string>
+	<string name="awards_list">Премии</string>
 </resources>

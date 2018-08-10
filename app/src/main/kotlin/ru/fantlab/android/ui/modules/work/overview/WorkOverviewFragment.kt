@@ -11,7 +11,7 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
-import ru.fantlab.android.ui.adapter.AwardsAdapter
+import ru.fantlab.android.ui.adapter.WorkAwardsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.work.analogs.WorkAnalogsFragment
@@ -40,8 +40,8 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
     private var work: Work? = null
 
-	private val adapterNoms: AwardsAdapter by lazy { AwardsAdapter(presenter.getNoms()) }
-	private val adapterWins: AwardsAdapter by lazy { AwardsAdapter(presenter.getWins()) }
+	private val adapterNoms: WorkAwardsAdapter by lazy { WorkAwardsAdapter(presenter.getNoms()) }
+	private val adapterWins: WorkAwardsAdapter by lazy { WorkAwardsAdapter(presenter.getWins()) }
 
 	override fun fragmentLayout() = R.layout.work_overview_layout
 

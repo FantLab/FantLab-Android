@@ -60,6 +60,11 @@
 			android:parentActivityName=".ui.modules.main.MainActivity">
 		</activity>
 		<activity
+			android:name=".ui.modules.awards.AwardsActivity"
+			android:label="@string/awards_list"
+			android:parentActivityName=".ui.modules.main.MainActivity">
+		</activity>
+		<activity
 			android:name=".ui.modules.author.AuthorPagerActivity"
 			android:parentActivityName=".ui.modules.authors.AuthorsActivity">
 		</activity>

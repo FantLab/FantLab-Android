@@ -28,10 +28,17 @@
 
 	<group android:id="@+id/group_two">
 		<item
-			android:id="@+id/bibliographies"
+			android:id="@+id/authors"
 			android:icon="@drawable/ic_book"
-			android:title="@string/bibliographies"
+			android:title="@string/authors"
 			/>
+
+		<item
+			android:id="@+id/awards"
+			android:icon="@drawable/ic_trophy"
+			android:title="@string/awards_list"
+			/>
+
 	</group>
 
 	<group android:id="@+id/group_three">

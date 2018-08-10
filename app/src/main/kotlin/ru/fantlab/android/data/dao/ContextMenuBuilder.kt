@@ -66,5 +66,20 @@ class ContextMenuBuilder{
 			return items
 		}
 
+		fun buildForAwardsSorting(): ArrayList<ContextMenus>{
+			val items = ArrayList<ContextMenus>()
+
+			val actions =
+					arrayListOf(
+							ContextMenus.MenuItem(App.instance.getString(R.string.sort_name), R.drawable.ic_title, "BY_NAME"),
+							ContextMenus.MenuItem(App.instance.getString(R.string.sort_country), R.drawable.ic_location, "BY_COUNTRY"),
+							ContextMenus.MenuItem(App.instance.getString(R.string.sort_type), R.drawable.ic_type_small, "BY_TYPE"),
+							ContextMenus.MenuItem(App.instance.getString(R.string.sort_lang), R.drawable.ic_language, "BY_LANG")
+					)
+			items.add(ContextMenus(App.instance.getString(R.string.select_sort), actions, "main"))
+
+			return items
+		}
+
 	}
 }

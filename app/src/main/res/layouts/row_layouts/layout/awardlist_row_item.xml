@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:foreground="?android:selectableItemBackground"
+	android:gravity="center_vertical"
+	>
+
+	<RelativeLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/spacing_normal"
+		>
+
+		<ru.fantlab.android.ui.widgets.AvatarLayout
+			android:id="@+id/awardIcon"
+			android:layout_width="35dp"
+			android:layout_height="35dp"
+			android:layout_margin="@dimen/spacing_micro"
+			/>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignBottom="@+id/awardIcon"
+			android:layout_alignTop="@+id/awardIcon"
+			android:layout_toEndOf="@+id/awardIcon"
+			android:gravity="center_vertical"
+			android:orientation="vertical"
+			>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/name_rus"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/name_orig"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:visibility="gone"
+				style="@style/TextAppearance.AppCompat.Caption"
+				/>
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignStart="@+id/awardIcon"
+			android:layout_below="@+id/awardIcon"
+			android:gravity="center_vertical"
+			android:orientation="horizontal"
+			>
+
+			<ImageView
+				android:id="@+id/langIcon"
+				android:layout_width="12dp"
+				android:layout_height="12dp"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/country"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:padding="@dimen/spacing_micro"
+				style="@style/TextAppearance.AppCompat.Caption"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/noms"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:drawableStart="@drawable/ic_type_small"
+				android:padding="@dimen/spacing_micro"
+				style="@style/TextAppearance.AppCompat.Caption"
+				app:drawableColor="?android:attr/textColorSecondary"
+				android:drawablePadding="@dimen/spacing_micro"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/years"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:drawableStart="@drawable/ic_time_small"
+				android:padding="@dimen/spacing_micro"
+				style="@style/TextAppearance.AppCompat.Caption"
+				app:drawableColor="?android:attr/textColorSecondary"
+				android:drawablePadding="@dimen/spacing_micro"
+				/>
+		</LinearLayout>
+
+	</RelativeLayout>
+</LinearLayout>
