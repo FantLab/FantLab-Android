@@ -2,7 +2,9 @@ package ru.fantlab.android.ui.widgets
 
 import android.content.Context
 import android.support.annotation.AttrRes
+import android.support.annotation.DrawableRes
 import android.support.annotation.StyleRes
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
@@ -38,11 +40,10 @@ class CoverLayout : FrameLayout {
 		cover.setShape(ShapedImageView.SHAPE_MODE_ROUND_RECT, 15f)
 	}
 
-	fun setUrl(url: String?) {
+	fun setUrl(url: String?, @DrawableRes fallbackImage: Int = R.drawable.work) {
 		Glide.with(context)
 				.load(url)
-				// добавить заглушку
-				//.fallback(ContextCompat.getDrawable(context, R.drawable.ic_fantlab_mascot))
+				.fallback(ContextCompat.getDrawable(context, fallbackImage))
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.dontAnimate()
 				.into(cover)

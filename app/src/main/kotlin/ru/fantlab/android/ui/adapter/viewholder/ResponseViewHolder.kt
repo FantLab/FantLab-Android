@@ -23,7 +23,7 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 	@BindView(R.id.votes) lateinit var votes: FontTextView
 
 	override fun bind(response: Response) {
-		coverLayout?.setUrl("https:${response.workImage}")
+		coverLayout?.setUrl(if (response.workImage != null) "https:${response.workImage}" else null)
 		info.text = StringBuilder()
 				.append(response.userName)
 				.append(", ")
