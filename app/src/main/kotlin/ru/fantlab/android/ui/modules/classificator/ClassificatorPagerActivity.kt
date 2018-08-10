@@ -103,7 +103,7 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 		if (classed == classNeeded.size) {
 			val resultQuery = StringBuilder()
 			(0 until classificators.size - 1).forEach { item ->
-				resultQuery.append("wg$item=on&")
+				resultQuery.append("wg${classificators[item]}=on&")
 			}
 			resultQuery.append("wg${classificators.last()}=on")
 			presenter.onSendClassification(workId, resultQuery.toString())

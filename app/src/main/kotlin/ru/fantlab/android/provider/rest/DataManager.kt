@@ -180,9 +180,9 @@ object DataManager {
 	fun sendClassification(
 			workId: Int,
 			query: String
-	) = "/genrevote$workId"
+	) = "/genrevote$workId?$query"
 			.toAbsolutePath()
-			.httpGet(listOf("query" to query))
+			.httpGet()
 			.rx_string()
 
 	fun login(
