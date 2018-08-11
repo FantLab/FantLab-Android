@@ -19,6 +19,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 import android.support.v7.widget.RecyclerView
 import ru.fantlab.android.data.dao.model.ContextMenus
+import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 
 
 class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMvp.View {
@@ -104,7 +105,16 @@ class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMv
 	}
 
 	override fun onItemClicked(item: AwardInList) {
-		showMessage("Click", "Not implemented yet")
+		val title = if (!item.nameRus.isEmpty()) {
+			if (!item.nameOrig.isEmpty()) {
+				String.format("%s / %s", item.nameRus, item.nameOrig)
+			} else {
+				item.nameRus
+			}
+		} else {
+			item.nameOrig
+		}
+		AwardPagerActivity.startActivity(this, item.id, title, 0)
 	}
 
 	override fun onRefresh() {

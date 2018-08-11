@@ -136,4 +136,11 @@
 	<string name="class_sended">Классификация отправлена</string>
 	<string name="class_needed">Не выбраны необходимые параметры классификации</string>
 	<string name="awards_list">Премии</string>
+	<string name="contests">Конкурсы</string>
+	<string name="nominations">Номинации</string>
+	<string name="no_nominations">Нет номинаций</string>
+	<string name="no_contests">Нет конкурсов</string>
+	<string name="about_award">О премии</string>
+	<string name="comments">Комментарии</string>
+	<string name="notes">Заметки</string>
 </resources>

@@ -69,6 +69,10 @@
 			android:parentActivityName=".ui.modules.authors.AuthorsActivity">
 		</activity>
 		<activity
+			android:name=".ui.modules.award.AwardPagerActivity"
+			android:parentActivityName=".ui.modules.awards.AwardsActivity">
+		</activity>
+		<activity
 			android:name=".ui.modules.work.WorkPagerActivity"
 			android:parentActivityName=".ui.modules.author.AuthorPagerActivity">
 		</activity>

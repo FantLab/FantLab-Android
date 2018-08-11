@@ -5,6 +5,7 @@ import android.support.annotation.StringRes
 import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.model.Nomination
 import ru.fantlab.android.data.dao.model.Work
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
@@ -14,6 +15,7 @@ import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
 import ru.fantlab.android.ui.adapter.WorkAwardsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
+import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 import ru.fantlab.android.ui.modules.work.analogs.WorkAnalogsFragment
 import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.CoverLayout
@@ -88,6 +90,9 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		nomsList.adapter = adapterNoms
 		winsList.adapter = adapterWins
 
+		adapterNoms.listener = presenter
+		adapterWins.listener = presenter
+
 		childFragmentManager
 				.beginTransaction()
 				.add(R.id.similarContainer, WorkAnalogsFragment.newInstance(work.id), WorkAnalogsFragment.TAG)
@@ -138,6 +143,19 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun <T> onItemSelected(item: T, position: Int) {
 		AuthorPagerActivity.startActivity(context!!, (item as Work.Author).id, item.name, 0)
+	}
+
+	override fun onItemClicked(item: Nomination) {
+		val name = if (item.awardRusName.isNotEmpty()) {
+			if (item.awardName.isNotEmpty()) {
+				String.format("%s / %s", item.awardRusName, item.awardName)
+			} else {
+				item.awardRusName
+			}
+		} else {
+			item.awardName
+		}
+		AwardPagerActivity.startActivity(context!!, item.awardId, name)
 	}
 
 }

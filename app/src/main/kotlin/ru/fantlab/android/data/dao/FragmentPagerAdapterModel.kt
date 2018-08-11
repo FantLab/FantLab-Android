@@ -8,6 +8,9 @@ import ru.fantlab.android.ui.modules.author.editions.AuthorEditionsFragment
 import ru.fantlab.android.ui.modules.author.overview.AuthorOverviewFragment
 import ru.fantlab.android.ui.modules.author.responses.AuthorResponsesFragment
 import ru.fantlab.android.ui.modules.author.works.AuthorWorksFragment
+import ru.fantlab.android.ui.modules.award.contests.AwardContestsFragment
+import ru.fantlab.android.ui.modules.award.nominations.AwardNominationsFragment
+import ru.fantlab.android.ui.modules.award.overview.AwardOverviewFragment
 import ru.fantlab.android.ui.modules.classificator.age.ClassificationAgeFragment
 import ru.fantlab.android.ui.modules.classificator.characteristics.ClassificationCharacteristicsFragment
 import ru.fantlab.android.ui.modules.classificator.genres.ClassificationGenreFragment
@@ -64,6 +67,14 @@ data class FragmentPagerAdapterModel(
 					FragmentPagerAdapterModel(context.getString(R.string.editions), AuthorEditionsFragment.newInstance(authorId)),
 					FragmentPagerAdapterModel(context.getString(R.string.responses), AuthorResponsesFragment.newInstance(authorId)),
 					FragmentPagerAdapterModel(context.getString(R.string.bibiography), AuthorBibliographyFragment.newInstance(authorId))
+			)
+		}
+
+		fun buildForAward(context: Context, awardId: Int): MutableList<FragmentPagerAdapterModel> {
+			return mutableListOf(
+					FragmentPagerAdapterModel(context.getString(R.string.overview), AwardOverviewFragment.newInstance(awardId)),
+					FragmentPagerAdapterModel(context.getString(R.string.contests), AwardContestsFragment.newInstance(awardId)),
+					FragmentPagerAdapterModel(context.getString(R.string.nominations), AwardNominationsFragment.newInstance(awardId))
 			)
 		}
 

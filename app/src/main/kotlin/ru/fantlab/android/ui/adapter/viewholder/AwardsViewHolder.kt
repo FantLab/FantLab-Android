@@ -29,12 +29,12 @@ class AwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<AwardInList,
 	override fun bind(nom: AwardInList) {
 		coverLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/awards/${nom.id}")
 		Glide.with(itemView.context)
-				.load("https://$HOST_DEFAULT/img/flags/${nom.langId}.png")
+				.load("https://$HOST_DEFAULT/img/flags/${nom.countryId}.png")
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.dontAnimate()
 				.into(langLayout)
 		nameRus.text = nom.nameRus
-		if (!nom.nameOrig.isNullOrEmpty()) {
+		if (!nom.nameOrig.isEmpty()) {
 			nameOrig.text = nom.nameOrig
 			nameOrig.visibility = View.VISIBLE
 		}

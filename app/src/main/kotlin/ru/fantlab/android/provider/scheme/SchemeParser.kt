@@ -15,8 +15,8 @@ import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 
 object SchemeParser {
 	fun launchUri(context: Context, url: String, label: String) {
-		val pattern = Regex("/([a-z]+).*?(\\d+)")
-		val results = pattern.matchEntire(url)?.groupValues
+		val pattern = Regex("([a-z]+).*?(\\d+)")
+		val results = pattern.matchEntire(url.substringAfterLast("/"))?.groupValues
 		if (results != null) {
 			val type = results[1]
 			val id = results[2]
@@ -39,7 +39,7 @@ object SchemeParser {
 			}
 		} else {
 			if (url.contains(HOST_DEFAULT)){
-				launchUri(context, "/" + url.substringAfterLast("/"), label)
+				launchUri(context, url.substringAfterLast("/"), label)
 			} else openUrl(context, url)
 		}
 	}

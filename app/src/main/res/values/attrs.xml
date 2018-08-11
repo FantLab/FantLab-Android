@@ -78,4 +78,8 @@
 	<declare-styleable name="SortView">
 		<attr name="menu_height" format="integer"/>
 	</declare-styleable>
+
+	<declare-styleable name="ExpandableTextView">
+		<attr name="trimLength" format="integer"/>
+	</declare-styleable>
 </resources>

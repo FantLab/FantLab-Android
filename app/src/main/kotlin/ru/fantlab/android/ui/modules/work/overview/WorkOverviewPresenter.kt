@@ -48,6 +48,13 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 		sendToView { it.onClick(v) }
 	}
 
+	override fun onItemClick(position: Int, v: View?, item: Nomination) {
+		sendToView { it.onItemClicked(item) }
+	}
+
+	override fun onItemLongClick(position: Int, v: View?, item: Nomination) {
+	}
+
 	override fun getNoms(): ArrayList<Nomination>? = noms ?: ArrayList()
 
 	override fun getWins(): ArrayList<Nomination>? = wins ?: ArrayList()

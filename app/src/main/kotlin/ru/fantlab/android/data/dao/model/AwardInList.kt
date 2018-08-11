@@ -18,7 +18,7 @@ data class AwardInList(
 		@SerializedName("lang_name") val langName: String,
 		@SerializedName("max_date") val maxDate: String,
 		@SerializedName("min_date") val minDate: String,
-		@SerializedName("name") val nameOrig: String?,
+		@SerializedName("name") val nameOrig: String,
 		@SerializedName("nomi_count") val nomCount: Int,
 		@SerializedName("non_fantastic") val nonFantastic: Int,
 		@SerializedName("rusname") val nameRus: String

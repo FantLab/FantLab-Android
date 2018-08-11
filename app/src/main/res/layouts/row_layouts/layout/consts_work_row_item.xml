@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_margin="@dimen/grid_spacing"
+	android:foreground="?android:selectableItemBackground"
+	android:paddingBottom="@dimen/spacing_normal"
+	android:paddingEnd="@dimen/spacing_xs_large"
+	android:paddingTop="@dimen/spacing_normal"
+	tools:ignore="RtlSymmetry"
+	>
+
+	<ImageView
+		android:id="@+id/icon"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="20dp"
+		android:padding="10dp"
+		android:src="@drawable/ic_trophy"
+		/>
+
+	<TextView
+		android:id="@+id/title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+
+		android:layout_toEndOf="@+id/icon"
+		android:textSize="16sp"
+		tools:text="@string/app_name"
+		/>
+
+	<TextView
+		android:id="@+id/description"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/title"
+		android:layout_toEndOf="@+id/icon"
+		android:paddingBottom="2dp"
+		android:paddingTop="2dp"
+		tools:text="@string/app_name"
+		style="@style/TextAppearance.AppCompat.Caption"
+		/>
+
+</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

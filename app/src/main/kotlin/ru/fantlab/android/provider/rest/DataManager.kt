@@ -68,6 +68,20 @@ object DataManager {
 			))
 			.rx_object(ResponsesResponse.Deserializer(perPage = 50))
 
+	fun getAward(
+			id: Int,
+			showNomi: Boolean,
+			showContests: Boolean,
+			sortOption: AwardSortOption = AwardSortOption.BY_CONTEST
+	) = "/award/$id"
+			.toAbsolutePathWithApiVersion()
+			.httpGet(listOf(
+					"include_nomi" to showNomi.toInt(),
+					"include_contests" to showContests.toInt(),
+					"sort" to sortOption.value
+			))
+			.rx_object(AwardResponse.Deserializer())
+
 	fun getWork(
 			id: Int,
 			showAwards: Boolean = false,
@@ -302,6 +316,11 @@ enum class AwardsSortOption(val value: String) {
 	BY_COUNTRY("country"),
 	BY_TYPE("type"),
 	BY_LANG("lang")
+}
+
+enum class AwardSortOption(val value: String) {
+	BY_CONTEST("contest"),
+	BY_NOMI("nomi")
 }
 
 fun String.toAbsolutePath() = "https://fantlab.ru$this"
