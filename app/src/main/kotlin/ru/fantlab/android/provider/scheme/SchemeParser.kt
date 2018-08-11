@@ -7,6 +7,9 @@ import android.widget.Toast
 import es.dmoral.toasty.Toasty
 import ru.fantlab.android.App
 import ru.fantlab.android.R
+import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DEFAULT
+import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
+import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 
@@ -24,16 +27,26 @@ object SchemeParser {
 				"edition" -> {
 					EditionPagerActivity.startActivity(App.instance.applicationContext, id.toInt(), label, 0)
 				}
+				"author", "autor" -> {
+					AuthorPagerActivity.startActivity(App.instance.applicationContext, id.toInt(), label, 0)
+				}
+				"award" -> {
+					AwardPagerActivity.startActivity(App.instance.applicationContext, id.toInt(), label, 0)
+				}
 				else -> {
 					Toasty.error(App.instance, "${context.getString(R.string.not_recognized)} ($type:$id)", Toast.LENGTH_LONG).show()
 				}
 			}
-		} else openUrl(context, url)
+		} else {
+			if (url.contains(HOST_DEFAULT)){
+				launchUri(context, "/" + url.substringAfterLast("/"), label)
+			} else openUrl(context, url)
+		}
 	}
 
 	private fun openUrl(context: Context, url: String) {
-		val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url));
-		context.startActivity(browserIntent);
+		val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+		context.startActivity(browserIntent)
 	}
 
 }
