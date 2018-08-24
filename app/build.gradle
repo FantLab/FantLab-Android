@@ -49,7 +49,7 @@ android {
 		versionName version_name
 		archivesBaseName = "fantlab-${versionName}"
 		buildConfigField "String", "REST_URL", '"https://api.fantlab.ru/"'
-		buildConfigField "String", "API_VERSION", '"0.9.17"'
+		buildConfigField "String", "API_VERSION", '"0.9.18"'
 		javaCompileOptions {
 			annotationProcessorOptions {
 				includeCompileClasspath false
