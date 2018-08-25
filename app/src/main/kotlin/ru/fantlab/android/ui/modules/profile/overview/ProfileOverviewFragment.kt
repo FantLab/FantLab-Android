@@ -15,6 +15,7 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.getTimeAgo
 import ru.fantlab.android.helper.parseFullDate
+import ru.fantlab.android.provider.timeline.HtmlHelper
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.user.UserPagerMvp
@@ -162,7 +163,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		if (user.sign.isNullOrEmpty()) {
 			sign.visibility = View.GONE
 		} else {
-			sign.text = user.sign
+			HtmlHelper.htmlIntoTextView(sign, user.sign ?: "", sign.width)
 		}
 		if (user.blocked == 1) {
 			block.text = if (user.blockEndDate != null) {
