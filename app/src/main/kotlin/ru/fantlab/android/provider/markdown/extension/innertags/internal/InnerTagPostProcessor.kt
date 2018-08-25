@@ -18,7 +18,7 @@ class InnerTagPostProcessor : PostProcessor {
 	}
 
 	private fun linkify(text: Text) {
-		val literal = text.literal
+		val literal = text.literal.replace(":[а-я_А-Я]+]".toRegex(), "]")
 		val matcher: Matcher = TAG.matcher(literal)
 		var lastNode: Node = text
 		var last = 0

@@ -14,7 +14,7 @@ import ru.fantlab.android.data.dao.model.Edition
 import ru.fantlab.android.data.dao.model.SliderModel
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
-import ru.fantlab.android.provider.timeline.HtmlHelper
+import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.widgets.CoverLayout
@@ -165,12 +165,12 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 				.append(edition.pages.toString())
 		pagesCount.text = sb
 		if (edition.description.isNotBlank()) {
-			HtmlHelper.htmlIntoTextView(description, edition.description, description.width)
+			MarkDownProvider.setMdText(description, edition.description)
 		} else {
 			descriptionCard.visibility = View.GONE
 		}
 		if (edition.notes.isNotBlank()) {
-			HtmlHelper.htmlIntoTextView(notes, edition.notes, notes.width)
+			MarkDownProvider.setMdText(notes, edition.notes)
 		} else {
 			notesCard.visibility = View.GONE
 		}
