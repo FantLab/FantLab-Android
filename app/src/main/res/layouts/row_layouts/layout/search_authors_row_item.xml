@@ -58,16 +58,16 @@
 				android:textColor="?android:attr/textColorSecondary"
 				android:visibility="gone"
 				tools:text="Хью Дэвидсон, Hugh Davidson, Брэтт Стерлинг, Brett Sterling, Александр Блэйд"
-				tools:visibility="visible"
 				style="@style/TextAppearance.AppCompat.Caption"
 				/>
 
-			<ru.fantlab.android.ui.widgets.AutoLinearLayout
+			<ru.fantlab.android.ui.widgets.FlowLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="@dimen/spacing_micro"
-				app:auto_gravity="start"
-				app:auto_orientation="horizontal"
+				app:flChildSpacing="2dp"
+				app:flChildSpacingForLastRow="align"
+				app:flRowSpacing="8dp"
 				>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -95,6 +95,7 @@
 					android:drawableStart="@drawable/ic_time_small"
 					android:gravity="start|center"
 					android:textColor="?android:attr/textColorSecondary"
+					android:visibility="visible"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="1900-2000"
 					style="@style/TextAppearance.AppCompat.Caption"
@@ -110,10 +111,9 @@
 					android:drawableStart="@drawable/ic_star_small"
 					android:gravity="start|center"
 					android:textColor="?android:attr/textColorSecondary"
-					android:visibility="gone"
+					android:visibility="visible"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="7.88 / 12280"
-					tools:visibility="visible"
 					style="@style/TextAppearance.AppCompat.Caption"
 					/>
 
@@ -127,10 +127,9 @@
 					android:drawableStart="@drawable/ic_response_small"
 					android:gravity="start|center"
 					android:textColor="?android:attr/textColorSecondary"
-					android:visibility="gone"
+					android:visibility="visible"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="425"
-					tools:visibility="visible"
 					style="@style/TextAppearance.AppCompat.Caption"
 					/>
 
@@ -144,10 +143,9 @@
 					android:drawableStart="@drawable/ic_book_small"
 					android:gravity="start|center"
 					android:textColor="?android:attr/textColorSecondary"
-					android:visibility="gone"
+					android:visibility="visible"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="315"
-					tools:visibility="visible"
 					style="@style/TextAppearance.AppCompat.Caption"
 					/>
 
@@ -161,14 +159,13 @@
 					android:drawableStart="@drawable/ic_movie_small"
 					android:gravity="start|center"
 					android:textColor="?android:attr/textColorSecondary"
-					android:visibility="gone"
+					android:visibility="visible"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="1"
-					tools:visibility="visible"
 					style="@style/TextAppearance.AppCompat.Caption"
 					/>
 
-			</ru.fantlab.android.ui.widgets.AutoLinearLayout>
+			</ru.fantlab.android.ui.widgets.FlowLayout>
 
 		</LinearLayout>
 

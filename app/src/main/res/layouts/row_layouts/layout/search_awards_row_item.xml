@@ -46,12 +46,13 @@
 				style="@style/TextAppearance.AppCompat.Medium"
 				/>
 
-			<ru.fantlab.android.ui.widgets.AutoLinearLayout
+			<ru.fantlab.android.ui.widgets.FlowLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="@dimen/spacing_micro"
-				app:auto_gravity="start"
-				app:auto_orientation="horizontal"
+				app:flChildSpacing="2dp"
+				app:flChildSpacingForLastRow="align"
+				app:flRowSpacing="8dp"
 				>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -84,7 +85,7 @@
 					style="@style/TextAppearance.AppCompat.Caption"
 					/>
 
-			</ru.fantlab.android.ui.widgets.AutoLinearLayout>
+			</ru.fantlab.android.ui.widgets.FlowLayout>
 
 		</LinearLayout>
 
