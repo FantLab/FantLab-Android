@@ -214,16 +214,14 @@ class RecyclerViewFastScroller : FrameLayout {
 		scrollerView.y = getValueInRange(aHeight - handleHeight, (y - handleHeight / 2).toInt()).toFloat()
 	}
 
-	protected fun hideShow() {
+	private fun hideShow() {
 		recyclerView?.let {
-			visibility = if (it.adapter != null) {
-				if (it.adapter.itemCount > 10) View.VISIBLE else View.GONE
+			if (recyclerView != null && it.adapter != null) {
+				visibility = if (it.adapter.itemCount > 10) View.VISIBLE else View.GONE
 			} else {
-				View.GONE
+				visibility = View.GONE
 			}
-			return@let
 		}
-		visibility = View.GONE
 	}
 
 	companion object {
