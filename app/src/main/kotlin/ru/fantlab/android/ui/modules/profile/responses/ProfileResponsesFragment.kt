@@ -101,7 +101,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	}
 
 	override fun onItemClicked(item: Response) {
-		ResponseActivity.startActivity(context!!, item, item.workId, item.workName)
+		ResponseActivity.startActivity(context!!, item)
 	}
 
 	override fun onRefresh() {

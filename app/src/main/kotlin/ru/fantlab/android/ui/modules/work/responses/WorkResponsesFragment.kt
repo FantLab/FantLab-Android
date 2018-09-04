@@ -23,11 +23,11 @@ import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
 import ru.fantlab.android.ui.modules.work.responses.overview.ResponseActivity
+import ru.fantlab.android.ui.widgets.SortView
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
-import ru.fantlab.android.ui.widgets.SortView
 
 class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesPresenter>(),
 		WorkResponsesMvp.View {
@@ -37,7 +37,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 	@BindView(R.id.sortview) lateinit var sortView: SortView
-	lateinit var sortButton : Button
+	lateinit var sortButton: Button
 	@State var workId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, workId) }
 	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses(), true) }
@@ -121,19 +121,19 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	}
 
 	override fun onItemClicked(item: Response) {
-        ResponseActivity.startActivity(context!!, item, item.id, item.workName)
+		ResponseActivity.startActivity(context!!, item)
 	}
 
 	override fun onItemLongClicked(position: Int, v: View?, item: Response) {
 	}
 
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
-		if (listItem is Response) when (item.id){
+		if (listItem is Response) when (item.id) {
 			"vote" -> {
 				presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
 			}
 			"profile" -> {
-				UserPagerActivity.startActivity(recycler.context, listItem.userName, listItem.userId,0 )
+				UserPagerActivity.startActivity(recycler.context, listItem.userName, listItem.userId, 0)
 			}
 			"message" -> {
 				startActivity(Intent(activity, EditorActivity::class.java)
@@ -141,7 +141,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 						.putExtra(BundleConstant.ID, listItem.userId)
 				)
 			}
-		}  else {
+		} else {
 			sortButton.text = StringBuilder()
 					.append(getString(R.string.sort_mode))
 					.append(" ")

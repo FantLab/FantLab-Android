@@ -120,7 +120,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	}
 
 	override fun onItemClicked(item: Response) {
-		ResponseActivity.startActivity(context!!, item, item.workId, item.workName)
+		ResponseActivity.startActivity(context!!, item)
 	}
 
 	override fun onRefresh() {
