@@ -14,6 +14,7 @@ import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.provider.rest.ResponsesSortOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ResponsesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
@@ -101,7 +102,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	}
 
 	override fun onItemClicked(item: Response) {
-		ResponseActivity.startActivity(context!!, item)
+		ResponseActivity.startActivity(context!!, item, ResponsesSortOption.BY_DATE.value)
 	}
 
 	override fun onRefresh() {

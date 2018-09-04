@@ -121,7 +121,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	}
 
 	override fun onItemClicked(item: Response) {
-		ResponseActivity.startActivity(context!!, item)
+		ResponseActivity.startActivity(context!!, item, presenter.getCurrentSort())
 	}
 
 	override fun onItemLongClicked(position: Int, v: View?, item: Response) {
@@ -195,7 +195,6 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 		hideProgress()
 		adapter.getItem(position).voteCount = votesCount.toInt()
 		adapter.notifyItemChanged(position)
-
 	}
 
 	override fun onOpenContextMenu(userItem: Response) {

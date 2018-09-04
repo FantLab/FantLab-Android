@@ -34,7 +34,8 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 	@BindView(R.id.rating) lateinit var rating: FontTextView
 	@BindView(R.id.votes) lateinit var votes: FontTextView
 
-	private var response: Response? = null
+	private lateinit var response: Response
+	private lateinit var sortOption: String
 
 	override fun layout(): Int = R.layout.response_layout
 
@@ -47,10 +48,11 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		if (savedInstanceState == null) {
-			response = intent?.extras?.getParcelable(BundleConstant.EXTRA)
+			response = intent!!.extras.getParcelable(BundleConstant.EXTRA)
+			sortOption = intent!!.extras.getString(BundleConstant.EXTRA_TWO)
 			presenter.initResponse(response)
 		}
-		if (response == null || response?.id == -1) {
+		if (response.id == -1) {
 			finish()
 			return
 		}
@@ -68,7 +70,8 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 			R.id.share -> {
 				ActivityHelper.shareUrl(this, Uri.Builder().scheme(LinkParserHelper.PROTOCOL_HTTPS)
 						.authority(LinkParserHelper.HOST_DEFAULT)
-						.appendEncodedPath("work${response!!.workId}#response${response!!.id}")
+						.appendEncodedPath("work${response.workId}?sort=$sortOption" +
+								"#response${response.id}")
 						.toString())
 				return true
 			}
@@ -134,10 +137,11 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 	}
 
 	companion object {
-		fun startActivity(context: Context, response: Response) {
+		fun startActivity(context: Context, response: Response, sortOption: String) {
 			val intent = Intent(context, ResponseActivity::class.java)
 			intent.putExtras(Bundler.start()
 					.put(BundleConstant.EXTRA, response)
+					.put(BundleConstant.EXTRA_TWO, sortOption)
 					.end())
 			if (context is Service || context is Application) {
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

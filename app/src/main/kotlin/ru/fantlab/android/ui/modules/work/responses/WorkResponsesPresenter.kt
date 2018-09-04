@@ -40,10 +40,12 @@ class WorkResponsesPresenter : BasePresenter<WorkResponsesMvp.View>(),
 		this.previousTotal = previousTotal
 	}
 
-	fun setCurrentSort(sortValue: String){
+	fun setCurrentSort(sortValue: String) {
 		sort = ResponsesSortOption.valueOf(sortValue)
 		onCallApi(1, workId)
 	}
+
+	fun getCurrentSort(): String = sort?.value ?: ResponsesSortOption.BY_DATE.value
 
 	override fun onCallApi(page: Int, parameter: Int?): Boolean {
 		workId = parameter!!
