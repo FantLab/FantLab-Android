@@ -36,7 +36,9 @@ class UserMarkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Mark, User
 			mark.workNameOrig
 		}
 		type.text = mark.workType.capitalize()
-		year.text = if (mark.workYear.toString().isNotEmpty()) mark.workYear.toString() else "N/A"
+		if (mark.workYear != 0){
+			year.text = mark.workYear.toString()
+		} else year.visibility = View.GONE
 		myMark.text = mark.mark.toString()
 		if (mark.userClassifiedWork == 1) classified.visibility = View.VISIBLE
 		if (mark.userResponseWork == 1) response.visibility = View.VISIBLE
