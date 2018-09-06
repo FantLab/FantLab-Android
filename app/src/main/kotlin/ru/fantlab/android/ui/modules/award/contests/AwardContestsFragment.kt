@@ -69,16 +69,8 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 		val nodes = arrayListOf<TreeNode<*>>()
 
 		contests.forEachIndexed  { subIndex, item ->
-			val title = if (!item.place.isNullOrEmpty()) {
-				if (!item.nameyear.isEmpty()) {
-					String.format("%s, %s", item.place, item.nameyear)
-				} else {
-					item.place
-				}
-			} else {
-				item.nameyear
-			}
-			val app = TreeNode(ConstsParent(title ?: "", item.description))
+			val title = item.nameyear
+			val app = TreeNode(ConstsParent(title, item.description))
 			nodes.add(app)
 
 			item.contestWorks?.forEach { contestsWork ->
