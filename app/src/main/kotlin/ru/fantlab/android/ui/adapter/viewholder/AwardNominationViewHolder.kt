@@ -28,6 +28,9 @@ class AwardNominationViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Awa
 		if (!award.description.isEmpty()){
 			description.text = award.description
 			description.visibility = View.VISIBLE
+		} else {
+			description.text = ""
+			description.visibility = View.GONE
 		}
 
 

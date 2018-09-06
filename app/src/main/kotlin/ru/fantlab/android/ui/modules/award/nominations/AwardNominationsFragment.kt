@@ -95,7 +95,7 @@ class AwardNominationsFragment : BaseFragment<AwardNominationsMvp.View, AwardNom
 				adapter.clear()
 				return
 			}
-			adapter.addItems(items)
+			adapter.insertItems(items)
 		}
 	}
 
