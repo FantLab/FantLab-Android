@@ -30,7 +30,9 @@ class AnalogsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorkAnalog,
 
 		title.text = analog.rusName.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")
 
-		year.text = if (analog.year.toString().isNotEmpty()) analog.year.toString() else "N/A"
+		if (analog.year != null && analog.year != 0){
+			year.text = analog.year.toString()
+		} else year.visibility = View.GONE
 	}
 
 	companion object {
