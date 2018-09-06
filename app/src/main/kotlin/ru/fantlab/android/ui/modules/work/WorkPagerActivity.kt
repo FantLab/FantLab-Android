@@ -134,7 +134,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 				if (user != null && user.`class` >= PHILOSOPHER_CLASS){
 					fab.setImageResource(R.drawable.ic_classif)
 					fab.show()
-				}
+				} else fab.hide()
 			}
 			2 -> {
 				fab.setImageResource(R.drawable.ic_response)

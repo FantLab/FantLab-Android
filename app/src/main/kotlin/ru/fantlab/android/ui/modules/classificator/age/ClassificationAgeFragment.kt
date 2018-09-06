@@ -75,12 +75,12 @@ class ClassificationAgeFragment : BaseFragment<ClassificationAgeMvp.View, Classi
 		adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
 
 			override fun onSelected(extra: Int, add: Boolean) {
-				pagerCallback?.onSelected(extra, add)
 				if (add)
 					selectedItems++
 				else
 					selectedItems--
 				onSetTabCount(selectedItems)
+				pagerCallback?.onSelected(extra, add)
 			}
 
 			override fun onClick(node: TreeNode<*>, holder: RecyclerView.ViewHolder): Boolean {

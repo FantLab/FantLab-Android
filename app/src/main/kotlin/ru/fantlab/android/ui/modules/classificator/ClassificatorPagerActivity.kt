@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
+import android.support.v4.content.ContextCompat
 import android.view.View
 import butterknife.BindView
 import butterknife.OnClick
@@ -74,6 +75,13 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 				onScrollTop(tab.position)
 			}
 		})
+		markTabs()
+	}
+
+	private fun markTabs() {
+		classNeededToSet.forEach {
+			ViewHelper.getTabTextView(tabs, it).setTextColor(ContextCompat.getColor(this, R.color.material_red_700))
+		}
 	}
 
 	override fun onScrollTop(index: Int) {
@@ -85,7 +93,7 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 	}
 
 	private fun hideShowFab() {
-		fab.visibility = if (classificators.size > 0) View.VISIBLE else View.GONE
+		fab.visibility = if (checkSelections()) View.VISIBLE else View.GONE
 	}
 
 	override fun onSelected(extra: Int, add: Boolean) {
@@ -94,13 +102,7 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 	}
 
 	@OnClick(R.id.fab) fun onFabClicked() {
-		val classNeeded = listOf(0, 2, 3, 6)
-		var classed = 0
-		classNeeded.map {
-			val textView = ViewHelper.getTabTextView(tabs, it).text
-			if (textView.contains("*")) classed++
-		}
-		if (classed == classNeeded.size) {
+		if (checkSelections()) {
 			val resultQuery = StringBuilder()
 			(0 until classificators.size - 1).forEach { item ->
 				resultQuery.append("wg${classificators[item]}=on&")
@@ -108,6 +110,17 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 			resultQuery.append("wg${classificators.last()}=on")
 			presenter.onSendClassification(workId, resultQuery.toString())
 		} else showMessage("Error", getString(R.string.class_needed))
+	}
+
+	private fun checkSelections(): Boolean {
+		var classed = 0
+		classNeededToSet.forEach {
+			val textView = ViewHelper.getTabTextView(tabs, it).text
+			if (textView.contains("*")) {
+				classed++
+			}
+		}
+		return classed == classNeededToSet.size
 	}
 
 	override fun onClassSended() {
@@ -145,5 +158,6 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 			}
 			context.startActivity(intent)
 		}
+		var classNeededToSet = listOf(0, 2, 3, 6)
 	}
 }
