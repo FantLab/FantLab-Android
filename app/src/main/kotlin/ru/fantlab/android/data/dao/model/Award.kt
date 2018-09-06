@@ -69,7 +69,7 @@ data class Award(
 			@SerializedName("nomination_name") val nominationName: String?,
 			@SerializedName("nomination_number") val nominationNumber: String,
 			@SerializedName("nomination_rusname") val nominationRusname: String?,
-			@SerializedName("work_rusname") val workRusname: String
+			@SerializedName("work_rusname") val workRusname: String?
 	): Parcelable
 
 	@Parcelize

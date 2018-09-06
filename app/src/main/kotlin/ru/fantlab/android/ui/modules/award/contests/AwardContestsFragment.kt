@@ -83,7 +83,7 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 
 			item.contestWorks?.forEach { contestsWork ->
 
-				var nameConsts = if (!contestsWork.workRusname.isEmpty()) {
+				var nameConsts = if (!contestsWork.workRusname.isNullOrEmpty()) {
 					if (!contestsWork.cwName.isNullOrEmpty()) {
 						String.format("%s / %s", contestsWork.workRusname, contestsWork.cwName)
 					} else {
