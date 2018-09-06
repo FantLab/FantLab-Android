@@ -32,10 +32,10 @@ class ConstsViewHolder : TreeViewBinder<ConstsViewHolder.ViewHolder>() {
 		holder.name.text = nodeRoot!!.title
 		if (!nodeRoot.description.isNullOrEmpty()){
 			MarkDownProvider.setMdText(holder.description, nodeRoot.description
-					!!.replace("\\[URL\\u003d(.*?)](.*?)\\[/URL]".toRegex(), "<a href=\$1>\$2</a>")
-					.replace("[*]", "<li>")
+					!!.replace("[*]", "<li>")
 					.replace("\\u003d".toRegex(), "=")
-					.replace("\\[(.*?)]".toRegex(), "<$1>")
+					.replace("\\[URL=(.*?)](.*?)\\[/URL]".toRegex(), "<a href=\$1>\$2</a>")
+					.replace("\\[(?!autor|/autor)(?!award|/award)(?!link|/link)(.*?)]".toRegex(), "<$1>")
 					.replace("(<PHOTO.*?>)".toRegex(), "")
 			)
 			holder.description.visibility = View.VISIBLE
