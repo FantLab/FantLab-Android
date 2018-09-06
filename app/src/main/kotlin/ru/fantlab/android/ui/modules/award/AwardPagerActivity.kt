@@ -104,7 +104,7 @@ class AwardPagerActivity : BaseActivity<AwardPagerMvp.View, BasePresenter<AwardP
 			R.id.share -> {
 				ActivityHelper.shareUrl(this, Uri.Builder().scheme(LinkParserHelper.PROTOCOL_HTTPS)
 						.authority(LinkParserHelper.HOST_DEFAULT)
-						.appendPath("awardId$awardId")
+						.appendPath("award$awardId")
 						.toString())
 				return true
 			}
