@@ -15,6 +15,7 @@ import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.*
+import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
@@ -99,10 +100,7 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 			response.workNameOrig
 		}
 
-		text.text = response.text
-				.replace("(\r\n)+".toRegex(), "\n")    // пустые переносы строк
-				.replace("\\[.*]".toRegex(), "")       // bb-коды
-				.replace(":\\w+:".toRegex(), "")       // смайлы
+		MarkDownProvider.setMdText(text, prepareResponse(response.text) ?: "")
 
 		if (response.mark == null) {
 			rating.visibility = View.GONE
@@ -112,6 +110,12 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 		}
 
 		votes.text = response.voteCount.toString()
+	}
+
+	private fun prepareResponse(savedText: CharSequence?): String? {
+		val REGEX_TAGS = "\\[(.*?)]".toRegex()
+		return savedText?.
+				replace(REGEX_TAGS,"<$1>")
 	}
 
 	override fun onSetVote(position: Int, votesCount: String) {

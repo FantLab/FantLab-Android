@@ -209,16 +209,20 @@ public class BetterLinkMovementExtended extends LinkMovementMethod {
     private void dispatchUrlClick(TextView textView, BetterLinkMovementExtended.ClickableSpanWithText spanWithText) {
         String spanUrl = spanWithText.text();
         String spanLabel = ClickableSpanWithText.label(textView, spanWithText.span());
+        if (!(spanWithText.span instanceof SpoilerHandler.SpoilerSpan)){
         boolean handled = this.onLinkClickListener != null && this.onLinkClickListener.onClick(textView, spanUrl, spanLabel);
         if (!handled) {
             spanWithText.span().onClick(textView);
         }
+        } else {
+			spanWithText.span().onClick(textView);
+		}
     }
 
     private void dispatchUrlLongClick(TextView textView, BetterLinkMovementExtended.ClickableSpanWithText spanWithText) {
         String spanUrl = spanWithText.text();
         String spanLabel = ClickableSpanWithText.label(textView, spanWithText.span());
-        if(onLinkLongClickListener != null) onLinkLongClickListener.onLongClick(textView, spanUrl, spanLabel);
+        if(onLinkLongClickListener != null && (!(spanWithText.span instanceof SpoilerHandler.SpoilerSpan))) onLinkLongClickListener.onLongClick(textView, spanUrl, spanLabel);
     }
 
     static class ClickableSpanWithText {

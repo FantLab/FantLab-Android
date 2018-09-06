@@ -62,6 +62,7 @@ object HtmlHelper {
 		mySpanner.registerHandler("s", StrikethroughHandler())
 		mySpanner.registerHandler("q", QuoteHandler(windowBackground))
 		mySpanner.registerHandler("h", SpoilerHandler())
+		mySpanner.registerHandler("spoiler", SpoilerHandler())
 		mySpanner.registerHandler("url", LinkHandler())
 		mySpanner.registerHandler("img", DrawableHandler(textView, width))
 		mySpanner.registerHandler("list", MarginHandler())

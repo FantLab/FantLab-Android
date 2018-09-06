@@ -30,8 +30,8 @@ class SpoilerHandler : TagNodeHandler() {
 
 		override fun updateDrawState(ds: TextPaint) {
 			if (shown) {
-				ds.color = Color.BLACK
-				ds.bgColor = Color.parseColor("#EEEEEE")
+				ds.color = Color.GRAY
+				ds.bgColor = Color.parseColor("#00EEEEEE")
 			} else {
 				ds.color = Color.parseColor("#EEEEEE")
 				ds.bgColor = Color.parseColor("#EEEEEE")
