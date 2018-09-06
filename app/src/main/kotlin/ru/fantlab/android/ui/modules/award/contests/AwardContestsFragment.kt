@@ -115,8 +115,6 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 					val itemWork = node.content as Consts
 					if (itemWork.workId != 0){
 						WorkPagerActivity.startActivity(context!!, itemWork.workId, itemWork.title)
-					} else {
-						showErrorMessage("Not implemented yet")
 					}
 				}
 				return false
