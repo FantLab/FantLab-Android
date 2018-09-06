@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.work.overview
 
 import android.os.Bundle
 import android.support.annotation.StringRes
+import android.support.v7.widget.CardView
 import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
@@ -39,6 +40,10 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
     @BindView(R.id.notes) lateinit var notes: FontTextView
     @BindView(R.id.recyclerNoms) lateinit var nomsList: DynamicRecyclerView
     @BindView(R.id.recyclerWins) lateinit var winsList: DynamicRecyclerView
+
+    @BindView(R.id.aboutView) lateinit var aboutView: CardView
+    @BindView(R.id.winsView) lateinit var winsView: CardView
+    @BindView(R.id.nomsView) lateinit var nomsView: CardView
 
     private var work: Work? = null
 
@@ -83,18 +88,25 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 		if (work.notes.isNotEmpty()) MarkDownProvider.setMdText(notes, work.notes) else getString(R.string.no_notes)
 
-		if (!InputHelper.isEmpty(work.description)) work.description?.let { MarkDownProvider.setMdText(description, work.description) } else getString(R.string.no_description)
+		if (!InputHelper.isEmpty(work.description))
+			work.description?.let { MarkDownProvider.setMdText(description, work.description) }
+		else
+			aboutView.visibility = View.GONE
 
 		authorLayout.setUrl("https://$HOST_DATA/images/autors/${work.authors[0].id}")
 		author.text = work.authors[0].name
 		author2.text = work.authors[0].nameOrig
 		author.setOnClickListener(this)
 
-		nomsList.adapter = adapterNoms
-		winsList.adapter = adapterWins
+		if (adapterNoms.itemCount > 0) {
+			nomsList.adapter = adapterNoms
+			adapterNoms.listener = presenter
+		} else nomsView.visibility = View.GONE
 
-		adapterNoms.listener = presenter
-		adapterWins.listener = presenter
+		if (adapterWins.itemCount > 0) {
+			winsList.adapter = adapterWins
+			adapterWins.listener = presenter
+		} else winsView.visibility = View.GONE
 
 		childFragmentManager
 				.beginTransaction()
