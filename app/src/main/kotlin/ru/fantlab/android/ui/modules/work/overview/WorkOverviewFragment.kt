@@ -73,10 +73,13 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			name2.text = work.nameOrig
 		}
 		types.text = if (work.year != null) "${work.type}, ${work.year}" else work.type
-		rate.text = StringBuilder()
+
+		if (work.rating.votersCount != "0") {
+			rate.text = StringBuilder()
 				.append(work.rating.rating)
 				.append(" - ")
 				.append(work.rating.votersCount)
+		} else rate.visibility = View.GONE
 
 		if (work.notes.isNotEmpty()) MarkDownProvider.setMdText(notes, work.notes) else getString(R.string.no_notes)
 
