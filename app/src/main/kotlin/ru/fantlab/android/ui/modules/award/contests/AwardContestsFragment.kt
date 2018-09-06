@@ -98,6 +98,14 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 					} else contestsWork.autorRusname
 				}
 
+				nameConsts = if (contestsWork.cwLinkId != null) {
+					StringBuilder()
+						.append("\"$nameConsts\"")
+						.append(", ")
+						.append(contestsWork.autorRusname)
+						.toString()
+				} else nameConsts
+
 				nodes[subIndex].addChild(TreeNode(Consts(nameConsts ?: "", contestsWork.nominationRusname ?: contestsWork.nominationName, contestsWork.cwLinkId ?: 0)))
 			}
 
