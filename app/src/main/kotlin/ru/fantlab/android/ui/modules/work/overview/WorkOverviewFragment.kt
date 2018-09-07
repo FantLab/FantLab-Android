@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v7.widget.CardView
 import android.view.View
+import android.widget.LinearLayout
 import butterknife.BindView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Nomination
@@ -31,6 +32,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
     @BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
     @BindView(R.id.authorLayout) lateinit var authorLayout: AvatarLayout
     @BindView(R.id.author) lateinit var author: FontTextView
+    @BindView(R.id.authorBlock) lateinit var authorBlock: LinearLayout
     @BindView(R.id.author2) lateinit var author2: FontTextView
     @BindView(R.id.title) lateinit var name: FontTextView
     @BindView(R.id.title2) lateinit var name2: FontTextView
@@ -96,7 +98,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		authorLayout.setUrl("https://$HOST_DATA/images/autors/${work.authors[0].id}")
 		author.text = work.authors[0].name
 		author2.text = work.authors[0].nameOrig
-		author.setOnClickListener(this)
+		authorBlock.setOnClickListener(this)
 
 		if (adapterNoms.itemCount > 0) {
 			nomsList.adapter = adapterNoms
@@ -148,7 +150,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun onClick(v: View?) {
 		when (v?.id) {
-			R.id.author -> {
+			R.id.authorBlock -> {
 				val dialogView:ListDialogView<Work.Author> = ListDialogView()
 				dialogView.initArguments(getString(R.string.authors), work?.authors)
 				dialogView.show(childFragmentManager, "ListDialogView")

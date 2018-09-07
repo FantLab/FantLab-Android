@@ -180,9 +180,13 @@
 					/>
 
 				<LinearLayout
+					android:id="@+id/authorBlock"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:layout_marginStart="@dimen/spacing_micro"
+					android:clickable="true"
+					android:focusable="true"
+					android:foreground="?android:selectableItemBackground"
 					android:orientation="horizontal"
 					>
 
@@ -201,18 +205,22 @@
 
 						<ru.fantlab.android.ui.widgets.FontTextView
 							android:id="@+id/author2"
-							android:layout_width="wrap_content"
+							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:layout_below="@+id/author"
+							android:ellipsize="end"
+							android:lines="1"
 							style="@style/TextAppearance.AppCompat.Caption"
 							/>
 
 						<ru.fantlab.android.ui.widgets.FontTextView
 							android:id="@+id/author"
-							android:layout_width="wrap_content"
+							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:layout_centerVertical="true"
 							android:layout_toEndOf="@+id/authorLayout"
+							android:ellipsize="end"
+							android:lines="1"
 							/>
 
 					</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
