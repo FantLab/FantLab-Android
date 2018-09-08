@@ -45,8 +45,6 @@ class WorkResponsesPresenter : BasePresenter<WorkResponsesMvp.View>(),
 		onCallApi(1, workId)
 	}
 
-	fun getCurrentSort(): String = sort?.value ?: ResponsesSortOption.BY_DATE.value
-
 	override fun onCallApi(page: Int, parameter: Int?): Boolean {
 		workId = parameter!!
 		if (page == 1) {

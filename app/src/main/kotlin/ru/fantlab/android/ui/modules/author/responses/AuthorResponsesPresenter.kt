@@ -44,8 +44,6 @@ class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
 		onCallApi(1, authorId)
 	}
 
-	fun getCurrentSort(): String = sort?.value ?: ResponsesSortOption.BY_DATE.value
-
 	override fun onCallApi(page: Int, parameter: Int?): Boolean {
 		authorId = parameter!!
 		if (page == 1) {

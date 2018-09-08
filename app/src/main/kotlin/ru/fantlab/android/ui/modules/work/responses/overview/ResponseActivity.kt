@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import butterknife.BindView
+import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.ContextMenus
@@ -35,8 +36,7 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 	@BindView(R.id.rating) lateinit var rating: FontTextView
 	@BindView(R.id.votes) lateinit var votes: FontTextView
 
-	private lateinit var response: Response
-	private lateinit var sortOption: String
+	@State lateinit var response: Response
 
 	override fun layout(): Int = R.layout.response_layout
 
@@ -50,7 +50,6 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 		super.onCreate(savedInstanceState)
 		if (savedInstanceState == null) {
 			response = intent!!.extras.getParcelable(BundleConstant.EXTRA)
-			sortOption = intent!!.extras.getString(BundleConstant.EXTRA_TWO)
 			presenter.initResponse(response)
 		}
 		if (response.id == -1) {
@@ -71,8 +70,7 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 			R.id.share -> {
 				ActivityHelper.shareUrl(this, Uri.Builder().scheme(LinkParserHelper.PROTOCOL_HTTPS)
 						.authority(LinkParserHelper.HOST_DEFAULT)
-						.appendEncodedPath("work${response.workId}?sort=$sortOption" +
-								"#response${response.id}")
+						.appendEncodedPath("work${response.workId}#response${response.id}")
 						.toString())
 				return true
 			}
@@ -141,11 +139,10 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 	}
 
 	companion object {
-		fun startActivity(context: Context, response: Response, sortOption: String) {
+		fun startActivity(context: Context, response: Response) {
 			val intent = Intent(context, ResponseActivity::class.java)
 			intent.putExtras(Bundler.start()
 					.put(BundleConstant.EXTRA, response)
-					.put(BundleConstant.EXTRA_TWO, sortOption)
 					.end())
 			if (context is Service || context is Application) {
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

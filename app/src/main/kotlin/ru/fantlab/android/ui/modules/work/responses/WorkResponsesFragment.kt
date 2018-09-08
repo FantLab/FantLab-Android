@@ -121,7 +121,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	}
 
 	override fun onItemClicked(item: Response) {
-		ResponseActivity.startActivity(context!!, item, presenter.getCurrentSort())
+		ResponseActivity.startActivity(context!!, item)
 	}
 
 	override fun onItemLongClicked(position: Int, v: View?, item: Response) {

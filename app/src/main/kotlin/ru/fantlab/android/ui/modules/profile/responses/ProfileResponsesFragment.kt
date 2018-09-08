@@ -102,7 +102,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	}
 
 	override fun onItemClicked(item: Response) {
-		ResponseActivity.startActivity(context!!, item, ResponsesSortOption.BY_DATE.value)
+		ResponseActivity.startActivity(context!!, item)
 	}
 
 	override fun onRefresh() {
