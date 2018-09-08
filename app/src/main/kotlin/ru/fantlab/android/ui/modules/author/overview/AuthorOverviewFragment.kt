@@ -2,9 +2,9 @@ package ru.fantlab.android.ui.modules.author.overview
 
 import android.os.Bundle
 import android.support.annotation.StringRes
+import android.text.Html
 import android.view.View
 import butterknife.BindView
-import com.google.gson.GsonBuilder
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Author
 import ru.fantlab.android.data.dao.model.Biography
@@ -13,7 +13,6 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
-import timber.log.Timber
 
 class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOverviewPresenter>(),
 		AuthorOverviewMvp.View {
@@ -23,8 +22,10 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
     @BindView(R.id.author) lateinit var authorName: FontTextView
     @BindView(R.id.date) lateinit var date: FontTextView
     @BindView(R.id.country) lateinit var country: FontTextView
-    @BindView(R.id.description) lateinit var description: FontTextView
-    @BindView(R.id.source) lateinit var sourceDescription: FontTextView
+	@BindView(R.id.notOpened) lateinit var notOpened: FontTextView
+	@BindView(R.id.biographyCard) lateinit var biographyCard: View
+    @BindView(R.id.biography) lateinit var biographyText: FontTextView
+    @BindView(R.id.source) lateinit var source: FontTextView
 
 	private var author: Author? = null
 	private var biography: Biography? = null
@@ -48,8 +49,9 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 
 	override fun onInitViews(author: Author, biography: Biography?) {
 		hideProgress()
-		Timber.d("author: ${GsonBuilder().setPrettyPrinting().create().toJson(author)}")
 		coverLayout.setUrl("https:${author.image}")
+
+		country.text = author.countryName
 
         authorName.text = if (author.name.isNotEmpty()) {
             if (author.nameOriginal.isNotEmpty()) {
@@ -64,19 +66,43 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
         if (author.deathDay != null) {
             if (author.birthDay != null)
                 date.text = String.format("%s ‒ %s", author.birthDay, author.deathDay)
-        } else if (author.birthDay != null)
-            date.text = author.birthDay
+        } else if (author.birthDay != null) {
+			date.text = author.birthDay
+		} else {
+			date.visibility = View.GONE
+		}
 
-        country.text = author.countryName
-        description.text = biography?.biography
-                ?.replace("(\r\n)+".toRegex(), "\n")
-                ?.replace("\\[(.*?)]".toRegex(), "") // удаление только тегов, без содержимого (!)
-                ?.replace("<(.*?)>".toRegex(), "") // аналогично, но с другими скобками
+		if (author.isOpened == 1) {
+			notOpened.visibility = View.GONE
+		}
 
-        if (biography?.sourceLink?.isNotEmpty()!!)
-            sourceDescription.text = String.format("%s: %s", getString(R.string.source), biography.sourceLink)
-        else
-            sourceDescription.text = getString(R.string.no_source)
+		val bio = biography?.biography
+				?.replace("(\r\n)+".toRegex(), "\n")
+				?.replace("\\[(.*?)]".toRegex(), "") // удаление только тегов, без содержимого (!)
+				?.replace("<(.*?)>".toRegex(), "") // аналогично, но с другими скобками
+				?.trim()
+
+		if (!bio.isNullOrEmpty()) {
+			biographyText.text = bio
+
+			when {
+				biography!!.source.isNotEmpty() && biography.sourceLink.isNotEmpty() -> {
+					val sourceText = "© <a href=\"${biography.sourceLink}\">${biography.source}</a>"
+					source.text = Html.fromHtml(sourceText)
+				}
+				biography.source.isNotEmpty() -> {
+					source.text = getString(R.string.copyright, biography.source)
+				}
+				biography.sourceLink.isNotEmpty() -> {
+					source.text = getString(R.string.copyright, biography.sourceLink)
+				}
+				else -> {
+					source.visibility = View.GONE
+				}
+			}
+		} else {
+			biographyCard.visibility = View.GONE
+		}
     }
 
 	override fun onSaveInstanceState(outState: Bundle) {

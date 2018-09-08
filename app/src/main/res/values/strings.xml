@@ -105,10 +105,10 @@
 	<string name="view_response">Review response</string>
     <string name="no_editions">No editions</string>
     <string name="no_analogs">No analogs</string>
-    <string name="source">Source</string>
-	<string name="no_source">No source link</string>
     <string name="no_works">No works</string>
     <string name="no_content">No content</string>
+	<string name="copyright">© %s</string>
+	<string name="author_not_opened">Author is not yet open</string>
     <string name="settings">Settings</string>
 	<string name="theme_title">Theme</string>
 	<string name="language">Language</string>

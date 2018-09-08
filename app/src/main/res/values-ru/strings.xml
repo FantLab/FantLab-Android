@@ -75,11 +75,11 @@
 	<string name="view_response">Просмотр отзыва</string>
     <string name="no_editions">Нет изданий</string>
     <string name="no_analogs">Нет похожих произведений</string>
-	<string name="source">Источник</string>
-    <string name="no_source">Источник не указан</string>
     <string name="no_works">Нет произведений</string>
     <string name="no_content">Нет содержания</string>
-    <string name="settings">Настройки</string>
+	<string name="copyright">© %s</string>
+	<string name="author_not_opened">Автор еще не открыт</string>
+	<string name="settings">Настройки</string>
 	<string name="theme_title">Тема оформления</string>
 	<string name="language">Язык</string>
     <string name="select">Выбрать</string>
