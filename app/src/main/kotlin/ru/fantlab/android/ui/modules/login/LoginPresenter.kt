@@ -4,7 +4,6 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
-import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.User
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.PrefGetter
@@ -30,7 +29,7 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 							.toObservable(),
 					Consumer { response ->
 						if (response.headers["Location"]?.get(0) == "/loginincorrect") {
-							showSignInFailed()
+							sendToView { it.showSignInFailed() }
 							return@Consumer
 						}
 						onTokenResponse(username, response)
@@ -64,19 +63,22 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 	}
 
 	private fun onUserResponse(user: User) {
-		manageDisposable(
-				Single.fromCallable {
-					PrefGetter.setLoggedUser(user)
-					PrefGetter.setProceedWithoutLogin(false)
-				}.doOnSuccess { sendToView { it.onSuccessfullyLoggedIn() } }
-						.subscribeOn(Schedulers.io())
-						.observeOn(AndroidSchedulers.mainThread())
-						.subscribe()
-		)
-		return
-	}
-
-	private fun showSignInFailed() {
-		sendToView { it.showMessage(R.string.error, R.string.failed_login) }
+		if (user.blocked == 1) {
+			if (user.blockEndDate != null) {
+				sendToView { it.showUserBlocked(user.blockEndDate) }
+			} else {
+				sendToView { it.showUserBlockedForever() }
+			}
+		} else {
+			manageDisposable(
+					Single.fromCallable {
+						PrefGetter.setLoggedUser(user)
+						PrefGetter.setProceedWithoutLogin(false)
+					}.doOnSuccess { sendToView { it.onSuccessfullyLoggedIn() } }
+							.subscribeOn(Schedulers.io())
+							.observeOn(AndroidSchedulers.mainThread())
+							.subscribe()
+			)
+		}
 	}
 }

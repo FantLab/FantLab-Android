@@ -10,9 +10,7 @@ import android.widget.ProgressBar
 import butterknife.BindView
 import butterknife.OnEditorAction
 import ru.fantlab.android.R
-import ru.fantlab.android.helper.AnimHelper
-import ru.fantlab.android.helper.AppHelper
-import ru.fantlab.android.helper.InputHelper
+import ru.fantlab.android.helper.*
 import ru.fantlab.android.ui.base.BaseActivity
 
 class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.View {
@@ -87,6 +85,20 @@ class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.Vi
 		login.hide()
 		AppHelper.hideKeyboard(login)
 		AnimHelper.animateVisibility(progress, true)
+	}
+
+	override fun showSignInFailed() {
+		showMessage(R.string.error, R.string.failed_login)
+	}
+
+	override fun showUserBlocked(endDate: String) {
+		val date = endDate.parseFullDate(false)!!.getTimeAgo().toString().toLowerCase()
+		val message = getString(R.string.user_blocked, date)
+		showMessage(getString(R.string.error), message)
+	}
+
+	override fun showUserBlockedForever() {
+		showMessage(R.string.error, R.string.user_blocked_forever)
 	}
 
 	override fun validateAuth(): Boolean = true

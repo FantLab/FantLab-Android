@@ -11,6 +11,12 @@ interface LoginMvp {
 		fun onEmptyPassword(isEmpty: Boolean)
 
 		fun onSuccessfullyLoggedIn()
+
+		fun showSignInFailed()
+
+		fun showUserBlocked(endDate: String)
+
+		fun showUserBlockedForever()
 	}
 
 	interface Presenter : BaseMvp.Presenter {
