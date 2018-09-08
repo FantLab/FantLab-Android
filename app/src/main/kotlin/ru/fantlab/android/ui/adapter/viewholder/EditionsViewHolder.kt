@@ -9,6 +9,7 @@ import ru.fantlab.android.data.dao.model.EditionsBlocks
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
 import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
 import ru.fantlab.android.ui.widgets.CoverLayout
+import ru.fantlab.android.ui.widgets.Dot
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
@@ -29,6 +30,15 @@ class EditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<EditionsBl
 				.appendPath("big")
 				.appendPath(edition.editionId.toString())
 				.toString())
+		coverLayout.setDotColor(
+				when {
+					edition.planDate != null -> Dot.Color.GREY
+					edition.correctLevel == 0f -> Dot.Color.RED
+					edition.correctLevel == 0.5f -> Dot.Color.ORANGE
+					edition.correctLevel == 1f -> Dot.Color.GREEN
+					else -> throw IllegalStateException("Received invalid edition->correct_level from API")
+				}
+		)
 
 		if (edition.authors.isNotEmpty()) {
 			authors.text = edition.authors.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")

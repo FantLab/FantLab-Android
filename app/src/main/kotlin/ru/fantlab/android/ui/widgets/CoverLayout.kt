@@ -22,6 +22,7 @@ import ru.fantlab.android.R
 class CoverLayout : FrameLayout {
 
 	@BindView(R.id.image) lateinit var cover: ShapedImageView
+	@BindView(R.id.dot) lateinit var dot: Dot
 
 	constructor(context: Context) : super(context)
 
@@ -36,8 +37,10 @@ class CoverLayout : FrameLayout {
 		View.inflate(context, R.layout.image_layout, this)
 		if (isInEditMode) return
 		ButterKnife.bind(this)
-		setBackgroundResource(R.drawable.rect_shape)
-		cover.setShape(ShapedImageView.SHAPE_MODE_ROUND_RECT, 15f)
+		cover.apply {
+			setBackgroundResource(R.drawable.rect_shape)
+			setShape(ShapedImageView.SHAPE_MODE_ROUND_RECT, 15f)
+		}
 	}
 
 	fun setUrl(url: String?, @DrawableRes fallbackImage: Int = R.drawable.work) {
@@ -47,5 +50,12 @@ class CoverLayout : FrameLayout {
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.dontAnimate()
 				.into(cover)
+	}
+
+	fun setDotColor(color: Dot.Color) {
+		dot.apply {
+			this.color = color
+			visibility = View.VISIBLE
+		}
 	}
 }

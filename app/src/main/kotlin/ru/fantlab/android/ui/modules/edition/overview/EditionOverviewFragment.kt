@@ -18,6 +18,7 @@ import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.widgets.CoverLayout
+import ru.fantlab.android.ui.widgets.Dot
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.GallerySlider
 import ru.fantlab.android.ui.widgets.dialog.ListDialogView
@@ -66,6 +67,16 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 		this.edition = edition
 		this.additionalImages = additionalImages
 		coverLayout.setUrl("https:${edition.image}")
+		coverLayout.setDotColor(
+				when {
+					edition.planDate.isNotEmpty() -> Dot.Color.GREY
+					edition.correctLevel == 0f -> Dot.Color.RED
+					edition.correctLevel == 0.5f -> Dot.Color.ORANGE
+					edition.correctLevel == 1f -> Dot.Color.GREEN
+					else -> throw IllegalStateException("Received invalid edition->correct_level from API")
+				}
+		)
+
 		coverLayout.setOnClickListener {
 			val slideImages = arrayListOf<SliderModel>()
 			additionalImages?.cover?.map { cover ->

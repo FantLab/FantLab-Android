@@ -4,14 +4,32 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	>
 
-	<cn.gavinliu.android.lib.shapedimageview.ShapedImageView
-		android:id="@+id/image"
+	<FrameLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="?selectableItemBackgroundBorderless"
-		android:scaleType="centerCrop"
-		android:src="?colorPrimaryDark"
-		android:transitionName="@string/icon_transition"
-		app:shape_mode="circle"
-		/>
+		>
+
+		<cn.gavinliu.android.lib.shapedimageview.ShapedImageView
+			android:id="@+id/image"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_margin="2dp"
+			android:background="?selectableItemBackgroundBorderless"
+			android:scaleType="centerCrop"
+			android:src="?colorPrimaryDark"
+			android:transitionName="@string/icon_transition"
+			app:shape_mode="circle"
+			/>
+
+		<ru.fantlab.android.ui.widgets.Dot
+			android:id="@+id/dot"
+			android:layout_width="8dp"
+			android:layout_height="8dp"
+			android:layout_gravity="top|end"
+			android:contentDescription="@null"
+			android:visibility="gone"
+			/>
+
+	</FrameLayout>
+
 </merge>
