@@ -114,6 +114,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 
 	override fun onItemClicked(item: Response) {
 		WorkPagerActivity.startActivity(context!!, item.workId, item.workName, 0)
+		//ResponseActivity.startActivity(context!!, item, ResponsesSortOption.BY_DATE.value)
 	}
 
 	override fun onItemLongClicked(position: Int, v: View?, item: Response) {

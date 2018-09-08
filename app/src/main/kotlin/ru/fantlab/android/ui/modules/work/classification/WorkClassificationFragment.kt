@@ -2,19 +2,20 @@ package ru.fantlab.android.ui.modules.work.classification
 
 import android.os.Bundle
 import android.support.annotation.StringRes
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import butterknife.BindView
-import com.google.gson.GsonBuilder
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.ClassificationGenre
-import ru.fantlab.android.data.dao.model.GenreGroup
+import ru.fantlab.android.data.dao.model.*
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
-import ru.fantlab.android.ui.adapter.ClassificationAdapter
+import ru.fantlab.android.ui.adapter.viewholder.ClassChildViewHolder
+import ru.fantlab.android.ui.adapter.viewholder.ClassParentViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-import ru.fantlab.android.ui.widgets.recyclerview.SectionedRecyclerViewAdapter
-import timber.log.Timber
+import ru.fantlab.android.ui.widgets.treeview.TreeNode
+import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
+import java.util.*
 
 class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, WorkClassificationPresenter>(),
 		WorkClassificationMvp.View {
@@ -24,7 +25,6 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 	@BindView(R.id.recycler)
 	lateinit var recycler: DynamicRecyclerView
 	private var workClassification: ArrayList<GenreGroup>? = null
-	private val adapter: ClassificationAdapter by lazy { ClassificationAdapter(presenter.getResponses()) }
 
 	override fun fragmentLayout() = R.layout.work_classification_layout
 
@@ -45,22 +45,57 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 
 	override fun onInitViews(classificatory: ArrayList<GenreGroup>) {
 		hideProgress()
-		Timber.d("classificatory: ${GsonBuilder().setPrettyPrinting().create().toJson(classificatory)}")
-		val sections: ArrayList<SectionedRecyclerViewAdapter.Section> = ArrayList()
-		val genres: ArrayList<ClassificationGenre> = ArrayList()
-		var index = 0
-		classificatory.map { genreGroup ->
-			sections.add(SectionedRecyclerViewAdapter.Section(index, genreGroup.label))
-			genreGroup.genres.map { (level, genre) ->
-				genres.add(ClassificationGenre(genre.label, genre.genreId, level))
-				index++
+		val nodes = arrayListOf<TreeNode<*>>()
+		classificatory.forEachIndexed { index, item ->
+			val parent = TreeNode(ClassParent(item.label))
+			nodes.add(parent)
+			var toSkip = -1
+			item.genres.forEachIndexed { subIndex, pair ->
+				val currentLevel = pair.first
+				val currentTitle = pair.second.label
+
+				if (toSkip == subIndex ) {
+					return@forEachIndexed
+				}
+
+				val parentChild = TreeNode(ClassParent(currentTitle))
+				val prevPair = if (subIndex > 0) item.genres[subIndex - 1] else null
+				val nextPair = if (item.genres.size > subIndex+1) item.genres[subIndex + 1] else null
+				if (currentLevel == 0) {
+					parent.addChild(parentChild)
+				} else if (prevPair != null && prevPair.first == currentLevel - 1) {
+					if (nextPair != null && nextPair.first != currentLevel){
+						parent.childList[0].addChild(parentChild.addChild(TreeNode(ClassParent(nextPair.second.label))))
+						toSkip = nextPair.first
+					} else {
+						parent.childList[0].addChild(parentChild)
+					}
+				} else {
+					parent.childList[0].addChild(parentChild)
+				}
 			}
-			val dummy = arrayOfNulls<SectionedRecyclerViewAdapter.Section>(sections.size)
-			val sectionAdapter = SectionedRecyclerViewAdapter(context!!, R.layout.work_classification_section, R.id.section_text, adapter)
-			sectionAdapter.setSections(sections.toArray(dummy))
-			recycler.adapter = sectionAdapter
+			parent.expandAll()
 		}
-		adapter.addItems(genres)
+		val adapter = TreeViewAdapter(nodes, Arrays.asList(ClassParentViewHolder(), ClassChildViewHolder()))
+		adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
+			override fun onSelected(extra: Int, add: Boolean) {
+			}
+			override fun onClick(node: TreeNode<*>, holder: RecyclerView.ViewHolder): Boolean {
+				if (!node.isLeaf) {
+					onToggle(!node.isExpand, holder)
+				}
+				return false
+			}
+			override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
+				val dirViewHolder = holder as ClassParentViewHolder.ViewHolder
+				val ivArrow = dirViewHolder.ivArrow
+				val rotateDegree = if (isExpand) 90.0f else -90.0f
+				ivArrow.animate().rotationBy(rotateDegree)
+						.start()
+			}
+		})
+		recycler.isNestedScrollingEnabled = false
+		recycler.adapter = adapter
 	}
 
 	override fun onSaveInstanceState(outState: Bundle) {
