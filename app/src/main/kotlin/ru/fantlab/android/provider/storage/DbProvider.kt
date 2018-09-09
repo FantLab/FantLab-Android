@@ -2,16 +2,16 @@ package ru.fantlab.android.provider.storage
 
 import android.arch.persistence.room.Room
 import android.content.Context
-import ru.fantlab.android.data.db.response.ResponseDatabase
+import ru.fantlab.android.data.db.MainDatabase
 
 object DbProvider {
 
-	lateinit var responseDatabase: ResponseDatabase
+	lateinit var mainDatabase: MainDatabase
 		private set
 
 	fun initDatabase(context: Context) {
-		responseDatabase =
-				Room.databaseBuilder(context, ResponseDatabase::class.java, "response")
+		mainDatabase =
+				Room.databaseBuilder(context, MainDatabase::class.java, "main")
 						//.allowMainThreadQueries()
 						.build()
 	}

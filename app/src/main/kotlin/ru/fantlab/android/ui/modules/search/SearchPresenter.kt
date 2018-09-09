@@ -4,9 +4,14 @@ import android.support.v4.view.ViewPager
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import ru.fantlab.android.R
+import ru.fantlab.android.data.db.response.Search
 import ru.fantlab.android.helper.AppHelper
 import ru.fantlab.android.helper.InputHelper
+import ru.fantlab.android.helper.PrefGetter
+import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.search.authors.SearchAuthorsFragment
 import ru.fantlab.android.ui.modules.search.editions.SearchEditionsFragment
@@ -15,16 +20,19 @@ import ru.fantlab.android.ui.modules.search.works.SearchWorksFragment
 class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 
 	private val hints = ArrayList<String>()
+	private val userId = PrefGetter.getLoggedUser()?.id ?: -1
 
 	override fun onAttachView(view: SearchMvp.View) {
 		super.onAttachView(view)
 		if (hints.isEmpty()) {
-			manageDisposable(/*getSearchHistory()*/Single.just(arrayListOf<String>())
-					.subscribe { histories ->
+			manageDisposable(DbProvider.mainDatabase
+					.searchDao()
+					.get(userId)
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe {
 						hints.clear()
-						val strings = ArrayList<String>()
-						histories.mapTo(strings) { it/*.text*/ }
-						hints.addAll(strings)
+						hints.addAll(it)
 						view.onNotifyAdapter(null)
 					}
 			)
@@ -51,8 +59,15 @@ class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 			if (!isIsbn) {
 				val noneMatch = hints.none { it.equals(query, ignoreCase = true) }
 				if (noneMatch) {
-					/*val searchHistory = SearchHistory(query)
-					manageObservable(searchHistory.save().toObservable())*/
+					manageDisposable(
+							Single.fromCallable {
+								DbProvider.mainDatabase
+										.searchDao()
+										.save(Search(query, userId))
+							}.subscribeOn(Schedulers.io())
+									.observeOn(AndroidSchedulers.mainThread())
+									.subscribe()
+					)
 					sendToView { it.onNotifyAdapter(query) }
 				}
 			}

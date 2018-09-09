@@ -13,7 +13,7 @@ fun dbResponseInterceptor() =
 						BuildConfig.API_VERSION,
 						String(res.data)
 				)
-				DbProvider.responseDatabase.responseDao().save(response)
+				DbProvider.mainDatabase.responseDao().save(response)
 				next(req, res)
 			}
 		}
