@@ -1,24 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="50dp"
-	xmlns:tools="http://schemas.android.com/tools">
+	android:orientation="horizontal"
+	>
 
-	<ImageView
+	<ru.fantlab.android.ui.widgets.ForegroundImageView
 		android:id="@+id/iv_arrow"
 		android:layout_width="18dp"
-		android:layout_height="18dp"
+		android:layout_height="match_parent"
 		android:layout_gravity="center_vertical"
-		android:src="@drawable/ic_keyboard_arrow_right_black_18dp" />
+		android:src="@drawable/ic_keyboard_arrow_right_black_18dp"
+		/>
 
-	<TextView
-		android:id="@+id/tv_name"
-		android:layout_width="match_parent"
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/title"
+		android:layout_width="wrap_content"
 		android:layout_height="match_parent"
 		android:layout_marginStart="5dp"
-		android:drawableStart="@drawable/ic_book"
+		android:layout_toEndOf="@+id/iv_arrow"
+		android:layout_toStartOf="@+id/percent"
 		android:drawablePadding="10dp"
+		android:drawableStart="@drawable/ic_book"
 		android:gravity="center_vertical"
-		tools:text="@string/app_name"
-		android:textSize="18sp" />
-</LinearLayout>
+		android:textSize="14sp"
+		/>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/percent"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:layout_alignParentEnd="true"
+		android:layout_margin="2dp"
+		android:gravity="center_vertical"
+		android:textSize="12sp"
+		tools:text="90%"
+		/>
+</RelativeLayout>

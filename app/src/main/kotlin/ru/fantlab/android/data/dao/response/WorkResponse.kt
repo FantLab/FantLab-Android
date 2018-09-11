@@ -125,7 +125,7 @@ data class WorkResponse(
 				level: Int,
 				genreGroup: RecursiveGenreGroup.Genre
 		) {
-			add(level to GenreGroup.Genre(genreGroup.genreId, genreGroup.label))
+			add(level to GenreGroup.Genre(genreGroup.genreId, genreGroup.label, genreGroup.percent))
 			genreGroup.genre?.map { add(level + 1, it) }
 		}
 	}

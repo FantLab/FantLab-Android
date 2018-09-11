@@ -14,6 +14,7 @@ data class RecursiveGenreGroup(
 	data class Genre(
 			val genre: ArrayList<Genre>?,
 			@SerializedName("genre_id") val genreId: Int,
-			val label: String
+			val label: String,
+			val percent: Float
 	) : Parcelable
 }

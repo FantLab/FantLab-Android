@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.ClassParent
+import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import ru.fantlab.android.ui.widgets.treeview.TreeViewBinder
@@ -27,7 +28,15 @@ class ClassParentViewHolder : TreeViewBinder<ClassParentViewHolder.ViewHolder>()
 		val rotateDegree = if (node.isExpand) 90f else 0f
 		holder.ivArrow.rotation = rotateDegree
 		val parentNode = node.content as ClassParent?
-		holder.tvName.text = parentNode!!.title
+		holder.title.text = parentNode!!.title
+		if (parentNode.percent != null) {
+			holder.percent.text = StringBuilder()
+					.append(Math.round(parentNode.percent!!))
+					.append("%")
+			holder.percent.visibility = View.VISIBLE
+		} else {
+			holder.percent.visibility = View.GONE
+		}
 		if (node.isLeaf)
 			holder.ivArrow.visibility = View.INVISIBLE
 		else
@@ -36,6 +45,7 @@ class ClassParentViewHolder : TreeViewBinder<ClassParentViewHolder.ViewHolder>()
 
 	class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
 		val ivArrow: ImageView = rootView.findViewById<View>(R.id.iv_arrow) as ImageView
-		var tvName: TextView = rootView.findViewById<View>(R.id.tv_name) as TextView
+		var title: TextView = rootView.findViewById<View>(R.id.title) as FontTextView
+		var percent: TextView = rootView.findViewById<View>(R.id.percent) as FontTextView
 	}
 }
