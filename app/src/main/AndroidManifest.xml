@@ -22,7 +22,7 @@
 
 		<activity
 			android:name="ru.fantlab.android.ui.modules.main.MainActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
 			android:theme="@style/SplashTheme"
 			>
 			<intent-filter>
