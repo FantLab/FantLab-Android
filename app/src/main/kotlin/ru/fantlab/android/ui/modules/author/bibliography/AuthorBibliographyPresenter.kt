@@ -1,14 +1,11 @@
 package ru.fantlab.android.ui.modules.author.bibliography
 
 import android.os.Bundle
-import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.WorksBlocks
-import ru.fantlab.android.data.dao.response.AuthorResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
-import ru.fantlab.android.ui.modules.author.works.AuthorWorksFragment
 
 class AuthorBibliographyPresenter : BasePresenter<AuthorBibliographyMvp.View>(),
 		AuthorBibliographyMvp.Presenter {

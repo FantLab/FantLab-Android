@@ -88,17 +88,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 				app.addChild(apps)
 
 				work.children?.forEach{
-
-					val nameSubWork = if (it.name.isNotEmpty()) {
-						if (it.nameOrig.isNotEmpty()) {
-							String.format("%s / %s", it.name, it.nameOrig)
-						} else {
-							it.name
-						}
-					} else {
-						it.nameOrig
-					}
-					app.childList[subIndex].addChild(TreeNode(CycleWork(nameSubWork, it.id ?: 0)))
+					app.childList[subIndex].addChild(TreeNode(CycleWork(it)))
 				}
 			}
 		}
@@ -112,8 +102,17 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 				if (!node.isLeaf) {
 					onToggle(!node.isExpand, holder)
 				} else {
-					val cycleWork = node.content as CycleWork
-					if (cycleWork.workId != 0) WorkPagerActivity.startActivity(context!!, cycleWork.workId, cycleWork.title, 0)
+					val cycleWork = (node.content as CycleWork).work
+					val title = if (cycleWork.name.isNotEmpty()) {
+						if (cycleWork.nameOrig.isNotEmpty()) {
+							String.format("%s / %s", cycleWork.name, cycleWork.nameOrig)
+						} else {
+							cycleWork.name
+						}
+					} else {
+						cycleWork.nameOrig
+					}
+					if (cycleWork.id != 0) WorkPagerActivity.startActivity(context!!, cycleWork.id!!, title, 0)
 				}
 				return false
 			}

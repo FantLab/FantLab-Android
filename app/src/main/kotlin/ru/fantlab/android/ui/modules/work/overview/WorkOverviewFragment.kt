@@ -91,7 +91,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		if (!InputHelper.isEmpty(work.notes)) MarkDownProvider.setMdText(notes, work.notes) else getString(R.string.no_notes)
 
 		if (!InputHelper.isEmpty(work.description))
-			work.description?.let { MarkDownProvider.setMdText(description, work.description) }
+			work.description?.let { MarkDownProvider.setMdText(description, work.description.replace("\\[(.*?)]".toRegex(), "<$1>")) }
 		else
 			aboutView.visibility = View.GONE
 
