@@ -5,10 +5,8 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_margin="@dimen/grid_spacing"
 	android:foreground="?android:selectableItemBackground"
 	android:paddingBottom="@dimen/spacing_normal"
-	android:paddingEnd="@dimen/spacing_xs_large"
 	android:paddingTop="@dimen/spacing_normal"
 	tools:ignore="RtlSymmetry"
 	>
@@ -25,7 +23,6 @@
 			android:layout_width="48dp"
 			android:layout_height="64dp"
 			android:layout_marginEnd="@dimen/avatar_margin_end"
-			android:layout_marginStart="@dimen/avatar_margin"
 			/>
 
 		<LinearLayout
