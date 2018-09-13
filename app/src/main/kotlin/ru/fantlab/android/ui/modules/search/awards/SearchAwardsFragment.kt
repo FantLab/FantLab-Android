@@ -13,6 +13,7 @@ import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.SearchAwardsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 import ru.fantlab.android.ui.modules.search.SearchMvp
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -110,7 +111,16 @@ class SearchAwardsFragment : BaseFragment<SearchAwardsMvp.View, SearchAwardsPres
 	}
 
 	override fun onItemClicked(item: SearchAward) {
-		showMessage("Click", "Not implemented yet")
+		val name = if (item.rusName.isNotEmpty()) {
+			if (item.name.isNotEmpty()) {
+				String.format("%s / %s", item.rusName, item.name)
+			} else {
+				item.name
+			}
+		} else {
+			item.name
+		}
+		AwardPagerActivity.startActivity(context!!, item.id, name, 0)
 	}
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list

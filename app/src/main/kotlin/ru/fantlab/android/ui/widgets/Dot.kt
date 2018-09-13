@@ -18,6 +18,7 @@ class Dot @JvmOverloads constructor(context: Context, attrs: AttributeSet? = nul
 			field = value
 			paint = Paint().apply {
 				color = ContextCompat.getColor(context, field.value)
+				isAntiAlias = true
 			}
 			invalidate()
 		}

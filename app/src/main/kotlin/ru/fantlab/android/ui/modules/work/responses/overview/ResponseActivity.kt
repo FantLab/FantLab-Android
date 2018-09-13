@@ -21,6 +21,7 @@ import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
+import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
@@ -96,6 +97,9 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 			}
 		} else {
 			response.workNameOrig
+		}
+		workTitle.setOnClickListener {
+			WorkPagerActivity.startActivity(this, response.workId, response.workName, 0)
 		}
 
 		MarkDownProvider.setMdText(text, prepareResponse(response.text) ?: "")

@@ -47,7 +47,7 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 		hideProgress()
 		val nodes = arrayListOf<TreeNode<*>>()
 		classificatory.forEachIndexed { index, item ->
-			val parent = TreeNode(ClassParent(item.label))
+			val parent = TreeNode(ClassParent(item.label, null))
 			nodes.add(parent)
 			var toSkip = -1
 			item.genres.forEachIndexed { subIndex, pair ->
@@ -58,14 +58,14 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 					return@forEachIndexed
 				}
 
-				val parentChild = TreeNode(ClassParent(currentTitle))
+				val parentChild = TreeNode(ClassParent(currentTitle, pair.second.percent * 100))
 				val prevPair = if (subIndex > 0) item.genres[subIndex - 1] else null
 				val nextPair = if (item.genres.size > subIndex+1) item.genres[subIndex + 1] else null
 				if (currentLevel == 0) {
 					parent.addChild(parentChild)
 				} else if (prevPair != null && prevPair.first == currentLevel - 1) {
 					if (nextPair != null && nextPair.first != currentLevel){
-						parent.childList[0].addChild(parentChild.addChild(TreeNode(ClassParent(nextPair.second.label))))
+						parent.childList[0].addChild(parentChild.addChild(TreeNode(ClassParent(nextPair.second.label, pair.second.percent * 100))))
 						toSkip = nextPair.first
 					} else {
 						parent.childList[0].addChild(parentChild)

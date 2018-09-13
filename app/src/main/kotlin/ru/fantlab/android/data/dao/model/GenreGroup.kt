@@ -13,6 +13,7 @@ data class GenreGroup(
 	@Parcelize
 	data class Genre(
 			@SerializedName("genre_id") val genreId: Int,
-			val label: String
+			val label: String,
+			val percent: Float
 	) : Parcelable
 }

@@ -37,8 +37,8 @@ object MarkDownProvider {
 
 	fun setMdText(textView: TextView, markdown: String, width: Int) {
         if (!InputHelper.isEmpty(markdown)) {
-            render(textView, markdown, width);
-        }
+            render(textView, markdown, width)
+		}
     }
 
 	private fun render(textView: TextView, markdown: String, width: Int) {
@@ -70,9 +70,9 @@ object MarkDownProvider {
 
 	fun stripMdText(textView: TextView, markdown: String) {
 		if (!InputHelper.isEmpty(markdown)) {
-			val parser: Parser = Parser.builder().build();
-			val node: Node = parser.parse(markdown);
-			textView.text = stripHtml(HtmlRenderer.builder().build().render(node));
+			val parser: Parser = Parser.builder().build()
+			val node: Node = parser.parse(markdown)
+			textView.text = stripHtml(HtmlRenderer.builder().build().render(node))
 		}
 	}
 
@@ -144,7 +144,7 @@ object MarkDownProvider {
 		val substring = source.substring(selectionStart, selectionEnd)
 		val result = "<i>$substring</i>"
 		editText.text.replace(selectionStart, selectionEnd, result)
-		editText.setSelection(result.length + selectionStart - 2)
+		editText.setSelection(result.length + selectionStart - 4)
 	}
 
 	fun addBold(editText: EditText) {
@@ -154,8 +154,7 @@ object MarkDownProvider {
 		val substring = source.substring(selectionStart, selectionEnd)
 		val result = "<b>$substring</b>"
 		editText.text.replace(selectionStart, selectionEnd, result)
-		editText.setSelection(result.length + selectionStart - 3)
-
+		editText.setSelection(result.length + selectionStart - 4)
 	}
 
 	fun addSpoiler(editText: EditText) {
@@ -165,8 +164,7 @@ object MarkDownProvider {
 		val substring = source.substring(selectionStart, selectionEnd)
 		val result = "\n<h>$substring</h>"
 		editText.text.replace(selectionStart, selectionEnd, result)
-		editText.setSelection(result.length + selectionStart - 3)
-
+		editText.setSelection(result.length + selectionStart - 4)
 	}
 
 	fun addStrikeThrough(editText: EditText) {
@@ -176,8 +174,7 @@ object MarkDownProvider {
 		val substring = source.substring(selectionStart, selectionEnd)
 		val result = "<s>$substring</s>"
 		editText.text.replace(selectionStart, selectionEnd, result)
-		editText.setSelection(result.length + selectionStart - 3)
-
+		editText.setSelection(result.length + selectionStart - 4)
 	}
 
 	fun addQuote(editText: EditText) {
@@ -194,7 +191,6 @@ object MarkDownProvider {
 		}
 		editText.text.replace(selectionStart, selectionEnd, result)
 		editText.setSelection(result.length + selectionStart)
-
 	}
 
 	fun addPhoto(editText: EditText, title: String, link: String) {
