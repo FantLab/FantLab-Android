@@ -8,22 +8,25 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.Cycle
-import ru.fantlab.android.data.dao.model.CycleWork
-import ru.fantlab.android.data.dao.model.WorksBlocks
+import ru.fantlab.android.data.dao.ContextMenuBuilder
+import ru.fantlab.android.data.dao.model.*
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.ui.adapter.viewholder.CycleViewHolder
 import ru.fantlab.android.ui.adapter.viewholder.CycleWorkViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
+import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
+import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, AuthorBibliographyPresenter>(),
@@ -38,6 +41,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
 	private var countCallback: AuthorPagerMvp.View? = null
+	private lateinit var adapter: TreeViewAdapter
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -62,10 +66,28 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addDivider()
 		fastScroller.attachRecyclerView(recycler)
-		initAdapter(authorBibliographyResponse)
+		bibliography = authorBibliographyResponse
+
+		val ids = ArrayList<ArrayList<WorksBlocks.Work>>()
+		val workIds = arrayListOf<Int?>()
+		bibliography?.worksBlocks?.map { ids.add(it.list) }
+		ids.map { it ->
+			it.map { cycle ->
+				cycle.children?.map { workIds.add(it.id) }
+			}
+		}
+		if (isLoggedIn()) {
+			presenter.getMarks(PrefGetter.getLoggedUser()?.id, workIds)
+		} else initAdapter(bibliography, null)
 	}
 
-	private fun initAdapter(bibliography: WorksBlocks?) {
+	override fun onGetMarks(marks: ArrayList<MarkMini>) {
+		initAdapter(bibliography, marks)
+	}
+
+	private fun initAdapter(bibliography: WorksBlocks?, marks: ArrayList<MarkMini>?) {
+		hideProgress()
+
 		val nodes = arrayListOf<TreeNode<*>>()
 
 		bibliography?.worksBlocks?.forEach { worksBlock ->
@@ -87,13 +109,14 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 				val apps = TreeNode(Cycle(name))
 				app.addChild(apps)
 
-				work.children?.forEach{
-					app.childList[subIndex].addChild(TreeNode(CycleWork(it)))
+				work.children?.forEach{ item ->
+					val mark = marks?.map { it }?.filter { it.work_id == item.id }
+					app.childList[subIndex].addChild(TreeNode(CycleWork(item, if (mark != null && mark.isNotEmpty()) mark.first().mark else null)))
 				}
 			}
 		}
 
-		val adapter = TreeViewAdapter(nodes, Arrays.asList(CycleWorkViewHolder(), CycleViewHolder()))
+		adapter = TreeViewAdapter(nodes, Arrays.asList(CycleWorkViewHolder(), CycleViewHolder()))
 		recycler.adapter = adapter
 		adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
 			override fun onSelected(extra: Int, add: Boolean) {
@@ -124,7 +147,42 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 						.start()
 			}
 		})
+		adapter.setListener(presenter)
+	}
 
+	override fun onItemLongClicked(item: TreeNode<*>, position: Int) {
+		if (isLoggedIn()) {
+			val work = (item.content as CycleWork)
+			val dialogView = ContextMenuDialogView()
+			dialogView.initArguments("main", ContextMenuBuilder.buildForMarks(), work, position)
+			dialogView.show(childFragmentManager, "ContextMenuDialogView")
+		}
+	}
+
+	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
+		listItem as CycleWork
+		when (item.id){
+			"revote" -> {
+				RatingDialogView.newInstance(10, listItem.mark?.toFloat() ?: 0.0f,
+						listItem.work,
+						"${listItem.work.authors[0].name} - ${listItem.work.name}",
+						position
+				).show(childFragmentManager, RatingDialogView.TAG)
+			}
+			"delete" -> {
+				presenter.onSendMark(listItem.work.id!!, 0, position)
+			}
+		}
+	}
+
+	override fun onRated(rating: Float, listItem: Any, position: Int) {
+		presenter.onSendMark((listItem as ChildWork).id!!, rating.toInt(), position)
+	}
+
+	override fun onSetMark(position: Int, mark: Int) {
+		hideProgress()
+		(adapter.getItem(position) as CycleWork).mark = mark
+		adapter.notifyItemChanged(position)
 	}
 
 	override fun onSaveInstanceState(outState: Bundle) {
@@ -162,7 +220,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 	}
 
     override fun onRefresh() {
-        presenter.onCallApi()
+		hideProgress()
     }
 
     override fun onClick(v: View?) {

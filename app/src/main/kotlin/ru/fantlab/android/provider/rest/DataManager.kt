@@ -160,6 +160,17 @@ object DataManager {
 			))
 			.rx_object(MarksResponse.Deserializer(perPage = 200))
 
+	fun getUserMarksMini(
+			userId: Int?,
+			workIds: String
+	) = "/user/$userId/marks"
+			.toAbsolutePathWithApiVersion()
+			.httpGet(listOf(
+					"w" to workIds,
+					"mini" to "1"
+			))
+			.rx_object(MarksMiniResponse.Deserializer())
+
 	fun getUserResponses(
 			userId: Int,
 			page: Int = 1,

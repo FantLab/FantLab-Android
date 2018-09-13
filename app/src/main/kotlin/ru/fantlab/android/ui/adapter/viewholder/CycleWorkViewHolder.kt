@@ -21,6 +21,7 @@ class CycleWorkViewHolder : TreeViewBinder<CycleWorkViewHolder.ViewHolder>() {
 	@BindView(R.id.year) lateinit var year: FontTextView
 	@BindView(R.id.rating) lateinit var rating: FontTextView
 	@BindView(R.id.responses) lateinit var responses: FontTextView
+	@BindView(R.id.mark) lateinit var mark: FontTextView
 	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override val layoutId = R.layout.author_cycle_work_row_item
@@ -59,7 +60,7 @@ class CycleWorkViewHolder : TreeViewBinder<CycleWorkViewHolder.ViewHolder>() {
 				year.text = work.year.toString()
 			} else year.visibility = View.GONE
 
-			if (work.responses != "0") {
+			if (work.responses != null && work.responses != "0") {
 				responses.text = work.responses
 				responses.visibility = View.VISIBLE
 			} else responses.visibility = View.GONE
@@ -73,6 +74,11 @@ class CycleWorkViewHolder : TreeViewBinder<CycleWorkViewHolder.ViewHolder>() {
 			} else {
 				rating.visibility = View.GONE
 			}
+		val myMark = (node.content as CycleWork).mark
+		if (myMark != null || myMark == 0) {
+			mark.text = myMark.toString()
+			mark.visibility = View.VISIBLE
+		} else mark.visibility = View.GONE
 	}
 
 	inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView)

@@ -13,6 +13,7 @@ class TreeViewAdapter(nodes: List<TreeNode<*>>?, private val viewBinders: List<T
 	private val displayNodes: MutableList<TreeNode<*>>?
 	private var padding = 30
 	private var onTreeNodeListener: OnTreeNodeListener? = null
+	private var onItemClickListener: OnItemClickListener? = null
 	private var toCollapseChild: Boolean = false
 
 	init {
@@ -31,6 +32,10 @@ class TreeViewAdapter(nodes: List<TreeNode<*>>?, private val viewBinders: List<T
 
 	override fun getItemViewType(position: Int): Int {
 		return displayNodes!![position].content!!.layoutId
+	}
+
+	fun getItem(position: Int): LayoutItemType? {
+		return displayNodes!![position].content
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -89,6 +94,10 @@ class TreeViewAdapter(nodes: List<TreeNode<*>>?, private val viewBinders: List<T
 			if (viewBinder.layoutId == displayNodes[position].content!!.layoutId)
 				viewBinder.bindView(holder, position, displayNodes[position], onTreeNodeListener)
 		}
+
+		holder.itemView.setOnLongClickListener { it ->
+			onItemClickListener?.onItemLongClick(displayNodes[position], position)
+			true}
 	}
 
 	private fun addChildNodes(pNode: TreeNode<*>, startIndex: Int): Int {
@@ -143,6 +152,11 @@ class TreeViewAdapter(nodes: List<TreeNode<*>>?, private val viewBinders: List<T
 		this.onTreeNodeListener = onTreeNodeListener
 	}
 
+	fun setListener(listener: OnItemClickListener?) {
+		this.onItemClickListener = listener
+		notifyDataSetChanged()
+	}
+
 	interface OnTreeNodeListener {
 
 		fun onClick(node: TreeNode<*>, holder: RecyclerView.ViewHolder): Boolean
@@ -150,6 +164,10 @@ class TreeViewAdapter(nodes: List<TreeNode<*>>?, private val viewBinders: List<T
 		fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder)
 
 		fun onSelected(extra: Int, add: Boolean)
+	}
+
+	interface OnItemClickListener {
+		fun onItemLongClick(item: TreeNode<*>, position: Int)
 	}
 
 	fun refresh(treeNodes: List<TreeNode<*>>) {
