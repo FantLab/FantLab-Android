@@ -7,12 +7,12 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import ru.fantlab.android.provider.rest.DataManager
 import java.util.*
+import kotlin.collections.ArrayList
 
 @Parcelize
 data class EditionsInfo(
 		val allCount: Int,
 		val bookTypes: ArrayList<BookType>,
-		val isbns: ArrayList<String>,
 		val languages: ArrayList<Language>,
 		val translators: ArrayList<Translator>
 ) : Parcelable {
@@ -43,7 +43,6 @@ data class EditionsInfo(
 
 		private var allCount: Int = 0
 		private val bookTypes: ArrayList<BookType> = arrayListOf()
-		private val isbns: ArrayList<String> = arrayListOf()
 		private val languages: ArrayList<Language> = arrayListOf()
 		private val translators: ArrayList<Translator> = arrayListOf()
 
@@ -56,17 +55,13 @@ data class EditionsInfo(
 				val bookType = DataManager.gson.fromJson(bookTypeObject.toString(), BookType::class.java)
 				bookTypes.add(bookType)
 			}
-			var array = jsonObject.getAsJsonArray("isbn_list")
-			array?.map {
-				isbns.add(it.toString())
-			}
 			`object` = jsonObject.getAsJsonObject("langs")
 			`object`?.entrySet()?.map {
 				val languageObject = it.value.asJsonObject
 				val language = DataManager.gson.fromJson(languageObject.toString(), Language::class.java)
 				languages.add(language)
 			}
-			array = jsonObject.getAsJsonArray("translators")
+			val array = jsonObject.getAsJsonArray("translators")
 			array.map {
 				val translatorObject = it.asJsonObject
 				val translator = DataManager.gson.fromJson(translatorObject.toString(), Translator::class.java)
@@ -75,7 +70,6 @@ data class EditionsInfo(
 			return EditionsInfo(
 					allCount,
 					bookTypes,
-					isbns,
 					languages,
 					translators
 			)
