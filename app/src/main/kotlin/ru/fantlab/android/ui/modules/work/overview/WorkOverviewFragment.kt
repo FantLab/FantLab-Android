@@ -97,7 +97,12 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 		authorLayout.setUrl("https://$HOST_DATA/images/autors/${work.authors[0].id}")
 		author.text = work.authors[0].name
-		author2.text = work.authors[0].nameOrig
+
+		if (!InputHelper.isEmpty(work.authors[0].nameOrig))
+			author2.text = work.authors[0].nameOrig
+		else
+			author2.visibility = View.GONE
+
 		authorBlock.setOnClickListener(this)
 
 		if (adapterNoms.itemCount > 0) {

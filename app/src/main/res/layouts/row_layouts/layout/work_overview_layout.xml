@@ -209,6 +209,7 @@
 					<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
+						android:gravity="center_vertical"
 						>
 
 						<ru.fantlab.android.ui.widgets.FontTextView
@@ -216,10 +217,10 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:layout_below="@+id/author"
-							android:ellipsize="end"
-							android:lines="1"
-							android:includeFontPadding="false"
 							android:layout_marginTop="4dp"
+							android:ellipsize="end"
+							android:includeFontPadding="false"
+							android:lines="1"
 							tools:text="Джордж Р.Р. Мартин"
 							style="@style/TextAppearance.AppCompat.Caption"
 							/>
@@ -230,8 +231,8 @@
 							android:layout_height="wrap_content"
 							android:layout_toEndOf="@+id/authorLayout"
 							android:ellipsize="end"
-							android:lines="1"
 							android:includeFontPadding="false"
+							android:lines="1"
 							tools:text="George R.R. Martin"
 							/>
 
