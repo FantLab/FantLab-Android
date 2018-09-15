@@ -24,7 +24,7 @@ class UserMarkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Mark, User
 	@BindView(R.id.response) lateinit var response: ForegroundImageView
 
 	override fun bind(mark: Mark) {
-		coverLayout.setUrl("https:${mark.workImage}")
+		coverLayout.setUrl(if (mark.workImage != null) "https:${mark.workImage}" else null)
 		author.text = mark.workAuthor
 		title.text = if (mark.workName.isNotEmpty()) {
 			if (mark.workNameOrig.isNotEmpty()) {
