@@ -1,22 +1,26 @@
 package ru.fantlab.android.ui.modules.work.overview
 
 import android.os.Bundle
-import ru.fantlab.android.data.dao.model.Awards
-import ru.fantlab.android.data.dao.model.EditionsBlocks
-import ru.fantlab.android.data.dao.model.Nomination
-import ru.fantlab.android.data.dao.model.Work
+import ru.fantlab.android.data.dao.model.*
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.dialog.ListDialogView
+import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 interface WorkOverviewMvp {
 
 	interface View : BaseMvp.View,
-			android.view.View.OnClickListener, ListDialogView.ListDialogViewActionCallback {
+			android.view.View.OnClickListener,
+			ListDialogView.ListDialogViewActionCallback,
+			RatingDialogView.RatingDialogViewActionCallback {
 
 		fun onInitViews(work: Work)
 
 		fun onItemClicked(item: Nomination)
+
+		fun onSetMark(mark: Int)
+
+		fun onGetMarks(marks: ArrayList<MarkMini>)
 	}
 
 	interface Presenter : BaseMvp.Presenter,
@@ -30,6 +34,8 @@ interface WorkOverviewMvp {
 		fun getNoms(): ArrayList<Nomination>?
 
 		fun getWins(): ArrayList<Nomination>?
+
+		fun getMarks(userId: Int?, workIds: ArrayList<Int?>)
 
 	}
 }

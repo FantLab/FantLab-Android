@@ -35,6 +35,28 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 			)}
 	}
 
+	fun onSendMark(workId: Int, mark: Int){
+		makeRestCall(DataManager.sendUserMark(workId, workId, mark)
+				.map { it.get() }
+				.toObservable(),
+				Consumer {
+					sendToView { view ->
+						view.onSetMark(mark)
+					}
+				})
+	}
+
+	override fun getMarks(userId: Int?, workIds: ArrayList<Int?>) {
+		makeRestCall(DataManager.getUserMarksMini(userId, workIds.joinToString())
+				.map { it.get() }
+				.toObservable(),
+				Consumer {
+					sendToView { view ->
+						view?.onGetMarks(it.marks)
+					}
+				})
+	}
+
 	override fun onError(throwable: Throwable) {
 		workId?.let { onWorkOffline(it) }
 		super.onError(throwable)

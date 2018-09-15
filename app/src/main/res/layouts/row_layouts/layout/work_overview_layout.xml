@@ -113,6 +113,25 @@
 								/>
 						</LinearLayout>
 
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/mymark"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_alignParentBottom="true"
+							android:layout_alignParentEnd="true"
+							android:layout_marginBottom="@dimen/spacing_normal"
+							android:layout_marginEnd="@dimen/spacing_normal"
+							android:drawablePadding="@dimen/spacing_micro"
+							android:drawableStart="@drawable/ic_star"
+							android:gravity="center_vertical"
+							android:text="9"
+							android:visibility="gone"
+							style="@style/TextAppearance.AppCompat.Caption"
+							android:clickable="true"
+							android:focusable="true"
+							android:foreground="?android:selectableItemBackground"
+							/>
+
 
 					</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
 				</LinearLayout>

@@ -6,12 +6,15 @@ import android.support.v7.widget.CardView
 import android.view.View
 import android.widget.LinearLayout
 import butterknife.BindView
+import kotlinx.android.synthetic.main.work_overview_layout.*
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.model.MarkMini
 import ru.fantlab.android.data.dao.model.Nomination
 import ru.fantlab.android.data.dao.model.Work
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
+import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
 import ru.fantlab.android.ui.adapter.WorkAwardsAdapter
@@ -23,6 +26,7 @@ import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.dialog.ListDialogView
+import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 
 class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPresenter>(),
@@ -39,6 +43,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
     @BindView(R.id.rate) lateinit var rate: FontTextView
     @BindView(R.id.types) lateinit var types: FontTextView
     @BindView(R.id.description) lateinit var description: FontTextView
+    @BindView(R.id.mymark) lateinit var mymark: FontTextView
     @BindView(R.id.notes) lateinit var notes: FontTextView
     @BindView(R.id.recyclerNoms) lateinit var nomsList: DynamicRecyclerView
     @BindView(R.id.recyclerWins) lateinit var winsList: DynamicRecyclerView
@@ -71,7 +76,11 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun onInitViews(work: Work) {
 		this.work = work
-		hideProgress()
+
+		if (isLoggedIn()) {
+			presenter.getMarks(PrefGetter.getLoggedUser()?.id, arrayListOf(work.id))
+		} else hideProgress()
+
 		coverLayout.setUrl("https:${work.image}")
 		name.text = work.name
 		if (work.nameOrig.isBlank()) {
@@ -160,6 +169,13 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 				dialogView.initArguments(getString(R.string.authors), work?.authors)
 				dialogView.show(childFragmentManager, "ListDialogView")
 			}
+			R.id.mymark -> {
+				RatingDialogView.newInstance(10, mymark.text.toString().toFloat(),
+						work!!,
+						"${author.text} - ${title.text}",
+						-1
+				).show(childFragmentManager, RatingDialogView.TAG)
+			}
 		}
 	}
 
@@ -178,6 +194,31 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			item.awardName
 		}
 		AwardPagerActivity.startActivity(context!!, item.awardId, name)
+	}
+
+	override fun onGetMarks(marks: ArrayList<MarkMini>) {
+		hideProgress()
+		if (marks.size > 0){
+			mymark.text = marks[0].mark.toString()
+			mymark.visibility = View.VISIBLE
+			mymark.setOnClickListener(this)
+		} else {
+			mymark.visibility = View.GONE
+		}
+	}
+
+	override fun onSetMark(mark: Int) {
+		hideProgress()
+		if (mark == 0){
+			mymark.visibility = View.GONE
+		} else {
+			mymark.text = mark.toString()
+			mymark.visibility = View.VISIBLE
+		}
+	}
+
+	override fun onRated(rating: Float, listItem: Any, position: Int) {
+		presenter.onSendMark((listItem as Work).id, rating.toInt())
 	}
 
 }
