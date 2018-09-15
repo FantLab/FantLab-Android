@@ -168,12 +168,12 @@
 	<string name="story">Story</string>
 	<string name="class_sended">Classification sent</string>
 	<string name="class_needed">Necessary classification parameters are not selected</string>
-	<string name="awards_list">Prizes</string>
+	<string name="awards_list">Awards</string>
 	<string name="contests">Contests</string>
 	<string name="nominations">Nominations</string>
 	<string name="no_nominations">No nominations</string>
 	<string name="no_contests">No contests</string>
-	<string name="about_award">About the Prize</string>
-	<string name="comments">Комментарии</string>
-	<string name="notes">Заметки</string>
+	<string name="about_award">About award</string>
+	<string name="comments">Comments</string>
+	<string name="notes">Notes</string>
 </resources>
