@@ -32,8 +32,6 @@ import kotlin.collections.ArrayList
 class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, AuthorBibliographyPresenter>(),
 		AuthorBibliographyMvp.View {
 
-	private var bibliography: WorksBlocks? = null
-
 	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
 	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
@@ -43,22 +41,16 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 	private var countCallback: AuthorPagerMvp.View? = null
 	private lateinit var adapter: TreeViewAdapter
 
+	private var cycles: WorksBlocks? = null
+	private var works: WorksBlocks? = null
+
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			bibliography = savedInstanceState.getParcelable("bibliography")
-			if (bibliography != null) {
-				onInitViews(bibliography!!)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments)
 	}
 
 	override fun providePresenter() = AuthorBibliographyPresenter()
 
-	override fun onInitViews(authorBibliographyResponse: WorksBlocks?) {
+	override fun onInitViews(cycles: WorksBlocks?, works: WorksBlocks?) {
 		hideProgress()
 		stateLayout.setEmptyText(R.string.no_bibliography)
 		stateLayout.setOnReloadListener(this)
@@ -66,11 +58,12 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addDivider()
 		fastScroller.attachRecyclerView(recycler)
-		bibliography = authorBibliographyResponse
+		this.cycles = cycles
+		this.works = works
 
 		val ids = ArrayList<ArrayList<WorksBlocks.Work>>()
 		val workIds = arrayListOf<Int?>()
-		bibliography?.worksBlocks?.map { ids.add(it.list) }
+		this.cycles?.worksBlocks?.map { ids.add(it.list) }
 		ids.map { it ->
 			it.map { cycle ->
 				cycle.children?.map { workIds.add(it.id) }
@@ -78,44 +71,19 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		}
 		if (isLoggedIn()) {
 			presenter.getMarks(PrefGetter.getLoggedUser()?.id, workIds)
-		} else initAdapter(bibliography, null)
+		} else initAdapter(this.cycles, works, null)
 	}
 
 	override fun onGetMarks(marks: ArrayList<MarkMini>) {
-		initAdapter(bibliography, marks)
+		initAdapter(cycles, works, marks)
 	}
 
-	private fun initAdapter(bibliography: WorksBlocks?, marks: ArrayList<MarkMini>?) {
+	private fun initAdapter(bibliography: WorksBlocks?, works: WorksBlocks?, marks: ArrayList<MarkMini>?) {
 		hideProgress()
 
 		val nodes = arrayListOf<TreeNode<*>>()
-
-		bibliography?.worksBlocks?.forEach { worksBlock ->
-			val app = TreeNode(Cycle(worksBlock.title))
-			nodes.add(app)
-
-			worksBlock.list.forEachIndexed { subIndex, work ->
-
-				val name = if (work.name.isNotEmpty()) {
-					if (work.nameOrig.isNotEmpty()) {
-						String.format("%s / %s", work.name, work.nameOrig)
-					} else {
-						work.name
-					}
-				} else {
-					work.nameOrig
-				}
-
-				val apps = TreeNode(Cycle(name))
-				app.addChild(apps)
-
-				work.children?.forEach{ item ->
-					val mark = marks?.map { it }?.filter { it.work_id == item.id }
-					app.childList[subIndex].addChild(TreeNode(CycleWork(item, if (mark != null && mark.isNotEmpty()) mark.first().mark else null)))
-				}
-			}
-		}
-
+		extractListData(bibliography, nodes, marks)
+		extractListData(works, nodes, marks)
 		adapter = TreeViewAdapter(nodes, Arrays.asList(CycleWorkViewHolder(), CycleViewHolder()))
 		recycler.adapter = adapter
 		adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
@@ -125,7 +93,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 				if (!node.isLeaf) {
 					onToggle(!node.isExpand, holder)
 				} else {
-					val cycleWork = (node.content as CycleWork).work
+					val cycleWork = (node.content as CycleWork)
 					val title = if (cycleWork.name.isNotEmpty()) {
 						if (cycleWork.nameOrig.isNotEmpty()) {
 							String.format("%s / %s", cycleWork.name, cycleWork.nameOrig)
@@ -150,6 +118,61 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		adapter.setListener(presenter)
 	}
 
+	private fun extractListData(bibliography: WorksBlocks?, nodes: ArrayList<TreeNode<*>>, marks: ArrayList<MarkMini>?) {
+		bibliography?.worksBlocks?.forEach { worksBlock ->
+			val app = TreeNode(Cycle(worksBlock.title))
+			nodes.add(app)
+
+			worksBlock.list.forEachIndexed { subIndex, work ->
+
+				val name = if (work.name.isNotEmpty()) {
+					if (work.nameOrig.isNotEmpty()) {
+						String.format("%s / %s", work.name, work.nameOrig)
+					} else {
+						work.name
+					}
+				} else {
+					work.nameOrig
+				}
+
+				if (work.children != null){
+					val apps = TreeNode(Cycle(name))
+					app.addChild(apps)
+
+					work.children.forEach { item ->
+						val mark = marks?.map { it }?.filter { it.work_id == item.id }
+						app.childList[subIndex].addChild(TreeNode(CycleWork(
+								work.id,
+								work.authors,
+								work.name,
+								work.nameOrig,
+								work.description,
+								work.year,
+								work.responseCount,
+								work.votersCount,
+								work.rating,
+								if (mark != null && mark.isNotEmpty()) mark.first().mark else null))
+						)
+					}
+				} else {
+					val mark = marks?.map { it }?.filter { it.work_id == work.id }
+					app.addChild(TreeNode(CycleWork(
+							work.id,
+							work.authors,
+							work.name,
+							work.nameOrig,
+							work.description,
+							work.year,
+							work.responseCount,
+							work.votersCount,
+							work.rating,
+							if (mark != null && mark.isNotEmpty()) mark.first().mark else null))
+					)
+				}
+			}
+		}
+	}
+
 	override fun onItemLongClicked(item: TreeNode<*>, position: Int) {
 		if (isLoggedIn()) {
 			val work = (item.content as CycleWork)
@@ -164,30 +187,25 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		when (item.id){
 			"revote" -> {
 				RatingDialogView.newInstance(10, listItem.mark?.toFloat() ?: 0.0f,
-						listItem.work,
-						"${listItem.work.authors[0].name} - ${listItem.work.name}",
+						listItem,
+						"${listItem.authors[0].name} - ${listItem.name}",
 						position
 				).show(childFragmentManager, RatingDialogView.TAG)
 			}
 			"delete" -> {
-				presenter.onSendMark(listItem.work.id!!, 0, position)
+				presenter.onSendMark(listItem.id!!, 0, position)
 			}
 		}
 	}
 
 	override fun onRated(rating: Float, listItem: Any, position: Int) {
-		presenter.onSendMark((listItem as ChildWork).id!!, rating.toInt(), position)
+		presenter.onSendMark((listItem as CycleWork).id!!, rating.toInt(), position)
 	}
 
 	override fun onSetMark(position: Int, mark: Int) {
 		hideProgress()
 		(adapter.getItem(position) as CycleWork).mark = mark
 		adapter.notifyItemChanged(position)
-	}
-
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		outState.putParcelable("bibliography", bibliography)
 	}
 
     override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {

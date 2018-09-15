@@ -24,7 +24,7 @@ class CycleWorkViewHolder : TreeViewBinder<CycleWorkViewHolder.ViewHolder>() {
 	override fun bindView(
 			holder: RecyclerView.ViewHolder, position: Int, node: TreeNode<*>, onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
 	) {
-		val work = (node.content as CycleWork).work
+		val work = (node.content as CycleWork)
 		(holder as CycleWorkViewHolder.ViewHolder)
 			if (work.authors.size > 1) {
 				holder.authors.text = work.authors.joinToString { it.name }
@@ -51,8 +51,8 @@ class CycleWorkViewHolder : TreeViewBinder<CycleWorkViewHolder.ViewHolder>() {
 				holder.year.text = work.year.toString()
 			} else holder.year.visibility = View.GONE
 
-			if (work.responses != null && work.responses != "0") {
-				holder.responses.text = work.responses
+			if (work.responseCount != null && work.responseCount != 0) {
+				holder.responses.text = work.responseCount.toString()
 				holder.responses.visibility = View.VISIBLE
 			} else holder.responses.visibility = View.GONE
 
@@ -65,7 +65,7 @@ class CycleWorkViewHolder : TreeViewBinder<CycleWorkViewHolder.ViewHolder>() {
 			} else {
 				holder.rating.visibility = View.GONE
 			}
-		val myMark = (node.content as CycleWork).mark
+		val myMark = work.mark
 		if (myMark != null || myMark == 0) {
 			holder.mark.text = myMark.toString()
 			holder.mark.visibility = View.VISIBLE

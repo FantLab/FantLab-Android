@@ -116,7 +116,7 @@
     <string name="success">Success</string>
 	<string name="change_theme_warning">Theme was changed</string>
 	<string name="change_mark">Change mark</string>
-	<string name="delete_mark">Delete</string>
+	<string name="delete_mark">Delete mark</string>
 	<string name="select_mark">Select mark</string>
 	<string name="select_action">Select action</string>
 	<string name="show_profile">Show profile</string>

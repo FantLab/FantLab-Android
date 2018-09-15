@@ -18,7 +18,7 @@ interface AuthorBibliographyMvp {
 			ContextMenuDialogView.ListDialogViewActionCallback,
 			RatingDialogView.RatingDialogViewActionCallback{
 
-		fun onInitViews(authorBibliographyResponse: WorksBlocks?)
+		fun onInitViews(cycles: WorksBlocks?, works: WorksBlocks?)
 
 		fun onItemLongClicked(item: TreeNode<*>, position: Int)
 

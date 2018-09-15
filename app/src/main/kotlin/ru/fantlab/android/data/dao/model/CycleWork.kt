@@ -7,7 +7,15 @@ import ru.fantlab.android.ui.widgets.treeview.LayoutItemType
 
 @Parcelize
 class CycleWork(
-		var work: ChildWork,
+		var id: Int?,
+		var authors: ArrayList<WorksBlocks.Author>,
+		var name: String,
+		var nameOrig: String,
+		val description: String?,
+		var year: Int?,
+		var responseCount: Int?,
+		var votersCount: Int?,
+		var rating: Float?,
 		var mark: Int?
 ) : LayoutItemType, Parcelable {
 

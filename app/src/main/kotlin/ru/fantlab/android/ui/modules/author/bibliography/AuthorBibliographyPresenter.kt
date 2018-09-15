@@ -27,7 +27,8 @@ class AuthorBibliographyPresenter : BasePresenter<AuthorBibliographyMvp.View>(),
 							.toObservable(),
 					Consumer { authorResponse ->
 						sendToView { it.onInitViews(
-								authorResponse.cycles
+								authorResponse.cycles,
+								authorResponse.works
 						) }
 					}
 			)
