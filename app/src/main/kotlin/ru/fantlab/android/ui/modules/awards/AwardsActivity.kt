@@ -3,6 +3,7 @@ package ru.fantlab.android.ui.modules.awards
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -10,16 +11,15 @@ import butterknife.BindView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.AwardInList
+import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.ui.adapter.AwardsAdapter
 import ru.fantlab.android.ui.base.BaseActivity
+import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 import ru.fantlab.android.ui.widgets.SortView
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
-import android.support.v7.widget.RecyclerView
-import ru.fantlab.android.data.dao.model.ContextMenus
-import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 
 
 class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMvp.View {
@@ -42,6 +42,7 @@ class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMv
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+		title = getString(R.string.awards_list)
 		hideShowShadow(true)
 		selectMenuItem(R.id.awards, true)
 		if (savedInstanceState == null) {

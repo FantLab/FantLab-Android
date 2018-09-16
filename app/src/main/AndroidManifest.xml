@@ -51,17 +51,14 @@
 		</activity>
 		<activity
 			android:name=".ui.modules.user.UserPagerActivity"
-			android:label="@string/user"
 			android:parentActivityName=".ui.modules.main.MainActivity">
 		</activity>
 		<activity
 			android:name=".ui.modules.authors.AuthorsActivity"
-			android:label="@string/authors"
 			android:parentActivityName=".ui.modules.main.MainActivity">
 		</activity>
 		<activity
 			android:name=".ui.modules.awards.AwardsActivity"
-			android:label="@string/awards_list"
 			android:parentActivityName=".ui.modules.main.MainActivity">
 		</activity>
 		<activity
@@ -99,7 +96,6 @@
 		<activity
 			android:name=".ui.modules.editor.EditorActivity"
 			android:configChanges="keyboard|orientation|screenSize"
-			android:label="@string/markdown"
 			android:windowSoftInputMode="adjustResize"/>
 		<meta-data
 			android:name="io.fabric.ApiKey"

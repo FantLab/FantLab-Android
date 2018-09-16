@@ -32,6 +32,7 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+		title = getString(R.string.authors)
 		hideShowShadow(true)
 		selectMenuItem(R.id.authors, true)
 		if (savedInstanceState == null) {

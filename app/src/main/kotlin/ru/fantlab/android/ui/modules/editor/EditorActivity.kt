@@ -71,6 +71,7 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
         super.onCreate(savedInstanceState)
 		if (!isLoggedIn()) finish()
         markDownLayout.markdownListener = this
+        title = getString(R.string.markdown)
         setToolbarIcon(R.drawable.ic_clear)
         if (savedInstanceState == null) {
             onCreate()
