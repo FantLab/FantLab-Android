@@ -53,18 +53,25 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+		val currentUser = PrefGetter.getLoggedUser()
 		if (savedInstanceState == null) {
 			userId = intent?.extras?.getInt(BundleConstant.EXTRA_TWO, -1) ?: -1
 			index = intent?.extras?.getInt(BundleConstant.EXTRA_THREE, -1) ?: -1
 			login = intent?.extras?.getString(BundleConstant.EXTRA)
+			if (login == null) {
+				login = currentUser?.login
+			}
+			if (userId == -1) {
+				userId = currentUser?.id ?: -1
+			}
 		}
-		if (InputHelper.isEmpty(login)) {
+		if (InputHelper.isEmpty(login) || userId == -1) {
 			finish()
 			return
 		}
 		setTaskName(login)
 		title = login
-		if (login.equals(PrefGetter.getLoggedUser()?.login, ignoreCase = true)) {
+		if (login == currentUser?.login) {
 			selectMenuItem(R.id.profile, true)
 		}
 		val adapter = FragmentsPagerAdapter(
