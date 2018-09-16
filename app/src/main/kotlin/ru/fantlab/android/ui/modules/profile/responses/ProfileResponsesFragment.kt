@@ -14,7 +14,6 @@ import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
-import ru.fantlab.android.provider.rest.ResponsesSortOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ResponsesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
@@ -155,7 +154,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 
 	override fun onOpenContextMenu(userItem: Response) {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(), userItem, 0)
+		dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(recycler.context), userItem, 0)
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 

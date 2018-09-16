@@ -3,8 +3,6 @@ package ru.fantlab.android.ui.adapter.viewholder
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
-import ru.fantlab.android.App
-
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Consts
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
@@ -27,7 +25,7 @@ class ConstsWorkViewHolder : TreeViewBinder<ConstsWorkViewHolder.ViewHolder>() {
 		(holder as ConstsWorkViewHolder.ViewHolder).title.text = nodeItem!!.title
 		if (!nodeItem.description.isNullOrEmpty()){
 			holder.description.text = nodeItem.description
-		}else holder.description.text = App.instance.getString(R.string.no_description)
+		}else holder.description.text = holder.itemView.context.getString(R.string.no_description)
 
 	}
 

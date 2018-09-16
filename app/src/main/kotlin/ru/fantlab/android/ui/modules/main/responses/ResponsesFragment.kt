@@ -119,7 +119,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 
 	override fun onItemLongClicked(position: Int, v: View?, item: Response) {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForResponses(), item, position)
+		dialogView.initArguments("main", ContextMenuBuilder.buildForResponses(recycler.context), item, position)
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 
@@ -149,7 +149,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 
 	override fun onOpenContextMenu(userItem: Response) {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(), userItem, 0)
+		dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(recycler.context), userItem, 0)
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 

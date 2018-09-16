@@ -117,7 +117,7 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	override fun onItemLongClicked(position: Int, v: View?, item: Mark) {
 		if (isLoggedIn() && PrefGetter.getLoggedUser()?.id == userId) {
 			val dialogView = ContextMenuDialogView()
-			dialogView.initArguments("main", ContextMenuBuilder.buildForMarks(), item, position)
+			dialogView.initArguments("main", ContextMenuBuilder.buildForMarks(recycler.context), item, position)
 			dialogView.show(childFragmentManager, "ContextMenuDialogView")
 		}
 	}

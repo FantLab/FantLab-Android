@@ -65,7 +65,7 @@ class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMv
 		sortButton = menuView.findViewById(R.id.sortButton)
 		sortButton.setOnClickListener {
 			val dialogView = ContextMenuDialogView()
-			dialogView.initArguments("main", ContextMenuBuilder.buildForAwardsSorting())
+			dialogView.initArguments("main", ContextMenuBuilder.buildForAwardsSorting(recycler.context))
 			dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 		}
 		sortView.setHeaderView(menuView)

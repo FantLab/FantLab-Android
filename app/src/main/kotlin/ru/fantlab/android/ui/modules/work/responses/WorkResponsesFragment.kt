@@ -72,7 +72,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 		sortButton = menuView.findViewById(R.id.sortButton)
 		sortButton.setOnClickListener {
 			val dialogView = ContextMenuDialogView()
-			dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting())
+			dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting(recycler.context))
 			dialogView.show(childFragmentManager, "ContextMenuDialogView")
 		}
 		sortView.setHeaderView(menuView)
@@ -199,7 +199,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 
 	override fun onOpenContextMenu(userItem: Response) {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(), userItem, 0)
+		dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(recycler.context), userItem, 0)
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 

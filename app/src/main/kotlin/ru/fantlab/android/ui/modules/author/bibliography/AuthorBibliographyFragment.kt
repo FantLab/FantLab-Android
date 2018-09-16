@@ -177,7 +177,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		if (isLoggedIn()) {
 			val work = (item.content as CycleWork)
 			val dialogView = ContextMenuDialogView()
-			dialogView.initArguments("main", ContextMenuBuilder.buildForMarks(), work, position)
+			dialogView.initArguments("main", ContextMenuBuilder.buildForMarks(recycler.context), work, position)
 			dialogView.show(childFragmentManager, "ContextMenuDialogView")
 		}
 	}
