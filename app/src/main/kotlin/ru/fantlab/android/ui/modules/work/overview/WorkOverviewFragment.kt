@@ -172,7 +172,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			R.id.mymark -> {
 				RatingDialogView.newInstance(10, mymark.text.toString().toFloat(),
 						work!!,
-						"${author.text} - ${title.text}",
+						"${author.text} - ${name.text}",
 						-1
 				).show(childFragmentManager, RatingDialogView.TAG)
 			}
