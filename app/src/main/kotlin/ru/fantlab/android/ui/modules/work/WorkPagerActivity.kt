@@ -137,8 +137,10 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 				} else fab.hide()
 			}
 			2 -> {
-				fab.setImageResource(R.drawable.ic_response)
-				fab.show()
+				if (PrefGetter.getLoggedUser() != null) {
+					fab.setImageResource(R.drawable.ic_response)
+					fab.show()
+				}
 			}
 			3 -> fab.hide()/*fab.show()*/
 			4 -> fab.hide()/*fab.show()*/
