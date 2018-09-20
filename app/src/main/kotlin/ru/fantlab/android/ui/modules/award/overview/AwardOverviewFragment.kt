@@ -36,7 +36,6 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 
 	private var award: Award? = null
 	override fun fragmentLayout() = R.layout.award_overview_layout
-	private var pagerCallback: AwardPagerMvp.View? = null
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -133,18 +132,6 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 	override fun showMessage(titleRes: Int, msgRes: Int) {
 		hideProgress()
 		super.showMessage(titleRes, msgRes)
-	}
-
-	override fun onAttach(context: Context?) {
-		super.onAttach(context)
-		if (context is AwardPagerMvp.View) {
-			pagerCallback = context
-		}
-	}
-
-	override fun onDetach() {
-		pagerCallback = null
-		super.onDetach()
 	}
 
 	companion object {
