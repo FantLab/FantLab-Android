@@ -35,7 +35,6 @@ class App : Application() {
 		FuelManager.instance.apply {
 			// to prevent from auto redirection
 			removeAllResponseInterceptors()
-			addResponseInterceptor(validatorResponseInterceptor(200..302))
 			addResponseInterceptor(dbResponseInterceptor())
 			baseHeaders = mapOf(
 					"User-Agent" to "FantLab for Android v${BuildConfig.VERSION_NAME}",

@@ -176,4 +176,5 @@
 	<string name="about_award">About award</string>
 	<string name="comments">Comments</string>
 	<string name="notes">Notes</string>
+	<string name="award_not_opened">Award is not yet open</string>
 </resources>

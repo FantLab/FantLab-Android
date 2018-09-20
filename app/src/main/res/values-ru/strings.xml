@@ -145,4 +145,5 @@
 	<string name="about_award">О премии</string>
 	<string name="comments">Комментарии</string>
 	<string name="notes">Заметки</string>
+	<string name="award_not_opened">Премия не открыта</string>
 </resources>
