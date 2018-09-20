@@ -36,6 +36,7 @@ class AwardPagerActivity : BaseActivity<AwardPagerMvp.View, BasePresenter<AwardP
 	@BindView(R.id.tabbedPager) lateinit var pager: ViewPagerView
 	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
 	@State var index: Int = 0
+	@State var workId: Int = 0
 	@State var awardId: Int = 0
 	@State var awardName: String = ""
 	@State var tabsCountSet = HashSet<TabsCountStateModel>()
@@ -55,6 +56,7 @@ class AwardPagerActivity : BaseActivity<AwardPagerMvp.View, BasePresenter<AwardP
 			awardId = intent?.extras?.getInt(BundleConstant.EXTRA, -1) ?: -1
 			awardName = intent?.extras?.getString(BundleConstant.EXTRA_TWO) ?: ""
 			index = intent?.extras?.getInt(BundleConstant.EXTRA_THREE, -1) ?: -1
+			workId = intent?.extras?.getInt(BundleConstant.EXTRA_FOUR, -1) ?: -1
 		}
 		if (awardId == -1) {
 			finish()
@@ -65,7 +67,7 @@ class AwardPagerActivity : BaseActivity<AwardPagerMvp.View, BasePresenter<AwardP
 		selectMenuItem(R.id.mainView, false)
 		val adapter = FragmentsPagerAdapter(
 				supportFragmentManager,
-				FragmentPagerAdapterModel.buildForAward(this, awardId)
+				FragmentPagerAdapterModel.buildForAward(this, awardId, workId)
 		)
 		pager.adapter = adapter
 		tabs.tabGravity = TabLayout.GRAVITY_FILL
@@ -144,12 +146,13 @@ class AwardPagerActivity : BaseActivity<AwardPagerMvp.View, BasePresenter<AwardP
 
 	companion object {
 
-		fun startActivity(context: Context, awardId: Int, awardName: String, index: Int = -1) {
+		fun startActivity(context: Context, awardId: Int, awardName: String, index: Int = -1, workId: Int = -1) {
 			val intent = Intent(context, AwardPagerActivity::class.java)
 			intent.putExtras(Bundler.start()
 					.put(BundleConstant.EXTRA, awardId)
 					.put(BundleConstant.EXTRA_TWO, awardName)
 					.put(BundleConstant.EXTRA_THREE, index)
+					.put(BundleConstant.EXTRA_FOUR, workId)
 					.end())
 			if (context is Service || context is Application) {
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

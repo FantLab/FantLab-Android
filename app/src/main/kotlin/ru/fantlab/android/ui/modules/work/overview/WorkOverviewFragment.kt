@@ -193,7 +193,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		} else {
 			item.awardName
 		}
-		AwardPagerActivity.startActivity(context!!, item.awardId, name)
+		AwardPagerActivity.startActivity(context!!, item.awardId, name, 1, work?.id ?: -1)
 	}
 
 	override fun onGetMarks(marks: ArrayList<MarkMini>) {

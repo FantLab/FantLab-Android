@@ -67,10 +67,10 @@ data class FragmentPagerAdapterModel(
 			)
 		}
 
-		fun buildForAward(context: Context, awardId: Int): MutableList<FragmentPagerAdapterModel> {
+		fun buildForAward(context: Context, awardId: Int, workId: Int = -1): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
 					FragmentPagerAdapterModel(context.getString(R.string.overview), AwardOverviewFragment.newInstance(awardId)),
-					FragmentPagerAdapterModel(context.getString(R.string.contests), AwardContestsFragment.newInstance(awardId)),
+					FragmentPagerAdapterModel(context.getString(R.string.contests), AwardContestsFragment.newInstance(awardId, workId)),
 					FragmentPagerAdapterModel(context.getString(R.string.nominations), AwardNominationsFragment.newInstance(awardId))
 			)
 		}

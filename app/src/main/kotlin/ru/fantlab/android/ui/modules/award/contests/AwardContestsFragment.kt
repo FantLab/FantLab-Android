@@ -8,8 +8,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.*
+import ru.fantlab.android.data.dao.model.Award
+import ru.fantlab.android.data.dao.model.Consts
+import ru.fantlab.android.data.dao.model.ConstsParent
 import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.helper.BundleConstant.EXTRA_TWO
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.viewholder.ConstsViewHolder
 import ru.fantlab.android.ui.adapter.viewholder.ConstsWorkViewHolder
@@ -18,11 +21,11 @@ import ru.fantlab.android.ui.modules.award.AwardPagerMvp
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
+import ru.fantlab.android.ui.widgets.recyclerview.layout_manager.StaggeredManager
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsPresenter>(),
 		AwardContestsMvp.View {
@@ -36,7 +39,10 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 
 	private var contests: ArrayList<Award.Contest>? = null
 
+	private var workId: Int ?= -1
+
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
+		workId = arguments?.getInt(EXTRA_TWO)
 		if (savedInstanceState == null) {
 			presenter.onFragmentCreated(arguments)
 		} else {
@@ -99,10 +105,10 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 				} else nameConsts
 
 				nodes[subIndex].addChild(TreeNode(Consts(nameConsts ?: "", contestsWork.nominationRusname ?: contestsWork.nominationName, contestsWork.cwLinkId ?: 0)))
+				if (workId != -1) app.expandAll()
 			}
 
 		}
-
 		val adapter = TreeViewAdapter(nodes, Arrays.asList(ConstsWorkViewHolder(), ConstsViewHolder()))
 		recycler.adapter = adapter
 		adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
@@ -111,6 +117,8 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 			override fun onClick(node: TreeNode<*>, holder: RecyclerView.ViewHolder): Boolean {
 				if (!node.isLeaf) {
 					onToggle(!node.isExpand, holder)
+				} else if (node.isLeaf && node.content is ConstsParent) {
+					return false
 				} else {
 					val itemWork = node.content as Consts
 					if (itemWork.workId != 0){
@@ -127,6 +135,25 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 						.start()
 			}
 		})
+		if (workId != -1){
+			var position = 0
+			var success = false
+			nodes.forEachIndexed { index, treeNode ->
+				if (success) return
+				val works = treeNode.childList
+				works.forEach { workNode ->
+					val work = workNode.content as Consts
+					if (work.workId == workId) {
+						val lm: StaggeredManager = recycler.layoutManager as StaggeredManager
+						lm.scrollToPosition(position)
+						success = true
+						return@forEachIndexed
+					}
+					position++
+				}
+				position++
+			}
+		}
 
 	}
 
@@ -157,9 +184,12 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 
 	companion object {
 
-		fun newInstance(awardId: Int): AwardContestsFragment {
+		fun newInstance(awardId: Int, workId: Int): AwardContestsFragment {
 			val view = AwardContestsFragment()
-			view.arguments = Bundler.start().put(BundleConstant.EXTRA, awardId).end()
+			view.arguments = Bundler.start()
+					.put(BundleConstant.EXTRA, awardId)
+					.put(BundleConstant.EXTRA_TWO, workId)
+					.end()
 			return view
 		}
 	}
