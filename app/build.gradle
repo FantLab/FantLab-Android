@@ -17,7 +17,7 @@ ext {
 	thirtyinch = '0.8.0'
 	rxjava = '2.1.12'
 	rxandroid = '2.0.2'
-	fuel = '1.12.1'
+	fuel = '1.15.0'
 	gson = '2.8.2'
 	room = '1.1.1'
 	android_state = '1.2.1'
