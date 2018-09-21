@@ -122,7 +122,15 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.submit) {
-            presenter.onHandleSubmission(editText.savedText, extraType, itemId, reviewComment)
+			if (extraType != BundleConstant.EDITOR_NEW_COMMENT) {
+				MessageDialogView.newInstance(getString(R.string.select_action), getString(R.string.save_hint), false,
+						Bundler.start()
+								.put("primary_extra", getString(R.string.submit))
+								.put("secondary_extra", getString(R.string.save))
+								.put(BundleConstant.EXTRA_TYPE, extraType!!)
+								.end())
+						.show(supportFragmentManager, MessageDialogView.TAG)
+			} else presenter.onHandleSubmission(editText.savedText, extraType, itemId, reviewComment, "")
             return true
         }
         return super.onOptionsItemSelected(item)
@@ -165,8 +173,13 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 
     override fun onMessageDialogActionClicked(isOk: Boolean, bundle: Bundle?) {
         super.onMessageDialogActionClicked(isOk, bundle)
-        if (isOk && bundle != null) {
-            finish()
+        if (bundle != null) {
+			val type = bundle.getString(BundleConstant.EXTRA_TYPE)
+			if (type == null) {
+				if (isOk) finish()
+			} else {
+				presenter.onHandleSubmission(editText.savedText, extraType, itemId, reviewComment, if (isOk) "send" else "preview")
+			}
         }
     }
 

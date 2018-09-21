@@ -177,4 +177,6 @@
 	<string name="comments">Comments</string>
 	<string name="notes">Notes</string>
 	<string name="award_not_opened">Award is not yet open</string>
+	<string name="save">Save</string>
+	<string name="save_hint">Save to send later</string>
 </resources>

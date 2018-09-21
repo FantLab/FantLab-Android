@@ -13,20 +13,20 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 
 	override fun onHandleSubmission(savedText: CharSequence?, extraType: String?,
-									itemId: Int?, reviewComment: Response?) {
+									itemId: Int?, reviewComment: Response?, mode: String) {
         if (extraType == null || itemId == null) {
             throw NullPointerException("not have required parameters")
         }
         when (extraType) {
 			EDITOR_NEW_REVIEW -> {
-                onEditorNewReview(itemId, prepareHTML(savedText), "preview")
+                onEditorNewReview(itemId, prepareHTML(savedText), mode)
             }
 			EDITOR_NEW_MESSAGE -> {
 				if (itemId == PrefGetter.getLoggedUser()?.id){
 					onShowErrorMessage("Ошибка")
 					return
 				}
-				onEditorNewMessage(itemId, prepareHTML(savedText), "preview") // на время теста отправляем сообщение только в черновики
+				onEditorNewMessage(itemId, prepareHTML(savedText), mode)
 			}
 			EDITOR_NEW_COMMENT -> {
 				onEditorNewComment(itemId, prepareHTML(savedText))

@@ -146,4 +146,6 @@
 	<string name="comments">Комментарии</string>
 	<string name="notes">Заметки</string>
 	<string name="award_not_opened">Премия не открыта</string>
+	<string name="save">Сохранить</string>
+	<string name="save_hint">Сохраните, чтобы отправить позже</string>
 </resources>

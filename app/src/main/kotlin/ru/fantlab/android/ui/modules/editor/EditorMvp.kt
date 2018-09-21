@@ -29,7 +29,8 @@ interface EditorMvp {
 
         fun onHandleSubmission(savedText: CharSequence?, extraType: String?,
 							   itemId: Int?,
-							   reviewComment: Response?)
+							   reviewComment: Response?,
+							   mode: String)
 
 		fun onShowErrorMessage(message: String)
     }
