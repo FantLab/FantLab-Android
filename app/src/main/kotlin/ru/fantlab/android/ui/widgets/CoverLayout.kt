@@ -47,6 +47,7 @@ class CoverLayout : FrameLayout {
 		Glide.with(context)
 				.load(url)
 				.fallback(ContextCompat.getDrawable(context, fallbackImage))
+				.error(ContextCompat.getDrawable(context, fallbackImage))
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.dontAnimate()
 				.into(cover)
