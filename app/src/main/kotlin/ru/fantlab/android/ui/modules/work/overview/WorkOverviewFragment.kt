@@ -81,7 +81,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			presenter.getMarks(PrefGetter.getLoggedUser()?.id, arrayListOf(work.id))
 		} else hideProgress()
 
-		coverLayout.setUrl("https:${work.image}")
+		coverLayout.setUrl(if (work.image != null) "https:${work.image}" else null, R.drawable.not_found_poster)
 		name.text = work.name
 		if (work.nameOrig.isBlank()) {
 			name2.visibility = View.GONE
