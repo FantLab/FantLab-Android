@@ -123,6 +123,10 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.submit) {
 			if (extraType != BundleConstant.EDITOR_NEW_COMMENT) {
+				if (extraType == BundleConstant.EDITOR_NEW_RESPONSE && editText.savedText.length < 50){
+					showErrorMessage(getString(R.string.response_short_text))
+					return true
+				}
 				MessageDialogView.newInstance(getString(R.string.select_action), getString(R.string.save_hint), false,
 						Bundler.start()
 								.put("primary_extra", getString(R.string.submit))
@@ -217,7 +221,7 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
             }
             participants = bundle.getStringArrayList("participants")
             when (extraType){
-                BundleConstant.EDITOR_NEW_REVIEW -> {
+                BundleConstant.EDITOR_NEW_RESPONSE -> {
                     title = getString(R.string.editor_review)
                     markDownLayout.visibility = View.INVISIBLE
                 }

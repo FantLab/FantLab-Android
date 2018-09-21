@@ -155,7 +155,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 			}
 			2 -> {
 				startActivity(Intent(this, EditorActivity::class.java)
-						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_REVIEW)
+						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_RESPONSE)
 						.putExtra(BundleConstant.ID, workId))
 			}
 		}

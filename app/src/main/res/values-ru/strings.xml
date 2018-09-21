@@ -148,4 +148,5 @@
 	<string name="award_not_opened">Премия не открыта</string>
 	<string name="save">Сохранить</string>
 	<string name="save_hint">Сохраните, чтобы отправить позже</string>
+	<string name="response_short_text">Слишком короткий отзыв (минимум 50 символов)</string>
 </resources>

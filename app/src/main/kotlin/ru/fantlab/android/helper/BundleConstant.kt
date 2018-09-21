@@ -15,7 +15,7 @@ object BundleConstant {
 	val ID = "id"
 
 	var FOR_RESULT_EXTRA = "for_result_extra"
-	var EDITOR_NEW_REVIEW = "editor_new_review"
+	var EDITOR_NEW_RESPONSE = "editor_new_response"
 	var EDITOR_NEW_MESSAGE = "editor_new_message"
 	var EDITOR_NEW_COMMENT = "editor_new_comment"
 }

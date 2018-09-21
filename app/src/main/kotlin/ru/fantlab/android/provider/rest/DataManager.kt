@@ -213,6 +213,19 @@ object DataManager {
 			))
 			.rx_string()
 
+	fun sendResponse(
+			workId: Int,
+			message: CharSequence?,
+			mode: String
+	) = "/work$workId/addresponse"
+			.toAbsolutePath()
+			.httpPost(listOf(
+					"message" to message,
+					"mode" to mode,
+					"autosave" to "0"
+			))
+			.rx_string()
+
 	fun sendClassification(
 			workId: Int,
 			query: String

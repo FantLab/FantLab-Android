@@ -179,4 +179,5 @@
 	<string name="award_not_opened">Award is not yet open</string>
 	<string name="save">Save</string>
 	<string name="save_hint">Save to send later</string>
+	<string name="response_short_text">Response is too short (minimum 50 characters)</string>
 </resources>

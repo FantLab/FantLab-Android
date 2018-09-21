@@ -4,7 +4,7 @@ import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.BundleConstant.EDITOR_NEW_COMMENT
 import ru.fantlab.android.helper.BundleConstant.EDITOR_NEW_MESSAGE
-import ru.fantlab.android.helper.BundleConstant.EDITOR_NEW_REVIEW
+import ru.fantlab.android.helper.BundleConstant.EDITOR_NEW_RESPONSE
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.DataManager
@@ -18,8 +18,8 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
             throw NullPointerException("not have required parameters")
         }
         when (extraType) {
-			EDITOR_NEW_REVIEW -> {
-                onEditorNewReview(itemId, prepareHTML(savedText), mode)
+			EDITOR_NEW_RESPONSE -> {
+                onEditorNewResponse(itemId, prepareHTML(savedText), mode)
             }
 			EDITOR_NEW_MESSAGE -> {
 				if (itemId == PrefGetter.getLoggedUser()?.id){
@@ -41,8 +41,18 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 				replace("[li]", "*")
 	}
 
-	override fun onEditorNewReview(id: Int?, savedText: CharSequence?, mode: String) {
-		onShowErrorMessage("Not implemented yet")
+	override fun onEditorNewResponse(id: Int?, savedText: CharSequence?, mode: String) {
+		if (!InputHelper.isEmpty(savedText)) {
+			id?.let {
+				makeRestCall(
+						DataManager.sendResponse(id, savedText, mode)
+								.map { it.get() }
+								.toObservable(),
+						Consumer { result ->
+							sendToView { it.onSendMessageResult(result) }
+						}
+				)}
+		}
 	}
 
 	override fun onEditorNewMessage(id: Int?, savedText: CharSequence?, mode: String) {
