@@ -31,7 +31,7 @@ import shortbread.Shortcut
 import java.text.NumberFormat
 import java.util.*
 
-@Shortcut(id = "profile", icon = R.drawable.ic_profile, shortLabelRes = R.string.profile, backStack = [MainActivity::class], rank = 0)
+@Shortcut(id = "profile", icon = R.drawable.ic_profile, shortLabelRes = R.string.profile, rank = 0)
 class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPagerMvp.View>>(), UserPagerMvp.View {
 
 	@BindView(R.id.tabs) lateinit var tabs: TabLayout

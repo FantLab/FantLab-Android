@@ -26,7 +26,7 @@ import shortbread.Shortcut
 import java.text.NumberFormat
 import java.util.*
 
-@Shortcut(id = "search", icon = R.drawable.ic_search, shortLabelRes = R.string.search, backStack = [MainActivity::class], rank = 1)
+@Shortcut(id = "search", icon = R.drawable.ic_search, shortLabelRes = R.string.search, rank = 1)
 class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMvp.View {
 
 	@BindView(R.id.searchEditText) lateinit var searchEditText: FontAutoCompleteEditText
