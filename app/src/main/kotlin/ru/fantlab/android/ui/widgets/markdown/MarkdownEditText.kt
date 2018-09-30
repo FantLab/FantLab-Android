@@ -56,7 +56,7 @@ class MarkdownEditText : FontEditText {
             super.setText(text, type)
         } catch (e: Exception) {
             setText("I tried, but your OEM just sucks because they modify the framework components and therefore causing the app to crash!" + "" +
-                    ".\nFastHub")
+                    ".\nFantLab")
             Crashlytics.logException(e)
         }
 
