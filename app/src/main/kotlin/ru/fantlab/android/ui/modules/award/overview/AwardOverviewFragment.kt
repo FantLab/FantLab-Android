@@ -62,7 +62,18 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 			activity?.finish()
 			return
 		}
-		pagerCallback?.onSetTitle(if (!InputHelper.isEmpty(award.rusname)) award.rusname else award.name)
+
+		val awardLabel = if (!award.rusname.isEmpty()) {
+			if (!award.name.isEmpty()) {
+				String.format("%s / %s", award.rusname, award.name)
+			} else {
+				award.rusname
+			}
+		} else {
+			award.name
+		}
+
+		pagerCallback?.onSetTitle(awardLabel)
 
 		Glide.with(context)
 				.load("https://${LinkParserHelper.HOST_DATA}/images/awards/${award.awardId}")
