@@ -25,13 +25,12 @@ import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.editor.EditorActivity
-import ru.fantlab.android.ui.modules.main.MainActivity
 import ru.fantlab.android.ui.widgets.ViewPagerView
 import shortbread.Shortcut
 import java.text.NumberFormat
 import java.util.*
 
-@Shortcut(id = "profile", icon = R.drawable.ic_profile, shortLabelRes = R.string.profile, rank = 0)
+@Shortcut(id = "profile", icon = R.drawable.sb_profile, shortLabelRes = R.string.profile, rank = 0)
 class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPagerMvp.View>>(), UserPagerMvp.View {
 
 	@BindView(R.id.tabs) lateinit var tabs: TabLayout

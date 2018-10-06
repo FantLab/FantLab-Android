@@ -18,7 +18,6 @@ import ru.fantlab.android.helper.AnimHelper
 import ru.fantlab.android.helper.ViewHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
-import ru.fantlab.android.ui.modules.main.MainActivity
 import ru.fantlab.android.ui.widgets.FontAutoCompleteEditText
 import ru.fantlab.android.ui.widgets.ForegroundImageView
 import ru.fantlab.android.ui.widgets.ViewPagerView
@@ -26,7 +25,7 @@ import shortbread.Shortcut
 import java.text.NumberFormat
 import java.util.*
 
-@Shortcut(id = "search", icon = R.drawable.ic_search, shortLabelRes = R.string.search, rank = 1)
+@Shortcut(id = "search", icon = R.drawable.sb_search, shortLabelRes = R.string.search, rank = 1)
 class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMvp.View {
 
 	@BindView(R.id.searchEditText) lateinit var searchEditText: FontAutoCompleteEditText
