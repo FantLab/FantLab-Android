@@ -58,7 +58,7 @@ class MarkDownLayout : LinearLayout, SmileMvp.SmileCallback {
                     MarkDownProvider.setMdText(editText, InputHelper.toString(editText))
 
                     editorIconsHolder.visibility = View.INVISIBLE
-                    addEmojiView.visibility = View.INVISIBLE
+					if (addEmojiView.visibility == View.VISIBLE) addEmojiView.visibility = View.INVISIBLE
                     ViewHelper.hideKeyboard(editText)
                 } else {
                     editText.setText(it.getSavedText())
@@ -68,7 +68,7 @@ class MarkDownLayout : LinearLayout, SmileMvp.SmileCallback {
 						editorIconsHolder.visibility = View.INVISIBLE
 					else
 						editorIconsHolder.visibility = View.VISIBLE
-                    addEmojiView.visibility = View.VISIBLE
+                    if (addEmojiView.visibility == View.INVISIBLE) addEmojiView.visibility = View.VISIBLE
 					ViewHelper.showKeyboard(editText)
                 }
             }
@@ -105,7 +105,7 @@ class MarkDownLayout : LinearLayout, SmileMvp.SmileCallback {
             return
         }
         when (id) {
-            R.id.spoiler -> MarkDownProvider.addSpoiler(editText)
+            R.id.spoiler -> if (markdownListener?.getCurrentType() == BundleConstant.EDITOR_NEW_RESPONSE) MarkDownProvider.addSpoiler(editText) else MarkDownProvider.addHidden(editText)
             R.id.bold -> MarkDownProvider.addBold(editText)
             R.id.italic -> MarkDownProvider.addItalic(editText)
             R.id.strikethrough -> MarkDownProvider.addStrikeThrough(editText)

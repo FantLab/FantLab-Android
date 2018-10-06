@@ -162,7 +162,17 @@ object MarkDownProvider {
 		val selectionStart = editText.selectionStart
 		val selectionEnd = editText.selectionEnd
 		val substring = source.substring(selectionStart, selectionEnd)
-		val result = "\n<h>$substring</h>"
+		val result = "<spoiler>$substring</spoiler>"
+		editText.text.replace(selectionStart, selectionEnd, result)
+		editText.setSelection(result.length + selectionStart - 10)
+	}
+
+	fun addHidden(editText: EditText) {
+		val source = editText.text.toString()
+		val selectionStart = editText.selectionStart
+		val selectionEnd = editText.selectionEnd
+		val substring = source.substring(selectionStart, selectionEnd)
+		val result = "<h>$substring</h>"
 		editText.text.replace(selectionStart, selectionEnd, result)
 		editText.setSelection(result.length + selectionStart - 4)
 	}

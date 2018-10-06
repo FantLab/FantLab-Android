@@ -17,6 +17,7 @@ import android.widget.ListView
 import butterknife.BindView
 import butterknife.OnClick
 import com.evernote.android.state.State
+import kotlinx.android.synthetic.main.markdown_buttons_layout.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.data.dao.model.Smile
@@ -223,7 +224,14 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
             when (extraType){
                 BundleConstant.EDITOR_NEW_RESPONSE -> {
                     title = getString(R.string.editor_review)
-                    markDownLayout.visibility = View.INVISIBLE
+                    markDownLayout.addEmojiView.visibility = GONE
+                    markDownLayout.bold.visibility = GONE
+                    markDownLayout.strikethrough.visibility = GONE
+                    markDownLayout.italic.visibility = GONE
+                    markDownLayout.quote.visibility = GONE
+                    markDownLayout.list.visibility = GONE
+                    markDownLayout.link.visibility = GONE
+                    markDownLayout.image.visibility = GONE
                 }
                 BundleConstant.EDITOR_NEW_COMMENT -> {
                     title = getString(R.string.editor_comment)
