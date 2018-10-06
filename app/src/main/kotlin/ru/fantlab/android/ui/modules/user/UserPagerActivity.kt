@@ -29,6 +29,11 @@ import ru.fantlab.android.ui.widgets.ViewPagerView
 import shortbread.Shortcut
 import java.text.NumberFormat
 import java.util.*
+import android.widget.Toast
+import es.dmoral.toasty.Toasty
+import ru.fantlab.android.App
+import ru.fantlab.android.ui.modules.login.LoginActivity
+
 
 @Shortcut(id = "profile", icon = R.drawable.sb_profile, shortLabelRes = R.string.profile, rank = 0)
 class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPagerMvp.View>>(), UserPagerMvp.View {
@@ -64,7 +69,12 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 				userId = currentUser?.id ?: -1
 			}
 		}
-		if (InputHelper.isEmpty(login) || userId == -1) {
+		if (currentUser == null && userId == -1) {
+			Toasty.error(App.instance, getString(R.string.unauthorized_user), Toast.LENGTH_LONG).show()
+			startActivity(Intent(this, LoginActivity::class.java))
+			finish()
+			return
+		} else if (InputHelper.isEmpty(login) || userId == -1) {
 			finish()
 			return
 		}
