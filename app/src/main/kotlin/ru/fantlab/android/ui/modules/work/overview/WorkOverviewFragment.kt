@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.work.overview
 
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v7.widget.CardView
@@ -21,6 +22,7 @@ import ru.fantlab.android.ui.adapter.WorkAwardsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.award.AwardPagerActivity
+import ru.fantlab.android.ui.modules.work.WorkPagerMvp
 import ru.fantlab.android.ui.modules.work.analogs.WorkAnalogsFragment
 import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.CoverLayout
@@ -59,6 +61,8 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun fragmentLayout() = R.layout.work_overview_layout
 
+	private var pagerCallback: WorkPagerMvp.View? = null
+
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
 			presenter.onFragmentCreated(arguments)
@@ -76,6 +80,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun onInitViews(work: Work) {
 		this.work = work
+		pagerCallback?.onSetTitle(if (!InputHelper.isEmpty(work.name)) work.name else work.nameOrig)
 
 		if (isLoggedIn()) {
 			presenter.getMarks(PrefGetter.getLoggedUser()?.id, arrayListOf(work.id))
@@ -222,6 +227,22 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun onRated(rating: Float, listItem: Any, position: Int) {
 		presenter.onSendMark((listItem as Work).id, rating.toInt())
+	}
+
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is WorkPagerMvp.View) {
+			pagerCallback = context
+		}
+	}
+
+	override fun onDetach() {
+		pagerCallback = null
+		super.onDetach()
+	}
+
+	override fun onSetTitle(title: String) {
+		pagerCallback?.onSetTitle(title)
 	}
 
 }

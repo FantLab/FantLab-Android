@@ -127,6 +127,10 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 		setupTab(count, tabIndex)
 	}
 
+	override fun onSetTitle(title: String) {
+		this.title = title
+	}
+
 	private fun hideShowFab(position: Int) {
 		when (position) {
 			1 -> {

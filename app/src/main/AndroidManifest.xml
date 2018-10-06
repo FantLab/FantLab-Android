@@ -97,11 +97,32 @@
 			android:name=".ui.modules.editor.EditorActivity"
 			android:configChanges="keyboard|orientation|screenSize"
 			android:windowSoftInputMode="adjustResize"/>
+		<activity
+			android:name=".ui.modules.parser.LinksParserActivity"
+			android:configChanges="keyboard|orientation|screenSize"
+			android:noHistory="true"
+			android:theme="@android:style/Theme.NoDisplay">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW"/>
+
+				<data
+					android:host="fantlab.ru"
+					android:scheme="https"
+					/>
+
+				<data android:pathPattern=".*\\/autor.*" />
+				<data android:pathPattern=".*\\/work.*" />
+				<data android:pathPattern=".*\\/edition.*" />
+				<data android:pathPattern=".*\\/award.*" />
+
+				<category android:name="android.intent.category.DEFAULT"/>
+				<category android:name="android.intent.category.BROWSABLE"/>
+			</intent-filter>
+		</activity>
 		<meta-data
 			android:name="io.fabric.ApiKey"
 			android:value="8f0a95903f61d5dc2716d25b1addf1e44755258d"
 			/>
-
 	</application>
 
 </manifest>

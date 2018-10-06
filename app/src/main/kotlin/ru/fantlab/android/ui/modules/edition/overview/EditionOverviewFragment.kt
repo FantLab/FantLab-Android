@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.edition.overview
 
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v7.widget.CardView
@@ -17,6 +18,8 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
+import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
+import ru.fantlab.android.ui.modules.edition.EditionPagerMvp
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.Dot
 import ru.fantlab.android.ui.widgets.FontTextView
@@ -44,6 +47,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 	@BindView(R.id.progress) lateinit var progress: View
 	private var edition: Edition? = null
 	@State var additionalImages: AdditionalImages? = null
+	private var pagerCallback: EditionPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.edition_overview_layout
 
@@ -76,6 +80,8 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 					else -> throw IllegalStateException("Received invalid edition->correct_level from API")
 				}
 		)
+
+		pagerCallback?.onSetTitle(edition.name)
 
 		coverLayout.setOnClickListener {
 			val slideImages = arrayListOf<SliderModel>()
@@ -208,6 +214,22 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 	override fun showMessage(titleRes: Int, msgRes: Int) {
 		hideProgress()
 		super.showMessage(titleRes, msgRes)
+	}
+
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is EditionPagerMvp.View) {
+			pagerCallback = context
+		}
+	}
+
+	override fun onDetach() {
+		pagerCallback = null
+		super.onDetach()
+	}
+
+	override fun onSetTitle(title: String) {
+		pagerCallback?.onSetTitle(title)
 	}
 
 	companion object {

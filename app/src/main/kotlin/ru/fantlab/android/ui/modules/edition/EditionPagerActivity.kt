@@ -125,6 +125,10 @@ class EditionPagerActivity : BaseActivity<EditionPagerMvp.View, BasePresenter<Ed
 		setupTab(count, tabIndex)
 	}
 
+	override fun onSetTitle(title: String) {
+		this.title = title
+	}
+
 	private fun hideShowFab(position: Int) {
 		when (position) {
 			3 -> fab.hide()/*fab.show()*//*книжные полки?*/

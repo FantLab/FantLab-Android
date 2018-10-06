@@ -12,6 +12,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Award
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.base.BaseFragment
@@ -35,6 +36,8 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
     @BindView(R.id.homepage) lateinit var homepage: FontTextView
 
 	private var award: Award? = null
+	private var pagerCallback: AwardPagerMvp.View? = null
+
 	override fun fragmentLayout() = R.layout.award_overview_layout
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,6 +62,8 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 			activity?.finish()
 			return
 		}
+		pagerCallback?.onSetTitle(if (!InputHelper.isEmpty(award.rusname)) award.rusname else award.name)
+
 		Glide.with(context)
 				.load("https://${LinkParserHelper.HOST_DATA}/images/awards/${award.awardId}")
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -132,6 +137,22 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 	override fun showMessage(titleRes: Int, msgRes: Int) {
 		hideProgress()
 		super.showMessage(titleRes, msgRes)
+	}
+
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is AwardPagerMvp.View) {
+			pagerCallback = context
+		}
+	}
+
+	override fun onDetach() {
+		pagerCallback = null
+		super.onDetach()
+	}
+
+	override fun onSetTitle(title: String) {
+		pagerCallback?.onSetTitle(title)
 	}
 
 	companion object {

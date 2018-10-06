@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.author.overview
 
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.text.Html
@@ -10,7 +11,9 @@ import ru.fantlab.android.data.dao.model.Author
 import ru.fantlab.android.data.dao.model.Biography
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 
@@ -29,6 +32,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 
 	private var author: Author? = null
 	private var biography: Biography? = null
+	private var pagerCallback: AuthorPagerMvp.View? = null
 	override fun fragmentLayout() = R.layout.author_overview_layout
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,6 +66,8 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
         } else {
             author.nameOriginal
         }
+
+		pagerCallback?.onSetTitle(if (!InputHelper.isEmpty(author.name)) author.name else author.nameOriginal)
 
         if (author.deathDay != null) {
             if (author.birthDay != null)
@@ -127,6 +133,22 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 	override fun showMessage(titleRes: Int, msgRes: Int) {
 		hideProgress()
 		super.showMessage(titleRes, msgRes)
+	}
+
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is AuthorPagerMvp.View) {
+			pagerCallback = context
+		}
+	}
+
+	override fun onDetach() {
+		pagerCallback = null
+		super.onDetach()
+	}
+
+	override fun onSetTitle(title: String) {
+		pagerCallback?.onSetTitle(title)
 	}
 
 	companion object {

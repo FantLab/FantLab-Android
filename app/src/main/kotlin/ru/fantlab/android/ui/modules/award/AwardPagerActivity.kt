@@ -127,6 +127,10 @@ class AwardPagerActivity : BaseActivity<AwardPagerMvp.View, BasePresenter<AwardP
 		setupTab(count, tabIndex)
 	}
 
+	override fun onSetTitle(title: String) {
+		this.title = title
+	}
+
 	private fun hideShowFab(position: Int) {
 		when (position) {
 			1 -> fab.hide()/*fab.show()*/
