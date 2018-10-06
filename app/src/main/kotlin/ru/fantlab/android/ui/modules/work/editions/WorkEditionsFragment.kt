@@ -54,8 +54,6 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
 	override fun onInitViews(editions: EditionsBlocks?, editionsInfo: EditionsInfo) {
 		hideProgress()
         onSetTabCount(editionsInfo.allCount)
-        Timber.d("editions: $editions")
-        Timber.d("editionsInfo: $editionsInfo")
         stateLayout.setEmptyText(R.string.no_editions)
         stateLayout.setOnReloadListener(this)
         refresh.setOnRefreshListener(this)

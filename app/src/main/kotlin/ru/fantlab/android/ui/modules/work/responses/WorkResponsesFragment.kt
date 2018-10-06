@@ -57,7 +57,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
 		recycler.adapter = adapter
-		recycler.addKeyLineDivider()
+		recycler.addNormalSpacingDivider()
 		if (savedInstanceState == null) {
 			workId = arguments?.getInt(BundleConstant.EXTRA)
 		}

@@ -10,10 +10,12 @@ import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.SearchWork
 import ru.fantlab.android.helper.InputHelper
+import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.SearchWorksAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.search.SearchMvp
+import ru.fantlab.android.ui.modules.work.CyclePagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -110,7 +112,10 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 	}
 
 	override fun onItemClicked(item: SearchWork) {
-		WorkPagerActivity.startActivity(context!!, item.id, item.rusName, 0)
+		if (item.typeName == PrefGetter.WorkType.cycle.name)
+			CyclePagerActivity.startActivity(context!!, item.id, item.rusName, 0)
+		else
+			WorkPagerActivity.startActivity(context!!, item.id, item.rusName, 0)
 	}
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list

@@ -18,6 +18,7 @@ import ru.fantlab.android.ui.modules.classificator.locate.ClassificationLocateFr
 import ru.fantlab.android.ui.modules.classificator.story.ClassificationStoryFragment
 import ru.fantlab.android.ui.modules.classificator.time.ClassificationTimeFragment
 import ru.fantlab.android.ui.modules.edition.content.EditionContentFragment
+import ru.fantlab.android.ui.modules.work.content.WorkContentFragment
 import ru.fantlab.android.ui.modules.edition.overview.EditionOverviewFragment
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
 import ru.fantlab.android.ui.modules.profile.overview.ProfileOverviewFragment
@@ -78,6 +79,16 @@ data class FragmentPagerAdapterModel(
 		fun buildForWork(context: Context, workId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
 					FragmentPagerAdapterModel(context.getString(R.string.overview), WorkOverviewFragment.newInstance(workId)),
+					FragmentPagerAdapterModel(context.getString(R.string.classification), WorkClassificationFragment.newInstance(workId)),
+					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId)),
+					FragmentPagerAdapterModel(context.getString(R.string.editions), WorkEditionsFragment.newInstance(workId))
+			)
+		}
+
+		fun buildForCycle(context: Context, workId: Int): MutableList<FragmentPagerAdapterModel> {
+			return mutableListOf(
+					FragmentPagerAdapterModel(context.getString(R.string.overview), WorkOverviewFragment.newInstance(workId)),
+					FragmentPagerAdapterModel(context.getString(R.string.content), WorkContentFragment.newInstance(workId)),
 					FragmentPagerAdapterModel(context.getString(R.string.classification), WorkClassificationFragment.newInstance(workId)),
 					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId)),
 					FragmentPagerAdapterModel(context.getString(R.string.editions), WorkEditionsFragment.newInstance(workId))

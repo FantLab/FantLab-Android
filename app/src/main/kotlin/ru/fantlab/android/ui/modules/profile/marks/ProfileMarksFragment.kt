@@ -18,6 +18,7 @@ import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ProfileMarksAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.user.UserPagerMvp
+import ru.fantlab.android.ui.modules.work.CyclePagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
@@ -111,7 +112,10 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	}
 
 	override fun onItemClicked(item: Mark) {
-		WorkPagerActivity.startActivity(context!!, item.workId, item.workName, 0)
+		if (item.workTypeId == PrefGetter.WorkType.cycle.id)
+			CyclePagerActivity.startActivity(context!!, item.workId, item.workName, 0)
+		else
+			WorkPagerActivity.startActivity(context!!, item.workId, item.workName, 0)
 	}
 
 	override fun onItemLongClicked(position: Int, v: View?, item: Mark) {

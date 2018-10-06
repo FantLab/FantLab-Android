@@ -71,6 +71,10 @@
 		</activity>
 		<activity
 			android:name=".ui.modules.work.WorkPagerActivity"
+			android:parentActivityName=".ui.modules.main.MainActivity">
+		</activity>
+		<activity
+			android:name=".ui.modules.work.CyclePagerActivity"
 			android:parentActivityName=".ui.modules.author.AuthorPagerActivity">
 		</activity>
 		<activity

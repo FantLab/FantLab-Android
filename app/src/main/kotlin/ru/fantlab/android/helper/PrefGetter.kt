@@ -34,6 +34,12 @@ object PrefGetter {
 		DEEP_ORANGE
 	}
 
+	enum class WorkType(val id: Int) {
+		novel(1),
+		shortstory(45),
+		cycle(4)
+	}
+
 	val LIGHT = 1
 	val DARK = 2
 
