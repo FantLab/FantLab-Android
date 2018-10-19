@@ -4,7 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_margin="@dimen/grid_spacing"
+	android:layout_marginStart="20dp"
 	android:foreground="?android:selectableItemBackground"
 	android:paddingBottom="@dimen/spacing_normal"
 	android:paddingEnd="@dimen/spacing_xs_large"
@@ -13,15 +13,13 @@
 	>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
-		android:id="@+id/label"
-		style="@style/TextAppearance.AppCompat.Medium"
+		android:id="@+id/title"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_margin="5dp"
 		android:ellipsize="end"
-		android:maxLines="3"
+		android:textSize="14sp"
 		android:textColor="?android:textColorPrimary"
-		android:textStyle="bold"
-		tools:text="Гамильтон, Эдмонд" />
+		tools:text="Рассказ о быке с ослом" />
 
 </ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
