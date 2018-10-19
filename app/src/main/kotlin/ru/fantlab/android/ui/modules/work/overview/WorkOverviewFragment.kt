@@ -178,7 +178,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 				dialogView.show(childFragmentManager, "ListDialogView")
 			}
 			R.id.mymark -> {
-				RatingDialogView.newInstance(10, mymark.text.toString().toFloat(),
+				RatingDialogView.newInstance(10, mymark.text.toString().toFloatOrNull() ?: 0f,
 						work!!,
 						"${author.text} - ${name.text}",
 						-1
@@ -209,10 +209,11 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		if (marks.size > 0){
 			mymark.text = marks[0].mark.toString()
 			mymark.visibility = View.VISIBLE
-			mymark.setOnClickListener(this)
 		} else {
-			mymark.visibility = View.GONE
+			mymark.text = getString(R.string.set_mark)
+			mymark.visibility = View.VISIBLE
 		}
+		mymark.setOnClickListener(this)
 	}
 
 	override fun onSetMark(mark: Int) {
