@@ -12,6 +12,7 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.viewholder.ClassChildViewHolder
 import ru.fantlab.android.ui.adapter.viewholder.ClassParentViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
@@ -20,10 +21,9 @@ import java.util.*
 class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, WorkClassificationPresenter>(),
 		WorkClassificationMvp.View {
 
-	@BindView(R.id.progress)
-	lateinit var progress: View
-	@BindView(R.id.recycler)
-	lateinit var recycler: DynamicRecyclerView
+	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
+	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
+	@BindView(R.id.progress) lateinit var progress: View
 	private var workClassification: ArrayList<GenreGroup>? = null
 
 	override fun fragmentLayout() = R.layout.work_classification_layout
@@ -45,6 +45,10 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 
 	override fun onInitViews(classificatory: ArrayList<GenreGroup>) {
 		hideProgress()
+		stateLayout.setEmptyText(R.string.no_classification)
+		stateLayout.setOnReloadListener(this)
+		recycler.setEmptyView(stateLayout)
+
 		val nodes = arrayListOf<TreeNode<*>>()
 		classificatory.forEachIndexed { index, item ->
 			val parent = TreeNode(ClassParent(item.label, null))
@@ -94,7 +98,6 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 						.start()
 			}
 		})
-		recycler.isNestedScrollingEnabled = false
 		recycler.adapter = adapter
 	}
 
@@ -105,9 +108,11 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
 		progress.visibility = View.VISIBLE
+		stateLayout.showProgress()
 	}
 
 	override fun hideProgress() {
+		stateLayout.hideProgress()
 		progress.visibility = View.GONE
 	}
 
@@ -119,6 +124,14 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 	override fun showMessage(titleRes: Int, msgRes: Int) {
 		hideProgress()
 		super.showMessage(titleRes, msgRes)
+	}
+
+	override fun onClick(v: View?) {
+		onRefresh()
+	}
+
+	override fun onRefresh() {
+		presenter.onFragmentCreated(arguments)
 	}
 
 	companion object {

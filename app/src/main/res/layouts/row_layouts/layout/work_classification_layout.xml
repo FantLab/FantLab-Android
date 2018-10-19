@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/parentView"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="false"
-    android:orientation="vertical"
+    app:layout_behavior="@string/scroll_behavior"
+    tools:ignore="MergeRootFrame"
     >
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
 
         <ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
             android:id="@+id/recycler"
@@ -38,6 +32,7 @@
                 />
 
         </LinearLayout>
-    </FrameLayout>
 
-</android.support.v4.widget.NestedScrollView>
+    <include layout="@layout/state_layout" />
+
+</FrameLayout>

@@ -107,6 +107,7 @@
     <string name="no_analogs">No analogs</string>
     <string name="no_works">No works</string>
     <string name="no_content">No content</string>
+	<string name="no_classification">No classification</string>
 	<string name="copyright">© %s</string>
 	<string name="author_not_opened">Author is not yet open</string>
     <string name="settings">Settings</string>
