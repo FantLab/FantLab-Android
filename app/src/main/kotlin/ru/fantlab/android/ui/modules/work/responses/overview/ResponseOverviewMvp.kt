@@ -7,11 +7,12 @@ import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 interface ResponseOverviewMvp {
 
 	interface View : BaseMvp.View,
-			ContextMenuDialogView.ListDialogViewActionCallback {
+			ContextMenuDialogView.ListDialogViewActionCallback,
+			android.view.View.OnClickListener {
 
 		fun onInitViews(response: Response)
 
-		fun onSetVote(position: Int, votesCount: String)
+		fun onSetVote(votesCount: String)
 	}
 
 	interface Presenter : BaseMvp.Presenter {

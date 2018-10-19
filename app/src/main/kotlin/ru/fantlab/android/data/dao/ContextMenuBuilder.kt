@@ -39,6 +39,19 @@ class ContextMenuBuilder{
 			return items
 		}
 
+		fun buildForResponse(context: Context): ArrayList<ContextMenus>{
+			val items = ArrayList<ContextMenus>()
+
+			val actions =
+					arrayListOf(
+							ContextMenus.MenuItem("+1", R.drawable.ic_thumb_up, "vote"),
+							ContextMenus.MenuItem("-1", R.drawable.ic_thumb_down, "vote")
+					)
+			items.add(ContextMenus(context.getString(R.string.select_mark), actions, "votes"))
+
+			return items
+		}
+
 		fun buildForProfile(context: Context): ArrayList<ContextMenus>{
 			val items = ArrayList<ContextMenus>()
 

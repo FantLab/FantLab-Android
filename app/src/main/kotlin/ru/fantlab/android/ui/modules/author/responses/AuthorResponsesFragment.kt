@@ -22,7 +22,7 @@ import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
-import ru.fantlab.android.ui.modules.work.responses.overview.ResponseActivity
+import ru.fantlab.android.ui.modules.work.responses.overview.ResponseOverviewActivity
 import ru.fantlab.android.ui.widgets.SortView
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
@@ -120,7 +120,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	}
 
 	override fun onItemClicked(item: Response) {
-		ResponseActivity.startActivity(context!!, item)
+		ResponseOverviewActivity.startActivity(context!!, item)
 	}
 
 	override fun onRefresh() {

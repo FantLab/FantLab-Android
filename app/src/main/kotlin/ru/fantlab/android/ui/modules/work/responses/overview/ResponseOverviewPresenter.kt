@@ -20,7 +20,7 @@ class ResponseOverviewPresenter : BasePresenter<ResponseOverviewMvp.View>(),
 
 	override fun getResponses(): Response = response!!
 
-	fun onSendVote(item: Response, position: Int, voteType: String){
+	fun onSendVote(item: Response, voteType: String){
 		makeRestCall(DataManager.sendResponseVote(item.id, voteType)
 				.map { it.get() }
 				.toObservable(),
@@ -28,7 +28,7 @@ class ResponseOverviewPresenter : BasePresenter<ResponseOverviewMvp.View>(),
 					val result = VoteResponse.Parser().parse(response)
 					if (result != null) {
 						sendToView { view ->
-							view.onSetVote(position, result.votesCount)
+							view.onSetVote(result.votesCount)
 						}
 					} else {
 						sendToView { it.showErrorMessage(response) }

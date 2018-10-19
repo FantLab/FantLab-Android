@@ -20,7 +20,7 @@ import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.modules.user.UserPagerMvp
-import ru.fantlab.android.ui.modules.work.responses.overview.ResponseActivity
+import ru.fantlab.android.ui.modules.work.responses.overview.ResponseOverviewActivity
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -101,7 +101,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	}
 
 	override fun onItemClicked(item: Response) {
-		ResponseActivity.startActivity(context!!, item)
+		ResponseOverviewActivity.startActivity(context!!, item)
 	}
 
 	override fun onRefresh() {

@@ -7,7 +7,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:fitsSystemWindows="true"
-	tools:context=".ui.modules.work.responses.overview.ResponseActivity"
+	tools:context=".ui.modules.work.responses.overview.ResponseOverviewActivity"
 	>
 
 	<android.support.design.widget.CoordinatorLayout
@@ -76,15 +76,34 @@
 							android:layout_marginStart="4dp"
 							>
 
+							<ru.fantlab.android.ui.widgets.FontTextView
+								android:id="@+id/mark"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_alignParentEnd="true"
+								android:layout_below="@+id/text"
+								android:layout_marginTop="@dimen/spacing_micro"
+								android:clickable="true"
+								android:drawablePadding="@dimen/spacing_micro"
+								android:drawableStart="@drawable/ic_star_small"
+								android:focusable="true"
+								android:foreground="?android:selectableItemBackground"
+								android:text="@string/set_mark"
+								android:textColor="?android:attr/textColorSecondary"
+								android:visibility="gone"
+								app:drawableColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Caption"
+								/>
+
 							<ru.fantlab.android.ui.widgets.FlowLayout
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								android:layout_below="@+id/text"
 								android:layout_marginTop="@dimen/spacing_micro"
+								android:layout_toStartOf="@+id/mark"
 								app:flChildSpacing="4dp"
 								app:flChildSpacingForLastRow="align"
 								app:flRowSpacing="8dp"
-								app:flRtl="true"
 								>
 
 								<ru.fantlab.android.ui.widgets.FontTextView
@@ -104,7 +123,7 @@
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"
 									android:layout_gravity="center"
-									android:layout_marginRight="@dimen/spacing_micro"
+									android:layout_marginEnd="@dimen/spacing_micro"
 									android:drawablePadding="@dimen/spacing_micro"
 									android:drawableStart="@drawable/ic_star_small"
 									android:textColor="?android:attr/textColorSecondary"

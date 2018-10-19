@@ -90,7 +90,7 @@
 			android:parentActivityName=".ui.modules.main.MainActivity">
 		</activity>
 		<activity
-			android:name="ru.fantlab.android.ui.modules.work.responses.overview.ResponseActivity"
+			android:name="ru.fantlab.android.ui.modules.work.responses.overview.ResponseOverviewActivity"
 			android:parentActivityName=".ui.modules.main.MainActivity">
 		</activity>
 		<activity

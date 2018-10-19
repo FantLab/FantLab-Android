@@ -27,7 +27,7 @@ import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 
-class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverviewPresenter>(),
+class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverviewPresenter>(),
 		ResponseOverviewMvp.View {
 
 	@JvmField @BindView(R.id.coverLayout) var coverLayout: CoverLayout? = null
@@ -37,6 +37,7 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 	@BindView(R.id.text) lateinit var text: FontTextView
 	@BindView(R.id.rating) lateinit var rating: FontTextView
 	@BindView(R.id.votes) lateinit var votes: FontTextView
+	@BindView(R.id.mark) lateinit var mark: FontTextView
 
 	@State lateinit var response: Response
 
@@ -116,6 +117,23 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 		}
 
 		votes.text = response.voteCount.toString()
+
+		if (isLoggedIn()) {
+			mark.visibility = View.VISIBLE
+			mark.setOnClickListener(this)
+		} else {
+			mark.visibility = View.GONE
+		}
+	}
+
+	override fun onClick(v: View?) {
+		when (v?.id) {
+			R.id.mark -> {
+				val dialogView = ContextMenuDialogView()
+				dialogView.initArguments("votes", ContextMenuBuilder.buildForResponse(this), response, 0)
+				dialogView.show(supportFragmentManager, "ContextMenuDialogView")
+			}
+		}
 	}
 
 	private fun prepareResponse(savedText: CharSequence?): String? {
@@ -124,15 +142,16 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 				replace(REGEX_TAGS,"<$1>")
 	}
 
-	override fun onSetVote(position: Int, votesCount: String) {
+	override fun onSetVote(votesCount: String) {
 		hideProgress()
+		votes.text = votesCount
 	}
 
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
 		listItem as Response
 		when (item.id) {
 			"vote" -> {
-				presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
+				presenter.onSendVote(listItem, if (item.title.contains("+")) "plus" else "minus")
 			}
 			"profile" -> {
 				UserPagerActivity.startActivity(this, listItem.userName, listItem.userId, 0)
@@ -148,7 +167,7 @@ class ResponseActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverview
 
 	companion object {
 		fun startActivity(context: Context, response: Response) {
-			val intent = Intent(context, ResponseActivity::class.java)
+			val intent = Intent(context, ResponseOverviewActivity::class.java)
 			intent.putExtras(Bundler.start()
 					.put(BundleConstant.EXTRA, response)
 					.end())
