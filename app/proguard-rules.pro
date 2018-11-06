@@ -22,3 +22,9 @@
 
 # need for valid menu/search_menu.xml/@id:action_search/app:actionViewClass processing
 -keep class android.support.v7.widget.SearchView { *; }
+
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn java.rmi.**
+-dontwarn org.jaxen.**
+-dontwarn ru.fantlab.android.ui.modules.**
+-dontnote com.google.android.gms.**

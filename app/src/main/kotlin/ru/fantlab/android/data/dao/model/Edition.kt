@@ -1,9 +1,11 @@
 package ru.fantlab.android.data.dao.model
 
 import android.os.Parcelable
+import android.support.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
+@Keep
 @Parcelize
 data class Edition(
 		@SerializedName("copies") val copyCount: Int,
@@ -31,6 +33,7 @@ data class Edition(
 		@SerializedName("type") val typeId: Int,
 		val year: Int
 ) : Parcelable {
+	@Keep
 	@Parcelize
 	data class Creators(
 			val authors: ArrayList<Author>?,
@@ -38,6 +41,7 @@ data class Edition(
 			val publishers: ArrayList<Publisher>?
 	) : Parcelable
 
+	@Keep
 	@Parcelize
 	data class Author(
 			val id: Int,
@@ -48,6 +52,7 @@ data class Edition(
 		override fun toString() = name
 	}
 
+	@Keep
 	@Parcelize
 	data class Compiler(
 			val id: Int?,
@@ -55,6 +60,7 @@ data class Edition(
 			val type: String?
 	) : Parcelable
 
+	@Keep
 	@Parcelize
 	data class Publisher(
 			val id: Int?,
@@ -62,6 +68,7 @@ data class Edition(
 			val type: String?
 	) : Parcelable
 
+	@Keep
 	@Parcelize
 	data class Series(
 			val id: Int,

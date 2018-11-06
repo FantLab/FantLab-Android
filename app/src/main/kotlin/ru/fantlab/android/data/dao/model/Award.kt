@@ -1,9 +1,11 @@
 package ru.fantlab.android.data.dao.model
 
 import android.os.Parcelable
+import android.support.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
+@Keep
 @Parcelize
 data class Award(
     @SerializedName("award_close") val awardClose: String,
@@ -31,7 +33,7 @@ data class Award(
     @SerializedName("rusname") val rusname: String,
     @SerializedName("show_in_list") val showInList: String
 ): Parcelable {
-
+	@Keep
 	@Parcelize
 	data class Contest(
 			@SerializedName("award_id") val awardId: String,
@@ -50,6 +52,7 @@ data class Award(
 			@SerializedName("short_description") val shortDescription: String
 	): Parcelable
 
+	@Keep
 	@Parcelize
 	data class ContestWork(
 			@SerializedName("autor_rusname") val autorRusname: String,
@@ -72,6 +75,7 @@ data class Award(
 			@SerializedName("work_rusname") val workRusname: String?
 	): Parcelable
 
+	@Keep
 	@Parcelize
 	data class Nominations(
 			@SerializedName("book_count") val bookCount: String,

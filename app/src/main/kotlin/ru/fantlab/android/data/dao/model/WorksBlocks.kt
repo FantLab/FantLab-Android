@@ -1,16 +1,19 @@
 package ru.fantlab.android.data.dao.model
 
 import android.os.Parcelable
+import android.support.annotation.Keep
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.JsonParser
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import ru.fantlab.android.provider.rest.DataManager
 
+@Keep
 @Parcelize
 data class WorksBlocks(
 		val worksBlocks: ArrayList<WorksBlock>
 ) : Parcelable {
+	@Keep
 	@Parcelize
 	data class WorksBlock(
 			val id: Int,
@@ -19,6 +22,7 @@ data class WorksBlocks(
 			val title: String
 	) : Parcelable
 
+	@Keep
 	@Parcelize
 	data class Work(
 			val authors: ArrayList<Author>,
@@ -51,6 +55,7 @@ data class WorksBlocks(
 			@SerializedName("work_year_of_write") val yearOfWrite: Int?
 	) : Parcelable
 
+	@Keep
 	@Parcelize
 	data class Author(
 			val id: Int,

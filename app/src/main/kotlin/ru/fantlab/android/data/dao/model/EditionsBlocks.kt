@@ -1,16 +1,19 @@
 package ru.fantlab.android.data.dao.model
 
 import android.os.Parcelable
+import android.support.annotation.Keep
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.JsonParser
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import ru.fantlab.android.provider.rest.DataManager
 
+@Keep
 @Parcelize
 data class EditionsBlocks(
 		val editionsBlocks: ArrayList<EditionsBlock>
 ) : Parcelable {
+	@Keep
 	@Parcelize
 	data class EditionsBlock(
 			val block: String,
@@ -20,6 +23,7 @@ data class EditionsBlocks(
 			val title: String
 	) : Parcelable
 
+	@Keep
 	@Parcelize
 	data class Edition(
 			@SerializedName("autors") val authors: String,
@@ -27,7 +31,7 @@ data class EditionsBlocks(
 			@SerializedName("correct_level") val correctLevel: Float,
 			val ebook: Int,
 			@SerializedName("edition_id") val editionId: Int,
-			val isbn: String,
+			val isbn: String?,
 			@SerializedName("lang") val language: String,
 			@SerializedName("lang_code") val languageCode: String,
 			@SerializedName("lang_id") val languageId: Int,
