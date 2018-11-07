@@ -28,7 +28,7 @@ class AnalogsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorkAnalog,
 			authors.visibility = View.GONE
 		}
 
-		title.text = analog.rusName.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")
+		title.text = if (analog.rusName.isNotEmpty()) analog.rusName.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "") else analog.name
 
 		if (analog.year != null && analog.year != 0){
 			year.text = analog.year.toString()

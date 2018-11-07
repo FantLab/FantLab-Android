@@ -9,6 +9,8 @@ interface AuthorPagerMvp {
 		fun onSetBadge(tabIndex: Int, count: Int)
 
 		fun onSetTitle(title: String)
+
+		fun onScrolled(isUp: Boolean)
 	}
 
 	interface Presenter : BaseMvp.Presenter

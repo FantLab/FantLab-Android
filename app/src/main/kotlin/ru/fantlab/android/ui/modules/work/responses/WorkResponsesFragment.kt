@@ -41,7 +41,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	@State var workId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, workId) }
 	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses(), true) }
-	private var countCallback: WorkPagerMvp.View? = null
+	private var workCallback: WorkPagerMvp.View? = null
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
 
@@ -87,12 +87,12 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	override fun onAttach(context: Context?) {
 		super.onAttach(context)
 		if (context is WorkPagerMvp.View) {
-			countCallback = context
+			workCallback = context
 		}
 	}
 
 	override fun onDetach() {
-		countCallback = null
+		workCallback = null
 		super.onDetach()
 	}
 
@@ -117,7 +117,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	override fun getLoadMore() = onLoadMore
 
 	override fun onSetTabCount(count: Int) {
-		countCallback?.onSetBadge(2, count)
+		workCallback?.onSetBadge(2, count)
 	}
 
 	override fun onItemClicked(item: Response) {
@@ -215,5 +215,9 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	override fun onStart() {
 		if (presenter != null) adapter.setOnContextMenuListener(this)
 		super.onStart()
+	}
+
+	override fun onScrolled(isUp: Boolean) {
+		workCallback?.onScrolled(isUp);
 	}
 }

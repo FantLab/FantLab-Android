@@ -187,4 +187,12 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 			context.startActivity(intent)
 		}
 	}
+
+	override fun onScrolled(isUp: Boolean) {
+		if (isUp) {
+			fab.hide();
+		} else {
+			hideShowFab(pager.currentItem)
+		}
+	}
 }

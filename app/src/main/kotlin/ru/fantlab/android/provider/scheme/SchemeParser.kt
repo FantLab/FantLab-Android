@@ -3,15 +3,15 @@ package ru.fantlab.android.provider.scheme
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.widget.Toast
-import es.dmoral.toasty.Toasty
 import ru.fantlab.android.App
 import ru.fantlab.android.R
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DEFAULT
+import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
+import timber.log.Timber
 
 object SchemeParser {
 	fun launchUri(context: Context, url: String, label: String) {
@@ -34,7 +34,8 @@ object SchemeParser {
 					AwardPagerActivity.startActivity(App.instance.applicationContext, id.toInt(), label, 0)
 				}
 				else -> {
-					Toasty.error(App.instance, "${context.getString(R.string.not_recognized)} ($type:$id)", Toast.LENGTH_LONG).show()
+					Timber.d("${context.getString(R.string.not_recognized)} ($type:$id)")
+					openUrl(context, "$PROTOCOL_HTTPS://$HOST_DEFAULT$url")
 				}
 			}
 		} else {

@@ -88,7 +88,11 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 			name
 		}
 
-		year.text = if (work.year != 0) work.year.toString() else "N/A"
+		if (work.year.toString().isNotEmpty() && work.year != 0) {
+			year.text = work.year.toString()
+		} else {
+			year.visibility = View.GONE
+		}
 
 		if (work.markCount != 0) {
 			rating.text = String.format("%s / %s",

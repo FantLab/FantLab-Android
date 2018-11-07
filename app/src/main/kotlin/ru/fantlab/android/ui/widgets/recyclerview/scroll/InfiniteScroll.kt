@@ -25,6 +25,7 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 
 	interface OnScrollResumed {
 		fun onHideMenu()
+		fun onScrolled(isUp: Boolean)
 	}
 
 	fun setOnScrollListener(listener: OnScrollResumed) {
@@ -57,7 +58,7 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 			newlyAdded = false
 			return
 		}
-		onScrolled(dy > 0)
+		listener?.onScrolled(dy > 0)
 		if (isUp && menuShowed) {
 			menuShowed = false
 			listener?.onHideMenu()
@@ -114,10 +115,6 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 		this.currentPage = page
 		this.previousTotalItemCount = previousTotal
 		this.loading = true
-	}
-
-	private fun onScrolled(isUp: Boolean) {
-		this.isUp = isUp
 	}
 
 	fun setMenuShowed(menuShowed: Boolean){

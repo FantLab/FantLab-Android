@@ -37,6 +37,8 @@ interface WorkOverviewMvp {
 
 		fun getWins(): ArrayList<Nomination>?
 
+		fun getAuthors(): ArrayList<Work.Author>?
+
 		fun getMarks(userId: Int?, workIds: ArrayList<Int?>)
 
 	}

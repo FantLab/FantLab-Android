@@ -7,7 +7,6 @@ import android.support.v7.widget.CardView
 import android.view.View
 import android.widget.LinearLayout
 import butterknife.BindView
-import kotlinx.android.synthetic.main.work_overview_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.MarkMini
 import ru.fantlab.android.data.dao.model.Nomination
@@ -17,7 +16,7 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.markdown.MarkDownProvider
-import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
+import ru.fantlab.android.ui.adapter.WorkAuthorsAdapter
 import ru.fantlab.android.ui.adapter.WorkAwardsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
@@ -36,10 +35,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	@BindView(R.id.progress) lateinit var progress: View
     @BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
-    @BindView(R.id.authorLayout) lateinit var authorLayout: AvatarLayout
-    @BindView(R.id.author) lateinit var author: FontTextView
-    @BindView(R.id.authorBlock) lateinit var authorBlock: LinearLayout
-    @BindView(R.id.author2) lateinit var author2: FontTextView
+    @BindView(R.id.authorView) lateinit var authorView: CardView
     @BindView(R.id.title) lateinit var name: FontTextView
     @BindView(R.id.title2) lateinit var name2: FontTextView
     @BindView(R.id.rate) lateinit var rate: FontTextView
@@ -49,6 +45,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
     @BindView(R.id.notes) lateinit var notes: FontTextView
     @BindView(R.id.recyclerNoms) lateinit var nomsList: DynamicRecyclerView
     @BindView(R.id.recyclerWins) lateinit var winsList: DynamicRecyclerView
+    @BindView(R.id.recyclerAuthors) lateinit var authorsList: DynamicRecyclerView
 
     @BindView(R.id.aboutView) lateinit var aboutView: CardView
     @BindView(R.id.winsView) lateinit var winsView: CardView
@@ -58,6 +55,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	private val adapterNoms: WorkAwardsAdapter by lazy { WorkAwardsAdapter(presenter.getNoms()) }
 	private val adapterWins: WorkAwardsAdapter by lazy { WorkAwardsAdapter(presenter.getWins()) }
+	private val adapterAuthors: WorkAuthorsAdapter by lazy { WorkAuthorsAdapter(presenter.getAuthors()) }
 
 	override fun fragmentLayout() = R.layout.work_overview_layout
 
@@ -87,12 +85,15 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		} else hideProgress()
 
 		coverLayout.setUrl(if (work.image != null) "https:${work.image}" else null, R.drawable.not_found_poster)
-		name.text = work.name
-		if (work.nameOrig.isBlank()) {
+
+		if (InputHelper.isEmpty(work.name)){
+			name.text = work.nameOrig
 			name2.visibility = View.GONE
 		} else {
+			name.text = work.name
 			name2.text = work.nameOrig
 		}
+
 		types.text = if (work.year != null) "${work.type}, ${work.year}" else work.type
 
 		if (work.rating.votersCount != "0") {
@@ -112,15 +113,9 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		else
 			aboutView.visibility = View.GONE
 
-		authorLayout.setUrl("https://$HOST_DATA/images/autors/${work.authors[0].id}")
-		author.text = work.authors[0].name
-
-		if (!InputHelper.isEmpty(work.authors[0].nameOrig))
-			author2.text = work.authors[0].nameOrig
-		else
-			author2.visibility = View.GONE
-
-		authorBlock.setOnClickListener(this)
+		if (adapterAuthors.itemCount > 0) {
+			authorsList.adapter = adapterAuthors
+		} else authorView.visibility = View.GONE
 
 		if (adapterNoms.itemCount > 0) {
 			nomsList.adapter = adapterNoms
@@ -172,15 +167,11 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun onClick(v: View?) {
 		when (v?.id) {
-			R.id.authorBlock -> {
-				val dialogView:ListDialogView<Work.Author> = ListDialogView()
-				dialogView.initArguments(getString(R.string.authors), work?.authors)
-				dialogView.show(childFragmentManager, "ListDialogView")
-			}
 			R.id.mymark -> {
+				val author = adapterAuthors.getItem(0).name
 				RatingDialogView.newInstance(10, mymark.text.toString().toFloatOrNull() ?: 0f,
 						work!!,
-						"${author.text} - ${name.text}",
+						"${author} - ${name.text}",
 						-1
 				).show(childFragmentManager, RatingDialogView.TAG)
 			}

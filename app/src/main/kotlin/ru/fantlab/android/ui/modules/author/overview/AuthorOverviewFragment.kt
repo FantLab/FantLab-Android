@@ -55,7 +55,10 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 		hideProgress()
 		coverLayout.setUrl("https:${author.image}")
 
-		country.text = author.countryName
+		if (!InputHelper.isEmpty(author.countryName))
+			country.text = author.countryName
+		else
+			country.visibility = View.GONE
 
         authorName.text = if (author.name.isNotEmpty()) {
             if (author.nameOriginal.isNotEmpty()) {

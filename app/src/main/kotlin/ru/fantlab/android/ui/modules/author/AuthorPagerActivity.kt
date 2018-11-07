@@ -161,4 +161,12 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 			context.startActivity(intent)
 		}
 	}
+
+	override fun onScrolled(isUp: Boolean) {
+		if (isUp) {
+			fab.hide();
+		} else {
+			fab.show();
+		}
+	}
 }

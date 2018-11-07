@@ -119,7 +119,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 	}
 
 	private fun extractListData(bibliography: WorksBlocks?, nodes: ArrayList<TreeNode<*>>, marks: ArrayList<MarkMini>?) {
-		bibliography?.worksBlocks?.forEach { worksBlock ->
+		bibliography?.worksBlocks?.sortedWith(compareBy { it.id })?.forEach { worksBlock ->
 			val app = TreeNode(Cycle(worksBlock.title))
 			nodes.add(app)
 
@@ -142,15 +142,15 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 					work.children.forEach { item ->
 						val mark = marks?.map { it }?.filter { it.work_id == item.id }
 						app.childList[subIndex].addChild(TreeNode(CycleWork(
-								work.id,
-								work.authors,
-								work.name,
-								work.nameOrig,
-								work.description,
-								work.year,
-								work.responseCount,
-								work.votersCount,
-								work.rating,
+								item.id,
+								item.authors as ArrayList<WorksBlocks.Author>,
+								item.name,
+								item.nameOrig,
+								item.description,
+								item.year,
+								item.responses?.toInt(),
+								item.votersCount,
+								item.rating,
 								if (mark != null && mark.isNotEmpty()) mark.first().mark else null))
 						)
 					}

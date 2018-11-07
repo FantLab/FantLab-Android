@@ -41,7 +41,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	@State var authorId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, authorId) }
 	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses()) }
-	private var countCallback: AuthorPagerMvp.View? = null
+	private var authorCallback: AuthorPagerMvp.View? = null
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
 
@@ -86,12 +86,12 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	override fun onAttach(context: Context?) {
 		super.onAttach(context)
 		if (context is AuthorPagerMvp.View) {
-			countCallback = context
+			authorCallback = context
 		}
 	}
 
 	override fun onDetach() {
-		countCallback = null
+		authorCallback = null
 		super.onDetach()
 	}
 
@@ -116,7 +116,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	override fun getLoadMore() = onLoadMore
 
 	override fun onSetTabCount(count: Int) {
-		countCallback?.onSetBadge(3, count)
+		authorCallback?.onSetBadge(3, count)
 	}
 
 	override fun onItemClicked(item: Response) {
@@ -212,5 +212,9 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	override fun onStart() {
 		if (presenter != null) adapter.setOnContextMenuListener(this)
 		super.onStart()
+	}
+
+	override fun onScrolled(isUp: Boolean) {
+		authorCallback?.onScrolled(isUp);
 	}
 }

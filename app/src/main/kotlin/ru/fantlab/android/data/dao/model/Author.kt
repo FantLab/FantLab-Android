@@ -9,10 +9,10 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Author(
 		val id: Int,
-		val anons: String,
+		val anons: String?,
 		@SerializedName("birthday") val birthDay: String?,
 		@SerializedName("country_id") val countryId: Int?,
-		@SerializedName("country_name") val countryName: String,
+		@SerializedName("country_name") val countryName: String?,
 		@SerializedName("deathday") val deathDay: String?,
 		val image: String,
 		@SerializedName("image_preview") val preview: String,

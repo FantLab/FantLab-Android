@@ -32,6 +32,8 @@ interface WorkResponsesMvp {
 
 		fun onSetVote(position: Int, votesCount: String)
 
+		override fun onScrolled(isUp: Boolean)
+
 		override fun onOpenContextMenu(userItem: Response)
 	}
 

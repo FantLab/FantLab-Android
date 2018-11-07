@@ -49,7 +49,11 @@ class EditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<EditionsBl
 
 		title.text = edition.name.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")
 
-		year.text = if (edition.year.toString().isNotEmpty()) edition.year.toString() else "N/A"
+		if (edition.year.toString().isNotEmpty() && edition.year != 0) {
+			year.text = edition.year.toString()
+		} else {
+			year.visibility = View.GONE
+		}
 	}
 
 	companion object {

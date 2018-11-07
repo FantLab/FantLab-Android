@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Nomination
+import ru.fantlab.android.data.dao.model.Work
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -15,6 +16,7 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 	var workId: Int? = null
 	private var noms: ArrayList<Nomination>? = ArrayList()
 	private var wins: ArrayList<Nomination>? = ArrayList()
+	private var authors: ArrayList<Work.Author>? = ArrayList()
 
 	override fun onFragmentCreated(bundle: Bundle?) {
 		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
@@ -27,9 +29,10 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 							.map { it.get() }
 							.toObservable(),
 					Consumer { workResponse ->
-						sendToView {
+						sendToView { it ->
 							noms = workResponse.awards?.nominations
 							wins = workResponse.awards?.wins
+							authors = workResponse.work.authors.filter { it.id !in listOf(10, 2000, 7000, 46137) } as ArrayList
 							it.onInitViews(workResponse.work) }
 					}
 			)}
@@ -80,5 +83,8 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 	override fun getNoms(): ArrayList<Nomination>? = noms ?: ArrayList()
 
 	override fun getWins(): ArrayList<Nomination>? = wins ?: ArrayList()
+
+	override fun getAuthors(): ArrayList<Work.Author>? = authors ?: ArrayList()
+
 
 }

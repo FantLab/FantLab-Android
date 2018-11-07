@@ -39,7 +39,12 @@ class SearchEditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Sear
 
 		title.text = edition.name.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")
 
-		year.text = if (edition.year.isNotEmpty()) edition.year else "N/A"
+		if (edition.year.isNotEmpty()) {
+			year.text = edition.year
+		} else {
+			year.visibility = View.GONE
+		}
+
 	}
 
 	companion object {

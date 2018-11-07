@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.work.classification
 
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v7.widget.RecyclerView
@@ -12,6 +13,7 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.viewholder.ClassChildViewHolder
 import ru.fantlab.android.ui.adapter.viewholder.ClassParentViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.work.WorkPagerMvp
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
@@ -27,6 +29,8 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 	private var workClassification: ArrayList<GenreGroup>? = null
 
 	override fun fragmentLayout() = R.layout.work_classification_layout
+
+	private var workCallback: WorkPagerMvp.View? = null
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -48,7 +52,11 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 		stateLayout.setEmptyText(R.string.no_classification)
 		stateLayout.setOnReloadListener(this)
 		recycler.setEmptyView(stateLayout)
-
+		recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+			override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+				workCallback?.onScrolled(dy > 0);
+			}
+		})
 		val nodes = arrayListOf<TreeNode<*>>()
 		classificatory.forEachIndexed { index, item ->
 			val parent = TreeNode(ClassParent(item.label, null))
@@ -132,6 +140,18 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 
 	override fun onRefresh() {
 		presenter.onFragmentCreated(arguments)
+	}
+
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is WorkPagerMvp.View) {
+			workCallback = context
+		}
+	}
+
+	override fun onDetach() {
+		workCallback = null
+		super.onDetach()
 	}
 
 	companion object {

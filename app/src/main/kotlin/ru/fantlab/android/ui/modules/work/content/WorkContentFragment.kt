@@ -120,6 +120,6 @@ class WorkContentFragment : BaseFragment<WorkContentMvp.View, WorkContentPresent
     }
 
 	override fun onItemClicked(item: ChildWork) {
-		WorkPagerActivity.startActivity(context!!, item.id!!, if (!InputHelper.isEmpty(item.name)) item.name else item.nameOrig, 0)
+		if (item.id != null) WorkPagerActivity.startActivity(context!!, item.id, if (!InputHelper.isEmpty(item.name)) item.name else item.nameOrig, 0)
 	}
 }

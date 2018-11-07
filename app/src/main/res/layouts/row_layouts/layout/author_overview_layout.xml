@@ -64,26 +64,29 @@
 
 							<ru.fantlab.android.ui.widgets.FontTextView
 								android:id="@+id/country"
-								style="@style/Base.TextAppearance.AppCompat.Caption"
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
-								tools:text="США" />
+								tools:text="США"
+								style="@style/Base.TextAppearance.AppCompat.Caption"
+								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
-                                android:id="@+id/author"
-                                style="@style/Base.TextAppearance.AppCompat.Title"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/spacing_micro"
-                                tools:text="Дэн Симмонс" />
-
-                            <ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/date"
-								style="@style/Base.TextAppearance.AppCompat.Caption"
+								android:id="@+id/author"
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="1900" />
+								tools:text="Дэн Симмонс"
+								style="@style/Base.TextAppearance.AppCompat.Title"
+								/>
+
+							<ru.fantlab.android.ui.widgets.FontTextView
+								android:id="@+id/date"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="@dimen/spacing_micro"
+								tools:text="1900"
+								style="@style/Base.TextAppearance.AppCompat.Caption"
+								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
 								android:id="@+id/notOpened"
@@ -96,7 +99,7 @@
 								style="@style/Base.TextAppearance.AppCompat.Subhead"
 								/>
 
-                        </LinearLayout>
+						</LinearLayout>
 
 					</android.support.v7.widget.CardView>
 

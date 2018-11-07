@@ -53,11 +53,14 @@ class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Searc
 			pseudoNames.visibility = View.GONE
 		}
 
-		country.text = if (author.country.isNotEmpty()) author.country else "N/A"
 
-		dates.text = StringBuilder()
-				.append(if (author.birthYear != 0) author.birthYear else "N/A")
-				.append(if (author.deathYear != 0) " - ${author.deathYear}" else "")
+		if (author.country.isNotEmpty()) country.text = author.country else country.visibility = View.GONE
+
+		if (author.birthYear != 0 || author.deathYear != 0) {
+			dates.text = StringBuilder()
+					.append(if (author.birthYear != 0) author.birthYear else "N/A")
+					.append(if (author.deathYear != 0) " - ${author.deathYear}" else "")
+		} else dates.visibility = View.GONE
 
 		if (author.markCount != 0) {
 			rating.text = String.format("%s / %s",

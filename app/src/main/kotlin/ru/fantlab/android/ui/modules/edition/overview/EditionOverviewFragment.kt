@@ -40,6 +40,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 	@BindView(R.id.isbns) lateinit var isbns: FontTextView
 	@BindView(R.id.coverType) lateinit var coverType: FontTextView
 	@BindView(R.id.pagesCount) lateinit var pagesCount: FontTextView
+	@BindView(R.id.planDate) lateinit var planDate: FontTextView
 	@BindView(R.id.descriptionCard) lateinit var descriptionCard: CardView
 	@BindView(R.id.description) lateinit var description: FontTextView
 	@BindView(R.id.notesCard) lateinit var notesCard: CardView
@@ -177,10 +178,19 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 		} else {
 			format.visibility = View.GONE
 		}
-		sb = SpannableStringBuilder()
-		sb.append("Страниц: ")
-				.append(edition.pages.toString())
-		pagesCount.text = sb
+
+		if (edition.pages > 0) {
+			sb = SpannableStringBuilder()
+			sb.append("Страниц: ").append(edition.pages.toString())
+			pagesCount.text = sb
+		} else pagesCount.visibility = View.GONE
+
+		if (edition.planDate.isNotBlank()) {
+			sb = SpannableStringBuilder()
+			sb.append("Выход по плану: ").append(edition.planDate)
+			planDate.text = sb
+		} else planDate.visibility = View.GONE
+
 		if (edition.description.isNotBlank()) {
 			MarkDownProvider.setMdText(description, edition.description)
 		} else {

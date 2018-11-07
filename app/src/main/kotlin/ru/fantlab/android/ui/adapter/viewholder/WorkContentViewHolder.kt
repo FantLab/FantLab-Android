@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.ChildWork
+import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
@@ -29,10 +30,15 @@ class WorkContentViewHolder(itemView: View, adapter: BaseRecyclerAdapter<ChildWo
 			content.nameOrig
 		}
 
-		type.text = content.type?.capitalize()
-		year.text = content.year.toString()
+		if (content.type != null) type.text = content.type.capitalize() else type.visibility = View.GONE
 
-		if (content.votersCount != 0) {
+		if (InputHelper.isEmpty(content)) {
+			year.text = content.year.toString()
+		} else {
+			year.visibility = View.GONE
+		}
+
+		if (!InputHelper.isEmpty(content.votersCount) && content.votersCount != 0) {
 			rating.text = content.rating.toString()
 			votes.text = content.votersCount.toString()
 			rating.visibility = View.VISIBLE
