@@ -153,4 +153,5 @@
 	<string name="response_short_text">Слишком короткий отзыв (минимум 50 символов)</string>
 	<string name="set_mark">Оценить</string>
 	<string name="cannotvote">Нельзя голосовать за свой отзыв</string>
+	<string name="cannotvote_novice">Пользователи с классом \"Новичок\" не могут голосовать за отзывы</string>
 </resources>

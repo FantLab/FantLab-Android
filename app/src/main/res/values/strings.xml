@@ -183,4 +183,5 @@
 	<string name="response_short_text">Response is too short (minimum 50 characters)</string>
 	<string name="set_mark">Set mark</string>
 	<string name="cannotvote">You can not vote for your review</string>
+	<string name="cannotvote_novice">Users with the class \"Novice\" can not vote for reviews</string>
 </resources>
