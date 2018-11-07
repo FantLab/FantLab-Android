@@ -18,7 +18,7 @@ interface WorkOverviewMvp {
 
 		fun onItemClicked(item: Nomination)
 
-		fun onSetMark(mark: Int)
+		fun onSetMark(mark: Int, markCount: Double, midMark: Double)
 
 		fun onGetMarks(marks: ArrayList<MarkMini>)
 

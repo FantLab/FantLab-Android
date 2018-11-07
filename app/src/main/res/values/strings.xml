@@ -182,4 +182,5 @@
 	<string name="save_hint">Save to send later</string>
 	<string name="response_short_text">Response is too short (minimum 50 characters)</string>
 	<string name="set_mark">Set mark</string>
+	<string name="cannotvote">You can not vote for your review</string>
 </resources>

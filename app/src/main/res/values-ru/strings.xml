@@ -152,4 +152,5 @@
 	<string name="save_hint">Сохраните, чтобы отправить позже</string>
 	<string name="response_short_text">Слишком короткий отзыв (минимум 50 символов)</string>
 	<string name="set_mark">Оценить</string>
+	<string name="cannotvote">Нельзя голосовать за свой отзыв</string>
 </resources>

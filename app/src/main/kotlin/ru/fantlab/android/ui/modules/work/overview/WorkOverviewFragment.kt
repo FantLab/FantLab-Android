@@ -197,22 +197,27 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		hideProgress()
 		if (marks.size > 0){
 			mymark.text = marks[0].mark.toString()
-			mymark.visibility = View.VISIBLE
+
 		} else {
 			mymark.text = getString(R.string.set_mark)
-			mymark.visibility = View.VISIBLE
 		}
 		mymark.setOnClickListener(this)
+		pagerCallback?.onSetMarked(marks.size > 0)
+		mymark.visibility = View.VISIBLE
 	}
 
-	override fun onSetMark(mark: Int) {
+	override fun onSetMark(mark: Int, markCount: Double, midMark: Double) {
 		hideProgress()
 		if (mark == 0){
-			mymark.visibility = View.GONE
+			mymark.text = getString(R.string.set_mark)
 		} else {
 			mymark.text = mark.toString()
-			mymark.visibility = View.VISIBLE
 		}
+		rate.text = StringBuilder()
+				.append(midMark)
+				.append(" - ")
+				.append(markCount.toInt())
+		pagerCallback?.onSetMarked(mark > 0)
 	}
 
 	override fun onRated(rating: Float, listItem: Any, position: Int) {

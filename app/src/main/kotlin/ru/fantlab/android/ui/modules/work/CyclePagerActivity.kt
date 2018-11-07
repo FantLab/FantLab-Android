@@ -195,4 +195,7 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 			hideShowFab(pager.currentItem)
 		}
 	}
+
+	override fun onSetMarked(isMarked: Boolean) {
+	}
 }

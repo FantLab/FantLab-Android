@@ -118,7 +118,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 
 		votes.text = response.voteCount.toString()
 
-		if (isLoggedIn()) {
+		if (isLoggedIn() && PrefGetter.getLoggedUser()?.id != response.userId) {
 			mark.visibility = View.VISIBLE
 			mark.setOnClickListener(this)
 		} else {

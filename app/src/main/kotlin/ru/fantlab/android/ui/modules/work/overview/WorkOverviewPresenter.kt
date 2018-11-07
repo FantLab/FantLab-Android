@@ -44,7 +44,7 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 				.toObservable(),
 				Consumer {
 					sendToView { view ->
-						view.onSetMark(mark)
+						view.onSetMark(mark, it.markCount, it.midMark)
 					}
 				})
 	}

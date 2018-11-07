@@ -11,6 +11,8 @@ interface WorkPagerMvp {
 		fun onSetTitle(title: String)
 
 		fun onScrolled(isUp: Boolean)
+
+		fun onSetMarked(isMarked: Boolean)
 	}
 
 	interface Presenter : BaseMvp.Presenter

@@ -40,6 +40,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	@State var index: Int = 0
 	@State var workId: Int = 0
 	@State var workName: String = ""
+	@State var isMarked: Boolean = false
 	@State var tabsCountSet = HashSet<TabsCountStateModel>()
 	private val numberFormat = NumberFormat.getNumberInstance()
 
@@ -135,7 +136,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 		when (position) {
 			1 -> {
 				val user = PrefGetter.getLoggedUser()
-				if (user != null && user.`class` >= PHILOSOPHER_CLASS){
+				if (user != null && user.`class` >= PHILOSOPHER_CLASS && isMarked) {
 					fab.setImageResource(R.drawable.ic_classif)
 					fab.show()
 				} else fab.hide()
@@ -196,5 +197,9 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 		} else {
 			hideShowFab(pager.currentItem)
 		}
+	}
+
+	override fun onSetMarked(isMarked: Boolean) {
+		this.isMarked = isMarked
 	}
 }

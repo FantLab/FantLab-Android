@@ -11,6 +11,7 @@ import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ResponsesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
@@ -113,7 +114,6 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 	}
 
 	override fun onItemClicked(item: Response) {
-		//WorkPagerActivity.startActivity(context!!, item.workId, item.workName, 0)
 		ResponseOverviewActivity.startActivity(context!!, item)
 	}
 
@@ -126,7 +126,10 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
 		if (listItem is Response) when (item.id){
 			"vote" -> {
-				presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
+				if (PrefGetter.getLoggedUser()?.id != listItem.userId)
+					presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
+				else
+					showErrorMessage(getString(R.string.cannotvote))
 			}
 			"profile" -> {
 				UserPagerActivity.startActivity(context!!, listItem.userName, listItem.userId,0 )
