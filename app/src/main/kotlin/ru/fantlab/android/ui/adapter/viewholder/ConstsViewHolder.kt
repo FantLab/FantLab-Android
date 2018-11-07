@@ -31,13 +31,7 @@ class ConstsViewHolder : TreeViewBinder<ConstsViewHolder.ViewHolder>() {
 		val nodeRoot = node.content as ConstsParent?
 		holder.name.text = nodeRoot!!.title
 		if (!nodeRoot.description.isNullOrEmpty()){
-			MarkDownProvider.setMdText(holder.description, nodeRoot.description
-					!!.replace("[*]", "<li>")
-					.replace("\\u003d".toRegex(), "=")
-					.replace("\\[URL=(.*?)](.*?)\\[/URL]".toRegex(), "<a href=\$1>\$2</a>")
-					.replace("\\[(?!autor|/autor)(?!award|/award)(?!link|/link)(.*?)]".toRegex(), "<$1>")
-					.replace("(<PHOTO.*?>)".toRegex(), "")
-			)
+			MarkDownProvider.setMdText(holder.description, nodeRoot.description!!)
 			holder.description.visibility = View.VISIBLE
 		} else holder.description.visibility = View.GONE
 

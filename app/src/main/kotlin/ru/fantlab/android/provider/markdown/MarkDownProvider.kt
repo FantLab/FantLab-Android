@@ -22,12 +22,12 @@ object MarkDownProvider {
 		if (!markdown.isEmpty()) {
 			val width = textView.measuredWidth
 			if (width > 0) {
-				render(textView, markdown, width)
+				render(textView, prepareTags(markdown), width)
 			} else {
 				textView.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
 					override fun onPreDraw(): Boolean {
 						textView.viewTreeObserver.removeOnPreDrawListener(this)
-						render(textView, markdown, textView.measuredWidth)
+						render(textView, prepareTags(markdown), textView.measuredWidth)
 						return true
 					}
 				})
@@ -37,9 +37,19 @@ object MarkDownProvider {
 
 	fun setMdText(textView: TextView, markdown: String, width: Int) {
         if (!InputHelper.isEmpty(markdown)) {
-            render(textView, markdown, width)
+            render(textView, prepareTags(markdown), width)
 		}
     }
+
+	private fun prepareTags(text: String): String {
+		return text
+				.replace("[*]", "<li>")
+				.replace("\\u003d".toRegex(), "=")
+				.replace("\\[URL=(.*?)](.*?)\\[/URL]".toRegex(), "<a href=\$1>\$2</a>")
+				.replace("\\[(?!autor|/autor)(?!award|/award)(?!work|/work)(?!link|/link)(?!translator|/translator)(.*?)]".toRegex(), "<$1>")
+				.replace("(<PHOTO.*?>)".toRegex(), "")
+				.replace("\n", "<br>")
+	}
 
 	private fun render(textView: TextView, markdown: String, width: Int) {
 		val extensions = Arrays.asList(

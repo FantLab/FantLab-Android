@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v7.widget.CardView
 import android.view.View
-import android.widget.LinearLayout
 import butterknife.BindView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.MarkMini
@@ -23,10 +22,8 @@ import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
 import ru.fantlab.android.ui.modules.work.analogs.WorkAnalogsFragment
-import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
-import ru.fantlab.android.ui.widgets.dialog.ListDialogView
 import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 
@@ -91,7 +88,10 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			name2.visibility = View.GONE
 		} else {
 			name.text = work.name
-			name2.text = work.nameOrig
+			if (!InputHelper.isEmpty(work.nameOrig))
+				name2.text = work.nameOrig
+			else
+				name2.visibility = View.GONE
 		}
 
 		types.text = if (work.year != null) "${work.type}, ${work.year}" else work.type
@@ -103,13 +103,11 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 				.append(work.rating.votersCount)
 		} else rate.visibility = View.GONE
 
-		if (!InputHelper.isEmpty(work.notes)) MarkDownProvider.setMdText(notes, work.notes) else getString(R.string.no_notes)
+		if (!InputHelper.isEmpty(work.notes))
+			work.notes.let { MarkDownProvider.setMdText(notes, work.notes) } else notes.visibility = View.GONE
 
 		if (!InputHelper.isEmpty(work.description))
-			work.description?.let { MarkDownProvider.setMdText(description, work.description
-					.replace("\\[(.*?)]".toRegex(), "<$1>")
-					.replace("\n", "<br/>")
-			) }
+			work.description?.let { MarkDownProvider.setMdText(description, work.description) }
 		else
 			aboutView.visibility = View.GONE
 

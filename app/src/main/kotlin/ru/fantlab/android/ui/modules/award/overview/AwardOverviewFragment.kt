@@ -91,27 +91,11 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 			} else title2.text = award.name
 		}
 
-				MarkDownProvider.setMdText(description, award.description
-				.replace("[*]", "<li>")
-				.replace("\\u003d".toRegex(), "=")
-				.replace("\\[URL=(.*?)](.*?)\\[/URL]".toRegex(), "<a href=\$1>\$2</a>")
-				.replace("\\[(?!autor|/autor)(?!award|/award)(?!link|/link)(.*?)]".toRegex(), "<$1>")
-				.replace("(<PHOTO.*?>)".toRegex(), "")
-		)
+				MarkDownProvider.setMdText(description, award.description)
 
-		MarkDownProvider.setMdText(comment, award.comment
-				.replace("[*]", "<li>")
-				.replace("\\u003d".toRegex(), "=")
-				.replace("\\[URL=(.*?)](.*?)\\[/URL]".toRegex(), "<a href=\$1>\$2</a>")
-				.replace("\\[(?!autor|/autor)(?!award|/award)(?!link|/link)(.*?)]".toRegex(), "<$1>")
-				.replace("(<PHOTO.*?>)".toRegex(), ""))
+		MarkDownProvider.setMdText(comment, award.comment)
 
-		MarkDownProvider.setMdText(notes, award.notes
-				.replace("[*]", "<li>")
-				.replace("\\u003d".toRegex(), "=")
-				.replace("\\[URL=(.*?)](.*?)\\[/URL]".toRegex(), "<a href=\$1>\$2</a>")
-				.replace("\\[(?!autor|/autor)(?!award|/award)(?!link|/link)(.*?)]".toRegex(), "<$1>")
-				.replace("(<PHOTO.*?>)".toRegex(), ""))
+		MarkDownProvider.setMdText(notes, award.notes)
 
 		Glide.with(context)
 				.load("https://${LinkParserHelper.HOST_DEFAULT}/img/flags/${award.countryId}.png")
