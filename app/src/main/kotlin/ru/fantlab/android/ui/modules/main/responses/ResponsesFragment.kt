@@ -126,10 +126,12 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
 		if (listItem is Response) when (item.id){
 			"vote" -> {
-				if (PrefGetter.getLoggedUser()?.id != listItem.userId)
-					presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
-				else
-					showErrorMessage(getString(R.string.cannotvote))
+				if (isLoggedIn()) {
+					if (PrefGetter.getLoggedUser()?.id != listItem.userId)
+						presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
+					else
+						showErrorMessage(getString(R.string.cannotvote))
+				} else showErrorMessage(getString(R.string.unauthorized_user))
 			}
 			"profile" -> {
 				UserPagerActivity.startActivity(context!!, listItem.userName, listItem.userId,0 )
