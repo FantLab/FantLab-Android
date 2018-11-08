@@ -42,7 +42,6 @@ class AwardNominationsFragment : BaseFragment<AwardNominationsMvp.View, AwardNom
 		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addDivider()
 		adapter.listener = presenter
-		fastScroller.attachRecyclerView(recycler)
 		recycler.adapter = adapter
 		if (presenter.getAwardNominations().isEmpty() && !presenter.isApiCalled()) {
 			onRefresh()
@@ -97,6 +96,7 @@ class AwardNominationsFragment : BaseFragment<AwardNominationsMvp.View, AwardNom
 			}
 			adapter.insertItems(items)
 		}
+		fastScroller.attachRecyclerView(recycler)
 	}
 
     override fun onSetTabCount(allCount: Int) {

@@ -57,7 +57,6 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addDivider()
-		fastScroller.attachRecyclerView(recycler)
 		this.cycles = cycles
 		this.works = works
 
@@ -116,6 +115,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 			}
 		})
 		adapter.setListener(presenter)
+		fastScroller.attachRecyclerView(recycler)
 	}
 
 	private fun extractListData(bibliography: WorksBlocks?, nodes: ArrayList<TreeNode<*>>, marks: ArrayList<MarkMini>?) {

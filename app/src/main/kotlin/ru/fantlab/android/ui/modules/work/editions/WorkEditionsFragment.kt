@@ -60,12 +60,12 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
         recycler.setEmptyView(stateLayout, refresh)
         recycler.addKeyLineDivider()
         adapter.listener = presenter
-        fastScroller.attachRecyclerView(recycler)
         editions?.editionsBlocks?.let {
             it.forEach {
             adapter.addItems(it.list)
         } }
         recycler.adapter = adapter
+		fastScroller.attachRecyclerView(recycler)
 	}
 
     override fun onAttach(context: Context?) {

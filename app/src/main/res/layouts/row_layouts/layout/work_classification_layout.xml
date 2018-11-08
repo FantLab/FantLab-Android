@@ -9,13 +9,28 @@
     tools:ignore="MergeRootFrame"
     >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
         <ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
             android:id="@+id/recycler"
-            android:layout_marginTop="@dimen/spacing_normal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="@string/staggered_layout_manager"
-            app:spanCount="@integer/micro_spans" />
+            app:spanCount="@integer/micro_spans"
+            />
+
+        <ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
+            android:id="@+id/fastScroller"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            />
+
+    </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/progress"

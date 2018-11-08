@@ -64,7 +64,6 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addDivider()
-		fastScroller.attachRecyclerView(recycler)
 		if (contests != null) {
 			onSetTabCount(contests.size)
 			initAdapter(contests)
@@ -154,7 +153,7 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 				position++
 			}
 		}
-
+		fastScroller.attachRecyclerView(recycler)
 	}
 
 	override fun onSaveInstanceState(outState: Bundle) {

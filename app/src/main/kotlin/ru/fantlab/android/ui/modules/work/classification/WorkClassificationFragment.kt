@@ -16,6 +16,7 @@ import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
+import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import java.util.*
@@ -27,6 +28,7 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.progress) lateinit var progress: View
 	private var workClassification: ArrayList<GenreGroup>? = null
+	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
 	override fun fragmentLayout() = R.layout.work_classification_layout
 
@@ -107,6 +109,7 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 			}
 		})
 		recycler.adapter = adapter
+		fastScroller.attachRecyclerView(recycler)
 	}
 
 	override fun onSaveInstanceState(outState: Bundle) {
