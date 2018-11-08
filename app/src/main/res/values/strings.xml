@@ -184,4 +184,8 @@
 	<string name="set_mark">Set mark</string>
 	<string name="cannotvote">You can not vote for your review</string>
 	<string name="cannotvote_novice">Users with the class \"Novice\" can not vote for reviews</string>
+	<string name="about_author">About author</string>
+	<string name="description">Description</string>
+	<string name="information">Information</string>
+	<string name="note">Note</string>
 </resources>

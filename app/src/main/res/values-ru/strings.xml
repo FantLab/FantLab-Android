@@ -154,4 +154,8 @@
 	<string name="set_mark">Оценить</string>
 	<string name="cannotvote">Нельзя голосовать за свой отзыв</string>
 	<string name="cannotvote_novice">Пользователи с классом \"Новичок\" не могут голосовать за отзывы</string>
+	<string name="about_author">Об авторе</string>
+	<string name="description">Описание</string>
+	<string name="information">Информация</string>
+	<string name="note">Примечание</string>
 </resources>

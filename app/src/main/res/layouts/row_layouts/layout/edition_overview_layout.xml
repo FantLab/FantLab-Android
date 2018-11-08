@@ -8,6 +8,7 @@
 	android:layout_height="match_parent"
 	android:clipToPadding="false"
 	android:orientation="vertical"
+	tools:ignore="RtlSymmetry"
 	>
 
 	<FrameLayout
@@ -16,247 +17,278 @@
 		android:orientation="vertical"
 		>
 
-		<LinearLayout
+		<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
+			android:layout_height="match_parent"
 			>
 
 			<android.support.v7.widget.CardView
+				android:id="@+id/topView"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:layout_marginBottom="@dimen/spacing_normal"
+				android:elevation="@dimen/spacing_normal"
+				app:cardBackgroundColor="?card_background"
+				app:cardCornerRadius="0dp"
+				>
+
+				<LinearLayout
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					>
+
+					<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						>
+
+
+						<ru.fantlab.android.ui.widgets.CoverLayout
+							android:id="@+id/coverLayout"
+							android:layout_width="100dp"
+							android:layout_height="140dp"
+							android:layout_gravity="center_horizontal"
+							android:layout_marginBottom="@dimen/spacing_normal"
+							android:layout_marginLeft="@dimen/spacing_xs_large"
+							android:layout_marginRight="@dimen/spacing_xs_large"
+							android:layout_marginTop="@dimen/spacing_xs_large"
+							android:elevation="1dp"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/types"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/compilers"
+							android:layout_toEndOf="@+id/coverLayout"
+							tools:text="авторский сборник"
+							style="@style/TextAppearance.AppCompat.Caption"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/compilers"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/authors"
+							android:layout_marginTop="@dimen/spacing_micro"
+							android:layout_toEndOf="@+id/coverLayout"
+							tools:text="Составитель: !"
+							style="@style/TextAppearance.AppCompat.Caption"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/title"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_alignParentEnd="true"
+							android:layout_alignTop="@+id/coverLayout"
+							android:layout_marginTop="@dimen/spacing_xs_large"
+							android:layout_toEndOf="@+id/coverLayout"
+							tools:text="Гиперион"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/authors"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@+id/title"
+							android:layout_toEndOf="@+id/coverLayout"
+							tools:text="Дэн Симмонс"
+							style="@style/TextAppearance.AppCompat.Caption"
+							/>
+
+
+					</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+				</LinearLayout>
+			</android.support.v7.widget.CardView>
+
+			<android.support.v7.widget.CardView
+				android:id="@+id/descriptionCard"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/topView"
+				android:layout_marginBottom="@dimen/spacing_normal"
+				android:elevation="@dimen/spacing_normal"
 				app:cardBackgroundColor="?card_background"
 				app:cardCornerRadius="0dp"
 				>
 
 				<LinearLayout
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
+					android:layout_height="match_parent"
 					android:orientation="vertical"
-					android:paddingTop="@dimen/spacing_xs_large"
+					android:padding="4dp"
 					>
 
-					<ru.fantlab.android.ui.widgets.CoverLayout
-						android:id="@+id/coverLayout"
-						android:layout_width="100dp"
-						android:layout_height="150dp"
-						android:layout_gravity="center_horizontal"
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:id="@+id/fontTextView5"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginBottom="@dimen/spacing_micro"
+						android:text="@string/description"
+						style="@style/TextAppearance.AppCompat.Title"
 						/>
 
-					<android.support.v7.widget.CardView
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:id="@+id/description"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_margin="@dimen/spacing_xs_large"
-						android:elevation="@dimen/spacing_xs_large"
-						app:cardBackgroundColor="?card_background"
-						app:cardCornerRadius="0dp"
-						app:contentPaddingBottom="@dimen/spacing_normal"
-						app:contentPaddingLeft="@dimen/spacing_xs_large"
-						app:contentPaddingRight="@dimen/spacing_xs_large"
-						app:contentPaddingTop="@dimen/spacing_normal"
-						>
-
-						<LinearLayout
-							android:layout_width="match_parent"
-							android:layout_height="wrap_content"
-							android:orientation="vertical"
-							>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/authors"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								tools:text="Дэн Симмонс"
-								style="@style/Base.TextAppearance.AppCompat.Medium"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/compilers"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="Составитель: Владимир Харитонов"
-								style="@style/Base.TextAppearance.AppCompat.Medium"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/title"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="Песни Гипериона: Гиперион. Падение Гипериона"
-								style="@style/Base.TextAppearance.AppCompat.Title"
-								/>
-
-						</LinearLayout>
-
-					</android.support.v7.widget.CardView>
-
-					<android.support.v7.widget.CardView
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layout_marginBottom="@dimen/spacing_xs_large"
-						android:layout_marginEnd="@dimen/spacing_xs_large"
-						android:layout_marginStart="@dimen/spacing_xs_large"
-						android:elevation="@dimen/spacing_xs_large"
-						app:cardBackgroundColor="?card_background"
-						app:cardCornerRadius="0dp"
-						app:contentPaddingBottom="@dimen/spacing_normal"
-						app:contentPaddingLeft="@dimen/spacing_xs_large"
-						app:contentPaddingRight="@dimen/spacing_xs_large"
-						app:contentPaddingTop="@dimen/spacing_normal"
-						>
-
-						<LinearLayout
-							android:layout_width="match_parent"
-							android:layout_height="wrap_content"
-							android:orientation="vertical"
-							>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/types"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="авторский сборник, омнибус"
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/publishers"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="АСТ, 2003 г."
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/series"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="Серия: Библиотека фантастики"
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/copyCount"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="Тираж: 6000 экз."
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/isbns"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="ISBN: 5-17-016546-3"
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/coverType"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="Тип обложки: твёрдая"
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/format"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="Формат: 60x90/16 (145x215 мм)"
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/pagesCount"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="Страниц: 976"
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/planDate"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="@dimen/spacing_micro"
-								tools:text="Выход по плану: январь 2018"
-								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								/>
-
-						</LinearLayout>
-
-					</android.support.v7.widget.CardView>
-
-					<android.support.v7.widget.CardView
-						android:id="@+id/descriptionCard"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layout_marginBottom="@dimen/spacing_xs_large"
-						android:layout_marginEnd="@dimen/spacing_xs_large"
-						android:layout_marginStart="@dimen/spacing_xs_large"
-						android:elevation="@dimen/spacing_xs_large"
-						app:cardBackgroundColor="?card_background"
-						app:cardCornerRadius="0dp"
-						app:contentPaddingBottom="@dimen/spacing_normal"
-						app:contentPaddingLeft="@dimen/spacing_xs_large"
-						app:contentPaddingRight="@dimen/spacing_xs_large"
-						app:contentPaddingTop="@dimen/spacing_normal"
-						>
-
-						<ru.fantlab.android.ui.widgets.FontTextView
-							android:id="@+id/description"
-							android:layout_width="match_parent"
-							android:layout_height="wrap_content"
-							android:layout_marginTop="@dimen/spacing_micro"
-							tools:text="Описание: Первая дилогия цикла «Песни Гипериона»."
-							style="@style/Base.TextAppearance.AppCompat.Subhead"
-							/>
-
-					</android.support.v7.widget.CardView>
-
-					<android.support.v7.widget.CardView
-						android:id="@+id/notesCard"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layout_marginBottom="@dimen/spacing_xs_large"
-						android:layout_marginEnd="@dimen/spacing_xs_large"
-						android:layout_marginStart="@dimen/spacing_xs_large"
-						android:elevation="@dimen/spacing_xs_large"
-						app:cardBackgroundColor="?card_background"
-						app:cardCornerRadius="0dp"
-						app:contentPaddingBottom="@dimen/spacing_normal"
-						app:contentPaddingLeft="@dimen/spacing_xs_large"
-						app:contentPaddingRight="@dimen/spacing_xs_large"
-						app:contentPaddingTop="@dimen/spacing_normal"
-						>
-
-						<ru.fantlab.android.ui.widgets.FontTextView
-							android:id="@+id/notes"
-							android:layout_width="match_parent"
-							android:layout_height="wrap_content"
-							android:layout_marginTop="@dimen/spacing_micro"
-							tools:text="Доп. тираж 3000 экз. (2005 г.)."
-							style="@style/Base.TextAppearance.AppCompat.Subhead"
-							/>
-
-					</android.support.v7.widget.CardView>
+						android:paddingStart="@dimen/spacing_micro"
+						style="@style/TextAppearance.AppCompat.Caption"
+						/>
 
 				</LinearLayout>
-
 			</android.support.v7.widget.CardView>
 
-		</LinearLayout>
+			<android.support.v7.widget.CardView
+				android:id="@+id/commentView"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/descriptionCard"
+				android:layout_marginBottom="@dimen/spacing_normal"
+				android:elevation="@dimen/spacing_normal"
+				app:cardBackgroundColor="?card_background"
+				app:cardCornerRadius="0dp"
+				>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:orientation="vertical"
+					android:padding="4dp"
+					>
+
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginBottom="@dimen/spacing_micro"
+						android:text="@string/information"
+						style="@style/TextAppearance.AppCompat.Title"
+						/>
+
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="vertical"
+						>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/publishers"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="@dimen/spacing_micro"
+							tools:text="АСТ, 2003 г."
+							style="@style/Base.TextAppearance.AppCompat.Caption"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/series"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="@dimen/spacing_micro"
+							tools:text="Серия: Библиотека фантастики"
+							style="@style/Base.TextAppearance.AppCompat.Caption"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/copyCount"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="@dimen/spacing_micro"
+							tools:text="Тираж: 6000 экз."
+							style="@style/Base.TextAppearance.AppCompat.Caption"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/isbns"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="@dimen/spacing_micro"
+							tools:text="ISBN: 5-17-016546-3"
+							style="@style/Base.TextAppearance.AppCompat.Caption"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/coverType"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="@dimen/spacing_micro"
+							tools:text="Тип обложки: твёрдая"
+							style="@style/Base.TextAppearance.AppCompat.Caption"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/format"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="@dimen/spacing_micro"
+							tools:text="Формат: 60x90/16 (145x215 мм)"
+							style="@style/Base.TextAppearance.AppCompat.Caption"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/pagesCount"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="@dimen/spacing_micro"
+							tools:text="Страниц: 976"
+							style="@style/Base.TextAppearance.AppCompat.Caption"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/planDate"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="@dimen/spacing_micro"
+							tools:text="Выход по плану: январь 2018"
+							style="@style/Base.TextAppearance.AppCompat.Caption"
+							/>
+
+					</LinearLayout>
+
+
+				</LinearLayout>
+			</android.support.v7.widget.CardView>
+
+			<android.support.v7.widget.CardView
+				android:id="@+id/notesCard"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/commentView"
+				android:layout_marginBottom="@dimen/spacing_normal"
+				android:elevation="@dimen/spacing_normal"
+				app:cardBackgroundColor="?card_background"
+				app:cardCornerRadius="0dp"
+				>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:orientation="vertical"
+					android:padding="4dp"
+					>
+
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginBottom="@dimen/spacing_micro"
+						android:text="@string/note"
+						style="@style/TextAppearance.AppCompat.Title"
+						/>
+
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:id="@+id/notes"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:paddingStart="@dimen/spacing_micro"
+						style="@style/TextAppearance.AppCompat.Caption"
+						/>
+
+				</LinearLayout>
+			</android.support.v7.widget.CardView>
+
+		</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+
 
 		<LinearLayout
 			android:id="@+id/progress"

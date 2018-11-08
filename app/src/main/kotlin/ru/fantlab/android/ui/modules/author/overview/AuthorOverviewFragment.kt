@@ -5,17 +5,23 @@ import android.os.Bundle
 import android.support.annotation.StringRes
 import android.text.Html
 import android.view.View
+import android.widget.ImageView
 import butterknife.BindView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Author
 import ru.fantlab.android.data.dao.model.Biography
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
+import ru.fantlab.android.provider.markdown.MarkDownProvider
+import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
+import java.lang.StringBuilder
 
 class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOverviewPresenter>(),
 		AuthorOverviewMvp.View {
@@ -23,12 +29,15 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 	@BindView(R.id.progress) lateinit var progress: View
     @BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
     @BindView(R.id.author) lateinit var authorName: FontTextView
+    @BindView(R.id.author2) lateinit var authorNameOrig: FontTextView
     @BindView(R.id.date) lateinit var date: FontTextView
     @BindView(R.id.country) lateinit var country: FontTextView
+    @BindView(R.id.langIcon) lateinit var langIcon: ImageView
 	@BindView(R.id.notOpened) lateinit var notOpened: FontTextView
 	@BindView(R.id.biographyCard) lateinit var biographyCard: View
     @BindView(R.id.biography) lateinit var biographyText: FontTextView
     @BindView(R.id.source) lateinit var source: FontTextView
+    @BindView(R.id.homepage) lateinit var homepage: FontTextView
 
 	private var author: Author? = null
 	private var biography: Biography? = null
@@ -55,20 +64,27 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 		hideProgress()
 		coverLayout.setUrl("https:${author.image}")
 
+		Glide.with(context)
+				.load("https://${LinkParserHelper.HOST_DEFAULT}/img/flags/${author.countryId}.png")
+				.diskCacheStrategy(DiskCacheStrategy.ALL)
+				.dontAnimate()
+				.into(langIcon)
+
 		if (!InputHelper.isEmpty(author.countryName))
 			country.text = author.countryName
 		else
 			country.visibility = View.GONE
 
-        authorName.text = if (author.name.isNotEmpty()) {
-            if (author.nameOriginal.isNotEmpty()) {
-                "${author.name} / ${author.nameOriginal}"
-            } else {
-                author.name
-            }
-        } else {
-            author.nameOriginal
-        }
+		if (InputHelper.isEmpty(author.name)){
+			authorName.text = author.nameOriginal
+			authorNameOrig.visibility = View.GONE
+		} else {
+			authorName.text = author.name
+			if (!InputHelper.isEmpty(author.nameOriginal))
+				authorNameOrig.text = author.nameOriginal
+			else
+				authorNameOrig.visibility = View.GONE
+		}
 
 		pagerCallback?.onSetTitle(if (!InputHelper.isEmpty(author.name)) author.name else author.nameOriginal)
 
@@ -79,6 +95,15 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 			date.text = author.birthDay
 		} else {
 			date.visibility = View.GONE
+		}
+
+		if (biography?.sites != null && biography.sites.isNotEmpty()) {
+			val sb = StringBuilder()
+			biography.sites.forEachIndexed { index, it ->
+				sb.append("<a href=\"${it.site}\">${it.description.capitalize()}</a>")
+				if (index <= biography.sites.size) sb.append("\n")
+			}
+			MarkDownProvider.setMdText(homepage, sb.toString())
 		}
 
 		if (author.isOpened == 1) {
