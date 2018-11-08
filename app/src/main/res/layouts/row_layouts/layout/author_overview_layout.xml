@@ -148,14 +148,17 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:orientation="vertical"
-					android:padding="4dp"
+					android:paddingStart="16dp"
+					android:paddingEnd="16dp"
+					android:paddingTop="8dp"
+					android:paddingBottom="8dp"
 					>
 
 					<ru.fantlab.android.ui.widgets.FontTextView
 						android:id="@+id/fontTextView5"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_marginBottom="@dimen/spacing_micro"
+						android:layout_marginBottom="@dimen/spacing_normal"
 						android:text="@string/about_author"
 						style="@style/TextAppearance.AppCompat.Title"
 						/>
@@ -164,7 +167,6 @@
 						android:id="@+id/biography"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:paddingStart="@dimen/spacing_micro"
 						tools:text="Дэн Симмонс родился в Пеории, штат Иллинойс, 4 апреля 1948 года. "
 						style="@style/TextAppearance.AppCompat.Caption"
 						/>

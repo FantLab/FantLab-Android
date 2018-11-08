@@ -134,14 +134,17 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:orientation="vertical"
-					android:padding="4dp"
+					android:paddingStart="16dp"
+					android:paddingEnd="16dp"
+					android:paddingTop="8dp"
+					android:paddingBottom="8dp"
 					>
 
 					<ru.fantlab.android.ui.widgets.FontTextView
 						android:id="@+id/fontTextView5"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_marginBottom="@dimen/spacing_micro"
+						android:layout_marginBottom="@dimen/spacing_normal"
 						android:text="@string/about_award"
 						style="@style/TextAppearance.AppCompat.Title"
 						/>
@@ -150,7 +153,6 @@
 						android:id="@+id/description"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:paddingStart="@dimen/spacing_micro"
 						style="@style/TextAppearance.AppCompat.Caption"
 						/>
 
@@ -172,13 +174,16 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:orientation="vertical"
-					android:padding="4dp"
+					android:paddingStart="16dp"
+					android:paddingEnd="16dp"
+					android:paddingTop="8dp"
+					android:paddingBottom="8dp"
 					>
 
 					<ru.fantlab.android.ui.widgets.FontTextView
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_marginBottom="@dimen/spacing_micro"
+						android:layout_marginBottom="@dimen/spacing_normal"
 						android:text="@string/comments"
 						style="@style/TextAppearance.AppCompat.Title"
 						/>
@@ -187,7 +192,6 @@
 						android:id="@+id/comment"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:paddingStart="@dimen/spacing_micro"
 						style="@style/TextAppearance.AppCompat.Caption"
 						/>
 
@@ -209,13 +213,16 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:orientation="vertical"
-					android:padding="4dp"
+					android:paddingStart="16dp"
+					android:paddingEnd="16dp"
+					android:paddingTop="8dp"
+					android:paddingBottom="8dp"
 					>
 
 					<ru.fantlab.android.ui.widgets.FontTextView
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_marginBottom="@dimen/spacing_micro"
+						android:layout_marginBottom="@dimen/spacing_normal"
 						android:text="@string/notes"
 						style="@style/TextAppearance.AppCompat.Title"
 						/>
@@ -224,7 +231,6 @@
 						android:id="@+id/notes"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:paddingStart="@dimen/spacing_micro"
 						style="@style/TextAppearance.AppCompat.Caption"
 						/>
 

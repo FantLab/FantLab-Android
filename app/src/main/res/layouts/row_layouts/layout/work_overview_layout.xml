@@ -165,8 +165,8 @@
 						android:layout_height="wrap_content"
 						android:layout_marginBottom="@dimen/spacing_micro"
 						android:includeFontPadding="false"
-						style="@style/TextAppearance.AppCompat.Title"
 						android:text="@string/about"
+						style="@style/TextAppearance.AppCompat.Title"
 						/>
 
 					<ru.fantlab.android.ui.widgets.FontTextView

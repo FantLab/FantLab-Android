@@ -117,7 +117,10 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:orientation="vertical"
-					android:padding="4dp"
+					android:paddingStart="16dp"
+					android:paddingEnd="16dp"
+					android:paddingTop="8dp"
+					android:paddingBottom="8dp"
 					>
 
 					<ru.fantlab.android.ui.widgets.FontTextView
@@ -133,7 +136,6 @@
 						android:id="@+id/description"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:paddingStart="@dimen/spacing_micro"
 						style="@style/TextAppearance.AppCompat.Caption"
 						/>
 
@@ -155,13 +157,16 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:orientation="vertical"
-					android:padding="4dp"
+					android:paddingStart="16dp"
+					android:paddingEnd="16dp"
+					android:paddingTop="8dp"
+					android:paddingBottom="8dp"
 					>
 
 					<ru.fantlab.android.ui.widgets.FontTextView
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_marginBottom="@dimen/spacing_micro"
+						android:layout_marginBottom="@dimen/spacing_normal"
 						android:text="@string/information"
 						style="@style/TextAppearance.AppCompat.Title"
 						/>
@@ -176,7 +181,6 @@
 							android:id="@+id/publishers"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_marginTop="@dimen/spacing_micro"
 							tools:text="АСТ, 2003 г."
 							style="@style/Base.TextAppearance.AppCompat.Caption"
 							/>
@@ -185,7 +189,6 @@
 							android:id="@+id/series"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_marginTop="@dimen/spacing_micro"
 							tools:text="Серия: Библиотека фантастики"
 							style="@style/Base.TextAppearance.AppCompat.Caption"
 							/>
@@ -194,7 +197,6 @@
 							android:id="@+id/copyCount"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_marginTop="@dimen/spacing_micro"
 							tools:text="Тираж: 6000 экз."
 							style="@style/Base.TextAppearance.AppCompat.Caption"
 							/>
@@ -203,7 +205,6 @@
 							android:id="@+id/isbns"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_marginTop="@dimen/spacing_micro"
 							tools:text="ISBN: 5-17-016546-3"
 							style="@style/Base.TextAppearance.AppCompat.Caption"
 							/>
@@ -212,7 +213,6 @@
 							android:id="@+id/coverType"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_marginTop="@dimen/spacing_micro"
 							tools:text="Тип обложки: твёрдая"
 							style="@style/Base.TextAppearance.AppCompat.Caption"
 							/>
@@ -221,7 +221,6 @@
 							android:id="@+id/format"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_marginTop="@dimen/spacing_micro"
 							tools:text="Формат: 60x90/16 (145x215 мм)"
 							style="@style/Base.TextAppearance.AppCompat.Caption"
 							/>
@@ -230,7 +229,6 @@
 							android:id="@+id/pagesCount"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_marginTop="@dimen/spacing_micro"
 							tools:text="Страниц: 976"
 							style="@style/Base.TextAppearance.AppCompat.Caption"
 							/>
@@ -239,7 +237,6 @@
 							android:id="@+id/planDate"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_marginTop="@dimen/spacing_micro"
 							tools:text="Выход по плану: январь 2018"
 							style="@style/Base.TextAppearance.AppCompat.Caption"
 							/>
@@ -265,13 +262,16 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:orientation="vertical"
-					android:padding="4dp"
+					android:paddingStart="16dp"
+					android:paddingEnd="16dp"
+					android:paddingTop="8dp"
+					android:paddingBottom="8dp"
 					>
 
 					<ru.fantlab.android.ui.widgets.FontTextView
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_marginBottom="@dimen/spacing_micro"
+						android:layout_marginBottom="@dimen/spacing_normal"
 						android:text="@string/note"
 						style="@style/TextAppearance.AppCompat.Title"
 						/>
@@ -280,7 +280,6 @@
 						android:id="@+id/notes"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:paddingStart="@dimen/spacing_micro"
 						style="@style/TextAppearance.AppCompat.Caption"
 						/>
 
