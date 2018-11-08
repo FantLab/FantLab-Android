@@ -3,6 +3,7 @@ package ru.fantlab.android.ui.modules.award.overview
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
+import android.support.v7.widget.CardView
 import android.view.View
 import android.widget.ImageView
 import butterknife.BindView
@@ -29,8 +30,11 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
     @BindView(R.id.title) lateinit var title: FontTextView
     @BindView(R.id.title2) lateinit var title2: FontTextView
     @BindView(R.id.description) lateinit var description: FontTextView
+    @BindView(R.id.aboutView) lateinit var descriptionView: CardView
     @BindView(R.id.comment) lateinit var comment: FontTextView
+    @BindView(R.id.commentView) lateinit var commentView: CardView
     @BindView(R.id.notes) lateinit var notes: FontTextView
+    @BindView(R.id.notesView) lateinit var notesView: CardView
     @BindView(R.id.country) lateinit var country: FontTextView
     @BindView(R.id.date) lateinit var date: FontTextView
     @BindView(R.id.homepage) lateinit var homepage: FontTextView
@@ -91,11 +95,17 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 			} else title2.text = award.name
 		}
 
-				MarkDownProvider.setMdText(description, award.description)
+		if (!InputHelper.isEmpty(award.description))
+			MarkDownProvider.setMdText(description, award.description)
+		else descriptionView.visibility = View.GONE
 
-		MarkDownProvider.setMdText(comment, award.comment)
+		if (!InputHelper.isEmpty(award.comment))
+			MarkDownProvider.setMdText(comment, award.comment)
+		else commentView.visibility = View.GONE
 
-		MarkDownProvider.setMdText(notes, award.notes)
+		if (!InputHelper.isEmpty(award.notes))
+			MarkDownProvider.setMdText(notes, award.notes)
+		else notesView.visibility = View.GONE
 
 		Glide.with(context)
 				.load("https://${LinkParserHelper.HOST_DEFAULT}/img/flags/${award.countryId}.png")
