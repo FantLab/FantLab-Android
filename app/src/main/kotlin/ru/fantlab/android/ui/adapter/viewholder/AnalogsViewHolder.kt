@@ -28,9 +28,12 @@ class AnalogsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorkAnalog,
 			authors.visibility = View.GONE
 		}
 
-		title.text = if (analog.rusName.isNotEmpty()) analog.rusName.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "") else analog.name
+		title.text = if (analog.rusName.isNotEmpty())
+			analog.rusName.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")
+		else
+			analog.name
 
-		if (analog.year != null && analog.year != 0){
+		if (analog.year != null && analog.year != 0) {
 			year.text = analog.year.toString()
 		} else year.visibility = View.GONE
 	}
@@ -39,7 +42,10 @@ class AnalogsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorkAnalog,
 
 		private val ANY_CHARACTERS_IN_BRACKETS_REGEX = "\\[.*?]".toRegex()
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<WorkAnalog, AnalogsViewHolder, *>) : AnalogsViewHolder
-				= AnalogsViewHolder(getView(viewGroup, R.layout.work_analog_row_item), adapter)
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<WorkAnalog, AnalogsViewHolder, *>
+		): AnalogsViewHolder =
+				AnalogsViewHolder(getView(viewGroup, R.layout.work_analog_row_item), adapter)
 	}
 }

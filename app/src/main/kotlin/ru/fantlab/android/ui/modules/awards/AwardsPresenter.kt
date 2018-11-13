@@ -21,7 +21,7 @@ class AwardsPresenter : BasePresenter<AwardsMvp.View>(), AwardsMvp.Presenter {
 	override fun onItemLongClick(position: Int, v: View?, item: AwardInList?) {
 	}
 
-	fun setCurrentSort(sortValue: String){
+	fun setCurrentSort(sortValue: String) {
 		sort = AwardsSortOption.valueOf(sortValue)
 		onReload()
 	}

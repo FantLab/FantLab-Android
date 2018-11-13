@@ -39,7 +39,7 @@ object SchemeParser {
 				}
 			}
 		} else {
-			if (url.contains(HOST_DEFAULT)){
+			if (url.contains(HOST_DEFAULT)) {
 				launchUri(context, url.substringAfterLast("/"), label)
 			} else openUrl(context, url)
 		}

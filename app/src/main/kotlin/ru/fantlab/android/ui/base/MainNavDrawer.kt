@@ -93,7 +93,7 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 					}
 					R.id.authors -> view.startActivity(Intent(view, AuthorsActivity::class.java))
 					R.id.awards -> view.startActivity(Intent(view, AwardsActivity::class.java))
-				//item.itemId == R.id.about -> view.startActivity(Intent(view, AboutActivity::class.java))
+					//item.itemId == R.id.about -> view.startActivity(Intent(view, AboutActivity::class.java))
 				}
 			}
 		}, 250)

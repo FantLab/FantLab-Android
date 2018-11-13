@@ -9,9 +9,8 @@ import java.util.*
 
 class SearchAuthorsAdapter constructor(authors: ArrayList<SearchAuthor>)
 	: BaseRecyclerAdapter<SearchAuthor, SearchAuthorsViewHolder, BaseViewHolder.OnItemClickListener<SearchAuthor>>(authors) {
-	
-	override fun viewHolder(parent: ViewGroup, viewType: Int): SearchAuthorsViewHolder
-			= SearchAuthorsViewHolder.newInstance(parent, this)
+
+	override fun viewHolder(parent: ViewGroup, viewType: Int): SearchAuthorsViewHolder = SearchAuthorsViewHolder.newInstance(parent, this)
 
 	override fun onBindView(holder: SearchAuthorsViewHolder, position: Int) {
 		holder.bind(getItem(position))

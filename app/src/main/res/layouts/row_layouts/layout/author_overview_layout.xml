@@ -68,10 +68,10 @@
 							android:id="@+id/notOpened"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:text="@string/author_not_opened"
-							android:textColor="@color/material_red_500"
 							android:layout_below="@+id/homepage"
 							android:layout_toEndOf="@+id/coverLayout"
+							android:text="@string/author_not_opened"
+							android:textColor="@color/material_red_500"
 							android:textStyle="bold"
 							style="@style/Base.TextAppearance.AppCompat.Subhead"
 							/>
@@ -148,10 +148,10 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:orientation="vertical"
-					android:paddingStart="16dp"
-					android:paddingEnd="16dp"
-					android:paddingTop="8dp"
 					android:paddingBottom="8dp"
+					android:paddingEnd="16dp"
+					android:paddingStart="16dp"
+					android:paddingTop="8dp"
 					>
 
 					<ru.fantlab.android.ui.widgets.FontTextView

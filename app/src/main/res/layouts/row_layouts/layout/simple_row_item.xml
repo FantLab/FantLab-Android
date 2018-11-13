@@ -6,13 +6,15 @@
 	android:foreground="?selectableItemBackgroundBorderless"
 	android:minHeight="?listPreferredItemHeightSmall"
 	android:orientation="vertical"
-	android:padding="@dimen/spacing_xs_large">
+	android:padding="@dimen/spacing_xs_large"
+	>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
 		android:id="@+id/title"
-		style="@style/TextAppearance.AppCompat.Subhead"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:ellipsize="end"
-		android:maxLines="3"/>
+		android:maxLines="3"
+		style="@style/TextAppearance.AppCompat.Subhead"
+		/>
 </FrameLayout>

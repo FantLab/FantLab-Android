@@ -15,12 +15,14 @@ class EditionContentChildViewHolder : TreeViewBinder<EditionContentChildViewHold
 	override val layoutId: Int
 		get() = R.layout.edition_content_child_row_item
 
-	override fun provideViewHolder(itemView: View): ViewHolder {
-		return ViewHolder(itemView)
-	}
+	override fun provideViewHolder(itemView: View) = ViewHolder(itemView)
 
 	override fun bindView(
-			holder: RecyclerView.ViewHolder, position: Int, node: TreeNode<*>, onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
+			holder: RecyclerView.ViewHolder,
+			position: Int,
+			node: TreeNode<*>,
+			onTreeNodeListener:
+			TreeViewAdapter.OnTreeNodeListener?
 	) {
 		val childNode = node.content as EditionContentChild?
 		(holder as EditionContentChildViewHolder.ViewHolder)
@@ -29,6 +31,5 @@ class EditionContentChildViewHolder : TreeViewBinder<EditionContentChildViewHold
 
 	inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
 		var title: FontTextView = rootView.findViewById<View>(R.id.title) as FontTextView
-
 	}
 }

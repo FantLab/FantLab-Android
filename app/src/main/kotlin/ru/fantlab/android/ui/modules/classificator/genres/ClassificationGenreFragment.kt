@@ -21,10 +21,9 @@ import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScrolle
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ClassificationGenreFragment : BaseFragment<ClassificationGenreMvp.View, ClassificationGenrePresenter>(),
-		ClassificationGenreMvp.View{
+		ClassificationGenreMvp.View {
 
 	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
@@ -32,12 +31,12 @@ class ClassificationGenreFragment : BaseFragment<ClassificationGenreMvp.View, Cl
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
 	private var classificator: ArrayList<ClassificatorModel>? = null
-
 	private var pagerCallback: ClassificatorPagerMvp.View? = null
+	var selectedItems = 0
 
 	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
 
-	var selectedItems = 0
+	override fun providePresenter() = ClassificationGenrePresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -51,8 +50,6 @@ class ClassificationGenreFragment : BaseFragment<ClassificationGenreMvp.View, Cl
 			}
 		}
 	}
-
-	override fun providePresenter() = ClassificationGenrePresenter()
 
 	override fun onInitViews(classificators: ArrayList<ClassificatorModel>) {
 		hideProgress()
@@ -96,6 +93,7 @@ class ClassificationGenreFragment : BaseFragment<ClassificationGenreMvp.View, Cl
 				}
 				return false
 			}
+
 			override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
 				val viewHolder = holder as ClassificatorViewHolder.ViewHolder
 				val ivArrow = viewHolder.arrow
@@ -107,9 +105,9 @@ class ClassificationGenreFragment : BaseFragment<ClassificationGenreMvp.View, Cl
 	}
 
 	private fun work(it: ClassificatorModel, root: TreeNode<Classificator>, lastLevel: Boolean) {
-		if (it.childs != null){
+		if (it.childs != null) {
 			val counter = root.childList.size - 1
-			it.childs.forEach{
+			it.childs.forEach {
 				val child = TreeNode(Classificator(it.name, it.descr, it.id))
 				if (lastLevel) {
 					val childB = TreeNode(Classificator(it.name, it.descr, it.id))

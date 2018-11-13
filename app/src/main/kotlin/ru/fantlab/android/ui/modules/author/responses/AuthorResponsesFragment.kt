@@ -37,7 +37,8 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 	@BindView(R.id.sortview) lateinit var sortView: SortView
-	lateinit var sortButton : Button
+
+	lateinit var sortButton: Button
 	@State var authorId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, authorId) }
 	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses()) }
@@ -178,12 +179,12 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	}
 
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
-		if (listItem is Response) when (item.id){
+		if (listItem is Response) when (item.id) {
 			"vote" -> {
 				presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
 			}
 			"profile" -> {
-				UserPagerActivity.startActivity(recycler.context, listItem.userName, listItem.userId,0 )
+				UserPagerActivity.startActivity(recycler.context, listItem.userName, listItem.userId, 0)
 			}
 			"message" -> {
 				startActivity(Intent(activity, EditorActivity::class.java)

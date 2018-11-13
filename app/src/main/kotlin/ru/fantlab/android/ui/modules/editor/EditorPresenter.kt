@@ -14,15 +14,15 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 
 	override fun onHandleSubmission(savedText: CharSequence?, extraType: String?,
 									itemId: Int?, reviewComment: Response?, mode: String) {
-        if (extraType == null || itemId == null) {
-            throw NullPointerException("not have required parameters")
-        }
-        when (extraType) {
+		if (extraType == null || itemId == null) {
+			throw NullPointerException("not have required parameters")
+		}
+		when (extraType) {
 			EDITOR_NEW_RESPONSE -> {
-                onEditorNewResponse(itemId, prepareHTML(savedText), mode)
-            }
+				onEditorNewResponse(itemId, prepareHTML(savedText), mode)
+			}
 			EDITOR_NEW_MESSAGE -> {
-				if (itemId == PrefGetter.getLoggedUser()?.id){
+				if (itemId == PrefGetter.getLoggedUser()?.id) {
 					onShowErrorMessage("Ошибка")
 					return
 				}
@@ -31,14 +31,12 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 			EDITOR_NEW_COMMENT -> {
 				onEditorNewComment(itemId, prepareHTML(savedText))
 			}
-        }
-    }
+		}
+	}
 
 	private fun prepareHTML(savedText: CharSequence?): CharSequence? {
 		val REGEX_TAGS = "<(.*?)>".toRegex()
-		return savedText?.
-				replace(REGEX_TAGS,"[$1]")?.
-				replace("[li]", "*")
+		return savedText?.replace(REGEX_TAGS, "[$1]")?.replace("[li]", "*")
 	}
 
 	override fun onEditorNewResponse(id: Int?, savedText: CharSequence?, mode: String) {
@@ -51,7 +49,8 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 						Consumer { result ->
 							sendToView { it.onSendMessageResult(result) }
 						}
-				)}
+				)
+			}
 		}
 	}
 
@@ -65,7 +64,8 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 						Consumer { result ->
 							sendToView { it.onSendMessageResult(result) }
 						}
-				)}
+				)
+			}
 		}
 	}
 
@@ -75,6 +75,4 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 	override fun onShowErrorMessage(message: String) {
 		sendToView { it.showErrorMessage(message) }
 	}
-
-
 }

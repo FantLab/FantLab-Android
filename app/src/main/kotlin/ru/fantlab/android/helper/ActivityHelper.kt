@@ -32,7 +32,8 @@ object ActivityHelper {
 	}
 
 	fun shareUrl(context: Context, url: String) {
-		val activity = getActivity(context) ?: throw IllegalArgumentException("Context given is not an instance of activity ${context.javaClass.name}")
+		val activity = getActivity(context)
+				?: throw IllegalArgumentException("Context given is not an instance of activity ${context.javaClass.name}")
 		try {
 			ShareCompat.IntentBuilder.from(activity)
 					.setChooserTitle(context.getString(R.string.share))
@@ -47,7 +48,7 @@ object ActivityHelper {
 	fun copyToClipboard(context: Context, uri: String) {
 		val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 		val clip = ClipData.newPlainText(context.getString(R.string.app_name), uri)
-		clipboard.setPrimaryClip(clip)
+		clipboard.primaryClip = clip
 		Toasty.success(App.instance, context.getString(R.string.success_copied)).show()
 	}
 }

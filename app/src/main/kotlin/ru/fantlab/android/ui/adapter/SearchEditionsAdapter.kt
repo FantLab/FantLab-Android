@@ -10,8 +10,7 @@ import java.util.*
 class SearchEditionsAdapter constructor(editions: ArrayList<SearchEdition>)
 	: BaseRecyclerAdapter<SearchEdition, SearchEditionsViewHolder, BaseViewHolder.OnItemClickListener<SearchEdition>>(editions) {
 
-	override fun viewHolder(parent: ViewGroup, viewType: Int): SearchEditionsViewHolder
-			= SearchEditionsViewHolder.newInstance(parent, this)
+	override fun viewHolder(parent: ViewGroup, viewType: Int): SearchEditionsViewHolder = SearchEditionsViewHolder.newInstance(parent, this)
 
 	override fun onBindView(holder: SearchEditionsViewHolder, position: Int) {
 		holder.bind(getItem(position))

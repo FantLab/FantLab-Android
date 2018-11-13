@@ -22,7 +22,10 @@ class ConstsViewHolder : TreeViewBinder<ConstsViewHolder.ViewHolder>() {
 	}
 
 	override fun bindView(
-			holder: RecyclerView.ViewHolder, position: Int, node: TreeNode<*>, onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
+			holder: RecyclerView.ViewHolder,
+			position: Int,
+			node: TreeNode<*>,
+			onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
 	) {
 		(holder as ConstsViewHolder.ViewHolder).ivArrow.rotation = 0f
 		holder.ivArrow.setImageResource(R.drawable.ic_keyboard_arrow_right_black_18dp)
@@ -30,7 +33,7 @@ class ConstsViewHolder : TreeViewBinder<ConstsViewHolder.ViewHolder>() {
 		holder.ivArrow.rotation = rotateDegree
 		val nodeRoot = node.content as ConstsParent?
 		holder.name.text = nodeRoot!!.title
-		if (!nodeRoot.description.isNullOrEmpty()){
+		if (!nodeRoot.description.isNullOrEmpty()) {
 			MarkDownProvider.setMdText(holder.description, nodeRoot.description!!)
 			holder.description.visibility = View.VISIBLE
 		} else holder.description.visibility = View.GONE
@@ -45,6 +48,5 @@ class ConstsViewHolder : TreeViewBinder<ConstsViewHolder.ViewHolder>() {
 		val ivArrow: ImageView = rootView.findViewById<View>(R.id.iv_arrow) as ImageView
 		var name: TextView = rootView.findViewById<View>(R.id.name) as TextView
 		var description: TextView = rootView.findViewById<View>(R.id.description) as ExpandableTextView
-
 	}
 }

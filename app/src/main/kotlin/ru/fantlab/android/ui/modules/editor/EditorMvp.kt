@@ -8,30 +8,30 @@ import ru.fantlab.android.ui.widgets.markdown.MarkDownLayout
 
 interface EditorMvp {
 
-    interface View : BaseMvp.View, EditorLinkImageMvp.EditorLinkCallback,
-            MarkDownLayout.MarkdownListener, SmileMvp.SmileCallback {
-        fun onSendResultAndFinish(commentModel: Response, isNew: Boolean)
+	interface View : BaseMvp.View, EditorLinkImageMvp.EditorLinkCallback,
+			MarkDownLayout.MarkdownListener, SmileMvp.SmileCallback {
+		fun onSendResultAndFinish(commentModel: Response, isNew: Boolean)
 
-        fun onSendMarkDownResult()
+		fun onSendMarkDownResult()
 
-        fun onSendReviewResultAndFinish(comment: Response, isNew: Boolean)
+		fun onSendReviewResultAndFinish(comment: Response, isNew: Boolean)
 
-        fun onSendMessageResult(result: String)
-    }
+		fun onSendMessageResult(result: String)
+	}
 
-    interface Presenter : BaseMvp.Presenter {
+	interface Presenter : BaseMvp.Presenter {
 
-        fun onEditorNewResponse(id: Int?, savedText: CharSequence?, mode: String)
+		fun onEditorNewResponse(id: Int?, savedText: CharSequence?, mode: String)
 
-        fun onEditorNewMessage(id: Int?, savedText: CharSequence?, mode: String)
+		fun onEditorNewMessage(id: Int?, savedText: CharSequence?, mode: String)
 
-        fun onEditorNewComment(id: Int?, savedText: CharSequence?)
+		fun onEditorNewComment(id: Int?, savedText: CharSequence?)
 
-        fun onHandleSubmission(savedText: CharSequence?, extraType: String?,
+		fun onHandleSubmission(savedText: CharSequence?, extraType: String?,
 							   itemId: Int?,
 							   reviewComment: Response?,
 							   mode: String)
 
 		fun onShowErrorMessage(message: String)
-    }
+	}
 }

@@ -10,8 +10,7 @@ import java.util.*
 class AuthorsAdapter constructor(authors: ArrayList<AuthorInList>)
 	: BaseRecyclerAdapter<AuthorInList, AuthorsViewHolder, BaseViewHolder.OnItemClickListener<AuthorInList>>(authors) {
 
-	override fun viewHolder(parent: ViewGroup, viewType: Int): AuthorsViewHolder
-			= AuthorsViewHolder.newInstance(parent, this)
+	override fun viewHolder(parent: ViewGroup, viewType: Int): AuthorsViewHolder = AuthorsViewHolder.newInstance(parent, this)
 
 	override fun onBindView(holder: AuthorsViewHolder, position: Int) {
 		holder.bind(getItem(position))

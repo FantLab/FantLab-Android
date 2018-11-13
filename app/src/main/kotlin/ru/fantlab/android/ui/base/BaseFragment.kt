@@ -72,7 +72,7 @@ abstract class BaseFragment<V : BaseMvp.View, P : BasePresenter<V>> : TiFragment
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		//if (AbstractLogin.getUser() != null) {
-			onFragmentCreated(view, savedInstanceState)
+		onFragmentCreated(view, savedInstanceState)
 		//}
 	}
 

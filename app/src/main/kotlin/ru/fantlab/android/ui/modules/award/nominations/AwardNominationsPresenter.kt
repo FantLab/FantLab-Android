@@ -9,8 +9,7 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 class AwardNominationsPresenter : BasePresenter<AwardNominationsMvp.View>(),
 		AwardNominationsMvp.Presenter {
 
-	@com.evernote.android.state.State
-	var awardId: Int? = null
+	@com.evernote.android.state.State var awardId: Int? = null
 	private var nominations: ArrayList<Award.Nominations> = ArrayList()
 
 	override fun onError(throwable: Throwable) {
@@ -37,7 +36,8 @@ class AwardNominationsPresenter : BasePresenter<AwardNominationsMvp.View>(),
 							it.onSetTabCount(AwardNominationsResponse.award.nominations?.size ?: 0)
 						}
 					}
-			)}
+			)
+		}
 	}
 
 	override fun onItemClick(position: Int, v: View?, item: Award.Nominations) {

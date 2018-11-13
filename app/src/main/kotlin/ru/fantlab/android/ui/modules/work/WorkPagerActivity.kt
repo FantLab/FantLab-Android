@@ -37,6 +37,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	@BindView(R.id.tabs) lateinit var tabs: TabLayout
 	@BindView(R.id.tabbedPager) lateinit var pager: ViewPagerView
 	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
+
 	@State var index: Int = 0
 	@State var workId: Int = 0
 	@State var workName: String = ""
@@ -153,8 +154,9 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 		}
 	}
 
-	@OnClick(R.id.fab) fun onFabClicked() {
-		when (pager.currentItem){
+	@OnClick(R.id.fab)
+	fun onFabClicked() {
+		when (pager.currentItem) {
 			1 -> {
 				ClassificatorPagerActivity.startActivity(this, workId)
 			}
@@ -193,7 +195,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 
 	override fun onScrolled(isUp: Boolean) {
 		if (isUp) {
-			fab.hide();
+			fab.hide()
 		} else {
 			hideShowFab(pager.currentItem)
 		}

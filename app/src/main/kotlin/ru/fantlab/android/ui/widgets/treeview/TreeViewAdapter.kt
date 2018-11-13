@@ -6,10 +6,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import java.util.*
 
-import java.util.ArrayList
+class TreeViewAdapter(nodes: List<TreeNode<*>>?, private val viewBinders: List<TreeViewBinder<*>>) :
+		RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-class TreeViewAdapter(nodes: List<TreeNode<*>>?, private val viewBinders: List<TreeViewBinder<*>>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 	private val displayNodes: MutableList<TreeNode<*>>?
 	private var padding = 30
 	private var onTreeNodeListener: OnTreeNodeListener? = null
@@ -97,7 +98,8 @@ class TreeViewAdapter(nodes: List<TreeNode<*>>?, private val viewBinders: List<T
 
 		holder.itemView.setOnLongClickListener { it ->
 			onItemClickListener?.onItemLongClick(displayNodes[position], position)
-			true}
+			true
+		}
 	}
 
 	private fun addChildNodes(pNode: TreeNode<*>, startIndex: Int): Int {
@@ -276,7 +278,6 @@ class TreeViewAdapter(nodes: List<TreeNode<*>>?, private val viewBinders: List<T
 	}
 
 	companion object {
-		private val KEY_IS_EXPAND = "IS_EXPAND"
+		private const val KEY_IS_EXPAND = "IS_EXPAND"
 	}
-
 }

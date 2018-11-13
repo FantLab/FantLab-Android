@@ -14,8 +14,6 @@ import ru.fantlab.android.provider.markdown.extension.smiles.SmileExtension
 import ru.fantlab.android.provider.timeline.HtmlHelper
 import java.util.*
 
-
-
 object MarkDownProvider {
 
 	fun setMdText(textView: TextView, markdown: String) {
@@ -36,10 +34,10 @@ object MarkDownProvider {
 	}
 
 	fun setMdText(textView: TextView, markdown: String, width: Int) {
-        if (!InputHelper.isEmpty(markdown)) {
-            render(textView, prepareTags(markdown), width)
+		if (!InputHelper.isEmpty(markdown)) {
+			render(textView, prepareTags(markdown), width)
 		}
-    }
+	}
 
 	private fun prepareTags(text: String): String {
 		return text
@@ -118,7 +116,7 @@ object MarkDownProvider {
 		substring = source.substring(selectionStart, selectionEnd)
 		val split = substring.split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
 		val stringBuffer = StringBuilder()
-		if (!source.startsWith("<LIST>")){
+		if (!source.startsWith("<LIST>")) {
 			stringBuffer.append("\n<LIST>")
 		}
 		if (split.isNotEmpty())
@@ -139,7 +137,7 @@ object MarkDownProvider {
 		if (stringBuffer.isEmpty()) {
 			stringBuffer.append(tag)
 		}
-		if (!source.startsWith("<LIST>")){
+		if (!source.startsWith("<LIST>")) {
 			stringBuffer.append("\n").append("</LIST>")
 		}
 

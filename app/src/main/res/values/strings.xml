@@ -4,9 +4,9 @@
 	<string name="app_name" translatable="false">FantLab</string>
 	<string name="app_name_full" translatable="false">FantLab for Android</string>
 	<string name="scroll_behavior" translatable="false">@string/appbar_scrolling_view_behavior</string>
-	<string name="linear_layout_manager" translatable="false">ru.fantlab.android.ui.widgets.recyclerview.layout_manager.LinearManager</string>
-	<string name="grid_layout_manager" translatable="false">ru.fantlab.android.ui.widgets.recyclerview.layout_manager.GridManager</string>
-	<string name="staggered_layout_manager" translatable="false">ru.fantlab.android.ui.widgets.recyclerview.layout_manager.StaggeredManager</string>
+	<string name="linear_layout_manager" translatable="false">ru.fantlab.android.ui.widgets.recyclerview.layoutManager.LinearManager</string>
+	<string name="grid_layout_manager" translatable="false">ru.fantlab.android.ui.widgets.recyclerview.layoutManager.GridManager</string>
+	<string name="staggered_layout_manager" translatable="false">ru.fantlab.android.ui.widgets.recyclerview.layoutManager.StaggeredManager</string>
 	<string name="bbn_fab_default_behavior" translatable="false">ru.fantlab.android.ui.widgets.FloatingActionButtonBehavior</string>
 	<string name="custom_tablet_provider" translatable="false">ru.fantlab.android.ui.widgets.TabletBehavior</string>
 	<string name="icon_transition" translatable="false">profile_image_transition</string>
@@ -103,18 +103,18 @@
 	<string name="no_notes">No notes</string>
 	<string name="no_description">No description</string>
 	<string name="view_response">Review response</string>
-    <string name="no_editions">No editions</string>
-    <string name="no_analogs">No analogs</string>
-    <string name="no_works">No works</string>
-    <string name="no_content">No content</string>
+	<string name="no_editions">No editions</string>
+	<string name="no_analogs">No analogs</string>
+	<string name="no_works">No works</string>
+	<string name="no_content">No content</string>
 	<string name="no_classification">No classification</string>
 	<string name="copyright">© %s</string>
 	<string name="author_not_opened">Author is not yet open</string>
-    <string name="settings">Settings</string>
+	<string name="settings">Settings</string>
 	<string name="theme_title">Theme</string>
 	<string name="language">Language</string>
-    <string name="select">Select</string>
-    <string name="success">Success</string>
+	<string name="select">Select</string>
+	<string name="success">Success</string>
 	<string name="change_theme_warning">Theme was changed</string>
 	<string name="change_mark">Change mark</string>
 	<string name="delete_mark">Delete mark</string>

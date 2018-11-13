@@ -11,9 +11,8 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 class WorkEditionsPresenter : BasePresenter<WorkEditionsMvp.View>(),
 		WorkEditionsMvp.Presenter {
 
-	@com.evernote.android.state.State
-	var workId: Int? = null
-    private var editions: ArrayList<EditionsBlocks.Edition> = ArrayList()
+	@com.evernote.android.state.State var workId: Int? = null
+	private var editions: ArrayList<EditionsBlocks.Edition> = ArrayList()
 
 	override fun onFragmentCreated(bundle: Bundle?) {
 		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
@@ -27,10 +26,11 @@ class WorkEditionsPresenter : BasePresenter<WorkEditionsMvp.View>(),
 							.toObservable(),
 					Consumer { workResponse ->
 						sendToView {
-                            it.onInitViews(workResponse.editionsBlocks, workResponse.editionsInfo!!)
-                        }
+							it.onInitViews(workResponse.editionsBlocks, workResponse.editionsInfo!!)
+						}
 					}
-			)}
+			)
+		}
 	}
 
 	override fun onError(throwable: Throwable) {
@@ -42,25 +42,25 @@ class WorkEditionsPresenter : BasePresenter<WorkEditionsMvp.View>(),
 		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
 
-    override fun getEditions(): ArrayList<EditionsBlocks.Edition> = editions
+	override fun getEditions(): ArrayList<EditionsBlocks.Edition> = editions
 
-    fun onCallApi() {
-        workId?.let {
-            makeRestCall(
-                    DataManager.getWork(it, showEditionsBlocks = true, showEditionsInfo = true)
-                            .map { it.get() }
-                            .toObservable(),
-                    Consumer { workResponse ->
-                        sendToView { it.onNotifyAdapter() }
-                    }
-            )}
-    }
+	fun onCallApi() {
+		workId?.let {
+			makeRestCall(
+					DataManager.getWork(it, showEditionsBlocks = true, showEditionsInfo = true)
+							.map { it.get() }
+							.toObservable(),
+					Consumer { workResponse ->
+						sendToView { it.onNotifyAdapter() }
+					}
+			)
+		}
+	}
 
 	override fun onItemClick(position: Int, v: View?, item: EditionsBlocks.Edition) {
 		sendToView { it.onItemClicked(item) }
 	}
 
-    override fun onItemLongClick(position: Int, v: View?, item: EditionsBlocks.Edition) {
-    }
-
+	override fun onItemLongClick(position: Int, v: View?, item: EditionsBlocks.Edition) {
+	}
 }

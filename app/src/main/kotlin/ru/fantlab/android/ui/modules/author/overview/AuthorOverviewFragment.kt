@@ -27,17 +27,17 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 		AuthorOverviewMvp.View {
 
 	@BindView(R.id.progress) lateinit var progress: View
-    @BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
-    @BindView(R.id.author) lateinit var authorName: FontTextView
-    @BindView(R.id.author2) lateinit var authorNameOrig: FontTextView
-    @BindView(R.id.date) lateinit var date: FontTextView
-    @BindView(R.id.country) lateinit var country: FontTextView
-    @BindView(R.id.langIcon) lateinit var langIcon: ImageView
+	@BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
+	@BindView(R.id.author) lateinit var authorName: FontTextView
+	@BindView(R.id.author2) lateinit var authorNameOrig: FontTextView
+	@BindView(R.id.date) lateinit var date: FontTextView
+	@BindView(R.id.country) lateinit var country: FontTextView
+	@BindView(R.id.langIcon) lateinit var langIcon: ImageView
 	@BindView(R.id.notOpened) lateinit var notOpened: FontTextView
 	@BindView(R.id.biographyCard) lateinit var biographyCard: View
-    @BindView(R.id.biography) lateinit var biographyText: FontTextView
-    @BindView(R.id.source) lateinit var source: FontTextView
-    @BindView(R.id.homepage) lateinit var homepage: FontTextView
+	@BindView(R.id.biography) lateinit var biographyText: FontTextView
+	@BindView(R.id.source) lateinit var source: FontTextView
+	@BindView(R.id.homepage) lateinit var homepage: FontTextView
 
 	private var author: Author? = null
 	private var biography: Biography? = null
@@ -49,8 +49,8 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 			presenter.onFragmentCreated(arguments)
 		} else {
 			author = savedInstanceState.getParcelable("author")
-            biography = savedInstanceState.getParcelable("biography")
-			if (author != null && biography != null ) {
+			biography = savedInstanceState.getParcelable("biography")
+			if (author != null && biography != null) {
 				onInitViews(author!!, biography)
 			} else {
 				presenter.onFragmentCreated(arguments)
@@ -75,7 +75,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 		else
 			country.visibility = View.GONE
 
-		if (InputHelper.isEmpty(author.name)){
+		if (InputHelper.isEmpty(author.name)) {
 			authorName.text = author.nameOriginal
 			authorNameOrig.visibility = View.GONE
 		} else {
@@ -88,10 +88,10 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 
 		pagerCallback?.onSetTitle(if (!InputHelper.isEmpty(author.name)) author.name else author.nameOriginal)
 
-        if (author.deathDay != null) {
-            if (author.birthDay != null)
-                date.text = String.format("%s ‒ %s", author.birthDay, author.deathDay)
-        } else if (author.birthDay != null) {
+		if (author.deathDay != null) {
+			if (author.birthDay != null)
+				date.text = String.format("%s ‒ %s", author.birthDay, author.deathDay)
+		} else if (author.birthDay != null) {
 			date.text = author.birthDay
 		} else {
 			date.visibility = View.GONE
@@ -137,7 +137,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 		} else {
 			biographyCard.visibility = View.GONE
 		}
-    }
+	}
 
 	override fun onSaveInstanceState(outState: Bundle) {
 		super.onSaveInstanceState(outState)

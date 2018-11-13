@@ -22,16 +22,8 @@ import ru.fantlab.android.R;
 
 public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 
-	public interface OnRatingChangeListener {
-		void onRatingChange(BaseRatingBar ratingBar, float rating);
-	}
-
-	public interface OnRatingDoneListener {
-		void onRatingDone(float mRating);
-	}
-
 	public static final String TAG = "RatingBar";
-
+	protected List<PartialView> mPartialViews;
 	private int mNumStars;
 	private int mPadding = 20;
 	private int mStarWidth;
@@ -40,23 +32,16 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 	private float mRating = -1;
 	private float mStepSize = 1f;
 	private float mPreviousRating = 0;
-
 	private boolean mIsIndicator = false;
 	private boolean mIsScrollable = true;
 	private boolean mIsClickable = true;
 	private boolean mClearRatingEnabled = true;
-
 	private float mStartX;
 	private float mStartY;
-
 	private Drawable mEmptyDrawable;
 	private Drawable mFilledDrawable;
-
 	private OnRatingChangeListener mOnRatingChangeListener;
 	private OnRatingDoneListener mOnRatingDoneListener;
-
-	protected List<PartialView> mPartialViews;
-
 	public BaseRatingBar(Context context) {
 		this(context, null);
 	}
@@ -67,8 +52,8 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 	}
 
 	/**
-	 * @param context      context
-	 * @param attrs        attributes from XML => app:mainText="mainText"
+	 * @param context context
+	 * @param attrs attributes from XML => app:mainText="mainText"
 	 * @param defStyleAttr attributes from default style (Application theme or activity theme)
 	 */
 	public BaseRatingBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -90,12 +75,23 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 		mPadding = typedArray.getDimensionPixelSize(R.styleable.BaseRatingBar_srb_starPadding, mPadding);
 		mStarWidth = typedArray.getDimensionPixelSize(R.styleable.BaseRatingBar_srb_starWidth, 0);
 		mStarHeight = typedArray.getDimensionPixelSize(R.styleable.BaseRatingBar_srb_starHeight, 0);
-		mEmptyDrawable = typedArray.hasValue(R.styleable.BaseRatingBar_srb_drawableEmpty) ? ContextCompat.getDrawable(context, typedArray.getResourceId(R.styleable.BaseRatingBar_srb_drawableEmpty, View.NO_ID)) : null;
-		mFilledDrawable = typedArray.hasValue(R.styleable.BaseRatingBar_srb_drawableFilled) ? ContextCompat.getDrawable(context, typedArray.getResourceId(R.styleable.BaseRatingBar_srb_drawableFilled, View.NO_ID)) : null;
+		mEmptyDrawable =
+			typedArray.hasValue(R.styleable.BaseRatingBar_srb_drawableEmpty) ? ContextCompat.getDrawable(
+				context,
+				typedArray.getResourceId(R.styleable.BaseRatingBar_srb_drawableEmpty, View.NO_ID)
+			) : null;
+		mFilledDrawable =
+			typedArray.hasValue(R.styleable.BaseRatingBar_srb_drawableFilled) ? ContextCompat.getDrawable(
+				context,
+				typedArray.getResourceId(R.styleable.BaseRatingBar_srb_drawableFilled, View.NO_ID)
+			) : null;
 		mIsIndicator = typedArray.getBoolean(R.styleable.BaseRatingBar_srb_isIndicator, mIsIndicator);
 		mIsScrollable = typedArray.getBoolean(R.styleable.BaseRatingBar_srb_scrollable, mIsScrollable);
 		mIsClickable = typedArray.getBoolean(R.styleable.BaseRatingBar_srb_clickable, mIsClickable);
-		mClearRatingEnabled = typedArray.getBoolean(R.styleable.BaseRatingBar_srb_clearRatingEnabled, mClearRatingEnabled);
+		mClearRatingEnabled = typedArray.getBoolean(
+			R.styleable.BaseRatingBar_srb_clearRatingEnabled,
+			mClearRatingEnabled
+		);
 		typedArray.recycle();
 	}
 
@@ -129,23 +125,34 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 		mPartialViews = new ArrayList<>();
 
 		for (int i = 1; i <= mNumStars; i++) {
-			PartialView partialView = getPartialView(i, mStarWidth, mStarHeight, mPadding, mFilledDrawable, mEmptyDrawable);
+			PartialView partialView = getPartialView(
+				i,
+				mStarWidth,
+				mStarHeight,
+				mPadding,
+				mFilledDrawable,
+				mEmptyDrawable
+			);
 			addView(partialView);
 
 			mPartialViews.add(partialView);
 		}
 	}
 
-	private PartialView getPartialView(final int partialViewId, int starWidth, int starHeight, int padding,
-									   Drawable filledDrawable, Drawable emptyDrawable) {
-		PartialView partialView = new PartialView(getContext(), partialViewId, starWidth, starHeight, padding);
+	private PartialView getPartialView(
+		final int partialViewId, int starWidth, int starHeight, int padding,
+		Drawable filledDrawable, Drawable emptyDrawable
+	) {
+		PartialView partialView = new PartialView(
+			getContext(),
+			partialViewId,
+			starWidth,
+			starHeight,
+			padding
+		);
 		partialView.setFilledDrawable(filledDrawable);
 		partialView.setEmptyDrawable(emptyDrawable);
 		return partialView;
-	}
-
-	protected void emptyRatingBar() {
-		fillRatingBar(0);
 	}
 
 	protected void fillRatingBar(final float rating) {
@@ -166,6 +173,15 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 		}
 	}
 
+	protected void emptyRatingBar() {
+		fillRatingBar(0);
+	}
+
+	@Override
+	public int getNumStars() {
+		return mNumStars;
+	}
+
 	@Override
 	public void setNumStars(int numStars) {
 		if (numStars <= 0) {
@@ -180,8 +196,8 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 	}
 
 	@Override
-	public int getNumStars() {
-		return mNumStars;
+	public float getRating() {
+		return mRating;
 	}
 
 	@Override
@@ -208,8 +224,8 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 	}
 
 	@Override
-	public float getRating() {
-		return mRating;
+	public int getStarWidth() {
+		return mStarWidth;
 	}
 
 	@Override
@@ -222,8 +238,8 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 	}
 
 	@Override
-	public int getStarWidth() {
-		return mStarWidth;
+	public int getStarHeight() {
+		return mStarHeight;
 	}
 
 	@Override
@@ -236,8 +252,8 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 	}
 
 	@Override
-	public int getStarHeight() {
-		return mStarHeight;
+	public int getStarPadding() {
+		return mPadding;
 	}
 
 	@Override
@@ -254,44 +270,6 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 	}
 
 	@Override
-	public int getStarPadding() {
-		return mPadding;
-	}
-
-	@Override
-	public void setEmptyDrawableRes(@DrawableRes int res) {
-		setEmptyDrawable(Objects.requireNonNull(ContextCompat.getDrawable(getContext(), res)));
-	}
-
-	@Override
-	public void setFilledDrawableRes(@DrawableRes int res) {
-		setFilledDrawable(Objects.requireNonNull(ContextCompat.getDrawable(getContext(), res)));
-	}
-
-	@Override
-	public void setEmptyDrawable(@NonNull Drawable drawable) {
-		mEmptyDrawable = drawable;
-
-		for (PartialView partialView : mPartialViews) {
-			partialView.setEmptyDrawable(drawable);
-		}
-	}
-
-	@Override
-	public void setFilledDrawable(@NonNull Drawable drawable) {
-		mFilledDrawable = drawable;
-
-		for (PartialView partialView : mPartialViews) {
-			partialView.setFilledDrawable(drawable);
-		}
-	}
-
-	@Override
-	public void setMinimumStars(@FloatRange(from = 0.0) float minimumStars) {
-		mMinimumStars = RatingBarUtils.INSTANCE.getValidMinimumStars(minimumStars, mNumStars, mStepSize);
-	}
-
-	@Override
 	public boolean isScrollable() {
 		return mIsScrollable;
 	}
@@ -302,23 +280,13 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 	}
 
 	@Override
-	public boolean isClickable() {
-		return mIsClickable;
-	}
-
-	@Override
-	public void setClickable(boolean clickable) {
-		this.mIsClickable = clickable;
+	public boolean isClearRatingEnabled() {
+		return mClearRatingEnabled;
 	}
 
 	@Override
 	public void setClearRatingEnabled(boolean enabled) {
 		this.mClearRatingEnabled = enabled;
-	}
-
-	@Override
-	public boolean isClearRatingEnabled() {
-		return mClearRatingEnabled;
 	}
 
 	@Override
@@ -332,8 +300,46 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 	}
 
 	@Override
-	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		return true;
+	public void setEmptyDrawable(@NonNull Drawable drawable) {
+		mEmptyDrawable = drawable;
+
+		for (PartialView partialView : mPartialViews) {
+			partialView.setEmptyDrawable(drawable);
+		}
+	}
+
+	@Override
+	public void setEmptyDrawableRes(@DrawableRes int res) {
+		setEmptyDrawable(Objects.requireNonNull(ContextCompat.getDrawable(getContext(), res)));
+	}
+
+	@Override
+	public void setFilledDrawable(@NonNull Drawable drawable) {
+		mFilledDrawable = drawable;
+
+		for (PartialView partialView : mPartialViews) {
+			partialView.setFilledDrawable(drawable);
+		}
+	}
+
+	@Override
+	public void setFilledDrawableRes(@DrawableRes int res) {
+		setFilledDrawable(Objects.requireNonNull(ContextCompat.getDrawable(getContext(), res)));
+	}
+
+	@Override
+	public void setMinimumStars(@FloatRange(from = 0.0) float minimumStars) {
+		mMinimumStars = RatingBarUtils.INSTANCE.getValidMinimumStars(minimumStars, mNumStars, mStepSize);
+	}
+
+	@Override
+	public boolean isClickable() {
+		return mIsClickable;
+	}
+
+	@Override
+	public void setClickable(boolean clickable) {
+		this.mIsClickable = clickable;
 	}
 
 	@Override
@@ -358,7 +364,7 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 			case MotionEvent.ACTION_UP:
 				if (mOnRatingDoneListener != null && isClickable()) {
 					mOnRatingDoneListener.onRatingDone(mRating);
-					}
+				}
 				if (!RatingBarUtils.INSTANCE.isClickEvent(mStartX, mStartY, event) || !isClickable()) {
 					return false;
 				}
@@ -367,6 +373,11 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 		}
 
 		getParent().requestDisallowInterceptTouchEvent(true);
+		return true;
+	}
+
+	@Override
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
 		return true;
 	}
 
@@ -395,7 +406,12 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 				continue;
 			}
 
-			float rating = mStepSize == 1 ? (int) partialView.getTag() : RatingBarUtils.INSTANCE.calculateRating(partialView, mStepSize, eventX);
+			float rating =
+				mStepSize == 1 ? (int) partialView.getTag() : RatingBarUtils.INSTANCE.calculateRating(
+					partialView,
+					mStepSize,
+					eventX
+				);
 
 			if (mPreviousRating == rating && isClearRatingEnabled()) {
 				setRating(mMinimumStars);
@@ -416,6 +432,13 @@ public class BaseRatingBar extends LinearLayout implements SimpleRatingBar {
 
 	public void setOnRatingDoneListener(OnRatingDoneListener onRatingDoneListener) {
 		mOnRatingDoneListener = onRatingDoneListener;
-		}
+	}
 
+	public interface OnRatingChangeListener {
+		void onRatingChange(BaseRatingBar ratingBar, float rating);
+	}
+
+	public interface OnRatingDoneListener {
+		void onRatingDone(float mRating);
+	}
 }

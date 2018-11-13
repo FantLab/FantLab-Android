@@ -11,9 +11,8 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 class WorkContentPresenter : BasePresenter<WorkContentMvp.View>(),
 		WorkContentMvp.Presenter {
 
-	@com.evernote.android.state.State
-	var editionId: Int? = null
-    private var content: ArrayList<ChildWork> = ArrayList()
+	@com.evernote.android.state.State var editionId: Int? = null
+	private var content: ArrayList<ChildWork> = ArrayList()
 
 	override fun onFragmentCreated(bundle: Bundle?) {
 		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
@@ -28,7 +27,8 @@ class WorkContentPresenter : BasePresenter<WorkContentMvp.View>(),
 					Consumer { workResponse ->
 						sendToView { it.onInitViews(workResponse.children) }
 					}
-			)}
+			)
+		}
 	}
 
 	override fun onError(throwable: Throwable) {
@@ -49,10 +49,11 @@ class WorkContentPresenter : BasePresenter<WorkContentMvp.View>(),
 					Consumer { workResponse ->
 						sendToView { it.onNotifyAdapter() }
 					}
-			)}
+			)
+		}
 	}
 
-    override fun getContent(): ArrayList<ChildWork> = content
+	override fun getContent(): ArrayList<ChildWork> = content
 
 	override fun onItemClick(position: Int, v: View?, item: ChildWork) {
 		sendToView { it.onItemClicked(item) }
@@ -60,5 +61,4 @@ class WorkContentPresenter : BasePresenter<WorkContentMvp.View>(),
 
 	override fun onItemLongClick(position: Int, v: View?, item: ChildWork) {
 	}
-
 }

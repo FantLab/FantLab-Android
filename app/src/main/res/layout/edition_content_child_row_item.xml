@@ -18,8 +18,9 @@
 		android:layout_height="wrap_content"
 		android:layout_margin="5dp"
 		android:ellipsize="end"
-		android:textSize="14sp"
 		android:textColor="?android:textColorPrimary"
-		tools:text="Рассказ о быке с ослом" />
+		android:textSize="14sp"
+		tools:text="Рассказ о быке с ослом"
+		/>
 
 </ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

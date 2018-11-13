@@ -12,10 +12,10 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.SliderModel
 
 
-class SliderAdapter (private var mContext: Context, private val photoSlide : ArrayList<SliderModel>?): PagerAdapter() {
+class SliderAdapter(private var mContext: Context, private val photoSlide: ArrayList<SliderModel>?) : PagerAdapter() {
 
 	override fun isViewFromObject(view: View, `object`: Any): Boolean {
-		return view.equals(`object`)
+		return view == `object`
 	}
 
 	override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
@@ -26,9 +26,8 @@ class SliderAdapter (private var mContext: Context, private val photoSlide : Arr
 		return photoSlide!!.size
 	}
 
-
 	override fun instantiateItem(container: ViewGroup, position: Int): Any {
-		val view : View = LayoutInflater.from(mContext).inflate(R.layout.slider_item_layout, container, false)
+		val view: View = LayoutInflater.from(mContext).inflate(R.layout.slider_item_layout, container, false)
 		val circularProgressDrawable = CircularProgressDrawable(view.context)
 		circularProgressDrawable.strokeWidth = 5f
 		circularProgressDrawable.centerRadius = 30f
@@ -41,6 +40,4 @@ class SliderAdapter (private var mContext: Context, private val photoSlide : Arr
 		container.addView(view, 0)
 		return view
 	}
-
-
 }

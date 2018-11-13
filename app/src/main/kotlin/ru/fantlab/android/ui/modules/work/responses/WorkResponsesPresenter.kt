@@ -61,13 +61,13 @@ class WorkResponsesPresenter : BasePresenter<WorkResponsesMvp.View>(),
 						.map { it.get() }
 						.toObservable(),
 				Consumer {
-			lastPage = it.responses.last
-			//manageDisposable(it.items.save())
-			sendToView { view ->
-				view.onNotifyAdapter(it.responses.items, page)
-				view.onSetTabCount(it.responses.totalCount)
-			}
-		}
+					lastPage = it.responses.last
+					//manageDisposable(it.items.save())
+					sendToView { view ->
+						view.onNotifyAdapter(it.responses.items, page)
+						view.onSetTabCount(it.responses.totalCount)
+					}
+				}
 		)
 		return true
 	}
@@ -81,7 +81,7 @@ class WorkResponsesPresenter : BasePresenter<WorkResponsesMvp.View>(),
 		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
 
-	fun onSendVote(item: Response, position: Int, voteType: String){
+	fun onSendVote(item: Response, position: Int, voteType: String) {
 		makeRestCall(DataManager.sendResponseVote(item.id, voteType)
 				.map { it.get() }
 				.toObservable(),

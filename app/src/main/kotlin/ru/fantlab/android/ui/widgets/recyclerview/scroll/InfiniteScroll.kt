@@ -14,7 +14,7 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 	private var loading = true
 	private val startingPageIndex = 0
 	private var layoutManager: RecyclerView.LayoutManager? = null
-	private var adapter: BaseRecyclerAdapter<*,*,*>? = null
+	private var adapter: BaseRecyclerAdapter<*, *, *>? = null
 	private var newlyAdded = true
 	private var isUp = true
 	private var menuShowed = false
@@ -68,8 +68,8 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 			initLayoutManager(recyclerView!!.layoutManager)
 		}
 		if (adapter == null) {
-			if (recyclerView!!.adapter is BaseRecyclerAdapter<*,*,*>) {
-				adapter = recyclerView.adapter as BaseRecyclerAdapter<*,*,*>
+			if (recyclerView!!.adapter is BaseRecyclerAdapter<*, *, *>) {
+				adapter = recyclerView.adapter as BaseRecyclerAdapter<*, *, *>
 			}
 		}
 		if (adapter != null && adapter!!.isProgressAdded()) return
@@ -117,7 +117,7 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 		this.loading = true
 	}
 
-	fun setMenuShowed(menuShowed: Boolean){
+	fun setMenuShowed(menuShowed: Boolean) {
 		this.menuShowed = menuShowed
 	}
 }

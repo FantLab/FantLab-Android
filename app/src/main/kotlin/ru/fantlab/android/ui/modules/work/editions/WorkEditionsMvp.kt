@@ -10,20 +10,20 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 interface WorkEditionsMvp {
 
 	interface View : BaseMvp.View,
-            SwipeRefreshLayout.OnRefreshListener,
-            android.view.View.OnClickListener {
+			SwipeRefreshLayout.OnRefreshListener,
+			android.view.View.OnClickListener {
 
 		fun onInitViews(editions: EditionsBlocks?, editionsInfo: EditionsInfo)
 
-        fun onNotifyAdapter()
+		fun onNotifyAdapter()
 
-        fun onSetTabCount(allCount: Int)
+		fun onSetTabCount(allCount: Int)
 
 		fun onItemClicked(item: EditionsBlocks.Edition)
-    }
+	}
 
 	interface Presenter : BaseMvp.Presenter,
-            BaseViewHolder.OnItemClickListener<EditionsBlocks.Edition>{
+			BaseViewHolder.OnItemClickListener<EditionsBlocks.Edition> {
 
 		fun onFragmentCreated(bundle: Bundle?)
 

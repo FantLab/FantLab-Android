@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Keep
 @Parcelize
 data class EditionContent(
-		val title : String,
+		val title: String,
 		val level: Int
 ) : Parcelable

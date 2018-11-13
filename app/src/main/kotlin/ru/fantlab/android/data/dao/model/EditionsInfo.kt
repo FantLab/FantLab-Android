@@ -7,7 +7,6 @@ import com.google.gson.JsonParser
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import ru.fantlab.android.provider.rest.DataManager
-import kotlin.collections.ArrayList
 
 @Keep
 @Parcelize

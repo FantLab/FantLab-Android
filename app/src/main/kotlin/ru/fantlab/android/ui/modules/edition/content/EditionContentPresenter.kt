@@ -9,9 +9,8 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 class EditionContentPresenter : BasePresenter<EditionContentMvp.View>(),
 		EditionContentMvp.Presenter {
 
-	@com.evernote.android.state.State
-	var editionId: Int? = null
-    private var content: ArrayList<String> = ArrayList()
+	@com.evernote.android.state.State var editionId: Int? = null
+	private var content: ArrayList<String> = ArrayList()
 
 	override fun onFragmentCreated(bundle: Bundle?) {
 		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
@@ -26,7 +25,8 @@ class EditionContentPresenter : BasePresenter<EditionContentMvp.View>(),
 					Consumer { editionResponse ->
 						sendToView { it.onInitViews(editionResponse.editionContent!!) }
 					}
-			)}
+			)
+		}
 	}
 
 	override fun onError(throwable: Throwable) {
@@ -47,11 +47,9 @@ class EditionContentPresenter : BasePresenter<EditionContentMvp.View>(),
 					Consumer { workResponse ->
 						sendToView { it.onNotifyAdapter() }
 					}
-			)}
+			)
+		}
 	}
 
-    override fun getContent(): ArrayList<String> = content
-
-
-
+	override fun getContent(): ArrayList<String> = content
 }

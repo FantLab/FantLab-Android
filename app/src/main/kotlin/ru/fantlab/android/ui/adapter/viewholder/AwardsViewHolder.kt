@@ -50,13 +50,14 @@ class AwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<AwardInList,
 				.append(nom.minDate.split("-")[0])
 				.append("-")
 				.append(nom.maxDate.split("-")[0])
-
 	}
 
 	companion object {
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<AwardInList, AwardsViewHolder, *>) : AwardsViewHolder
-				= AwardsViewHolder(getView(viewGroup, R.layout.awardlist_row_item), adapter)
-
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<AwardInList, AwardsViewHolder, *>
+		): AwardsViewHolder =
+				AwardsViewHolder(getView(viewGroup, R.layout.awardlist_row_item), adapter)
 	}
 }

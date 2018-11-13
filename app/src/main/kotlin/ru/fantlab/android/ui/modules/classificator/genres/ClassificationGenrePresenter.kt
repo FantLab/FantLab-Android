@@ -1,7 +1,6 @@
 package ru.fantlab.android.ui.modules.classificator.genres
 
 import android.os.Bundle
-import android.view.View
 import ru.fantlab.android.data.dao.model.ClassificatorModel
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.PrefGetter.CLASS_GENRE

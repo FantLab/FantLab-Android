@@ -36,69 +36,71 @@ import java.util.*
 class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMvp.View {
 
 	private var participants: ArrayList<String>? = null
-    @BindView(R.id.replyQuote) lateinit var replyQuote: LinearLayout
-    @BindView(R.id.replyQuoteText) lateinit var quote: FontTextView
-    @BindView(R.id.markDownLayout) lateinit var markDownLayout: MarkDownLayout
-    @BindView(R.id.editText) lateinit var editText: MarkdownEditText
-    @BindView(R.id.list_divider) lateinit var listDivider: View
-    @BindView(R.id.parentView) lateinit var parentView: View
-    @BindView(R.id.autocomplete) lateinit var mention: ListView
 
-    @State var extraType: String? = null
-    @State var itemId: Int? = null
-    @State var reviewComment: Response? = null
+	@BindView(R.id.replyQuote) lateinit var replyQuote: LinearLayout
+	@BindView(R.id.replyQuoteText) lateinit var quote: FontTextView
+	@BindView(R.id.markDownLayout) lateinit var markDownLayout: MarkDownLayout
+	@BindView(R.id.editText) lateinit var editText: MarkdownEditText
+	@BindView(R.id.list_divider) lateinit var listDivider: View
+	@BindView(R.id.parentView) lateinit var parentView: View
+	@BindView(R.id.autocomplete) lateinit var mention: ListView
 
-    override fun layout(): Int = R.layout.editor_layout
+	@State var extraType: String? = null
+	@State var itemId: Int? = null
+	@State var reviewComment: Response? = null
 
-    override fun isTransparent(): Boolean = false
+	override fun layout(): Int = R.layout.editor_layout
 
-    override fun canBack(): Boolean = true
+	override fun isTransparent(): Boolean = false
 
-    override fun providePresenter(): EditorPresenter = EditorPresenter()
+	override fun canBack(): Boolean = true
 
-    @OnClick(R.id.replyQuoteText) internal fun onToggleQuote() {
-        TransitionManager.beginDelayedTransition((parentView as ViewGroup))
-        if (quote.maxLines == 3) {
-            quote.maxLines = Integer.MAX_VALUE
-        } else {
-            quote.maxLines = 3
-        }
-        quote.setCompoundDrawablesWithIntrinsicBounds(0, 0,
-                if (quote.maxLines == 3) R.drawable.ic_arrow_drop_down
-                else R.drawable.ic_arrow_drop_up, 0)
-    }
+	override fun providePresenter(): EditorPresenter = EditorPresenter()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+	@OnClick(R.id.replyQuoteText)
+	internal fun onToggleQuote() {
+		TransitionManager.beginDelayedTransition((parentView as ViewGroup))
+		if (quote.maxLines == 3) {
+			quote.maxLines = Integer.MAX_VALUE
+		} else {
+			quote.maxLines = 3
+		}
+		quote.setCompoundDrawablesWithIntrinsicBounds(0, 0,
+				if (quote.maxLines == 3) R.drawable.ic_arrow_drop_down
+				else R.drawable.ic_arrow_drop_up, 0)
+	}
+
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
 		if (!isLoggedIn()) finish()
-        markDownLayout.markdownListener = this
-        title = getString(R.string.markdown)
-        setToolbarIcon(R.drawable.ic_clear)
-        if (savedInstanceState == null) {
-            onCreate()
-        }
-        invalidateOptionsMenu()
-        editText.initListView(mention, listDivider, participants)
-        editText.requestFocus()
-    }
+		markDownLayout.markdownListener = this
+		title = getString(R.string.markdown)
+		setToolbarIcon(R.drawable.ic_clear)
+		if (savedInstanceState == null) {
+			onCreate()
+		}
+		invalidateOptionsMenu()
+		editText.initListView(mention, listDivider, participants)
+		editText.requestFocus()
+	}
 
-    override fun onSendResultAndFinish(commentModel: Response, isNew: Boolean) {
-        hideProgress()
-        val intent = Intent()
-        intent.putExtras(Bundler.start()
-                .put(BundleConstant.ITEM, commentModel)
-                .put(BundleConstant.EXTRA, isNew)
-                .end())
-        setResult(Activity.RESULT_OK, intent)
-        finish()
-    }
+	override fun onSendResultAndFinish(commentModel: Response, isNew: Boolean) {
+		hideProgress()
+		val intent = Intent()
+		intent.putExtras(Bundler.start()
+				.put(BundleConstant.ITEM, commentModel)
+				.put(BundleConstant.EXTRA, isNew)
+				.end())
+		setResult(Activity.RESULT_OK, intent)
+		finish()
+	}
 
-    override fun onSendMarkDownResult() {
-        val intent = Intent()
-        intent.putExtras(Bundler.start().put(BundleConstant.EXTRA, editText.savedText).end())
-        setResult(Activity.RESULT_OK, intent)
-        finish()
-    }
+	override fun onSendMarkDownResult() {
+		val intent = Intent()
+		intent.putExtras(Bundler.start().put(BundleConstant.EXTRA, editText.savedText).end())
+		setResult(Activity.RESULT_OK, intent)
+		finish()
+	}
 
 	override fun onSendMessageResult(result: String) {
 		hideProgress()
@@ -106,25 +108,25 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 	}
 
 	override fun onSendReviewResultAndFinish(comment: Response, isNew: Boolean) {
-        hideProgress()
-        val intent = Intent()
-        intent.putExtras(Bundler.start()
-                .put(BundleConstant.ITEM, comment)
-                .put(BundleConstant.EXTRA, isNew)
-                .end())
-        setResult(Activity.RESULT_OK, intent)
-        finish()
-    }
+		hideProgress()
+		val intent = Intent()
+		intent.putExtras(Bundler.start()
+				.put(BundleConstant.ITEM, comment)
+				.put(BundleConstant.EXTRA, isNew)
+				.end())
+		setResult(Activity.RESULT_OK, intent)
+		finish()
+	}
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.done_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
+	override fun onCreateOptionsMenu(menu: Menu): Boolean {
+		menuInflater.inflate(R.menu.done_menu, menu)
+		return super.onCreateOptionsMenu(menu)
+	}
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.submit) {
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		if (item.itemId == R.id.submit) {
 			if (extraType != BundleConstant.EDITOR_NEW_COMMENT) {
-				if (extraType == BundleConstant.EDITOR_NEW_RESPONSE && editText.savedText.length < 50){
+				if (extraType == BundleConstant.EDITOR_NEW_RESPONSE && editText.savedText.length < 50) {
 					showErrorMessage(getString(R.string.response_short_text))
 					return true
 				}
@@ -136,111 +138,111 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 								.end())
 						.show(supportFragmentManager, MessageDialogView.TAG)
 			} else presenter.onHandleSubmission(editText.savedText, extraType, itemId, reviewComment, "")
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
+			return true
+		}
+		return super.onOptionsItemSelected(item)
+	}
 
-    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        if (menu.findItem(R.id.submit) != null) {
-            menu.findItem(R.id.submit).isEnabled = true
-        }
-        if (BundleConstant.FOR_RESULT_EXTRA.equals(extraType, ignoreCase = true)) {
-            menu.findItem(R.id.submit).setIcon(R.drawable.ic_done)
-        }
-        return super.onPrepareOptionsMenu(menu)
-    }
+	override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+		if (menu.findItem(R.id.submit) != null) {
+			menu.findItem(R.id.submit).isEnabled = true
+		}
+		if (BundleConstant.FOR_RESULT_EXTRA.equals(extraType, ignoreCase = true)) {
+			menu.findItem(R.id.submit).setIcon(R.drawable.ic_done)
+		}
+		return super.onPrepareOptionsMenu(menu)
+	}
 
-    override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
-        super.showProgress(resId, cancelable)
-        invalidateOptionsMenu()
-    }
+	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
+		super.showProgress(resId, cancelable)
+		invalidateOptionsMenu()
+	}
 
-    override fun hideProgress() {
-        invalidateOptionsMenu()
-        super.hideProgress()
-    }
+	override fun hideProgress() {
+		invalidateOptionsMenu()
+		super.hideProgress()
+	}
 
-    override fun onBackPressed() {
-        if (!InputHelper.isEmpty(editText)) {
-            ViewHelper.hideKeyboard(editText)
-            MessageDialogView.newInstance(getString(R.string.close), getString(R.string.unsaved_data_warning), false,
-                    Bundler.start()
-                            .put("primary_extra", getString(R.string.discard))
-                            .put("secondary_extra", getString(R.string.cancel))
-                            .put(BundleConstant.EXTRA, true)
-                            .end())
-                    .show(supportFragmentManager, MessageDialogView.TAG)
-            return
-        }
-        super.onBackPressed()
-    }
+	override fun onBackPressed() {
+		if (!InputHelper.isEmpty(editText)) {
+			ViewHelper.hideKeyboard(editText)
+			MessageDialogView.newInstance(getString(R.string.close), getString(R.string.unsaved_data_warning), false,
+					Bundler.start()
+							.put("primary_extra", getString(R.string.discard))
+							.put("secondary_extra", getString(R.string.cancel))
+							.put(BundleConstant.EXTRA, true)
+							.end())
+					.show(supportFragmentManager, MessageDialogView.TAG)
+			return
+		}
+		super.onBackPressed()
+	}
 
-    override fun onMessageDialogActionClicked(isOk: Boolean, bundle: Bundle?) {
-        super.onMessageDialogActionClicked(isOk, bundle)
-        if (bundle != null) {
+	override fun onMessageDialogActionClicked(isOk: Boolean, bundle: Bundle?) {
+		super.onMessageDialogActionClicked(isOk, bundle)
+		if (bundle != null) {
 			val type = bundle.getString(BundleConstant.EXTRA_TYPE)
 			if (type == null) {
 				if (isOk) finish()
 			} else {
 				presenter.onHandleSubmission(editText.savedText, extraType, itemId, reviewComment, if (isOk) "send" else "preview")
 			}
-        }
-    }
+		}
+	}
 
-    override fun onAppendLink(title: String, link: String, isLink: Boolean) {
-        markDownLayout.onAppendLink(title, link, isLink)
-    }
+	override fun onAppendLink(title: String, link: String, isLink: Boolean) {
+		markDownLayout.onAppendLink(title, link, isLink)
+	}
 
-    override fun onSmileAdded(smile: Smile?) {
-        markDownLayout.onSmileAdded(smile)
-    }
+	override fun onSmileAdded(smile: Smile?) {
+		markDownLayout.onSmileAdded(smile)
+	}
 
-    override fun getEditText(): EditText = editText
+	override fun getEditText(): EditText = editText
 
-    override fun getSavedText(): CharSequence? = editText.savedText
+	override fun getSavedText(): CharSequence? = editText.savedText
 
-    override fun getCurrentType(): String? = extraType
+	override fun getCurrentType(): String? = extraType
 
-    override fun fragmentManager(): FragmentManager = supportFragmentManager
+	override fun fragmentManager(): FragmentManager = supportFragmentManager
 
-    private fun onCreate() {
-        if (intent != null && intent.extras != null) {
-            val bundle = intent.extras
-            extraType = bundle.getString(BundleConstant.EXTRA_TYPE)
-            reviewComment = bundle.getParcelable(BundleConstant.REVIEW_EXTRA)
-            itemId = bundle.getInt(BundleConstant.ID)
-            val textToUpdate = bundle.getString(BundleConstant.EXTRA)
-            if (!InputHelper.isEmpty(textToUpdate)) {
-                editText.setText(String.format("%s ", textToUpdate))
-                editText.setSelection(InputHelper.toString(editText).length)
-            }
-            if (bundle.getString("message", "").isBlank()) {
-                replyQuote.visibility = GONE
-            } else {
-                MarkDownProvider.setMdText(quote, bundle.getString("message", ""))
-            }
-            participants = bundle.getStringArrayList("participants")
-            when (extraType){
-                BundleConstant.EDITOR_NEW_RESPONSE -> {
-                    title = getString(R.string.editor_review)
-                    markDownLayout.addEmojiView.visibility = GONE
-                    markDownLayout.bold.visibility = GONE
-                    markDownLayout.strikethrough.visibility = GONE
-                    markDownLayout.italic.visibility = GONE
-                    markDownLayout.quote.visibility = GONE
-                    markDownLayout.list.visibility = GONE
-                    markDownLayout.link.visibility = GONE
-                    markDownLayout.image.visibility = GONE
-                }
-                BundleConstant.EDITOR_NEW_COMMENT -> {
-                    title = getString(R.string.editor_comment)
-                    markDownLayout.editorIconsHolder.visibility = View.INVISIBLE
-                }
-                BundleConstant.EDITOR_NEW_MESSAGE -> {
-                    title = getString(R.string.editor_message)
-                }
-            }
-        }
-    }
+	private fun onCreate() {
+		if (intent != null && intent.extras != null) {
+			val bundle = intent.extras
+			extraType = bundle.getString(BundleConstant.EXTRA_TYPE)
+			reviewComment = bundle.getParcelable(BundleConstant.REVIEW_EXTRA)
+			itemId = bundle.getInt(BundleConstant.ID)
+			val textToUpdate = bundle.getString(BundleConstant.EXTRA)
+			if (!InputHelper.isEmpty(textToUpdate)) {
+				editText.setText(String.format("%s ", textToUpdate))
+				editText.setSelection(InputHelper.toString(editText).length)
+			}
+			if (bundle.getString("message", "").isBlank()) {
+				replyQuote.visibility = GONE
+			} else {
+				MarkDownProvider.setMdText(quote, bundle.getString("message", ""))
+			}
+			participants = bundle.getStringArrayList("participants")
+			when (extraType) {
+				BundleConstant.EDITOR_NEW_RESPONSE -> {
+					title = getString(R.string.editor_review)
+					markDownLayout.addEmojiView.visibility = GONE
+					markDownLayout.bold.visibility = GONE
+					markDownLayout.strikethrough.visibility = GONE
+					markDownLayout.italic.visibility = GONE
+					markDownLayout.quote.visibility = GONE
+					markDownLayout.list.visibility = GONE
+					markDownLayout.link.visibility = GONE
+					markDownLayout.image.visibility = GONE
+				}
+				BundleConstant.EDITOR_NEW_COMMENT -> {
+					title = getString(R.string.editor_comment)
+					markDownLayout.editorIconsHolder.visibility = View.INVISIBLE
+				}
+				BundleConstant.EDITOR_NEW_MESSAGE -> {
+					title = getString(R.string.editor_message)
+				}
+			}
+		}
+	}
 }

@@ -6,16 +6,16 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 interface SmileMvp {
 
-    interface View : BaseMvp.View, BaseViewHolder.OnItemClickListener<Smile> {
-        fun clearAdapter()
-        fun onAddSmile(smile: Smile)
-    }
+	interface View : BaseMvp.View, BaseViewHolder.OnItemClickListener<Smile> {
+		fun clearAdapter()
+		fun onAddSmile(smile: Smile)
+	}
 
-    interface Presenter {
-        fun onLoadSmile()
-    }
+	interface Presenter {
+		fun onLoadSmile()
+	}
 
-    interface SmileCallback {
-        fun onSmileAdded(smile: Smile?)
-    }
+	interface SmileCallback {
+		fun onSmileAdded(smile: Smile?)
+	}
 }

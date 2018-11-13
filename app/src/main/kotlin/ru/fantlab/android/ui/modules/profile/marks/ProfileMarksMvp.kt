@@ -14,7 +14,7 @@ interface ProfileMarksMvp {
 			SwipeRefreshLayout.OnRefreshListener,
 			android.view.View.OnClickListener,
 			ContextMenuDialogView.ListDialogViewActionCallback,
-			RatingDialogView.RatingDialogViewActionCallback{
+			RatingDialogView.RatingDialogViewActionCallback {
 
 		fun onNotifyAdapter(items: ArrayList<Mark>, page: Int)
 
@@ -33,7 +33,7 @@ interface ProfileMarksMvp {
 			BaseViewHolder.OnItemClickListener<Mark>,
 			BaseMvp.PaginationListener<Int> {
 
-		fun getMarks() : ArrayList<Mark>
+		fun getMarks(): ArrayList<Mark>
 
 		fun onWorkOffline(userId: Int)
 	}

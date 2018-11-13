@@ -20,12 +20,19 @@ class SettingsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SettingsMo
 	override fun bind(setting: SettingsModel) {
 		icon.setImageResource(setting.image)
 		title.text = setting.title
-        if (setting.summary.isNotEmpty()) {summary.text = setting.summary} else {summary.visibility = View.GONE}
+		if (setting.summary.isNotEmpty()) {
+			summary.text = setting.summary
+		} else {
+			summary.visibility = View.GONE
+		}
 	}
 
 	companion object {
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<SettingsModel, SettingsViewHolder, *>) : SettingsViewHolder
-				= SettingsViewHolder(getView(viewGroup, R.layout.setting_row_item), adapter)
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<SettingsModel, SettingsViewHolder, *>
+		): SettingsViewHolder =
+				SettingsViewHolder(getView(viewGroup, R.layout.setting_row_item), adapter)
 	}
 }

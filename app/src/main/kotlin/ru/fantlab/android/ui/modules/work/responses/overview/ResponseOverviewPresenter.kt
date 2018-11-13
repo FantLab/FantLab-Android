@@ -17,12 +17,12 @@ class ResponseOverviewPresenter : BasePresenter<ResponseOverviewMvp.View>(),
 		if (response == null) {
 			throw NullPointerException("Either bundle or Response is null")
 		}
-        sendToView { it.onInitViews(response) }
+		sendToView { it.onInitViews(response) }
 	}
 
 	override fun getResponses(): Response = response!!
 
-	fun onSendVote(item: Response, voteType: String){
+	fun onSendVote(item: Response, voteType: String) {
 		makeRestCall(
 				DataManager.getUser(PrefGetter.getLoggedUser()?.id!!)
 						.map { it.get() }

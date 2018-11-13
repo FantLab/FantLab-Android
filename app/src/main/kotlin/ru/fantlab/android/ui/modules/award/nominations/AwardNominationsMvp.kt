@@ -8,8 +8,8 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 interface AwardNominationsMvp {
 
 	interface View : BaseMvp.View,
-            SwipeRefreshLayout.OnRefreshListener,
-            android.view.View.OnClickListener{
+			SwipeRefreshLayout.OnRefreshListener,
+			android.view.View.OnClickListener {
 
 		fun onNotifyAdapter(items: List<Award.Nominations>?)
 
@@ -19,10 +19,10 @@ interface AwardNominationsMvp {
 	}
 
 	interface Presenter : BaseMvp.Presenter,
-			BaseViewHolder.OnItemClickListener<Award.Nominations>{
+			BaseViewHolder.OnItemClickListener<Award.Nominations> {
 
 		fun onWorkOffline(id: Int)
 
-        fun getAwardNominations(): ArrayList<Award.Nominations>
+		fun getAwardNominations(): ArrayList<Award.Nominations>
 	}
 }

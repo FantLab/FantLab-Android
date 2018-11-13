@@ -34,6 +34,8 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
 
+	override fun providePresenter(): ResponsesPresenter = ResponsesPresenter()
+
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		stateLayout.setEmptyText(R.string.no_responses)
 		stateLayout.setOnReloadListener(this)
@@ -54,7 +56,6 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 		super.onDestroyView()
 	}
 
-	override fun providePresenter(): ResponsesPresenter = ResponsesPresenter()
 
 	override fun onNotifyAdapter(items: ArrayList<Response>, page: Int) {
 		hideProgress()
@@ -124,7 +125,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 	}
 
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
-		if (listItem is Response) when (item.id){
+		if (listItem is Response) when (item.id) {
 			"vote" -> {
 				if (isLoggedIn()) {
 					if (PrefGetter.getLoggedUser()?.id != listItem.userId)
@@ -134,7 +135,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 				} else showErrorMessage(getString(R.string.unauthorized_user))
 			}
 			"profile" -> {
-				UserPagerActivity.startActivity(context!!, listItem.userName, listItem.userId,0 )
+				UserPagerActivity.startActivity(context!!, listItem.userName, listItem.userId, 0)
 			}
 			"message" -> {
 				startActivity(Intent(activity, EditorActivity::class.java)

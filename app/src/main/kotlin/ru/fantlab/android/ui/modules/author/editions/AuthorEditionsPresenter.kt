@@ -11,8 +11,7 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 class AuthorEditionsPresenter : BasePresenter<AuthorEditionsMvp.View>(),
 		AuthorEditionsMvp.Presenter {
 
-	@com.evernote.android.state.State
-	var authorId: Int? = null
+	@com.evernote.android.state.State var authorId: Int? = null
 	private var editions: ArrayList<EditionsBlocks.Edition> = ArrayList()
 
 	override fun onFragmentCreated(bundle: Bundle?) {
@@ -27,8 +26,8 @@ class AuthorEditionsPresenter : BasePresenter<AuthorEditionsMvp.View>(),
 							.toObservable(),
 					Consumer { authorEditionsResponse ->
 						sendToView {
-                            it.onInitViews(authorEditionsResponse)
-                        }
+							it.onInitViews(authorEditionsResponse)
+						}
 					}
 			)
 		}
@@ -54,7 +53,8 @@ class AuthorEditionsPresenter : BasePresenter<AuthorEditionsMvp.View>(),
 					Consumer { workResponse ->
 						sendToView { it.onNotifyAdapter() }
 					}
-			)}
+			)
+		}
 	}
 
 	override fun onItemClick(position: Int, v: View?, item: EditionsBlocks.Edition) {

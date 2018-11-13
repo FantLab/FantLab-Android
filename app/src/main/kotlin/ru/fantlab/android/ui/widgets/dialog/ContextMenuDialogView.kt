@@ -22,9 +22,11 @@ import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 
 class ContextMenuDialogView : BaseBottomSheetDialog(), BaseViewHolder.OnItemClickListener<ContextMenus.MenuItem> {
+
 	@BindView(R.id.title) lateinit var title: FontTextView
 	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+
 	private var callbacks: ListDialogViewActionCallback? = null
 	private lateinit var id: String
 	private lateinit var listItem: Any
@@ -53,12 +55,13 @@ class ContextMenuDialogView : BaseBottomSheetDialog(), BaseViewHolder.OnItemClic
 		fastScroller.attachRecyclerView(recycler)
 	}
 
-	private fun recreate(menuForLevel: List<ContextMenus>){
+	private fun recreate(menuForLevel: List<ContextMenus>) {
 		title.text = menuForLevel[0].title
 		childs.clear()
 		childs.addAll(menuForLevel[0].items)
 		recycler.adapter.notifyDataSetChanged()
 	}
+
 	override fun onItemClick(position: Int, v: View?, item: ContextMenus.MenuItem) {
 		if (callbacks != null) {
 			val menuForLevel: List<ContextMenus> = menu.filter { it.parent == item.id }

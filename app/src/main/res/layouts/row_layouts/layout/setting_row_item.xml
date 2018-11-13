@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:background="?selectableItemBackground"
-    android:padding="@dimen/spacing_xs_large">
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="?selectableItemBackground"
+	android:gravity="center_vertical"
+	android:orientation="horizontal"
+	android:padding="@dimen/spacing_xs_large"
+	>
 
-    <ru.fantlab.android.ui.widgets.ForegroundImageView
-        android:id="@+id/iconItemImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/spacing_large" />
+	<ru.fantlab.android.ui.widgets.ForegroundImageView
+		android:id="@+id/iconItemImage"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerVertical="true"
+		android:layout_marginEnd="@dimen/spacing_large"
+		/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/iconItemImage"
-        android:orientation="vertical">
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerVertical="true"
+		android:layout_toEndOf="@id/iconItemImage"
+		android:orientation="vertical"
+		>
 
-        <ru.fantlab.android.ui.widgets.FontTextView
-            android:id="@+id/iconItemTitle"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+		<ru.fantlab.android.ui.widgets.FontTextView
+			android:id="@+id/iconItemTitle"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			style="@style/TextAppearance.AppCompat.Subhead"
+			/>
 
-        <ru.fantlab.android.ui.widgets.FontTextView
-            android:id="@+id/iconItemSummary"
-            style="?android:attr/textAppearanceListItemSecondary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alpha="0.7"
-            />
+		<ru.fantlab.android.ui.widgets.FontTextView
+			android:id="@+id/iconItemSummary"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:alpha="0.7"
+			style="?android:attr/textAppearanceListItemSecondary"
+			/>
 
-    </LinearLayout>
+	</LinearLayout>
 
 
 </RelativeLayout>

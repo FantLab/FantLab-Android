@@ -51,7 +51,10 @@ class SearchEditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Sear
 
 		private val ANY_CHARACTERS_IN_BRACKETS_REGEX = "\\[.*?]".toRegex()
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<SearchEdition, SearchEditionsViewHolder, *>) : SearchEditionsViewHolder
-				= SearchEditionsViewHolder(getView(viewGroup, R.layout.search_editions_row_item), adapter)
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<SearchEdition, SearchEditionsViewHolder, *>
+		): SearchEditionsViewHolder =
+				SearchEditionsViewHolder(getView(viewGroup, R.layout.search_editions_row_item), adapter)
 	}
 }

@@ -10,8 +10,7 @@ import java.util.*
 class WorkContentAdapter constructor(content: ArrayList<ChildWork>)
 	: BaseRecyclerAdapter<ChildWork, WorkContentViewHolder, BaseViewHolder.OnItemClickListener<ChildWork>>(content) {
 
-	override fun viewHolder(parent: ViewGroup, viewType: Int): WorkContentViewHolder
-			= WorkContentViewHolder.newInstance(parent, this)
+	override fun viewHolder(parent: ViewGroup, viewType: Int): WorkContentViewHolder = WorkContentViewHolder.newInstance(parent, this)
 
 	override fun onBindView(holderWork: WorkContentViewHolder, position: Int) {
 		holderWork.bind(getItem(position))

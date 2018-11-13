@@ -2,59 +2,59 @@
 <resources>
 
 	<declare-styleable name="FontTextView">
-		<attr name="drawableColor" format="color"/>
+		<attr format="color" name="drawableColor" />
 	</declare-styleable>
 
 	<declare-styleable name="ForegroundView">
-		<attr name="android:foreground"/>
-		<attr name="android:foregroundGravity"/>
+		<attr name="android:foreground" />
+		<attr name="android:foregroundGravity" />
 	</declare-styleable>
 
 	<declare-styleable name="BaseRatingBar">
-		<attr name="srb_numStars" format="integer" />
-		<attr name="srb_minimumStars" format="float" />
-		<attr name="srb_rating" format="float" />
-		<attr name="srb_starPadding" format="dimension" />
-		<attr name="srb_drawableEmpty" format="reference" />
-		<attr name="srb_drawableFilled" format="reference" />
-		<attr name="srb_isIndicator" format="boolean" />
-		<attr name="srb_scrollable" format="boolean" />
-		<attr name="srb_clickable" format="boolean" />
-		<attr name="srb_clearRatingEnabled" format="boolean" />
-		<attr name="srb_starWidth" format="dimension" />
-		<attr name="srb_starHeight" format="dimension" />
-		<attr name="srb_stepSize" format="float" />
+		<attr format="integer" name="srb_numStars" />
+		<attr format="float" name="srb_minimumStars" />
+		<attr format="float" name="srb_rating" />
+		<attr format="dimension" name="srb_starPadding" />
+		<attr format="reference" name="srb_drawableEmpty" />
+		<attr format="reference" name="srb_drawableFilled" />
+		<attr format="boolean" name="srb_isIndicator" />
+		<attr format="boolean" name="srb_scrollable" />
+		<attr format="boolean" name="srb_clickable" />
+		<attr format="boolean" name="srb_clearRatingEnabled" />
+		<attr format="dimension" name="srb_starWidth" />
+		<attr format="dimension" name="srb_starHeight" />
+		<attr format="float" name="srb_stepSize" />
 	</declare-styleable>
 
 	<declare-styleable name="SortView">
-		<attr name="menu_height" format="integer"/>
+		<attr format="integer" name="menu_height" />
 	</declare-styleable>
 
 	<declare-styleable name="ExpandableTextView">
-		<attr name="trimLength" format="integer"/>
+		<attr format="integer" name="trimLength" />
 	</declare-styleable>
 
 	<declare-styleable name="FlowLayout">
-		<attr name="flFlow" format="boolean"/>
-		<attr name="flChildSpacing" format="enum|dimension">
-			<enum name="auto" value="-65536"/>
+		<attr format="boolean" name="flFlow" />
+		<attr format="enum|dimension" name="flChildSpacing">
+			<enum name="auto" value="-65536" />
 		</attr>
-		<attr name="flMinChildSpacing" format="dimension"/>
-		<attr name="flChildSpacingForLastRow" format="enum|dimension">
-			<enum name="auto" value="-65536"/>
-			<enum name="align" value="-65537"/>
+		<attr format="dimension" name="flMinChildSpacing" />
+		<attr format="enum|dimension" name="flChildSpacingForLastRow">
+			<enum name="auto" value="-65536" />
+			<enum name="align" value="-65537" />
 		</attr>
-		<attr name="flRowSpacing" format="enum|dimension">
-			<enum name="auto" value="-65536"/>
+		<attr format="enum|dimension" name="flRowSpacing">
+			<enum name="auto" value="-65536" />
 		</attr>
-		<attr name="flRtl" format="boolean"/>
-		<attr name="flMaxRows" format="integer"/>
-		<attr name="flRowVerticalGravity" format="enum">
-			<enum name="auto" value="-65536"/>
-			<enum name="top" value="0x30"/>
-			<enum name="center" value="0x10"/>
-			<enum name="bottom" value="0x50"/>
+		<attr format="boolean" name="flRtl" />
+		<attr format="integer" name="flMaxRows" />
+		<attr format="enum" name="flRowVerticalGravity">
+			<enum name="auto" value="-65536" />
+			<enum name="top" value="0x30" />
+			<enum name="center" value="0x10" />
+			<enum name="bottom" value="0x50" />
 		</attr>
-		<attr name="android:gravity"/>
+		<attr name="android:gravity" />
 	</declare-styleable>
 </resources>

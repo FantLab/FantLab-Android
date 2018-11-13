@@ -35,6 +35,7 @@ class EditionPagerActivity : BaseActivity<EditionPagerMvp.View, BasePresenter<Ed
 	@BindView(R.id.tabs) lateinit var tabs: TabLayout
 	@BindView(R.id.tabbedPager) lateinit var pager: ViewPagerView
 	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
+
 	@State var index: Int = 0
 	@State var editionId: Int = 0
 	@State var editionName: String = ""

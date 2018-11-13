@@ -9,8 +9,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 class SimpleListAdapter<T> constructor(data: ArrayList<T>)
 	: BaseRecyclerAdapter<T, SimpleViewHolder<T>, BaseViewHolder.OnItemClickListener<T>>(data) {
 
-	override fun viewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder<T>
-			= SimpleViewHolder.newInstance(parent, this)
+	override fun viewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder<T> = SimpleViewHolder.newInstance(parent, this)
 
 	override fun onBindView(holderEdition: SimpleViewHolder<T>, position: Int) {
 		holderEdition.bind(getItem(position))

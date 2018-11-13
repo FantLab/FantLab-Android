@@ -20,6 +20,7 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+
 	private val adapter: AuthorsAdapter by lazy { AuthorsAdapter(presenter.getAuthors()) }
 
 	override fun layout(): Int = R.layout.authors_layout

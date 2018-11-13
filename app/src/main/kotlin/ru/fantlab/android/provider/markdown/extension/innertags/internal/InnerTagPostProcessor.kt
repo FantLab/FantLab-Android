@@ -32,12 +32,12 @@ class InnerTagPostProcessor : PostProcessor {
 			val contentTitle = Text(caption)
 			var customNode: Node?
 
-			when (type){
+			customNode = when (type) {
 				"img" -> {
-					customNode = Image(caption, null)
+					Image(caption, null)
 				}
-				else ->{
-					customNode = Link("/$type$url", null)
+				else -> {
+					Link("/$type$url", null)
 				}
 			}
 

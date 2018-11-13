@@ -18,7 +18,6 @@ import ru.fantlab.android.ui.modules.classificator.locate.ClassificationLocateFr
 import ru.fantlab.android.ui.modules.classificator.story.ClassificationStoryFragment
 import ru.fantlab.android.ui.modules.classificator.time.ClassificationTimeFragment
 import ru.fantlab.android.ui.modules.edition.content.EditionContentFragment
-import ru.fantlab.android.ui.modules.work.content.WorkContentFragment
 import ru.fantlab.android.ui.modules.edition.overview.EditionOverviewFragment
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
 import ru.fantlab.android.ui.modules.profile.overview.ProfileOverviewFragment
@@ -29,6 +28,7 @@ import ru.fantlab.android.ui.modules.search.editions.SearchEditionsFragment
 import ru.fantlab.android.ui.modules.search.works.SearchWorksFragment
 import ru.fantlab.android.ui.modules.theme.fragment.ThemeFragment
 import ru.fantlab.android.ui.modules.work.classification.WorkClassificationFragment
+import ru.fantlab.android.ui.modules.work.content.WorkContentFragment
 import ru.fantlab.android.ui.modules.work.editions.WorkEditionsFragment
 import ru.fantlab.android.ui.modules.work.overview.WorkOverviewFragment
 import ru.fantlab.android.ui.modules.work.responses.WorkResponsesFragment

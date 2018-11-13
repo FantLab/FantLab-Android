@@ -19,19 +19,20 @@ class ConstsWorkViewHolder : TreeViewBinder<ConstsWorkViewHolder.ViewHolder>() {
 	}
 
 	override fun bindView(
-			holder: RecyclerView.ViewHolder, position: Int, node: TreeNode<*>, onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
+			holder: RecyclerView.ViewHolder,
+			position: Int,
+			node: TreeNode<*>,
+			onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
 	) {
 		val nodeItem = node.content as Consts?
 		(holder as ConstsWorkViewHolder.ViewHolder).title.text = nodeItem!!.title
-		if (!nodeItem.description.isNullOrEmpty()){
+		if (!nodeItem.description.isNullOrEmpty()) {
 			holder.description.text = nodeItem.description
-		}else holder.description.text = holder.itemView.context.getString(R.string.no_description)
-
+		} else holder.description.text = holder.itemView.context.getString(R.string.no_description)
 	}
 
 	inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
 		var title: TextView = rootView.findViewById<View>(R.id.title) as TextView
 		var description: TextView = rootView.findViewById<View>(R.id.description) as TextView
-
 	}
 }

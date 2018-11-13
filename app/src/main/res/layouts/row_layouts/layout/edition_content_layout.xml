@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/scroll_behavior"
-    tools:ignore="MergeRootFrame"
-    >
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	app:layout_behavior="@string/scroll_behavior"
+	tools:ignore="MergeRootFrame"
+	>
 
 	<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-            android:id="@+id/recycler"
-            android:layout_marginTop="@dimen/spacing_normal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="@string/staggered_layout_manager"
-            app:spanCount="@integer/micro_spans" />
+		android:id="@+id/recycler"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginTop="@dimen/spacing_normal"
+		app:layoutManager="@string/staggered_layout_manager"
+		app:spanCount="@integer/micro_spans"
+		/>
 
-    <LinearLayout
-        android:id="@+id/progress"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?android:attr/windowBackground"
-        android:visibility="gone"
-        >
+	<LinearLayout
+		android:id="@+id/progress"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="?android:attr/windowBackground"
+		android:visibility="gone"
+		>
 
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+		<ProgressBar
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			/>
 
-    </LinearLayout>
+	</LinearLayout>
 
-    <include layout="@layout/state_layout" />
+	<include layout="@layout/state_layout" />
 
 </FrameLayout>

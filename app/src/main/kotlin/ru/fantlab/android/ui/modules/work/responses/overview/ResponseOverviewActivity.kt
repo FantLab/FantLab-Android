@@ -138,8 +138,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 
 	private fun prepareResponse(savedText: CharSequence?): String? {
 		val REGEX_TAGS = "\\[(.*?)]".toRegex()
-		return savedText?.
-				replace(REGEX_TAGS,"<$1>")
+		return savedText?.replace(REGEX_TAGS, "<$1>")
 	}
 
 	override fun onSetVote(votesCount: String) {

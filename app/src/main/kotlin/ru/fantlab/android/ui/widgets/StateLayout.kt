@@ -144,12 +144,12 @@ open class StateLayout : NestedScrollView {
 
 	companion object {
 
-		private val SHOW_PROGRESS_STATE = 1
-		private val HIDE_PROGRESS_STATE = 2
-		private val HIDE_RELOAD_STATE = 3
-		private val SHOW_RELOAD_STATE = 4
-		private val SHOW_EMPTY_STATE = 7
-		private val HIDDEN = 5
-		private val SHOWN = 6
+		private const val SHOW_PROGRESS_STATE = 1
+		private const val HIDE_PROGRESS_STATE = 2
+		private const val HIDE_RELOAD_STATE = 3
+		private const val SHOW_RELOAD_STATE = 4
+		private const val SHOW_EMPTY_STATE = 7
+		private const val HIDDEN = 5
+		private const val SHOWN = 6
 	}
 }

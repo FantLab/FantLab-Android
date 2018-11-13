@@ -13,10 +13,10 @@ import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 interface AuthorBibliographyMvp {
 
 	interface View : BaseMvp.View,
-            SwipeRefreshLayout.OnRefreshListener,
-            android.view.View.OnClickListener,
+			SwipeRefreshLayout.OnRefreshListener,
+			android.view.View.OnClickListener,
 			ContextMenuDialogView.ListDialogViewActionCallback,
-			RatingDialogView.RatingDialogViewActionCallback{
+			RatingDialogView.RatingDialogViewActionCallback {
 
 		fun onInitViews(cycles: WorksBlocks?, works: WorksBlocks?)
 
@@ -29,13 +29,13 @@ interface AuthorBibliographyMvp {
 	}
 
 	interface Presenter : BaseMvp.Presenter,
-			TreeViewAdapter.OnItemClickListener{
+			TreeViewAdapter.OnItemClickListener {
 
 		fun onFragmentCreated(bundle: Bundle?)
 
 		fun onWorkOffline(id: Int)
 
-        fun getBibliography(): WorksBlocks?
+		fun getBibliography(): WorksBlocks?
 
 		fun getMarks(userId: Int?, workIds: ArrayList<Int?>)
 	}

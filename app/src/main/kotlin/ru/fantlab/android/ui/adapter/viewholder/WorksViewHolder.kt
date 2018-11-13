@@ -19,7 +19,6 @@ class WorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorksBlocks.W
 	@BindView(R.id.year) lateinit var year: FontTextView
 
 	override fun bind(work: WorksBlocks.Work) {
-
 		if (work.authors.isNotEmpty()) {
 			authors.text = work.authors[0].name.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")
 			authors.visibility = View.VISIBLE
@@ -27,25 +26,27 @@ class WorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorksBlocks.W
 			authors.visibility = View.GONE
 		}
 
-        title.text = if (work.name.isNotEmpty()) {
-            if (work.nameOrig.isNotEmpty()) {
-                String.format("%s / %s", work.nameOrig, work.name)
-            } else {
-                work.name
-            }
-        } else {
-            work.nameOrig
-        }
+		title.text = if (work.name.isNotEmpty()) {
+			if (work.nameOrig.isNotEmpty()) {
+				String.format("%s / %s", work.nameOrig, work.name)
+			} else {
+				work.name
+			}
+		} else {
+			work.nameOrig
+		}
 
 		year.text = work.year?.toString() ?: "N/A"
-
 	}
 
 	companion object {
 
 		private val ANY_CHARACTERS_IN_BRACKETS_REGEX = "\\[.*?]".toRegex()
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<WorksBlocks.Work, WorksViewHolder, *>) : WorksViewHolder
-				= WorksViewHolder(getView(viewGroup, R.layout.work_row_item), adapter)
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<WorksBlocks.Work, WorksViewHolder, *>
+		): WorksViewHolder =
+				WorksViewHolder(getView(viewGroup, R.layout.work_row_item), adapter)
 	}
 }

@@ -69,7 +69,7 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
 
-	fun onSendVote(item: Response, position: Int, voteType: String){
+	fun onSendVote(item: Response, position: Int, voteType: String) {
 		makeRestCall(DataManager.sendResponseVote(item.id, voteType)
 				.map { it.get() }
 				.toObservable(),

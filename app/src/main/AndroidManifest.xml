@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	package="ru.fantlab.android"
 	android:installLocation="auto"
+	package="ru.fantlab.android"
 	>
 
 	<uses-permission android:name="android.permission.INTERNET" />
@@ -22,7 +22,7 @@
 
 		<activity
 			android:name="ru.fantlab.android.ui.modules.main.MainActivity"
-            android:launchMode="singleTop"
+			android:launchMode="singleTop"
 			android:theme="@style/SplashTheme"
 			>
 			<intent-filter>
@@ -37,77 +37,82 @@
 			android:label="@string/app_name"
 			android:launchMode="singleTask"
 			android:screenOrientation="portrait"
-			android:theme="@style/LoginTheme">
+			android:theme="@style/LoginTheme"
+			>
 			<intent-filter>
-				<action android:name="android.intent.action.VIEW"/>
+				<action android:name="android.intent.action.VIEW" />
 
-				<category android:name="android.intent.category.DEFAULT"/>
-				<category android:name="android.intent.category.BROWSABLE"/>
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
 
 				<data
 					android:host="login"
-					android:scheme="fantlab"/>
+					android:scheme="fantlab"
+					/>
 			</intent-filter>
 		</activity>
 		<activity
 			android:name=".ui.modules.user.UserPagerActivity"
-			android:parentActivityName=".ui.modules.main.MainActivity">
-		</activity>
+			android:parentActivityName=".ui.modules.main.MainActivity"
+			/>
 		<activity
 			android:name=".ui.modules.authors.AuthorsActivity"
-			android:parentActivityName=".ui.modules.main.MainActivity">
-		</activity>
+			android:parentActivityName=".ui.modules.main.MainActivity"
+			/>
 		<activity
 			android:name=".ui.modules.awards.AwardsActivity"
-			android:parentActivityName=".ui.modules.main.MainActivity">
-		</activity>
+			android:parentActivityName=".ui.modules.main.MainActivity"
+			/>
 		<activity
 			android:name=".ui.modules.author.AuthorPagerActivity"
-			android:parentActivityName=".ui.modules.authors.AuthorsActivity">
-		</activity>
+			android:parentActivityName=".ui.modules.authors.AuthorsActivity"
+			/>
 		<activity
 			android:name=".ui.modules.award.AwardPagerActivity"
-			android:parentActivityName=".ui.modules.awards.AwardsActivity">
-		</activity>
+			android:parentActivityName=".ui.modules.awards.AwardsActivity"
+			/>
 		<activity
 			android:name=".ui.modules.work.WorkPagerActivity"
-			android:parentActivityName=".ui.modules.main.MainActivity">
-		</activity>
+			android:parentActivityName=".ui.modules.main.MainActivity"
+			/>
 		<activity
 			android:name=".ui.modules.work.CyclePagerActivity"
-			android:parentActivityName=".ui.modules.author.AuthorPagerActivity">
-		</activity>
+			android:parentActivityName=".ui.modules.author.AuthorPagerActivity"
+			/>
 		<activity
 			android:name=".ui.modules.edition.EditionPagerActivity"
-			android:parentActivityName=".ui.modules.author.AuthorPagerActivity">
-		</activity>
+			android:parentActivityName=".ui.modules.author.AuthorPagerActivity"
+			/>
 		<activity
 			android:name=".ui.modules.classificator.ClassificatorPagerActivity"
-			android:parentActivityName=".ui.modules.work.WorkPagerActivity">
-		</activity>
+			android:parentActivityName=".ui.modules.work.WorkPagerActivity"
+			/>
 		<activity
 			android:name=".ui.modules.search.SearchActivity"
-			android:parentActivityName=".ui.modules.main.MainActivity">
-		</activity>
+			android:parentActivityName=".ui.modules.main.MainActivity"
+			/>
 		<activity
 			android:name="ru.fantlab.android.ui.modules.work.responses.overview.ResponseOverviewActivity"
-			android:parentActivityName=".ui.modules.main.MainActivity">
-		</activity>
+			android:parentActivityName=".ui.modules.main.MainActivity"
+			/>
 		<activity
 			android:name=".ui.modules.settings.SettingsActivity"
-			android:configChanges="keyboard|orientation|screenSize"/>
-		<activity android:name=".ui.modules.theme.ThemeActivity"/>
+			android:configChanges="keyboard|orientation|screenSize"
+			/>
+		<activity android:name=".ui.modules.theme.ThemeActivity" />
 		<activity
 			android:name=".ui.modules.editor.EditorActivity"
 			android:configChanges="keyboard|orientation|screenSize"
-			android:windowSoftInputMode="adjustResize"/>
+			android:windowSoftInputMode="adjustResize"
+			/>
 		<activity
 			android:name=".ui.modules.parser.LinksParserActivity"
 			android:configChanges="keyboard|orientation|screenSize"
 			android:noHistory="true"
-			android:theme="@android:style/Theme.NoDisplay">
+			android:theme="@android:style/Theme.NoDisplay"
+			>
 			<intent-filter>
-				<action android:name="android.intent.action.VIEW"/>
+				<action android:name="android.intent.action.VIEW" />
 
 				<data
 					android:host="fantlab.ru"
@@ -119,10 +124,11 @@
 				<data android:pathPattern=".*\\/edition.*" />
 				<data android:pathPattern=".*\\/award.*" />
 
-				<category android:name="android.intent.category.DEFAULT"/>
-				<category android:name="android.intent.category.BROWSABLE"/>
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
 			</intent-filter>
 		</activity>
+
 		<meta-data
 			android:name="io.fabric.ApiKey"
 			android:value="8f0a95903f61d5dc2716d25b1addf1e44755258d"

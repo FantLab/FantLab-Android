@@ -25,21 +25,21 @@ class AwardNominationViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Awa
 		} else {
 			award.name
 		}
-		if (!award.description.isEmpty()){
+		if (!award.description.isEmpty()) {
 			description.text = award.description
 			description.visibility = View.VISIBLE
 		} else {
 			description.text = ""
 			description.visibility = View.GONE
 		}
-
-
-
 	}
 
 	companion object {
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<Award.Nominations, AwardNominationViewHolder, *>) : AwardNominationViewHolder
-				= AwardNominationViewHolder(getView(viewGroup, R.layout.award_nomination_row_item), adapter)
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<Award.Nominations, AwardNominationViewHolder, *>
+		): AwardNominationViewHolder =
+				AwardNominationViewHolder(getView(viewGroup, R.layout.award_nomination_row_item), adapter)
 	}
 }

@@ -12,21 +12,21 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 class SmileViewHolder private constructor(view: View, adapter: BaseRecyclerAdapter<*, *, *>)
-    : BaseViewHolder<Smile>(view, adapter) {
+	: BaseViewHolder<Smile>(view, adapter) {
 
-    @BindView(R.id.smile) lateinit var smileView: ForegroundImageView
+	@BindView(R.id.smile) lateinit var smileView: ForegroundImageView
 
-    override fun bind(smile: Smile) {
-        Glide.with(itemView.context)
-                .load("file:///android_asset/smiles/${smile.id}.gif")
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .dontAnimate()
-                .into(smileView)
-    }
+	override fun bind(smile: Smile) {
+		Glide.with(itemView.context)
+				.load("file:///android_asset/smiles/${smile.id}.gif")
+				.diskCacheStrategy(DiskCacheStrategy.ALL)
+				.dontAnimate()
+				.into(smileView)
+	}
 
-    companion object {
-        fun newInstance(parent: ViewGroup, adapter: BaseRecyclerAdapter<*, *, *>): SmileViewHolder {
-            return SmileViewHolder(getView(parent, R.layout.smile_row_item), adapter)
-        }
-    }
+	companion object {
+		fun newInstance(parent: ViewGroup, adapter: BaseRecyclerAdapter<*, *, *>): SmileViewHolder {
+			return SmileViewHolder(getView(parent, R.layout.smile_row_item), adapter)
+		}
+	}
 }

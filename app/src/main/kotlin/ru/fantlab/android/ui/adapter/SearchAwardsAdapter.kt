@@ -10,8 +10,7 @@ import java.util.*
 class SearchAwardsAdapter constructor(awards: ArrayList<SearchAward>)
 	: BaseRecyclerAdapter<SearchAward, SearchAwardsViewHolder, BaseViewHolder.OnItemClickListener<SearchAward>>(awards) {
 
-	override fun viewHolder(parent: ViewGroup, viewType: Int): SearchAwardsViewHolder
-			= SearchAwardsViewHolder.newInstance(parent, this)
+	override fun viewHolder(parent: ViewGroup, viewType: Int): SearchAwardsViewHolder = SearchAwardsViewHolder.newInstance(parent, this)
 
 	override fun onBindView(holder: SearchAwardsViewHolder, position: Int) {
 		holder.bind(getItem(position))

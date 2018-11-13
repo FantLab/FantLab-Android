@@ -26,6 +26,7 @@ class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Searc
 	@BindView(R.id.responses) lateinit var responses: FontTextView
 	@BindView(R.id.editions) lateinit var editions: FontTextView
 	@BindView(R.id.movies) lateinit var movies: FontTextView
+
 	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun bind(author: SearchAuthor) {
@@ -95,7 +96,10 @@ class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Searc
 
 	companion object {
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<SearchAuthor, SearchAuthorsViewHolder, *>) : SearchAuthorsViewHolder
-				= SearchAuthorsViewHolder(getView(viewGroup, R.layout.search_authors_row_item), adapter)
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<SearchAuthor, SearchAuthorsViewHolder, *>
+		): SearchAuthorsViewHolder =
+				SearchAuthorsViewHolder(getView(viewGroup, R.layout.search_authors_row_item), adapter)
 	}
 }

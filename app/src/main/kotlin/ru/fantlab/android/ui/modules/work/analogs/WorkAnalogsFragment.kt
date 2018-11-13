@@ -3,11 +3,8 @@ package ru.fantlab.android.ui.modules.work.analogs
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import butterknife.BindView
-import com.google.gson.GsonBuilder
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.WorkAnalog
 import ru.fantlab.android.helper.BundleConstant
@@ -16,10 +13,7 @@ import ru.fantlab.android.ui.adapter.AnalogsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
-import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
-import timber.log.Timber
 
 class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresenter>(),
 		WorkAnalogsMvp.View {
@@ -27,10 +21,12 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
     @BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 
 	private var workAnalogs: ArrayList<WorkAnalog>? = null
-    private val adapter: AnalogsAdapter by lazy { AnalogsAdapter(presenter.getAnalogs()) }
-    private var countCallback: WorkPagerMvp.View? = null
+	private val adapter: AnalogsAdapter by lazy { AnalogsAdapter(presenter.getAnalogs()) }
+	private var countCallback: WorkPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.analogs_list
+
+	override fun providePresenter() = WorkAnalogsPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -45,13 +41,11 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 		}
 	}
 
-	override fun providePresenter() = WorkAnalogsPresenter()
-
 	override fun onInitViews(analogs: ArrayList<WorkAnalog>) {
 		recycler.addKeyLineDivider()
-        adapter.listener = presenter
-        recycler.adapter = adapter
-        adapter.addItems(analogs)
+		adapter.listener = presenter
+		recycler.adapter = adapter
+		adapter.addItems(analogs)
 	}
 
 	override fun onSaveInstanceState(outState: Bundle) {
@@ -85,35 +79,35 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 		}
 	}
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is WorkPagerMvp.View) {
-            countCallback = context
-        }
-    }
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is WorkPagerMvp.View) {
+			countCallback = context
+		}
+	}
 
-    override fun onDetach() {
-        countCallback = null
-        super.onDetach()
-    }
+	override fun onDetach() {
+		countCallback = null
+		super.onDetach()
+	}
 
-    override fun onSetTabCount(count: Int) {
-    }
+	override fun onSetTabCount(count: Int) {
+	}
 
-    override fun onRefresh() {
-        presenter.onCallApi()
-    }
+	override fun onRefresh() {
+		presenter.onCallApi()
+	}
 
-    override fun onNotifyAdapter() {
-        hideProgress()
-        adapter.notifyDataSetChanged()
-    }
+	override fun onNotifyAdapter() {
+		hideProgress()
+		adapter.notifyDataSetChanged()
+	}
 
-    override fun onClick(p0: View?) {
-        onRefresh()
-    }
+	override fun onClick(p0: View?) {
+		onRefresh()
+	}
 
-    override fun onItemClicked(item: WorkAnalog) {
-        WorkPagerActivity.startActivity(context!!, item.id, item.rusName, 0)
-    }
+	override fun onItemClicked(item: WorkAnalog) {
+		WorkPagerActivity.startActivity(context!!, item.id, item.rusName, 0)
+	}
 }

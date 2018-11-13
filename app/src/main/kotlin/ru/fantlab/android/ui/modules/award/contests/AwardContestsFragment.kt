@@ -21,7 +21,7 @@ import ru.fantlab.android.ui.modules.award.AwardPagerMvp
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-import ru.fantlab.android.ui.widgets.recyclerview.layout_manager.StaggeredManager
+import ru.fantlab.android.ui.widgets.recyclerview.layoutManager.StaggeredManager
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
@@ -29,17 +29,21 @@ import java.util.*
 
 class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsPresenter>(),
 		AwardContestsMvp.View {
-	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
+
 	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
-    private var countCallback: AwardPagerMvp.View? = null
+	private var countCallback: AwardPagerMvp.View? = null
 
 	private var contests: ArrayList<Award.Contest>? = null
 
-	private var workId: Int ?= -1
+	private var workId: Int? = -1
+
+	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
+
+	override fun providePresenter() = AwardContestsPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		workId = arguments?.getInt(EXTRA_TWO)
@@ -54,8 +58,6 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 			}
 		}
 	}
-
-	override fun providePresenter() = AwardContestsPresenter()
 
 	override fun onInitViews(contests: List<Award.Contest>?) {
 		hideProgress()
@@ -73,7 +75,7 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 	private fun initAdapter(contests: List<Award.Contest>) {
 		val nodes = arrayListOf<TreeNode<*>>()
 
-		contests.forEachIndexed  { subIndex, item ->
+		contests.forEachIndexed { subIndex, item ->
 			val title = item.nameyear
 			val app = TreeNode(ConstsParent(title, item.description))
 			nodes.add(app)
@@ -97,13 +99,15 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 
 				nameConsts = if (contestsWork.cwLinkId != null) {
 					StringBuilder()
-						.append("\"$nameConsts\"")
-						.append(", ")
-						.append(contestsWork.autorRusname)
-						.toString()
+							.append("\"$nameConsts\"")
+							.append(", ")
+							.append(contestsWork.autorRusname)
+							.toString()
 				} else nameConsts
 
-				nodes[subIndex].addChild(TreeNode(Consts(nameConsts ?: "", contestsWork.nominationRusname ?: contestsWork.nominationName, contestsWork.cwLinkId ?: 0)))
+				nodes[subIndex].addChild(TreeNode(Consts(nameConsts
+						?: "", contestsWork.nominationRusname
+						?: contestsWork.nominationName, contestsWork.cwLinkId ?: 0)))
 				if (workId != -1) app.expandAll()
 			}
 
@@ -113,6 +117,7 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 		adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
 			override fun onSelected(extra: Int, add: Boolean) {
 			}
+
 			override fun onClick(node: TreeNode<*>, holder: RecyclerView.ViewHolder): Boolean {
 				if (!node.isLeaf) {
 					onToggle(!node.isExpand, holder)
@@ -120,12 +125,13 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 					return false
 				} else {
 					val itemWork = node.content as Consts
-					if (itemWork.workId != 0){
+					if (itemWork.workId != 0) {
 						WorkPagerActivity.startActivity(context!!, itemWork.workId, itemWork.title)
 					}
 				}
 				return false
 			}
+
 			override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
 				val dirViewHolder = holder as ConstsViewHolder.ViewHolder
 				val ivArrow = dirViewHolder.ivArrow
@@ -134,7 +140,7 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 						.start()
 			}
 		})
-		if (workId != -1){
+		if (workId != -1) {
 			var position = 0
 			var success = false
 			nodes.forEachIndexed { index, treeNode ->
@@ -161,15 +167,15 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 		outState.putParcelableArrayList("contests", contests)
 	}
 
-    override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
-        refresh.isRefreshing = true
-        stateLayout.showProgress()
-    }
+	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
+		refresh.isRefreshing = true
+		stateLayout.showProgress()
+	}
 
-    override fun hideProgress() {
-        refresh.isRefreshing = false
-        stateLayout.hideProgress()
-    }
+	override fun hideProgress() {
+		refresh.isRefreshing = false
+		stateLayout.hideProgress()
+	}
 
 	override fun showErrorMessage(msgRes: String) {
 		hideProgress()
@@ -193,33 +199,33 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 		}
 	}
 
-    override fun onRefresh() {
-        presenter.onCallApi()
-    }
+	override fun onRefresh() {
+		presenter.onCallApi()
+	}
 
-    override fun onClick(v: View?) {
-        onRefresh()
-    }
+	override fun onClick(v: View?) {
+		onRefresh()
+	}
 
-    override fun onNotifyAdapter() {
-        hideProgress()
-    }
+	override fun onNotifyAdapter() {
+		hideProgress()
+	}
 
-    override fun onSetTabCount(allCount: Int) {
-        countCallback?.onSetBadge(1, allCount)
-    }
+	override fun onSetTabCount(allCount: Int) {
+		countCallback?.onSetBadge(1, allCount)
+	}
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is AwardPagerMvp.View) {
-            countCallback = context
-        }
-    }
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is AwardPagerMvp.View) {
+			countCallback = context
+		}
+	}
 
-    override fun onDetach() {
-        countCallback = null
-        super.onDetach()
-    }
+	override fun onDetach() {
+		countCallback = null
+		super.onDetach()
+	}
 
 	override fun onItemClicked(item: Award.Contest, position: Int) {
 	}

@@ -1,7 +1,9 @@
 package ru.fantlab.android.ui.modules.work.overview
 
 import android.os.Bundle
-import ru.fantlab.android.data.dao.model.*
+import ru.fantlab.android.data.dao.model.MarkMini
+import ru.fantlab.android.data.dao.model.Nomination
+import ru.fantlab.android.data.dao.model.Work
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.dialog.ListDialogView
 import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
@@ -27,7 +29,7 @@ interface WorkOverviewMvp {
 
 	interface Presenter : BaseMvp.Presenter,
 			android.view.View.OnClickListener,
-			BaseViewHolder.OnItemClickListener<Nomination>{
+			BaseViewHolder.OnItemClickListener<Nomination> {
 
 		fun onFragmentCreated(bundle: Bundle?)
 
@@ -40,6 +42,5 @@ interface WorkOverviewMvp {
 		fun getAuthors(): ArrayList<Work.Author>?
 
 		fun getMarks(userId: Int?, workIds: ArrayList<Int?>)
-
 	}
 }

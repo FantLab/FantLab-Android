@@ -33,6 +33,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+
 	@State var userId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, userId) }
 	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses()) }
@@ -160,12 +161,12 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
 		listItem as Response
-		when (item.id){
+		when (item.id) {
 			"vote" -> {
 				presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
 			}
 			"profile" -> {
-				UserPagerActivity.startActivity(context!!, listItem.userName, listItem.userId,0 )
+				UserPagerActivity.startActivity(context!!, listItem.userName, listItem.userId, 0)
 			}
 			"message" -> {
 				startActivity(Intent(activity, EditorActivity::class.java)

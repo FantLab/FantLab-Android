@@ -13,7 +13,7 @@ class TabletBehavior : VerticalScrollingBehavior<BottomNavigation> {
 
 	constructor() : super()
 
-	constructor(context: Context, attrs: AttributeSet): super(context, attrs)
+	constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
 	fun setLayoutValues(bottomNavWidth: Int, topInset: Int, translucentStatus: Boolean) {}
 

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/parentView"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:clipToPadding="false"
-	android:orientation="vertical">
+	android:orientation="vertical"
+	>
 
 	<FrameLayout
 		android:layout_width="match_parent"
@@ -128,8 +130,8 @@
 							android:focusable="true"
 							android:foreground="?android:selectableItemBackground"
 							android:gravity="center_vertical"
-							tools:text="9"
 							android:visibility="gone"
+							tools:text="9"
 							style="@style/TextAppearance.AppCompat.Caption"
 							/>
 
@@ -153,10 +155,10 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:orientation="vertical"
-					android:paddingStart="16dp"
-					android:paddingEnd="16dp"
-					android:paddingTop="8dp"
 					android:paddingBottom="8dp"
+					android:paddingEnd="16dp"
+					android:paddingStart="16dp"
+					android:paddingTop="8dp"
 					>
 
 					<ru.fantlab.android.ui.widgets.FontTextView
@@ -181,45 +183,45 @@
 			</android.support.v7.widget.CardView>
 
 			<android.support.v7.widget.CardView
-			android:id="@+id/authorView"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_below="@+id/aboutView"
-			android:elevation="@dimen/spacing_normal"
-			app:cardBackgroundColor="?card_background"
-			app:cardCornerRadius="0dp"
-			>
-
-			<LinearLayout
+				android:id="@+id/authorView"
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:orientation="vertical"
-				android:paddingStart="16dp"
-				android:paddingEnd="16dp"
-				android:paddingTop="8dp"
-				android:paddingBottom="8dp"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/aboutView"
+				android:elevation="@dimen/spacing_normal"
+				app:cardBackgroundColor="?card_background"
+				app:cardCornerRadius="0dp"
 				>
 
-				<ru.fantlab.android.ui.widgets.FontTextView
+				<LinearLayout
 					android:layout_width="match_parent"
-					android:layout_height="0dp"
-					android:layout_marginBottom="@dimen/spacing_micro"
-					android:layout_weight="1"
-					android:text="@string/authors"
-					style="@style/TextAppearance.AppCompat.Title"
-					/>
+					android:layout_height="match_parent"
+					android:orientation="vertical"
+					android:paddingBottom="8dp"
+					android:paddingEnd="16dp"
+					android:paddingStart="16dp"
+					android:paddingTop="8dp"
+					>
+
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:layout_width="match_parent"
+						android:layout_height="0dp"
+						android:layout_marginBottom="@dimen/spacing_micro"
+						android:layout_weight="1"
+						android:text="@string/authors"
+						style="@style/TextAppearance.AppCompat.Title"
+						/>
 
 					<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 						android:id="@+id/recyclerAuthors"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						tools:listitem="@layout/author_row_item"
 						app:layoutManager="@string/staggered_layout_manager"
 						app:spanCount="@integer/micro_spans"
+						tools:listitem="@layout/author_row_item"
 						/>
 
-			</LinearLayout>
-		</android.support.v7.widget.CardView>
+				</LinearLayout>
+			</android.support.v7.widget.CardView>
 
 			<android.support.v7.widget.CardView
 				android:id="@+id/winsView"
@@ -236,8 +238,8 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:orientation="vertical"
-					android:paddingStart="16dp"
 					android:paddingEnd="16dp"
+					android:paddingStart="16dp"
 					>
 
 					<ru.fantlab.android.ui.widgets.FontTextView
@@ -253,9 +255,9 @@
 						android:id="@+id/recyclerWins"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						tools:listitem="@layout/award_row_item"
 						app:layoutManager="@string/staggered_layout_manager"
 						app:spanCount="@integer/micro_spans"
+						tools:listitem="@layout/award_row_item"
 						/>
 
 				</LinearLayout>

@@ -30,6 +30,7 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 	@BindView(R.id.tabs) lateinit var tabs: TabLayout
 	@BindView(R.id.tabbedPager) lateinit var pager: ViewPagerView
 	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
+
 	@State var index: Int = 0
 	@State var workId: Int = 0
 	var classificators: ArrayList<Int> = arrayListOf()
@@ -101,7 +102,8 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 		hideShowFab()
 	}
 
-	@OnClick(R.id.fab) fun onFabClicked() {
+	@OnClick(R.id.fab)
+	fun onFabClicked() {
 		if (checkSelections()) {
 			val resultQuery = StringBuilder()
 			(0 until classificators.size - 1).forEach { item ->
@@ -158,6 +160,7 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 			}
 			context.startActivity(intent)
 		}
+
 		var classNeededToSet = listOf(0, 2, 3, 6)
 	}
 }

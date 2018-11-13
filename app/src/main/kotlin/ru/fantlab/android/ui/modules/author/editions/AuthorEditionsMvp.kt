@@ -10,8 +10,8 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 interface AuthorEditionsMvp {
 
 	interface View : BaseMvp.View,
-            SwipeRefreshLayout.OnRefreshListener,
-            android.view.View.OnClickListener{
+			SwipeRefreshLayout.OnRefreshListener,
+			android.view.View.OnClickListener {
 
 		fun onInitViews(authorEditionsResponse: AuthorEditionsResponse)
 
@@ -23,12 +23,12 @@ interface AuthorEditionsMvp {
 	}
 
 	interface Presenter : BaseMvp.Presenter,
-			BaseViewHolder.OnItemClickListener<EditionsBlocks.Edition>{
+			BaseViewHolder.OnItemClickListener<EditionsBlocks.Edition> {
 
 		fun onFragmentCreated(bundle: Bundle?)
 
 		fun onWorkOffline(id: Int)
 
-        fun getEditions(): ArrayList<EditionsBlocks.Edition>
+		fun getEditions(): ArrayList<EditionsBlocks.Edition>
 	}
 }

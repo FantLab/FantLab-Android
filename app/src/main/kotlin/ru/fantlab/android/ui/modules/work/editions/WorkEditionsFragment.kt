@@ -18,22 +18,23 @@ import ru.fantlab.android.ui.modules.work.WorkPagerMvp
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
-import timber.log.Timber
 
 class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPresenter>(),
 		WorkEditionsMvp.View {
 
-    private var workEditions: EditionsBlocks? = null
+	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
+	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
+	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
+	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+
+	private var workEditions: EditionsBlocks? = null
 	private var workEditionsInfo: EditionsInfo? = null
+	private val adapter: EditionsAdapter by lazy { EditionsAdapter(presenter.getEditions()) }
+	private var countCallback: WorkPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
-	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
-    @BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
-    @BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
-    @BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
-    private val adapter: EditionsAdapter by lazy { EditionsAdapter(presenter.getEditions()) }
-    private var countCallback: WorkPagerMvp.View? = null
+	override fun providePresenter() = WorkEditionsPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -49,36 +50,35 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
 		}
 	}
 
-	override fun providePresenter() = WorkEditionsPresenter()
-
 	override fun onInitViews(editions: EditionsBlocks?, editionsInfo: EditionsInfo) {
 		hideProgress()
-        onSetTabCount(editionsInfo.allCount)
-        stateLayout.setEmptyText(R.string.no_editions)
-        stateLayout.setOnReloadListener(this)
-        refresh.setOnRefreshListener(this)
-        recycler.setEmptyView(stateLayout, refresh)
-        recycler.addKeyLineDivider()
-        adapter.listener = presenter
-        editions?.editionsBlocks?.let {
-            it.forEach {
-            adapter.addItems(it.list)
-        } }
-        recycler.adapter = adapter
+		onSetTabCount(editionsInfo.allCount)
+		stateLayout.setEmptyText(R.string.no_editions)
+		stateLayout.setOnReloadListener(this)
+		refresh.setOnRefreshListener(this)
+		recycler.setEmptyView(stateLayout, refresh)
+		recycler.addKeyLineDivider()
+		adapter.listener = presenter
+		editions?.editionsBlocks?.let {
+			it.forEach {
+				adapter.addItems(it.list)
+			}
+		}
+		recycler.adapter = adapter
 		fastScroller.attachRecyclerView(recycler)
 	}
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is WorkPagerMvp.View) {
-            countCallback = context
-        }
-    }
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is WorkPagerMvp.View) {
+			countCallback = context
+		}
+	}
 
-    override fun onDetach() {
-        countCallback = null
-        super.onDetach()
-    }
+	override fun onDetach() {
+		countCallback = null
+		super.onDetach()
+	}
 
 
 	override fun onSaveInstanceState(outState: Bundle) {
@@ -88,13 +88,13 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
-        refresh.isRefreshing = true
-        stateLayout.showProgress()
+		refresh.isRefreshing = true
+		stateLayout.showProgress()
 	}
 
 	override fun hideProgress() {
-        refresh.isRefreshing = false
-        stateLayout.hideProgress()
+		refresh.isRefreshing = false
+		stateLayout.hideProgress()
 	}
 
 	override fun showErrorMessage(msgRes: String) {
@@ -116,24 +116,24 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
 		}
 	}
 
-    override fun onRefresh() {
-        presenter.onCallApi()
-    }
+	override fun onRefresh() {
+		presenter.onCallApi()
+	}
 
-    override fun onItemClicked(item: EditionsBlocks.Edition) {
-        EditionPagerActivity.startActivity(context!!, item.editionId, item.name, 0)
-    }
+	override fun onItemClicked(item: EditionsBlocks.Edition) {
+		EditionPagerActivity.startActivity(context!!, item.editionId, item.name, 0)
+	}
 
-    override fun onClick(v: View?) {
-        onRefresh()
-    }
+	override fun onClick(v: View?) {
+		onRefresh()
+	}
 
-    override fun onNotifyAdapter() {
-        hideProgress()
-        adapter.notifyDataSetChanged()
-    }
+	override fun onNotifyAdapter() {
+		hideProgress()
+		adapter.notifyDataSetChanged()
+	}
 
-    override fun onSetTabCount(allCount: Int) {
-        countCallback?.onSetBadge(3, allCount)
-    }
+	override fun onSetTabCount(allCount: Int) {
+		countCallback?.onSetBadge(3, allCount)
+	}
 }

@@ -5,6 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class AppLanguageModel(
-        val value: String,
-        val label: String
-): Parcelable
+		val value: String,
+		val label: String
+) : Parcelable

@@ -58,7 +58,7 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 		return true
 	}
 
-	fun onSendMark(item: Mark, mark: Int, position: Int){
+	fun onSendMark(item: Mark, mark: Int, position: Int) {
 		makeRestCall(DataManager.sendUserMark(item.workId, item.workId, mark)
 				.map { it.get() }
 				.toObservable(),

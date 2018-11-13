@@ -14,6 +14,7 @@ import ru.fantlab.android.ui.widgets.ratingbar.ScaleRatingBar
 
 
 open class RatingDialogView : BaseBottomSheetDialog() {
+
 	@BindView(R.id.ratingBar) lateinit var ratingBar: ScaleRatingBar
 	@BindView(R.id.caption) lateinit var title: FontTextView
 
@@ -50,7 +51,7 @@ open class RatingDialogView : BaseBottomSheetDialog() {
 		val caption = bundle.getString(BundleConstant.EXTRA_FOUR)
 		val item: Any = bundle.getParcelable(BundleConstant.ITEM)
 
-		if (caption.isNotEmpty()){
+		if (caption.isNotEmpty()) {
 			title.text = caption
 			title.visibility = View.VISIBLE
 		}
@@ -88,5 +89,4 @@ open class RatingDialogView : BaseBottomSheetDialog() {
 					.end()
 		}
 	}
-
 }

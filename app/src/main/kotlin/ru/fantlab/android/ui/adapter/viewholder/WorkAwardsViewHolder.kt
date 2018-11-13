@@ -31,8 +31,10 @@ class WorkAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Nominati
 
 	companion object {
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<Nomination, WorkAwardsViewHolder, *>) : WorkAwardsViewHolder
-				= WorkAwardsViewHolder(getView(viewGroup, R.layout.award_row_item), adapter)
-
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<Nomination, WorkAwardsViewHolder, *>
+		): WorkAwardsViewHolder =
+				WorkAwardsViewHolder(getView(viewGroup, R.layout.award_row_item), adapter)
 	}
 }

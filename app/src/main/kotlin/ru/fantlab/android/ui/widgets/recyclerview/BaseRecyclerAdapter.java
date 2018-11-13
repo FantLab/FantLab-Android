@@ -50,10 +50,6 @@ public abstract class BaseRecyclerAdapter<M, VH extends BaseViewHolder,
 		this(new ArrayList<M>(), listener);
 	}
 
-	protected abstract VH viewHolder(ViewGroup parent, int viewType);
-
-	protected abstract void onBindView(VH holder, int position);
-
 	@NonNull
 	public List<M> getData() {
 		return data;
@@ -61,14 +57,6 @@ public abstract class BaseRecyclerAdapter<M, VH extends BaseViewHolder,
 
 	public M getItemByPosition(int position) {
 		return data.get(position);
-	}
-
-	public M getItem(int position) {
-		return data.get(position);
-	}
-
-	public int getItem(M t) {
-		return data.indexOf(t);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -110,6 +98,21 @@ public abstract class BaseRecyclerAdapter<M, VH extends BaseViewHolder,
 		return data.size();
 	}
 
+	@Override
+	public void onViewDetachedFromWindow(VH holder) {
+		holder.onViewIsDetaching();
+		super.onViewDetachedFromWindow(holder);
+	}
+
+	private void animate(@NonNull VH holder, int position) {
+		if (isEnableAnimation() && position > lastKnowingPosition) {
+			AnimHelper.INSTANCE.startBeatsAnimation(holder.itemView);
+			lastKnowingPosition = position;
+		}
+	}
+
+	protected abstract void onBindView(VH holder, int position);
+
 	@SuppressWarnings("unchecked")
 	private void onShowGuide(
 		@NonNull VH holder,
@@ -121,11 +124,39 @@ public abstract class BaseRecyclerAdapter<M, VH extends BaseViewHolder,
 		}
 	}
 
-	private void animate(@NonNull VH holder, int position) {
-		if (isEnableAnimation() && position > lastKnowingPosition) {
-			AnimHelper.INSTANCE.startBeatsAnimation(holder.itemView);
-			lastKnowingPosition = position;
+	@SuppressWarnings("WeakerAccess")
+	public boolean isEnableAnimation() {
+		return enableAnimation;
+	}
+
+	public void setEnableAnimation(boolean enableAnimation) {
+		this.enableAnimation = enableAnimation;
+		notifyDataSetChanged();
+	}
+
+	private boolean isShowedGuide() {
+		return showedGuide;
+	}
+
+	private void addSpanLookup(ViewGroup parent) {
+		if (parent instanceof RecyclerView) {
+			if (((RecyclerView) parent).getLayoutManager() instanceof GridLayoutManager) {
+				final GridLayoutManager layoutManager =
+					((GridLayoutManager) ((RecyclerView) parent).getLayoutManager());
+				layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+					@Override
+					public int getSpanSize(int position) {
+						return getItemViewType(position) == PROGRESS_TYPE ? layoutManager.getSpanCount() : 1;
+					}
+				});
+			}
 		}
+	}
+
+	protected abstract VH viewHolder(ViewGroup parent, int viewType);
+
+	public M getItem(int position) {
+		return data.get(position);
 	}
 
 	public void insertItems(@NonNull List<M> items) {
@@ -140,21 +171,25 @@ public abstract class BaseRecyclerAdapter<M, VH extends BaseViewHolder,
 		notifyItemInserted(position);
 	}
 
-	public void addItem(M item) {
-		removeProgress();
-		data.add(item);
-		if (data.size() == 0) {
-			notifyDataSetChanged();
-		} else {
-			notifyItemInserted(data.size() - 1);
-		}
-	}
-
 	@SuppressWarnings("WeakerAccess")
 	public void addItems(@NonNull List<M> items) {
 		removeProgress();
 		data.addAll(items);
 		notifyItemRangeInserted(getItemCount(), (getItemCount() + items.size()) - 1);
+	}
+
+	private void removeProgress() {
+		if (!isEmpty()) {
+			M m = getItem(getItemCount() - 1);
+			if (m == null) {
+				removeItem(getItemCount() - 1);
+			}
+			progressAdded = false;
+		}
+	}
+
+	public boolean isEmpty() {
+		return data.isEmpty();
 	}
 
 	@SuppressWarnings("WeakerAccess")
@@ -181,6 +216,10 @@ public abstract class BaseRecyclerAdapter<M, VH extends BaseViewHolder,
 		swapItem(model, index);
 	}
 
+	public int getItem(M t) {
+		return data.indexOf(t);
+	}
+
 	public void swapItem(@NonNull M model, int position) {
 		if (position != -1) {
 			data.set(position, model);
@@ -200,20 +239,6 @@ public abstract class BaseRecyclerAdapter<M, VH extends BaseViewHolder,
 		progressAdded = false;
 		data.clear();
 		notifyDataSetChanged();
-	}
-
-	public boolean isEmpty() {
-		return data.isEmpty();
-	}
-
-	public void setEnableAnimation(boolean enableAnimation) {
-		this.enableAnimation = enableAnimation;
-		notifyDataSetChanged();
-	}
-
-	@SuppressWarnings("WeakerAccess")
-	public boolean isEnableAnimation() {
-		return enableAnimation;
 	}
 
 	@SuppressWarnings("WeakerAccess")
@@ -242,16 +267,6 @@ public abstract class BaseRecyclerAdapter<M, VH extends BaseViewHolder,
 		}
 	}
 
-	private boolean isShowedGuide() {
-		return showedGuide;
-	}
-
-	@Override
-	public void onViewDetachedFromWindow(VH holder) {
-		holder.onViewIsDetaching();
-		super.onViewDetachedFromWindow(holder);
-	}
-
 	public void addProgress() {
 		if (!progressAdded && !isEmpty()) {
 			addItem(null);
@@ -259,33 +274,18 @@ public abstract class BaseRecyclerAdapter<M, VH extends BaseViewHolder,
 		}
 	}
 
+	public void addItem(M item) {
+		removeProgress();
+		data.add(item);
+		if (data.size() == 0) {
+			notifyDataSetChanged();
+		} else {
+			notifyItemInserted(data.size() - 1);
+		}
+	}
+
 	public boolean isProgressAdded() {
 		return progressAdded;
-	}
-
-	private void removeProgress() {
-		if (!isEmpty()) {
-			M m = getItem(getItemCount() - 1);
-			if (m == null) {
-				removeItem(getItemCount() - 1);
-			}
-			progressAdded = false;
-		}
-	}
-
-	private void addSpanLookup(ViewGroup parent) {
-		if (parent instanceof RecyclerView) {
-			if (((RecyclerView) parent).getLayoutManager() instanceof GridLayoutManager) {
-				final GridLayoutManager layoutManager =
-					((GridLayoutManager) ((RecyclerView) parent).getLayoutManager());
-				layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-					@Override
-					public int getSpanSize(int position) {
-						return getItemViewType(position) == PROGRESS_TYPE ? layoutManager.getSpanCount() : 1;
-					}
-				});
-			}
-		}
 	}
 
 	public interface GuideListener<M> {

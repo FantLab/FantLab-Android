@@ -35,6 +35,7 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 	@BindView(R.id.tabs) lateinit var tabs: TabLayout
 	@BindView(R.id.tabbedPager) lateinit var pager: ViewPagerView
 	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
+
 	@State var index: Int = 0
 	@State var authorId: Int = 0
 	@State var authorName: String = ""

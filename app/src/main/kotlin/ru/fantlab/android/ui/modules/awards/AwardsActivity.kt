@@ -28,9 +28,11 @@ class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMv
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
-	private val adapter: AwardsAdapter by lazy { AwardsAdapter(presenter.getAwards()) }
-	lateinit var sortButton : Button
 	@BindView(R.id.sortview) lateinit var sortView: SortView
+
+	lateinit var sortButton: Button
+
+	private val adapter: AwardsAdapter by lazy { AwardsAdapter(presenter.getAwards()) }
 
 	override fun layout(): Int = R.layout.awards_layout
 
@@ -89,11 +91,11 @@ class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMv
 	}
 
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
-			sortButton.text = StringBuilder()
-					.append(getString(R.string.sort_mode))
-					.append(" ")
-					.append(item.title.toLowerCase())
-			presenter.setCurrentSort(item.id)
+		sortButton.text = StringBuilder()
+				.append(getString(R.string.sort_mode))
+				.append(" ")
+				.append(item.title.toLowerCase())
+		presenter.setCurrentSort(item.id)
 	}
 
 	override fun onNotifyAdapter(items: ArrayList<AwardInList>) {

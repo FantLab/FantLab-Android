@@ -25,13 +25,16 @@ import java.util.*
 class EditionContentFragment : BaseFragment<EditionContentMvp.View, EditionContentPresenter>(),
 		EditionContentMvp.View {
 
-	private var content: ArrayList<EditionContent>? = null
-
-    override fun fragmentLayout() = R.layout.edition_content_layout
-    @BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
-    @BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
+	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
+	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.progress) lateinit var progress: View
-    private var countCallback: EditionPagerMvp.View? = null
+
+	private var content: ArrayList<EditionContent>? = null
+	private var countCallback: EditionPagerMvp.View? = null
+
+	override fun fragmentLayout() = R.layout.edition_content_layout
+
+	override fun providePresenter() = EditionContentPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -46,14 +49,12 @@ class EditionContentFragment : BaseFragment<EditionContentMvp.View, EditionConte
 		}
 	}
 
-	override fun providePresenter() = EditionContentPresenter()
-
 	override fun onInitViews(content: ArrayList<EditionContent>) {
 		hideProgress()
-        stateLayout.setEmptyText(R.string.no_content)
-        stateLayout.setOnReloadListener(this)
-        recycler.setEmptyView(stateLayout)
-        recycler.addDivider()
+		stateLayout.setEmptyText(R.string.no_content)
+		stateLayout.setOnReloadListener(this)
+		recycler.setEmptyView(stateLayout)
+		recycler.addDivider()
 
 		val nodes = arrayListOf<TreeNode<*>>()
 		content.forEachIndexed { index, item ->
@@ -66,7 +67,7 @@ class EditionContentFragment : BaseFragment<EditionContentMvp.View, EditionConte
 					TreeNode(EditionContentParent(item.title))
 				else
 					TreeNode(EditionContentChild(item.title))
-				when (item.level){
+				when (item.level) {
 					2 -> parent.addChild(node)
 					3 -> parent.childList[parent.childList.size - 1].addChild(node)
 					4 -> parent.childList[parent.childList.size - 1].childList[parent.childList[parent.childList.size - 1].childList.size - 1].addChild(node)
@@ -79,12 +80,14 @@ class EditionContentFragment : BaseFragment<EditionContentMvp.View, EditionConte
 		adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
 			override fun onSelected(extra: Int, add: Boolean) {
 			}
+
 			override fun onClick(node: TreeNode<*>, holder: RecyclerView.ViewHolder): Boolean {
 				if (!node.isLeaf) {
 					onToggle(!node.isExpand, holder)
 				}
 				return false
 			}
+
 			override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
 				val dirViewHolder = holder as EditionContentParentViewHolder.ViewHolder
 				val ivArrow = dirViewHolder.arrow
@@ -94,23 +97,23 @@ class EditionContentFragment : BaseFragment<EditionContentMvp.View, EditionConte
 			}
 		})
 		recycler.adapter = adapter
-        onSetTabCount(adapter.itemCount)
-    }
+		onSetTabCount(adapter.itemCount)
+	}
 
 	override fun onSaveInstanceState(outState: Bundle) {
 		super.onSaveInstanceState(outState)
 		outState.putParcelableArrayList("content", content)
 	}
 
-    override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
+	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
 		progress.visibility = View.VISIBLE
-        stateLayout.showProgress()
-    }
+		stateLayout.showProgress()
+	}
 
-    override fun hideProgress() {
-        stateLayout.hideProgress()
+	override fun hideProgress() {
+		stateLayout.hideProgress()
 		progress.visibility = View.GONE
-    }
+	}
 
 	override fun showErrorMessage(msgRes: String) {
 		hideProgress()
@@ -131,31 +134,31 @@ class EditionContentFragment : BaseFragment<EditionContentMvp.View, EditionConte
 		}
 	}
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is EditionPagerMvp.View) {
-            countCallback = context
-        }
-    }
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is EditionPagerMvp.View) {
+			countCallback = context
+		}
+	}
 
-    override fun onDetach() {
-        countCallback = null
-        super.onDetach()
-    }
+	override fun onDetach() {
+		countCallback = null
+		super.onDetach()
+	}
 
-    override fun onSetTabCount(allCount: Int) {
-        countCallback?.onSetBadge(1, allCount)
-    }
+	override fun onSetTabCount(allCount: Int) {
+		countCallback?.onSetBadge(1, allCount)
+	}
 
-    override fun onRefresh() {
-        presenter.onCallApi()
-    }
+	override fun onRefresh() {
+		presenter.onCallApi()
+	}
 
-    override fun onNotifyAdapter() {
-        hideProgress()
-    }
+	override fun onNotifyAdapter() {
+		hideProgress()
+	}
 
-    override fun onClick(p0: View?) {
-        onRefresh()
-    }
+	override fun onClick(p0: View?) {
+		onRefresh()
+	}
 }

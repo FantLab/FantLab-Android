@@ -23,7 +23,8 @@ import ru.fantlab.android.helper.ViewHelper
 /**
  * Created by Kosh on 8/18/2015. copyrights are reserved
  */
-class FontTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr) {
+class FontTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+		AppCompatTextView(context, attrs, defStyleAttr) {
 
 	@State
 	var tintColor = -1
@@ -52,7 +53,7 @@ class FontTextView @JvmOverloads constructor(context: Context, attrs: AttributeS
 
 	fun setLevel(level: Int) {
 		val mlp = this.getLayoutParams() as ViewGroup.MarginLayoutParams
-		mlp.setMargins(ViewHelper.toPx(context, level * 20) , 0, 0, 0)
+		mlp.setMargins(ViewHelper.toPx(context, level * 20), 0, 0, 0)
 	}
 
 	@SuppressLint("SetTextI18n")

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<attr name="card_background" format="color|reference"/>
-	<attr name="icon_color" format="color|reference"/>
-	<attr name="timeLineBackground" format="reference"/>
-	<attr name="patch_deletion" format="color"/>
-	<attr name="patch_addition" format="color"/>
-	<attr name="patch_ref" format="color"/>
-	<attr name="dividerColor" format="color|reference"/>
-	<attr name="comment_box_style" format="reference"/>
+	<attr format="color|reference" name="card_background" />
+	<attr format="color|reference" name="icon_color" />
+	<attr format="reference" name="timeLineBackground" />
+	<attr format="color" name="patch_deletion" />
+	<attr format="color" name="patch_addition" />
+	<attr format="color" name="patch_ref" />
+	<attr format="color|reference" name="dividerColor" />
+	<attr format="reference" name="comment_box_style" />
 </resources>

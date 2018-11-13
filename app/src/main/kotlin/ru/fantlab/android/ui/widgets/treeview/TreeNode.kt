@@ -1,8 +1,9 @@
 package ru.fantlab.android.ui.widgets.treeview
 
-import java.util.ArrayList
+import java.util.*
 
 class TreeNode<T : LayoutItemType>(var content: T?) : Cloneable {
+
 	var parent: TreeNode<*>? = null
 	internal var childList: MutableList<TreeNode<*>> = ArrayList()
 	var isExpand: Boolean = false

@@ -8,31 +8,31 @@ import kotlinx.android.parcel.Parcelize
 @Keep
 @Parcelize
 data class Award(
-    @SerializedName("award_close") val awardClose: String,
-    @SerializedName("award_id") val awardId: String,
-    @SerializedName("award_type") val awardType: String,
-    @SerializedName("comment") val comment: String,
-    @SerializedName("compiler") val compiler: String,
-    @SerializedName("contests") val contests: List<Contest>?,
-    @SerializedName("copyright") val copyright: String,
-    @SerializedName("copyright_link") val copyrightLink: String,
-    @SerializedName("country_id") val countryId: String,
-    @SerializedName("country_name") val countryName: String,
-    @SerializedName("curator_id") val curatorId: String,
-    @SerializedName("description") val description: String,
-    @SerializedName("homepage") val homepage: String,
-    @SerializedName("is_opened") val isOpened: Int,
-    @SerializedName("lang_id") val langId: String,
-    @SerializedName("max_date") val maxDate: String,
-    @SerializedName("min_date") val minDate: String,
-    @SerializedName("name") val name: String,
-    @SerializedName("nominations") val nominations: List<Nominations>?,
-    @SerializedName("non_fantastic") val nonFantastic: String,
-    @SerializedName("notes") val notes: String,
-    @SerializedName("process_status") val processStatus: String,
-    @SerializedName("rusname") val rusname: String,
-    @SerializedName("show_in_list") val showInList: String
-): Parcelable {
+		@SerializedName("award_close") val awardClose: String,
+		@SerializedName("award_id") val awardId: String,
+		@SerializedName("award_type") val awardType: String,
+		@SerializedName("comment") val comment: String,
+		@SerializedName("compiler") val compiler: String,
+		@SerializedName("contests") val contests: List<Contest>?,
+		@SerializedName("copyright") val copyright: String,
+		@SerializedName("copyright_link") val copyrightLink: String,
+		@SerializedName("country_id") val countryId: String,
+		@SerializedName("country_name") val countryName: String,
+		@SerializedName("curator_id") val curatorId: String,
+		@SerializedName("description") val description: String,
+		@SerializedName("homepage") val homepage: String,
+		@SerializedName("is_opened") val isOpened: Int,
+		@SerializedName("lang_id") val langId: String,
+		@SerializedName("max_date") val maxDate: String,
+		@SerializedName("min_date") val minDate: String,
+		@SerializedName("name") val name: String,
+		@SerializedName("nominations") val nominations: List<Nominations>?,
+		@SerializedName("non_fantastic") val nonFantastic: String,
+		@SerializedName("notes") val notes: String,
+		@SerializedName("process_status") val processStatus: String,
+		@SerializedName("rusname") val rusname: String,
+		@SerializedName("show_in_list") val showInList: String
+) : Parcelable {
 	@Keep
 	@Parcelize
 	data class Contest(
@@ -50,7 +50,7 @@ data class Award(
 			@SerializedName("number") val number: String,
 			@SerializedName("place") val place: String?,
 			@SerializedName("short_description") val shortDescription: String
-	): Parcelable
+	) : Parcelable
 
 	@Keep
 	@Parcelize
@@ -73,7 +73,7 @@ data class Award(
 			@SerializedName("nomination_number") val nominationNumber: String,
 			@SerializedName("nomination_rusname") val nominationRusname: String?,
 			@SerializedName("work_rusname") val workRusname: String?
-	): Parcelable
+	) : Parcelable
 
 	@Keep
 	@Parcelize
@@ -85,6 +85,6 @@ data class Award(
 			@SerializedName("nomination_id") val nominationId: String,
 			@SerializedName("number") val number: String,
 			@SerializedName("rusname") val rusname: String
-	): Parcelable
+	) : Parcelable
 
 }

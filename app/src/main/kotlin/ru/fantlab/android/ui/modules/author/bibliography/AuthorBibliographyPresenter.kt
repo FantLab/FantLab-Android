@@ -11,8 +11,7 @@ import ru.fantlab.android.ui.widgets.treeview.TreeNode
 class AuthorBibliographyPresenter : BasePresenter<AuthorBibliographyMvp.View>(),
 		AuthorBibliographyMvp.Presenter {
 
-	@com.evernote.android.state.State
-	var authorId: Int? = null
+	@com.evernote.android.state.State var authorId: Int? = null
 	private var bibliography: WorksBlocks? = null
 
 	override fun onFragmentCreated(bundle: Bundle?) {
@@ -26,10 +25,12 @@ class AuthorBibliographyPresenter : BasePresenter<AuthorBibliographyMvp.View>(),
 							.map { it.get() }
 							.toObservable(),
 					Consumer { authorResponse ->
-						sendToView { it.onInitViews(
-								authorResponse.cycles,
-								authorResponse.works
-						) }
+						sendToView {
+							it.onInitViews(
+									authorResponse.cycles,
+									authorResponse.works
+							)
+						}
 					}
 			)
 		}
@@ -46,7 +47,7 @@ class AuthorBibliographyPresenter : BasePresenter<AuthorBibliographyMvp.View>(),
 
 	override fun getBibliography(): WorksBlocks? = bibliography
 
-	fun onSendMark(workId: Int, mark: Int, position: Int){
+	fun onSendMark(workId: Int, mark: Int, position: Int) {
 		makeRestCall(DataManager.sendUserMark(workId, workId, mark)
 				.map { it.get() }
 				.toObservable(),
@@ -71,6 +72,4 @@ class AuthorBibliographyPresenter : BasePresenter<AuthorBibliographyMvp.View>(),
 	override fun onItemLongClick(item: TreeNode<*>, position: Int) {
 		view?.onItemLongClicked(item, position)
 	}
-
-
 }

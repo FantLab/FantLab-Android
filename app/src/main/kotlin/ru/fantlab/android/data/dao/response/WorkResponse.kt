@@ -51,20 +51,20 @@ data class WorkResponse(
 			if (jsonObject["classificatory"] != JsonNull.INSTANCE) {
 				val array = jsonObject.getAsJsonObject("classificatory").getAsJsonArray("genre_group")
 				if (array != null) {
-				val recursiveClassificatory = arrayListOf<RecursiveGenreGroup>()
-				array.map {
-					recursiveClassificatory.add(DataManager.gson.fromJson(
-							it.asJsonObject,
-							RecursiveGenreGroup::class.java
-					))
-				}
-				recursiveClassificatory.map {
-					val genres = arrayListOf<Pair<Int, GenreGroup.Genre>>()
-					it.genre.map { genre ->
-						genres.add(0, genre)
+					val recursiveClassificatory = arrayListOf<RecursiveGenreGroup>()
+					array.map {
+						recursiveClassificatory.add(DataManager.gson.fromJson(
+								it.asJsonObject,
+								RecursiveGenreGroup::class.java
+						))
 					}
-					classificatory.add(GenreGroup(genres, it.genreGroupId, it.label))
-				}
+					recursiveClassificatory.map {
+						val genres = arrayListOf<Pair<Int, GenreGroup.Genre>>()
+						it.genre.map { genre ->
+							genres.add(0, genre)
+						}
+						classificatory.add(GenreGroup(genres, it.genreGroupId, it.label))
+					}
 				}
 			}
 			if (jsonObject["editions_blocks"] != JsonNull.INSTANCE) {

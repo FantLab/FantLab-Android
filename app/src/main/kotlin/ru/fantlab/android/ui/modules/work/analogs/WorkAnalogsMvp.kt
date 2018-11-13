@@ -9,20 +9,20 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 interface WorkAnalogsMvp {
 
 	interface View : BaseMvp.View,
-            SwipeRefreshLayout.OnRefreshListener,
-            android.view.View.OnClickListener{
+			SwipeRefreshLayout.OnRefreshListener,
+			android.view.View.OnClickListener {
 
 		fun onInitViews(analogs: ArrayList<WorkAnalog>)
 
-        fun onSetTabCount(count: Int)
+		fun onSetTabCount(count: Int)
 
-        fun onNotifyAdapter()
+		fun onNotifyAdapter()
 
-        fun onItemClicked(item: WorkAnalog)
-    }
+		fun onItemClicked(item: WorkAnalog)
+	}
 
 	interface Presenter : BaseMvp.Presenter,
-            BaseViewHolder.OnItemClickListener<WorkAnalog>{
+			BaseViewHolder.OnItemClickListener<WorkAnalog> {
 
 		fun onFragmentCreated(bundle: Bundle?)
 

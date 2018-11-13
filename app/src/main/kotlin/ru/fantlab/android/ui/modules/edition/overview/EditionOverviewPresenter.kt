@@ -9,8 +9,7 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 class EditionOverviewPresenter : BasePresenter<EditionOverviewMvp.View>(),
 		EditionOverviewMvp.Presenter {
 
-	@com.evernote.android.state.State
-	var editionId: Int? = null
+	@com.evernote.android.state.State var editionId: Int? = null
 
 	override fun onFragmentCreated(bundle: Bundle?) {
 		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
@@ -23,12 +22,15 @@ class EditionOverviewPresenter : BasePresenter<EditionOverviewMvp.View>(),
 							.map { it.get() }
 							.toObservable(),
 					Consumer { editionResponse ->
-						sendToView { it.onInitViews(
-								editionResponse.edition,
-								editionResponse.additionalImages
-						) }
+						sendToView {
+							it.onInitViews(
+									editionResponse.edition,
+									editionResponse.additionalImages
+							)
+						}
 					}
-			)}
+			)
+		}
 	}
 
 	override fun onError(throwable: Throwable) {

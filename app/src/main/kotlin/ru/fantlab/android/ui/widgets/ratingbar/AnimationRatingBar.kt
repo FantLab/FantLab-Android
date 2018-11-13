@@ -4,8 +4,7 @@ import android.content.Context
 import android.os.Handler
 import android.os.SystemClock
 import android.util.AttributeSet
-
-import java.util.UUID
+import java.util.*
 
 open class AnimationRatingBar : BaseRatingBar {
 
@@ -37,5 +36,4 @@ open class AnimationRatingBar : BaseRatingBar {
 		val timeMillis = SystemClock.uptimeMillis() + ANIMATION_DELAY
 		mHandler!!.postAtTime(runnable, mRunnableToken, timeMillis)
 	}
-
 }

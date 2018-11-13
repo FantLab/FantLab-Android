@@ -36,7 +36,10 @@ class WorkAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Work.Au
 
 	companion object {
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<Work.Author, WorkAuthorsViewHolder, *>) : WorkAuthorsViewHolder
-				= WorkAuthorsViewHolder(getView(viewGroup, R.layout.author_row_item), adapter)
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<Work.Author, WorkAuthorsViewHolder, *>
+		): WorkAuthorsViewHolder =
+				WorkAuthorsViewHolder(getView(viewGroup, R.layout.author_row_item), adapter)
 	}
 }

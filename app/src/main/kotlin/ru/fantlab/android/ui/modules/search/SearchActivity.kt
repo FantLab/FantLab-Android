@@ -32,6 +32,7 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 	@BindView(R.id.clear) lateinit var clear: ForegroundImageView
 	@BindView(R.id.tabs) lateinit var tabs: TabLayout
 	@BindView(R.id.pager) lateinit var pager: ViewPagerView
+
 	@State var tabsCountSet: HashSet<TabsCountStateModel> = LinkedHashSet<TabsCountStateModel>()
 	private val numberFormat = NumberFormat.getNumberInstance()
 	private val adapter: ArrayAdapter<String> by lazy {

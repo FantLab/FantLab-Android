@@ -59,6 +59,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 	@BindView(R.id.sign) lateinit var sign: FontTextView
 	@BindView(R.id.block) lateinit var block: FontTextView
 	@BindView(R.id.progress) lateinit var progress: View
+
 	private var user: User? = null
 	private val numberFormat = NumberFormat.getNumberInstance()
 
@@ -200,7 +201,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 
 
 	override fun onClick(v: View) {
-		when (v.id){
+		when (v.id) {
 			R.id.marksLayout -> {
 				pagerCallback?.onSelectTab(1)
 			}

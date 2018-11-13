@@ -162,8 +162,8 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 
 	protected fun selectMenuItem(@IdRes id: Int, check: Boolean) {
 		extraNav?.let {
-			it.menu.findItem(id)?.let {
-				with(it) {
+			it.menu.findItem(id)?.let { item ->
+				with(item) {
 					isCheckable = check
 					isChecked = check
 				}
@@ -178,7 +178,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		}
 		if (!isProgressShowing && !isFinishing) {
 			var fragment = AppHelper.getFragmentByTag(supportFragmentManager, ProgressDialogFragment.TAG)
-							as ProgressDialogFragment?
+					as ProgressDialogFragment?
 			if (fragment == null) {
 				isProgressShowing = true
 				fragment = ProgressDialogFragment.newInstance(msg, cancelable)
@@ -227,13 +227,13 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 			PrefGetter.setToken(null)
 			PrefGetter.clearLoggedUser()
 			true
-		}.observe().subscribe({
+		}.observe().subscribe {
 			glide.clearMemory()
 			val intent = Intent(this, LoginActivity::class.java)
 			intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
 			startActivity(intent)
 			finishAffinity()
-		}))
+		})
 	}
 
 	override fun onLogoutPressed() {
@@ -262,7 +262,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	override fun onOpenSettings() {
-        startActivityForResult(Intent(this, SettingsActivity::class.java), BundleConstant.REFRESH_CODE)
+		startActivityForResult(Intent(this, SettingsActivity::class.java), BundleConstant.REFRESH_CODE)
 	}
 
 	override fun onOpenUrlInBrowser() {
@@ -313,16 +313,16 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 			setSupportActionBar(it)
 			if (canBack()) {
 				val supportActionBar = supportActionBar
-				supportActionBar?.let {
-					it.setHomeAsUpIndicator(R.drawable.ic_back)
-					it.setDisplayHomeAsUpEnabled(true)
+				supportActionBar?.let { actionBar ->
+					actionBar.setHomeAsUpIndicator(R.drawable.ic_back)
+					actionBar.setDisplayHomeAsUpEnabled(true)
 					if (canBack()) {
-						getToolbarNavigationIcon(toolbar)?.setOnLongClickListener({
+						getToolbarNavigationIcon(toolbar)?.setOnLongClickListener { _ ->
 							val intent = Intent(this, MainActivity::class.java)
 							startActivity(intent)
 							finish()
 							true
-						})
+						}
 					}
 				}
 			}

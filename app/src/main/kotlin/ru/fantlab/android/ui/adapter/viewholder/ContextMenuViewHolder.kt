@@ -17,7 +17,6 @@ class ContextMenuViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Context
 	@BindView(R.id.icon) lateinit var icon: ForegroundImageView
 	@BindView(R.id.title) lateinit var title: FontTextView
 
-
 	override fun bind(item: ContextMenus.MenuItem) {
 		icon.setImageResource(item.icon)
 		title.text = item.title
@@ -25,9 +24,10 @@ class ContextMenuViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Context
 
 	companion object {
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<ContextMenus.MenuItem, ContextMenuViewHolder, *>) : ContextMenuViewHolder
-				= ContextMenuViewHolder(getView(viewGroup, R.layout.context_row_item), adapter)
-
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<ContextMenus.MenuItem, ContextMenuViewHolder, *>
+		): ContextMenuViewHolder =
+				ContextMenuViewHolder(getView(viewGroup, R.layout.context_row_item), adapter)
 	}
-
 }

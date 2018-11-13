@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Keep
 @Parcelize
 data class Smile(
-		val id : String,
-		val description : String
+		val id: String,
+		val description: String
 ) : Parcelable

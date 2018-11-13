@@ -12,12 +12,11 @@ class ListsHandler : TagNodeHandler() {
 
 	override fun beforeChildren(node: TagNode, builder: SpannableStringBuilder?) {
 		if ("list" == getParentName(node)) {
-				builder!!.append("\u2022 ")
+			builder!!.append("\u2022 ")
 		}
 	}
 
 	override fun handleTagNode(tagNode: TagNode, spannableStringBuilder: SpannableStringBuilder, i: Int, i1: Int) {
 		appendNewLine(spannableStringBuilder)
 	}
-
 }

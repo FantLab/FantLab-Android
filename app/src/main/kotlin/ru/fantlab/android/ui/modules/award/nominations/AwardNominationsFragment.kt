@@ -27,8 +27,8 @@ class AwardNominationsFragment : BaseFragment<AwardNominationsMvp.View, AwardNom
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
-    private val adapter: AwardNominationsAdapter by lazy { AwardNominationsAdapter(presenter.getAwardNominations()) }
-    private var countCallback: AwardPagerMvp.View? = null
+	private val adapter: AwardNominationsAdapter by lazy { AwardNominationsAdapter(presenter.getAwardNominations()) }
+	private var countCallback: AwardPagerMvp.View? = null
 	private var awardId: Int? = null
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,15 +50,15 @@ class AwardNominationsFragment : BaseFragment<AwardNominationsMvp.View, AwardNom
 
 	override fun providePresenter() = AwardNominationsPresenter()
 
-    override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
-        refresh.isRefreshing = true
-        stateLayout.showProgress()
-    }
+	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
+		refresh.isRefreshing = true
+		stateLayout.showProgress()
+	}
 
-    override fun hideProgress() {
-        refresh.isRefreshing = false
-        stateLayout.hideProgress()
-    }
+	override fun hideProgress() {
+		refresh.isRefreshing = false
+		stateLayout.hideProgress()
+	}
 
 	override fun showErrorMessage(msgRes: String) {
 		hideProgress()
@@ -79,17 +79,17 @@ class AwardNominationsFragment : BaseFragment<AwardNominationsMvp.View, AwardNom
 		}
 	}
 
-    override fun onRefresh() {
-        presenter.onCallApi(awardId)
-    }
+	override fun onRefresh() {
+		presenter.onCallApi(awardId)
+	}
 
-    override fun onClick(v: View?) {
-        onRefresh()
-    }
+	override fun onClick(v: View?) {
+		onRefresh()
+	}
 
-    override fun onNotifyAdapter(items: List<Award.Nominations>?) {
+	override fun onNotifyAdapter(items: List<Award.Nominations>?) {
 		hideProgress()
-		if (items != null){
+		if (items != null) {
 			if (items.isEmpty()) {
 				adapter.clear()
 				return
@@ -99,21 +99,21 @@ class AwardNominationsFragment : BaseFragment<AwardNominationsMvp.View, AwardNom
 		fastScroller.attachRecyclerView(recycler)
 	}
 
-    override fun onSetTabCount(allCount: Int) {
-        countCallback?.onSetBadge(2, allCount)
-    }
+	override fun onSetTabCount(allCount: Int) {
+		countCallback?.onSetBadge(2, allCount)
+	}
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is AwardPagerMvp.View) {
-            countCallback = context
-        }
-    }
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is AwardPagerMvp.View) {
+			countCallback = context
+		}
+	}
 
-    override fun onDetach() {
-        countCallback = null
-        super.onDetach()
-    }
+	override fun onDetach() {
+		countCallback = null
+		super.onDetach()
+	}
 
 	override fun onItemClicked(item: Award.Nominations) {
 	}

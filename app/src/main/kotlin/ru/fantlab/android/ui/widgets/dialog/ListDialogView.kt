@@ -19,10 +19,12 @@ import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 import java.util.*
 
-class ListDialogView<T: Parcelable> : BaseDialogFragment<BaseMvp.View, BasePresenter<BaseMvp.View>>(), BaseViewHolder.OnItemClickListener<T>  {
+class ListDialogView<T : Parcelable> : BaseDialogFragment<BaseMvp.View, BasePresenter<BaseMvp.View>>(), BaseViewHolder.OnItemClickListener<T> {
+
 	@BindView(R.id.title) lateinit var title: FontTextView
 	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+
 	private var callbacks: ListDialogViewActionCallback? = null
 
 	init {
@@ -35,7 +37,7 @@ class ListDialogView<T: Parcelable> : BaseDialogFragment<BaseMvp.View, BasePrese
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		val objects = arguments!!.getParcelableArrayList<T>(BundleConstant.ITEM)
-		if (objects.size == 1){
+		if (objects.size == 1) {
 			onItemClick(0, view, objects[0])
 			return
 		}
@@ -63,7 +65,7 @@ class ListDialogView<T: Parcelable> : BaseDialogFragment<BaseMvp.View, BasePrese
 	override fun onDialogDismissed() {
 	}
 
-	override fun onItemClick(position: Int, v: View?, item:  T) {
+	override fun onItemClick(position: Int, v: View?, item: T) {
 		dismiss()
 		if (callbacks != null) callbacks!!.onItemSelected(item, position)
 	}
@@ -95,5 +97,4 @@ class ListDialogView<T: Parcelable> : BaseDialogFragment<BaseMvp.View, BasePrese
 	interface ListDialogViewActionCallback {
 		fun <T> onItemSelected(item: T, position: Int)
 	}
-
 }

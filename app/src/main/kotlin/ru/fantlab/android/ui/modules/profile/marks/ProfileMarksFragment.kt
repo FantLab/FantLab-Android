@@ -33,6 +33,7 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+
 	@State var userId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, userId) }
 	private val adapter: ProfileMarksAdapter by lazy { ProfileMarksAdapter(presenter.getMarks()) }
@@ -128,7 +129,7 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
 		listItem as Mark
-		when (item.id){
+		when (item.id) {
 			"revote" -> {
 				RatingDialogView.newInstance(10, listItem.mark.toFloat(),
 						listItem,
@@ -137,7 +138,7 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 				).show(childFragmentManager, RatingDialogView.TAG)
 			}
 			"delete" -> {
-			presenter.onSendMark(listItem, 0, position)
+				presenter.onSendMark(listItem, 0, position)
 			}
 		}
 	}

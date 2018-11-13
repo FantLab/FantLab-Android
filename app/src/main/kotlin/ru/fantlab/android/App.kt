@@ -2,7 +2,6 @@ package ru.fantlab.android
 
 import android.app.Application
 import com.github.kittinunf.fuel.core.FuelManager
-import com.github.kittinunf.fuel.core.interceptors.validatorResponseInterceptor
 import ru.fantlab.android.data.service.dbResponseInterceptor
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.fabric.FabricProvider

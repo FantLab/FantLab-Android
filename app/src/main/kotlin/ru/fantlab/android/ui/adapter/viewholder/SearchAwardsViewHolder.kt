@@ -24,11 +24,11 @@ class SearchAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Search
 	override fun bind(award: SearchAward) {
 		avatarLayout.setUrl(
 				Uri.Builder().scheme(PROTOCOL_HTTPS)
-				.authority(HOST_DATA)
-				.appendPath("images")
-				.appendPath("awards")
-				.appendPath(award.id.toString())
-				.toString())
+						.authority(HOST_DATA)
+						.appendPath("images")
+						.appendPath("awards")
+						.appendPath(award.id.toString())
+						.toString())
 
 		name.text = if (award.rusName.isNotEmpty()) {
 			if (award.name.isNotEmpty()) {
@@ -49,7 +49,10 @@ class SearchAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Search
 
 	companion object {
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<SearchAward, SearchAwardsViewHolder, *>) : SearchAwardsViewHolder
-				= SearchAwardsViewHolder(getView(viewGroup, R.layout.search_awards_row_item), adapter)
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<SearchAward, SearchAwardsViewHolder, *>
+		): SearchAwardsViewHolder =
+				SearchAwardsViewHolder(getView(viewGroup, R.layout.search_awards_row_item), adapter)
 	}
 }

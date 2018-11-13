@@ -22,6 +22,7 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 	@BindView(R.id.title) lateinit var title: FontTextView
 	@BindView(R.id.year) lateinit var year: FontTextView
 	@BindView(R.id.rating) lateinit var rating: FontTextView
+
 	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun bind(work: SearchWork) {
@@ -109,7 +110,10 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 		private val AUTHORS_REGEX = "//\\s*Авторы:*".toRegex(RegexOption.IGNORE_CASE)
 		private val AUTHOR_REGEX = "//\\s*Автор:*".toRegex(RegexOption.IGNORE_CASE)
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<SearchWork, SearchWorksViewHolder, *>): SearchWorksViewHolder
-				= SearchWorksViewHolder(getView(viewGroup, R.layout.search_works_row_item), adapter)
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<SearchWork, SearchWorksViewHolder, *>
+		): SearchWorksViewHolder =
+				SearchWorksViewHolder(getView(viewGroup, R.layout.search_works_row_item), adapter)
 	}
 }

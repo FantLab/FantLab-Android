@@ -10,8 +10,7 @@ import java.util.*
 class SearchWorksAdapter constructor(works: ArrayList<SearchWork>)
 	: BaseRecyclerAdapter<SearchWork, SearchWorksViewHolder, BaseViewHolder.OnItemClickListener<SearchWork>>(works) {
 
-	override fun viewHolder(parent: ViewGroup, viewType: Int): SearchWorksViewHolder
-			= SearchWorksViewHolder.newInstance(parent, this)
+	override fun viewHolder(parent: ViewGroup, viewType: Int): SearchWorksViewHolder = SearchWorksViewHolder.newInstance(parent, this)
 
 	override fun onBindView(holder: SearchWorksViewHolder, position: Int) {
 		holder.bind(getItem(position))

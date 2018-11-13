@@ -22,16 +22,18 @@ import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScrolle
 class WorkContentFragment : BaseFragment<WorkContentMvp.View, WorkContentPresenter>(),
 		WorkContentMvp.View {
 
+	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
+	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
+	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
+	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+
+	private var countCallback: WorkPagerMvp.View? = null
 	private var content: ArrayList<ChildWork>? = null
 	private val adapter: WorkContentAdapter by lazy { WorkContentAdapter(presenter.getContent()) }
 
-    override fun fragmentLayout() = R.layout.micro_grid_refresh_list
-    @BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
-    @BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
-    @BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
-    @BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
 
-    private var countCallback: WorkPagerMvp.View? = null
+	override fun providePresenter() = WorkContentPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -45,31 +47,29 @@ class WorkContentFragment : BaseFragment<WorkContentMvp.View, WorkContentPresent
 		}
 	}
 
-	override fun providePresenter() = WorkContentPresenter()
-
 	override fun onInitViews(content: ArrayList<ChildWork>) {
 		hideProgress()
-        stateLayout.setEmptyText(R.string.no_content)
-        stateLayout.setOnReloadListener(this)
-        refresh.setOnRefreshListener(this)
-        recycler.setEmptyView(stateLayout, refresh)
-        recycler.addDivider()
+		stateLayout.setEmptyText(R.string.no_content)
+		stateLayout.setOnReloadListener(this)
+		refresh.setOnRefreshListener(this)
+		recycler.setEmptyView(stateLayout, refresh)
+		recycler.addDivider()
 		adapter.listener = presenter
-        fastScroller.attachRecyclerView(recycler)
-        recycler.adapter = adapter
-        adapter.addItems(content)
-        onSetTabCount(adapter.itemCount)
-    }
+		fastScroller.attachRecyclerView(recycler)
+		recycler.adapter = adapter
+		adapter.addItems(content)
+		onSetTabCount(adapter.itemCount)
+	}
 
-    override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
-        refresh.isRefreshing = true
-        stateLayout.showProgress()
-    }
+	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
+		refresh.isRefreshing = true
+		stateLayout.showProgress()
+	}
 
-    override fun hideProgress() {
-        refresh.isRefreshing = false
-        stateLayout.hideProgress()
-    }
+	override fun hideProgress() {
+		refresh.isRefreshing = false
+		stateLayout.hideProgress()
+	}
 
 	override fun showErrorMessage(msgRes: String) {
 		hideProgress()
@@ -90,34 +90,34 @@ class WorkContentFragment : BaseFragment<WorkContentMvp.View, WorkContentPresent
 		}
 	}
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is WorkPagerMvp.View) {
-            countCallback = context
-        }
-    }
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is WorkPagerMvp.View) {
+			countCallback = context
+		}
+	}
 
-    override fun onDetach() {
-        countCallback = null
-        super.onDetach()
-    }
+	override fun onDetach() {
+		countCallback = null
+		super.onDetach()
+	}
 
-    override fun onSetTabCount(allCount: Int) {
-        countCallback?.onSetBadge(1, allCount)
-    }
+	override fun onSetTabCount(allCount: Int) {
+		countCallback?.onSetBadge(1, allCount)
+	}
 
-    override fun onRefresh() {
-        presenter.onCallApi()
-    }
+	override fun onRefresh() {
+		presenter.onCallApi()
+	}
 
-    override fun onNotifyAdapter() {
-        hideProgress()
-        adapter.notifyDataSetChanged()
-    }
+	override fun onNotifyAdapter() {
+		hideProgress()
+		adapter.notifyDataSetChanged()
+	}
 
-    override fun onClick(p0: View?) {
-        onRefresh()
-    }
+	override fun onClick(p0: View?) {
+		onRefresh()
+	}
 
 	override fun onItemClicked(item: ChildWork) {
 		if (item.id != null) WorkPagerActivity.startActivity(context!!, item.id, if (!InputHelper.isEmpty(item.name)) item.name else item.nameOrig, 0)

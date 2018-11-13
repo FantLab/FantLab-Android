@@ -11,9 +11,12 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.OnClick
 import com.evernote.android.state.State
+import es.dmoral.toasty.Toasty
+import ru.fantlab.android.App
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
@@ -25,14 +28,11 @@ import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.editor.EditorActivity
+import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.widgets.ViewPagerView
 import shortbread.Shortcut
 import java.text.NumberFormat
 import java.util.*
-import android.widget.Toast
-import es.dmoral.toasty.Toasty
-import ru.fantlab.android.App
-import ru.fantlab.android.ui.modules.login.LoginActivity
 
 
 @Shortcut(id = "profile", icon = R.drawable.sb_profile, shortLabelRes = R.string.profile, rank = 0)
@@ -41,6 +41,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	@BindView(R.id.tabs) lateinit var tabs: TabLayout
 	@BindView(R.id.tabbedPager) lateinit var pager: ViewPagerView
 	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
+
 	@State var index: Int = 0
 	@State var login: String? = null
 	@State var userId: Int = 0
@@ -136,7 +137,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 	override fun onScrollTop(index: Int) {
 		if (pager.adapter == null) return
-		val fragment = pager.adapter?.instantiateItem(pager, index) as? BaseFragment<*,*>
+		val fragment = pager.adapter?.instantiateItem(pager, index) as? BaseFragment<*, *>
 		if (fragment is BaseFragment) {
 			fragment.onScrollTop(index)
 		}
@@ -147,7 +148,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		setupTab(count, tabIndex)
 	}
 
-	override fun onSelectTab(tabIndex: Int){
+	override fun onSelectTab(tabIndex: Int) {
 		pager.currentItem = tabIndex
 	}
 
@@ -165,7 +166,8 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		}
 	}
 
-	@OnClick(R.id.fab) fun onFabClicked() {
+	@OnClick(R.id.fab)
+	fun onFabClicked() {
 		startActivity(Intent(this, EditorActivity::class.java)
 				.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_MESSAGE)
 				.putExtra(BundleConstant.ID, userId))

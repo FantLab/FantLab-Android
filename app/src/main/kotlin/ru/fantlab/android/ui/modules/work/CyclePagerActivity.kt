@@ -37,6 +37,7 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 	@BindView(R.id.tabs) lateinit var tabs: TabLayout
 	@BindView(R.id.tabbedPager) lateinit var pager: ViewPagerView
 	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
+
 	@State var index: Int = 0
 	@State var workId: Int = 0
 	@State var workName: String = ""
@@ -135,7 +136,7 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 		when (position) {
 			2 -> {
 				val user = PrefGetter.getLoggedUser()
-				if (user != null && user.`class` >= PHILOSOPHER_CLASS){
+				if (user != null && user.`class` >= PHILOSOPHER_CLASS) {
 					fab.setImageResource(R.drawable.ic_classif)
 					fab.show()
 				} else fab.hide()
@@ -150,8 +151,9 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 		}
 	}
 
-	@OnClick(R.id.fab) fun onFabClicked() {
-		when (pager.currentItem){
+	@OnClick(R.id.fab)
+	fun onFabClicked() {
+		when (pager.currentItem) {
 			2 -> {
 				ClassificatorPagerActivity.startActivity(this, workId)
 			}

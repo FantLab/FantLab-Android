@@ -21,7 +21,10 @@ class CycleViewHolder : TreeViewBinder<CycleViewHolder.ViewHolder>() {
 	}
 
 	override fun bindView(
-			holder: RecyclerView.ViewHolder, position: Int, node: TreeNode<*>, onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
+			holder: RecyclerView.ViewHolder,
+			position: Int,
+			node: TreeNode<*>,
+			onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
 	) {
 		(holder as CycleViewHolder.ViewHolder).ivArrow.rotation = 0f
 		holder.ivArrow.setImageResource(R.drawable.ic_keyboard_arrow_right_black_18dp)
@@ -38,6 +41,5 @@ class CycleViewHolder : TreeViewBinder<CycleViewHolder.ViewHolder>() {
 	class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
 		val ivArrow: ImageView = rootView.findViewById<View>(R.id.iv_arrow) as ImageView
 		var tvName: TextView = rootView.findViewById<View>(R.id.tv_name) as TextView
-
 	}
 }

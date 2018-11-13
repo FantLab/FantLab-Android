@@ -12,8 +12,7 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 		WorkOverviewMvp.Presenter {
 
-	@com.evernote.android.state.State
-	var workId: Int? = null
+	@com.evernote.android.state.State var workId: Int? = null
 	private var noms: ArrayList<Nomination>? = ArrayList()
 	private var wins: ArrayList<Nomination>? = ArrayList()
 	private var authors: ArrayList<Work.Author>? = ArrayList()
@@ -32,13 +31,16 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 						sendToView { it ->
 							noms = workResponse.awards?.nominations
 							wins = workResponse.awards?.wins
-							authors = workResponse.work.authors.filter { it.id !in listOf(10, 2000, 7000, 46137) } as ArrayList
-							it.onInitViews(workResponse.work) }
+							authors = workResponse.work.authors
+									.filter { it.id !in listOf(10, 2000, 7000, 46137) } as ArrayList
+							it.onInitViews(workResponse.work)
+						}
 					}
-			)}
+			)
+		}
 	}
 
-	fun onSendMark(workId: Int, mark: Int){
+	fun onSendMark(workId: Int, mark: Int) {
 		makeRestCall(DataManager.sendUserMark(workId, workId, mark)
 				.map { it.get() }
 				.toObservable(),
@@ -85,6 +87,4 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 	override fun getWins(): ArrayList<Nomination>? = wins ?: ArrayList()
 
 	override fun getAuthors(): ArrayList<Work.Author>? = authors ?: ArrayList()
-
-
 }

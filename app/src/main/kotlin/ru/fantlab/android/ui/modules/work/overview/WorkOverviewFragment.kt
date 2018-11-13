@@ -31,32 +31,32 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		WorkOverviewMvp.View {
 
 	@BindView(R.id.progress) lateinit var progress: View
-    @BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
-    @BindView(R.id.authorView) lateinit var authorView: CardView
-    @BindView(R.id.title) lateinit var name: FontTextView
-    @BindView(R.id.title2) lateinit var name2: FontTextView
-    @BindView(R.id.rate) lateinit var rate: FontTextView
-    @BindView(R.id.types) lateinit var types: FontTextView
-    @BindView(R.id.description) lateinit var description: FontTextView
-    @BindView(R.id.mymark) lateinit var mymark: FontTextView
-    @BindView(R.id.notes) lateinit var notes: FontTextView
-    @BindView(R.id.recyclerNoms) lateinit var nomsList: DynamicRecyclerView
-    @BindView(R.id.recyclerWins) lateinit var winsList: DynamicRecyclerView
-    @BindView(R.id.recyclerAuthors) lateinit var authorsList: DynamicRecyclerView
+	@BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
+	@BindView(R.id.authorView) lateinit var authorView: CardView
+	@BindView(R.id.title) lateinit var name: FontTextView
+	@BindView(R.id.title2) lateinit var name2: FontTextView
+	@BindView(R.id.rate) lateinit var rate: FontTextView
+	@BindView(R.id.types) lateinit var types: FontTextView
+	@BindView(R.id.description) lateinit var description: FontTextView
+	@BindView(R.id.mymark) lateinit var mymark: FontTextView
+	@BindView(R.id.notes) lateinit var notes: FontTextView
+	@BindView(R.id.recyclerNoms) lateinit var nomsList: DynamicRecyclerView
+	@BindView(R.id.recyclerWins) lateinit var winsList: DynamicRecyclerView
+	@BindView(R.id.recyclerAuthors) lateinit var authorsList: DynamicRecyclerView
+	@BindView(R.id.aboutView) lateinit var aboutView: CardView
+	@BindView(R.id.winsView) lateinit var winsView: CardView
+	@BindView(R.id.nomsView) lateinit var nomsView: CardView
 
-    @BindView(R.id.aboutView) lateinit var aboutView: CardView
-    @BindView(R.id.winsView) lateinit var winsView: CardView
-    @BindView(R.id.nomsView) lateinit var nomsView: CardView
-
-    private var work: Work? = null
+	private var work: Work? = null
 
 	private val adapterNoms: WorkAwardsAdapter by lazy { WorkAwardsAdapter(presenter.getNoms()) }
 	private val adapterWins: WorkAwardsAdapter by lazy { WorkAwardsAdapter(presenter.getWins()) }
 	private val adapterAuthors: WorkAuthorsAdapter by lazy { WorkAuthorsAdapter(presenter.getAuthors()) }
+	private var pagerCallback: WorkPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.work_overview_layout
 
-	private var pagerCallback: WorkPagerMvp.View? = null
+	override fun providePresenter() = WorkOverviewPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -71,8 +71,6 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		}
 	}
 
-	override fun providePresenter() = WorkOverviewPresenter()
-
 	override fun onInitViews(work: Work) {
 		this.work = work
 		pagerCallback?.onSetTitle(if (!InputHelper.isEmpty(work.name)) work.name else work.nameOrig)
@@ -83,7 +81,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 		coverLayout.setUrl(if (work.image != null) "https:${work.image}" else null, R.drawable.not_found_poster)
 
-		if (InputHelper.isEmpty(work.name)){
+		if (InputHelper.isEmpty(work.name)) {
 			name.text = work.nameOrig
 			name2.visibility = View.GONE
 		} else {
@@ -98,9 +96,9 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 		if (work.rating.votersCount != "0") {
 			rate.text = StringBuilder()
-				.append(work.rating.rating)
-				.append(" - ")
-				.append(work.rating.votersCount)
+					.append(work.rating.rating)
+					.append(" - ")
+					.append(work.rating.votersCount)
 		} else rate.visibility = View.GONE
 
 		if (!InputHelper.isEmpty(work.notes))
@@ -195,7 +193,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun onGetMarks(marks: ArrayList<MarkMini>) {
 		hideProgress()
-		if (marks.size > 0){
+		if (marks.size > 0) {
 			mymark.text = marks[0].mark.toString()
 
 		} else {
@@ -208,7 +206,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun onSetMark(mark: Int, markCount: Double, midMark: Double) {
 		hideProgress()
-		if (mark == 0){
+		if (mark == 0) {
 			mymark.text = getString(R.string.set_mark)
 		} else {
 			mymark.text = mark.toString()
@@ -239,5 +237,4 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	override fun onSetTitle(title: String) {
 		pagerCallback?.onSetTitle(title)
 	}
-
 }

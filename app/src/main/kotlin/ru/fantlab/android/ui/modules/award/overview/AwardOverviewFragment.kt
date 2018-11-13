@@ -25,24 +25,26 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 		AwardOverviewMvp.View {
 
 	@BindView(R.id.progress) lateinit var progress: View
-    @BindView(R.id.coverLayout) lateinit var coverLayout: ForegroundImageView
-    @BindView(R.id.langIcon) lateinit var langLayout: ImageView
-    @BindView(R.id.title) lateinit var title: FontTextView
-    @BindView(R.id.title2) lateinit var title2: FontTextView
-    @BindView(R.id.description) lateinit var description: FontTextView
-    @BindView(R.id.aboutView) lateinit var descriptionView: CardView
-    @BindView(R.id.comment) lateinit var comment: FontTextView
-    @BindView(R.id.commentView) lateinit var commentView: CardView
-    @BindView(R.id.notes) lateinit var notes: FontTextView
-    @BindView(R.id.notesView) lateinit var notesView: CardView
-    @BindView(R.id.country) lateinit var country: FontTextView
-    @BindView(R.id.date) lateinit var date: FontTextView
-    @BindView(R.id.homepage) lateinit var homepage: FontTextView
+	@BindView(R.id.coverLayout) lateinit var coverLayout: ForegroundImageView
+	@BindView(R.id.langIcon) lateinit var langLayout: ImageView
+	@BindView(R.id.title) lateinit var title: FontTextView
+	@BindView(R.id.title2) lateinit var title2: FontTextView
+	@BindView(R.id.description) lateinit var description: FontTextView
+	@BindView(R.id.aboutView) lateinit var descriptionView: CardView
+	@BindView(R.id.comment) lateinit var comment: FontTextView
+	@BindView(R.id.commentView) lateinit var commentView: CardView
+	@BindView(R.id.notes) lateinit var notes: FontTextView
+	@BindView(R.id.notesView) lateinit var notesView: CardView
+	@BindView(R.id.country) lateinit var country: FontTextView
+	@BindView(R.id.date) lateinit var date: FontTextView
+	@BindView(R.id.homepage) lateinit var homepage: FontTextView
 
 	private var award: Award? = null
 	private var pagerCallback: AwardPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.award_overview_layout
+
+	override fun providePresenter() = AwardOverviewPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -56,8 +58,6 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 			}
 		}
 	}
-
-	override fun providePresenter() = AwardOverviewPresenter()
 
 	override fun onInitViews(award: Award) {
 		hideProgress()
@@ -119,7 +119,7 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 				.append(" - ")
 				.append(award.maxDate.split("-")[0])
 		homepage.text = award.homepage
-    }
+	}
 
 	override fun onSaveInstanceState(outState: Bundle) {
 		super.onSaveInstanceState(outState)

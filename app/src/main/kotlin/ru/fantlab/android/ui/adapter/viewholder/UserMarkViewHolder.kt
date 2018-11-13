@@ -36,7 +36,7 @@ class UserMarkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Mark, User
 			mark.workNameOrig
 		}
 		type.text = mark.workType.capitalize()
-		if (mark.workYear != 0){
+		if (mark.workYear != 0) {
 			year.text = mark.workYear.toString()
 		} else year.visibility = View.GONE
 		myMark.text = mark.mark.toString()
@@ -46,7 +46,10 @@ class UserMarkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Mark, User
 
 	companion object {
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<Mark, UserMarkViewHolder, *>) : UserMarkViewHolder
-				= UserMarkViewHolder(getView(viewGroup, R.layout.profile_mark_row_item), adapter)
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<Mark, UserMarkViewHolder, *>
+		): UserMarkViewHolder =
+				UserMarkViewHolder(getView(viewGroup, R.layout.profile_mark_row_item), adapter)
 	}
 }

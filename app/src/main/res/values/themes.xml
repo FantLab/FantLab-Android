@@ -15,7 +15,8 @@
 		<item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
 		<item name="android:windowBackground">@color/material_blue_accent_700</item>
 		<!--<item name="android:windowBackground">@drawable/splash_screen_drawable</item>-->
-		<item name="icon_color">@color/darkWindowBackground</item> <!-- to display the icons properly since this theme is the default -->
+		<item name="icon_color">@color/darkWindowBackground
+		</item> <!-- to display the icons properly since this theme is the default -->
 	</style>
 
 	<style name="SliderTheme" parent="Theme.AppCompat.Dialog">

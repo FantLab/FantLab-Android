@@ -17,60 +17,61 @@ import kotlin.reflect.KFunction0
 
 
 class LanguageBottomSheetDialog : BaseBottomSheetDialog() {
-    @BindView(R.id.title) lateinit var title: FontTextView
-    @BindView(R.id.picker) lateinit var radioGroup: RadioGroup
-    private var callback: LanguageDialogViewActionCallback? = null
 
+	@BindView(R.id.title) lateinit var title: FontTextView
+	@BindView(R.id.picker) lateinit var radioGroup: RadioGroup
 
-    interface LanguageDialogViewActionCallback {
-        fun onLanguageChanged(action: KFunction0<Unit>)
-    }
+	private var callback: LanguageDialogViewActionCallback? = null
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (parentFragment != null && parentFragment is LanguageDialogViewActionCallback) {
-            callback = parentFragment as LanguageDialogViewActionCallback
-        } else if (context is LanguageDialogViewActionCallback) {
-            callback = context
-        }
-    }
+	interface LanguageDialogViewActionCallback {
+		fun onLanguageChanged(action: KFunction0<Unit>)
+	}
 
-    override fun onDetach() {
-        super.onDetach()
-        callback = null
-    }
+	override fun onAttach(context: Context) {
+		super.onAttach(context)
+		if (parentFragment != null && parentFragment is LanguageDialogViewActionCallback) {
+			callback = parentFragment as LanguageDialogViewActionCallback
+		} else if (context is LanguageDialogViewActionCallback) {
+			callback = context
+		}
+	}
 
-    override fun layoutRes(): Int {
-        return R.layout.picker_dialog
-    }
+	override fun onDetach() {
+		super.onDetach()
+		callback = null
+	}
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val language = PrefGetter.getAppLanguage()
-        val values = resources.getStringArray(R.array.languages_array_values)
-        val padding = resources.getDimensionPixelSize(R.dimen.spacing_xs_large)
-        resources.getStringArray(R.array.languages_array)
-                 .mapIndexed { index, string -> AppLanguageModel(values[index], string) }
-                 .sortedBy { it.label }
-                 .forEachIndexed { index, appLanguageModel ->
-                     val radioButtonView = RadioButton(context)
-                     val params = RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                     radioButtonView.layoutParams = params
-                     radioButtonView.text = appLanguageModel.label
-                     radioButtonView.id = index
-                     radioButtonView.tag = appLanguageModel.value
-                     radioButtonView.gravity = Gravity.CENTER_VERTICAL
-                     radioButtonView.setPadding(padding, padding, padding, padding)
-                     radioGroup.addView(radioButtonView)
-                     if (appLanguageModel.value.equals(language, ignoreCase = true)) radioGroup.check(index)
-                 }
-        radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            val tag = radioGroup.getChildAt(checkedId).tag as String
-            if (!tag.equals(language, ignoreCase = true)) {
-                PrefGetter.setAppLanguage(tag)
-                callback?.onLanguageChanged(this::dismiss)
-            }
-        }
-    }
+	override fun layoutRes(): Int {
+		return R.layout.picker_dialog
+	}
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		val language = PrefGetter.getAppLanguage()
+		val values = resources.getStringArray(R.array.languages_array_values)
+		val padding = resources.getDimensionPixelSize(R.dimen.spacing_xs_large)
+		resources.getStringArray(R.array.languages_array)
+				.mapIndexed { index, string -> AppLanguageModel(values[index], string) }
+				.sortedBy { it.label }
+				.forEachIndexed { index, appLanguageModel ->
+					val radioButtonView = RadioButton(context)
+					val params = RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+					radioButtonView.layoutParams = params
+					radioButtonView.text = appLanguageModel.label
+					radioButtonView.id = index
+					radioButtonView.tag = appLanguageModel.value
+					radioButtonView.gravity = Gravity.CENTER_VERTICAL
+					radioButtonView.setPadding(padding, padding, padding, padding)
+					radioGroup.addView(radioButtonView)
+					if (appLanguageModel.value.equals(language, ignoreCase = true)) radioGroup.check(index)
+				}
+		radioGroup.setOnCheckedChangeListener { group, checkedId ->
+			val tag = radioGroup.getChildAt(checkedId).tag as String
+			if (!tag.equals(language, ignoreCase = true)) {
+				PrefGetter.setAppLanguage(tag)
+				callback?.onLanguageChanged(this::dismiss)
+			}
+		}
+	}
 
 }

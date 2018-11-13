@@ -60,7 +60,10 @@ class EditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<EditionsBl
 
 		private val ANY_CHARACTERS_IN_BRACKETS_REGEX = "\\[.*?]".toRegex()
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<EditionsBlocks.Edition, EditionsViewHolder, *>) : EditionsViewHolder
-				= EditionsViewHolder(getView(viewGroup, R.layout.work_edition_row_item), adapter)
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<EditionsBlocks.Edition, EditionsViewHolder, *>
+		): EditionsViewHolder =
+				EditionsViewHolder(getView(viewGroup, R.layout.work_edition_row_item), adapter)
 	}
 }

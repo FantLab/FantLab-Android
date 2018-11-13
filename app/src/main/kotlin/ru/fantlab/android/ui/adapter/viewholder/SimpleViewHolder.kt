@@ -20,7 +20,10 @@ class SimpleViewHolder<T>(itemView: View, adapter: BaseRecyclerAdapter<T, Simple
 	}
 
 	companion object {
-		fun <T> newInstance(viewGroup: ViewGroup, adapter: SimpleListAdapter<T>) : SimpleViewHolder<T>
-				= SimpleViewHolder(getView(viewGroup, R.layout.simple_row_item), adapter)
+		fun <T> newInstance(
+				viewGroup: ViewGroup,
+				adapter: SimpleListAdapter<T>
+		): SimpleViewHolder<T> =
+				SimpleViewHolder(getView(viewGroup, R.layout.simple_row_item), adapter)
 	}
 }

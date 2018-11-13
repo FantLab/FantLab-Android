@@ -43,7 +43,10 @@ class AuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<AuthorInLis
 
 	companion object {
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<AuthorInList, AuthorsViewHolder, *>) : AuthorsViewHolder
-				= AuthorsViewHolder(getView(viewGroup, R.layout.authors_row_item), adapter)
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<AuthorInList, AuthorsViewHolder, *>
+		): AuthorsViewHolder =
+				AuthorsViewHolder(getView(viewGroup, R.layout.authors_row_item), adapter)
 	}
 }

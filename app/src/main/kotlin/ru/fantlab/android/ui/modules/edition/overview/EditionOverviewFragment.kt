@@ -18,7 +18,6 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
-import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
 import ru.fantlab.android.ui.modules.edition.EditionPagerMvp
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.Dot
@@ -46,11 +45,14 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 	@BindView(R.id.notesCard) lateinit var notesCard: CardView
 	@BindView(R.id.notes) lateinit var notes: FontTextView
 	@BindView(R.id.progress) lateinit var progress: View
+
 	private var edition: Edition? = null
 	@State var additionalImages: AdditionalImages? = null
 	private var pagerCallback: EditionPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.edition_overview_layout
+
+	override fun providePresenter() = EditionOverviewPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -64,8 +66,6 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 			}
 		}
 	}
-
-	override fun providePresenter() = EditionOverviewPresenter()
 
 	override fun onInitViews(edition: Edition, additionalImages: AdditionalImages?) {
 		hideProgress()

@@ -14,7 +14,7 @@ interface ProfileResponsesMvp {
 			SwipeRefreshLayout.OnRefreshListener,
 			android.view.View.OnClickListener,
 			ContextMenuDialogView.ListDialogViewActionCallback,
-			ResponseViewHolder.OnOpenContextMenu{
+			ResponseViewHolder.OnOpenContextMenu {
 
 		fun onNotifyAdapter(items: ArrayList<Response>, page: Int)
 

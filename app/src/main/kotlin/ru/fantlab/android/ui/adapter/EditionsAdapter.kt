@@ -10,8 +10,7 @@ import java.util.*
 class EditionsAdapter constructor(edition: ArrayList<EditionsBlocks.Edition>)
 	: BaseRecyclerAdapter<EditionsBlocks.Edition, EditionsViewHolder, BaseViewHolder.OnItemClickListener<EditionsBlocks.Edition>>(edition) {
 
-	override fun viewHolder(parent: ViewGroup, viewType: Int): EditionsViewHolder
-			= EditionsViewHolder.newInstance(parent, this)
+	override fun viewHolder(parent: ViewGroup, viewType: Int): EditionsViewHolder = EditionsViewHolder.newInstance(parent, this)
 
 	override fun onBindView(holder: EditionsViewHolder, position: Int) {
 		holder.bind(getItem(position))

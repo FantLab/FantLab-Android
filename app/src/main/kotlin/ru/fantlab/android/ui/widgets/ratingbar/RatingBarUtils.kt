@@ -1,18 +1,17 @@
 package ru.fantlab.android.ui.widgets.ratingbar
 
 import android.view.MotionEvent
-
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
-import java.util.Locale
+import java.util.*
 
 internal object RatingBarUtils {
 
 	private var mDecimalFormat: DecimalFormat? = null
-	private val MAX_CLICK_DISTANCE = 5
-	private val MAX_CLICK_DURATION = 200
+	private const val MAX_CLICK_DISTANCE = 5
+	private const val MAX_CLICK_DURATION = 200
 
-	val decimalFormat: DecimalFormat
+	private val decimalFormat: DecimalFormat
 		get() {
 			if (mDecimalFormat == null) {
 				val symbols = DecimalFormatSymbols(Locale.ENGLISH)

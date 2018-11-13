@@ -3,15 +3,14 @@ package ru.fantlab.android.ui.modules.award.contests
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Award
-import ru.fantlab.android.data.dao.model.EditionsBlocks
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 interface AwardContestsMvp {
 
 	interface View : BaseMvp.View,
-            SwipeRefreshLayout.OnRefreshListener,
-            android.view.View.OnClickListener{
+			SwipeRefreshLayout.OnRefreshListener,
+			android.view.View.OnClickListener {
 
 		fun onInitViews(contests: List<Award.Contest>?)
 
@@ -23,12 +22,12 @@ interface AwardContestsMvp {
 	}
 
 	interface Presenter : BaseMvp.Presenter,
-			BaseViewHolder.OnItemClickListener<Award.Contest>{
+			BaseViewHolder.OnItemClickListener<Award.Contest> {
 
 		fun onFragmentCreated(bundle: Bundle?)
 
 		fun onWorkOffline(id: Int)
 
-        fun getAwardContests(): ArrayList<Award.Contest>
+		fun getAwardContests(): ArrayList<Award.Contest>
 	}
 }

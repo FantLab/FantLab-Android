@@ -72,16 +72,16 @@
 							android:layout_below="@+id/date"
 							android:layout_marginTop="@dimen/spacing_normal"
 							android:layout_toEndOf="@+id/coverLayout"
-							style="@style/TextAppearance.AppCompat.Caption"
 							android:autoLink="web"
+							style="@style/TextAppearance.AppCompat.Caption"
 							/>
 
 						<ImageView
 							android:id="@+id/langIcon"
 							android:layout_width="12dp"
 							android:layout_height="12dp"
-							android:layout_toEndOf="@+id/coverLayout"
 							android:layout_below="@+id/title2"
+							android:layout_toEndOf="@+id/coverLayout"
 							/>
 
 						<ru.fantlab.android.ui.widgets.FontTextView
@@ -134,10 +134,10 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:orientation="vertical"
-					android:paddingStart="16dp"
-					android:paddingEnd="16dp"
-					android:paddingTop="8dp"
 					android:paddingBottom="8dp"
+					android:paddingEnd="16dp"
+					android:paddingStart="16dp"
+					android:paddingTop="8dp"
 					>
 
 					<ru.fantlab.android.ui.widgets.FontTextView
@@ -174,10 +174,10 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:orientation="vertical"
-					android:paddingStart="16dp"
-					android:paddingEnd="16dp"
-					android:paddingTop="8dp"
 					android:paddingBottom="8dp"
+					android:paddingEnd="16dp"
+					android:paddingStart="16dp"
+					android:paddingTop="8dp"
 					>
 
 					<ru.fantlab.android.ui.widgets.FontTextView
@@ -213,10 +213,10 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:orientation="vertical"
-					android:paddingStart="16dp"
-					android:paddingEnd="16dp"
-					android:paddingTop="8dp"
 					android:paddingBottom="8dp"
+					android:paddingEnd="16dp"
+					android:paddingStart="16dp"
+					android:paddingTop="8dp"
 					>
 
 					<ru.fantlab.android.ui.widgets.FontTextView

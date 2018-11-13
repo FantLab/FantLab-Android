@@ -35,6 +35,7 @@ class AwardPagerActivity : BaseActivity<AwardPagerMvp.View, BasePresenter<AwardP
 	@BindView(R.id.tabs) lateinit var tabs: TabLayout
 	@BindView(R.id.tabbedPager) lateinit var pager: ViewPagerView
 	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
+
 	@State var index: Int = 0
 	@State var workId: Int = 0
 	@State var awardId: Int = 0

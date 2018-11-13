@@ -48,7 +48,8 @@ object ThemeEngine {
 		setTaskDescription(activity)
 	}
 
-	@StyleRes private fun getTheme(themeType: PrefGetter.ThemeType, themeColor: PrefGetter.ThemeColor): Int {
+	@StyleRes
+	private fun getTheme(themeType: PrefGetter.ThemeType, themeColor: PrefGetter.ThemeColor): Int {
 		//Logger.e(themeType, themeColor)
 		// I wish if I could simplify this :'( too many cases for the love of god.
 		return when (themeType) {
@@ -91,7 +92,8 @@ object ThemeEngine {
 		}
 	}
 
-	@StyleRes private fun getDialogTheme(themeType: PrefGetter.ThemeType, themeColor: PrefGetter.ThemeColor): Int {
+	@StyleRes
+	private fun getDialogTheme(themeType: PrefGetter.ThemeType, themeColor: PrefGetter.ThemeColor): Int {
 		return when (themeType) {
 			PrefGetter.ThemeType.LIGHT -> when (themeColor) {
 				PrefGetter.ThemeColor.RED -> R.style.DialogThemeLight_Red

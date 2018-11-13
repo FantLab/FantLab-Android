@@ -24,16 +24,19 @@ import timber.log.Timber
 class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditionsPresenter>(),
 		AuthorEditionsMvp.View {
 
-	private var author: Author? = null
-
-	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
 	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
-    private val adapter: EditionsAdapter by lazy { EditionsAdapter(presenter.getEditions()) }
-    private var countCallback: AuthorPagerMvp.View? = null
+	private val adapter: EditionsAdapter by lazy { EditionsAdapter(presenter.getEditions()) }
+	private var countCallback: AuthorPagerMvp.View? = null
+
+	private var author: Author? = null
+
+	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
+
+	override fun providePresenter() = AuthorEditionsPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -48,8 +51,6 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 		}
 	}
 
-	override fun providePresenter() = AuthorEditionsPresenter()
-
 	override fun onInitViews(authorEditionsResponse: AuthorEditionsResponse) {
 		hideProgress()
 		Timber.d("author editions response: $authorEditionsResponse")
@@ -59,8 +60,8 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addKeyLineDivider()
-        adapter.listener = presenter
-        authorEditionsResponse.editions?.editionsBlocks?.forEach{
+		adapter.listener = presenter
+		authorEditionsResponse.editions?.editionsBlocks?.forEach {
 			adapter.addItems(it.list)
 		}
 		recycler.adapter = adapter
@@ -72,15 +73,15 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 		outState.putParcelable("author", author)
 	}
 
-    override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
-        refresh.isRefreshing = true
-        stateLayout.showProgress()
-    }
+	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
+		refresh.isRefreshing = true
+		stateLayout.showProgress()
+	}
 
-    override fun hideProgress() {
-        refresh.isRefreshing = false
-        stateLayout.hideProgress()
-    }
+	override fun hideProgress() {
+		refresh.isRefreshing = false
+		stateLayout.hideProgress()
+	}
 
 	override fun showErrorMessage(msgRes: String) {
 		hideProgress()
@@ -101,34 +102,34 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 		}
 	}
 
-    override fun onRefresh() {
-        presenter.onCallApi()
-    }
+	override fun onRefresh() {
+		presenter.onCallApi()
+	}
 
-    override fun onClick(v: View?) {
-        onRefresh()
-    }
+	override fun onClick(v: View?) {
+		onRefresh()
+	}
 
-    override fun onNotifyAdapter() {
-        hideProgress()
-        adapter.notifyDataSetChanged()
-    }
+	override fun onNotifyAdapter() {
+		hideProgress()
+		adapter.notifyDataSetChanged()
+	}
 
-    override fun onSetTabCount(allCount: Int) {
-        countCallback?.onSetBadge(2, allCount)
-    }
+	override fun onSetTabCount(allCount: Int) {
+		countCallback?.onSetBadge(2, allCount)
+	}
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is AuthorPagerMvp.View) {
-            countCallback = context
-        }
-    }
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is AuthorPagerMvp.View) {
+			countCallback = context
+		}
+	}
 
-    override fun onDetach() {
-        countCallback = null
-        super.onDetach()
-    }
+	override fun onDetach() {
+		countCallback = null
+		super.onDetach()
+	}
 
 	override fun onItemClicked(item: EditionsBlocks.Edition) {
 		EditionPagerActivity.startActivity(context!!, item.editionId, item.name, 0)

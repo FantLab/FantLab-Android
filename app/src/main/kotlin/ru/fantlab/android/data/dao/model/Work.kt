@@ -42,7 +42,7 @@ data class Work(
 			val name: String,
 			@SerializedName("name_orig") val nameOrig: String,
 			val type: String
-	) : Parcelable{
+	) : Parcelable {
 		override fun toString() = name
 	}
 

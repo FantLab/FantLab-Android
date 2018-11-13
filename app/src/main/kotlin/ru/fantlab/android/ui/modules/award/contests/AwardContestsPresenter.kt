@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Award
-import ru.fantlab.android.data.dao.model.EditionsBlocks
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -12,8 +11,7 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 class AwardContestsPresenter : BasePresenter<AwardContestsMvp.View>(),
 		AwardContestsMvp.Presenter {
 
-	@com.evernote.android.state.State
-	var awardId: Int? = null
+	@com.evernote.android.state.State var awardId: Int? = null
 	private var contests: ArrayList<Award.Contest> = ArrayList()
 
 	override fun onFragmentCreated(bundle: Bundle?) {
@@ -28,8 +26,8 @@ class AwardContestsPresenter : BasePresenter<AwardContestsMvp.View>(),
 							.toObservable(),
 					Consumer { AwardContestsResponse ->
 						sendToView {
-                            it.onInitViews(AwardContestsResponse.award.contests)
-                        }
+							it.onInitViews(AwardContestsResponse.award.contests)
+						}
 					}
 			)
 		}
@@ -55,7 +53,8 @@ class AwardContestsPresenter : BasePresenter<AwardContestsMvp.View>(),
 					Consumer { workResponse ->
 						sendToView { it.onNotifyAdapter() }
 					}
-			)}
+			)
+		}
 	}
 
 	override fun onItemClick(position: Int, v: View?, item: Award.Contest) {

@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.widgets.recyclerview.layout_manager
+package ru.fantlab.android.ui.widgets.recyclerview.layoutManager
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager

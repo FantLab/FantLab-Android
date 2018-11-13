@@ -10,8 +10,7 @@ import java.util.*
 class AnalogsAdapter constructor(analog: ArrayList<WorkAnalog>)
 	: BaseRecyclerAdapter<WorkAnalog, AnalogsViewHolder, BaseViewHolder.OnItemClickListener<WorkAnalog>>(analog) {
 
-	override fun viewHolder(parent: ViewGroup, viewType: Int): AnalogsViewHolder
-			= AnalogsViewHolder.newInstance(parent, this)
+	override fun viewHolder(parent: ViewGroup, viewType: Int): AnalogsViewHolder = AnalogsViewHolder.newInstance(parent, this)
 
 	override fun onBindView(holder: AnalogsViewHolder, position: Int) {
 		holder.bind(getItem(position))

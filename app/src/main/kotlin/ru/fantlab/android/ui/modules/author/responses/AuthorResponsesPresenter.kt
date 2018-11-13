@@ -55,7 +55,8 @@ class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
 			sendToView { it.hideProgress() }
 			return false
 		}
-		makeRestCall(DataManager.getAuthorResponses(parameter, page, sort ?: ResponsesSortOption.BY_DATE)
+		makeRestCall(DataManager.getAuthorResponses(parameter, page, sort
+				?: ResponsesSortOption.BY_DATE)
 				.map { it.get() }
 				.toObservable(),
 				Consumer {
@@ -78,7 +79,7 @@ class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
 		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
 	}
 
-	fun onSendVote(item: Response, position: Int, voteType: String){
+	fun onSendVote(item: Response, position: Int, voteType: String) {
 		makeRestCall(DataManager.sendResponseVote(item.id, voteType)
 				.map { it.get() }
 				.toObservable(),

@@ -6,25 +6,26 @@
 	android:foreground="?selectableItemBackgroundBorderless"
 	android:minHeight="?listPreferredItemHeightSmall"
 	android:orientation="vertical"
-	android:padding="@dimen/spacing_xs_large">
+	android:padding="@dimen/spacing_xs_large"
+	>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
 		android:id="@+id/title"
-		style="@style/TextAppearance.AppCompat.Title"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:drawablePadding="10dp"
+		android:drawableStart="@drawable/ic_type_small"
 		android:ellipsize="end"
 		android:textSize="14sp"
-		android:drawableStart="@drawable/ic_type_small"
-		android:drawablePadding="10dp"
+		style="@style/TextAppearance.AppCompat.Title"
 		/>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
 		android:id="@+id/description"
-		style="@style/TextAppearance.AppCompat.Caption"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:ellipsize="end"
 		android:visibility="gone"
+		style="@style/TextAppearance.AppCompat.Caption"
 		/>
 </LinearLayout>

@@ -16,19 +16,12 @@ import butterknife.ButterKnife;
 public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder
 	implements View.OnClickListener, View.OnLongClickListener {
 
-	public interface OnItemClickListener<T> {
-
-		void onItemClick(int position, View v, T item);
-
-		void onItemLongClick(int position, View v, T item);
+	public static View getView(@NonNull ViewGroup parent, @LayoutRes int layoutRes) {
+		return LayoutInflater.from(parent.getContext()).inflate(layoutRes, parent, false);
 	}
 
 	@Nullable
 	protected final BaseRecyclerAdapter adapter;
-
-	public static View getView(@NonNull ViewGroup parent, @LayoutRes int layoutRes) {
-		return LayoutInflater.from(parent.getContext()).inflate(layoutRes, parent, false);
-	}
 
 	protected BaseViewHolder(@NonNull View itemView) {
 		this(itemView, null);
@@ -68,5 +61,12 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder
 	public abstract void bind(@NonNull T t);
 
 	protected void onViewIsDetaching() {
+	}
+
+	public interface OnItemClickListener<T> {
+
+		void onItemClick(int position, View v, T item);
+
+		void onItemLongClick(int position, View v, T item);
 	}
 }

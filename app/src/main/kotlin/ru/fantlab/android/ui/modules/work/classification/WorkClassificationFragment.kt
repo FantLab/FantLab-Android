@@ -7,7 +7,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.*
+import ru.fantlab.android.data.dao.model.ClassParent
+import ru.fantlab.android.data.dao.model.GenreGroup
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.viewholder.ClassChildViewHolder
@@ -27,12 +28,14 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.progress) lateinit var progress: View
-	private var workClassification: ArrayList<GenreGroup>? = null
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+
+	private var workClassification: ArrayList<GenreGroup>? = null
+	private var workCallback: WorkPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.work_classification_layout
 
-	private var workCallback: WorkPagerMvp.View? = null
+	override fun providePresenter() = WorkClassificationPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
@@ -46,8 +49,6 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 			}
 		}
 	}
-
-	override fun providePresenter() = WorkClassificationPresenter()
 
 	override fun onInitViews(classificatory: ArrayList<GenreGroup>) {
 		hideProgress()
@@ -68,17 +69,17 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 				val currentLevel = pair.first
 				val currentTitle = pair.second.label
 
-				if (toSkip == subIndex ) {
+				if (toSkip == subIndex) {
 					return@forEachIndexed
 				}
 
 				val parentChild = TreeNode(ClassParent(currentTitle, pair.second.percent * 100))
 				val prevPair = if (subIndex > 0) item.genres[subIndex - 1] else null
-				val nextPair = if (item.genres.size > subIndex+1) item.genres[subIndex + 1] else null
+				val nextPair = if (item.genres.size > subIndex + 1) item.genres[subIndex + 1] else null
 				if (currentLevel == 0) {
 					parent.addChild(parentChild)
 				} else if (prevPair != null && prevPair.first == currentLevel - 1) {
-					if (nextPair != null && nextPair.first != currentLevel){
+					if (nextPair != null && nextPair.first != currentLevel) {
 						parent.childList[0].addChild(parentChild.addChild(TreeNode(ClassParent(nextPair.second.label, pair.second.percent * 100))))
 						toSkip = nextPair.first
 					} else {
@@ -94,12 +95,14 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 		adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
 			override fun onSelected(extra: Int, add: Boolean) {
 			}
+
 			override fun onClick(node: TreeNode<*>, holder: RecyclerView.ViewHolder): Boolean {
 				if (!node.isLeaf) {
 					onToggle(!node.isExpand, holder)
 				}
 				return false
 			}
+
 			override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
 				val dirViewHolder = holder as ClassParentViewHolder.ViewHolder
 				val ivArrow = dirViewHolder.ivArrow

@@ -10,9 +10,8 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 class WorkClassificationPresenter : BasePresenter<WorkClassificationMvp.View>(),
 		WorkClassificationMvp.Presenter {
 
-	@com.evernote.android.state.State
-	var workId: Int? = null
-    private var responses: ArrayList<ClassificationGenre> = arrayListOf()
+	@com.evernote.android.state.State var workId: Int? = null
+	private var responses: ArrayList<ClassificationGenre> = arrayListOf()
 
 	override fun onFragmentCreated(bundle: Bundle?) {
 		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
@@ -27,7 +26,8 @@ class WorkClassificationPresenter : BasePresenter<WorkClassificationMvp.View>(),
 					Consumer { workResponse ->
 						sendToView { it.onInitViews(workResponse.classificatory) }
 					}
-			)}
+			)
+		}
 	}
 
 	override fun getResponses(): ArrayList<ClassificationGenre> = responses

@@ -47,13 +47,14 @@ class WorkContentViewHolder(itemView: View, adapter: BaseRecyclerAdapter<ChildWo
 			rating.visibility = View.GONE
 			votes.visibility = View.GONE
 		}
-
 	}
 
 	companion object {
 
-		fun newInstance(viewGroup: ViewGroup, adapter: BaseRecyclerAdapter<ChildWork, WorkContentViewHolder, *>) : WorkContentViewHolder
-				= WorkContentViewHolder(getView(viewGroup, R.layout.work_content_row_item), adapter)
-
+		fun newInstance(
+				viewGroup: ViewGroup,
+				adapter: BaseRecyclerAdapter<ChildWork, WorkContentViewHolder, *>
+		): WorkContentViewHolder =
+				WorkContentViewHolder(getView(viewGroup, R.layout.work_content_row_item), adapter)
 	}
 }

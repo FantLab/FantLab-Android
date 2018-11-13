@@ -32,7 +32,6 @@ import kotlin.collections.ArrayList
 class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, AuthorBibliographyPresenter>(),
 		AuthorBibliographyMvp.View {
 
-	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
 	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
@@ -44,11 +43,13 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 	private var cycles: WorksBlocks? = null
 	private var works: WorksBlocks? = null
 
+	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
+
+	override fun providePresenter() = AuthorBibliographyPresenter()
+
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		presenter.onFragmentCreated(arguments)
 	}
-
-	override fun providePresenter() = AuthorBibliographyPresenter()
 
 	override fun onInitViews(cycles: WorksBlocks?, works: WorksBlocks?) {
 		hideProgress()
@@ -88,6 +89,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
 			override fun onSelected(extra: Int, add: Boolean) {
 			}
+
 			override fun onClick(node: TreeNode<*>, holder: RecyclerView.ViewHolder): Boolean {
 				if (!node.isLeaf) {
 					onToggle(!node.isExpand, holder)
@@ -106,6 +108,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 				}
 				return false
 			}
+
 			override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
 				val dirViewHolder = holder as CycleViewHolder.ViewHolder
 				val ivArrow = dirViewHolder.ivArrow
@@ -135,7 +138,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 					work.nameOrig
 				}
 
-				if (work.children != null){
+				if (work.children != null) {
 					val apps = TreeNode(Cycle(name))
 					app.addChild(apps)
 
@@ -184,7 +187,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
 		listItem as CycleWork
-		when (item.id){
+		when (item.id) {
 			"revote" -> {
 				RatingDialogView.newInstance(10, listItem.mark?.toFloat() ?: 0.0f,
 						listItem,
@@ -208,15 +211,15 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		adapter.notifyItemChanged(position)
 	}
 
-    override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
-        refresh.isRefreshing = true
-        stateLayout.showProgress()
-    }
+	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
+		refresh.isRefreshing = true
+		stateLayout.showProgress()
+	}
 
-    override fun hideProgress() {
-        refresh.isRefreshing = false
-        stateLayout.hideProgress()
-    }
+	override fun hideProgress() {
+		refresh.isRefreshing = false
+		stateLayout.hideProgress()
+	}
 
 	override fun showErrorMessage(msgRes: String) {
 		hideProgress()
@@ -237,24 +240,23 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		}
 	}
 
-    override fun onRefresh() {
+	override fun onRefresh() {
 		hideProgress()
-    }
+	}
 
-    override fun onClick(v: View?) {
-        onRefresh()
-    }
+	override fun onClick(v: View?) {
+		onRefresh()
+	}
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is AuthorPagerMvp.View) {
-            countCallback = context
-        }
-    }
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		if (context is AuthorPagerMvp.View) {
+			countCallback = context
+		}
+	}
 
-    override fun onDetach() {
-        countCallback = null
-        super.onDetach()
-    }
-
+	override fun onDetach() {
+		countCallback = null
+		super.onDetach()
+	}
 }

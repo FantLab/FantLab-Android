@@ -31,7 +31,10 @@ class ClassificatorViewHolder : TreeViewBinder<ClassificatorViewHolder.ViewHolde
 	}
 
 	override fun bindView(
-			holder: RecyclerView.ViewHolder, position: Int, node: TreeNode<*>, onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
+			holder: RecyclerView.ViewHolder,
+			position: Int,
+			node: TreeNode<*>,
+			onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
 	) {
 		(holder as ClassificatorViewHolder.ViewHolder).arrow.rotation = 0f
 		holder.arrow.setImageResource(R.drawable.ic_keyboard_arrow_right_black_18dp)
@@ -61,14 +64,10 @@ class ClassificatorViewHolder : TreeViewBinder<ClassificatorViewHolder.ViewHolde
 		}
 	}
 
-
-
 	class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
 		val arrow: ImageView = rootView.findViewById<View>(R.id.iv_arrow) as ImageView
 		var name: TextView = rootView.findViewById<View>(R.id.name) as FontTextView
 		var description: TextView = rootView.findViewById<View>(R.id.description) as FontTextView
 		var checkbox: CheckBox = rootView.findViewById<View>(R.id.checkbox) as CheckBox
 	}
-
-
 }
