@@ -135,13 +135,6 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 	private fun hideShowFab(position: Int) {
 		when (position) {
 			2 -> {
-				val user = PrefGetter.getLoggedUser()
-				if (user != null && user.`class` >= PHILOSOPHER_CLASS) {
-					fab.setImageResource(R.drawable.ic_classif)
-					fab.show()
-				} else fab.hide()
-			}
-			3 -> {
 				if (PrefGetter.getLoggedUser() != null) {
 					fab.setImageResource(R.drawable.ic_response)
 					fab.show()
@@ -155,9 +148,6 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 	fun onFabClicked() {
 		when (pager.currentItem) {
 			2 -> {
-				ClassificatorPagerActivity.startActivity(this, workId)
-			}
-			3 -> {
 				startActivity(Intent(this, EditorActivity::class.java)
 						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_RESPONSE)
 						.putExtra(BundleConstant.ID, workId))
@@ -169,9 +159,8 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 		val textView = ViewHelper.getTabTextView(tabs, index)
 		when (index) {
 			1 -> textView.text = String.format("%s(%s)", getString(R.string.content), numberFormat.format(count.toLong()))
-			3 -> textView.text = String.format("%s(%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
-			4 -> textView.text = String.format("%s(%s)", getString(R.string.editions), numberFormat.format(count.toLong()))
-			5 -> textView.text = String.format("%s(%s)", getString(R.string.analogs), numberFormat.format(count.toLong()))
+			2 -> textView.text = String.format("%s(%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
+			3 -> textView.text = String.format("%s(%s)", getString(R.string.editions), numberFormat.format(count.toLong()))
 		}
 	}
 
