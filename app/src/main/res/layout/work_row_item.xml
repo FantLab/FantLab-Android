@@ -64,7 +64,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="@dimen/spacing_micro"
-				app:flChildSpacing="2dp"
+				app:flChildSpacing="5dp"
 				app:flChildSpacingForLastRow="align"
 				app:flRowSpacing="8dp"
 				>

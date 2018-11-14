@@ -4,8 +4,8 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_marginBottom="8dp"
-	android:layout_marginTop="8dp"
+	android:layout_marginBottom="@dimen/spacing_normal"
+	android:layout_marginTop="@dimen/spacing_normal"
 	android:foreground="?android:selectableItemBackground"
 	>
 
@@ -13,15 +13,17 @@
 		android:id="@+id/awardIcon"
 		android:layout_width="30dp"
 		android:layout_height="30dp"
-		android:layout_marginEnd="8dp"
+		android:layout_marginEnd="@dimen/spacing_normal"
 		/>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
 		android:id="@+id/award"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:gravity="center_vertical"
 		android:includeFontPadding="false"
-		tools:text="Locus Award / Локус, 1997 // Роман фэнтези"
+		android:minHeight="30dp"
+		tools:text="Хьюго / Hugo Award, 1954, ретроспективная // Роман"
 		style="@style/TextAppearance.AppCompat.Small"
 		/>
 

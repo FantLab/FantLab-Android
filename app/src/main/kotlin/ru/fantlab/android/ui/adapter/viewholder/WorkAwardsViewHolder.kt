@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Nomination
+import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.FontTextView
@@ -19,14 +20,20 @@ class WorkAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Nominati
 
 	override fun bind(nom: Nomination) {
 		coverLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/awards/${nom.awardId}")
-		award.text = StringBuilder()
-				.append(nom.awardName)
-				.append(" / ")
-				.append(nom.awardRusName)
-				.append(",")
-				.append(nom.contestName)
-				.append(" // ")
-				.append(nom.nominationRusName)
+		val info = StringBuilder()
+		if (!InputHelper.isEmpty(nom.awardRusName)) {
+			info.append(nom.awardRusName).append(" / ")
+		}
+		if (!InputHelper.isEmpty(nom.awardName)) {
+			info.append(nom.awardName).append(", ")
+		}
+		if (!InputHelper.isEmpty(nom.contestName)) {
+			info.append(nom.contestName).append(" // ")
+		}
+		if (!InputHelper.isEmpty(nom.nominationRusName)) {
+			info.append(nom.nominationRusName)
+		}
+		award.text = info.toString()
 	}
 
 	companion object {

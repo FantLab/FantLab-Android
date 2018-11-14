@@ -5,7 +5,6 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_margin="@dimen/grid_spacing"
 	android:foreground="?android:selectableItemBackground"
 	android:paddingBottom="@dimen/spacing_normal"
 	android:paddingTop="@dimen/spacing_normal"
@@ -15,8 +14,10 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginBottom="@dimen/spacing_normal"
 		android:layout_marginEnd="@dimen/spacing_xs_large"
 		android:layout_marginStart="@dimen/spacing_xs_large"
+		android:layout_marginTop="@dimen/spacing_normal"
 		android:orientation="vertical"
 		>
 
@@ -57,6 +58,7 @@
 		<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/spacing_micro"
 			>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -79,9 +81,8 @@
 			<ru.fantlab.android.ui.widgets.FlowLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="@dimen/spacing_micro"
 				android:layout_toStartOf="@+id/mark"
-				app:flChildSpacing="2dp"
+				app:flChildSpacing="5dp"
 				app:flChildSpacingForLastRow="align"
 				app:flRowSpacing="8dp"
 				>

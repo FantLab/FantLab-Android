@@ -27,41 +27,37 @@
 			android:layout_marginStart="@dimen/avatar_margin"
 			/>
 
-		<LinearLayout
+		<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
+			android:layout_height="match_parent"
+			android:gravity="center_vertical"
 			>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/name"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:ellipsize="end"
-				android:maxLines="3"
-				android:textColor="?android:textColorPrimary"
-				android:textStyle="bold"
-				tools:text="Гамильтон, Эдмонд"
-				style="@style/TextAppearance.AppCompat.Medium"
-				/>
-
-			<ru.fantlab.android.ui.widgets.FontTextView
 				android:id="@+id/name_orig"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_gravity="start"
-				android:layout_marginEnd="@dimen/spacing_micro"
+				android:layout_below="@+id/name"
+				android:layout_marginTop="4dp"
 				android:ellipsize="end"
-				android:gravity="start|center"
-				android:maxLines="2"
-				android:textColor="?android:attr/textColorSecondary"
-				android:visibility="gone"
-				tools:text="Edmond Hamilton"
-				tools:visibility="visible"
+				android:includeFontPadding="false"
+				android:lines="1"
+				tools:text="Джордж Р.Р. Мартин"
 				style="@style/TextAppearance.AppCompat.Caption"
 				/>
 
-		</LinearLayout>
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/name"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_toEndOf="@+id/authorLayout"
+				android:ellipsize="end"
+				android:includeFontPadding="false"
+				android:lines="1"
+				tools:text="George R.R. Martin"
+				/>
+
+		</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
 
 	</LinearLayout>
 
