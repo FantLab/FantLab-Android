@@ -29,7 +29,7 @@ class CycleWorkViewHolder : TreeViewBinder<CycleWorkViewHolder.ViewHolder>() {
 		val work = (node.content as CycleWork)
 		(holder as CycleWorkViewHolder.ViewHolder)
 		if (work.authors.size > 1) {
-			holder.authors.text = work.authors.joinToString { it.name }
+			holder.authors.text = work.authors.joinToString { it }
 			holder.authors.visibility = View.VISIBLE
 		} else {
 			holder.authors.visibility = View.GONE

@@ -12,6 +12,7 @@ import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.*
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.ui.adapter.viewholder.CycleViewHolder
 import ru.fantlab.android.ui.adapter.viewholder.CycleWorkViewHolder
@@ -146,7 +147,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 						val mark = marks?.map { it }?.filter { it.work_id == item.id }
 						app.childList[subIndex].addChild(TreeNode(CycleWork(
 								item.id,
-								item.authors as ArrayList<WorksBlocks.Author>,
+								item.authors.asSequence().map { it.name }.toList(),
 								item.name,
 								item.nameOrig,
 								item.description,
@@ -161,7 +162,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 					val mark = marks?.map { it }?.filter { it.work_id == work.id }
 					app.addChild(TreeNode(CycleWork(
 							work.id,
-							work.authors,
+							work.authors.asSequence().map { it.name }.toList(),
 							work.name,
 							work.nameOrig,
 							work.description,
@@ -191,7 +192,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 			"revote" -> {
 				RatingDialogView.newInstance(10, listItem.mark?.toFloat() ?: 0.0f,
 						listItem,
-						"${listItem.authors[0].name} - ${listItem.name}",
+						"${listItem.authors[0]} - ${if (!InputHelper.isEmpty(listItem.name)) listItem.name else listItem.nameOrig}",
 						position
 				).show(childFragmentManager, RatingDialogView.TAG)
 			}

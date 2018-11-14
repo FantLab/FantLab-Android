@@ -10,7 +10,7 @@ import ru.fantlab.android.ui.widgets.treeview.LayoutItemType
 @Parcelize
 class CycleWork(
 		var id: Int?,
-		var authors: ArrayList<WorksBlocks.Author>,
+		var authors: List<String>,
 		var name: String,
 		var nameOrig: String,
 		val description: String?,
