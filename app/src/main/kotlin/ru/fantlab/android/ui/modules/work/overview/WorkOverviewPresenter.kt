@@ -7,6 +7,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Nomination
 import ru.fantlab.android.data.dao.model.Work
 import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
@@ -33,7 +34,7 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 							noms = workResponse.awards?.nominations
 							wins = workResponse.awards?.wins
 							authors = workResponse.work.authors
-									.filter { it.id !in listOf(10, 2000, 7000, 46137) } as ArrayList
+									.filter { it.id !in FantlabHelper.Authors.ignoreList } as ArrayList
 							it.onInitViews(workResponse.work)
 						}
 					}

@@ -18,7 +18,6 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
 import ru.fantlab.android.helper.*
-import ru.fantlab.android.helper.PrefGetter.PHILOSOPHER_CLASS
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
@@ -145,7 +144,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 			}
 			1 -> {
 				val user = PrefGetter.getLoggedUser()
-				if (user != null && user.`class` >= PHILOSOPHER_CLASS && isMarked) {
+				if (user != null && user.`class` >= FantlabHelper.Levels.PHILOSOPHER.level && isMarked) {
 					fab.setImageResource(R.drawable.ic_classif)
 					fab.show()
 				} else fab.hide()

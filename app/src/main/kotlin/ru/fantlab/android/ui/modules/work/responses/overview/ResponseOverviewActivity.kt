@@ -104,7 +104,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 			response.workNameOrig
 		}
 		workTitle.setOnClickListener {
-			if (response.workTypeId == PrefGetter.WorkType.cycle.id)
+			if (response.workTypeId == FantlabHelper.WorkType.CYCLE.id)
 				CyclePagerActivity.startActivity(this, response.workId, response.workName, 0)
 			else
 				WorkPagerActivity.startActivity(this, response.workId, response.workName, 0)

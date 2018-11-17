@@ -4,6 +4,7 @@ import io.reactivex.functions.Consumer
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.data.dao.response.VoteResponse
+import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -28,7 +29,7 @@ class ResponseOverviewPresenter : BasePresenter<ResponseOverviewMvp.View>(),
 						.map { it.get() }
 						.toObservable(),
 				Consumer { it ->
-					if (it.user.level >= 200) {
+					if (it.user.level >= FantlabHelper.minLevelToVote) {
 						makeRestCall(DataManager.sendResponseVote(item.id, voteType)
 								.map { it.get() }
 								.toObservable(),

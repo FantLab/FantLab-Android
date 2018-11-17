@@ -13,6 +13,7 @@ import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Mark
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ProfileMarksAdapter
@@ -113,7 +114,7 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	}
 
 	override fun onItemClicked(item: Mark) {
-		if (item.workTypeId == PrefGetter.WorkType.cycle.id)
+		if (item.workTypeId == FantlabHelper.WorkType.CYCLE.id)
 			CyclePagerActivity.startActivity(context!!, item.workId, item.workName, 0)
 		else
 			WorkPagerActivity.startActivity(context!!, item.workId, item.workName, 0)

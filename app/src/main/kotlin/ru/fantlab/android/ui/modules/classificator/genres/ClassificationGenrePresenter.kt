@@ -4,7 +4,7 @@ import android.os.Bundle
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.ClassificatorModel
 import ru.fantlab.android.helper.BundleConstant
-import ru.fantlab.android.helper.PrefGetter.CLASS_GENRE
+import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.provider.storage.ClassificatoriesProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
@@ -21,7 +21,7 @@ class ClassificationGenrePresenter : BasePresenter<ClassificationGenreMvp.View>(
 		}
 		workId = bundle.getInt(BundleConstant.EXTRA)
 		workId?.let { it ->
-			classificators = ClassificatoriesProvider.loadClasses(CLASS_GENRE).items
+			classificators = ClassificatoriesProvider.loadClasses(FantlabHelper.ClassificatorTypes.TYPE_GENRE.tag).items
 			sendToView { it.onInitViews(classificators!!) }
 		}
 	}
