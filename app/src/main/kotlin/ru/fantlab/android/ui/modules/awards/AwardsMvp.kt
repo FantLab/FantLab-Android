@@ -23,10 +23,6 @@ interface AwardsMvp {
 	interface Presenter : BaseMvp.Presenter,
 			BaseViewHolder.OnItemClickListener<AwardInList> {
 
-		fun onReload()
-
-		fun onWorkOffline()
-
-		fun getAwards(): ArrayList<AwardInList>
+		fun getAwards(force: Boolean)
 	}
 }

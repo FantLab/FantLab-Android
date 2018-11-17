@@ -12,6 +12,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.AwardInList
 import ru.fantlab.android.data.dao.model.ContextMenus
+import ru.fantlab.android.provider.rest.AwardsSortOption
 import ru.fantlab.android.ui.adapter.AwardsAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.award.AwardPagerActivity
@@ -32,7 +33,7 @@ class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMv
 
 	lateinit var sortButton: Button
 
-	private val adapter: AwardsAdapter by lazy { AwardsAdapter(presenter.getAwards()) }
+	private val adapter: AwardsAdapter by lazy { AwardsAdapter(arrayListOf()) }
 
 	override fun layout(): Int = R.layout.awards_layout
 
@@ -57,11 +58,8 @@ class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMv
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		recycler.addDivider()
-		if (presenter.getAwards().isEmpty() && !presenter.isApiCalled()) {
-			presenter.onReload()
-		}
+		presenter.getAwards(false)
 		fastScroller.attachRecyclerView(recycler)
-
 
 		val menuView = LayoutInflater.from(this).inflate(R.layout.sort_view, null)
 		sortButton = menuView.findViewById(R.id.sortButton)
@@ -95,7 +93,7 @@ class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMv
 				.append(getString(R.string.sort_mode))
 				.append(" ")
 				.append(item.title.toLowerCase())
-		presenter.setCurrentSort(item.id)
+		presenter.sort = AwardsSortOption.valueOf(item.id)
 	}
 
 	override fun onNotifyAdapter(items: ArrayList<AwardInList>) {
@@ -121,7 +119,7 @@ class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMv
 	}
 
 	override fun onRefresh() {
-		presenter.onReload()
+		presenter.getAwards(true)
 	}
 
 	override fun onClick(v: View?) {
