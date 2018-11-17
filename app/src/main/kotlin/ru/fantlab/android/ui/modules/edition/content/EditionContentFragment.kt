@@ -29,7 +29,6 @@ class EditionContentFragment : BaseFragment<EditionContentMvp.View, EditionConte
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.progress) lateinit var progress: View
 
-	private var content: ArrayList<EditionContent>? = null
 	private var countCallback: EditionPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.edition_content_layout
@@ -37,16 +36,7 @@ class EditionContentFragment : BaseFragment<EditionContentMvp.View, EditionConte
 	override fun providePresenter() = EditionContentPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			content = savedInstanceState.getParcelableArrayList<EditionContent>("content")
-			if (content != null) {
-				onInitViews(content!!)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun onInitViews(content: ArrayList<EditionContent>) {
@@ -100,11 +90,6 @@ class EditionContentFragment : BaseFragment<EditionContentMvp.View, EditionConte
 		onSetTabCount(adapter.itemCount)
 	}
 
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		outState.putParcelableArrayList("content", content)
-	}
-
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
 		progress.visibility = View.VISIBLE
 		stateLayout.showProgress()
@@ -151,11 +136,7 @@ class EditionContentFragment : BaseFragment<EditionContentMvp.View, EditionConte
 	}
 
 	override fun onRefresh() {
-		presenter.onCallApi()
-	}
-
-	override fun onNotifyAdapter() {
-		hideProgress()
+		presenter.getContent(true)
 	}
 
 	override fun onClick(p0: View?) {

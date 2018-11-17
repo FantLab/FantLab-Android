@@ -7,7 +7,6 @@ import android.support.v7.widget.CardView
 import android.text.SpannableStringBuilder
 import android.view.View
 import butterknife.BindView
-import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.edition_overview_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.AdditionalImages
@@ -46,8 +45,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 	@BindView(R.id.notes) lateinit var notes: FontTextView
 	@BindView(R.id.progress) lateinit var progress: View
 
-	private var edition: Edition? = null
-	@State var additionalImages: AdditionalImages? = null
+	private lateinit var edition: Edition
 	private var pagerCallback: EditionPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.edition_overview_layout
@@ -55,22 +53,13 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 	override fun providePresenter() = EditionOverviewPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			edition = savedInstanceState.getParcelable("edition")
-			if (edition != null) {
-				onInitViews(edition!!, additionalImages)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun onInitViews(edition: Edition, additionalImages: AdditionalImages?) {
-		hideProgress()
 		this.edition = edition
-		this.additionalImages = additionalImages
+
+		hideProgress()
 		coverLayout.setUrl("https:${edition.image}")
 		coverLayout.setDotColor(
 				when {
@@ -203,11 +192,6 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 		}
 	}
 
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		outState.putParcelable("edition", edition)
-	}
-
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
 		progress.visibility = View.VISIBLE
 	}
@@ -242,19 +226,10 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 		pagerCallback?.onSetTitle(title)
 	}
 
-	companion object {
-
-		fun newInstance(editionId: Int): EditionOverviewFragment {
-			val view = EditionOverviewFragment()
-			view.arguments = Bundler.start().put(BundleConstant.EXTRA, editionId).end()
-			return view
-		}
-	}
-
 	override fun onClick(v: View?) {
 		when (v?.id) {
 			R.id.authors -> {
-				val authorsList: java.util.ArrayList<Edition.Author>? = edition!!.creators.authors
+				val authorsList: ArrayList<Edition.Author> = edition.creators.authors!!
 				val dialogView: ListDialogView<Edition.Author> = ListDialogView()
 				dialogView.initArguments(getString(R.string.authors), authorsList)
 				dialogView.show(childFragmentManager, "ListDialogView")
@@ -264,5 +239,14 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 
 	override fun <T> onItemSelected(item: T, position: Int) {
 		AuthorPagerActivity.startActivity(context!!, (item as Edition.Author).id, item.name, 0)
+	}
+
+	companion object {
+
+		fun newInstance(editionId: Int): EditionOverviewFragment {
+			val view = EditionOverviewFragment()
+			view.arguments = Bundler.start().put(BundleConstant.EXTRA, editionId).end()
+			return view
+		}
 	}
 }

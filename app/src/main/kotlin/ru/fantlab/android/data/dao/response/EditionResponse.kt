@@ -10,7 +10,7 @@ import ru.fantlab.android.provider.rest.DataManager
 
 data class EditionResponse(
 		val edition: Edition,
-		val editionContent: ArrayList<EditionContent>?,
+		val editionContent: ArrayList<EditionContent>,
 		val additionalImages: AdditionalImages?
 ) {
 	class Deserializer : ResponseDeserializable<EditionResponse> {

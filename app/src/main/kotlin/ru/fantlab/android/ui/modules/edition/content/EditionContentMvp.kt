@@ -13,17 +13,13 @@ interface EditionContentMvp {
 
 		fun onInitViews(content: ArrayList<EditionContent>)
 
-		fun onNotifyAdapter()
-
 		fun onSetTabCount(allCount: Int)
 	}
 
 	interface Presenter : BaseMvp.Presenter {
 
-		fun onFragmentCreated(bundle: Bundle?)
+		fun onFragmentCreated(bundle: Bundle)
 
-		fun onWorkOffline(id: Int)
-
-		fun getContent(): ArrayList<String>
+		fun getContent(force: Boolean)
 	}
 }

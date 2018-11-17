@@ -73,10 +73,10 @@ class ListDialogView<T : Parcelable> : BaseDialogFragment<BaseMvp.View, BasePres
 	override fun onItemLongClick(position: Int, v: View?, item: T) {
 	}
 
-	fun initArguments(title: String, objects: ArrayList<T>?) {
+	fun initArguments(title: String, objects: ArrayList<T>) {
 		arguments = Bundler.start()
 				.put(BundleConstant.EXTRA, title)
-				.put(BundleConstant.ITEM, objects!!)
+				.put(BundleConstant.ITEM, objects)
 				.end()
 	}
 

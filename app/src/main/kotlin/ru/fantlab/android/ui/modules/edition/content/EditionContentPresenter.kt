@@ -1,54 +1,55 @@
 package ru.fantlab.android.ui.modules.edition.content
 
 import android.os.Bundle
+import io.reactivex.Single
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.model.EditionContent
+import ru.fantlab.android.data.dao.response.EditionResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
+import ru.fantlab.android.provider.rest.getEditionPath
+import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class EditionContentPresenter : BasePresenter<EditionContentMvp.View>(),
 		EditionContentMvp.Presenter {
 
-	@com.evernote.android.state.State var editionId: Int? = null
-	private var content: ArrayList<String> = ArrayList()
+	private var editionId: Int = -1
 
-	override fun onFragmentCreated(bundle: Bundle?) {
-		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
-			throw NullPointerException("Either bundle or Edition is null")
-		}
+	override fun onFragmentCreated(bundle: Bundle) {
 		editionId = bundle.getInt(BundleConstant.EXTRA)
-		editionId?.let {
-			makeRestCall(
-					DataManager.getEdition(it, showContent = true)
-							.toObservable(),
-					Consumer { editionResponse ->
-						sendToView { it.onInitViews(editionResponse.editionContent!!) }
+		getContent(false)
+	}
+
+	override fun getContent(force: Boolean) {
+		makeRestCall(
+				getContentInternal(force).toObservable(),
+				Consumer { content -> sendToView { it.onInitViews(content) } }
+		)
+	}
+
+	private fun getContentInternal(force: Boolean) =
+			getContentFromServer()
+					.onErrorResumeNext { throwable ->
+						if (!force) {
+							getContentFromDb()
+						} else {
+							throw throwable
+						}
 					}
-			)
-		}
-	}
 
-	override fun onError(throwable: Throwable) {
-		editionId?.let { onWorkOffline(it) }
-		super.onError(throwable)
-	}
+	private fun getContentFromServer(): Single<ArrayList<EditionContent>> =
+			DataManager.getEdition(editionId, true)
+					.map { getContent(it) }
 
-	override fun onWorkOffline(id: Int) {
-		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
-	}
+	private fun getContentFromDb(): Single<ArrayList<EditionContent>> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getEditionPath(editionId, true))
+					.map { it.toNullable()!!.response }
+					.map { EditionResponse.Deserializer().deserialize(it) }
+					.map { getContent(it) }
 
-	fun onCallApi() {
-		editionId?.let {
-			makeRestCall(
-					DataManager.getEdition(it, showContent = true)
-							.toObservable(),
-					Consumer { workResponse ->
-						sendToView { it.onNotifyAdapter() }
-					}
-			)
-		}
-	}
-
-	override fun getContent(): ArrayList<String> = content
+	private fun getContent(response: EditionResponse): ArrayList<EditionContent> =
+			response.editionContent
 }
