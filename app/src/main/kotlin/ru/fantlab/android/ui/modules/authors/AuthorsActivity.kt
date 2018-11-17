@@ -21,7 +21,7 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
-	private val adapter: AuthorsAdapter by lazy { AuthorsAdapter(presenter.getAuthors()) }
+	private val adapter: AuthorsAdapter by lazy { AuthorsAdapter(presenter.authors) }
 
 	override fun layout(): Int = R.layout.authors_layout
 
@@ -46,7 +46,7 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
-		if (presenter.getAuthors().isEmpty() && !presenter.isApiCalled()) {
+		if (presenter.authors.isEmpty() && !presenter.isApiCalled()) {
 			presenter.onReload()
 		}
 		fastScroller.attachRecyclerView(recycler)

@@ -20,9 +20,5 @@ interface AuthorsMvp {
 			BaseViewHolder.OnItemClickListener<AuthorInList> {
 
 		fun onReload()
-
-		fun onWorkOffline()
-
-		fun getAuthors(): ArrayList<AuthorInList>
 	}
 }
