@@ -16,8 +16,6 @@ interface ClassificationCharacteristicsMvp {
 
 	interface Presenter : BaseMvp.Presenter {
 
-		fun onFragmentCreated(bundle: Bundle?)
-
-		fun onWorkOffline(id: Int)
+		fun onFragmentCreated(bundle: Bundle)
 	}
 }

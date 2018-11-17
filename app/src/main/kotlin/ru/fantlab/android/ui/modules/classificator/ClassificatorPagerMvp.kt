@@ -17,6 +17,5 @@ interface ClassificatorPagerMvp {
 	interface Presenter : BaseMvp.Presenter {
 
 		fun onSendClassification(workId: Int, query: String)
-
 	}
 }

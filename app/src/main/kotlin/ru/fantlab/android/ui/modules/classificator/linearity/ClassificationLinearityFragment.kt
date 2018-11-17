@@ -30,7 +30,6 @@ class ClassificationLinearityFragment : BaseFragment<ClassificationLinearityMvp.
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
-	private var classificator: ArrayList<ClassificatorModel>? = null
 	private var pagerCallback: ClassificatorPagerMvp.View? = null
 	var selectedItems = 0
 
@@ -39,16 +38,7 @@ class ClassificationLinearityFragment : BaseFragment<ClassificationLinearityMvp.
 	override fun providePresenter() = ClassificationLinearityPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			classificator = savedInstanceState.getParcelableArrayList("classificator")
-			if (classificator != null) {
-				onInitViews(classificator!!)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun onInitViews(classificators: ArrayList<ClassificatorModel>) {
@@ -162,16 +152,11 @@ class ClassificationLinearityFragment : BaseFragment<ClassificationLinearityMvp.
 		super.onDetach()
 	}
 
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		outState.putParcelableArrayList("classificator", classificator)
-	}
-
 	companion object {
 
-		fun newInstance(editionId: Int): ClassificationLinearityFragment {
+		fun newInstance(workId: Int): ClassificationLinearityFragment {
 			val view = ClassificationLinearityFragment()
-			view.arguments = Bundler.start().put(BundleConstant.EXTRA, editionId).end()
+			view.arguments = Bundler.start().put(BundleConstant.EXTRA, workId).end()
 			return view
 		}
 	}

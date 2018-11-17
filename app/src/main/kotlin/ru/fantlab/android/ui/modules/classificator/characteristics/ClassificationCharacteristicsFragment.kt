@@ -22,7 +22,8 @@ import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import java.util.*
 
-class ClassificationCharacteristicsFragment : BaseFragment<ClassificationCharacteristicsMvp.View, ClassificationCharacteristicsPresenter>(),
+class ClassificationCharacteristicsFragment :
+		BaseFragment<ClassificationCharacteristicsMvp.View, ClassificationCharacteristicsPresenter>(),
 		ClassificationCharacteristicsMvp.View {
 
 	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
@@ -30,7 +31,6 @@ class ClassificationCharacteristicsFragment : BaseFragment<ClassificationCharact
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
-	private var classificator: ArrayList<ClassificatorModel>? = null
 	private var pagerCallback: ClassificatorPagerMvp.View? = null
 	var selectedItems = 0
 
@@ -39,16 +39,7 @@ class ClassificationCharacteristicsFragment : BaseFragment<ClassificationCharact
 	override fun providePresenter() = ClassificationCharacteristicsPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			classificator = savedInstanceState.getParcelableArrayList("classificator")
-			if (classificator != null) {
-				onInitViews(classificator!!)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun onInitViews(classificators: ArrayList<ClassificatorModel>) {
@@ -162,16 +153,11 @@ class ClassificationCharacteristicsFragment : BaseFragment<ClassificationCharact
 		super.onDetach()
 	}
 
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		outState.putParcelableArrayList("classificator", classificator)
-	}
-
 	companion object {
 
-		fun newInstance(editionId: Int): ClassificationCharacteristicsFragment {
+		fun newInstance(workId: Int): ClassificationCharacteristicsFragment {
 			val view = ClassificationCharacteristicsFragment()
-			view.arguments = Bundler.start().put(BundleConstant.EXTRA, editionId).end()
+			view.arguments = Bundler.start().put(BundleConstant.EXTRA, workId).end()
 			return view
 		}
 	}

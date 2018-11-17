@@ -150,6 +150,8 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 	}
 
 	companion object {
+		var classNeededToSet = listOf(0, 2, 3, 6)
+
 		fun startActivity(context: Context, workId: Int) {
 			val intent = Intent(context, ClassificatorPagerActivity::class.java)
 			intent.putExtras(Bundler.start()
@@ -160,7 +162,5 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 			}
 			context.startActivity(intent)
 		}
-
-		var classNeededToSet = listOf(0, 2, 3, 6)
 	}
 }

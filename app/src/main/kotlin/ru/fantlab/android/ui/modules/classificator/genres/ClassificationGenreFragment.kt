@@ -30,7 +30,6 @@ class ClassificationGenreFragment : BaseFragment<ClassificationGenreMvp.View, Cl
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
-	private var classificator: ArrayList<ClassificatorModel>? = null
 	private var pagerCallback: ClassificatorPagerMvp.View? = null
 	var selectedItems = 0
 
@@ -39,16 +38,7 @@ class ClassificationGenreFragment : BaseFragment<ClassificationGenreMvp.View, Cl
 	override fun providePresenter() = ClassificationGenrePresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			classificator = savedInstanceState.getParcelableArrayList("classificator")
-			if (classificator != null) {
-				onInitViews(classificator!!)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun onInitViews(classificators: ArrayList<ClassificatorModel>) {
@@ -162,16 +152,11 @@ class ClassificationGenreFragment : BaseFragment<ClassificationGenreMvp.View, Cl
 		super.onDetach()
 	}
 
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		outState.putParcelableArrayList("classificator", classificator)
-	}
-
 	companion object {
 
-		fun newInstance(editionId: Int): ClassificationGenreFragment {
+		fun newInstance(workId: Int): ClassificationGenreFragment {
 			val view = ClassificationGenreFragment()
-			view.arguments = Bundler.start().put(BundleConstant.EXTRA, editionId).end()
+			view.arguments = Bundler.start().put(BundleConstant.EXTRA, workId).end()
 			return view
 		}
 	}
