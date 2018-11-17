@@ -10,15 +10,15 @@ object FantlabHelper {
 		val ignoreList = listOf(10, 12345, 2000, 7000, 46137)
 	}
 
-	enum class Levels(val level: Int) {
+	enum class Levels(val `class`: Int) {
 		NOVICE(0),
-		ACTIVIST(200),
-		AUTHORITY(800),
-		PHILOSOPHER(2000),
-		MASTER(4000),
-		GRANDMASTER(7000),
-		PEACEKEEPER(10000),
-		PEACEMAKER(15000)
+		ACTIVIST(1),
+		AUTHORITY(2),
+		PHILOSOPHER(3),
+		MASTER(4),
+		GRANDMASTER(5),
+		PEACEKEEPER(6),
+		PEACEMAKER(7)
 	}
 
 	enum class WorkType(val id: Int) {
@@ -37,6 +37,6 @@ object FantlabHelper {
 		TYPE_TIME("time")
 	}
 
-	val minLevelToVote = Levels.ACTIVIST.level
+	val minLevelToVote = FantlabHelper.User.classRanges[Levels.NOVICE.`class`]
 
 }
