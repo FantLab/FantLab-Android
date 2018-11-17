@@ -18,13 +18,11 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
 import ru.fantlab.android.helper.*
-import ru.fantlab.android.helper.PrefGetter.PHILOSOPHER_CLASS
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
-import ru.fantlab.android.ui.modules.classificator.ClassificatorPagerActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.widgets.ViewPagerView
 import java.text.NumberFormat
@@ -135,7 +133,7 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 	private fun hideShowFab(position: Int) {
 		when (position) {
 			2 -> {
-				if (PrefGetter.getLoggedUser() != null) {
+				if (isLoggedIn()) {
 					fab.setImageResource(R.drawable.ic_response)
 					fab.show()
 				}
@@ -187,6 +185,8 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 		}
 	}
 
-	override fun onSetMarked(isMarked: Boolean) {
+	override fun onSetMarked(isMarked: Boolean, mark: Int) {
 	}
+
+	override fun onGetMark(): Int? = -1
 }

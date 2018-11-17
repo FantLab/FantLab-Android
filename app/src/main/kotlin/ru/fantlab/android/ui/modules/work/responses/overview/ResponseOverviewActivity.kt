@@ -6,10 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import butterknife.BindView
+import butterknife.OnClick
 import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
@@ -38,6 +40,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 	@BindView(R.id.rating) lateinit var rating: FontTextView
 	@BindView(R.id.votes) lateinit var votes: FontTextView
 	@BindView(R.id.mark) lateinit var mark: FontTextView
+	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
 
 	@State lateinit var response: Response
 
@@ -119,21 +122,17 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		votes.text = response.voteCount.toString()
 
 		if (isLoggedIn() && PrefGetter.getLoggedUser()?.id != response.userId) {
-			mark.visibility = View.VISIBLE
-			mark.setOnClickListener(this)
+			fab.visibility = View.VISIBLE
 		} else {
-			mark.visibility = View.GONE
+			fab.visibility = View.GONE
 		}
 	}
 
-	override fun onClick(v: View?) {
-		when (v?.id) {
-			R.id.mark -> {
-				val dialogView = ContextMenuDialogView()
-				dialogView.initArguments("votes", ContextMenuBuilder.buildForResponse(this), response, 0)
-				dialogView.show(supportFragmentManager, "ContextMenuDialogView")
-			}
-		}
+	@OnClick(R.id.fab)
+	fun onFabClicked() {
+		val dialogView = ContextMenuDialogView()
+		dialogView.initArguments("votes", ContextMenuBuilder.buildForResponse(this), response, 0)
+		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 	}
 
 	private fun prepareResponse(savedText: CharSequence?): String? {

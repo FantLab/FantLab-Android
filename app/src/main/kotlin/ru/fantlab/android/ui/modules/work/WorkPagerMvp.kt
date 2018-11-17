@@ -12,7 +12,9 @@ interface WorkPagerMvp {
 
 		fun onScrolled(isUp: Boolean)
 
-		fun onSetMarked(isMarked: Boolean)
+		fun onSetMarked(isMarked: Boolean, mark: Int)
+
+		fun onGetMark(): Int?
 	}
 
 	interface Presenter : BaseMvp.Presenter

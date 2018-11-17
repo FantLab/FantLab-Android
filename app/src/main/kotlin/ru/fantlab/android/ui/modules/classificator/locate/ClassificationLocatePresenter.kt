@@ -1,6 +1,7 @@
 package ru.fantlab.android.ui.modules.classificator.locate
 
 import android.os.Bundle
+import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.ClassificatorModel
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.PrefGetter.CLASS_LOCATE
@@ -31,6 +32,6 @@ class ClassificationLocatePresenter : BasePresenter<ClassificationLocateMvp.View
 	}
 
 	override fun onWorkOffline(id: Int) {
-		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
+		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
 	}
 }

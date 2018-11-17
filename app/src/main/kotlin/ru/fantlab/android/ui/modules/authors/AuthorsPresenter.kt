@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.authors
 
 import android.view.View
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.AuthorInList
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -25,7 +26,7 @@ class AuthorsPresenter : BasePresenter<AuthorsMvp.View>(), AuthorsMvp.Presenter 
 	}
 
 	override fun onWorkOffline() {
-		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
+		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
 	}
 
 	override fun onReload() {

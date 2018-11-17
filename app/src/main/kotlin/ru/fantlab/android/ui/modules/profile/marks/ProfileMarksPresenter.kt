@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.profile.marks
 
 import android.view.View
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Mark
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -78,6 +79,6 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 
 	override fun onWorkOffline(userId: Int) {
 		sendToView { it.hideProgress() }
-		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
+		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
 	}
 }

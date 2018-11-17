@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.work.classification
 
 import android.os.Bundle
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.ClassificationGenre
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
@@ -38,6 +39,6 @@ class WorkClassificationPresenter : BasePresenter<WorkClassificationMvp.View>(),
 	}
 
 	override fun onWorkOffline(id: Int) {
-		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
+		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
 	}
 }

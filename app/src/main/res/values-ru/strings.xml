@@ -158,4 +158,7 @@
 	<string name="description">Описание</string>
 	<string name="information">Информация</string>
 	<string name="note">Примечание</string>
+	<string name="scan">Сканирование штрихкода</string>
+	<string name="failed_data">Не удалось загрузить данные</string>
+
 </resources>

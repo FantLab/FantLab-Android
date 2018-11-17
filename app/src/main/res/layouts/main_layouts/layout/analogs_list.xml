@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +7,16 @@
 	android:layout_height="match_parent"
 	app:layout_behavior="@string/scroll_behavior"
 	tools:ignore="MergeRootFrame"
+	android:orientation="vertical"
 	>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/similars"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/similar"
+		style="@style/TextAppearance.AppCompat.Title"
+		/>
 
 	<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 		android:id="@+id/recycler"
@@ -18,4 +27,4 @@
 		tools:listitem="@layout/work_analog_row_item"
 		/>
 
-</FrameLayout>
+</LinearLayout>

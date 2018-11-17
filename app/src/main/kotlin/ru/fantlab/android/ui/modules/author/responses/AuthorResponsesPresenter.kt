@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.author.responses
 
 import android.view.View
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.data.dao.response.VoteResponse
 import ru.fantlab.android.provider.rest.DataManager
@@ -76,7 +77,7 @@ class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
 	}
 
 	override fun onWorkOffline(authorId: Int) {
-		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
+		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
 	}
 
 	fun onSendVote(item: Response, position: Int, voteType: String) {

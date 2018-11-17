@@ -89,7 +89,7 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 
 	override fun onWorkOffline() {
 		sendToView { it.hideProgress() }
-		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
+		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
 	}
 
 	override fun onItemClick(position: Int, v: View?, item: Response) {

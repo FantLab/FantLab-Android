@@ -108,7 +108,7 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 		val integrator = IntentIntegrator(this)
 		with(integrator) {
 			setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)
-			setPrompt("Scan")
+			setPrompt(getString(R.string.scan))
 			setCameraId(0)
 			setBeepEnabled(false)
 			setBarcodeImageEnabled(false)

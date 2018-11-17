@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.awards
 
 import android.view.View
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.AwardInList
 import ru.fantlab.android.provider.rest.AwardsSortOption
 import ru.fantlab.android.provider.rest.DataManager
@@ -32,7 +33,7 @@ class AwardsPresenter : BasePresenter<AwardsMvp.View>(), AwardsMvp.Presenter {
 	}
 
 	override fun onWorkOffline() {
-		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
+		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
 	}
 
 	override fun onReload() {

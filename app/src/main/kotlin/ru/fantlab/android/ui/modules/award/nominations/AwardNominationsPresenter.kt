@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.award.nominations
 
 import android.view.View
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Award
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -18,7 +19,7 @@ class AwardNominationsPresenter : BasePresenter<AwardNominationsMvp.View>(),
 	}
 
 	override fun onWorkOffline(id: Int) {
-		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
+		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
 	}
 
 	override fun getAwardNominations(): ArrayList<Award.Nominations> = nominations

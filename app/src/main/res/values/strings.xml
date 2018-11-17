@@ -188,4 +188,6 @@
 	<string name="description">Description</string>
 	<string name="information">Information</string>
 	<string name="note">Note</string>
+	<string name="scan">Scan</string>
+	<string name="failed_data">Failed to load data</string>
 </resources>

@@ -40,8 +40,8 @@ class UserMarkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Mark, User
 			year.text = mark.workYear.toString()
 		} else year.visibility = View.GONE
 		myMark.text = mark.mark.toString()
-		if (mark.userClassifiedWork == 1) classified.visibility = View.VISIBLE
-		if (mark.userResponseWork == 1) response.visibility = View.VISIBLE
+		classified.visibility = if (mark.userClassifiedWork == 1) View.VISIBLE else View.GONE
+		response.visibility = if (mark.userResponseWork == 1) View.VISIBLE else View.GONE
 	}
 
 	companion object {

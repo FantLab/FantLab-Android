@@ -42,7 +42,13 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 	}
 
 	override fun onInitViews(analogs: ArrayList<WorkAnalog>) {
+		if (analogs.size == 0) {
+			fragmentManager?.beginTransaction()?.remove(this)?.commit()
+			return
+		}
+		fragmentManager?.beginTransaction()?.show(this)?.commit()
 		recycler.addKeyLineDivider()
+		recycler.isNestedScrollingEnabled = false
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		adapter.addItems(analogs)
