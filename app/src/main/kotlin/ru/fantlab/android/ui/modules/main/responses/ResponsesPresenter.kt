@@ -35,7 +35,6 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 		setCurrentPage(page)
 		makeRestCall(
 				DataManager.getLastResponses(page)
-						.map { it.get() }
 						.toObservable(),
 				Consumer { response ->
 					lastPage = response.responses.last
@@ -51,18 +50,16 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 	fun onSendVote(item: Response, position: Int, voteType: String) {
 		makeRestCall(
 				DataManager.getUser(PrefGetter.getLoggedUser()?.id!!)
-						.map { it.get() }
 						.toObservable(),
 				Consumer { it ->
 					if (it.user.level >= 200) {
 						makeRestCall(DataManager.sendResponseVote(item.id, voteType)
-								.map { it.get() }
 								.toObservable(),
 								Consumer { response ->
 									val result = VoteResponse.Parser().parse(response)
 									if (result != null) {
 										sendToView { view ->
-											view.onSetVote(position, result.votesCount)
+											view.onSetVote(position, result.votesCount.toString())
 										}
 									} else {
 										sendToView { it.showErrorMessage(response) }

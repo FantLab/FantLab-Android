@@ -55,7 +55,6 @@ class SearchAuthorsPresenter : BasePresenter<SearchAuthorsMvp.View>(), SearchAut
 		}
 		makeRestCall(
 				DataManager.searchAuthors(parameter, page)
-						.map { it.get() }
 						.toObservable(),
 				Consumer { response ->
 					lastPage = response.authors.last

@@ -1,75 +1,91 @@
 package ru.fantlab.android.ui.modules.author.bibliography
 
 import android.os.Bundle
+import io.reactivex.Single
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.data.dao.model.MarkMini
 import ru.fantlab.android.data.dao.model.WorksBlocks
+import ru.fantlab.android.data.dao.response.AuthorResponse
+import ru.fantlab.android.data.dao.response.MarksMiniResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
+import ru.fantlab.android.provider.rest.getAuthorPath
+import ru.fantlab.android.provider.rest.getUserMarksMiniPath
+import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 
 class AuthorBibliographyPresenter : BasePresenter<AuthorBibliographyMvp.View>(),
 		AuthorBibliographyMvp.Presenter {
 
-	@com.evernote.android.state.State var authorId: Int? = null
-	private var bibliography: WorksBlocks? = null
+	override fun onFragmentCreated(bundle: Bundle) {
+		val authorId = bundle.getInt(BundleConstant.EXTRA)
+		makeRestCall(
+				getAuthorInternal(authorId).toObservable(),
+				Consumer { (cycles, works) -> sendToView { it.onInitViews(cycles, works) } }
+		)
+	}
 
-	override fun onFragmentCreated(bundle: Bundle?) {
-		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
-			throw NullPointerException("Either bundle or AuthorId is null")
-		}
-		authorId = bundle.getInt(BundleConstant.EXTRA)
-		authorId?.let {
-			makeRestCall(
-					DataManager.getAuthor(it, showBiblioBlocks = true)
-							.map { it.get() }
-							.toObservable(),
-					Consumer { authorResponse ->
-						sendToView {
-							it.onInitViews(
-									authorResponse.cycles,
-									authorResponse.works
-							)
-						}
+	override fun getMarks(userId: Int, workIds: ArrayList<Int>) {
+		makeRestCall(
+				getMarksInternal(userId, workIds).toObservable(),
+				Consumer { marks -> sendToView { it.onGetMarks(marks) } }
+		)
+	}
+
+	override fun onSendMark(workId: Int, mark: Int, position: Int) {
+		makeRestCall(
+				setMarkInternal(workId, mark).toObservable(),
+				Consumer { _ -> sendToView { it.onSetMark(position, mark) } }
+		)
+	}
+
+	private fun getAuthorInternal(authorId: Int) =
+			getAuthorFromServer(authorId)
+					.onErrorResumeNext {
+						getAuthorFromDb(authorId)
 					}
-			)
-		}
-	}
 
-	override fun onError(throwable: Throwable) {
-		authorId?.let { onWorkOffline(it) }
-		super.onError(throwable)
-	}
+	private fun getAuthorFromServer(authorId: Int): Single<Pair<WorksBlocks?, WorksBlocks?>> =
+			DataManager.getAuthor(authorId, showBiblioBlocks = true)
+					.map { getAuthor(it) }
 
-	override fun onWorkOffline(id: Int) {
-		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
-	}
+	private fun getAuthorFromDb(authorId: Int): Single<Pair<WorksBlocks?, WorksBlocks?>> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getAuthorPath(authorId, showBiblioBlocks = true))
+					.map { it.toNullable()!!.response }
+					.map { AuthorResponse.Deserializer().deserialize(it) }
+					.map { getAuthor(it) }
 
-	override fun getBibliography(): WorksBlocks? = bibliography
+	private fun getAuthor(response: AuthorResponse): Pair<WorksBlocks?, WorksBlocks?> =
+			response.cycles to response.works
 
-	fun onSendMark(workId: Int, mark: Int, position: Int) {
-		makeRestCall(DataManager.sendUserMark(workId, workId, mark)
-				.map { it.get() }
-				.toObservable(),
-				Consumer {
-					sendToView { view ->
-						view.onSetMark(position, mark)
+	private fun getMarksInternal(userId: Int, workIds: ArrayList<Int>) =
+			getMarksFromServer(userId, workIds)
+					.onErrorResumeNext {
+						getMarksFromDb(userId, workIds)
 					}
-				})
-	}
 
-	override fun getMarks(userId: Int?, workIds: ArrayList<Int?>) {
-		makeRestCall(DataManager.getUserMarksMini(userId, workIds.joinToString())
-				.map { it.get() }
-				.toObservable(),
-				Consumer {
-					sendToView { view ->
-						view?.onGetMarks(it.marks)
-					}
-				})
-	}
+	private fun getMarksFromServer(userId: Int, workIds: ArrayList<Int>): Single<ArrayList<MarkMini>> =
+			DataManager.getUserMarksMini(userId, workIds.joinToString())
+					.map { getMarks(it) }
+
+	private fun getMarksFromDb(userId: Int, workIds: ArrayList<Int>): Single<ArrayList<MarkMini>> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getUserMarksMiniPath(userId, workIds.joinToString()))
+					.map { it.toNullable()!!.response }
+					.map { MarksMiniResponse.Deserializer().deserialize(it) }
+					.map { getMarks(it) }
+
+	private fun getMarks(response: MarksMiniResponse): ArrayList<MarkMini> = response.marks
+
+	private fun setMarkInternal(workId: Int, mark: Int): Single<Unit> =
+			DataManager.sendUserMark(workId, workId, mark)
+					.map { /* do nothing*/ }
 
 	override fun onItemLongClick(item: TreeNode<*>, position: Int) {
-		view?.onItemLongClicked(item, position)
+		sendToView { it.onItemLongClicked(item, position) }
 	}
 }

@@ -58,7 +58,6 @@ class WorkResponsesPresenter : BasePresenter<WorkResponsesMvp.View>(),
 		}
 		makeRestCall(
 				DataManager.getWorkResponses(parameter, page, sort ?: ResponsesSortOption.BY_RATING)
-						.map { it.get() }
 						.toObservable(),
 				Consumer {
 					lastPage = it.responses.last
@@ -83,13 +82,12 @@ class WorkResponsesPresenter : BasePresenter<WorkResponsesMvp.View>(),
 
 	fun onSendVote(item: Response, position: Int, voteType: String) {
 		makeRestCall(DataManager.sendResponseVote(item.id, voteType)
-				.map { it.get() }
 				.toObservable(),
 				Consumer { response ->
 					val result = VoteResponse.Parser().parse(response)
 					if (result != null) {
 						sendToView { view ->
-							view.onSetVote(position, result.votesCount)
+							view.onSetVote(position, result.votesCount.toString())
 						}
 					} else {
 						sendToView { it.showErrorMessage(response) }

@@ -66,7 +66,7 @@ class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.Vi
 		proceedWithoutLogin.isEnabled = true
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		hideProgress()
 		super.showErrorMessage(msgRes)
 	}
@@ -76,7 +76,7 @@ class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.Vi
 		super.showMessage(titleRes, msgRes)
 	}
 
-	override fun showMessage(titleRes: String, msgRes: String) {
+	override fun showMessage(titleRes: String, msgRes: String?) {
 		hideProgress()
 		super.showMessage(titleRes, msgRes)
 	}

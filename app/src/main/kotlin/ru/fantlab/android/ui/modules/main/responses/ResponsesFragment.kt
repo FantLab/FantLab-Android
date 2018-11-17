@@ -90,7 +90,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 		stateLayout.hideProgress()
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		showReload()
 		super.showErrorMessage(msgRes)
 	}

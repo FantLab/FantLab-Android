@@ -49,7 +49,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 	override fun providePresenter() = AuthorBibliographyPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		presenter.onFragmentCreated(arguments)
+		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun onInitViews(cycles: WorksBlocks?, works: WorksBlocks?) {
@@ -63,16 +63,18 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		this.works = works
 
 		val ids = ArrayList<ArrayList<WorksBlocks.Work>>()
-		val workIds = arrayListOf<Int?>()
+		val workIds = arrayListOf<Int>()
 		this.cycles?.worksBlocks?.map { ids.add(it.list) }
 		ids.map { it ->
 			it.map { cycle ->
-				cycle.children?.map { workIds.add(it.id) }
+				cycle.children?.filter { it.id != null }?.map { workIds.add(it.id!!) }
 			}
 		}
 		if (isLoggedIn()) {
-			presenter.getMarks(PrefGetter.getLoggedUser()?.id, workIds)
-		} else initAdapter(this.cycles, works, null)
+			presenter.getMarks(PrefGetter.getLoggedUser()!!.id, workIds)
+		} else {
+			initAdapter(this.cycles, works, null)
+		}
 	}
 
 	override fun onGetMarks(marks: ArrayList<MarkMini>) {
@@ -222,7 +224,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		stateLayout.hideProgress()
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		hideProgress()
 		super.showErrorMessage(msgRes)
 	}

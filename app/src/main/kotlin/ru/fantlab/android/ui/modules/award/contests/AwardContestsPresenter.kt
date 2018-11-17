@@ -22,7 +22,6 @@ class AwardContestsPresenter : BasePresenter<AwardContestsMvp.View>(),
 		awardId?.let { it ->
 			makeRestCall(
 					DataManager.getAward(it, false, true)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { AwardContestsResponse ->
 						sendToView {
@@ -48,7 +47,6 @@ class AwardContestsPresenter : BasePresenter<AwardContestsMvp.View>(),
 		awardId?.let { it ->
 			makeRestCall(
 					DataManager.getAward(it, false, true)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { workResponse ->
 						sendToView { it.onNotifyAdapter() }

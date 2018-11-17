@@ -138,7 +138,7 @@ class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsP
 		stateLayout.showProgress()
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		callback?.showErrorMessage(msgRes)
 	}
 

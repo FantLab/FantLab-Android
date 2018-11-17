@@ -148,7 +148,7 @@ class SearchAwardsFragment : BaseFragment<SearchAwardsMvp.View, SearchAwardsPres
 		stateLayout.showProgress()
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		callback?.showErrorMessage(msgRes)
 	}
 

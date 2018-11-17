@@ -216,7 +216,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 		progress.visibility = View.GONE
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		hideProgress()
 		super.showErrorMessage(msgRes)
 	}

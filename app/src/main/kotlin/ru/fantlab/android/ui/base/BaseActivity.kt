@@ -200,18 +200,19 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		showMessage(getString(titleRes), getString(msgRes))
 	}
 
-	override fun showMessage(titleRes: String, msgRes: String) {
+	override fun showMessage(titleRes: String, msgRes: String?) {
 		hideProgress()
 		toast?.cancel()
 		val context = App.instance
-		toast = if (titleRes == context.getString(R.string.error))
-			Toasty.error(context, msgRes, Toast.LENGTH_LONG)
-		else
-			Toasty.info(context, msgRes, Toast.LENGTH_LONG)
+		toast = when {
+			msgRes == null -> Toasty.error(context, getString(R.string.unexpected_error), Toast.LENGTH_LONG)
+			titleRes == context.getString(R.string.error) -> Toasty.error(context, msgRes, Toast.LENGTH_LONG)
+			else -> Toasty.info(context, msgRes, Toast.LENGTH_LONG)
+		}
 		toast?.show()
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		showMessage(getString(R.string.error), msgRes)
 	}
 

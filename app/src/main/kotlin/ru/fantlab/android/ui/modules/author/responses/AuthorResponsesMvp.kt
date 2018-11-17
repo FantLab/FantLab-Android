@@ -27,7 +27,7 @@ interface AuthorResponsesMvp {
 
 		fun onItemClicked(item: Response)
 
-		fun onSetVote(position: Int, votesCount: String)
+		fun onSetVote(votesCount: Int, position: Int)
 
 		override fun onOpenContextMenu(userItem: Response)
 	}
@@ -36,8 +36,8 @@ interface AuthorResponsesMvp {
 			BaseViewHolder.OnItemClickListener<Response>,
 			BaseMvp.PaginationListener<Int> {
 
-		fun getResponses(): ArrayList<Response>
+		fun setCurrentSort(sortValue: String)
 
-		fun onWorkOffline(authorId: Int)
+		fun onSendVote(responseId: Int, voteType: String, position: Int)
 	}
 }

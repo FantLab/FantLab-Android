@@ -93,11 +93,11 @@ abstract class BaseFragment<V : BaseMvp.View, P : BasePresenter<V>> : TiFragment
 		callback?.showMessage(titleRes, msgRes)
 	}
 
-	override fun showMessage(titleRes: String, msgRes: String) {
+	override fun showMessage(titleRes: String, msgRes: String?) {
 		callback?.showMessage(titleRes, msgRes)
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		callback?.showErrorMessage(msgRes)
 	}
 

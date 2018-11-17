@@ -25,7 +25,6 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 		if (!usernameIsEmpty && !passwordIsEmpty) {
 			makeRestCall(
 					DataManager.login(username, password)
-							.map { it.first }
 							.toObservable(),
 					Consumer { response ->
 						if (response.headers["Location"]?.get(0) == "/loginincorrect") {
@@ -44,12 +43,10 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 				PrefGetter.setToken(cookie.substring(0, cookie.indexOf(";")))
 				makeRestCall(
 						DataManager.getUserId(username)
-								.map { it.get() }
 								.toObservable(),
 						Consumer { response ->
 							makeRestCall(
 									DataManager.getUser(response.userId.id)
-											.map { it.get() }
 											.toObservable(),
 									Consumer {
 										onUserResponse(it.user)

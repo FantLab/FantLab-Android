@@ -169,7 +169,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 		stateLayout.showProgress()
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		callback?.showErrorMessage(msgRes)
 	}
 

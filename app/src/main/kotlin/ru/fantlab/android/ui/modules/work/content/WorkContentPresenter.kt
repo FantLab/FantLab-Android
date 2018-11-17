@@ -22,7 +22,6 @@ class WorkContentPresenter : BasePresenter<WorkContentMvp.View>(),
 		editionId?.let {
 			makeRestCall(
 					DataManager.getWork(it, showChildren = true)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { workResponse ->
 						sendToView { it.onInitViews(workResponse.children) }
@@ -44,7 +43,6 @@ class WorkContentPresenter : BasePresenter<WorkContentMvp.View>(),
 		editionId?.let {
 			makeRestCall(
 					DataManager.getEdition(it, showContent = true)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { workResponse ->
 						sendToView { it.onNotifyAdapter() }

@@ -41,7 +41,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	lateinit var sortButton: Button
 	@State var authorId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, authorId) }
-	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses()) }
+	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.responses) }
 	private var authorCallback: AuthorPagerMvp.View? = null
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
@@ -64,7 +64,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 		}
 		getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
 		recycler.addOnScrollListener(getLoadMore())
-		if (presenter.getResponses().isEmpty() && !presenter.isApiCalled()) {
+		if (presenter.responses.isEmpty() && !presenter.isApiCalled()) {
 			onRefresh()
 		}
 		fastScroller.attachRecyclerView(recycler)
@@ -142,7 +142,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 		stateLayout.showProgress()
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		callback?.showErrorMessage(msgRes)
 	}
 
@@ -165,9 +165,9 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 		}
 	}
 
-	override fun onSetVote(position: Int, votesCount: String) {
+	override fun onSetVote(votesCount: Int, position: Int) {
 		hideProgress()
-		adapter.getItem(position).voteCount = votesCount.toInt()
+		adapter.getItem(position).voteCount = votesCount
 		adapter.notifyItemChanged(position)
 
 	}
@@ -181,7 +181,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
 		if (listItem is Response) when (item.id) {
 			"vote" -> {
-				presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
+				presenter.onSendVote(listItem.id, if (item.title.contains("+")) "plus" else "minus", position)
 			}
 			"profile" -> {
 				UserPagerActivity.startActivity(recycler.context, listItem.userName, listItem.userId, 0)

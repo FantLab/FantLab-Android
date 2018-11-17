@@ -31,12 +31,10 @@ interface AuthorBibliographyMvp {
 	interface Presenter : BaseMvp.Presenter,
 			TreeViewAdapter.OnItemClickListener {
 
-		fun onFragmentCreated(bundle: Bundle?)
+		fun onFragmentCreated(bundle: Bundle)
 
-		fun onWorkOffline(id: Int)
+		fun onSendMark(workId: Int, mark: Int, position: Int)
 
-		fun getBibliography(): WorksBlocks?
-
-		fun getMarks(userId: Int?, workIds: ArrayList<Int?>)
+		fun getMarks(userId: Int, workIds: ArrayList<Int>)
 	}
 }

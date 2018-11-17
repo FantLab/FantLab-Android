@@ -26,10 +26,10 @@ interface BaseMvp {
 		fun showMessage(@StringRes titleRes: Int, @StringRes msgRes: Int)
 
 		@CallOnMainThread
-		fun showMessage(titleRes: String, msgRes: String)
+		fun showMessage(titleRes: String, msgRes: String?)
 
 		@CallOnMainThread
-		fun showErrorMessage(msgRes: String)
+		fun showErrorMessage(msgRes: String?)
 
 		fun isLoggedIn(): Boolean
 

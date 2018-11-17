@@ -60,7 +60,7 @@ class AwardNominationsFragment : BaseFragment<AwardNominationsMvp.View, AwardNom
 		stateLayout.hideProgress()
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		hideProgress()
 		super.showErrorMessage(msgRes)
 	}

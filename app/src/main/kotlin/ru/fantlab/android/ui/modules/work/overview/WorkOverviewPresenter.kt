@@ -25,7 +25,6 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 		workId?.let { it ->
 			makeRestCall(
 					DataManager.getWork(it, showAwards = true)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { workResponse ->
 						sendToView { it ->
@@ -42,7 +41,6 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 
 	fun onSendMark(workId: Int, mark: Int) {
 		makeRestCall(DataManager.sendUserMark(workId, workId, mark)
-				.map { it.get() }
 				.toObservable(),
 				Consumer {
 					sendToView { view ->
@@ -52,8 +50,7 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 	}
 
 	override fun getMarks(userId: Int?, workIds: ArrayList<Int?>) {
-		makeRestCall(DataManager.getUserMarksMini(userId, workIds.joinToString())
-				.map { it.get() }
+		makeRestCall(DataManager.getUserMarksMini(userId!!, workIds.joinToString())
 				.toObservable(),
 				Consumer {
 					sendToView { view ->

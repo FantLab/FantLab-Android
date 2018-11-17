@@ -144,7 +144,7 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 		stateLayout.showProgress()
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		callback?.showErrorMessage(msgRes)
 	}
 

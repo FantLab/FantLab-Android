@@ -19,7 +19,6 @@ class EditionOverviewPresenter : BasePresenter<EditionOverviewMvp.View>(),
 		editionId?.let {
 			makeRestCall(
 					DataManager.getEdition(it, showAdditionalImages = true)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { editionResponse ->
 						sendToView {

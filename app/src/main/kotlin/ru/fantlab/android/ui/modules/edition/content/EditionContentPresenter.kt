@@ -20,7 +20,6 @@ class EditionContentPresenter : BasePresenter<EditionContentMvp.View>(),
 		editionId?.let {
 			makeRestCall(
 					DataManager.getEdition(it, showContent = true)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { editionResponse ->
 						sendToView { it.onInitViews(editionResponse.editionContent!!) }
@@ -42,7 +41,6 @@ class EditionContentPresenter : BasePresenter<EditionContentMvp.View>(),
 		editionId?.let {
 			makeRestCall(
 					DataManager.getEdition(it, showContent = true)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { workResponse ->
 						sendToView { it.onNotifyAdapter() }

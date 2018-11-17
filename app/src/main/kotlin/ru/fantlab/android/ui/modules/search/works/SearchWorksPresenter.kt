@@ -54,7 +54,6 @@ class SearchWorksPresenter : BasePresenter<SearchWorksMvp.View>(), SearchWorksMv
 		}
 		makeRestCall(
 				DataManager.searchWorks(parameter, page)
-						.map { it.get() }
 						.toObservable(),
 				Consumer { response ->
 					lastPage = response.works.last

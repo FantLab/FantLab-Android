@@ -44,7 +44,6 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 			id?.let {
 				makeRestCall(
 						DataManager.sendResponse(id, savedText, mode)
-								.map { it.get() }
 								.toObservable(),
 						Consumer { result ->
 							sendToView { it.onSendMessageResult(result) }
@@ -59,7 +58,6 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 			id?.let {
 				makeRestCall(
 						DataManager.sendMessage(id, savedText, mode)
-								.map { it.get() }
 								.toObservable(),
 						Consumer { result ->
 							sendToView { it.onSendMessageResult(result) }

@@ -10,7 +10,6 @@ class ClassificatorPagerPresenter : BasePresenter<ClassificatorPagerMvp.View>(),
 	override fun onSendClassification(workId: Int, query: String) {
 		makeRestCall(
 				DataManager.sendClassification(workId, query)
-						.map { it.get() }
 						.toObservable(),
 				Consumer { response ->
 					sendToView { it.onClassSended() }

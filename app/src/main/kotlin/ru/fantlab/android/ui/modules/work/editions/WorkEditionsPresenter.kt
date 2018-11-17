@@ -22,7 +22,6 @@ class WorkEditionsPresenter : BasePresenter<WorkEditionsMvp.View>(),
 		workId?.let {
 			makeRestCall(
 					DataManager.getWork(it, showEditionsBlocks = true, showEditionsInfo = true)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { workResponse ->
 						sendToView {
@@ -48,7 +47,6 @@ class WorkEditionsPresenter : BasePresenter<WorkEditionsMvp.View>(),
 		workId?.let {
 			makeRestCall(
 					DataManager.getWork(it, showEditionsBlocks = true, showEditionsInfo = true)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { workResponse ->
 						sendToView { it.onNotifyAdapter() }

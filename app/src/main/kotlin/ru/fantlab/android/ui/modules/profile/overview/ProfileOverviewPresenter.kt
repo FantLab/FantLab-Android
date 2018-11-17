@@ -19,7 +19,6 @@ class ProfileOverviewPresenter : BasePresenter<ProfileOverviewMvp.View>(), Profi
 		userId?.let {
 			makeRestCall(
 					DataManager.getUser(it)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { response ->
 						sendToView { it.onInitViews(response.user) }

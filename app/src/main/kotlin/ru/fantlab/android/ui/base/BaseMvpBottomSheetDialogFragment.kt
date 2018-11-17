@@ -88,11 +88,11 @@ abstract class BaseMvpBottomSheetDialogFragment<V : BaseMvp.View, P : BasePresen
 		callback?.showMessage(titleRes, msgRes)
 	}
 
-	override fun showMessage(titleRes: String, msgRes: String) {
+	override fun showMessage(titleRes: String, msgRes: String?) {
 		callback?.showMessage(titleRes, msgRes)
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		callback?.showErrorMessage(msgRes)
 	}
 

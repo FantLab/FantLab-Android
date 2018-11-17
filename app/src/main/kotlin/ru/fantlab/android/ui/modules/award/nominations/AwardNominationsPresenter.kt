@@ -28,7 +28,6 @@ class AwardNominationsPresenter : BasePresenter<AwardNominationsMvp.View>(),
 		awardId?.let { it ->
 			makeRestCall(
 					DataManager.getAward(it, true, false)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { AwardNominationsResponse ->
 						sendToView {

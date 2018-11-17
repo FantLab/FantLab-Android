@@ -25,7 +25,6 @@ class WorkAnalogsPresenter : BasePresenter<WorkAnalogsMvp.View>(),
 		workId?.let {
 			makeRestCall(
 					DataManager.getWorkAnalogs(it)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { workAnalogsResponse ->
 						sendToView {
@@ -59,7 +58,6 @@ class WorkAnalogsPresenter : BasePresenter<WorkAnalogsMvp.View>(),
 		workId?.let {
 			makeRestCall(
 					DataManager.getWorkAnalogs(it)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { workResponse ->
 						sendToView { it.onNotifyAdapter() }

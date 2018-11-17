@@ -20,7 +20,6 @@ class AwardOverviewPresenter : BasePresenter<AwardOverviewMvp.View>(),
 		awardId?.let { it ->
 			makeRestCall(
 					DataManager.getAward(it, false, false)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { awardResponse ->
 						sendToView { it.onInitViews(awardResponse.award) }

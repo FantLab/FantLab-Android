@@ -9,9 +9,9 @@ data class Response(
 		@PrimaryKey
 		val url: String,
 
-		@ColumnInfo(name = "api_version")
-		val apiVersion: String,
-
 		@ColumnInfo
-		val response: String
+		val response: String,
+
+		@ColumnInfo(name = "api_version")
+		val apiVersion: String
 )

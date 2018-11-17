@@ -54,7 +54,6 @@ class SearchAwardsPresenter : BasePresenter<SearchAwardsMvp.View>(), SearchAward
 		}
 		makeRestCall(
 				DataManager.searchAwards(parameter, page)
-						.map { it.get() }
 						.toObservable(),
 				Consumer { response ->
 					lastPage = response.awards.last

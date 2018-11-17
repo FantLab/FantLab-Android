@@ -21,7 +21,7 @@ import java.util.concurrent.TimeoutException
  */
 open class BasePresenter<V : BaseMvp.View> : TiPresenter<V>(), BaseMvp.Presenter {
 
-	private var apiCalled: Boolean = false
+	protected var apiCalled: Boolean = false
 	private val subscriptionHandler = RxTiPresenterDisposableHandler(this)
 
 	override fun onSaveInstanceState(outState: Bundle) {
@@ -54,6 +54,7 @@ open class BasePresenter<V : BaseMvp.View> : TiPresenter<V>(), BaseMvp.Presenter
 		sendToView { v -> v.showProgress(R.string.in_progress, cancelable) }
 	}
 
+	// kill
 	override fun onError(throwable: Throwable) {
 		apiCalled = true
 		throwable.printStackTrace()
@@ -72,7 +73,11 @@ open class BasePresenter<V : BaseMvp.View> : TiPresenter<V>(), BaseMvp.Presenter
 						.doOnSubscribe { onSubscribed(cancelable) }
 						.subscribe(
 								onNext,
-								Consumer { throwable -> onError(throwable) },
+								Consumer { throwable ->
+									apiCalled = true
+									sendToView { it.showMessage(R.string.error, getPrettifiedErrorMessage(throwable)) }
+									Timber.e(throwable)
+								},
 								Action { apiCalled = true }
 						)
 		)

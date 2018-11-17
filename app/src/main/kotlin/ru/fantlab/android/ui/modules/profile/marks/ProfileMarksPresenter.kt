@@ -46,7 +46,6 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 			return false
 		}
 		makeRestCall(DataManager.getUserMarks(parameter, page)
-				.map { it.get() }
 				.toObservable(),
 				Consumer {
 					lastPage = it.marks.last
@@ -60,7 +59,6 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 
 	fun onSendMark(item: Mark, mark: Int, position: Int) {
 		makeRestCall(DataManager.sendUserMark(item.workId, item.workId, mark)
-				.map { it.get() }
 				.toObservable(),
 				Consumer {
 					sendToView { view ->

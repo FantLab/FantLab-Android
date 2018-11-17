@@ -71,7 +71,7 @@ class WorkContentFragment : BaseFragment<WorkContentMvp.View, WorkContentPresent
 		stateLayout.hideProgress()
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		hideProgress()
 		super.showErrorMessage(msgRes)
 	}

@@ -31,7 +31,6 @@ class AuthorsPresenter : BasePresenter<AuthorsMvp.View>(), AuthorsMvp.Presenter 
 	override fun onReload() {
 		makeRestCall(
 				DataManager.getAuthors()
-						.map { it.get() }
 						.toObservable(),
 				Consumer { authorsResponse ->
 					sendToView { it.onNotifyAdapter(authorsResponse.authors) }

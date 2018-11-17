@@ -54,7 +54,6 @@ class SearchEditionsPresenter : BasePresenter<SearchEditionsMvp.View>(), SearchE
 		}
 		makeRestCall(
 				DataManager.searchEditions(parameter, page)
-						.map { it.get() }
 						.toObservable(),
 				Consumer { response ->
 					lastPage = response.editions.last

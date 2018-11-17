@@ -38,7 +38,6 @@ class AwardsPresenter : BasePresenter<AwardsMvp.View>(), AwardsMvp.Presenter {
 	override fun onReload() {
 		makeRestCall(
 				DataManager.getAwards(true, sort ?: AwardsSortOption.BY_NAME)
-						.map { it.get() }
 						.toObservable(),
 				Consumer { awardsResponse ->
 					sendToView { it.onNotifyAdapter(awardsResponse.awards) }

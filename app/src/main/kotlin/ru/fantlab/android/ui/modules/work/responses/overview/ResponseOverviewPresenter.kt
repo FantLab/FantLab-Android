@@ -25,18 +25,16 @@ class ResponseOverviewPresenter : BasePresenter<ResponseOverviewMvp.View>(),
 	fun onSendVote(item: Response, voteType: String) {
 		makeRestCall(
 				DataManager.getUser(PrefGetter.getLoggedUser()?.id!!)
-						.map { it.get() }
 						.toObservable(),
 				Consumer { it ->
 					if (it.user.level >= 200) {
 						makeRestCall(DataManager.sendResponseVote(item.id, voteType)
-								.map { it.get() }
 								.toObservable(),
 								Consumer { response ->
 									val result = VoteResponse.Parser().parse(response)
 									if (result != null) {
 										sendToView { view ->
-											view.onSetVote(result.votesCount)
+											view.onSetVote(result.votesCount.toString())
 										}
 									} else {
 										sendToView { it.showErrorMessage(response) }

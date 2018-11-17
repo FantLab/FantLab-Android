@@ -1,40 +1,46 @@
 package ru.fantlab.android.ui.modules.author.overview
 
 import android.os.Bundle
+import io.reactivex.Single
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.data.dao.model.Author
+import ru.fantlab.android.data.dao.model.Biography
+import ru.fantlab.android.data.dao.response.AuthorResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
+import ru.fantlab.android.provider.rest.getAuthorPath
+import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class AuthorOverviewPresenter : BasePresenter<AuthorOverviewMvp.View>(),
 		AuthorOverviewMvp.Presenter {
 
-	@com.evernote.android.state.State
-	var authorId: Int? = null
-
-	override fun onFragmentCreated(bundle: Bundle?) {
-		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
-			throw NullPointerException("Either bundle or AuthorId is null")
-		}
-		authorId = bundle.getInt(BundleConstant.EXTRA)
-		authorId?.let {
-			makeRestCall(
-					DataManager.getAuthor(it, showBiography = true)
-							.map { it.get() }
-							.toObservable(),
-					Consumer { authorResponse ->
-						sendToView { it.onInitViews(authorResponse.author, authorResponse.biography) }
+	override fun onFragmentCreated(bundle: Bundle) {
+		val authorId = bundle.getInt(BundleConstant.EXTRA)
+		makeRestCall(
+				getAuthorInternal(authorId).toObservable(),
+				Consumer { (author, biography) -> sendToView { it.onInitViews(author, biography) } }
+		)
+	}
+	
+	private fun getAuthorInternal(authorId: Int) =
+			getAuthorFromServer(authorId)
+					.onErrorResumeNext {
+						getAuthorFromDb(authorId)
 					}
-			)
-		}
-	}
 
-	override fun onError(throwable: Throwable) {
-		authorId?.let { onWorkOffline(it) }
-		super.onError(throwable)
-	}
+	private fun getAuthorFromServer(authorId: Int): Single<Pair<Author, Biography?>> =
+			DataManager.getAuthor(authorId, showBiography = true)
+					.map { getAuthor(it) }
 
-	override fun onWorkOffline(id: Int) {
-		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
-	}
+	private fun getAuthorFromDb(authorId: Int): Single<Pair<Author, Biography?>> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getAuthorPath(authorId, showBiography = true))
+					.map { it.toNullable()!!.response }
+					.map { AuthorResponse.Deserializer().deserialize(it) }
+					.map { getAuthor(it) }
+
+	private fun getAuthor(response: AuthorResponse): Pair<Author, Biography?> =
+			response.author to response.biography
 }

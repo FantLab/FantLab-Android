@@ -177,7 +177,7 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 		stateLayout.hideProgress()
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		hideProgress()
 		super.showErrorMessage(msgRes)
 	}

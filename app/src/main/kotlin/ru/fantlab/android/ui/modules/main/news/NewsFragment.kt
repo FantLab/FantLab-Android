@@ -78,7 +78,7 @@ class NewsFragment : BaseFragment<NewsMvp.View, NewsPresenter>(), NewsMvp.View {
 		stateLayout.hideProgress()
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		showReload()
 		super.showErrorMessage(msgRes)
 	}

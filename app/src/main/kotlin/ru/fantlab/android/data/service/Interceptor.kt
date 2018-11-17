@@ -10,8 +10,8 @@ fun dbResponseInterceptor() =
 			{ req: Request, res: Response ->
 				val response = ru.fantlab.android.data.db.response.Response(
 						req.path,
-						BuildConfig.API_VERSION,
-						String(res.data)
+						String(res.data),
+						BuildConfig.API_VERSION
 				)
 				DbProvider.mainDatabase.responseDao().save(response)
 				next(req, res)

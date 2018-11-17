@@ -1,31 +1,101 @@
 package ru.fantlab.android.ui.modules.author.responses
 
 import android.view.View
+import io.reactivex.Single
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.data.dao.response.ResponsesResponse
 import ru.fantlab.android.data.dao.response.VoteResponse
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.provider.rest.ResponsesSortOption
+import ru.fantlab.android.provider.rest.getAuthorResponsesPath
+import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
 		AuthorResponsesMvp.Presenter {
 
-	private var responses: ArrayList<Response> = ArrayList()
+	var responses: ArrayList<Response> = ArrayList()
+		private set
 	private var page: Int = 1
-	private var sort: ResponsesSortOption? = null
+	private var sort = ResponsesSortOption.BY_DATE
 	private var previousTotal: Int = 0
 	private var authorId: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 
+	override fun onCallApi(page: Int, parameter: Int?): Boolean {
+		authorId = parameter!!
+		if (page == 1) {
+			lastPage = Integer.MAX_VALUE
+			sendToView { it.getLoadMore().reset() }
+		}
+		setCurrentPage(page)
+		if (page > lastPage || lastPage == 0) {
+			sendToView { it.hideProgress() }
+			return false
+		}
+		makeRestCall(
+				getResponsesInternal(page).toObservable(),
+				Consumer { (responses, totalCount, lastPage) ->
+					this.lastPage = lastPage
+					sendToView {
+						with (it) {
+							onNotifyAdapter(responses, page)
+							onSetTabCount(totalCount)
+						}
+					}
+				}
+		)
+		return true
+	}
+
+	private fun getResponsesInternal(page: Int) =
+			getResponsesFromServer(page)
+					.onErrorResumeNext { throwable ->
+						if (page == 1) {
+							getResponsesFromDb()
+						} else {
+							throw throwable
+						}
+					}
+
+	private fun getResponsesFromServer(page: Int): Single<Triple<ArrayList<Response>, Int, Int>> =
+			DataManager.getAuthorResponses(authorId, page, sort)
+					.map { getResponses(it) }
+
+	private fun getResponsesFromDb(): Single<Triple<ArrayList<Response>, Int, Int>> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getAuthorResponsesPath(authorId, 1, sort))
+					.map { it.toNullable()!!.response }
+					.map { ResponsesResponse.Deserializer(perPage = 50).deserialize(it) }
+					.map { getResponses(it) }
+
+	private fun getResponses(response: ResponsesResponse): Triple<ArrayList<Response>, Int, Int> =
+			Triple(response.responses.items, response.responses.totalCount, response.responses.last)
+
+	override fun setCurrentSort(sortValue: String) {
+		sort = ResponsesSortOption.valueOf(sortValue)
+		onCallApi(1, authorId)
+	}
+
+	override fun onSendVote(responseId: Int, voteType: String, position: Int) {
+		makeRestCall(
+				voteInternal(responseId, voteType).toObservable(),
+				Consumer { votesCount -> sendToView { it.onSetVote(votesCount, position) } }
+		)
+	}
+
+	private fun voteInternal(responseId: Int, voteType: String) =
+			DataManager.sendResponseVote(responseId, voteType)
+					.map { VoteResponse.Parser().parse(it)!!.votesCount }
+
 	override fun onItemClick(position: Int, v: View?, item: Response) {
-		view?.onItemClicked(item)
+		sendToView { it.onItemClicked(item) }
 	}
 
 	override fun onItemLongClick(position: Int, v: View?, item: Response?) {
 	}
-
-	override fun getResponses(): ArrayList<Response> = responses
 
 	override fun getCurrentPage(): Int = page
 
@@ -37,61 +107,5 @@ class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
 
 	override fun setPreviousTotal(previousTotal: Int) {
 		this.previousTotal = previousTotal
-	}
-
-	fun setCurrentSort(sortValue: String) {
-		sort = ResponsesSortOption.valueOf(sortValue)
-		onCallApi(1, authorId)
-	}
-
-	override fun onCallApi(page: Int, parameter: Int?): Boolean {
-		authorId = parameter!!
-		if (page == 1) {
-			lastPage = Integer.MAX_VALUE
-			sendToView { it.getLoadMore().reset() }
-		}
-		setCurrentPage(page)
-		if (page > lastPage || lastPage == 0 || parameter == null) {
-			sendToView { it.hideProgress() }
-			return false
-		}
-		makeRestCall(DataManager.getAuthorResponses(parameter, page, sort
-				?: ResponsesSortOption.BY_DATE)
-				.map { it.get() }
-				.toObservable(),
-				Consumer {
-					lastPage = it.responses.last
-					sendToView { view ->
-						view.onNotifyAdapter(it.responses.items, page)
-						view.onSetTabCount(it.responses.totalCount)
-					}
-				}
-		)
-		return true
-	}
-
-	override fun onError(throwable: Throwable) {
-		sendToView { it.getLoadMore().parameter?.let { onWorkOffline(it) } }
-		super.onError(throwable)
-	}
-
-	override fun onWorkOffline(authorId: Int) {
-		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
-	}
-
-	fun onSendVote(item: Response, position: Int, voteType: String) {
-		makeRestCall(DataManager.sendResponseVote(item.id, voteType)
-				.map { it.get() }
-				.toObservable(),
-				Consumer { response ->
-					val result = VoteResponse.Parser().parse(response)
-					if (result != null) {
-						sendToView { view ->
-							view.onSetVote(position, result.votesCount)
-						}
-					} else {
-						sendToView { it.showErrorMessage(response) }
-					}
-				})
 	}
 }

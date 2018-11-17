@@ -166,7 +166,7 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 		stateLayout.showProgress()
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		callback?.showErrorMessage(msgRes)
 	}
 

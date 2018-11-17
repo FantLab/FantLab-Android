@@ -39,23 +39,12 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 	@BindView(R.id.source) lateinit var source: FontTextView
 	@BindView(R.id.homepage) lateinit var homepage: FontTextView
 
-	private var author: Author? = null
-	private var biography: Biography? = null
 	private var pagerCallback: AuthorPagerMvp.View? = null
+
 	override fun fragmentLayout() = R.layout.author_overview_layout
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			author = savedInstanceState.getParcelable("author")
-			biography = savedInstanceState.getParcelable("biography")
-			if (author != null && biography != null) {
-				onInitViews(author!!, biography)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun providePresenter() = AuthorOverviewPresenter()
@@ -139,12 +128,6 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 		}
 	}
 
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		outState.putParcelable("author", author)
-		outState.putParcelable("biography", biography)
-	}
-
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
 		progress.visibility = View.VISIBLE
 	}
@@ -153,7 +136,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 		progress.visibility = View.GONE
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		hideProgress()
 		super.showErrorMessage(msgRes)
 	}
@@ -173,10 +156,6 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 	override fun onDetach() {
 		pagerCallback = null
 		super.onDetach()
-	}
-
-	override fun onSetTitle(title: String) {
-		pagerCallback?.onSetTitle(title)
 	}
 
 	companion object {

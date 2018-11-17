@@ -7,9 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
 import butterknife.BindView
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.Author
 import ru.fantlab.android.data.dao.model.EditionsBlocks
-import ru.fantlab.android.data.dao.response.AuthorEditionsResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.EditionsAdapter
@@ -19,7 +17,6 @@ import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
-import timber.log.Timber
 
 class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditionsPresenter>(),
 		AuthorEditionsMvp.View {
@@ -29,48 +26,29 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
-	private val adapter: EditionsAdapter by lazy { EditionsAdapter(presenter.getEditions()) }
+	private val adapter: EditionsAdapter by lazy { EditionsAdapter(presenter.editions) }
 	private var countCallback: AuthorPagerMvp.View? = null
-
-	private var author: Author? = null
 
 	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
 
 	override fun providePresenter() = AuthorEditionsPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			author = savedInstanceState.getParcelable("author")
-			if (author != null) {
-				//onInitViews(author!!)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
-	override fun onInitViews(authorEditionsResponse: AuthorEditionsResponse) {
+	override fun onInitViews(editionsBlocks: ArrayList<EditionsBlocks.EditionsBlock>?, count: Int) {
 		hideProgress()
-		Timber.d("author editions response: $authorEditionsResponse")
-		onSetTabCount(authorEditionsResponse.editionsInfo.allCount)
+		onSetTabCount(count)
 		stateLayout.setEmptyText(R.string.no_editions)
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addKeyLineDivider()
 		adapter.listener = presenter
-		authorEditionsResponse.editions?.editionsBlocks?.forEach {
-			adapter.addItems(it.list)
-		}
+		editionsBlocks?.forEach { adapter.addItems(it.list) }
 		recycler.adapter = adapter
 		fastScroller.attachRecyclerView(recycler)
-	}
-
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		outState.putParcelable("author", author)
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
@@ -83,7 +61,7 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 		stateLayout.hideProgress()
 	}
 
-	override fun showErrorMessage(msgRes: String) {
+	override fun showErrorMessage(msgRes: String?) {
 		hideProgress()
 		super.showErrorMessage(msgRes)
 	}
@@ -103,7 +81,7 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 	}
 
 	override fun onRefresh() {
-		presenter.onCallApi()
+		presenter.getEditions(true)
 	}
 
 	override fun onClick(v: View?) {

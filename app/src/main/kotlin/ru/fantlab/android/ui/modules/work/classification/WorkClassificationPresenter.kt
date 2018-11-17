@@ -21,7 +21,6 @@ class WorkClassificationPresenter : BasePresenter<WorkClassificationMvp.View>(),
 		workId?.let {
 			makeRestCall(
 					DataManager.getWork(it, showClassificatory = true)
-							.map { it.get() }
 							.toObservable(),
 					Consumer { workResponse ->
 						sendToView { it.onInitViews(workResponse.classificatory) }
