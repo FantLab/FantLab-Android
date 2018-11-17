@@ -1,9 +1,10 @@
 package ru.fantlab.android.ui.modules.classificator.age
 
 import android.os.Bundle
+import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.ClassificatorModel
 import ru.fantlab.android.helper.BundleConstant
-import ru.fantlab.android.helper.PrefGetter.CLASS_AGE
+import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.provider.storage.ClassificatoriesProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
@@ -20,7 +21,7 @@ class ClassificationAgePresenter : BasePresenter<ClassificationAgeMvp.View>(),
 		}
 		workId = bundle.getInt(BundleConstant.EXTRA)
 		workId?.let { it ->
-			classificators = ClassificatoriesProvider.loadClasses(CLASS_AGE).items
+			classificators = ClassificatoriesProvider.loadClasses(FantlabHelper.ClassificatorTypes.TYPE_AGE.tag).items
 			sendToView { it.onInitViews(classificators!!) }
 		}
 	}
@@ -31,6 +32,6 @@ class ClassificationAgePresenter : BasePresenter<ClassificationAgeMvp.View>(),
 	}
 
 	override fun onWorkOffline(id: Int) {
-		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
+		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
 	}
 }

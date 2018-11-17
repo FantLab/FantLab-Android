@@ -22,7 +22,7 @@ class AuthorOverviewPresenter : BasePresenter<AuthorOverviewMvp.View>(),
 				Consumer { (author, biography) -> sendToView { it.onInitViews(author, biography) } }
 		)
 	}
-	
+
 	private fun getAuthorInternal(authorId: Int) =
 			getAuthorFromServer(authorId)
 					.onErrorResumeNext {

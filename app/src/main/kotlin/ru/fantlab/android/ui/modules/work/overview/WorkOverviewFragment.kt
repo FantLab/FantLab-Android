@@ -38,7 +38,6 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	@BindView(R.id.rate) lateinit var rate: FontTextView
 	@BindView(R.id.types) lateinit var types: FontTextView
 	@BindView(R.id.description) lateinit var description: FontTextView
-	@BindView(R.id.mymark) lateinit var mymark: FontTextView
 	@BindView(R.id.notes) lateinit var notes: FontTextView
 	@BindView(R.id.recyclerNoms) lateinit var nomsList: DynamicRecyclerView
 	@BindView(R.id.recyclerWins) lateinit var winsList: DynamicRecyclerView
@@ -123,9 +122,11 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			adapterWins.listener = presenter
 		} else winsView.visibility = View.GONE
 
+		val fs = WorkAnalogsFragment.newInstance(work.id)
 		childFragmentManager
 				.beginTransaction()
-				.add(R.id.similarContainer, WorkAnalogsFragment.newInstance(work.id), WorkAnalogsFragment.TAG)
+				.add(R.id.similarContainer, fs, WorkAnalogsFragment.TAG)
+				.hide(fs)
 				.commit()
 	}
 
@@ -161,17 +162,13 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		}
 	}
 
-	override fun onClick(v: View?) {
-		when (v?.id) {
-			R.id.mymark -> {
-				val author = adapterAuthors.getItem(0).name
-				RatingDialogView.newInstance(10, mymark.text.toString().toFloatOrNull() ?: 0f,
-						work!!,
-						"${author} - ${name.text}",
-						-1
-				).show(childFragmentManager, RatingDialogView.TAG)
-			}
-		}
+	fun showMarkDialog() {
+		val author = adapterAuthors.getItem(0).name
+		RatingDialogView.newInstance(10, pagerCallback?.onGetMark()?.toFloat() ?: 0f,
+				work!!,
+				"${author} - ${name.text}",
+				-1
+		).show(childFragmentManager, RatingDialogView.TAG)
 	}
 
 	override fun <T> onItemSelected(item: T, position: Int) {
@@ -193,33 +190,23 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun onGetMarks(marks: ArrayList<MarkMini>) {
 		hideProgress()
-		if (marks.size > 0) {
-			mymark.text = marks[0].mark.toString()
-
-		} else {
-			mymark.text = getString(R.string.set_mark)
-		}
-		mymark.setOnClickListener(this)
-		pagerCallback?.onSetMarked(marks.size > 0)
-		mymark.visibility = View.VISIBLE
+		pagerCallback?.onSetMarked(!marks.isEmpty(), if (!marks.isEmpty()) marks[0].mark else 0)
 	}
 
 	override fun onSetMark(mark: Int, markCount: Double, midMark: Double) {
 		hideProgress()
-		if (mark == 0) {
-			mymark.text = getString(R.string.set_mark)
-		} else {
-			mymark.text = mark.toString()
-		}
 		rate.text = StringBuilder()
 				.append(midMark)
 				.append(" - ")
 				.append(markCount.toInt())
-		pagerCallback?.onSetMarked(mark > 0)
+		pagerCallback?.onSetMarked(mark > 0, mark)
 	}
 
 	override fun onRated(rating: Float, listItem: Any, position: Int) {
 		presenter.onSendMark((listItem as Work).id, rating.toInt())
+	}
+
+	override fun onClick(v: View?) {
 	}
 
 	override fun onAttach(context: Context?) {

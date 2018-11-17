@@ -34,12 +34,6 @@ object PrefGetter {
 		DEEP_ORANGE
 	}
 
-	enum class WorkType(val id: Int) {
-		novel(1),
-		shortstory(45),
-		cycle(4)
-	}
-
 	val LIGHT = 1
 	val DARK = 2
 
@@ -48,15 +42,6 @@ object PrefGetter {
 	private const val APP_LANGUAGE = "app_language"
 	private const val NAV_DRAWER_GUIDE = "nav_drawer_guide"
 	private const val LOGGED_USER = "logged_user"
-
-	const val PHILOSOPHER_CLASS = 3
-	const val CLASS_GENRE = "genres"
-	const val CLASS_AGE = "age"
-	const val CLASS_CHR = "characteristics"
-	const val CLASS_LINE = "linearity"
-	const val CLASS_LOCATE = "locate"
-	const val CLASS_STORY = "story_moves"
-	const val CLASS_TIME = "time"
 
 	fun setLoggedUser(user: User) {
 		PrefHelper[LOGGED_USER] = DataManager.gson.toJson(user)

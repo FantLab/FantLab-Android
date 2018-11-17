@@ -9,6 +9,7 @@ import butterknife.BindView
 import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.SearchWork
+import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
@@ -113,7 +114,7 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 	}
 
 	override fun onItemClicked(item: SearchWork) {
-		if (item.typeName == PrefGetter.WorkType.cycle.name)
+		if (item.typeName.equals(FantlabHelper.WorkType.CYCLE.name, true))
 			CyclePagerActivity.startActivity(context!!, item.id, item.rusName, 0)
 		else
 			WorkPagerActivity.startActivity(context!!, item.id, item.rusName, 0)

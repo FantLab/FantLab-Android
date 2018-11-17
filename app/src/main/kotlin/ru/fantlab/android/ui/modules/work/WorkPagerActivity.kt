@@ -18,7 +18,6 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
 import ru.fantlab.android.helper.*
-import ru.fantlab.android.helper.PrefGetter.PHILOSOPHER_CLASS
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
@@ -26,6 +25,7 @@ import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.classificator.ClassificatorPagerActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
+import ru.fantlab.android.ui.modules.work.overview.WorkOverviewFragment
 import ru.fantlab.android.ui.widgets.ViewPagerView
 import java.text.NumberFormat
 import java.util.*
@@ -42,6 +42,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	@State var workId: Int = 0
 	@State var workName: String = ""
 	@State var isMarked: Boolean = false
+	@State var mark: Int = 0
 	@State var tabsCountSet = HashSet<TabsCountStateModel>()
 	private val numberFormat = NumberFormat.getNumberInstance()
 
@@ -135,15 +136,21 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 
 	private fun hideShowFab(position: Int) {
 		when (position) {
+			0 -> {
+				if (isLoggedIn()) {
+					fab.setImageResource(R.drawable.ic_star)
+					fab.show()
+				} else fab.hide()
+			}
 			1 -> {
 				val user = PrefGetter.getLoggedUser()
-				if (user != null && user.`class` >= PHILOSOPHER_CLASS && isMarked) {
+				if (user != null && user.`class` >= FantlabHelper.Levels.PHILOSOPHER.`class` && isMarked) {
 					fab.setImageResource(R.drawable.ic_classif)
 					fab.show()
 				} else fab.hide()
 			}
 			2 -> {
-				if (PrefGetter.getLoggedUser() != null) {
+				if (isLoggedIn()) {
 					fab.setImageResource(R.drawable.ic_response)
 					fab.show()
 				}
@@ -157,6 +164,9 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	@OnClick(R.id.fab)
 	fun onFabClicked() {
 		when (pager.currentItem) {
+			0 -> {
+				((pager.adapter as FragmentsPagerAdapter).getItem(0) as WorkOverviewFragment).showMarkDialog()
+			}
 			1 -> {
 				ClassificatorPagerActivity.startActivity(this, workId)
 			}
@@ -177,6 +187,23 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 		}
 	}
 
+	override fun onScrolled(isUp: Boolean) {
+		if (isUp) {
+			fab.hide()
+		} else {
+			hideShowFab(pager.currentItem)
+		}
+	}
+
+	override fun onSetMarked(isMarked: Boolean, mark: Int) {
+		this.isMarked = isMarked
+		this.mark = mark
+	}
+
+	override fun onGetMark(): Int {
+		return mark
+	}
+
 	companion object {
 
 		fun startActivity(context: Context, workId: Int, workName: String, index: Int = -1) {
@@ -191,17 +218,5 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 			}
 			context.startActivity(intent)
 		}
-	}
-
-	override fun onScrolled(isUp: Boolean) {
-		if (isUp) {
-			fab.hide()
-		} else {
-			hideShowFab(pager.currentItem)
-		}
-	}
-
-	override fun onSetMarked(isMarked: Boolean) {
-		this.isMarked = isMarked
 	}
 }

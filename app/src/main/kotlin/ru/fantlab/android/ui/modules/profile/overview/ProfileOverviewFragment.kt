@@ -13,6 +13,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.User
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.FantlabHelper.User.classRanges
 import ru.fantlab.android.helper.getTimeAgo
 import ru.fantlab.android.helper.parseFullDate
 import ru.fantlab.android.provider.timeline.HtmlHelper
@@ -225,7 +226,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 
 	companion object {
 
-		val classRanges = arrayOf(200, 800, 2000, 4000, 7000, 10000, 15000, -1)
+
 
 		fun newInstance(userId: Int): ProfileOverviewFragment {
 			val view = ProfileOverviewFragment()

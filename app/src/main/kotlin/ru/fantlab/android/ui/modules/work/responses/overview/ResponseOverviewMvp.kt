@@ -7,8 +7,7 @@ import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 interface ResponseOverviewMvp {
 
 	interface View : BaseMvp.View,
-			ContextMenuDialogView.ListDialogViewActionCallback,
-			android.view.View.OnClickListener {
+			ContextMenuDialogView.ListDialogViewActionCallback {
 
 		fun onInitViews(response: Response)
 

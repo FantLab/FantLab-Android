@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.edition.content
 
 import android.os.Bundle
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.R
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -34,7 +35,7 @@ class EditionContentPresenter : BasePresenter<EditionContentMvp.View>(),
 	}
 
 	override fun onWorkOffline(id: Int) {
-		sendToView { it.showErrorMessage("Не удалось загрузить данные") }
+		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
 	}
 
 	fun onCallApi() {
