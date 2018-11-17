@@ -29,7 +29,8 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
-	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.responses) }
+
+	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(arrayListOf()) }
 	private val onLoadMore: OnLoadMore<String> by lazy { OnLoadMore(presenter) }
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
@@ -46,9 +47,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 		getLoadMore().initialize(presenter.getCurrentPage(), presenter.getPreviousTotal())
 		recycler.addOnScrollListener(getLoadMore())
 		fastScroller.attachRecyclerView(recycler)
-		if (presenter.responses.isEmpty() && !presenter.isApiCalled()) {
-			presenter.onFragmentCreated()
-		}
+		presenter.onFragmentCreated()
 	}
 
 	override fun onDestroyView() {

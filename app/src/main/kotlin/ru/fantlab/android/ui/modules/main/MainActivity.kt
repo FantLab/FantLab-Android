@@ -20,7 +20,7 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 
 	@BindView(R.id.bottomNavigation) lateinit var bottomNavigation: BottomNavigation
 
-	@State var navType = MainMvp.NavigationType.NEWS
+	@State var navType = MainMvp.NavigationType.RESPONSES
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)

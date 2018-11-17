@@ -37,6 +37,6 @@ interface ResponsesMvp {
 
 		fun onCallApi(page: Int): Boolean
 
-		fun onWorkOffline()
+		fun onSendVote(item: Response, position: Int, voteType: String)
 	}
 }
