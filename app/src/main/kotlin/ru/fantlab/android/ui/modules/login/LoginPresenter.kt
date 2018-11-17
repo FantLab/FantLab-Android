@@ -20,12 +20,11 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 	override fun login(username: String, password: String) {
 		val usernameIsEmpty = InputHelper.isEmpty(username)
 		val passwordIsEmpty = InputHelper.isEmpty(password)
-		view?.onEmptyUserName(usernameIsEmpty)
-		view?.onEmptyPassword(passwordIsEmpty)
+		sendToView { it.onEmptyUserName(usernameIsEmpty) }
+		sendToView { it.onEmptyPassword(passwordIsEmpty) }
 		if (!usernameIsEmpty && !passwordIsEmpty) {
 			makeRestCall(
-					DataManager.login(username, password)
-							.toObservable(),
+					DataManager.login(username, password).toObservable(),
 					Consumer { response ->
 						if (response.headers["Location"]?.get(0) == "/loginincorrect") {
 							sendToView { it.showSignInFailed() }
@@ -42,15 +41,11 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 			if (!InputHelper.isEmpty(cookie) && cookie.startsWith("fl_s")) {
 				PrefGetter.setToken(cookie.substring(0, cookie.indexOf(";")))
 				makeRestCall(
-						DataManager.getUserId(username)
-								.toObservable(),
+						DataManager.getUserId(username).toObservable(),
 						Consumer { response ->
 							makeRestCall(
-									DataManager.getUser(response.userId.id)
-											.toObservable(),
-									Consumer {
-										onUserResponse(it.user)
-									}
+									DataManager.getUser(response.userId.id).toObservable(),
+									Consumer { onUserResponse(it.user) }
 							)
 						}
 				)
@@ -71,7 +66,7 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 					Single.fromCallable {
 						PrefGetter.setLoggedUser(user)
 						PrefGetter.setProceedWithoutLogin(false)
-					}.doOnSuccess { sendToView { it.onSuccessfullyLoggedIn() } }
+					}.doOnSuccess { _ -> sendToView { it.onSuccessfullyLoggedIn() } }
 							.subscribeOn(Schedulers.io())
 							.observeOn(AndroidSchedulers.mainThread())
 							.subscribe()
