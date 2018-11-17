@@ -27,15 +27,10 @@ class AwardNominationsFragment : BaseFragment<AwardNominationsMvp.View, AwardNom
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
-	private val adapter: AwardNominationsAdapter by lazy { AwardNominationsAdapter(presenter.getAwardNominations()) }
+	private val adapter: AwardNominationsAdapter by lazy { AwardNominationsAdapter(arrayListOf()) }
 	private var countCallback: AwardPagerMvp.View? = null
-	private var awardId: Int? = null
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			hideProgress()
-			awardId = arguments?.getInt(BundleConstant.EXTRA)
-		}
 		stateLayout.setEmptyText(R.string.no_nominations)
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
@@ -43,9 +38,7 @@ class AwardNominationsFragment : BaseFragment<AwardNominationsMvp.View, AwardNom
 		recycler.addDivider()
 		adapter.listener = presenter
 		recycler.adapter = adapter
-		if (presenter.getAwardNominations().isEmpty() && !presenter.isApiCalled()) {
-			onRefresh()
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun providePresenter() = AwardNominationsPresenter()
@@ -80,7 +73,7 @@ class AwardNominationsFragment : BaseFragment<AwardNominationsMvp.View, AwardNom
 	}
 
 	override fun onRefresh() {
-		presenter.onCallApi(awardId)
+		presenter.getNominations(true)
 	}
 
 	override fun onClick(v: View?) {

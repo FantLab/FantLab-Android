@@ -1,44 +1,65 @@
 package ru.fantlab.android.ui.modules.award.nominations
 
+import android.os.Bundle
 import android.view.View
+import com.gojuno.koptional.Optional
+import com.gojuno.koptional.toOptional
+import io.reactivex.Single
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Award
+import ru.fantlab.android.data.dao.response.AwardResponse
+import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
+import ru.fantlab.android.provider.rest.getAwardPath
+import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class AwardNominationsPresenter : BasePresenter<AwardNominationsMvp.View>(),
 		AwardNominationsMvp.Presenter {
 
-	@com.evernote.android.state.State var awardId: Int? = null
-	private var nominations: ArrayList<Award.Nominations> = ArrayList()
+	private var awardId = -1
 
-	override fun onError(throwable: Throwable) {
-		awardId?.let { onWorkOffline(it) }
-		super.onError(throwable)
+	override fun onFragmentCreated(bundle: Bundle) {
+		awardId = bundle.getInt(BundleConstant.EXTRA)
+		getNominations(false)
 	}
 
-	override fun onWorkOffline(id: Int) {
-		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
+	override fun getNominations(force: Boolean) {
+		makeRestCall(
+				getNominationsInternal(force).toObservable(),
+				Consumer { nominations ->
+					sendToView {
+						it.onNotifyAdapter(nominations.toNullable())
+						it.onSetTabCount(nominations.toNullable()?.size ?: 0)
+					}
+				}
+		)
 	}
 
-	override fun getAwardNominations(): ArrayList<Award.Nominations> = nominations
-
-	fun onCallApi(parameter: Int?) {
-		awardId = parameter
-		awardId?.let { it ->
-			makeRestCall(
-					DataManager.getAward(it, true, false)
-							.toObservable(),
-					Consumer { AwardNominationsResponse ->
-						sendToView {
-							it.onNotifyAdapter(AwardNominationsResponse.award.nominations)
-							it.onSetTabCount(AwardNominationsResponse.award.nominations?.size ?: 0)
+	private fun getNominationsInternal(force: Boolean) =
+			getNominationsFromServer()
+					.onErrorResumeNext { throwable ->
+						if (!force) {
+							getNominationsFromDb()
+						} else {
+							throw throwable
 						}
 					}
-			)
-		}
-	}
+
+	private fun getNominationsFromServer(): Single<Optional<List<Award.Nominations>>> =
+			DataManager.getAward(awardId, true, false)
+					.map { getNominations(it) }
+
+	private fun getNominationsFromDb(): Single<Optional<List<Award.Nominations>>> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getAwardPath(awardId, true, false))
+					.map { it.toNullable()!!.response }
+					.map { AwardResponse.Deserializer().deserialize(it) }
+					.map { getNominations(it) }
+
+	private fun getNominations(response: AwardResponse): Optional<List<Award.Nominations>> =
+			response.award.nominations.toOptional()
 
 	override fun onItemClick(position: Int, v: View?, item: Award.Nominations) {
 		sendToView { it.onItemClicked(item) }

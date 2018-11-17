@@ -26,20 +26,6 @@ class AuthorBibliographyPresenter : BasePresenter<AuthorBibliographyMvp.View>(),
 		)
 	}
 
-	override fun getMarks(userId: Int, workIds: ArrayList<Int>) {
-		makeRestCall(
-				getMarksInternal(userId, workIds).toObservable(),
-				Consumer { marks -> sendToView { it.onGetMarks(marks) } }
-		)
-	}
-
-	override fun onSendMark(workId: Int, mark: Int, position: Int) {
-		makeRestCall(
-				setMarkInternal(workId, mark).toObservable(),
-				Consumer { _ -> sendToView { it.onSetMark(position, mark) } }
-		)
-	}
-
 	private fun getAuthorInternal(authorId: Int) =
 			getAuthorFromServer(authorId)
 					.onErrorResumeNext {
@@ -61,6 +47,13 @@ class AuthorBibliographyPresenter : BasePresenter<AuthorBibliographyMvp.View>(),
 	private fun getAuthor(response: AuthorResponse): Pair<WorksBlocks?, WorksBlocks?> =
 			response.cycles to response.works
 
+	override fun getMarks(userId: Int, workIds: ArrayList<Int>) {
+		makeRestCall(
+				getMarksInternal(userId, workIds).toObservable(),
+				Consumer { marks -> sendToView { it.onGetMarks(marks) } }
+		)
+	}
+
 	private fun getMarksInternal(userId: Int, workIds: ArrayList<Int>) =
 			getMarksFromServer(userId, workIds)
 					.onErrorResumeNext {
@@ -80,6 +73,13 @@ class AuthorBibliographyPresenter : BasePresenter<AuthorBibliographyMvp.View>(),
 					.map { getMarks(it) }
 
 	private fun getMarks(response: MarksMiniResponse): ArrayList<MarkMini> = response.marks
+
+	override fun onSendMark(workId: Int, mark: Int, position: Int) {
+		makeRestCall(
+				setMarkInternal(workId, mark).toObservable(),
+				Consumer { _ -> sendToView { it.onSetMark(position, mark) } }
+		)
+	}
 
 	private fun setMarkInternal(workId: Int, mark: Int): Single<Unit> =
 			DataManager.sendUserMark(workId, workId, mark)

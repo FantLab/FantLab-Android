@@ -37,8 +37,6 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 
 	private var countCallback: AwardPagerMvp.View? = null
 
-	private var contests: ArrayList<Award.Contest>? = null
-
 	private var workId: Int? = -1
 
 	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
@@ -47,16 +45,7 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		workId = arguments?.getInt(EXTRA_TWO)
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			contests = savedInstanceState.getParcelableArrayList("contests")
-			if (contests != null) {
-				onInitViews(contests)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun onInitViews(contests: List<Award.Contest>?) {
@@ -162,11 +151,6 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 		fastScroller.attachRecyclerView(recycler)
 	}
 
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		outState.putParcelableArrayList("contests", contests)
-	}
-
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
 		refresh.isRefreshing = true
 		stateLayout.showProgress()
@@ -200,15 +184,11 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 	}
 
 	override fun onRefresh() {
-		presenter.onCallApi()
+		presenter.getContests(true)
 	}
 
 	override fun onClick(v: View?) {
 		onRefresh()
-	}
-
-	override fun onNotifyAdapter() {
-		hideProgress()
 	}
 
 	override fun onSetTabCount(allCount: Int) {

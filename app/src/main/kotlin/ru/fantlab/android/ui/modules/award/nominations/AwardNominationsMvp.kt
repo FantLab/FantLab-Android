@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.award.nominations
 
+import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Award
 import ru.fantlab.android.ui.base.mvp.BaseMvp
@@ -21,8 +22,8 @@ interface AwardNominationsMvp {
 	interface Presenter : BaseMvp.Presenter,
 			BaseViewHolder.OnItemClickListener<Award.Nominations> {
 
-		fun onWorkOffline(id: Int)
+		fun onFragmentCreated(bundle: Bundle)
 
-		fun getAwardNominations(): ArrayList<Award.Nominations>
+		fun getNominations(force: Boolean)
 	}
 }

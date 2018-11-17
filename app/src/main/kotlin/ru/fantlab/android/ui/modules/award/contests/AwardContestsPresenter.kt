@@ -2,59 +2,59 @@ package ru.fantlab.android.ui.modules.award.contests
 
 import android.os.Bundle
 import android.view.View
+import com.gojuno.koptional.Optional
+import com.gojuno.koptional.toOptional
+import io.reactivex.Single
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Award
+import ru.fantlab.android.data.dao.response.AwardResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
+import ru.fantlab.android.provider.rest.getAwardPath
+import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class AwardContestsPresenter : BasePresenter<AwardContestsMvp.View>(),
 		AwardContestsMvp.Presenter {
 
-	@com.evernote.android.state.State var awardId: Int? = null
-	private var contests: ArrayList<Award.Contest> = ArrayList()
+	private var awardId = -1
 
-	override fun onFragmentCreated(bundle: Bundle?) {
-		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
-			throw NullPointerException("Either bundle or awardId is null")
-		}
+	override fun onFragmentCreated(bundle: Bundle) {
 		awardId = bundle.getInt(BundleConstant.EXTRA)
-		awardId?.let { it ->
-			makeRestCall(
-					DataManager.getAward(it, false, true)
-							.toObservable(),
-					Consumer { AwardContestsResponse ->
-						sendToView {
-							it.onInitViews(AwardContestsResponse.award.contests)
+		getContests(false)
+	}
+
+	override fun getContests(force: Boolean) {
+		makeRestCall(
+				getContestsInternal(force).toObservable(),
+				Consumer { contests -> sendToView { it.onInitViews(contests.toNullable()) } }
+		)
+	}
+
+	private fun getContestsInternal(force: Boolean) =
+			getContestsFromServer()
+					.onErrorResumeNext { throwable ->
+						if (!force) {
+							getContestsFromDb()
+						} else {
+							throw throwable
 						}
 					}
-			)
-		}
-	}
 
-	override fun onError(throwable: Throwable) {
-		awardId?.let { onWorkOffline(it) }
-		super.onError(throwable)
-	}
+	private fun getContestsFromServer(): Single<Optional<List<Award.Contest>>> =
+			DataManager.getAward(awardId, false, true)
+					.map { getContests(it) }
 
-	override fun onWorkOffline(id: Int) {
-		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
-	}
+	private fun getContestsFromDb(): Single<Optional<List<Award.Contest>>> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getAwardPath(awardId, false, true))
+					.map { it.toNullable()!!.response }
+					.map { AwardResponse.Deserializer().deserialize(it) }
+					.map { getContests(it) }
 
-	override fun getAwardContests(): ArrayList<Award.Contest> = contests
-
-	fun onCallApi() {
-		awardId?.let { it ->
-			makeRestCall(
-					DataManager.getAward(it, false, true)
-							.toObservable(),
-					Consumer { workResponse ->
-						sendToView { it.onNotifyAdapter() }
-					}
-			)
-		}
-	}
+	private fun getContests(response: AwardResponse): Optional<List<Award.Contest>> =
+			response.award.contests.toOptional()
 
 	override fun onItemClick(position: Int, v: View?, item: Award.Contest) {
 		sendToView { it.onItemClicked(item, position) }

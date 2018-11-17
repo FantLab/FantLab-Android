@@ -14,8 +14,6 @@ interface AwardContestsMvp {
 
 		fun onInitViews(contests: List<Award.Contest>?)
 
-		fun onNotifyAdapter()
-
 		fun onSetTabCount(allCount: Int)
 
 		fun onItemClicked(item: Award.Contest, position: Int)
@@ -24,10 +22,8 @@ interface AwardContestsMvp {
 	interface Presenter : BaseMvp.Presenter,
 			BaseViewHolder.OnItemClickListener<Award.Contest> {
 
-		fun onFragmentCreated(bundle: Bundle?)
+		fun onFragmentCreated(bundle: Bundle)
 
-		fun onWorkOffline(id: Int)
-
-		fun getAwardContests(): ArrayList<Award.Contest>
+		fun getContests(force: Boolean)
 	}
 }

@@ -14,8 +14,6 @@ interface AuthorEditionsMvp {
 
 		fun onInitViews(editionsBlocks: ArrayList<EditionsBlocks.EditionsBlock>?, count: Int)
 
-		fun onNotifyAdapter()
-
 		fun onSetTabCount(allCount: Int)
 
 		fun onItemClicked(item: EditionsBlocks.Edition)

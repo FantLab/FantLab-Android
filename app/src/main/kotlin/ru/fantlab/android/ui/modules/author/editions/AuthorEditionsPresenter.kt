@@ -16,8 +16,6 @@ class AuthorEditionsPresenter : BasePresenter<AuthorEditionsMvp.View>(),
 		AuthorEditionsMvp.Presenter {
 
 	private var authorId: Int = -1
-	var editions: ArrayList<EditionsBlocks.Edition> = ArrayList()
-		private set
 
 	override fun onFragmentCreated(bundle: Bundle) {
 		authorId = bundle.getInt(BundleConstant.EXTRA)
@@ -26,28 +24,21 @@ class AuthorEditionsPresenter : BasePresenter<AuthorEditionsMvp.View>(),
 
 	override fun getEditions(force: Boolean) {
 		makeRestCall(
-				getEditionsInternal().toObservable(),
+				getEditionsInternal(force).toObservable(),
 				Consumer { (editionsBlocks, count) ->
-					if (force) {
-						sendToView { it.onNotifyAdapter() }
-					} else {
-						sendToView { it.onInitViews(editionsBlocks, count) }
-					}
+					sendToView { it.onInitViews(editionsBlocks, count) }
 				}
 		)
 	}
 
-	override fun onItemClick(position: Int, v: View?, item: EditionsBlocks.Edition) {
-		sendToView { it.onItemClicked(item) }
-	}
-
-	override fun onItemLongClick(position: Int, v: View?, item: EditionsBlocks.Edition?) {
-	}
-
-	private fun getEditionsInternal() =
+	private fun getEditionsInternal(force: Boolean) =
 			getEditionsFromServer()
-					.onErrorResumeNext {
-						getEditionsFromDb()
+					.onErrorResumeNext { throwable ->
+						if (!force) {
+							getEditionsFromDb()
+						} else {
+							throw throwable
+						}
 					}
 
 	private fun getEditionsFromServer(): Single<Pair<ArrayList<EditionsBlocks.EditionsBlock>?, Int>> =
@@ -65,4 +56,11 @@ class AuthorEditionsPresenter : BasePresenter<AuthorEditionsMvp.View>(),
 	private fun getEditions(response: AuthorEditionsResponse):
 			Pair<ArrayList<EditionsBlocks.EditionsBlock>?, Int> =
 			response.editions?.editionsBlocks to response.editionsInfo.allCount
+
+	override fun onItemClick(position: Int, v: View?, item: EditionsBlocks.Edition) {
+		sendToView { it.onItemClicked(item) }
+	}
+
+	override fun onItemLongClick(position: Int, v: View?, item: EditionsBlocks.Edition?) {
+	}
 }

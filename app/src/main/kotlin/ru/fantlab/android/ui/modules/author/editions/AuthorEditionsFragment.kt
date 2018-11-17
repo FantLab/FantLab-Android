@@ -26,7 +26,7 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
-	private val adapter: EditionsAdapter by lazy { EditionsAdapter(presenter.editions) }
+	private val adapter: EditionsAdapter by lazy { EditionsAdapter(arrayListOf()) }
 	private var countCallback: AuthorPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
@@ -86,11 +86,6 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 
 	override fun onClick(v: View?) {
 		onRefresh()
-	}
-
-	override fun onNotifyAdapter() {
-		hideProgress()
-		adapter.notifyDataSetChanged()
 	}
 
 	override fun onSetTabCount(allCount: Int) {

@@ -39,7 +39,6 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 	@BindView(R.id.date) lateinit var date: FontTextView
 	@BindView(R.id.homepage) lateinit var homepage: FontTextView
 
-	private var award: Award? = null
 	private var pagerCallback: AwardPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.award_overview_layout
@@ -47,16 +46,7 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 	override fun providePresenter() = AwardOverviewPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			award = savedInstanceState.getParcelable("award")
-			if (award != null) {
-				onInitViews(award!!)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun onInitViews(award: Award) {
@@ -119,11 +109,6 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 				.append(" - ")
 				.append(award.maxDate.split("-")[0])
 		homepage.text = award.homepage
-	}
-
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		outState.putParcelable("award", award)
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
