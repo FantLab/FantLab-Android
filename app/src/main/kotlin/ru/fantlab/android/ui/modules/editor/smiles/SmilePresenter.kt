@@ -16,7 +16,7 @@ class SmilePresenter : BasePresenter<SmileMvp.View>(), SmileMvp.Presenter {
 				}
 			}
 			e.onComplete()
-		}.doOnSubscribe { sendToView { it.clearAdapter() } }
+		}.doOnSubscribe { _ -> sendToView { it.clearAdapter() } }
 				.doOnNext { smile -> sendToView { it.onAddSmile(smile) } })
 	}
 }

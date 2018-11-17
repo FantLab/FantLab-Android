@@ -23,7 +23,7 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 			}
 			EDITOR_NEW_MESSAGE -> {
 				if (itemId == PrefGetter.getLoggedUser()?.id) {
-					onShowErrorMessage("Ошибка")
+					sendToView { it.showErrorMessage("Ошибка") }
 					return
 				}
 				onEditorNewMessage(itemId, prepareHTML(savedText), mode)
@@ -39,38 +39,24 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 		return savedText?.replace(REGEX_TAGS, "[$1]")?.replace("[li]", "*")
 	}
 
-	override fun onEditorNewResponse(id: Int?, savedText: CharSequence?, mode: String) {
+	override fun onEditorNewResponse(id: Int, savedText: CharSequence?, mode: String) {
 		if (!InputHelper.isEmpty(savedText)) {
-			id?.let {
-				makeRestCall(
-						DataManager.sendResponse(id, savedText, mode)
-								.toObservable(),
-						Consumer { result ->
-							sendToView { it.onSendMessageResult(result) }
-						}
-				)
-			}
+			makeRestCall(
+					DataManager.sendResponse(id, savedText, mode).toObservable(),
+					Consumer { result -> sendToView { it.onSendMessageResult(result) } }
+			)
 		}
 	}
 
-	override fun onEditorNewMessage(id: Int?, savedText: CharSequence?, mode: String) {
+	override fun onEditorNewMessage(id: Int, savedText: CharSequence?, mode: String) {
 		if (!InputHelper.isEmpty(savedText)) {
-			id?.let {
-				makeRestCall(
-						DataManager.sendMessage(id, savedText, mode)
-								.toObservable(),
-						Consumer { result ->
-							sendToView { it.onSendMessageResult(result) }
-						}
-				)
-			}
+			makeRestCall(
+					DataManager.sendMessage(id, savedText, mode).toObservable(),
+					Consumer { result -> sendToView { it.onSendMessageResult(result) } }
+			)
 		}
 	}
 
-	override fun onEditorNewComment(id: Int?, savedText: CharSequence?) {
-	}
-
-	override fun onShowErrorMessage(message: String) {
-		sendToView { it.showErrorMessage(message) }
+	override fun onEditorNewComment(id: Int, savedText: CharSequence?) {
 	}
 }
