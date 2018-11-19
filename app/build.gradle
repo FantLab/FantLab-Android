@@ -30,7 +30,7 @@ ext {
 	toasty = '1.1.3'
 	bottom_navigation = '2.0.2'
 	shortbread = '1.0.1'
-	timber = '4.5.1'
+	timber = '4.7.1'
 	stetho = '1.5.0'
 	commonmark = '0.10.0'
 	htmlSpanner = '0.4'
