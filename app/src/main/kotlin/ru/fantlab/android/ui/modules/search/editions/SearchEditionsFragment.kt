@@ -31,7 +31,7 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 	@State var isIsbn = false
 
 	private val onLoadMore: OnLoadMore<String> by lazy { OnLoadMore(presenter, searchQuery) }
-	private val adapter: SearchEditionsAdapter by lazy { SearchEditionsAdapter(presenter.getEditions()) }
+	private val adapter: SearchEditionsAdapter by lazy { SearchEditionsAdapter(arrayListOf()) }
 	private var countCallback: SearchMvp.View? = null
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,7 +47,7 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
 		recycler.addOnScrollListener(getLoadMore())
-		if (!InputHelper.isEmpty(searchQuery) && presenter.getEditions().isEmpty() && !presenter.isApiCalled()) {
+		if (!InputHelper.isEmpty(searchQuery)) {
 			onRefresh()
 		}
 		if (InputHelper.isEmpty(searchQuery)) {

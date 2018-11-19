@@ -27,8 +27,5 @@ interface SearchEditionsMvp {
 
 	interface Presenter : BaseMvp.Presenter,
 			BaseViewHolder.OnItemClickListener<SearchEdition>,
-			BaseMvp.PaginationListener<String> {
-
-		fun getEditions(): ArrayList<SearchEdition>
-	}
+			BaseMvp.PaginationListener<String>
 }

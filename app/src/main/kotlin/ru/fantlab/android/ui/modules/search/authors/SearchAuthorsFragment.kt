@@ -29,7 +29,7 @@ class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsP
 
 	@State var searchQuery = ""
 	private val onLoadMore: OnLoadMore<String> by lazy { OnLoadMore(presenter, searchQuery) }
-	private val adapter: SearchAuthorsAdapter by lazy { SearchAuthorsAdapter(presenter.getAuthors()) }
+	private val adapter: SearchAuthorsAdapter by lazy { SearchAuthorsAdapter(arrayListOf()) }
 	private var countCallback: SearchMvp.View? = null
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,7 +45,7 @@ class SearchAuthorsFragment : BaseFragment<SearchAuthorsMvp.View, SearchAuthorsP
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
 		recycler.addOnScrollListener(getLoadMore())
-		if (!InputHelper.isEmpty(searchQuery) && presenter.getAuthors().isEmpty() && !presenter.isApiCalled()) {
+		if (!InputHelper.isEmpty(searchQuery)) {
 			onRefresh()
 		}
 		if (InputHelper.isEmpty(searchQuery)) {

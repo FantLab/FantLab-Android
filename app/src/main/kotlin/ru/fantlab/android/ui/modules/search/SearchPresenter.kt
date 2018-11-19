@@ -4,13 +4,12 @@ import android.support.v4.view.ViewPager
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import ru.fantlab.android.R
 import ru.fantlab.android.data.db.response.Search
 import ru.fantlab.android.helper.AppHelper
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.PrefGetter
+import ru.fantlab.android.helper.single
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.search.authors.SearchAuthorsFragment
@@ -26,16 +25,16 @@ class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 	override fun onAttachView(view: SearchMvp.View) {
 		super.onAttachView(view)
 		if (hints.isEmpty()) {
-			manageDisposable(DbProvider.mainDatabase
-					.searchDao()
-					.get(userId)
-					.subscribeOn(Schedulers.io())
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe {
-						hints.clear()
-						hints.addAll(it)
-						view.onNotifyAdapter(null)
-					}
+			manageDisposable(
+					DbProvider.mainDatabase
+							.searchDao()
+							.get(userId)
+							.single()
+							.subscribe { list ->
+								hints.clear()
+								hints.addAll(list)
+								view.onNotifyAdapter(null)
+							}
 			)
 		}
 	}
@@ -65,8 +64,7 @@ class SearchPresenter : BasePresenter<SearchMvp.View>(), SearchMvp.Presenter {
 								DbProvider.mainDatabase
 										.searchDao()
 										.save(Search(query, userId))
-							}.subscribeOn(Schedulers.io())
-									.observeOn(AndroidSchedulers.mainThread())
+							}.single()
 									.subscribe()
 					)
 					sendToView { it.onNotifyAdapter(query) }

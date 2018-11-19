@@ -27,8 +27,5 @@ interface SearchWorksMvp {
 
 	interface Presenter : BaseMvp.Presenter,
 			BaseViewHolder.OnItemClickListener<SearchWork>,
-			BaseMvp.PaginationListener<String> {
-
-		fun getWorks(): ArrayList<SearchWork>
-	}
+			BaseMvp.PaginationListener<String>
 }

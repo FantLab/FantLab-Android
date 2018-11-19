@@ -32,7 +32,7 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 
 	@State var searchQuery = ""
 	private val onLoadMore: OnLoadMore<String> by lazy { OnLoadMore(presenter, searchQuery) }
-	private val adapter: SearchWorksAdapter by lazy { SearchWorksAdapter(presenter.getWorks()) }
+	private val adapter: SearchWorksAdapter by lazy { SearchWorksAdapter(arrayListOf()) }
 	private var countCallback: SearchMvp.View? = null
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,7 +48,7 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
 		recycler.addOnScrollListener(getLoadMore())
-		if (!InputHelper.isEmpty(searchQuery) && presenter.getWorks().isEmpty() && !presenter.isApiCalled()) {
+		if (!InputHelper.isEmpty(searchQuery)) {
 			onRefresh()
 		}
 		if (InputHelper.isEmpty(searchQuery)) {

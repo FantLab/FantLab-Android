@@ -27,8 +27,5 @@ interface SearchAuthorsMvp {
 
 	interface Presenter : BaseMvp.Presenter,
 			BaseViewHolder.OnItemClickListener<SearchAuthor>,
-			BaseMvp.PaginationListener<String> {
-
-		fun getAuthors(): ArrayList<SearchAuthor>
-	}
+			BaseMvp.PaginationListener<String>
 }

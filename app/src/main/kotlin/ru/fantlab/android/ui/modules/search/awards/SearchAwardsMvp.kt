@@ -27,8 +27,5 @@ interface SearchAwardsMvp {
 
 	interface Presenter : BaseMvp.Presenter,
 			BaseViewHolder.OnItemClickListener<SearchAward>,
-			BaseMvp.PaginationListener<String> {
-
-		fun getAwards(): ArrayList<SearchAward>
-	}
+			BaseMvp.PaginationListener<String>
 }
