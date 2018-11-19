@@ -6,14 +6,10 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class SettingsPresenter : BasePresenter<SettingsMvp.View>(), SettingsMvp.Presenter {
 
-	private var settings: ArrayList<SettingsModel> = ArrayList()
-
 	override fun onItemClick(position: Int, v: View?, item: SettingsModel) {
-		view?.onItemClicked(item)
+		sendToView { it.onItemClicked(item) }
 	}
 
 	override fun onItemLongClick(position: Int, v: View?, item: SettingsModel) {
 	}
-
-	override fun getSettings(): ArrayList<SettingsModel> = settings
 }

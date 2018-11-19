@@ -22,7 +22,7 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
 	override fun layout(): Int = R.layout.activity_settings
 	override fun canBack(): Boolean = true
 
-	private val adapter: SettingsAdapter by lazy { SettingsAdapter(presenter.getSettings()) }
+	private val adapter: SettingsAdapter by lazy { SettingsAdapter(arrayListOf()) }
 
 	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 	private val THEME_CHANGE = 55

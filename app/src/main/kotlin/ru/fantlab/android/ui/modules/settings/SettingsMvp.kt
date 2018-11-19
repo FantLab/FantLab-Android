@@ -12,8 +12,5 @@ interface SettingsMvp {
 	}
 
 	interface Presenter : BaseMvp.Presenter,
-			BaseViewHolder.OnItemClickListener<SettingsModel> {
-
-		fun getSettings(): ArrayList<SettingsModel>
-	}
+			BaseViewHolder.OnItemClickListener<SettingsModel>
 }
