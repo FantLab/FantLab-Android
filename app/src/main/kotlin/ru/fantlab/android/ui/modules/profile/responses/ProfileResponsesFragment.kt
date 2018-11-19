@@ -34,9 +34,9 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
-	@State var userId: Int? = null
+	@State var userId: Int = -1
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, userId) }
-	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses()) }
+	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(arrayListOf()) }
 	private var countCallback: UserPagerMvp.View? = null
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
@@ -54,14 +54,10 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
-		if (savedInstanceState == null) {
-			userId = arguments?.getInt(BundleConstant.EXTRA)
-		}
+		userId = arguments!!.getInt(BundleConstant.EXTRA)
 		getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
 		recycler.addOnScrollListener(getLoadMore())
-		if (presenter.getResponses().isEmpty() && !presenter.isApiCalled()) {
-			onRefresh()
-		}
+		presenter.getResponses(userId, false)
 		fastScroller.attachRecyclerView(recycler)
 	}
 
@@ -106,7 +102,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	}
 
 	override fun onRefresh() {
-		presenter.onCallApi(1, userId)
+		presenter.getResponses(userId, true)
 	}
 
 	override fun onClick(v: View?) {

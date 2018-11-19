@@ -9,13 +9,11 @@ interface ProfileOverviewMvp {
 	interface View : BaseMvp.View,
 			android.view.View.OnClickListener {
 
-		fun onInitViews(user: User?)
+		fun onInitViews(user: User)
 	}
 
 	interface Presenter : BaseMvp.Presenter {
 
-		fun onFragmentCreated(bundle: Bundle?)
-
-		fun onWorkOffline(id: Int)
+		fun onFragmentCreated(bundle: Bundle)
 	}
 }

@@ -1,39 +1,43 @@
 package ru.fantlab.android.ui.modules.profile.overview
 
 import android.os.Bundle
+import io.reactivex.Single
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.model.User
+import ru.fantlab.android.data.dao.response.UserResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
+import ru.fantlab.android.provider.rest.getUserPath
+import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class ProfileOverviewPresenter : BasePresenter<ProfileOverviewMvp.View>(), ProfileOverviewMvp.Presenter {
 
-	@com.evernote.android.state.State
-	var userId: Int? = null
+	override fun onFragmentCreated(bundle: Bundle) {
+		val userId = bundle.getInt(BundleConstant.EXTRA)
+		makeRestCall(
+				getUserInternal(userId).toObservable(),
+				Consumer { user -> sendToView { it.onInitViews(user) } }
+		)
+	}
 
-	override fun onFragmentCreated(bundle: Bundle?) {
-		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
-			throw NullPointerException("Either bundle or User is null")
-		}
-		userId = bundle.getInt(BundleConstant.EXTRA)
-		userId?.let {
-			makeRestCall(
-					DataManager.getUser(it)
-							.toObservable(),
-					Consumer { response ->
-						sendToView { it.onInitViews(response.user) }
+	private fun getUserInternal(userId: Int) =
+			getUserFromServer(userId)
+					.onErrorResumeNext {
+						getUserFromDb(userId)
 					}
-			)
-		}
-	}
 
-	override fun onError(throwable: Throwable) {
-		userId?.let { onWorkOffline(it) }
-		super.onError(throwable)
-	}
+	private fun getUserFromServer(userId: Int): Single<User> =
+			DataManager.getUser(userId)
+					.map { getUser(it) }
 
-	override fun onWorkOffline(id: Int) {
-		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
-	}
+	private fun getUserFromDb(userId: Int): Single<User> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getUserPath(userId))
+					.map { it.toNullable()!!.response }
+					.map { UserResponse.Deserializer().deserialize(it) }
+					.map { getUser(it) }
+
+	private fun getUser(response: UserResponse): User = response.user
 }

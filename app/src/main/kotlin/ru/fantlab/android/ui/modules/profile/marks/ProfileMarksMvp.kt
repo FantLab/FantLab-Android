@@ -33,8 +33,8 @@ interface ProfileMarksMvp {
 			BaseViewHolder.OnItemClickListener<Mark>,
 			BaseMvp.PaginationListener<Int> {
 
-		fun getMarks(): ArrayList<Mark>
+		fun getMarks(userId: Int, force: Boolean)
 
-		fun onWorkOffline(userId: Int)
+		fun onSendMark(item: Mark, mark: Int, position: Int)
 	}
 }

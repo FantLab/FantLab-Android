@@ -33,10 +33,8 @@ interface ProfileResponsesMvp {
 			BaseViewHolder.OnItemClickListener<Response>,
 			BaseMvp.PaginationListener<Int> {
 
-		fun getResponses(): ArrayList<Response>
+		fun getResponses(userId: Int, force: Boolean)
 
-		fun onWorkOffline(userId: Int)
+		fun onSendVote(item: Response, position: Int, voteType: String)
 	}
-
-
 }

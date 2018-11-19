@@ -35,9 +35,9 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
-	@State var userId: Int? = null
+	@State var userId: Int = -1
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, userId) }
-	private val adapter: ProfileMarksAdapter by lazy { ProfileMarksAdapter(presenter.getMarks()) }
+	private val adapter: ProfileMarksAdapter by lazy { ProfileMarksAdapter(arrayListOf()) }
 	private var countCallback: UserPagerMvp.View? = null
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
@@ -55,12 +55,8 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
-		if (savedInstanceState == null) {
-			userId = arguments?.getInt(BundleConstant.EXTRA)
-		}
-		if (presenter.getMarks().isEmpty() && !presenter.isApiCalled()) {
-			onRefresh()
-		}
+		userId = arguments!!.getInt(BundleConstant.EXTRA)
+		presenter.getMarks(userId, false)
 		getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
 		recycler.addOnScrollListener(getLoadMore())
 		fastScroller.attachRecyclerView(recycler)
@@ -148,9 +144,8 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 		presenter.onSendMark(listItem as Mark, rating.toInt(), position)
 	}
 
-
 	override fun onRefresh() {
-		presenter.onCallApi(1, userId)
+		presenter.getMarks(userId, true)
 	}
 
 	override fun onClick(v: View?) {

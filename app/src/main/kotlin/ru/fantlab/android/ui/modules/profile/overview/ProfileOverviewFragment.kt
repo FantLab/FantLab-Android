@@ -61,7 +61,6 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 	@BindView(R.id.block) lateinit var block: FontTextView
 	@BindView(R.id.progress) lateinit var progress: View
 
-	private var user: User? = null
 	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun fragmentLayout(): Int = R.layout.profile_overview_layout
@@ -71,27 +70,11 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 	private var pagerCallback: UserPagerMvp.View? = null
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			user = savedInstanceState.getParcelable("user")
-			if (user != null) {
-				onInitViews(user)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		outState.putParcelable("user", user)
-	}
-
-	override fun onInitViews(user: User?) {
+	override fun onInitViews(user: User) {
 		progress.visibility = GONE
-		if (user == null) return
-		this.user = user
 		val gender = if (user.sex == "m") /* male */ "\u2642" else /* female */ "\u2640"
 		fio.text = if (user.fio.isEmpty()) {
 			gender
@@ -200,7 +183,6 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		super.showMessage(titleRes, msgRes)
 	}
 
-
 	override fun onClick(v: View) {
 		when (v.id) {
 			R.id.marksLayout -> {
@@ -225,8 +207,6 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 	}
 
 	companion object {
-
-
 
 		fun newInstance(userId: Int): ProfileOverviewFragment {
 			val view = ProfileOverviewFragment()
