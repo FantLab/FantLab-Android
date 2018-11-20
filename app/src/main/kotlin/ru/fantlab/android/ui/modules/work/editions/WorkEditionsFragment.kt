@@ -27,9 +27,7 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
-	private var workEditions: EditionsBlocks? = null
-	private var workEditionsInfo: EditionsInfo? = null
-	private val adapter: EditionsAdapter by lazy { EditionsAdapter(presenter.getEditions()) }
+	private val adapter: EditionsAdapter by lazy { EditionsAdapter(arrayListOf()) }
 	private var countCallback: WorkPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
@@ -37,17 +35,7 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
 	override fun providePresenter() = WorkEditionsPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			workEditions = savedInstanceState.getParcelable("workEditions")
-			workEditionsInfo = savedInstanceState.getParcelable("workEditionsInfo")
-			if (workEditions != null && workEditionsInfo != null) {
-				onInitViews(workEditions, workEditionsInfo!!)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun onInitViews(editions: EditionsBlocks?, editionsInfo: EditionsInfo) {
@@ -80,13 +68,6 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
 		super.onDetach()
 	}
 
-
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		outState.putParcelable("workEditions", workEditions)
-		outState.putParcelable("workEditionsInfo", workEditionsInfo)
-	}
-
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
 		refresh.isRefreshing = true
 		stateLayout.showProgress()
@@ -117,7 +98,7 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
 	}
 
 	override fun onRefresh() {
-		presenter.onCallApi()
+		presenter.getEditions(true)
 	}
 
 	override fun onItemClicked(item: EditionsBlocks.Edition) {
@@ -126,11 +107,6 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
 
 	override fun onClick(v: View?) {
 		onRefresh()
-	}
-
-	override fun onNotifyAdapter() {
-		hideProgress()
-		adapter.notifyDataSetChanged()
 	}
 
 	override fun onSetTabCount(allCount: Int) {

@@ -20,8 +20,7 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 
     @BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 
-	private var workAnalogs: ArrayList<WorkAnalog>? = null
-	private val adapter: AnalogsAdapter by lazy { AnalogsAdapter(presenter.getAnalogs()) }
+	private val adapter: AnalogsAdapter by lazy { AnalogsAdapter(arrayListOf()) }
 	private var countCallback: WorkPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.analogs_list
@@ -29,16 +28,7 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 	override fun providePresenter() = WorkAnalogsPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			workAnalogs = savedInstanceState.getParcelableArrayList("workAnalogs")
-			if (workAnalogs != null) {
-				onInitViews(workAnalogs!!)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun onInitViews(analogs: ArrayList<WorkAnalog>) {
@@ -52,11 +42,6 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		adapter.addItems(analogs)
-	}
-
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		outState.putParcelableArrayList("workAnalogs", workAnalogs)
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
@@ -101,12 +86,7 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 	}
 
 	override fun onRefresh() {
-		presenter.onCallApi()
-	}
-
-	override fun onNotifyAdapter() {
-		hideProgress()
-		adapter.notifyDataSetChanged()
+		presenter.getAnalogs(true)
 	}
 
 	override fun onClick(p0: View?) {

@@ -16,18 +16,14 @@ interface WorkAnalogsMvp {
 
 		fun onSetTabCount(count: Int)
 
-		fun onNotifyAdapter()
-
 		fun onItemClicked(item: WorkAnalog)
 	}
 
 	interface Presenter : BaseMvp.Presenter,
 			BaseViewHolder.OnItemClickListener<WorkAnalog> {
 
-		fun onFragmentCreated(bundle: Bundle?)
+		fun onFragmentCreated(bundle: Bundle)
 
-		fun onWorkOffline(id: Int)
-
-		fun getAnalogs(): ArrayList<WorkAnalog>
+		fun getAnalogs(force: Boolean)
 	}
 }

@@ -56,7 +56,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		super.onCreate(savedInstanceState)
 		if (savedInstanceState == null) {
 			response = intent!!.extras.getParcelable(BundleConstant.EXTRA)
-			presenter.initResponse(response)
+			onInitViews(response)
 		}
 		if (response.id == -1) {
 			finish()
@@ -71,7 +71,6 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		response
 		when (item.itemId) {
 			R.id.share -> {
 				ActivityHelper.shareUrl(this, Uri.Builder().scheme(LinkParserHelper.PROTOCOL_HTTPS)

@@ -2,11 +2,14 @@ package ru.fantlab.android.ui.modules.work.analogs
 
 import android.os.Bundle
 import android.view.View
+import io.reactivex.Single
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.WorkAnalog
+import ru.fantlab.android.data.dao.response.WorkAnalogsResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
+import ru.fantlab.android.provider.rest.getWorkAnalogsPath
+import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
@@ -14,56 +17,56 @@ class WorkAnalogsPresenter : BasePresenter<WorkAnalogsMvp.View>(),
 		WorkAnalogsMvp.Presenter,
 		BaseViewHolder.OnItemClickListener<WorkAnalog> {
 
-	@com.evernote.android.state.State
-	var workId: Int? = null
-	private var analogs: ArrayList<WorkAnalog> = ArrayList()
+	private var workId = -1
 
-	override fun onFragmentCreated(bundle: Bundle?) {
-		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
-			throw NullPointerException("Either bundle or Work is null")
-		}
+	override fun onFragmentCreated(bundle: Bundle) {
 		workId = bundle.getInt(BundleConstant.EXTRA)
-		workId?.let {
-			makeRestCall(
-					DataManager.getWorkAnalogs(it)
-							.toObservable(),
-					Consumer { workAnalogsResponse ->
-						sendToView {
-							it.onSetTabCount(workAnalogsResponse.analogs.size)
-							it.onInitViews(workAnalogsResponse.analogs)
+		getAnalogs(false)
+	}
+
+	override fun getAnalogs(force: Boolean) {
+		makeRestCall(
+				getAnalogsInternal(force).toObservable(),
+				Consumer { analogs ->
+					sendToView {
+						with (it) {
+							onSetTabCount(analogs.size)
+							onInitViews(analogs)
 						}
 					}
-			)
-		}
+				}
+		)
 	}
+
+	private fun getAnalogsInternal(force: Boolean) =
+			getAnalogsFromServer()
+					.onErrorResumeNext { throwable ->
+						if (!force) {
+							getAnalogsFromDb()
+						} else {
+							throw throwable
+						}
+					}
+
+	private fun getAnalogsFromServer(): Single<ArrayList<WorkAnalog>> =
+			DataManager.getWorkAnalogs(workId)
+					.map { getAnalogs(it) }
+
+	private fun getAnalogsFromDb(): Single<ArrayList<WorkAnalog>> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getWorkAnalogsPath(workId))
+					.map { it.toNullable()!!.response }
+					.map { WorkAnalogsResponse.Deserializer().deserialize(it) }
+					.map { getAnalogs(it) }
+
+	private fun getAnalogs(response: WorkAnalogsResponse): ArrayList<WorkAnalog> =
+			response.analogs
 
 	override fun onItemClick(position: Int, v: View?, item: WorkAnalog) {
 		sendToView { it.onItemClicked(item) }
 	}
 
 	override fun onItemLongClick(position: Int, v: View?, item: WorkAnalog?) {
-	}
-
-	override fun onError(throwable: Throwable) {
-		workId?.let { onWorkOffline(it) }
-		super.onError(throwable)
-	}
-
-	override fun onWorkOffline(id: Int) {
-		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
-	}
-
-	override fun getAnalogs(): ArrayList<WorkAnalog> = analogs
-
-	fun onCallApi() {
-		workId?.let {
-			makeRestCall(
-					DataManager.getWorkAnalogs(it)
-							.toObservable(),
-					Consumer { workResponse ->
-						sendToView { it.onNotifyAdapter() }
-					}
-			)
-		}
 	}
 }

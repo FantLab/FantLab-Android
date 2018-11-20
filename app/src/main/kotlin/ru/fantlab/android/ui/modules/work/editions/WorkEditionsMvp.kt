@@ -15,8 +15,6 @@ interface WorkEditionsMvp {
 
 		fun onInitViews(editions: EditionsBlocks?, editionsInfo: EditionsInfo)
 
-		fun onNotifyAdapter()
-
 		fun onSetTabCount(allCount: Int)
 
 		fun onItemClicked(item: EditionsBlocks.Edition)
@@ -25,10 +23,8 @@ interface WorkEditionsMvp {
 	interface Presenter : BaseMvp.Presenter,
 			BaseViewHolder.OnItemClickListener<EditionsBlocks.Edition> {
 
-		fun onFragmentCreated(bundle: Bundle?)
+		fun onFragmentCreated(bundle: Bundle)
 
-		fun onWorkOffline(id: Int)
-
-		fun getEditions(): ArrayList<EditionsBlocks.Edition>
+		fun getEditions(force: Boolean)
 	}
 }

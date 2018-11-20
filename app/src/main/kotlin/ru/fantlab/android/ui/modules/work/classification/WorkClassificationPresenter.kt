@@ -1,43 +1,51 @@
 package ru.fantlab.android.ui.modules.work.classification
 
 import android.os.Bundle
+import io.reactivex.Single
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.ClassificationGenre
+import ru.fantlab.android.data.dao.model.GenreGroup
+import ru.fantlab.android.data.dao.response.WorkResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
+import ru.fantlab.android.provider.rest.getWorkPath
+import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class WorkClassificationPresenter : BasePresenter<WorkClassificationMvp.View>(),
 		WorkClassificationMvp.Presenter {
 
-	@com.evernote.android.state.State var workId: Int? = null
-	private var responses: ArrayList<ClassificationGenre> = arrayListOf()
+	private var workId = -1
 
-	override fun onFragmentCreated(bundle: Bundle?) {
-		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
-			throw NullPointerException("Either bundle or Work is null")
-		}
+	override fun onFragmentCreated(bundle: Bundle) {
 		workId = bundle.getInt(BundleConstant.EXTRA)
-		workId?.let {
-			makeRestCall(
-					DataManager.getWork(it, showClassificatory = true)
-							.toObservable(),
-					Consumer { workResponse ->
-						sendToView { it.onInitViews(workResponse.classificatory) }
+		getClassificatory(false)
+	}
+
+	override fun getClassificatory(force: Boolean) {
+		makeRestCall(
+				getClassificatoryInternal(workId).toObservable(),
+				Consumer { classificatory -> sendToView { it.onInitViews(classificatory) } }
+		)
+	}
+
+	private fun getClassificatoryInternal(workId: Int) =
+			getClassificatoryFromServer(workId)
+					.onErrorResumeNext {
+						getClassificatoryFromDb(workId)
 					}
-			)
-		}
-	}
 
-	override fun getResponses(): ArrayList<ClassificationGenre> = responses
+	private fun getClassificatoryFromServer(workId: Int): Single<ArrayList<GenreGroup>> =
+			DataManager.getWork(workId, showClassificatory = true)
+					.map { getClassificatory(it) }
 
-	override fun onError(throwable: Throwable) {
-		workId?.let { onWorkOffline(it) }
-		super.onError(throwable)
-	}
+	private fun getClassificatoryFromDb(workId: Int): Single<ArrayList<GenreGroup>> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getWorkPath(workId, showClassificatory = true))
+					.map { it.toNullable()!!.response }
+					.map { WorkResponse.Deserializer().deserialize(it) }
+					.map { getClassificatory(it) }
 
-	override fun onWorkOffline(id: Int) {
-		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
-	}
+	private fun getClassificatory(response: WorkResponse): ArrayList<GenreGroup> =
+			response.classificatory
 }

@@ -30,7 +30,6 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 	@BindView(R.id.progress) lateinit var progress: View
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
-	private var workClassification: ArrayList<GenreGroup>? = null
 	private var workCallback: WorkPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.work_classification_layout
@@ -38,16 +37,7 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 	override fun providePresenter() = WorkClassificationPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			workClassification = savedInstanceState.getParcelableArrayList("workClassification")
-			if (workClassification != null) {
-				onInitViews(workClassification!!)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun onInitViews(classificatory: ArrayList<GenreGroup>) {
@@ -115,11 +105,6 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 		fastScroller.attachRecyclerView(recycler)
 	}
 
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		outState.putParcelableArrayList("workClassification", workClassification)
-	}
-
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
 		progress.visibility = View.VISIBLE
 		stateLayout.showProgress()
@@ -145,7 +130,7 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 	}
 
 	override fun onRefresh() {
-		presenter.onFragmentCreated(arguments)
+		presenter.getClassificatory(true)
 	}
 
 	override fun onAttach(context: Context?) {

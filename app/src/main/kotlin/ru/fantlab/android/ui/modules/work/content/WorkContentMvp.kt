@@ -14,8 +14,6 @@ interface WorkContentMvp {
 
 		fun onInitViews(content: ArrayList<ChildWork>)
 
-		fun onNotifyAdapter()
-
 		fun onSetTabCount(allCount: Int)
 
 		fun onItemClicked(item: ChildWork)
@@ -24,10 +22,8 @@ interface WorkContentMvp {
 	interface Presenter : BaseMvp.Presenter,
 			BaseViewHolder.OnItemClickListener<ChildWork> {
 
-		fun onFragmentCreated(bundle: Bundle?)
+		fun onFragmentCreated(bundle: Bundle)
 
-		fun onWorkOffline(id: Int)
-
-		fun getContent(): ArrayList<ChildWork>
+		fun getContent(force: Boolean)
 	}
 }

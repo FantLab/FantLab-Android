@@ -12,36 +12,24 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 class ResponseOverviewPresenter : BasePresenter<ResponseOverviewMvp.View>(),
 		ResponseOverviewMvp.Presenter {
 
-	var response: Response? = null
-
-	override fun initResponse(response: Response?) {
-		if (response == null) {
-			throw NullPointerException("Either bundle or Response is null")
-		}
-		sendToView { it.onInitViews(response) }
-	}
-
-	override fun getResponses(): Response = response!!
-
-	fun onSendVote(item: Response, voteType: String) {
+	override fun onSendVote(item: Response, voteType: String) {
 		makeRestCall(
-				DataManager.getUser(PrefGetter.getLoggedUser()?.id!!)
-						.toObservable(),
-				Consumer { it ->
-					if (it.user.level >= FantlabHelper.minLevelToVote) {
-						makeRestCall(DataManager.sendResponseVote(item.id, voteType)
-								.toObservable(),
-								Consumer { response ->
-									val result = VoteResponse.Parser().parse(response)
+				DataManager.getUser(PrefGetter.getLoggedUser()?.id!!).toObservable(),
+				Consumer { userResponse ->
+					if (userResponse.user.level >= FantlabHelper.minLevelToVote) {
+						makeRestCall(
+								DataManager.sendResponseVote(item.id, voteType).toObservable(),
+								Consumer { voteResponse ->
+									val result = VoteResponse.Parser().parse(voteResponse)
 									if (result != null) {
-										sendToView { view ->
-											view.onSetVote(result.votesCount.toString())
-										}
+										sendToView { it.onSetVote(result.votesCount.toString()) }
 									} else {
-										sendToView { it.showErrorMessage(response) }
+										sendToView { it.showErrorMessage(voteResponse) }
 									}
 								})
-					} else view?.showMessage(R.string.error, R.string.cannotvote_novice)
+					} else {
+						sendToView { it.showMessage(R.string.error, R.string.cannotvote_novice) }
+					}
 				}
 		)
 	}

@@ -16,8 +16,6 @@ interface ResponseOverviewMvp {
 
 	interface Presenter : BaseMvp.Presenter {
 
-		fun initResponse(response: Response?)
-
-		fun getResponses(): Response
+		fun onSendVote(item: Response, voteType: String)
 	}
 }

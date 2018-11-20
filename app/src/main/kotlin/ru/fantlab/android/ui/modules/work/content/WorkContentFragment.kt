@@ -28,23 +28,14 @@ class WorkContentFragment : BaseFragment<WorkContentMvp.View, WorkContentPresent
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
 	private var countCallback: WorkPagerMvp.View? = null
-	private var content: ArrayList<ChildWork>? = null
-	private val adapter: WorkContentAdapter by lazy { WorkContentAdapter(presenter.getContent()) }
+	private val adapter: WorkContentAdapter by lazy { WorkContentAdapter(arrayListOf()) }
 
 	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
 
 	override fun providePresenter() = WorkContentPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			if (content != null) {
-				onInitViews(content!!)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun onInitViews(content: ArrayList<ChildWork>) {
@@ -107,12 +98,7 @@ class WorkContentFragment : BaseFragment<WorkContentMvp.View, WorkContentPresent
 	}
 
 	override fun onRefresh() {
-		presenter.onCallApi()
-	}
-
-	override fun onNotifyAdapter() {
-		hideProgress()
-		adapter.notifyDataSetChanged()
+		presenter.getContent(true)
 	}
 
 	override fun onClick(p0: View?) {
@@ -120,6 +106,13 @@ class WorkContentFragment : BaseFragment<WorkContentMvp.View, WorkContentPresent
 	}
 
 	override fun onItemClicked(item: ChildWork) {
-		if (item.id != null) WorkPagerActivity.startActivity(context!!, item.id, if (!InputHelper.isEmpty(item.name)) item.name else item.nameOrig, 0)
+		if (item.id != null) {
+			WorkPagerActivity.startActivity(
+					context!!,
+					item.id,
+					if (!InputHelper.isEmpty(item.name)) item.name else item.nameOrig,
+					0
+			)
+		}
 	}
 }
