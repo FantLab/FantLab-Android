@@ -25,6 +25,7 @@
 			<android.support.v7.widget.CardView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:layout_marginBottom="@dimen/spacing_normal"
 				app:cardBackgroundColor="?card_background"
 				app:cardCornerRadius="0dp"
 				app:contentPaddingBottom="@dimen/spacing_normal"
