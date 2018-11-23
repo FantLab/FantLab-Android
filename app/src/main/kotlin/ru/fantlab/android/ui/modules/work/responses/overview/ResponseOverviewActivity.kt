@@ -84,7 +84,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 	}
 
 	override fun onInitViews(response: Response) {
-		coverLayout?.setUrl("https:${response.userAvatar}")
+		coverLayout?.setUrl(if (response.workImage != null) "https:${response.workImage}" else null)
 		username.text = response.userName
 		username.setOnClickListener {
 			val dialogView = ContextMenuDialogView()
@@ -118,7 +118,11 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 			rating.visibility = View.VISIBLE
 		}
 
-		votes.text = response.voteCount.toString()
+		if (response.voteCount > 0) {
+			votes.text = response.voteCount.toString()
+		} else {
+			votes.visibility = View.GONE
+		}
 
 		if (isLoggedIn() && PrefGetter.getLoggedUser()?.id != response.userId) {
 			fab.visibility = View.VISIBLE

@@ -167,7 +167,7 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 		if (isUp) {
 			fab.hide();
 		} else {
-			fab.show();
+			hideShowFab(pager.currentItem)
 		}
 	}
 }

@@ -44,6 +44,7 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 
 		text.text = response.text
 				.replace("(\r\n)+".toRegex(), "\n")    // пустые переносы строк
+				.replace("\\[spoiler].*|\\[\\/spoiler]".toRegex(), "")
 				.replace("\\[.*]".toRegex(), "")       // bb-коды
 				.replace(":\\w+:".toRegex(), "")       // смайлы
 
@@ -54,7 +55,11 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 			rating.visibility = View.VISIBLE
 		}
 
-		votes.text = response.voteCount.toString()
+		if (response.voteCount > 0) {
+			votes.text = response.voteCount.toString()
+		} else {
+			votes.visibility = View.GONE
+		}
 	}
 
 	interface OnOpenContextMenu {
