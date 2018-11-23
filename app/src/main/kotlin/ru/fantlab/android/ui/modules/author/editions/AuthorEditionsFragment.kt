@@ -45,9 +45,13 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addKeyLineDivider()
+		adapter.clear()
 		adapter.listener = presenter
 		editionsBlocks?.forEach { adapter.addItems(it.list) }
-		recycler.adapter = adapter
+		if (recycler.adapter == null)
+			recycler.adapter = adapter
+		else
+			adapter.notifyDataSetChanged()
 		fastScroller.attachRecyclerView(recycler)
 	}
 

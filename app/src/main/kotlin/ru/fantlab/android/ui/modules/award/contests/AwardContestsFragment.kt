@@ -102,7 +102,10 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 
 		}
 		val adapter = TreeViewAdapter(nodes, Arrays.asList(ConstsWorkViewHolder(), ConstsViewHolder()))
-		recycler.adapter = adapter
+		if (recycler.adapter == null)
+			recycler.adapter = adapter
+		else
+			adapter.notifyDataSetChanged()
 		adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
 			override fun onSelected(extra: Int, add: Boolean) {
 			}
