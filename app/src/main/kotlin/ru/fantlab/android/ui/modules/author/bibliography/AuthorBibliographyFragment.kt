@@ -107,7 +107,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 					} else {
 						cycleWork.nameOrig
 					}
-					if (cycleWork.id != 0) WorkPagerActivity.startActivity(context!!, cycleWork.id!!, title, 0)
+					if (cycleWork.id ?: 0 != 0 ) WorkPagerActivity.startActivity(context!!, cycleWork.id!!, title, 0)
 				}
 				return false
 			}
