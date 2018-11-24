@@ -2,6 +2,8 @@ package ru.fantlab.android.ui.widgets
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.ScaleDrawable
 import android.os.Parcelable
 import android.support.annotation.ColorInt
@@ -10,7 +12,6 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
 import android.view.Gravity
-import android.view.ViewGroup
 import android.widget.TextView
 import com.crashlytics.android.Crashlytics
 import com.evernote.android.state.State
@@ -49,11 +50,6 @@ class FontTextView @JvmOverloads constructor(context: Context, attrs: AttributeS
 	override fun setSelected(selected: Boolean) {
 		super.setSelected(selected)
 		this.selectedState = selected
-	}
-
-	fun setLevel(level: Int) {
-		val mlp = this.getLayoutParams() as ViewGroup.MarginLayoutParams
-		mlp.setMargins(ViewHelper.toPx(context, level * 20), 0, 0, 0)
 	}
 
 	@SuppressLint("SetTextI18n")
@@ -100,5 +96,11 @@ class FontTextView @JvmOverloads constructor(context: Context, attrs: AttributeS
 		sd.level = 8000
 		ViewHelper.tintDrawable(drawable, ViewHelper.getTertiaryTextColor(context))
 		setCompoundDrawablesWithIntrinsicBounds(sd, null, null, null)
+	}
+
+	fun setDrawables(@DrawableRes left: Int = 0, @DrawableRes top: Int = 0, @DrawableRes right: Int = 0, @DrawableRes bottom: Int = 0) {
+		setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom)
+		val drawables = compoundDrawables
+		if (drawables.isNotEmpty()) drawables[0].colorFilter = PorterDuffColorFilter(this.tintColor, PorterDuff.Mode.SRC_IN)
 	}
 }

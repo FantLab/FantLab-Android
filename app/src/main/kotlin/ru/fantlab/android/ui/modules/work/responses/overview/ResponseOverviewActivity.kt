@@ -118,10 +118,20 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 			rating.visibility = View.VISIBLE
 		}
 
-		if (response.voteCount > 0) {
-			votes.text = response.voteCount.toString()
-		} else {
-			votes.visibility = View.GONE
+		response.voteCount.let {
+			when {
+				it < 0 -> {
+					votes.setDrawables(R.drawable.ic_thumb_down_small)
+					votes.text = response.voteCount.toString()
+					votes.visibility = View.VISIBLE
+				}
+				it > 0 -> {
+					votes.setDrawables(R.drawable.ic_thumb_up_small)
+					votes.text = response.voteCount.toString()
+					votes.visibility = View.VISIBLE
+				}
+				else -> votes.visibility = View.GONE
+			}
 		}
 
 		if (isLoggedIn() && PrefGetter.getLoggedUser()?.id != response.userId) {
