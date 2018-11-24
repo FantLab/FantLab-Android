@@ -17,6 +17,7 @@ import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.FantlabHelper.classNeededToSet
 import ru.fantlab.android.helper.ViewHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
@@ -150,7 +151,6 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 	}
 
 	companion object {
-		var classNeededToSet = listOf(0, 2, 3, 6)
 
 		fun startActivity(context: Context, workId: Int) {
 			val intent = Intent(context, ClassificatorPagerActivity::class.java)
