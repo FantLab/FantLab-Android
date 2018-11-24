@@ -1,8 +1,6 @@
 package ru.fantlab.android.ui.modules.classificator
 
-import android.app.Application
-import android.app.Service
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -127,6 +125,7 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 	}
 
 	override fun onClassSended() {
+		setResult(RESULT_OK)
 		showMessage("Success", getString(R.string.class_sended))
 		finish()
 	}
@@ -152,15 +151,12 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 
 	companion object {
 
-		fun startActivity(context: Context, workId: Int) {
-			val intent = Intent(context, ClassificatorPagerActivity::class.java)
+		fun startActivity(activity: Activity, workId: Int) {
+			val intent = Intent(activity, ClassificatorPagerActivity::class.java)
 			intent.putExtras(Bundler.start()
 					.put(BundleConstant.EXTRA, workId)
 					.end())
-			if (context is Service || context is Application) {
-				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-			}
-			context.startActivity(intent)
+			activity.startActivityForResult(intent, BundleConstant.CLASSIFICATOR_CODE)
 		}
 	}
 }

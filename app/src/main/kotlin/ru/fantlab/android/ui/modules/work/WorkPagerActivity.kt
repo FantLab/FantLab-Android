@@ -18,6 +18,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
 import ru.fantlab.android.helper.*
+import ru.fantlab.android.helper.BundleConstant.CLASSIFICATOR_CODE
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
@@ -25,6 +26,7 @@ import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.classificator.ClassificatorPagerActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
+import ru.fantlab.android.ui.modules.work.classification.WorkClassificationFragment
 import ru.fantlab.android.ui.modules.work.overview.WorkOverviewFragment
 import ru.fantlab.android.ui.widgets.ViewPagerView
 import java.text.NumberFormat
@@ -202,6 +204,12 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 
 	override fun onGetMark(): Int {
 		return mark
+	}
+
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		if (resultCode == RESULT_OK && requestCode == CLASSIFICATOR_CODE) {
+			((pager.adapter as FragmentsPagerAdapter).getItem(1) as WorkClassificationFragment).onRefresh()
+		}
 	}
 
 	companion object {

@@ -3,6 +3,7 @@ package ru.fantlab.android.ui.modules.work.classification
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import butterknife.BindView
@@ -27,12 +28,12 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 
 	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
-	@BindView(R.id.progress) lateinit var progress: View
+	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
 	private var workCallback: WorkPagerMvp.View? = null
 
-	override fun fragmentLayout() = R.layout.work_classification_layout
+	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
 
 	override fun providePresenter() = WorkClassificationPresenter()
 
@@ -44,7 +45,8 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 		hideProgress()
 		stateLayout.setEmptyText(R.string.no_classification)
 		stateLayout.setOnReloadListener(this)
-		recycler.setEmptyView(stateLayout)
+		refresh.setOnRefreshListener(this)
+		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 			override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
 				workCallback?.onScrolled(dy > 0);
@@ -101,18 +103,20 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 						.start()
 			}
 		})
-		recycler.adapter = adapter
+		if (recycler.adapter != null) {
+			(recycler.adapter as TreeViewAdapter).refresh(nodes)
+		} else recycler.adapter = adapter
 		fastScroller.attachRecyclerView(recycler)
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
-		progress.visibility = View.VISIBLE
+		refresh.isRefreshing = true
 		stateLayout.showProgress()
 	}
 
 	override fun hideProgress() {
+		refresh.isRefreshing = false
 		stateLayout.hideProgress()
-		progress.visibility = View.GONE
 	}
 
 	override fun showErrorMessage(msgRes: String?) {

@@ -9,8 +9,9 @@ object BundleConstant {
 	val YES_NO_EXTRA = "yes_no_extra"
 	val EXTRA_TYPE = "extra_type"
 	var REFRESH_CODE = 64
-	val ITEM = "item"
 	val REQUEST_CODE = 2563
+	val CLASSIFICATOR_CODE = 2364
+	val ITEM = "item"
 	val REVIEW_EXTRA = "review_extra"
 	val ID = "id"
 
