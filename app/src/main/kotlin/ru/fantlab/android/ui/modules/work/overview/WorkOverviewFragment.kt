@@ -46,11 +46,10 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	@BindView(R.id.winsView) lateinit var winsView: CardView
 	@BindView(R.id.nomsView) lateinit var nomsView: CardView
 
-	private var work: Work? = null
-
-	private val adapterNoms: WorkAwardsAdapter by lazy { WorkAwardsAdapter(presenter.getNoms()) }
-	private val adapterWins: WorkAwardsAdapter by lazy { WorkAwardsAdapter(presenter.getWins()) }
-	private val adapterAuthors: WorkAuthorsAdapter by lazy { WorkAuthorsAdapter(presenter.getAuthors()) }
+	private lateinit var work: Work
+	private val adapterNoms: WorkAwardsAdapter by lazy { WorkAwardsAdapter(arrayListOf()) }
+	private val adapterWins: WorkAwardsAdapter by lazy { WorkAwardsAdapter(arrayListOf()) }
+	private val adapterAuthors: WorkAuthorsAdapter by lazy { WorkAuthorsAdapter(arrayListOf()) }
 	private var pagerCallback: WorkPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.work_overview_layout
@@ -58,24 +57,20 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	override fun providePresenter() = WorkOverviewPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		if (savedInstanceState == null) {
-			presenter.onFragmentCreated(arguments)
-		} else {
-			work = savedInstanceState.getParcelable("work")
-			if (work != null) {
-				onInitViews(work!!)
-			} else {
-				presenter.onFragmentCreated(arguments)
-			}
-		}
+		presenter.onFragmentCreated(arguments!!)
 	}
 
-	override fun onInitViews(work: Work) {
+	override fun onInitViews(
+			work: Work,
+			nominations: ArrayList<Nomination>,
+			wins: ArrayList<Nomination>,
+			authors: ArrayList<Work.Author>
+	) {
 		this.work = work
 		pagerCallback?.onSetTitle(if (!InputHelper.isEmpty(work.name)) work.name else work.nameOrig)
 
 		if (isLoggedIn()) {
-			presenter.getMarks(PrefGetter.getLoggedUser()?.id, arrayListOf(work.id))
+			presenter.getMarks(PrefGetter.getLoggedUser()?.id ?: -1, arrayListOf(work.id))
 		} else hideProgress()
 
 		coverLayout.setUrl(if (work.image != null) "https:${work.image}" else null, R.drawable.not_found_poster)
@@ -108,16 +103,19 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		else
 			aboutView.visibility = View.GONE
 
-		if (adapterAuthors.itemCount > 0) {
+		if (authors.isNotEmpty()) {
+			adapterAuthors.addItems(authors)
 			authorsList.adapter = adapterAuthors
 		} else authorView.visibility = View.GONE
 
-		if (adapterNoms.itemCount > 0) {
+		if (nominations.isNotEmpty()) {
+			adapterNoms.addItems(nominations)
 			nomsList.adapter = adapterNoms
 			adapterNoms.listener = presenter
 		} else nomsView.visibility = View.GONE
 
-		if (adapterWins.itemCount > 0) {
+		if (wins.isNotEmpty()) {
+			adapterWins.addItems(wins)
 			winsList.adapter = adapterWins
 			adapterWins.listener = presenter
 		} else winsView.visibility = View.GONE
@@ -128,11 +126,6 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 				.add(R.id.similarContainer, fs, WorkAnalogsFragment.TAG)
 				.hide(fs)
 				.commit()
-	}
-
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		outState.putParcelable("work", work)
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
@@ -165,8 +158,8 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	fun showMarkDialog() {
 		val author = adapterAuthors.getItem(0).name
 		RatingDialogView.newInstance(10, pagerCallback?.onGetMark()?.toFloat() ?: 0f,
-				work!!,
-				"${author} - ${name.text}",
+				work,
+				"$author - ${name.text}",
 				-1
 		).show(childFragmentManager, RatingDialogView.TAG)
 	}
@@ -185,7 +178,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		} else {
 			item.awardName
 		}
-		AwardPagerActivity.startActivity(context!!, item.awardId, name, 1, work?.id ?: -1)
+		AwardPagerActivity.startActivity(context!!, item.awardId, name, 1, work.id)
 	}
 
 	override fun onGetMarks(marks: ArrayList<MarkMini>) {
@@ -204,9 +197,6 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun onRated(rating: Float, listItem: Any, position: Int) {
 		presenter.onSendMark((listItem as Work).id, rating.toInt())
-	}
-
-	override fun onClick(v: View?) {
 	}
 
 	override fun onAttach(context: Context?) {

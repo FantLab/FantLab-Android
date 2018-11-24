@@ -41,8 +41,10 @@ interface WorkResponsesMvp {
 			BaseViewHolder.OnItemClickListener<Response>,
 			BaseMvp.PaginationListener<Int> {
 
-		fun getResponses(): ArrayList<Response>
+		fun getResponses(page: Int, force: Boolean)
 
-		fun onWorkOffline(workId: Int)
+		fun onSendVote(item: Response, position: Int, voteType: String)
+
+		fun setCurrentSort(sortValue: String)
 	}
 }

@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import butterknife.BindView
-import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.ContextMenus
@@ -39,9 +38,9 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	@BindView(R.id.sortview) lateinit var sortView: SortView
 
 	lateinit var sortButton: Button
-	@State var workId: Int? = null
+	private var workId = -1
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, workId) }
-	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.getResponses(), true) }
+	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(arrayListOf(), true) }
 	private var workCallback: WorkPagerMvp.View? = null
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
@@ -59,14 +58,10 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		recycler.addNormalSpacingDivider()
-		if (savedInstanceState == null) {
-			workId = arguments?.getInt(BundleConstant.EXTRA)
-		}
+		workId = arguments!!.getInt(BundleConstant.EXTRA)
 		getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
 		recycler.addOnScrollListener(getLoadMore())
-		if (presenter.getResponses().isEmpty() && !presenter.isApiCalled()) {
-			onRefresh()
-		}
+		presenter.onCallApi(1, workId)
 		fastScroller.attachRecyclerView(recycler)
 
 		val menuView = LayoutInflater.from(context).inflate(R.layout.sort_view, null)
@@ -152,7 +147,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	}
 
 	override fun onRefresh() {
-		presenter.onCallApi(1, workId)
+		presenter.getResponses(1, true)
 	}
 
 	override fun onClick(v: View?) {
@@ -219,6 +214,6 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	}
 
 	override fun onScrolled(isUp: Boolean) {
-		workCallback?.onScrolled(isUp);
+		workCallback?.onScrolled(isUp)
 	}
 }

@@ -12,11 +12,15 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 interface WorkOverviewMvp {
 
 	interface View : BaseMvp.View,
-			android.view.View.OnClickListener,
 			ListDialogView.ListDialogViewActionCallback,
 			RatingDialogView.RatingDialogViewActionCallback {
 
-		fun onInitViews(work: Work)
+		fun onInitViews(
+				work: Work,
+				nominations: ArrayList<Nomination>,
+				wins: ArrayList<Nomination>,
+				authors: ArrayList<Work.Author>
+		)
 
 		fun onItemClicked(item: Nomination)
 
@@ -28,19 +32,12 @@ interface WorkOverviewMvp {
 	}
 
 	interface Presenter : BaseMvp.Presenter,
-			android.view.View.OnClickListener,
 			BaseViewHolder.OnItemClickListener<Nomination> {
 
-		fun onFragmentCreated(bundle: Bundle?)
+		fun onFragmentCreated(bundle: Bundle)
 
-		fun onWorkOffline(id: Int)
+		fun getMarks(userId: Int, workIds: ArrayList<Int>)
 
-		fun getNoms(): ArrayList<Nomination>?
-
-		fun getWins(): ArrayList<Nomination>?
-
-		fun getAuthors(): ArrayList<Work.Author>?
-
-		fun getMarks(userId: Int?, workIds: ArrayList<Int?>)
+		fun onSendMark(workId: Int, mark: Int)
 	}
 }

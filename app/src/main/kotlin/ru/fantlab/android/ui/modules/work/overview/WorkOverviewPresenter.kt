@@ -2,76 +2,101 @@ package ru.fantlab.android.ui.modules.work.overview
 
 import android.os.Bundle
 import android.view.View
+import io.reactivex.Single
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.model.MarkMini
 import ru.fantlab.android.data.dao.model.Nomination
 import ru.fantlab.android.data.dao.model.Work
+import ru.fantlab.android.data.dao.response.MarksMiniResponse
+import ru.fantlab.android.data.dao.response.WorkResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.FantlabHelper
+import ru.fantlab.android.helper.Tuple4
 import ru.fantlab.android.provider.rest.DataManager
+import ru.fantlab.android.provider.rest.getUserMarksMiniPath
+import ru.fantlab.android.provider.rest.getWorkPath
+import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
-class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
-		WorkOverviewMvp.Presenter {
+class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(), WorkOverviewMvp.Presenter {
 
-	@com.evernote.android.state.State var workId: Int? = null
-	private var noms: ArrayList<Nomination>? = ArrayList()
-	private var wins: ArrayList<Nomination>? = ArrayList()
-	private var authors: ArrayList<Work.Author>? = ArrayList()
+	override fun onFragmentCreated(bundle: Bundle) {
+		val workId = bundle.getInt(BundleConstant.EXTRA)
+		makeRestCall(
+				getWorkInternal(workId).toObservable(),
+				Consumer { (work, nominations, wins, authors) ->
+					sendToView { it.onInitViews(work, nominations, wins, authors) }
+				}
+		)
+	}
 
-	override fun onFragmentCreated(bundle: Bundle?) {
-		if (bundle?.getInt(BundleConstant.EXTRA) == null) {
-			throw NullPointerException("Either bundle or Work is null")
-		}
-		workId = bundle.getInt(BundleConstant.EXTRA)
-		workId?.let { it ->
-			makeRestCall(
-					DataManager.getWork(it, showAwards = true)
-							.toObservable(),
-					Consumer { workResponse ->
-						sendToView { it ->
-							noms = workResponse.awards?.nominations
-							wins = workResponse.awards?.wins
-							authors = workResponse.work.authors
-									.filter { it.id !in FantlabHelper.Authors.ignoreList } as ArrayList
-							it.onInitViews(workResponse.work)
-						}
+	private fun getWorkInternal(workId: Int) =
+			getWorkFromServer(workId)
+					.onErrorResumeNext {
+						getWorkFromDb(workId)
 					}
+
+	private fun getWorkFromServer(workId: Int):
+			Single<Tuple4<Work, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>>> =
+			DataManager.getWork(workId, showAwards = true)
+					.map { getWork(it) }
+
+	private fun getWorkFromDb(workId: Int):
+			Single<Tuple4<Work, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>>> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getWorkPath(workId, showAwards = true))
+					.map { it.response }
+					.map { WorkResponse.Deserializer().deserialize(it) }
+					.map { getWork(it) }
+
+	private fun getWork(response: WorkResponse):
+			Tuple4<Work, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>> =
+			Tuple4(
+					response.work,
+					response.awards?.nominations ?: arrayListOf(),
+					response.awards?.wins ?: arrayListOf(),
+					ArrayList(response.work.authors.filter { it.id !in FantlabHelper.Authors.ignoreList })
 			)
-		}
+
+	override fun getMarks(userId: Int, workIds: ArrayList<Int>) {
+		makeRestCall(
+				getMarksInternal(userId, workIds).toObservable(),
+				Consumer { marks ->
+					sendToView { it.onGetMarks(marks) }
+				}
+		)
 	}
 
-	fun onSendMark(workId: Int, mark: Int) {
-		makeRestCall(DataManager.sendUserMark(workId, workId, mark)
-				.toObservable(),
-				Consumer {
-					sendToView { view ->
-						view.onSetMark(mark, it.markCount, it.midMark)
+	private fun getMarksInternal(userId: Int, workIds: ArrayList<Int>) =
+			getMarksFromServer(userId, workIds)
+					.onErrorResumeNext {
+						getMarksFromDb(userId, workIds)
 					}
-				})
-	}
 
-	override fun getMarks(userId: Int?, workIds: ArrayList<Int?>) {
-		makeRestCall(DataManager.getUserMarksMini(userId!!, workIds.joinToString())
-				.toObservable(),
-				Consumer {
-					sendToView { view ->
-						view?.onGetMarks(it.marks)
+	private fun getMarksFromServer(userId: Int, workIds: ArrayList<Int>): Single<ArrayList<MarkMini>> =
+			DataManager.getUserMarksMini(userId, workIds.joinToString())
+					.map { getMarks(it) }
+
+	private fun getMarksFromDb(userId: Int, workIds: ArrayList<Int>): Single<ArrayList<MarkMini>> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getUserMarksMiniPath(userId, workIds.joinToString()))
+					.map { it.response }
+					.map { MarksMiniResponse.Deserializer().deserialize(it) }
+					.map { getMarks(it) }
+
+	private fun getMarks(response: MarksMiniResponse): ArrayList<MarkMini> = response.marks
+
+	override fun onSendMark(workId: Int, mark: Int) {
+		makeRestCall(
+				DataManager.sendUserMark(workId, workId, mark).toObservable(),
+				Consumer { response ->
+					sendToView {
+						it.onSetMark(mark, response.markCount, response.midMark)
 					}
-				})
-	}
-
-	override fun onError(throwable: Throwable) {
-		workId?.let { onWorkOffline(it) }
-		super.onError(throwable)
-	}
-
-	override fun onWorkOffline(id: Int) {
-		sendToView { it.showMessage(R.string.error, R.string.failed_data) }
-	}
-
-	override fun onClick(v: View?) {
-		sendToView { it.onClick(v) }
+				}
+		)
 	}
 
 	override fun onItemClick(position: Int, v: View?, item: Nomination) {
@@ -80,10 +105,4 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(),
 
 	override fun onItemLongClick(position: Int, v: View?, item: Nomination) {
 	}
-
-	override fun getNoms(): ArrayList<Nomination>? = noms ?: ArrayList()
-
-	override fun getWins(): ArrayList<Nomination>? = wins ?: ArrayList()
-
-	override fun getAuthors(): ArrayList<Work.Author>? = authors ?: ArrayList()
 }
