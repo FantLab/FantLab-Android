@@ -35,7 +35,7 @@ class ProfileOverviewPresenter : BasePresenter<ProfileOverviewMvp.View>(), Profi
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getUserPath(userId))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { UserResponse.Deserializer().deserialize(it) }
 					.map { getUser(it) }
 

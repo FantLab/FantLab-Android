@@ -44,7 +44,7 @@ class AwardsPresenter : BasePresenter<AwardsMvp.View>(), AwardsMvp.Presenter {
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getAwardsPath(true, sort))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { AwardsResponse.Deserializer().deserialize(it) }
 					.map { getAwards(it) }
 

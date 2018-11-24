@@ -36,7 +36,7 @@ class AwardOverviewPresenter : BasePresenter<AwardOverviewMvp.View>(),
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getAwardPath(awardId, false, false))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { AwardResponse.Deserializer().deserialize(it) }
 					.map { getAward(it) }
 

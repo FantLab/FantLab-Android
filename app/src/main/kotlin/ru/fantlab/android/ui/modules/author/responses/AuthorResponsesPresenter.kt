@@ -67,7 +67,7 @@ class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getAuthorResponsesPath(authorId, 1, sort))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { ResponsesResponse.Deserializer(perPage = 50).deserialize(it) }
 					.map { getResponses(it) }
 

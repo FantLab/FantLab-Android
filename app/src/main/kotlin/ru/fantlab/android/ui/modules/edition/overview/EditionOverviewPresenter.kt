@@ -39,7 +39,7 @@ class EditionOverviewPresenter : BasePresenter<EditionOverviewMvp.View>(),
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getEditionPath(editionId, showAdditionalImages = true))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { EditionResponse.Deserializer().deserialize(it) }
 					.map { getEdition(it) }
 

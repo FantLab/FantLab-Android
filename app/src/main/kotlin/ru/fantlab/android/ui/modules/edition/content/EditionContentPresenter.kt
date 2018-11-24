@@ -46,7 +46,7 @@ class EditionContentPresenter : BasePresenter<EditionContentMvp.View>(),
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getEditionPath(editionId, true))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { EditionResponse.Deserializer().deserialize(it) }
 					.map { getContent(it) }
 

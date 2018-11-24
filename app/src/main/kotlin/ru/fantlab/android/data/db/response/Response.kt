@@ -13,5 +13,8 @@ data class Response(
 		val response: String,
 
 		@ColumnInfo(name = "api_version")
-		val apiVersion: String
+		val apiVersion: String,
+
+		@ColumnInfo(name = "timestamp")
+		val timeStamp: Long
 )

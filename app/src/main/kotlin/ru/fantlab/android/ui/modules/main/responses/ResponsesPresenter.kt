@@ -66,7 +66,7 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getLastResponsesPath(page))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { ResponsesResponse.Deserializer(perPage = 50).deserialize(it) }
 					.map { getResponses(it) }
 
@@ -109,7 +109,7 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getUserPath(PrefGetter.getLoggedUser()?.id!!))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { UserResponse.Deserializer().deserialize(it) }
 					.map { getUserLevel(it) }
 

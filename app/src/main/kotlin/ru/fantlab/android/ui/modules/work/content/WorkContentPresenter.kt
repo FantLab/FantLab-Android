@@ -47,7 +47,7 @@ class WorkContentPresenter : BasePresenter<WorkContentMvp.View>(),
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getWorkPath(workId, showChildren = true))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { WorkResponse.Deserializer().deserialize(it) }
 					.map { getContent(it) }
 

@@ -70,7 +70,7 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getUserResponsesPath(userId, 1))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { ResponsesResponse.Deserializer(perPage = 50).deserialize(it) }
 					.map { getResponses(it) }
 

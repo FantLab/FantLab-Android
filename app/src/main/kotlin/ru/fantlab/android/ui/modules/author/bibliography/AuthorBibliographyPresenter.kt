@@ -40,7 +40,7 @@ class AuthorBibliographyPresenter : BasePresenter<AuthorBibliographyMvp.View>(),
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getAuthorPath(authorId, showBiblioBlocks = true))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { AuthorResponse.Deserializer().deserialize(it) }
 					.map { getAuthor(it) }
 
@@ -68,7 +68,7 @@ class AuthorBibliographyPresenter : BasePresenter<AuthorBibliographyMvp.View>(),
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getUserMarksMiniPath(userId, workIds.joinToString()))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { MarksMiniResponse.Deserializer().deserialize(it) }
 					.map { getMarks(it) }
 

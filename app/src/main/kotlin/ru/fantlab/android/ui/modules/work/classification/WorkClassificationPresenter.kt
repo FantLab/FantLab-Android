@@ -42,7 +42,7 @@ class WorkClassificationPresenter : BasePresenter<WorkClassificationMvp.View>(),
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getWorkPath(workId, showClassificatory = true))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { WorkResponse.Deserializer().deserialize(it) }
 					.map { getClassificatory(it) }
 

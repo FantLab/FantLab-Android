@@ -39,7 +39,7 @@ class AuthorsPresenter : BasePresenter<AuthorsMvp.View>(), AuthorsMvp.Presenter 
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getAuthorsPath())
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { AuthorsResponse.Deserializer().deserialize(it) }
 					.map { getAuthors(it) }
 

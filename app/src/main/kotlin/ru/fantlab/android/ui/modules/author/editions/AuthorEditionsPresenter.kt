@@ -49,7 +49,7 @@ class AuthorEditionsPresenter : BasePresenter<AuthorEditionsMvp.View>(),
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getAuthorEditionsPath(authorId, true))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { AuthorEditionsResponse.Deserializer().deserialize(it) }
 					.map { getEditions(it) }
 

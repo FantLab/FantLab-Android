@@ -37,7 +37,7 @@ class AuthorOverviewPresenter : BasePresenter<AuthorOverviewMvp.View>(),
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getAuthorPath(authorId, showBiography = true))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { AuthorResponse.Deserializer().deserialize(it) }
 					.map { getAuthor(it) }
 

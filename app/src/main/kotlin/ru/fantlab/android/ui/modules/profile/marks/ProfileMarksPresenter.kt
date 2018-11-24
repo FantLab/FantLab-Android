@@ -68,7 +68,7 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getUserMarksPath(userId, 1))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { MarksResponse.Deserializer(perPage = 200).deserialize(it) }
 					.map { getMarks(it) }
 

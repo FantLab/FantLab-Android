@@ -56,7 +56,7 @@ class WorkAnalogsPresenter : BasePresenter<WorkAnalogsMvp.View>(),
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getWorkAnalogsPath(workId))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { WorkAnalogsResponse.Deserializer().deserialize(it) }
 					.map { getAnalogs(it) }
 

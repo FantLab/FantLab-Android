@@ -50,7 +50,7 @@ class WorkEditionsPresenter : BasePresenter<WorkEditionsMvp.View>(),
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getWorkPath(workId, showEditionsBlocks = true, showEditionsInfo = true))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { WorkResponse.Deserializer().deserialize(it) }
 					.map { getEditions(it) }
 

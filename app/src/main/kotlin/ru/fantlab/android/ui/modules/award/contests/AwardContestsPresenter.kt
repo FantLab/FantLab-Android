@@ -49,7 +49,7 @@ class AwardContestsPresenter : BasePresenter<AwardContestsMvp.View>(),
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getAwardPath(awardId, false, true))
-					.map { it.toNullable()!!.response }
+					.map { it.response }
 					.map { AwardResponse.Deserializer().deserialize(it) }
 					.map { getContests(it) }
 
