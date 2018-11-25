@@ -11,14 +11,18 @@
 	<RelativeLayout
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_margin="@dimen/spacing_normal"
+		android:paddingBottom="@dimen/spacing_normal"
+		android:paddingLeft="@dimen/spacing_xs_large"
+		android:paddingRight="@dimen/spacing_xs_large"
+		android:paddingTop="@dimen/spacing_normal"
 		>
 
 		<ru.fantlab.android.ui.widgets.AvatarLayout
 			android:id="@+id/awardIcon"
 			android:layout_width="35dp"
 			android:layout_height="35dp"
-			android:layout_margin="@dimen/spacing_micro"
+			android:layout_marginBottom="@dimen/spacing_normal"
+			android:layout_marginEnd="@dimen/spacing_normal"
 			/>
 
 		<LinearLayout
