@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/kenrube/FantLab-client.svg?branch=master)](https://travis-ci.org/kenrube/FantLab-client)
 
-# FantLab-client
+# FantLab-Android
 Android-клиент для краудсорсингового библиографического проекта [FantLab.ru](https://fantlab.ru). Основан на [FastHub](https://github.com/k0shk0sh/FastHub) by Kosh Sergani.
 
 ## Спецификации / Open-source библиотеки:
