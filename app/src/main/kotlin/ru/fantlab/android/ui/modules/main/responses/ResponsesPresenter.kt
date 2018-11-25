@@ -3,12 +3,10 @@ package ru.fantlab.android.ui.modules.main.responses
 import android.view.View
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.data.dao.response.ResponsesResponse
 import ru.fantlab.android.data.dao.response.UserResponse
 import ru.fantlab.android.data.dao.response.VoteResponse
-import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.provider.rest.getLastResponsesPath
@@ -74,25 +72,24 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 			response.responses.items to response.responses.last
 
 	override fun onSendVote(item: Response, position: Int, voteType: String) {
+		makeRestCall(DataManager.sendResponseVote(item.id, voteType)
+				.toObservable(),
+				Consumer { response ->
+					val result = VoteResponse.Parser().parse(response)
+					if (result != null) {
+						sendToView { it.onSetVote(position, result.votesCount.toString()) }
+					} else {
+						sendToView { it.showErrorMessage(response) }
+					}
+				})
+	}
+
+	override fun onGetUserLevel(position: Int, item: Response) {
 		makeRestCall(
 				getUserLevelInternal().toObservable(),
 				Consumer { level ->
-					if (level >= FantlabHelper.minLevelToVote) {
-						makeRestCall(DataManager.sendResponseVote(item.id, voteType)
-								.toObservable(),
-								Consumer { response ->
-									val result = VoteResponse.Parser().parse(response)
-									if (result != null) {
-										sendToView { it.onSetVote(position, result.votesCount.toString()) }
-									} else {
-										sendToView { it.showErrorMessage(response) }
-									}
-								})
-					} else {
-						sendToView { it.showMessage(R.string.error, R.string.cannotvote_novice) }
-					}
-				}
-		)
+					sendToView { it.onShowVotesDialog(level, position, item) }
+				})
 	}
 
 	private fun getUserLevelInternal() =

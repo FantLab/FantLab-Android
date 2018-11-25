@@ -11,6 +11,7 @@ import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ResponsesAdapter
@@ -25,10 +26,14 @@ import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScrolle
 
 class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(), ResponsesMvp.View {
 
-	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
-	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
-	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
-	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
+	@BindView(R.id.recycler)
+	lateinit var recycler: DynamicRecyclerView
+	@BindView(R.id.refresh)
+	lateinit var refresh: SwipeRefreshLayout
+	@BindView(R.id.stateLayout)
+	lateinit var stateLayout: StateLayout
+	@BindView(R.id.fastScroller)
+	lateinit var fastScroller: RecyclerViewFastScroller
 
 	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(arrayListOf()) }
 	private val onLoadMore: OnLoadMore<String> by lazy { OnLoadMore(presenter) }
@@ -118,20 +123,18 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 	}
 
 	override fun onItemLongClicked(position: Int, v: View?, item: Response) {
-		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForResponses(recycler.context), item, position)
-		dialogView.show(childFragmentManager, "ContextMenuDialogView")
+		if (isLoggedIn()) {
+			presenter.onGetUserLevel(position, item)
+		} else showErrorMessage(getString(R.string.unauthorized_user))
 	}
 
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
 		if (listItem is Response) when (item.id) {
 			"vote" -> {
-				if (isLoggedIn()) {
-					if (PrefGetter.getLoggedUser()?.id != listItem.userId)
-						presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
-					else
-						showErrorMessage(getString(R.string.cannotvote))
-				} else showErrorMessage(getString(R.string.unauthorized_user))
+				if (PrefGetter.getLoggedUser()?.id != listItem.userId)
+					presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
+				else
+					showErrorMessage(getString(R.string.cannotvote))
 			}
 			"profile" -> {
 				UserPagerActivity.startActivity(context!!, listItem.userName, listItem.userId, 0)
@@ -145,11 +148,19 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 		}
 	}
 
+	override fun onShowVotesDialog(userLevel: Float, position: Int, item: Response) {
+		hideProgress()
+		val dialogView = ContextMenuDialogView()
+		val variants = ContextMenuBuilder.buildForResponses(recycler.context)
+		if (userLevel < FantlabHelper.minLevelToVote) variants[1].items.removeAt(1)
+		dialogView.initArguments("main", variants, item, position)
+		dialogView.show(childFragmentManager, "ContextMenuDialogView")
+	}
+
 	override fun onSetVote(position: Int, votesCount: String) {
 		hideProgress()
 		adapter.getItem(position).voteCount = votesCount.toInt()
 		adapter.notifyItemChanged(position)
-
 	}
 
 	override fun onOpenContextMenu(userItem: Response) {

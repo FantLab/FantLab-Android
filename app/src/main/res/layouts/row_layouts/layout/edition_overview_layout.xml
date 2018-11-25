@@ -51,7 +51,7 @@
 							android:layout_marginBottom="@dimen/spacing_normal"
 							android:layout_marginLeft="@dimen/spacing_xs_large"
 							android:layout_marginRight="@dimen/spacing_xs_large"
-							android:layout_marginTop="@dimen/spacing_xs_large"
+							android:layout_marginTop="@dimen/spacing_normal"
 							android:elevation="1dp"
 							/>
 
@@ -82,7 +82,7 @@
 							android:layout_height="wrap_content"
 							android:layout_alignParentEnd="true"
 							android:layout_alignTop="@+id/coverLayout"
-							android:layout_marginTop="@dimen/spacing_xs_large"
+							android:layout_marginTop="@dimen/spacing_normal"
 							android:layout_toEndOf="@+id/coverLayout"
 							tools:text="Гиперион"
 							/>

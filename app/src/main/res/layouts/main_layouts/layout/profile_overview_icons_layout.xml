@@ -7,6 +7,8 @@
 	android:layout_gravity="center_horizontal"
 	android:gravity="center_horizontal"
 	android:orientation="vertical"
+	android:paddingBottom="@dimen/spacing_normal"
+	android:paddingTop="@dimen/spacing_normal"
 	tools:showIn="@layout/profile_overview_layout"
 	>
 

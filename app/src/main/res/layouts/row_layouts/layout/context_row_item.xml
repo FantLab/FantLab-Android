@@ -13,7 +13,7 @@
 		android:id="@+id/icon"
 		android:layout_width="@dimen/bbn_fixed_item_icon_size"
 		android:layout_height="@dimen/bbn_fixed_item_icon_size"
-		android:layout_marginEnd="@dimen/spacing_xs_large"
+		android:layout_marginEnd="@dimen/spacing_large"
 		/>
 
 	<ru.fantlab.android.ui.widgets.FontTextView

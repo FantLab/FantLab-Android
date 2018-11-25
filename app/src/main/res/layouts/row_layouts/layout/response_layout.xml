@@ -47,7 +47,10 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:orientation="horizontal"
-						android:padding="10dp"
+						android:paddingBottom="@dimen/spacing_normal"
+						android:paddingLeft="@dimen/spacing_xs_large"
+						android:paddingRight="@dimen/spacing_xs_large"
+						android:paddingTop="@dimen/spacing_normal"
 						>
 
 						<LinearLayout
@@ -73,7 +76,7 @@
 						<RelativeLayout
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_marginStart="4dp"
+							android:layout_marginStart="@dimen/spacing_xs_large"
 							>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -99,7 +102,6 @@
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								android:layout_below="@+id/text"
-								android:layout_marginTop="@dimen/spacing_micro"
 								android:layout_toStartOf="@+id/mark"
 								app:flChildSpacing="4dp"
 								app:flChildSpacingForLastRow="align"
@@ -185,8 +187,7 @@
 								android:layout_below="@+id/date"
 								android:layout_gravity="start"
 								android:layout_marginBottom="@dimen/spacing_xs_large"
-								android:layout_marginEnd="@dimen/spacing_micro"
-								android:layout_marginTop="@dimen/spacing_xs_large"
+								android:layout_marginTop="@dimen/spacing_normal"
 								android:ellipsize="end"
 								android:gravity="start|center"
 								android:textColor="?android:attr/textColorSecondary"

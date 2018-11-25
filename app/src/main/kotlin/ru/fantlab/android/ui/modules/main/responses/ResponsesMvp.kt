@@ -25,6 +25,8 @@ interface ResponsesMvp {
 
 		fun onSetVote(position: Int, votesCount: String)
 
+		fun onShowVotesDialog(userLevel: Float, position: Int, item: Response)
+
 		override fun onOpenContextMenu(userItem: Response)
 	}
 
@@ -38,5 +40,7 @@ interface ResponsesMvp {
 		fun onCallApi(page: Int): Boolean
 
 		fun onSendVote(item: Response, position: Int, voteType: String)
+
+		fun onGetUserLevel(position: Int, item: Response)
 	}
 }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import butterknife.BindView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.User
@@ -35,6 +36,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 	@BindView(R.id.author) lateinit var author: FontButton
 	@BindView(R.id.divider) lateinit var divider: View
 	@BindView(R.id.blog) lateinit var blog: FontButton
+	@BindView(R.id.authorBlock) lateinit var authorBlock: LinearLayout
 	@BindView(R.id.marksLayout) lateinit var marksLayout: ViewGroup
 	@BindView(R.id.marks) lateinit var marks: FontTextView
 	@BindView(R.id.responsesLayout) lateinit var responsesLayout: ViewGroup
@@ -93,22 +95,28 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 				.append(user.className)
 				.append(", ")
 				.append(if (user.`class` < 7) "$userLevel / $maxClassLevel" else userLevel)
-		if (user.authorId != null) {
-			author.setOnClickListener {
-				AuthorPagerActivity.startActivity(view!!.context, user.authorId, user.authorName!!, 0)
-			}
+
+		if (user.authorId == null && /*user.blogId == null*/true) {
+			authorBlock.visibility = GONE
 		} else {
-			author.visibility = View.GONE
-			divider.visibility = View.GONE
-		}
-		if (/*user.blogId != null*/false /* раскомментировать, когда появится функционал блога */) {
-			blog.setOnClickListener {
-				// goto blog screen
-				showMessage("Click", "Not implemented yet")
+			authorBlock.visibility = VISIBLE
+			if (user.authorId != null) {
+				author.setOnClickListener {
+					AuthorPagerActivity.startActivity(view!!.context, user.authorId, user.authorName!!, 0)
+				}
+			} else {
+				author.visibility = View.GONE
+				divider.visibility = View.GONE
 			}
-		} else {
-			divider.visibility = View.GONE
-			blog.visibility = View.GONE
+			if (/*user.blogId != null*/false /* раскомментировать, когда появится функционал блога */) {
+				blog.setOnClickListener {
+					// goto blog screen
+					showMessage("Click", "Not implemented yet")
+				}
+			} else {
+				divider.visibility = View.GONE
+				blog.visibility = View.GONE
+			}
 		}
 
 		TooltipCompat.setTooltipText(marksLayout, getString(R.string.mark_count))
@@ -132,16 +140,19 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		TooltipCompat.setTooltipText(bookcasesLayout, getString(R.string.bookcase_count))
 		bookcases.text = user.bookcaseCount.toString()
 
-		birthDay.text = user.birthDay?.parseFullDate().getTimeAgo()
-		location.text = if (!user.countryName.isNullOrEmpty() && !user.cityName.isNullOrEmpty()) {
-			StringBuilder()
-					.append(user.countryName)
-					.append(", ")
-					.append(user.cityName)
+		if (user.birthDay != null)
+			birthDay.text = user.birthDay.parseFullDate().getTimeAgo()
+		else birthDay.visibility = GONE
+
+		 if (!user.countryName.isNullOrEmpty() && !user.cityName.isNullOrEmpty()) {
+			 location.text = StringBuilder()
+					 .append(user.countryName)
+					 .append(", ")
+					 .append(user.cityName)
 		} else if (!user.location.isNullOrEmpty()) {
-			user.location
+			 location.text = user.location
 		} else {
-			"N/A"
+			 location.visibility = GONE
 		}
 		regDate.text = user.regDate.parseFullDate().getTimeAgo()
 		lastActionDate.text = user.lastActionDate.parseFullDate().getTimeAgo()

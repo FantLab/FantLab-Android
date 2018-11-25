@@ -12,10 +12,14 @@ interface ResponseOverviewMvp {
 		fun onInitViews(response: Response)
 
 		fun onSetVote(votesCount: String)
+
+		fun onShowVotesDialog(userLevel: Float)
 	}
 
 	interface Presenter : BaseMvp.Presenter {
 
 		fun onSendVote(item: Response, voteType: String)
+
+		fun onGetUserLevel()
 	}
 }

@@ -106,7 +106,7 @@
 			android:windowSoftInputMode="adjustResize"
 			/>
 		<activity
-			android:name=".ui.modules.parser.LinksParserActivity"
+			android:name="ru.fantlab.android.provider.parser.LinksParserActivity"
 			android:configChanges="keyboard|orientation|screenSize"
 			android:noHistory="true"
 			android:theme="@android:style/Theme.NoDisplay"

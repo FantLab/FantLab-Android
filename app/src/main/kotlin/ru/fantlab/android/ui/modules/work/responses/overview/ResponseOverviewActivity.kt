@@ -143,8 +143,15 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 
 	@OnClick(R.id.fab)
 	fun onFabClicked() {
+		presenter.onGetUserLevel()
+	}
+
+	override fun onShowVotesDialog(userLevel: Float) {
+		hideProgress()
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("votes", ContextMenuBuilder.buildForResponse(this), response, 0)
+		val variants = ContextMenuBuilder.buildForResponse(this)
+		if (userLevel < FantlabHelper.minLevelToVote) variants[0].items.removeAt(1)
+		dialogView.initArguments("votes", variants, response, 0)
 		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 	}
 

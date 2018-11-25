@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.parser
+package ru.fantlab.android.provider.parser
 
 import android.app.Activity
 import android.content.Intent
