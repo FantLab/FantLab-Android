@@ -37,6 +37,8 @@ object FantlabHelper {
 		TYPE_TIME("time")
 	}
 
+	var currentUserId: Int = -1
+
 	val minLevelToVote = FantlabHelper.User.classRanges[Levels.NOVICE.`class`]
 
 	var classNeededToSet = listOf(0, 2, 3, 6)

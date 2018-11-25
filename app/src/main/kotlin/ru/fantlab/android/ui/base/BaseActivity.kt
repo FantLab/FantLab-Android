@@ -227,6 +227,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 			glide.clearDiskCache()
 			PrefGetter.setToken(null)
 			PrefGetter.clearLoggedUser()
+			PrefGetter.setSessionUserId()
 			true
 		}.observe().subscribe {
 			glide.clearMemory()

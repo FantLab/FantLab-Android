@@ -76,6 +76,7 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 
 	private fun onInit(savedInstanceState: Bundle?) {
 		if (isLoggedIn() || PrefGetter.proceedWithoutLogin()) {
+			PrefGetter.setSessionUserId()
 			if (savedInstanceState == null) {
 				hideShowShadow(true)
 				supportFragmentManager

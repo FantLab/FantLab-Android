@@ -10,6 +10,9 @@ data class Response(
 		val url: String,
 
 		@ColumnInfo
+		val userId: Int,
+
+		@ColumnInfo
 		val response: String,
 
 		@ColumnInfo(name = "api_version")

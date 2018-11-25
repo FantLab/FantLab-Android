@@ -4,6 +4,7 @@ import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.fuel.core.isSuccessful
 import ru.fantlab.android.BuildConfig
+import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.storage.DbProvider
 
 fun dbResponseInterceptor() =
@@ -12,6 +13,7 @@ fun dbResponseInterceptor() =
 				if (res.isSuccessful) {
 					val response = ru.fantlab.android.data.db.response.Response(
 							req.path,
+							PrefGetter.getSessionUserId(),
 							String(res.data),
 							BuildConfig.API_VERSION,
 							System.currentTimeMillis()

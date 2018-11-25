@@ -52,6 +52,14 @@ object PrefGetter {
 		return DataManager.gson.fromJson(user, User::class.java)
 	}
 
+	fun getSessionUserId(): Int {
+		return FantlabHelper.currentUserId
+	}
+
+	fun setSessionUserId() {
+		FantlabHelper.currentUserId = getLoggedUser()?.id ?: -1
+	}
+
 	fun clearLoggedUser() {
 		PrefHelper.clearKey(LOGGED_USER)
 	}
