@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/layout"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:gravity="center_vertical"
+	android:orientation="vertical"
+	tools:context=".ui.modules.main.MainActivity"
+	>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/spacing_normal"
+		android:gravity="center"
+		android:textStyle="bold"
+		style="@style/TextAppearance.AppCompat.Title"
+		/>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/caption"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/spacing_micro"
+		android:gravity="center"
+		android:visibility="gone"
+		style="@style/TextAppearance.AppCompat.Caption"
+		/>
+
+	<android.support.v4.widget.NestedScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			>
+
+			<ru.fantlab.android.ui.widgets.chartbar.ChartBarView
+				android:id="@+id/chartBarView"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="@dimen/spacing_normal"
+				android:layout_marginLeft="@dimen/spacing_micro"
+				android:layout_marginRight="@dimen/spacing_micro"
+				android:layout_marginTop="@dimen/spacing_normal"
+				/>
+		</LinearLayout>
+
+	</android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>
