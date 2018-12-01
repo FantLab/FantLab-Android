@@ -17,13 +17,17 @@ import com.evernote.android.state.State
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
-import ru.fantlab.android.helper.*
+import ru.fantlab.android.helper.ActivityHelper
+import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.ViewHelper
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.editor.EditorActivity
+import ru.fantlab.android.ui.modules.work.responses.WorkResponsesFragment
 import ru.fantlab.android.ui.widgets.ViewPagerView
 import java.text.NumberFormat
 import java.util.*
@@ -41,6 +45,7 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 	@State var workName: String = ""
 	@State var tabsCountSet = HashSet<TabsCountStateModel>()
 	private val numberFormat = NumberFormat.getNumberInstance()
+	private lateinit var toolbarMenu: Menu
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
@@ -87,6 +92,7 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 			override fun onPageSelected(position: Int) {
 				super.onPageSelected(position)
 				hideShowFab(position)
+				hideShowToolbar(position)
 			}
 		})
 		if (savedInstanceState != null && !tabsCountSet.isEmpty()) {
@@ -96,7 +102,8 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
-		menuInflater.inflate(R.menu.share_menu, menu)
+		menuInflater.inflate(R.menu.work_menu, menu)
+		toolbarMenu = menu
 		return super.onCreateOptionsMenu(menu)
 	}
 
@@ -108,6 +115,9 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 						.appendPath("work$workId")
 						.toString())
 				return true
+			}
+			R.id.sort -> {
+				((pager.adapter as FragmentsPagerAdapter).getItem(2) as WorkResponsesFragment).showSortDialog()
 			}
 		}
 		return super.onOptionsItemSelected(item)
@@ -139,6 +149,23 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 				}
 			}
 			else -> fab.hide()
+		}
+	}
+
+	private fun hideShowToolbar(position: Int) {
+		when (position) {
+			0 -> {
+				toolbarMenu.findItem(R.id.sort).isVisible = false
+				toolbarMenu.findItem(R.id.share).isVisible = true
+			}
+			2 -> {
+				toolbarMenu.findItem(R.id.share).isVisible = false
+				toolbarMenu.findItem(R.id.sort).isVisible = true
+			}
+			else -> {
+				toolbarMenu.findItem(R.id.share).isVisible = false
+				toolbarMenu.findItem(R.id.sort).isVisible = false
+			}
 		}
 	}
 

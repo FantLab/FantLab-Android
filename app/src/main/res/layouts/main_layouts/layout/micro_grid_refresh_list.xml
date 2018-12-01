@@ -20,21 +20,13 @@
 			android:layout_height="match_parent"
 			>
 
-			<ru.fantlab.android.ui.widgets.SortView
-				android:id="@+id/sortview"
+			<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
+				android:id="@+id/recycler"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				app:menu_height="100"
-				>
-
-				<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-					android:id="@+id/recycler"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					app:layoutManager="@string/staggered_layout_manager"
-					app:spanCount="@integer/micro_spans"
-					/>
-			</ru.fantlab.android.ui.widgets.SortView>
+				app:layoutManager="@string/staggered_layout_manager"
+				app:spanCount="@integer/micro_spans"
+				/>
 
 		</ru.fantlab.android.ui.widgets.AppbarRefreshLayout>
 

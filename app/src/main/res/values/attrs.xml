@@ -26,10 +26,6 @@
 		<attr format="float" name="srb_stepSize" />
 	</declare-styleable>
 
-	<declare-styleable name="SortView">
-		<attr format="integer" name="menu_height" />
-	</declare-styleable>
-
 	<declare-styleable name="ExpandableTextView">
 		<attr format="integer" name="trimLength" />
 	</declare-styleable>

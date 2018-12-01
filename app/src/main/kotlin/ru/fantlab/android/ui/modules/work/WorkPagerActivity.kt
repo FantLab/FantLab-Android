@@ -28,6 +28,7 @@ import ru.fantlab.android.ui.modules.classificator.ClassificatorPagerActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.work.classification.WorkClassificationFragment
 import ru.fantlab.android.ui.modules.work.overview.WorkOverviewFragment
+import ru.fantlab.android.ui.modules.work.responses.WorkResponsesFragment
 import ru.fantlab.android.ui.widgets.ViewPagerView
 import java.text.NumberFormat
 import java.util.*
@@ -47,6 +48,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	@State var mark: Int = 0
 	@State var tabsCountSet = HashSet<TabsCountStateModel>()
 	private val numberFormat = NumberFormat.getNumberInstance()
+	private lateinit var toolbarMenu: Menu
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
@@ -93,6 +95,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 			override fun onPageSelected(position: Int) {
 				super.onPageSelected(position)
 				hideShowFab(position)
+				hideShowToolbar(position)
 			}
 		})
 		if (savedInstanceState != null && !tabsCountSet.isEmpty()) {
@@ -102,7 +105,8 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
-		menuInflater.inflate(R.menu.share_menu, menu)
+		menuInflater.inflate(R.menu.work_menu, menu)
+		toolbarMenu = menu
 		return super.onCreateOptionsMenu(menu)
 	}
 
@@ -114,6 +118,9 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 						.appendPath("work$workId")
 						.toString())
 				return true
+			}
+			R.id.sort -> {
+				((pager.adapter as FragmentsPagerAdapter).getItem(2) as WorkResponsesFragment).showSortDialog()
 			}
 		}
 		return super.onOptionsItemSelected(item)
@@ -160,6 +167,23 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 			3 -> fab.hide()/*fab.show()*/
 			4 -> fab.hide()/*fab.show()*/
 			else -> fab.hide()
+		}
+	}
+
+	private fun hideShowToolbar(position: Int) {
+		when (position) {
+			0 -> {
+				toolbarMenu.findItem(R.id.sort).isVisible = false
+				toolbarMenu.findItem(R.id.share).isVisible = true
+			}
+			2 -> {
+				toolbarMenu.findItem(R.id.share).isVisible = false
+				toolbarMenu.findItem(R.id.sort).isVisible = true
+			}
+			else -> {
+				toolbarMenu.findItem(R.id.share).isVisible = false
+				toolbarMenu.findItem(R.id.sort).isVisible = false
+			}
 		}
 	}
 

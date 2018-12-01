@@ -5,19 +5,15 @@ import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.viewholder.ResponseViewHolder
 import ru.fantlab.android.ui.base.mvp.BaseMvp
-import ru.fantlab.android.ui.widgets.SortView
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
-import ru.fantlab.android.ui.widgets.recyclerview.scroll.InfiniteScroll
 
 interface AuthorResponsesMvp {
 
 	interface View : BaseMvp.View,
 			SwipeRefreshLayout.OnRefreshListener,
 			android.view.View.OnClickListener, ContextMenuDialogView.ListDialogViewActionCallback,
-			ResponseViewHolder.OnOpenContextMenu,
-			InfiniteScroll.OnScrollResumed,
-			SortView.SortViewListener {
+			ResponseViewHolder.OnOpenContextMenu {
 
 		fun onNotifyAdapter(items: ArrayList<Response>, page: Int)
 

@@ -3,10 +3,9 @@ package ru.fantlab.android.ui.modules.awards
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import butterknife.BindView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
@@ -16,7 +15,6 @@ import ru.fantlab.android.provider.rest.AwardsSortOption
 import ru.fantlab.android.ui.adapter.AwardsAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.award.AwardPagerActivity
-import ru.fantlab.android.ui.widgets.SortView
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -29,11 +27,10 @@ class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMv
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
-	@BindView(R.id.sortview) lateinit var sortView: SortView
-
-	lateinit var sortButton: Button
 
 	private val adapter: AwardsAdapter by lazy { AwardsAdapter(arrayListOf()) }
+
+	private lateinit var toolbarMenu: Menu
 
 	override fun layout(): Int = R.layout.awards_layout
 
@@ -60,39 +57,30 @@ class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMv
 		recycler.addDivider()
 		presenter.getAwards(false)
 		fastScroller.attachRecyclerView(recycler)
-
-		val menuView = LayoutInflater.from(this).inflate(R.layout.sort_view, null)
-		sortButton = menuView.findViewById(R.id.sortButton)
-		sortButton.setOnClickListener {
-			val dialogView = ContextMenuDialogView()
-			dialogView.initArguments("main", ContextMenuBuilder.buildForAwardsSorting(recycler.context))
-			dialogView.show(supportFragmentManager, "ContextMenuDialogView")
-		}
-		sortView.setHeaderView(menuView)
-
-		refresh.isEnabled = false
-
-		recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-			override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-				if (dy > 0) {
-					sortView.closeMenu()
-				}
-				super.onScrolled(recyclerView, dx, dy)
-			}
-		})
-
-		sortView.setOnSortViewListener(this)
 	}
 
-	override fun onMenuStateChanged(isOpened: Boolean) {
-		refresh.isEnabled = isOpened
+	fun showSortDialog() {
+		val dialogView = ContextMenuDialogView()
+		dialogView.initArguments("main", ContextMenuBuilder.buildForAwardsSorting(recycler.context))
+		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
+	}
+
+	override fun onCreateOptionsMenu(menu: Menu): Boolean {
+		menuInflater.inflate(R.menu.awards_menu, menu)
+		toolbarMenu = menu
+		return super.onCreateOptionsMenu(menu)
+	}
+
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		when (item.itemId) {
+			R.id.sort -> {
+				showSortDialog()
+			}
+		}
+		return super.onOptionsItemSelected(item)
 	}
 
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
-		sortButton.text = StringBuilder()
-				.append(getString(R.string.sort_mode))
-				.append(" ")
-				.append(item.title.toLowerCase())
 		presenter.sort = AwardsSortOption.valueOf(item.id)
 	}
 

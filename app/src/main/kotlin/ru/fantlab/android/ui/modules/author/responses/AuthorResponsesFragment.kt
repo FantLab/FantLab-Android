@@ -5,9 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
 import butterknife.BindView
 import com.evernote.android.state.State
 import ru.fantlab.android.R
@@ -23,7 +21,6 @@ import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.modules.work.responses.overview.ResponseOverviewActivity
-import ru.fantlab.android.ui.widgets.SortView
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -36,9 +33,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
-	@BindView(R.id.sortview) lateinit var sortView: SortView
 
-	lateinit var sortButton: Button
 	@State var authorId: Int? = null
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, authorId) }
 	private val adapter: ResponsesAdapter by lazy { ResponsesAdapter(presenter.responses) }
@@ -68,20 +63,6 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 			onRefresh()
 		}
 		fastScroller.attachRecyclerView(recycler)
-
-		val menuView = LayoutInflater.from(context).inflate(R.layout.sort_view, null)
-		sortButton = menuView.findViewById(R.id.sortButton)
-		sortButton.setOnClickListener {
-			val dialogView = ContextMenuDialogView()
-			dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting(recycler.context))
-			dialogView.show(childFragmentManager, "ContextMenuDialogView")
-		}
-		sortView.setHeaderView(menuView)
-
-		refresh.isEnabled = false
-
-		onLoadMore.setOnScrollListener(this)
-		sortView.setOnSortViewListener(this)
 	}
 
 	override fun onAttach(context: Context?) {
@@ -151,6 +132,12 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 		super.showMessage(titleRes, msgRes)
 	}
 
+	fun showSortDialog() {
+		val dialogView = ContextMenuDialogView()
+		dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting(recycler.context))
+		dialogView.show(childFragmentManager, "ContextMenuDialogView")
+	}
+
 	private fun showReload() {
 		hideProgress()
 		stateLayout.showReload(adapter.itemCount)
@@ -193,29 +180,8 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 				)
 			}
 		} else {
-			sortButton.text = StringBuilder()
-					.append(getString(R.string.sort_mode))
-					.append(" ")
-					.append(item.title.toLowerCase())
 			presenter.setCurrentSort(item.id)
 		}
 	}
 
-	override fun onMenuStateChanged(isOpened: Boolean) {
-		onLoadMore.setMenuShowed(isOpened)
-		refresh.isEnabled = isOpened
-	}
-
-	override fun onHideMenu() {
-		sortView.closeMenu()
-	}
-
-	override fun onStart() {
-		if (presenter != null) adapter.setOnContextMenuListener(this)
-		super.onStart()
-	}
-
-	override fun onScrolled(isUp: Boolean) {
-		authorCallback?.onScrolled(isUp);
-	}
 }

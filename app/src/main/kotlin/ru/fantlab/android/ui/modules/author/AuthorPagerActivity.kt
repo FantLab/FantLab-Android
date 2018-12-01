@@ -25,6 +25,7 @@ import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
+import ru.fantlab.android.ui.modules.author.responses.AuthorResponsesFragment
 import ru.fantlab.android.ui.widgets.ViewPagerView
 import java.text.NumberFormat
 import java.util.*
@@ -41,6 +42,7 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 	@State var authorName: String = ""
 	@State var tabsCountSet = HashSet<TabsCountStateModel>()
 	private val numberFormat = NumberFormat.getNumberInstance()
+	private lateinit var toolbarMenu: Menu
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
@@ -87,6 +89,7 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 			override fun onPageSelected(position: Int) {
 				super.onPageSelected(position)
 				hideShowFab(position)
+				hideShowToolbar(position)
 			}
 		})
 		if (savedInstanceState != null && !tabsCountSet.isEmpty()) {
@@ -96,7 +99,8 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
-		menuInflater.inflate(R.menu.share_menu, menu)
+		menuInflater.inflate(R.menu.author_menu, menu)
+		toolbarMenu = menu
 		return super.onCreateOptionsMenu(menu)
 	}
 
@@ -108,6 +112,9 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 						.appendPath("autor$authorId")
 						.toString())
 				return true
+			}
+			R.id.sort -> {
+				((pager.adapter as FragmentsPagerAdapter).getItem(3) as AuthorResponsesFragment).showSortDialog()
 			}
 		}
 		return super.onOptionsItemSelected(item)
@@ -136,6 +143,23 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 			2 -> fab.hide()/*fab.show()*/
 			3 -> fab.hide()/*fab.show()*/
 			else -> fab.hide()
+		}
+	}
+
+	private fun hideShowToolbar(position: Int) {
+		when (position) {
+			0 -> {
+				toolbarMenu.findItem(R.id.sort).isVisible = false
+				toolbarMenu.findItem(R.id.share).isVisible = true
+			}
+			3 -> {
+				toolbarMenu.findItem(R.id.share).isVisible = false
+				toolbarMenu.findItem(R.id.sort).isVisible = true
+			}
+			else -> {
+				toolbarMenu.findItem(R.id.share).isVisible = false
+				toolbarMenu.findItem(R.id.sort).isVisible = false
+			}
 		}
 	}
 
