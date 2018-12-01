@@ -44,7 +44,7 @@ object MarkDownProvider {
 				.replace("[*]", "<li>")
 				.replace("\\u003d".toRegex(), "=")
 				.replace("\\[URL=(.*?)](.*?)\\[/URL]".toRegex(), "<a href=\$1>\$2</a>")
-				.replace("\\[(?!autor|/autor)(?!award|/award)(?!work|/work)(?!link|/link)(?!translator|/translator)(.*?)]".toRegex(), "<$1>")
+				.replace("\\[(?!autor|/autor)(?!award|/award)(?!work|/work)(?!link|/link)(?!art|/art)(?!translator|/translator)(.*?)]".toRegex(), "<$1>")
 				.replace("(<PHOTO.*?>)".toRegex(), "")
 				.replace("\n", "<br>")
 	}

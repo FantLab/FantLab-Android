@@ -15,7 +15,7 @@ import timber.log.Timber
 
 object SchemeParser {
 	fun launchUri(context: Context, url: String, label: String) {
-		val pattern = Regex("([a-z]+).*?(\\d+)\\D")
+		val pattern = Regex("([a-z]+).*?(\\d+)(\\D|\\Z)")
 		val results = pattern.matchEntire(url.substringAfterLast("/"))?.groupValues
 		if (results != null) {
 			val type = results[1]
