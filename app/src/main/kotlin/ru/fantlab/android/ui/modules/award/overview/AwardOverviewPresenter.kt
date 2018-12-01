@@ -27,6 +27,8 @@ class AwardOverviewPresenter : BasePresenter<AwardOverviewMvp.View>(),
 					.onErrorResumeNext {
 						getAwardFromDb(awardId)
 					}
+					.onErrorResumeNext { ext -> Single.error(ext) }
+					.doOnError { err -> sendToView { it.onShowErrorView(err.message) } }
 
 	private fun getAwardFromServer(awardId: Int): Single<Award> =
 			DataManager.getAward(awardId, false, false)

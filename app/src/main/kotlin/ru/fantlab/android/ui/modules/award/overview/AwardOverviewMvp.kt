@@ -11,6 +11,8 @@ interface AwardOverviewMvp {
 		fun onInitViews(award: Award)
 
 		fun onSetTitle(title: String)
+
+		fun onShowErrorView(msgRes: String?)
 	}
 
 	interface Presenter : BaseMvp.Presenter {

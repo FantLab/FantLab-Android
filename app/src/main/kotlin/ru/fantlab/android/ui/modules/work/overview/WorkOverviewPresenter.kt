@@ -35,6 +35,8 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(), WorkOvervie
 					.onErrorResumeNext {
 						getWorkFromDb(workId)
 					}
+					.onErrorResumeNext { ext -> Single.error(ext) }
+					.doOnError { err -> sendToView { it.onShowErrorView(err.message) } }
 
 	private fun getWorkFromServer(workId: Int):
 			Single<Tuple4<Work, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>>> =

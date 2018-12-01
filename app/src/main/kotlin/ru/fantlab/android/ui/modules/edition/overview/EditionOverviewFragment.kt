@@ -18,10 +18,7 @@ import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.edition.EditionPagerMvp
-import ru.fantlab.android.ui.widgets.CoverLayout
-import ru.fantlab.android.ui.widgets.Dot
-import ru.fantlab.android.ui.widgets.FontTextView
-import ru.fantlab.android.ui.widgets.GallerySlider
+import ru.fantlab.android.ui.widgets.*
 import ru.fantlab.android.ui.widgets.dialog.ListDialogView
 
 class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOverviewPresenter>(),
@@ -44,6 +41,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 	@BindView(R.id.notesCard) lateinit var notesCard: CardView
 	@BindView(R.id.notes) lateinit var notes: FontTextView
 	@BindView(R.id.progress) lateinit var progress: View
+	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
 	private lateinit var edition: Edition
 	private var pagerCallback: EditionPagerMvp.View? = null
@@ -53,6 +51,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 	override fun providePresenter() = EditionOverviewPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
+		stateLayout.hideReload()
 		presenter.onFragmentCreated(arguments!!)
 	}
 
@@ -203,6 +202,12 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 	override fun showErrorMessage(msgRes: String?) {
 		hideProgress()
 		super.showErrorMessage(msgRes)
+	}
+
+	override fun onShowErrorView(msgRes: String?) {
+		parentView.visibility = View.GONE
+		stateLayout.setEmptyText(R.string.network_error)
+		stateLayout.showEmptyState()
 	}
 
 	override fun showMessage(titleRes: Int, msgRes: Int) {

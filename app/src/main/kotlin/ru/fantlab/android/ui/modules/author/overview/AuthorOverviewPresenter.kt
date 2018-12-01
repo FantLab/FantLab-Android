@@ -28,6 +28,8 @@ class AuthorOverviewPresenter : BasePresenter<AuthorOverviewMvp.View>(),
 					.onErrorResumeNext {
 						getAuthorFromDb(authorId)
 					}
+					.onErrorResumeNext { ext -> Single.error(ext) }
+					.doOnError { err -> sendToView { it.onShowErrorView(err.message) } }
 
 	private fun getAuthorFromServer(authorId: Int): Single<Pair<Author, Biography?>> =
 			DataManager.getAuthor(authorId, showBiography = true)

@@ -10,6 +10,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import butterknife.BindView
+import kotlinx.android.synthetic.main.profile_overview_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.User
 import ru.fantlab.android.helper.BundleConstant
@@ -24,6 +25,7 @@ import ru.fantlab.android.ui.modules.user.UserPagerMvp
 import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.FontButton
 import ru.fantlab.android.ui.widgets.FontTextView
+import ru.fantlab.android.ui.widgets.StateLayout
 import java.text.NumberFormat
 
 class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOverviewPresenter>(),
@@ -62,6 +64,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 	@BindView(R.id.sign) lateinit var sign: FontTextView
 	@BindView(R.id.block) lateinit var block: FontTextView
 	@BindView(R.id.progress) lateinit var progress: View
+	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
 	private val numberFormat = NumberFormat.getNumberInstance()
 
@@ -72,6 +75,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 	private var pagerCallback: UserPagerMvp.View? = null
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
+		stateLayout.hideReload()
 		presenter.onFragmentCreated(arguments!!)
 	}
 
@@ -187,6 +191,12 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 	override fun showErrorMessage(msgRes: String?) {
 		hideProgress()
 		super.showErrorMessage(msgRes)
+	}
+
+	override fun onShowErrorView(msgRes: String?) {
+		parentView.visibility = View.GONE
+		stateLayout.setEmptyText(R.string.network_error)
+		stateLayout.showEmptyState()
 	}
 
 	override fun showMessage(titleRes: Int, msgRes: Int) {

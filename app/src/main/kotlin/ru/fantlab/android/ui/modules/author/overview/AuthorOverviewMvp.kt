@@ -10,6 +10,8 @@ interface AuthorOverviewMvp {
 	interface View : BaseMvp.View {
 
 		fun onInitViews(author: Author, biography: Biography?)
+
+		fun onShowErrorView(msgRes: String?)
 	}
 
 	interface Presenter : BaseMvp.Presenter {

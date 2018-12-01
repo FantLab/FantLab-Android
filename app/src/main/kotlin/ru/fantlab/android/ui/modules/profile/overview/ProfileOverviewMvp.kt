@@ -10,6 +10,8 @@ interface ProfileOverviewMvp {
 			android.view.View.OnClickListener {
 
 		fun onInitViews(user: User)
+
+		fun onShowErrorView(msgRes: String?)
 	}
 
 	interface Presenter : BaseMvp.Presenter {

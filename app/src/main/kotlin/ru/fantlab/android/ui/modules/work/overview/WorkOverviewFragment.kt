@@ -6,6 +6,7 @@ import android.support.annotation.StringRes
 import android.support.v7.widget.CardView
 import android.view.View
 import butterknife.BindView
+import kotlinx.android.synthetic.main.work_overview_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.MarkMini
 import ru.fantlab.android.data.dao.model.Nomination
@@ -24,6 +25,7 @@ import ru.fantlab.android.ui.modules.work.WorkPagerMvp
 import ru.fantlab.android.ui.modules.work.analogs.WorkAnalogsFragment
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
+import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 
@@ -45,6 +47,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	@BindView(R.id.aboutView) lateinit var aboutView: CardView
 	@BindView(R.id.winsView) lateinit var winsView: CardView
 	@BindView(R.id.nomsView) lateinit var nomsView: CardView
+	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
 	private lateinit var work: Work
 	private val adapterNoms: WorkAwardsAdapter by lazy { WorkAwardsAdapter(arrayListOf()) }
@@ -57,6 +60,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	override fun providePresenter() = WorkOverviewPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
+		stateLayout.hideReload()
 		presenter.onFragmentCreated(arguments!!)
 	}
 
@@ -139,6 +143,12 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	override fun showErrorMessage(msgRes: String?) {
 		hideProgress()
 		super.showErrorMessage(msgRes)
+	}
+
+	override fun onShowErrorView(msgRes: String?) {
+		parentView.visibility = View.GONE
+		stateLayout.setEmptyText(R.string.network_error)
+		stateLayout.showEmptyState()
 	}
 
 	override fun showMessage(titleRes: Int, msgRes: Int) {

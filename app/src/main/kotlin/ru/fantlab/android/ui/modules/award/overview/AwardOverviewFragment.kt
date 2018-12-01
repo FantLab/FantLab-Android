@@ -9,6 +9,7 @@ import android.widget.ImageView
 import butterknife.BindView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import kotlinx.android.synthetic.main.award_overview_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Award
 import ru.fantlab.android.helper.BundleConstant
@@ -20,6 +21,7 @@ import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.award.AwardPagerMvp
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.ForegroundImageView
+import ru.fantlab.android.ui.widgets.StateLayout
 
 class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewPresenter>(),
 		AwardOverviewMvp.View {
@@ -38,6 +40,7 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 	@BindView(R.id.country) lateinit var country: FontTextView
 	@BindView(R.id.date) lateinit var date: FontTextView
 	@BindView(R.id.homepage) lateinit var homepage: FontTextView
+	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
 	private var pagerCallback: AwardPagerMvp.View? = null
 
@@ -46,6 +49,7 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 	override fun providePresenter() = AwardOverviewPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
+		stateLayout.hideReload()
 		presenter.onFragmentCreated(arguments!!)
 	}
 
@@ -123,6 +127,13 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 		hideProgress()
 		super.showErrorMessage(msgRes)
 	}
+
+	override fun onShowErrorView(msgRes: String?) {
+		parentView.visibility = View.GONE
+		stateLayout.setEmptyText(R.string.network_error)
+		stateLayout.showEmptyState()
+	}
+
 
 	override fun showMessage(titleRes: Int, msgRes: Int) {
 		hideProgress()

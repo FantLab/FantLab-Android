@@ -15,6 +15,8 @@ interface EditionOverviewMvp {
 		fun onInitViews(edition: Edition, additionalImages: AdditionalImages?)
 
 		fun onSetTitle(title: String)
+
+		fun onShowErrorView(msgRes: String?)
 	}
 
 	interface Presenter : BaseMvp.Presenter {

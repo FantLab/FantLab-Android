@@ -1,208 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/parentView"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:clipToPadding="false"
+	android:layout_height="wrap_content"
 	android:orientation="vertical"
-	tools:ignore="RtlSymmetry"
 	>
 
-	<FrameLayout
+	<android.support.v4.widget.NestedScrollView
+		android:id="@+id/parentView"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="match_parent"
+		android:clipToPadding="false"
 		android:orientation="vertical"
+		tools:ignore="RtlSymmetry"
 		>
 
-		<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+		<FrameLayout
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
 			>
 
-			<android.support.v7.widget.CardView
-				android:id="@+id/topView"
+			<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:elevation="@dimen/spacing_normal"
-				app:cardBackgroundColor="?card_background"
-				app:cardCornerRadius="0dp"
+				android:layout_height="match_parent"
 				>
 
-				<LinearLayout
-					android:layout_width="wrap_content"
+				<android.support.v7.widget.CardView
+					android:id="@+id/topView"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:elevation="@dimen/spacing_normal"
+					app:cardBackgroundColor="?card_background"
+					app:cardCornerRadius="0dp"
 					>
 
-					<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
-						android:layout_width="match_parent"
-						android:layout_height="match_parent"
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
 						>
 
-
-						<ru.fantlab.android.ui.widgets.CoverLayout
-							android:id="@+id/coverLayout"
-							android:layout_width="100dp"
-							android:layout_height="140dp"
-							android:layout_gravity="center_horizontal"
-							android:layout_marginBottom="@dimen/spacing_normal"
-							android:layout_marginLeft="@dimen/spacing_xs_large"
-							android:layout_marginRight="@dimen/spacing_xs_large"
-							android:layout_marginTop="@dimen/spacing_normal"
-							android:elevation="1dp"
-							/>
-
-						<ru.fantlab.android.ui.widgets.FontTextView
-							android:id="@+id/homepage"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_below="@+id/country"
-							android:layout_toEndOf="@+id/coverLayout"
-							tools:text="dansimmons.com"
-							style="@style/TextAppearance.AppCompat.Caption"
-							/>
-
-						<ru.fantlab.android.ui.widgets.FontTextView
-							android:id="@+id/notOpened"
+						<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
 							android:layout_width="match_parent"
-							android:layout_height="wrap_content"
-							android:layout_below="@+id/homepage"
-							android:layout_toEndOf="@+id/coverLayout"
-							android:text="@string/author_not_opened"
-							android:textColor="@color/material_red_500"
-							android:textStyle="bold"
-							style="@style/Base.TextAppearance.AppCompat.Subhead"
-							/>
-
-						<ru.fantlab.android.ui.widgets.FontTextView
-							android:id="@+id/country"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_below="@+id/date"
-							android:layout_toEndOf="@+id/langIcon"
-							android:paddingStart="@dimen/spacing_micro"
-							style="@style/TextAppearance.AppCompat.Caption"
-							/>
-
-						<ImageView
-							android:id="@+id/langIcon"
-							android:layout_width="12dp"
-							android:layout_height="12dp"
-							android:layout_below="@+id/date"
-							android:layout_toEndOf="@+id/coverLayout"
-							/>
-
-						<ru.fantlab.android.ui.widgets.FontTextView
-							android:id="@+id/author"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_alignParentEnd="true"
-							android:layout_alignTop="@+id/coverLayout"
-							android:layout_marginTop="@dimen/spacing_normal"
-							android:layout_toEndOf="@+id/coverLayout"
-							tools:text="Дэн Симмонс"
-							/>
-
-						<ru.fantlab.android.ui.widgets.FontTextView
-							android:id="@+id/author2"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_alignParentEnd="true"
-							android:layout_below="@+id/author"
-							android:layout_toEndOf="@+id/coverLayout"
-							tools:text="Dan Simmons"
-							style="@style/TextAppearance.AppCompat.Caption"
-							/>
-
-						<ru.fantlab.android.ui.widgets.FontTextView
-							android:id="@+id/date"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_below="@+id/author2"
-							android:layout_marginTop="@dimen/spacing_micro"
-							android:layout_toEndOf="@+id/coverLayout"
-							tools:text="4 апреля 1948 г."
-							style="@style/TextAppearance.AppCompat.Caption"
-							/>
+							android:layout_height="match_parent"
+							>
 
 
-					</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
-				</LinearLayout>
-			</android.support.v7.widget.CardView>
+							<ru.fantlab.android.ui.widgets.CoverLayout
+								android:id="@+id/coverLayout"
+								android:layout_width="100dp"
+								android:layout_height="140dp"
+								android:layout_gravity="center_horizontal"
+								android:layout_marginBottom="@dimen/spacing_normal"
+								android:layout_marginLeft="@dimen/spacing_xs_large"
+								android:layout_marginRight="@dimen/spacing_xs_large"
+								android:layout_marginTop="@dimen/spacing_normal"
+								android:elevation="1dp"
+								/>
 
-			<android.support.v7.widget.CardView
-				android:id="@+id/biographyCard"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@+id/topView"
-				android:layout_marginBottom="@dimen/spacing_normal"
-				android:layout_marginTop="@dimen/spacing_normal"
-				android:elevation="@dimen/spacing_normal"
-				app:cardBackgroundColor="?card_background"
-				app:cardCornerRadius="0dp"
-				>
+							<ru.fantlab.android.ui.widgets.FontTextView
+								android:id="@+id/homepage"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_below="@+id/country"
+								android:layout_toEndOf="@+id/coverLayout"
+								tools:text="dansimmons.com"
+								style="@style/TextAppearance.AppCompat.Caption"
+								/>
 
-				<LinearLayout
+							<ru.fantlab.android.ui.widgets.FontTextView
+								android:id="@+id/notOpened"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:layout_below="@+id/homepage"
+								android:layout_toEndOf="@+id/coverLayout"
+								android:text="@string/author_not_opened"
+								android:textColor="@color/material_red_500"
+								android:textStyle="bold"
+								style="@style/Base.TextAppearance.AppCompat.Subhead"
+								/>
+
+							<ru.fantlab.android.ui.widgets.FontTextView
+								android:id="@+id/country"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_below="@+id/date"
+								android:layout_toEndOf="@+id/langIcon"
+								android:paddingStart="@dimen/spacing_micro"
+								style="@style/TextAppearance.AppCompat.Caption"
+								/>
+
+							<ImageView
+								android:id="@+id/langIcon"
+								android:layout_width="12dp"
+								android:layout_height="12dp"
+								android:layout_below="@+id/date"
+								android:layout_toEndOf="@+id/coverLayout"
+								/>
+
+							<ru.fantlab.android.ui.widgets.FontTextView
+								android:id="@+id/author"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_alignParentEnd="true"
+								android:layout_alignTop="@+id/coverLayout"
+								android:layout_marginTop="@dimen/spacing_normal"
+								android:layout_toEndOf="@+id/coverLayout"
+								tools:text="Дэн Симмонс"
+								/>
+
+							<ru.fantlab.android.ui.widgets.FontTextView
+								android:id="@+id/author2"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_alignParentEnd="true"
+								android:layout_below="@+id/author"
+								android:layout_toEndOf="@+id/coverLayout"
+								tools:text="Dan Simmons"
+								style="@style/TextAppearance.AppCompat.Caption"
+								/>
+
+							<ru.fantlab.android.ui.widgets.FontTextView
+								android:id="@+id/date"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_below="@+id/author2"
+								android:layout_marginTop="@dimen/spacing_micro"
+								android:layout_toEndOf="@+id/coverLayout"
+								tools:text="4 апреля 1948 г."
+								style="@style/TextAppearance.AppCompat.Caption"
+								/>
+
+
+						</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+					</LinearLayout>
+				</android.support.v7.widget.CardView>
+
+				<android.support.v7.widget.CardView
+					android:id="@+id/biographyCard"
 					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:orientation="vertical"
-					android:paddingBottom="8dp"
-					android:paddingEnd="16dp"
-					android:paddingStart="16dp"
-					android:paddingTop="8dp"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/topView"
+					android:layout_marginBottom="@dimen/spacing_normal"
+					android:layout_marginTop="@dimen/spacing_normal"
+					android:elevation="@dimen/spacing_normal"
+					app:cardBackgroundColor="?card_background"
+					app:cardCornerRadius="0dp"
 					>
 
-					<ru.fantlab.android.ui.widgets.FontTextView
-						android:id="@+id/fontTextView5"
+					<LinearLayout
 						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layout_marginBottom="@dimen/spacing_normal"
-						android:text="@string/about_author"
-						style="@style/TextAppearance.AppCompat.Title"
-						/>
+						android:layout_height="match_parent"
+						android:orientation="vertical"
+						android:paddingBottom="8dp"
+						android:paddingEnd="16dp"
+						android:paddingStart="16dp"
+						android:paddingTop="8dp"
+						>
 
-					<ru.fantlab.android.ui.widgets.FontTextView
-						android:id="@+id/biography"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						tools:text="Дэн Симмонс родился в Пеории, штат Иллинойс, 4 апреля 1948 года. "
-						style="@style/TextAppearance.AppCompat.Caption"
-						/>
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/fontTextView5"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="@dimen/spacing_normal"
+							android:text="@string/about_author"
+							style="@style/TextAppearance.AppCompat.Title"
+							/>
 
-					<ru.fantlab.android.ui.widgets.FontTextView
-						android:id="@+id/source"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layout_marginTop="@dimen/spacing_micro"
-						android:autoLink="web"
-						tools:text="\@ Источник биографии"
-						style="@style/TextAppearance.AppCompat.Caption"
-						/>
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/biography"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							tools:text="Дэн Симмонс родился в Пеории, штат Иллинойс, 4 апреля 1948 года. "
+							style="@style/TextAppearance.AppCompat.Caption"
+							/>
 
-				</LinearLayout>
-			</android.support.v7.widget.CardView>
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/source"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="@dimen/spacing_micro"
+							android:autoLink="web"
+							tools:text="\@ Источник биографии"
+							style="@style/TextAppearance.AppCompat.Caption"
+							/>
 
-		</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+					</LinearLayout>
+				</android.support.v7.widget.CardView>
+
+			</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
 
 
-		<LinearLayout
-			android:id="@+id/progress"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:background="?android:attr/windowBackground"
-			android:visibility="gone"
-			>
-
-			<ProgressBar
+			<LinearLayout
+				android:id="@+id/progress"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				/>
+				android:layout_height="match_parent"
+				android:background="?android:attr/windowBackground"
+				android:visibility="gone"
+				>
 
-		</LinearLayout>
+				<ProgressBar
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					/>
 
-	</FrameLayout>
+			</LinearLayout>
 
-</android.support.v4.widget.NestedScrollView>
+		</FrameLayout>
+
+	</android.support.v4.widget.NestedScrollView>
+
+	<include layout="@layout/state_layout" />
+
+</FrameLayout>

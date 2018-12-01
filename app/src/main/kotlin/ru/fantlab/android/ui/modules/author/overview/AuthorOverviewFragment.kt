@@ -9,6 +9,7 @@ import android.widget.ImageView
 import butterknife.BindView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import kotlinx.android.synthetic.main.author_overview_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Author
 import ru.fantlab.android.data.dao.model.Biography
@@ -21,7 +22,7 @@ import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
-import java.lang.StringBuilder
+import ru.fantlab.android.ui.widgets.StateLayout
 
 class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOverviewPresenter>(),
 		AuthorOverviewMvp.View {
@@ -38,12 +39,14 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 	@BindView(R.id.biography) lateinit var biographyText: FontTextView
 	@BindView(R.id.source) lateinit var source: FontTextView
 	@BindView(R.id.homepage) lateinit var homepage: FontTextView
+	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
 	private var pagerCallback: AuthorPagerMvp.View? = null
 
 	override fun fragmentLayout() = R.layout.author_overview_layout
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
+		stateLayout.hideReload()
 		presenter.onFragmentCreated(arguments!!)
 	}
 
@@ -139,6 +142,12 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 	override fun showErrorMessage(msgRes: String?) {
 		hideProgress()
 		super.showErrorMessage(msgRes)
+	}
+
+	override fun onShowErrorView(msgRes: String?) {
+		parentView.visibility = View.GONE
+		stateLayout.setEmptyText(R.string.network_error)
+		stateLayout.showEmptyState()
 	}
 
 	override fun showMessage(titleRes: Int, msgRes: Int) {

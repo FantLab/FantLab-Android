@@ -30,6 +30,8 @@ class EditionOverviewPresenter : BasePresenter<EditionOverviewMvp.View>(),
 					.onErrorResumeNext {
 						getEditionFromDb(editionId)
 					}
+					.onErrorResumeNext { ext -> Single.error(ext) }
+					.doOnError { err -> sendToView { it.onShowErrorView(err.message) } }
 
 	private fun getEditionFromServer(editionId: Int): Single<Pair<Edition, AdditionalImages?>> =
 			DataManager.getEdition(editionId, showAdditionalImages = true)

@@ -26,6 +26,8 @@ class ProfileOverviewPresenter : BasePresenter<ProfileOverviewMvp.View>(), Profi
 					.onErrorResumeNext {
 						getUserFromDb(userId)
 					}
+					.onErrorResumeNext { ext -> Single.error(ext) }
+					.doOnError { err -> sendToView { it.onShowErrorView(err.message) } }
 
 	private fun getUserFromServer(userId: Int): Single<User> =
 			DataManager.getUser(userId)

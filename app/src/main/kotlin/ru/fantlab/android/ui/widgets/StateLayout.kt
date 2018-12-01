@@ -76,7 +76,7 @@ open class StateLayout : NestedScrollView {
 		setEmptyText(resources.getString(resId))
 	}
 
-	private fun setEmptyText(text: String?) {
+	fun setEmptyText(text: String?) {
 		text?.let {
 			this.emptyTextValue = "$it\n\n¯\\_(ツ)_/¯"
 			emptyText.text = emptyTextValue

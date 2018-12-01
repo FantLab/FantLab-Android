@@ -29,6 +29,8 @@ interface WorkOverviewMvp {
 		fun onGetMarks(marks: ArrayList<MarkMini>)
 
 		fun onSetTitle(title: String)
+
+		fun onShowErrorView(msgRes: String?)
 	}
 
 	interface Presenter : BaseMvp.Presenter,
