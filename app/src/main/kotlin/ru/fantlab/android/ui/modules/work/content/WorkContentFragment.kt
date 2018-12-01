@@ -35,20 +35,20 @@ class WorkContentFragment : BaseFragment<WorkContentMvp.View, WorkContentPresent
 	override fun providePresenter() = WorkContentPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		presenter.onFragmentCreated(arguments!!)
-	}
-
-	override fun onInitViews(content: ArrayList<ChildWork>) {
-		hideProgress()
 		stateLayout.setEmptyText(R.string.no_content)
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
-		recycler.addDivider()
 		adapter.listener = presenter
-		fastScroller.attachRecyclerView(recycler)
 		recycler.adapter = adapter
-		adapter.addItems(content)
+		recycler.addDivider()
+		presenter.onFragmentCreated(arguments!!)
+		fastScroller.attachRecyclerView(recycler)
+	}
+
+	override fun onInitViews(content: ArrayList<ChildWork>) {
+		hideProgress()
+		adapter.insertItems(content)
 		onSetTabCount(adapter.itemCount)
 	}
 
@@ -59,7 +59,7 @@ class WorkContentFragment : BaseFragment<WorkContentMvp.View, WorkContentPresent
 
 	override fun hideProgress() {
 		refresh.isRefreshing = false
-		stateLayout.hideProgress()
+		stateLayout.showReload(adapter.itemCount)
 	}
 
 	override fun showErrorMessage(msgRes: String?) {

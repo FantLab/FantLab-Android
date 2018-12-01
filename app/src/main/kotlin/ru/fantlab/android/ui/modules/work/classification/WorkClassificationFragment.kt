@@ -38,15 +38,15 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 	override fun providePresenter() = WorkClassificationPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
+		stateLayout.setEmptyText(R.string.no_classification)
+		stateLayout.setOnReloadListener(this)
+		refresh.setOnRefreshListener(this)
+		recycler.setEmptyView(stateLayout, refresh)
 		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun onInitViews(classificatory: ArrayList<GenreGroup>) {
 		hideProgress()
-		stateLayout.setEmptyText(R.string.no_classification)
-		stateLayout.setOnReloadListener(this)
-		refresh.setOnRefreshListener(this)
-		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 			override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
 				workCallback?.onScrolled(dy > 0);
@@ -116,7 +116,7 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 
 	override fun hideProgress() {
 		refresh.isRefreshing = false
-		stateLayout.hideProgress()
+		stateLayout.showReload(recycler.adapter?.itemCount ?: 0)
 	}
 
 	override fun showErrorMessage(msgRes: String?) {

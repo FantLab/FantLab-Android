@@ -62,7 +62,7 @@ open class StateLayout : NestedScrollView {
 		showReload()
 	}
 
-	private fun showReload() {
+	fun showReload() {
 		hideProgress()
 		if (showReload) {
 			layoutState = SHOW_RELOAD_STATE

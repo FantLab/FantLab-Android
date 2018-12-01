@@ -108,18 +108,18 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			aboutView.visibility = View.GONE
 
 		if (authors.isNotEmpty()) {
-			adapterAuthors.addItems(authors)
+			adapterAuthors.insertItems(authors)
 			authorsList.adapter = adapterAuthors
 		} else authorView.visibility = View.GONE
 
 		if (nominations.isNotEmpty()) {
-			adapterNoms.addItems(nominations)
+			adapterNoms.insertItems(nominations)
 			nomsList.adapter = adapterNoms
 			adapterNoms.listener = presenter
 		} else nomsView.visibility = View.GONE
 
 		if (wins.isNotEmpty()) {
-			adapterWins.addItems(wins)
+			adapterWins.insertItems(wins)
 			winsList.adapter = adapterWins
 			adapterWins.listener = presenter
 		} else winsView.visibility = View.GONE

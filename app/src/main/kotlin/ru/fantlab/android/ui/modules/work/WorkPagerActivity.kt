@@ -49,6 +49,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	@State var tabsCountSet = HashSet<TabsCountStateModel>()
 	private val numberFormat = NumberFormat.getNumberInstance()
 	private lateinit var toolbarMenu: Menu
+	private var isError = false
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
@@ -144,6 +145,10 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	}
 
 	private fun hideShowFab(position: Int) {
+		if (isError) {
+			fab.hide()
+			return
+		}
 		when (position) {
 			0 -> {
 				if (isLoggedIn()) {
@@ -185,6 +190,11 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 				toolbarMenu.findItem(R.id.sort).isVisible = false
 			}
 		}
+	}
+
+	override fun onError() {
+		isError = true
+		fab.hide()
 	}
 
 	@OnClick(R.id.fab)

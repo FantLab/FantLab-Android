@@ -41,6 +41,8 @@ class WorkEditionsPresenter : BasePresenter<WorkEditionsMvp.View>(),
 							throw throwable
 						}
 					}
+					.onErrorResumeNext { ext -> Single.error(ext) }
+					.doOnError { err -> sendToView { it.hideProgress() } }
 
 	private fun getEditionsFromServer(): Single<Pair<EditionsBlocks?, EditionsInfo?>> =
 			DataManager.getWork(workId, showEditionsBlocks = true, showEditionsInfo = true)

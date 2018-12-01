@@ -47,6 +47,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	@State var userId: Int = 0
 	@State var tabsCountSet = HashSet<TabsCountStateModel>()
 	private val numberFormat = NumberFormat.getNumberInstance()
+	private var isError = false
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
@@ -153,6 +154,10 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	}
 
 	private fun hideShowFab(position: Int) {
+		if (isError) {
+			fab.hide()
+			return
+		}
 		when (position) {
 			0 -> {
 				if (userId != PrefGetter.getLoggedUser()?.id) {
@@ -164,6 +169,11 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 			2 -> fab.hide()/*fab.show()*/
 			else -> fab.hide()
 		}
+	}
+
+	override fun onError() {
+		isError = true
+		fab.hide()
 	}
 
 	@OnClick(R.id.fab)

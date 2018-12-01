@@ -15,6 +15,8 @@ interface WorkPagerMvp {
 		fun onSetMarked(isMarked: Boolean, mark: Int)
 
 		fun onGetMark(): Int?
+
+		fun onError()
 	}
 
 	interface Presenter : BaseMvp.Presenter

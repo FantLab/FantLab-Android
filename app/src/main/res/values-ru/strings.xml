@@ -160,5 +160,6 @@
 	<string name="note">Примечание</string>
 	<string name="scan">Сканирование штрихкода</string>
 	<string name="failed_data">Не удалось загрузить данные</string>
+	<string name="spoiler">Внимание, спойлер!</string>
 
 </resources>

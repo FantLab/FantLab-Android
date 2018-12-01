@@ -46,6 +46,7 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 	@State var tabsCountSet = HashSet<TabsCountStateModel>()
 	private val numberFormat = NumberFormat.getNumberInstance()
 	private lateinit var toolbarMenu: Menu
+	private var isError = false
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
@@ -153,6 +154,10 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 	}
 
 	private fun hideShowToolbar(position: Int) {
+		if (isError) {
+			fab.hide()
+			return
+		}
 		when (position) {
 			0 -> {
 				toolbarMenu.findItem(R.id.sort).isVisible = false
@@ -167,6 +172,11 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 				toolbarMenu.findItem(R.id.sort).isVisible = false
 			}
 		}
+	}
+
+	override fun onError() {
+		isError = true
+		fab.hide()
 	}
 
 	@OnClick(R.id.fab)

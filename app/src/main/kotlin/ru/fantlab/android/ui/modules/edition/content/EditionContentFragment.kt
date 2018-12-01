@@ -36,16 +36,15 @@ class EditionContentFragment : BaseFragment<EditionContentMvp.View, EditionConte
 	override fun providePresenter() = EditionContentPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
+		stateLayout.setEmptyText(R.string.no_content)
+		stateLayout.setOnReloadListener(this)
+		recycler.setEmptyView(stateLayout)
+		recycler.addDivider()
 		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun onInitViews(content: ArrayList<EditionContent>) {
 		hideProgress()
-		stateLayout.setEmptyText(R.string.no_content)
-		stateLayout.setOnReloadListener(this)
-		recycler.setEmptyView(stateLayout)
-		recycler.addDivider()
-
 		val nodes = arrayListOf<TreeNode<*>>()
 		content.forEachIndexed { index, item ->
 			if (item.level <= 1) {
@@ -96,8 +95,8 @@ class EditionContentFragment : BaseFragment<EditionContentMvp.View, EditionConte
 	}
 
 	override fun hideProgress() {
-		stateLayout.hideProgress()
 		progress.visibility = View.GONE
+		stateLayout.showReload(recycler.adapter?.itemCount ?: 0)
 	}
 
 	override fun showErrorMessage(msgRes: String?) {

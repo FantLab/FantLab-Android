@@ -190,4 +190,5 @@
 	<string name="note">Note</string>
 	<string name="scan">Scan</string>
 	<string name="failed_data">Failed to load data</string>
+	<string name="spoiler">Warning, spoiler!</string>
 </resources>

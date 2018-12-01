@@ -35,19 +35,24 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
 	override fun providePresenter() = WorkEditionsPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
+		if (savedInstanceState == null) {
+			stateLayout.hideProgress()
+		}
+		stateLayout.setEmptyText(R.string.no_editions)
+		stateLayout.setOnReloadListener(this)
+		refresh.setOnRefreshListener(this)
+		recycler.setEmptyView(stateLayout, refresh)
+		adapter.listener = presenter
+		recycler.adapter = adapter
+		recycler.addKeyLineDivider()
 		presenter.onFragmentCreated(arguments!!)
+		fastScroller.attachRecyclerView(recycler)
 	}
 
 	override fun onInitViews(editions: EditionsBlocks?, editionsInfo: EditionsInfo) {
 		hideProgress()
 		onSetTabCount(editionsInfo.allCount)
-		stateLayout.setEmptyText(R.string.no_editions)
-		stateLayout.setOnReloadListener(this)
-		refresh.setOnRefreshListener(this)
-		recycler.setEmptyView(stateLayout, refresh)
-		recycler.addKeyLineDivider()
 		adapter.clear()
-		adapter.listener = presenter
 		editions?.editionsBlocks?.let {
 			it.forEach {
 				adapter.addItems(it.list)
@@ -57,8 +62,6 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
 			recycler.adapter = adapter
 		else
 			adapter.notifyDataSetChanged()
-
-		fastScroller.attachRecyclerView(recycler)
 	}
 
 	override fun onAttach(context: Context?) {
@@ -80,7 +83,7 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
 
 	override fun hideProgress() {
 		refresh.isRefreshing = false
-		stateLayout.hideProgress()
+		stateLayout.showReload(adapter.itemCount)
 	}
 
 	override fun showErrorMessage(msgRes: String?) {

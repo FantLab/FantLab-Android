@@ -13,6 +13,8 @@ interface UserPagerMvp {
 		fun onSetBadge(tabIndex: Int, count: Int)
 
 		fun onSelectTab(tabIndex: Int)
+
+		fun onError()
 	}
 
 	interface Presenter : BaseMvp.Presenter

@@ -197,6 +197,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		parentView.visibility = View.GONE
 		stateLayout.setEmptyText(R.string.network_error)
 		stateLayout.showEmptyState()
+		pagerCallback?.onError()
 	}
 
 	override fun showMessage(titleRes: Int, msgRes: Int) {
