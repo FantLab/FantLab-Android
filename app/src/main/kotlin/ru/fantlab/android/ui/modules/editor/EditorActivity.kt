@@ -129,6 +129,9 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 				if (extraType == BundleConstant.EDITOR_NEW_RESPONSE && editText.savedText.length < 50) {
 					showErrorMessage(getString(R.string.response_short_text))
 					return true
+				} else if (editText.savedText.isBlank()) {
+					showErrorMessage(getString(R.string.too_short_text))
+					return true
 				}
 				MessageDialogView.newInstance(getString(R.string.select_action), getString(R.string.save_hint), false,
 						Bundler.start()

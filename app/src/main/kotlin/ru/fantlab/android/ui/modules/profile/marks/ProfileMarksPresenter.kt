@@ -4,7 +4,9 @@ import android.view.View
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Mark
+import ru.fantlab.android.data.dao.model.MarksStatistics
 import ru.fantlab.android.data.dao.response.MarksResponse
+import ru.fantlab.android.helper.Tuple4
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.provider.rest.getUserMarksPath
 import ru.fantlab.android.provider.storage.DbProvider
@@ -15,6 +17,7 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 	private var page: Int = 1
 	private var previousTotal: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
+	var stats: MarksStatistics? = null
 
 	override fun onCallApi(page: Int, parameter: Int?): Boolean {
 		if (page == 1) {
@@ -38,12 +41,13 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 		}
 		makeRestCall(
 				getMarksInternal(userId, force).toObservable(),
-				Consumer { (marks, totalCount, lastPage) ->
+				Consumer { (marks, markStats, totalCount, lastPage) ->
 					this.lastPage = lastPage
 					sendToView {
 						with (it) {
 							onNotifyAdapter(marks, page)
 							onSetTabCount(totalCount)
+							stats = markStats
 						}
 					}
 				}
@@ -60,11 +64,11 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 						}
 					}
 
-	private fun getMarksFromServer(userId: Int): Single<Triple<ArrayList<Mark>, Int, Int>> =
+	private fun getMarksFromServer(userId: Int): Single<Tuple4<ArrayList<Mark>, MarksStatistics, Int, Int>> =
 			DataManager.getUserMarks(userId, page)
 					.map { getMarks(it) }
 
-	private fun getMarksFromDb(userId: Int): Single<Triple<ArrayList<Mark>, Int, Int>> =
+	private fun getMarksFromDb(userId: Int): Single<Tuple4<ArrayList<Mark>, MarksStatistics, Int, Int>> =
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getUserMarksPath(userId, 1))
@@ -72,8 +76,8 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 					.map { MarksResponse.Deserializer(perPage = 200).deserialize(it) }
 					.map { getMarks(it) }
 
-	private fun getMarks(response: MarksResponse): Triple<ArrayList<Mark>, Int, Int> =
-			Triple(response.marks.items, response.marks.totalCount, response.marks.last)
+	private fun getMarks(response: MarksResponse): Tuple4<ArrayList<Mark>, MarksStatistics, Int, Int> =
+			Tuple4(response.marks.items, response.marksStatistics, response.marks.totalCount, response.marks.last)
 
 	override fun onSendMark(item: Mark, mark: Int, position: Int) {
 		makeRestCall(

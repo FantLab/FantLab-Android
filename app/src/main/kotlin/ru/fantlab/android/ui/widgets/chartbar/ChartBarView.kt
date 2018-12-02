@@ -96,9 +96,9 @@ class ChartBarView @JvmOverloads constructor(context: Context, attrs: AttributeS
 		const val startMargin = 10f
 
 		@JvmField
-		val colorStart = Color.parseColor("#FF1900")
+		val colorStart = Color.parseColor("#19FF00")
 		@JvmField
-		val colorEnd = Color.parseColor("#19FF00")
+		val colorEnd = Color.parseColor("#FF1900")
 		@JvmField
 		val barColor = Color.parseColor("#3178A8")
 		@JvmField

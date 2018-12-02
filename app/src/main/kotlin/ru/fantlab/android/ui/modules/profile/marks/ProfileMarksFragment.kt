@@ -22,6 +22,7 @@ import ru.fantlab.android.ui.modules.user.UserPagerMvp
 import ru.fantlab.android.ui.modules.work.CyclePagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.StateLayout
+import ru.fantlab.android.ui.widgets.chartbar.ChartBar
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -125,8 +126,7 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	}
 
 	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
-		listItem as Mark
-		when (item.id) {
+		if (listItem is Mark) when (item.id) {
 			"revote" -> {
 				RatingDialogView.newInstance(10, listItem.mark.toFloat(),
 						listItem,
@@ -136,6 +136,24 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 			}
 			"delete" -> {
 				presenter.onSendMark(listItem, 0, position)
+			}
+		} else {
+			when (item.id) {
+				"chart" -> {
+					val stats = presenter.stats ?: return
+					val points: ArrayList<Pair<String, Int>> = arrayListOf()
+					if (position == 0)
+						stats.marksStats.map { points.add(Pair(it.mark.toString(), it.markCount)) }
+					else
+						stats.worksStats.map { points.add(Pair(it.workType, it.markCount)) }
+
+					ChartBar.newInstance(
+							title = item.title,
+							points = points,
+							colored = position == 0
+					).show(childFragmentManager, ChartBar.TAG)
+
+				}
 			}
 		}
 	}
@@ -174,6 +192,12 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	private fun showReload() {
 		hideProgress()
 		stateLayout.showReload(adapter.itemCount)
+	}
+
+	fun showChartsDialog() {
+		val dialogView = ContextMenuDialogView()
+		dialogView.initArguments("main", ContextMenuBuilder.buildForMarksCharts(recycler.context))
+		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 
 	companion object {

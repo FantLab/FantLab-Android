@@ -151,6 +151,7 @@
 	<string name="save">Сохранить</string>
 	<string name="save_hint">Сохраните, чтобы отправить позже</string>
 	<string name="response_short_text">Слишком короткий отзыв (минимум 50 символов)</string>
+	<string name="too_short_text">Слишком короткое сообщение</string>
 	<string name="set_mark">Оценить</string>
 	<string name="cannotvote">Нельзя голосовать за свой отзыв</string>
 	<string name="cannotvote_novice">Пользователи с классом \"Новичок\" не могут голосовать за отзывы</string>
@@ -161,5 +162,8 @@
 	<string name="scan">Сканирование штрихкода</string>
 	<string name="failed_data">Не удалось загрузить данные</string>
 	<string name="spoiler">Внимание, спойлер!</string>
+	<string name="markchart_1">Гистограмма распределения оценок</string>
+	<string name="markchart_2">Гистограмма оценок по типам произведения</string>
+	<string name="select_chart">Выберите тип</string>
 
 </resources>

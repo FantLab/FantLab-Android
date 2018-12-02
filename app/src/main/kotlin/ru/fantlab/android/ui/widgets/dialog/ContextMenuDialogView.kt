@@ -30,7 +30,7 @@ class ContextMenuDialogView : BaseBottomSheetDialog(), BaseViewHolder.OnItemClic
 	private var callbacks: ListDialogViewActionCallback? = null
 	private lateinit var id: String
 	private lateinit var listItem: Any
-	private var positionItem: Int = 0
+	private var positionItem: Int = -1
 	private var menu = ArrayList<ContextMenus>()
 	private var childs = ArrayList<ContextMenus.MenuItem>()
 
@@ -42,7 +42,7 @@ class ContextMenuDialogView : BaseBottomSheetDialog(), BaseViewHolder.OnItemClic
 		super.onViewCreated(view, savedInstanceState)
 		id = arguments!!.getString(BundleConstant.EXTRA)
 		listItem = arguments!!.getParcelable(BundleConstant.EXTRA_TWO) ?: Any()
-		positionItem = arguments!!.getInt(BundleConstant.EXTRA_THREE)
+		positionItem = arguments!!.getInt(BundleConstant.EXTRA_THREE, -1)
 		menu = arguments!!.getParcelableArrayList<ContextMenus>(BundleConstant.ITEM)
 		childs = menu[0].items
 		title.text = menu[0].title
@@ -71,7 +71,7 @@ class ContextMenuDialogView : BaseBottomSheetDialog(), BaseViewHolder.OnItemClic
 					Toasty.error(App.instance, getString(R.string.unauthorized_user), Toast.LENGTH_SHORT).show()
 					return
 				}
-				callbacks!!.onItemSelected(item, listItem, positionItem)
+				callbacks!!.onItemSelected(item, listItem, if (positionItem != -1) positionItem  else position)
 			} else {
 				id = item.id
 				recreate(menuForLevel)

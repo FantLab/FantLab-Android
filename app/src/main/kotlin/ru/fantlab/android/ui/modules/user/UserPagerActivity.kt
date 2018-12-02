@@ -29,6 +29,7 @@ import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.login.LoginActivity
+import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
 import ru.fantlab.android.ui.widgets.ViewPagerView
 import shortbread.Shortcut
 import java.text.NumberFormat
@@ -165,7 +166,10 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 					fab.show()
 				} else fab.hide()
 			}
-			1 -> fab.hide()/*fab.show()*/
+			1 -> {
+				fab.setImageResource(R.drawable.ic_charts)
+				fab.show()
+			}
 			2 -> fab.hide()/*fab.show()*/
 			else -> fab.hide()
 		}
@@ -178,9 +182,16 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 	@OnClick(R.id.fab)
 	fun onFabClicked() {
-		startActivity(Intent(this, EditorActivity::class.java)
-				.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_MESSAGE)
-				.putExtra(BundleConstant.ID, userId))
+		when (pager.currentItem) {
+			0 -> {
+				startActivity(Intent(this, EditorActivity::class.java)
+						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_MESSAGE)
+						.putExtra(BundleConstant.ID, userId))
+			}
+			1 -> {
+				((pager.adapter as FragmentsPagerAdapter).getItem(1) as ProfileMarksFragment).showChartsDialog()
+			}
+		}
 	}
 
 	private fun setupTab(count: Int, index: Int) {

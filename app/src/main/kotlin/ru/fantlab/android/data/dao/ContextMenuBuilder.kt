@@ -92,4 +92,17 @@ object ContextMenuBuilder {
 
 		return items
 	}
+
+	fun buildForMarksCharts(context: Context): ArrayList<ContextMenus> {
+		val items = ArrayList<ContextMenus>()
+
+		val actions =
+				arrayListOf(
+						ContextMenus.MenuItem(context.getString(R.string.markchart_1), R.drawable.ic_chart, "chart"),
+						ContextMenus.MenuItem(context.getString(R.string.markchart_2), R.drawable.ic_chart, "chart")
+				)
+		items.add(ContextMenus(context.getString(R.string.select_chart), actions, "main"))
+
+		return items
+	}
 }
