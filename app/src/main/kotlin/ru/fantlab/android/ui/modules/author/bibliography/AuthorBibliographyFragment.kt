@@ -49,16 +49,15 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 	override fun providePresenter() = AuthorBibliographyPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		presenter.onFragmentCreated(arguments!!)
-	}
-
-	override fun onInitViews(cycles: WorksBlocks?, works: WorksBlocks?) {
-		hideProgress()
 		stateLayout.setEmptyText(R.string.no_bibliography)
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addDivider()
+		presenter.onFragmentCreated(arguments!!)
+	}
+
+	override fun onInitViews(cycles: WorksBlocks?, works: WorksBlocks?) {
 		this.cycles = cycles
 		this.works = works
 
@@ -88,7 +87,10 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		extractListData(bibliography, nodes, marks)
 		extractListData(works, nodes, marks)
 		adapter = TreeViewAdapter(nodes, Arrays.asList(CycleWorkViewHolder(), CycleViewHolder()))
-		recycler.adapter = adapter
+		if (recycler.adapter != null)
+			recycler.adapter.notifyDataSetChanged()
+		else
+			recycler.adapter = adapter
 		adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
 			override fun onSelected(extra: Int, add: Boolean) {
 			}
@@ -221,7 +223,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 
 	override fun hideProgress() {
 		refresh.isRefreshing = false
-		stateLayout.hideProgress()
+		stateLayout.showReload(recycler.adapter?.itemCount ?: 0)
 	}
 
 	override fun showErrorMessage(msgRes: String?) {
@@ -244,7 +246,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 	}
 
 	override fun onRefresh() {
-		hideProgress()
+		presenter.onFragmentCreated(arguments!!)
 	}
 
 	override fun onClick(v: View?) {

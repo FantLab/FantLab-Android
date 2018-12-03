@@ -34,25 +34,21 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 	override fun providePresenter() = AuthorEditionsPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		presenter.onFragmentCreated(arguments!!)
-	}
-
-	override fun onInitViews(editionsBlocks: ArrayList<EditionsBlocks.EditionsBlock>?, count: Int) {
-		hideProgress()
-		onSetTabCount(count)
 		stateLayout.setEmptyText(R.string.no_editions)
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addKeyLineDivider()
-		adapter.clear()
 		adapter.listener = presenter
-		editionsBlocks?.forEach { adapter.addItems(it.list) }
-		if (recycler.adapter == null)
-			recycler.adapter = adapter
-		else
-			adapter.notifyDataSetChanged()
+		recycler.adapter = adapter
+		presenter.onFragmentCreated(arguments!!)
 		fastScroller.attachRecyclerView(recycler)
+	}
+
+	override fun onInitViews(editionsBlocks: ArrayList<EditionsBlocks.EditionsBlock>?, count: Int) {
+		hideProgress()
+		onSetTabCount(count)
+		editionsBlocks?.forEach { adapter.insertItems(it.list) }
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
@@ -62,7 +58,7 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 
 	override fun hideProgress() {
 		refresh.isRefreshing = false
-		stateLayout.hideProgress()
+		stateLayout.showReload(recycler.adapter?.itemCount ?: 0)
 	}
 
 	override fun showErrorMessage(msgRes: String?) {

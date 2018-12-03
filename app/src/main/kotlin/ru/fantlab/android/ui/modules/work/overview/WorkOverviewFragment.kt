@@ -149,6 +149,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		parentView.visibility = View.GONE
 		stateLayout.setEmptyText(R.string.network_error)
 		stateLayout.showEmptyState()
+		pagerCallback?.onError()
 	}
 
 	override fun showMessage(titleRes: Int, msgRes: Int) {

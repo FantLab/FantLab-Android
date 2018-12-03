@@ -45,16 +45,16 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		workId = arguments?.getInt(EXTRA_TWO)
-		presenter.onFragmentCreated(arguments!!)
-	}
-
-	override fun onInitViews(contests: List<Award.Contest>?) {
-		hideProgress()
 		stateLayout.setEmptyText(R.string.no_contests)
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
 		recycler.addDivider()
+		presenter.onFragmentCreated(arguments!!)
+	}
+
+	override fun onInitViews(contests: List<Award.Contest>?) {
+		hideProgress()
 		if (contests != null) {
 			onSetTabCount(contests.size)
 			initAdapter(contests)
@@ -161,7 +161,7 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 
 	override fun hideProgress() {
 		refresh.isRefreshing = false
-		stateLayout.hideProgress()
+		stateLayout.showReload(recycler.adapter?.itemCount ?: 0)
 	}
 
 	override fun showErrorMessage(msgRes: String?) {

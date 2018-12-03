@@ -50,7 +50,7 @@ class AwardNominationsFragment : BaseFragment<AwardNominationsMvp.View, AwardNom
 
 	override fun hideProgress() {
 		refresh.isRefreshing = false
-		stateLayout.hideProgress()
+		stateLayout.showReload(recycler.adapter?.itemCount ?: 0)
 	}
 
 	override fun showErrorMessage(msgRes: String?) {

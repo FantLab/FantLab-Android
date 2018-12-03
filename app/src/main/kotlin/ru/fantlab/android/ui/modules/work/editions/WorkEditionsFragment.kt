@@ -52,16 +52,11 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
 	override fun onInitViews(editions: EditionsBlocks?, editionsInfo: EditionsInfo) {
 		hideProgress()
 		onSetTabCount(editionsInfo.allCount)
-		adapter.clear()
 		editions?.editionsBlocks?.let {
 			it.forEach {
-				adapter.addItems(it.list)
+				adapter.insertItems(it.list)
 			}
 		}
-		if (recycler.adapter == null)
-			recycler.adapter = adapter
-		else
-			adapter.notifyDataSetChanged()
 	}
 
 	override fun onAttach(context: Context?) {
