@@ -7,7 +7,7 @@ object FantlabHelper {
 	}
 
 	object Authors {
-		val ignoreList = listOf(10, 12345, 2000, 7000, 46137)
+		val ignoreList = listOf(10, 100, 12345, 2000, 7000, 46137)
 	}
 
 	enum class Levels(val `class`: Int) {
