@@ -14,13 +14,12 @@ abstract class ResponseDao {
 
 	private val month = TimeUnit.DAYS.toMillis(30)
 
-	@Query("SELECT * FROM response WHERE url LIKE :url AND userId LIKE :userId AND api_version LIKE '${BuildConfig.API_VERSION}' LIMIT 1")
+	@Query("SELECT * FROM response WHERE url = :url AND userId = :userId AND api_version = '${BuildConfig.API_VERSION}' LIMIT 1")
 	abstract fun getSync(url: String, userId: Int): Response?
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	abstract fun save(response: Response)
 
-	@Throws(MissingCacheException::class, OutdatedCacheException::class)
 	fun get(url: String): Single<Response> {
 		val userId = PrefGetter.getSessionUserId()
 		val response = getSync(url, userId)
@@ -28,10 +27,10 @@ abstract class ResponseDao {
 			if (System.currentTimeMillis() - response.timeStamp < month) {
 				Single.just(response)
 			} else {
-				throw OutdatedCacheException(url)
+				return Single.error(OutdatedCacheException(url))
 			}
 		} else {
-			throw MissingCacheException(url)
+			return Single.error(MissingCacheException(url))
 		}
 	}
 }
