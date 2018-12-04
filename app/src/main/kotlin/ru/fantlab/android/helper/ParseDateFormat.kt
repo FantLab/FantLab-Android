@@ -1,15 +1,16 @@
 package ru.fantlab.android.helper
 
-import android.net.ParseException
+import android.os.Build.VERSION.SDK_INT
 import android.text.format.DateUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
 fun String.parseFullDate(isIso: Boolean = false): Date? {
 	return try {
-		SimpleDateFormat(if (isIso) "yyyy-MM-dd'T'HH:mm:ssX" else "yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("ru")).parse(this)
-	} catch (e: ParseException) {
-		null
+		val timezone = if (SDK_INT >= android.os.Build.VERSION_CODES.N) "X" else "Z"
+		SimpleDateFormat(if (isIso) "yyyy-MM-dd'T'HH:mm:ss$timezone" else "yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("ru")).parse(this)
+	} catch (e: Exception) {
+		return null
 	}
 }
 

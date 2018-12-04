@@ -182,6 +182,7 @@
 									android:layout_centerHorizontal="false"
 									android:layout_toEndOf="@+id/classified"
 									android:drawableStart="@drawable/ic_star_small"
+									android:drawablePadding="1dp"
 									android:visibility="gone"
 									app:drawableColor="?android:attr/textColorSecondary"
 									tools:text="7"
