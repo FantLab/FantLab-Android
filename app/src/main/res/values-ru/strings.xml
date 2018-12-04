@@ -165,5 +165,6 @@
 	<string name="markchart_1">Гистограмма распределения оценок</string>
 	<string name="markchart_2">Гистограмма оценок по типам произведения</string>
 	<string name="select_chart">Выберите тип</string>
+	<string name="incl">Входит в</string>
 
 </resources>

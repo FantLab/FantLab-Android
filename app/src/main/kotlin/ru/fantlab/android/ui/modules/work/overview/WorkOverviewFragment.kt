@@ -11,6 +11,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.MarkMini
 import ru.fantlab.android.data.dao.model.Nomination
 import ru.fantlab.android.data.dao.model.Work
+import ru.fantlab.android.data.dao.model.WorkRootSaga
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
@@ -39,6 +40,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	@BindView(R.id.title2) lateinit var name2: FontTextView
 	@BindView(R.id.rate) lateinit var rate: FontTextView
 	@BindView(R.id.types) lateinit var types: FontTextView
+	@BindView(R.id.root) lateinit var root: FontTextView
 	@BindView(R.id.description) lateinit var description: FontTextView
 	@BindView(R.id.notes) lateinit var notes: FontTextView
 	@BindView(R.id.recyclerNoms) lateinit var nomsList: DynamicRecyclerView
@@ -66,6 +68,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun onInitViews(
 			work: Work,
+			rootSagas: ArrayList<WorkRootSaga>,
 			nominations: ArrayList<Nomination>,
 			wins: ArrayList<Nomination>,
 			authors: ArrayList<Work.Author>
@@ -91,6 +94,20 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		}
 
 		types.text = if (work.year != null) "${work.type}, ${work.year}" else work.type
+
+		val roots = StringBuilder()
+		rootSagas.forEach {
+			if (it.type != null) {
+				roots.append(getString(R.string.incl))
+						.append(" ")
+						.append(it.type)
+						.append(":")
+						.append(" ")
+						.append("[cycle=${it.id}]${it.name}[/cycle]")
+						.append("\n")
+			}
+		}
+		MarkDownProvider.setMdText(root, roots.toString())
 
 		if (work.rating.votersCount != "0") {
 			rate.text = StringBuilder()

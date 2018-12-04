@@ -4,6 +4,7 @@ import android.os.Bundle
 import ru.fantlab.android.data.dao.model.MarkMini
 import ru.fantlab.android.data.dao.model.Nomination
 import ru.fantlab.android.data.dao.model.Work
+import ru.fantlab.android.data.dao.model.WorkRootSaga
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.dialog.ListDialogView
 import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
@@ -17,6 +18,7 @@ interface WorkOverviewMvp {
 
 		fun onInitViews(
 				work: Work,
+				rootSagas: ArrayList<WorkRootSaga>,
 				nominations: ArrayList<Nomination>,
 				wins: ArrayList<Nomination>,
 				authors: ArrayList<Work.Author>

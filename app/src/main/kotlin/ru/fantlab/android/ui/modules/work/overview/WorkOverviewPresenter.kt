@@ -24,8 +24,8 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(), WorkOvervie
 		val workId = bundle.getInt(BundleConstant.EXTRA)
 		makeRestCall(
 				getWorkInternal(workId).toObservable(),
-				Consumer { (work, nominations, wins, authors) ->
-					sendToView { it.onInitViews(work, nominations, wins, authors) }
+				Consumer { (response, nominations, wins, authors) ->
+					sendToView { it.onInitViews(response.work, response.rootSagas, nominations, wins, authors) }
 				}
 		)
 	}
@@ -39,23 +39,23 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(), WorkOvervie
 					.doOnError { err -> sendToView { it.onShowErrorView(err.message) } }
 
 	private fun getWorkFromServer(workId: Int):
-			Single<Tuple4<Work, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>>> =
+			Single<Tuple4<WorkResponse, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>>> =
 			DataManager.getWork(workId, showAwards = true)
 					.map { getWork(it) }
 
 	private fun getWorkFromDb(workId: Int):
-			Single<Tuple4<Work, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>>> =
+			Single<Tuple4<WorkResponse, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>>> =
 			DbProvider.mainDatabase
 					.responseDao()
-					.get(getWorkPath(workId, showAwards = true))
+					.get(getWorkPath(workId, showAwards = true, showParents = true))
 					.map { it.response }
 					.map { WorkResponse.Deserializer().deserialize(it) }
 					.map { getWork(it) }
 
 	private fun getWork(response: WorkResponse):
-			Tuple4<Work, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>> =
+			Tuple4<WorkResponse, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>> =
 			Tuple4(
-					response.work,
+					response,
 					response.awards?.nominations ?: arrayListOf(),
 					response.awards?.wins ?: arrayListOf(),
 					ArrayList(response.work.authors.filter { it.id !in FantlabHelper.Authors.ignoreList })

@@ -195,4 +195,5 @@
 	<string name="markchart_1">Histogram of distribution of marks</string>
 	<string name="markchart_2">Histogram by type of work</string>
 	<string name="select_chart">Select type</string>
+	<string name="incl">Included in</string>
 </resources>

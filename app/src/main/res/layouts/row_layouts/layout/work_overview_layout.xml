@@ -51,7 +51,7 @@
 								android:id="@+id/notes"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
-								android:layout_below="@+id/types"
+								android:layout_below="@+id/root"
 								android:layout_marginEnd="@dimen/spacing_normal"
 								android:layout_marginTop="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverView"
@@ -66,6 +66,16 @@
 								android:layout_below="@+id/title2"
 								android:layout_toEndOf="@+id/coverView"
 								tools:text="Роман, 1996"
+								style="@style/TextAppearance.AppCompat.Caption"
+								/>
+
+							<ru.fantlab.android.ui.widgets.FontTextView
+								android:id="@+id/root"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_below="@+id/types"
+								android:layout_toEndOf="@+id/coverView"
+								tools:text="Входит в цикл: Наместный маг"
 								style="@style/TextAppearance.AppCompat.Caption"
 								/>
 
