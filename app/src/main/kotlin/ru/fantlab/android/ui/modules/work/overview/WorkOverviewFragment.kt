@@ -26,6 +26,7 @@ import ru.fantlab.android.ui.modules.work.WorkPagerMvp
 import ru.fantlab.android.ui.modules.work.analogs.WorkAnalogsFragment
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
+import ru.fantlab.android.ui.widgets.ForegroundImageView
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -39,6 +40,9 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	@BindView(R.id.title) lateinit var name: FontTextView
 	@BindView(R.id.title2) lateinit var name2: FontTextView
 	@BindView(R.id.rate) lateinit var rate: FontTextView
+	@BindView(R.id.response) lateinit var response: ForegroundImageView
+	@BindView(R.id.mymark) lateinit var mymark: FontTextView
+	@BindView(R.id.classified) lateinit var classified: ForegroundImageView
 	@BindView(R.id.types) lateinit var types: FontTextView
 	@BindView(R.id.root) lateinit var root: FontTextView
 	@BindView(R.id.description) lateinit var description: FontTextView
@@ -107,7 +111,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 						.append("\n")
 			}
 		}
-		MarkDownProvider.setMdText(root, roots.toString())
+		if (roots.length > 1) MarkDownProvider.setMdText(root, roots.toString()) else root.visibility = View.GONE
 
 		if (work.rating.votersCount != "0") {
 			rate.text = StringBuilder()
@@ -211,7 +215,15 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun onGetMarks(marks: ArrayList<MarkMini>) {
 		hideProgress()
-		pagerCallback?.onSetMarked(!marks.isEmpty(), if (!marks.isEmpty()) marks[0].mark else 0)
+		if (!marks.isEmpty()) {
+			if (marks[0].user_work_response_id != 0) {
+				response.visibility = View.VISIBLE
+			}
+			//classified.visibility = View.VISIBLE
+			mymark.text = marks[0].mark.toString()
+			mymark.visibility = View.VISIBLE
+			pagerCallback?.onSetMarked(true, marks[0].mark)
+		} else pagerCallback?.onSetMarked(false, 0)
 	}
 
 	override fun onSetMark(mark: Int, markCount: Double, midMark: Double) {

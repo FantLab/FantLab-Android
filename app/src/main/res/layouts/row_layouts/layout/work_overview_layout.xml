@@ -51,7 +51,7 @@
 								android:id="@+id/notes"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
-								android:layout_below="@+id/root"
+								android:layout_below="@+id/info"
 								android:layout_marginEnd="@dimen/spacing_normal"
 								android:layout_marginTop="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverView"
@@ -130,7 +130,66 @@
 									tools:text="9.04 - 8870"
 									style="@style/TextAppearance.AppCompat.Caption"
 									/>
+
+
 							</LinearLayout>
+
+							<ru.fantlab.android.ui.widgets.FlowLayout
+								android:id="@+id/info"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_alignStart="@+id/types"
+								android:layout_below="@+id/root"
+								android:layout_marginTop="@dimen/spacing_micro"
+								android:layout_weight="1"
+								android:gravity="center_vertical"
+								app:flChildSpacing="5dp"
+								app:flChildSpacingForLastRow="align"
+								app:flRowSpacing="8dp"
+								>
+
+								<ru.fantlab.android.ui.widgets.ForegroundImageView
+									android:id="@+id/response"
+									android:layout_width="16dp"
+									android:layout_height="16dp"
+									android:src="@drawable/ic_response_small"
+									android:visibility="gone"
+									app:tint="?android:attr/textColorSecondary"
+									tools:visibility="visible"
+									style="@style/TextAppearance.AppCompat.Caption"
+									/>
+
+								<ru.fantlab.android.ui.widgets.ForegroundImageView
+									android:id="@+id/classified"
+									android:layout_width="16dp"
+									android:layout_height="16dp"
+									android:layout_alignTop="@+id/response"
+									android:layout_below="@+id/root"
+									android:layout_toEndOf="@+id/response"
+									android:src="@drawable/ic_classif"
+									android:visibility="gone"
+									app:tint="?android:attr/textColorSecondary"
+									tools:visibility="visible"
+									style="@style/TextAppearance.AppCompat.Caption"
+									/>
+
+								<ru.fantlab.android.ui.widgets.FontTextView
+									android:id="@+id/mymark"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_alignTop="@+id/response"
+									android:layout_below="@+id/root"
+									android:layout_centerHorizontal="false"
+									android:layout_toEndOf="@+id/classified"
+									android:drawableStart="@drawable/ic_star_small"
+									android:visibility="gone"
+									app:drawableColor="?android:attr/textColorSecondary"
+									tools:text="7"
+									tools:visibility="visible"
+									style="@style/TextAppearance.AppCompat.Caption"
+									/>
+
+							</ru.fantlab.android.ui.widgets.FlowLayout>
 
 						</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
 					</LinearLayout>
