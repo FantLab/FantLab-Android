@@ -48,7 +48,8 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 	override fun onInitViews(editionsBlocks: ArrayList<EditionsBlocks.EditionsBlock>?, count: Int) {
 		hideProgress()
 		onSetTabCount(count)
-		editionsBlocks?.forEach { adapter.insertItems(it.list) }
+		adapter.clear()
+		editionsBlocks?.forEach { adapter.addItems(it.list) }
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {

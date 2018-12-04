@@ -52,9 +52,10 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
 	override fun onInitViews(editions: EditionsBlocks?, editionsInfo: EditionsInfo) {
 		hideProgress()
 		onSetTabCount(editionsInfo.allCount)
+		adapter.clear()
 		editions?.editionsBlocks?.let {
 			it.forEach {
-				adapter.insertItems(it.list)
+				adapter.addItems(it.list)
 			}
 		}
 	}
