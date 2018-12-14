@@ -219,7 +219,9 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			if (marks[0].user_work_response_id != 0) {
 				response.visibility = View.VISIBLE
 			}
-			//classified.visibility = View.VISIBLE
+			if (marks[0].user_work_classif_flag == 1) {
+				classified.visibility = View.VISIBLE
+			}
 			mymark.text = marks[0].mark.toString()
 			mymark.visibility = View.VISIBLE
 			pagerCallback?.onSetMarked(true, marks[0].mark)
