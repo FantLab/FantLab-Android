@@ -32,7 +32,7 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 	}
 
 	override fun onInitViews(analogs: ArrayList<WorkAnalog>) {
-		if (analogs.size == 0) {
+		if (analogs.isEmpty()) {
 			fragmentManager?.beginTransaction()?.remove(this)?.commit()
 			return
 		}
@@ -94,6 +94,6 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 	}
 
 	override fun onItemClicked(item: WorkAnalog) {
-		WorkPagerActivity.startActivity(context!!, item.id, item.rusName, 0)
+		WorkPagerActivity.startActivity(context!!, item.id, item.name, 0)
 	}
 }

@@ -374,7 +374,7 @@ fun getWorkResponsesPath(
 
 fun getWorkAnalogsPath(
 		workId: Int
-) = "/work/$workId/analogs".toAbsolutePathWithApiVersion()
+) = "/work/$workId/similars".toAbsolutePathWithApiVersion()
 
 fun getEditionPath(
 		id: Int,

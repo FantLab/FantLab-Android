@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import butterknife.BindView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.WorkAnalog
+import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
@@ -19,21 +20,21 @@ class AnalogsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorkAnalog,
 	@BindView(R.id.year) lateinit var year: FontTextView
 
 	override fun bind(analog: WorkAnalog) {
-		coverLayout.setUrl("https://fantlab.ru/images/editions/big/${analog.id}")
+		coverLayout.setUrl("https:${analog.imagePreview}")
 
-		if (analog.author1RusName.isNotEmpty()) {
-			authors.text = analog.author1RusName.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")
+		if (analog.creators.authors.isNotEmpty()) {
+			authors.text = analog.creators.authors.joinToString(separator = ", "){ it.name }
 			authors.visibility = View.VISIBLE
 		} else {
 			authors.visibility = View.GONE
 		}
 
-		title.text = if (analog.rusName.isNotEmpty())
-			analog.rusName.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")
+		title.text = if (analog.name.isNotEmpty())
+			analog.name.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")
 		else
-			analog.name
+			analog.nameOrig
 
-		if (analog.year != null && analog.year != 0) {
+		if (!InputHelper.isEmpty(analog.year)) {
 			year.text = analog.year.toString()
 		} else year.visibility = View.GONE
 	}
