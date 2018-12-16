@@ -13,7 +13,7 @@ import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class SearchAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchAward, SearchAwardsViewHolder, *>)
+class SearchAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchAward, SearchAwardsViewHolder>)
 	: BaseViewHolder<SearchAward>(itemView, adapter) {
 
 	@BindView(R.id.avatarLayout) lateinit var avatarLayout: AvatarLayout
@@ -51,7 +51,7 @@ class SearchAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Search
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<SearchAward, SearchAwardsViewHolder, *>
+				adapter: BaseRecyclerAdapter<SearchAward, SearchAwardsViewHolder>
 		): SearchAwardsViewHolder =
 				SearchAwardsViewHolder(getView(viewGroup, R.layout.search_awards_row_item), adapter)
 	}

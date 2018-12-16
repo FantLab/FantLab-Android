@@ -67,5 +67,5 @@ class SmileBottomSheet : BaseMvpBottomSheetDialogFragment<SmileMvp.View, SmilePr
 		dismiss()
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: Smile?) {}
+	override fun onItemLongClick(position: Int, v: View?, item: Smile) {}
 }

@@ -102,6 +102,6 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 	override fun onItemLongClick(position: Int, v: View?, item: User) {
 	}
 
-	override fun onItemClick(position: Int, v: View, item: User) {
+	override fun onItemClick(position: Int, v: View?, item: User) {
 	}
 }

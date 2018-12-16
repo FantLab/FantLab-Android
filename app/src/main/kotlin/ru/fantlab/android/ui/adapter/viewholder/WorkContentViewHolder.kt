@@ -10,7 +10,7 @@ import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class WorkContentViewHolder(itemView: View, adapter: BaseRecyclerAdapter<ChildWork, WorkContentViewHolder, *>)
+class WorkContentViewHolder(itemView: View, adapter: BaseRecyclerAdapter<ChildWork, WorkContentViewHolder>)
 	: BaseViewHolder<ChildWork>(itemView, adapter) {
 
 	@BindView(R.id.workName) lateinit var label: FontTextView
@@ -53,7 +53,7 @@ class WorkContentViewHolder(itemView: View, adapter: BaseRecyclerAdapter<ChildWo
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<ChildWork, WorkContentViewHolder, *>
+				adapter: BaseRecyclerAdapter<ChildWork, WorkContentViewHolder>
 		): WorkContentViewHolder =
 				WorkContentViewHolder(getView(viewGroup, R.layout.work_content_row_item), adapter)
 	}

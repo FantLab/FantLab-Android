@@ -11,7 +11,7 @@ import ru.fantlab.android.ui.widgets.ForegroundImageView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class UserMarkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Mark, UserMarkViewHolder, *>)
+class UserMarkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Mark, UserMarkViewHolder>)
 	: BaseViewHolder<Mark>(itemView, adapter) {
 
 	@BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
@@ -49,7 +49,7 @@ class UserMarkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Mark, User
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<Mark, UserMarkViewHolder, *>
+				adapter: BaseRecyclerAdapter<Mark, UserMarkViewHolder>
 		): UserMarkViewHolder =
 				UserMarkViewHolder(getView(viewGroup, R.layout.profile_mark_row_item), adapter)
 	}

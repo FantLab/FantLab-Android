@@ -14,7 +14,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.text.NumberFormat
 
-class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchAuthor, SearchAuthorsViewHolder, *>)
+class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchAuthor, SearchAuthorsViewHolder>)
 	: BaseViewHolder<SearchAuthor>(itemView, adapter) {
 
 	@BindView(R.id.avatarLayout) lateinit var avatarLayout: AvatarLayout
@@ -98,7 +98,7 @@ class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Searc
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<SearchAuthor, SearchAuthorsViewHolder, *>
+				adapter: BaseRecyclerAdapter<SearchAuthor, SearchAuthorsViewHolder>
 		): SearchAuthorsViewHolder =
 				SearchAuthorsViewHolder(getView(viewGroup, R.layout.search_authors_row_item), adapter)
 	}

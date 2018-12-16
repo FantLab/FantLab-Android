@@ -11,7 +11,7 @@ import ru.fantlab.android.ui.widgets.ForegroundImageView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class SmileViewHolder private constructor(view: View, adapter: BaseRecyclerAdapter<*, *, *>)
+class SmileViewHolder private constructor(view: View, adapter: BaseRecyclerAdapter<Smile, *>)
 	: BaseViewHolder<Smile>(view, adapter) {
 
 	@BindView(R.id.smile) lateinit var smileView: ForegroundImageView
@@ -25,7 +25,7 @@ class SmileViewHolder private constructor(view: View, adapter: BaseRecyclerAdapt
 	}
 
 	companion object {
-		fun newInstance(parent: ViewGroup, adapter: BaseRecyclerAdapter<*, *, *>): SmileViewHolder {
+		fun newInstance(parent: ViewGroup, adapter: BaseRecyclerAdapter<Smile, *>): SmileViewHolder {
 			return SmileViewHolder(getView(parent, R.layout.smile_row_item), adapter)
 		}
 	}

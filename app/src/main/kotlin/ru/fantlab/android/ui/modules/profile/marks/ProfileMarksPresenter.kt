@@ -90,7 +90,7 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 		sendToView { it.onItemClicked(item) }
 	}
 
-	override fun onItemLongClick(position: Int, v: View, item: Mark) {
+	override fun onItemLongClick(position: Int, v: View?, item: Mark) {
 		sendToView { it.onItemLongClicked(position, v, item) }
 	}
 

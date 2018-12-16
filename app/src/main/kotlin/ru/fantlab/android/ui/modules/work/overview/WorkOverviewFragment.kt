@@ -234,6 +234,10 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 				.append(midMark)
 				.append(" - ")
 				.append(markCount.toInt())
+		if (mark > 0) {
+			mymark.text = mark.toString()
+			mymark.visibility = View.VISIBLE
+		}
 		pagerCallback?.onSetMarked(mark > 0, mark)
 	}
 

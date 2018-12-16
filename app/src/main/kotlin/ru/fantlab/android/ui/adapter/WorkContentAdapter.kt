@@ -8,7 +8,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.util.*
 
 class WorkContentAdapter constructor(content: ArrayList<ChildWork>)
-	: BaseRecyclerAdapter<ChildWork, WorkContentViewHolder, BaseViewHolder.OnItemClickListener<ChildWork>>(content) {
+	: BaseRecyclerAdapter<ChildWork, WorkContentViewHolder>(content) {
 
 	override fun viewHolder(parent: ViewGroup, viewType: Int): WorkContentViewHolder = WorkContentViewHolder.newInstance(parent, this)
 

@@ -14,7 +14,7 @@ import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class WorkAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Work.Author, WorkAuthorsViewHolder, *>)
+class WorkAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Work.Author, WorkAuthorsViewHolder>)
 	: BaseViewHolder<Work.Author>(itemView, adapter) {
 
 	@BindView(R.id.avatarLayout) lateinit var avatarLayout: AvatarLayout
@@ -38,7 +38,7 @@ class WorkAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Work.Au
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<Work.Author, WorkAuthorsViewHolder, *>
+				adapter: BaseRecyclerAdapter<Work.Author, WorkAuthorsViewHolder>
 		): WorkAuthorsViewHolder =
 				WorkAuthorsViewHolder(getView(viewGroup, R.layout.author_row_item), adapter)
 	}

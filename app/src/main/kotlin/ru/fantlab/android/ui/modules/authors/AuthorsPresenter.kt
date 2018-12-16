@@ -50,6 +50,6 @@ class AuthorsPresenter : BasePresenter<AuthorsMvp.View>(), AuthorsMvp.Presenter 
 		sendToView { it.onItemClicked(item) }
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: AuthorInList?) {
+	override fun onItemLongClick(position: Int, v: View?, item: AuthorInList) {
 	}
 }

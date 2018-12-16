@@ -11,7 +11,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 
-class ContextMenuViewHolder(itemView: View, adapter: BaseRecyclerAdapter<ContextMenus.MenuItem, ContextMenuViewHolder, *>)
+class ContextMenuViewHolder(itemView: View, adapter: BaseRecyclerAdapter<ContextMenus.MenuItem, ContextMenuViewHolder>)
 	: BaseViewHolder<ContextMenus.MenuItem>(itemView, adapter) {
 
 	@BindView(R.id.icon) lateinit var icon: ForegroundImageView
@@ -26,7 +26,7 @@ class ContextMenuViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Context
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<ContextMenus.MenuItem, ContextMenuViewHolder, *>
+				adapter: BaseRecyclerAdapter<ContextMenus.MenuItem, ContextMenuViewHolder>
 		): ContextMenuViewHolder =
 				ContextMenuViewHolder(getView(viewGroup, R.layout.context_row_item), adapter)
 	}

@@ -10,15 +10,17 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.base.BaseBottomSheetDialog
 import ru.fantlab.android.ui.widgets.FontTextView
+import ru.fantlab.android.ui.widgets.ratingbar.BaseRatingBar
 import ru.fantlab.android.ui.widgets.ratingbar.ScaleRatingBar
 
 
-open class RatingDialogView : BaseBottomSheetDialog() {
-
+open class RatingDialogView : BaseBottomSheetDialog(), BaseRatingBar.OnRatingDoneListener {
 	@BindView(R.id.ratingBar) lateinit var ratingBar: ScaleRatingBar
 	@BindView(R.id.caption) lateinit var title: FontTextView
 
 	private var callback: RatingDialogViewActionCallback? = null
+	var position: Int = -1
+	var item: Any? = null
 
 	interface RatingDialogViewActionCallback {
 		fun onRated(rating: Float, listItem: Any, position: Int)
@@ -47,9 +49,9 @@ open class RatingDialogView : BaseBottomSheetDialog() {
 		val bundle = arguments ?: return
 		val numStars = bundle.getInt(BundleConstant.EXTRA)
 		val currentRate = bundle.getFloat(BundleConstant.EXTRA_TWO)
-		val position = bundle.getInt(BundleConstant.EXTRA_THREE)
 		val caption = bundle.getString(BundleConstant.EXTRA_FOUR)
-		val item: Any = bundle.getParcelable(BundleConstant.ITEM)
+		position = bundle.getInt(BundleConstant.EXTRA_THREE)
+		item = bundle.getParcelable(BundleConstant.ITEM)
 
 		if (caption.isNotEmpty()) {
 			title.text = caption
@@ -62,13 +64,15 @@ open class RatingDialogView : BaseBottomSheetDialog() {
 		ratingBar.starPadding = 5
 		ratingBar.isClickable = true
 		ratingBar.isClearRatingEnabled = false
-
-		ratingBar.setOnRatingDoneListener { rating ->
-			callback?.onRated(rating, item, position)
-			dismiss()
-		}
+		ratingBar.setOnRatingDoneListener(this)
 
 	}
+
+	override fun onRatingDone(mRating: Float) {
+		if (item != null) callback?.onRated(mRating, item!!, position)
+		dismiss()
+	}
+
 
 	companion object {
 		val TAG: String = RatingDialogView::class.java.simpleName

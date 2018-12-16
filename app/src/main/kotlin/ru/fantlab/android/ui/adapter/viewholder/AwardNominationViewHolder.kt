@@ -9,7 +9,7 @@ import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class AwardNominationViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Award.Nominations, AwardNominationViewHolder, *>)
+class AwardNominationViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Award.Nominations, AwardNominationViewHolder>)
 	: BaseViewHolder<Award.Nominations>(itemView, adapter) {
 
 	@BindView(R.id.title) lateinit var name: FontTextView
@@ -38,7 +38,7 @@ class AwardNominationViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Awa
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<Award.Nominations, AwardNominationViewHolder, *>
+				adapter: BaseRecyclerAdapter<Award.Nominations, AwardNominationViewHolder>
 		): AwardNominationViewHolder =
 				AwardNominationViewHolder(getView(viewGroup, R.layout.award_nomination_row_item), adapter)
 	}

@@ -13,7 +13,7 @@ import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class SearchEditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchEdition, SearchEditionsViewHolder, *>)
+class SearchEditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchEdition, SearchEditionsViewHolder>)
 	: BaseViewHolder<SearchEdition>(itemView, adapter) {
 
 	@BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
@@ -53,7 +53,7 @@ class SearchEditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Sear
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<SearchEdition, SearchEditionsViewHolder, *>
+				adapter: BaseRecyclerAdapter<SearchEdition, SearchEditionsViewHolder>
 		): SearchEditionsViewHolder =
 				SearchEditionsViewHolder(getView(viewGroup, R.layout.search_editions_row_item), adapter)
 	}

@@ -14,7 +14,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.text.NumberFormat
 
-class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchWork, SearchWorksViewHolder, *>)
+class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchWork, SearchWorksViewHolder>)
 	: BaseViewHolder<SearchWork>(itemView, adapter) {
 
 	@BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
@@ -112,7 +112,7 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<SearchWork, SearchWorksViewHolder, *>
+				adapter: BaseRecyclerAdapter<SearchWork, SearchWorksViewHolder>
 		): SearchWorksViewHolder =
 				SearchWorksViewHolder(getView(viewGroup, R.layout.search_works_row_item), adapter)
 	}

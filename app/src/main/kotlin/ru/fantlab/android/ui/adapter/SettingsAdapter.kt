@@ -8,7 +8,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.util.*
 
 class SettingsAdapter constructor(settings: ArrayList<SettingsModel>)
-	: BaseRecyclerAdapter<SettingsModel, SettingsViewHolder, BaseViewHolder.OnItemClickListener<SettingsModel>>(settings) {
+	: BaseRecyclerAdapter<SettingsModel, SettingsViewHolder>(settings) {
 
 	override fun viewHolder(parent: ViewGroup, viewType: Int): SettingsViewHolder = SettingsViewHolder.newInstance(parent, this)
 

@@ -14,7 +14,7 @@ import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class EditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<EditionsBlocks.Edition, EditionsViewHolder, *>)
+class EditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<EditionsBlocks.Edition, EditionsViewHolder>)
 	: BaseViewHolder<EditionsBlocks.Edition>(itemView, adapter) {
 
 	@BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
@@ -62,7 +62,7 @@ class EditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<EditionsBl
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<EditionsBlocks.Edition, EditionsViewHolder, *>
+				adapter: BaseRecyclerAdapter<EditionsBlocks.Edition, EditionsViewHolder>
 		): EditionsViewHolder =
 				EditionsViewHolder(getView(viewGroup, R.layout.work_edition_row_item), adapter)
 	}

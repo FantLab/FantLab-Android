@@ -8,7 +8,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.util.*
 
 class AwardNominationsAdapter constructor(authors: ArrayList<Award.Nominations>)
-	: BaseRecyclerAdapter<Award.Nominations, AwardNominationViewHolder, BaseViewHolder.OnItemClickListener<Award.Nominations>>(authors) {
+	: BaseRecyclerAdapter<Award.Nominations, AwardNominationViewHolder>(authors) {
 
 	override fun viewHolder(parent: ViewGroup, viewType: Int): AwardNominationViewHolder = AwardNominationViewHolder.newInstance(parent, this)
 

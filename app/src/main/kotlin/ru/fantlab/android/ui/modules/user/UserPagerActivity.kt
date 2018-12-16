@@ -161,7 +161,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		}
 		when (position) {
 			0 -> {
-				if (userId != PrefGetter.getLoggedUser()?.id) {
+				if (isLoggedIn() && userId != PrefGetter.getLoggedUser()?.id) {
 					fab.setImageResource(R.drawable.ic_message)
 					fab.show()
 				} else fab.hide()

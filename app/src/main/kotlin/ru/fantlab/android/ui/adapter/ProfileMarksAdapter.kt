@@ -8,7 +8,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.util.*
 
 class ProfileMarksAdapter constructor(marks: ArrayList<Mark>)
-	: BaseRecyclerAdapter<Mark, UserMarkViewHolder, BaseViewHolder.OnItemClickListener<Mark>>(marks) {
+	: BaseRecyclerAdapter<Mark, UserMarkViewHolder>(marks) {
 
 	override fun viewHolder(parent: ViewGroup, viewType: Int): UserMarkViewHolder = UserMarkViewHolder.newInstance(parent, this)
 

@@ -11,7 +11,7 @@ import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class AnalogsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorkAnalog, AnalogsViewHolder, *>)
+class AnalogsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorkAnalog, AnalogsViewHolder>)
 	: BaseViewHolder<WorkAnalog>(itemView, adapter) {
 
 	@BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
@@ -45,7 +45,7 @@ class AnalogsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorkAnalog,
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<WorkAnalog, AnalogsViewHolder, *>
+				adapter: BaseRecyclerAdapter<WorkAnalog, AnalogsViewHolder>
 		): AnalogsViewHolder =
 				AnalogsViewHolder(getView(viewGroup, R.layout.work_analog_row_item), adapter)
 	}

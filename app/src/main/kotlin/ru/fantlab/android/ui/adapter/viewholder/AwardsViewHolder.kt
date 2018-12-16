@@ -15,7 +15,7 @@ import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class AwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<AwardInList, AwardsViewHolder, *>)
+class AwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<AwardInList, AwardsViewHolder>)
 	: BaseViewHolder<AwardInList>(itemView, adapter) {
 
 	@BindView(R.id.awardIcon) lateinit var coverLayout: AvatarLayout
@@ -56,7 +56,7 @@ class AwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<AwardInList,
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<AwardInList, AwardsViewHolder, *>
+				adapter: BaseRecyclerAdapter<AwardInList, AwardsViewHolder>
 		): AwardsViewHolder =
 				AwardsViewHolder(getView(viewGroup, R.layout.awardlist_row_item), adapter)
 	}

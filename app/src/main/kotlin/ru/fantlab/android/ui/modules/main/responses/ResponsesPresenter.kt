@@ -128,7 +128,7 @@ class ResponsesPresenter : BasePresenter<ResponsesMvp.View>(), ResponsesMvp.Pres
 		sendToView { it.onItemClicked(item) }
 	}
 
-	override fun onItemLongClick(position: Int, v: View, item: Response) {
+	override fun onItemLongClick(position: Int, v: View?, item: Response) {
 		sendToView { it.onItemLongClicked(position, v, item) }
 	}
 }

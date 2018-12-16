@@ -61,6 +61,6 @@ class AuthorEditionsPresenter : BasePresenter<AuthorEditionsMvp.View>(),
 		sendToView { it.onItemClicked(item) }
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: EditionsBlocks.Edition?) {
+	override fun onItemLongClick(position: Int, v: View?, item: EditionsBlocks.Edition) {
 	}
 }

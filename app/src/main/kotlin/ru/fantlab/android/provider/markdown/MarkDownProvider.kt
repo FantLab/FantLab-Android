@@ -44,14 +44,13 @@ object MarkDownProvider {
 				.replace("[*]", "<li>")
 				.replace("\\u003d".toRegex(), "=")
 				.replace("\\[URL=(.*?)](.*?)\\[/URL]".toRegex(), "<a href=\$1>\$2</a>")
-				.replace("\\[(?!autor|/autor)(?!award|/award)(?!work|/work)(?!cycle|/cycle)(?!link|/link)(?!art|/art)(?!translator|/translator)(.*?)]".toRegex(), "<$1>")
+				.replace("\\[(?!autor|/autor)(?!award|/award)(?!work|/work)(?!img|/img)(?!url|/url)(?!cycle|/cycle)(?!link|/link)(?!art|/art)(?!translator|/translator)(.*?)]".toRegex(), "<$1>")
 				.replace("(<PHOTO.*?>)".toRegex(), "")
 				.replace("\n", "<br>")
 	}
 
 	private fun render(textView: TextView, markdown: String, width: Int) {
 		val extensions = Arrays.asList(
-				//StrikethroughExtension.create(),
 				InnerTagExtension.create(),
 				AutolinkExtension.create(),
 				SmileExtension.create()

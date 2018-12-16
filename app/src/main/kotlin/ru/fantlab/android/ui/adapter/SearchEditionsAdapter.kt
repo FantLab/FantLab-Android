@@ -8,7 +8,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.util.*
 
 class SearchEditionsAdapter constructor(editions: ArrayList<SearchEdition>)
-	: BaseRecyclerAdapter<SearchEdition, SearchEditionsViewHolder, BaseViewHolder.OnItemClickListener<SearchEdition>>(editions) {
+	: BaseRecyclerAdapter<SearchEdition, SearchEditionsViewHolder>(editions) {
 
 	override fun viewHolder(parent: ViewGroup, viewType: Int): SearchEditionsViewHolder = SearchEditionsViewHolder.newInstance(parent, this)
 

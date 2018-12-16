@@ -13,7 +13,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 
-class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, ResponseViewHolder, *>)
+class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, ResponseViewHolder>)
 	: BaseViewHolder<Response>(itemView, adapter) {
 
 	@JvmField @BindView(R.id.coverLayout) var coverLayout: CoverLayout? = null
@@ -83,7 +83,7 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 		fun newInstance(
 				viewGroup: ViewGroup,
 				noImage: Boolean,
-				adapter: BaseRecyclerAdapter<Response, ResponseViewHolder, *>
+				adapter: BaseRecyclerAdapter<Response, ResponseViewHolder>
 		): ResponseViewHolder {
 			return if (noImage) {
 				ResponseViewHolder(getView(viewGroup, R.layout.response_row_no_image_item), adapter)

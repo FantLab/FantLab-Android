@@ -60,6 +60,6 @@ class AwardContestsPresenter : BasePresenter<AwardContestsMvp.View>(),
 		sendToView { it.onItemClicked(item, position) }
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: Award.Contest?) {
+	override fun onItemLongClick(position: Int, v: View?, item: Award.Contest) {
 	}
 }

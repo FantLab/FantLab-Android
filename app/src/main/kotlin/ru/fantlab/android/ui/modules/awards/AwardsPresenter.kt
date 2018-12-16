@@ -54,6 +54,6 @@ class AwardsPresenter : BasePresenter<AwardsMvp.View>(), AwardsMvp.Presenter {
 		sendToView { it.onItemClicked(item) }
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: AwardInList?) {
+	override fun onItemLongClick(position: Int, v: View?, item: AwardInList) {
 	}
 }

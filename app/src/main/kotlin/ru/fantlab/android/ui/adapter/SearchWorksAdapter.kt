@@ -8,7 +8,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.util.*
 
 class SearchWorksAdapter constructor(works: ArrayList<SearchWork>)
-	: BaseRecyclerAdapter<SearchWork, SearchWorksViewHolder, BaseViewHolder.OnItemClickListener<SearchWork>>(works) {
+	: BaseRecyclerAdapter<SearchWork, SearchWorksViewHolder>(works) {
 
 	override fun viewHolder(parent: ViewGroup, viewType: Int): SearchWorksViewHolder = SearchWorksViewHolder.newInstance(parent, this)
 

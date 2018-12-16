@@ -94,7 +94,7 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 		sendToView { it.onItemClicked(item) }
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: Response?) {
+	override fun onItemLongClick(position: Int, v: View?, item: Response) {
 	}
 
 	override fun getCurrentPage(): Int = page

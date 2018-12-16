@@ -9,7 +9,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 class SmileAdapter(listener: BaseViewHolder.OnItemClickListener<Smile>)
-	: BaseRecyclerAdapter<Smile, SmileViewHolder, BaseViewHolder.OnItemClickListener<Smile>>(listener), Filterable {
+	: BaseRecyclerAdapter<Smile, SmileViewHolder>(listener = listener), Filterable {
 
 	var copiedList = mutableListOf<Smile>()
 

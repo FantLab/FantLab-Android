@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 
-internal class PartialView : RelativeLayout {
+class PartialView : RelativeLayout {
 
 	private var mFilledView: ImageView? = null
 	private var mEmptyView: ImageView? = null

@@ -10,7 +10,7 @@ import ru.fantlab.android.ui.widgets.ForegroundImageView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class SettingsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SettingsModel, SettingsViewHolder, *>)
+class SettingsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SettingsModel, SettingsViewHolder>)
 	: BaseViewHolder<SettingsModel>(itemView, adapter) {
 
 	@BindView(R.id.iconItemImage) lateinit var icon: ForegroundImageView
@@ -31,7 +31,7 @@ class SettingsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SettingsMo
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<SettingsModel, SettingsViewHolder, *>
+				adapter: BaseRecyclerAdapter<SettingsModel, SettingsViewHolder>
 		): SettingsViewHolder =
 				SettingsViewHolder(getView(viewGroup, R.layout.setting_row_item), adapter)
 	}

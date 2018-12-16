@@ -8,7 +8,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.util.*
 
 class AuthorsAdapter constructor(authors: ArrayList<AuthorInList>)
-	: BaseRecyclerAdapter<AuthorInList, AuthorsViewHolder, BaseViewHolder.OnItemClickListener<AuthorInList>>(authors) {
+	: BaseRecyclerAdapter<AuthorInList, AuthorsViewHolder>(authors) {
 
 	override fun viewHolder(parent: ViewGroup, viewType: Int): AuthorsViewHolder = AuthorsViewHolder.newInstance(parent, this)
 

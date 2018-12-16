@@ -14,7 +14,36 @@ import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
 import ru.fantlab.android.provider.scheme.SchemeParser
 import ru.fantlab.android.provider.timeline.handler.*
 
-object HtmlHelper {
+object HtmlHelper : BetterLinkMovementExtended.OnLinkClickListener, BetterLinkMovementExtended.OnLinkLongClickListener {
+
+	override fun onLongClick(view: TextView, url: String, label: String): Boolean {
+		view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+		val menu = PopupMenu(view.context, view)
+		menu.setOnMenuItemClickListener { menuItem ->
+			when (menuItem.itemId) {
+				R.id.copy -> {
+					ActivityHelper.copyToClipboard(view.context, if (url.contains("http")) url else "$PROTOCOL_HTTPS://$HOST_DEFAULT$url")
+					true
+				}
+				R.id.open -> {
+					SchemeParser.launchUri(view.context, url, label)
+					true
+				}
+				else -> {
+					false
+				}
+			}
+
+		}
+		menu.inflate(R.menu.link_popup_menu)
+		menu.show()
+		return true
+	}
+
+	override fun onClick(view: TextView, link: String, label: String): Boolean {
+		SchemeParser.launchUri(view.context, link, label)
+		return true
+	}
 
 	fun htmlIntoTextView(textView: TextView, html: String, width: Int) {
 		registerClickEvent(textView)
@@ -23,33 +52,8 @@ object HtmlHelper {
 
 	private fun registerClickEvent(textView: TextView) {
 		val betterLinkMovementMethod = BetterLinkMovementExtended.linkifyHtml(textView)
-		betterLinkMovementMethod.setOnLinkClickListener { view, link, label ->
-			SchemeParser.launchUri(view.context, link, label)
-			true
-		}
-		betterLinkMovementMethod.setOnLinkLongClickListener { view, url, label ->
-			view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
-			val menu = PopupMenu(view.context, view)
-			menu.setOnMenuItemClickListener { menuItem ->
-				when (menuItem.itemId) {
-					R.id.copy -> {
-						ActivityHelper.copyToClipboard(view.context, if (url.contains("http")) url else "$PROTOCOL_HTTPS://$HOST_DEFAULT$url")
-						true
-					}
-					R.id.open -> {
-						SchemeParser.launchUri(view.context, url, label)
-						true
-					}
-					else -> {
-						false
-					}
-				}
-
-			}
-			menu.inflate(R.menu.link_popup_menu)
-			menu.show()
-			true
-		}
+		betterLinkMovementMethod.setOnLinkClickListener(this)
+		betterLinkMovementMethod.setOnLinkLongClickListener(this)
 	}
 
 	private fun initHtml(textView: TextView, width: Int): HtmlSpanner {

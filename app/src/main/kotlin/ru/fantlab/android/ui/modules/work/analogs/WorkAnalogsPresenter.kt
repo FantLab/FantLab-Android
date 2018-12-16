@@ -67,6 +67,6 @@ class WorkAnalogsPresenter : BasePresenter<WorkAnalogsMvp.View>(),
 		sendToView { it.onItemClicked(item) }
 	}
 
-	override fun onItemLongClick(position: Int, v: View?, item: WorkAnalog?) {
+	override fun onItemLongClick(position: Int, v: View?, item: WorkAnalog) {
 	}
 }

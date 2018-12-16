@@ -10,7 +10,7 @@ import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class WorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorksBlocks.Work, WorksViewHolder, *>)
+class WorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorksBlocks.Work, WorksViewHolder>)
 	: BaseViewHolder<WorksBlocks.Work>(itemView, adapter) {
 
 	@BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
@@ -45,7 +45,7 @@ class WorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorksBlocks.W
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<WorksBlocks.Work, WorksViewHolder, *>
+				adapter: BaseRecyclerAdapter<WorksBlocks.Work, WorksViewHolder>
 		): WorksViewHolder =
 				WorksViewHolder(getView(viewGroup, R.layout.work_row_item), adapter)
 	}

@@ -10,7 +10,7 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 
-class SimpleViewHolder<T>(itemView: View, adapter: BaseRecyclerAdapter<T, SimpleViewHolder<T>, *>)
+class SimpleViewHolder<T>(itemView: View, adapter: BaseRecyclerAdapter<T, SimpleViewHolder<T>>)
 	: BaseViewHolder<T>(itemView, adapter) {
 
 	@BindView(R.id.title) lateinit var title: FontTextView

@@ -18,7 +18,7 @@ internal interface SimpleRatingBar {
 
 	var isScrollable: Boolean
 
-	var isClickable: Boolean
+	//var isClickable: Boolean
 
 	var isClearRatingEnabled: Boolean
 
