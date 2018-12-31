@@ -48,7 +48,7 @@ class EditorLinkImageDialogFragment : BaseDialogFragment<EditorLinkImageMvp.View
 		dismiss()
 	}
 
-	override fun fragmentLayout() = R.layout.markdown_link_image_dialog_layout
+	override fun fragmentLayout() = R.layout.editor_link_image_dialog_layout
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {

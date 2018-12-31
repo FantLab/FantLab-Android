@@ -18,7 +18,6 @@ import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.*
-import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
@@ -28,6 +27,7 @@ import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
+import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 
 class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverviewPresenter>(),
 		ResponseOverviewMvp.View {
@@ -36,7 +36,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 	@BindView(R.id.date) lateinit var date: FontTextView
 	@BindView(R.id.username) lateinit var username: FontTextView
 	@BindView(R.id.workName) lateinit var workTitle: FontTextView
-	@BindView(R.id.text) lateinit var text: FontTextView
+	@BindView(R.id.text) lateinit var text: HTMLTextView
 	@BindView(R.id.rating) lateinit var rating: FontTextView
 	@BindView(R.id.votes) lateinit var votes: FontTextView
 	@BindView(R.id.mark) lateinit var mark: FontTextView
@@ -109,7 +109,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 				WorkPagerActivity.startActivity(this, response.workId, response.workName, 0)
 		}
 
-		MarkDownProvider.setMdText(text, prepareResponse(response.text) ?: "")
+		text.text = response.text
 
 		if (response.mark == null) {
 			rating.visibility = View.GONE
@@ -153,11 +153,6 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		if (userLevel < FantlabHelper.minLevelToVote) variants[0].items.removeAt(1)
 		dialogView.initArguments("votes", variants, response, 0)
 		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
-	}
-
-	private fun prepareResponse(savedText: CharSequence?): String? {
-		val REGEX_TAGS = "\\[(.*?)]".toRegex()
-		return savedText?.replace(REGEX_TAGS, "<$1>")
 	}
 
 	override fun onSetVote(votesCount: String) {

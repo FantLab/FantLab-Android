@@ -10,6 +10,7 @@ import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
+import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.modules.work.CyclePagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import timber.log.Timber
@@ -36,6 +37,9 @@ object SchemeParser {
 				}
 				"cycle" -> {
 					CyclePagerActivity.startActivity(App.instance.applicationContext, id.toInt(), label, 0)
+				}
+				"user" -> {
+					UserPagerActivity.startActivity(App.instance.applicationContext, label, id.toInt(), 0)
 				}
 				else -> {
 					Timber.d("${context.getString(R.string.not_recognized)} ($type:$id)")

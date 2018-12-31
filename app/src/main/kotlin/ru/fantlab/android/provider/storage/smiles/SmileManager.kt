@@ -1,4 +1,4 @@
-package ru.fantlab.android.provider.markdown.extension.smiles
+package ru.fantlab.android.provider.storage.smiles
 
 import ru.fantlab.android.App
 import ru.fantlab.android.data.dao.model.Smile

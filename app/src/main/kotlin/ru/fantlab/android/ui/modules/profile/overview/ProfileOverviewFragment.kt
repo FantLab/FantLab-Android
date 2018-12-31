@@ -18,7 +18,6 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.FantlabHelper.User.classRanges
 import ru.fantlab.android.helper.getTimeAgo
 import ru.fantlab.android.helper.parseFullDate
-import ru.fantlab.android.provider.timeline.HtmlHelper
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.user.UserPagerMvp
@@ -26,6 +25,7 @@ import ru.fantlab.android.ui.widgets.AvatarLayout
 import ru.fantlab.android.ui.widgets.FontButton
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.StateLayout
+import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 import java.text.NumberFormat
 
 class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOverviewPresenter>(),
@@ -61,7 +61,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 	@BindView(R.id.location) lateinit var location: FontTextView
 	@BindView(R.id.regDate) lateinit var regDate: FontTextView
 	@BindView(R.id.lastActionDate) lateinit var lastActionDate: FontTextView
-	@BindView(R.id.sign) lateinit var sign: FontTextView
+	@BindView(R.id.sign) lateinit var sign: HTMLTextView
 	@BindView(R.id.block) lateinit var block: FontTextView
 	@BindView(R.id.progress) lateinit var progress: View
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
@@ -103,14 +103,8 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		if (user.authorId == null && /*user.blogId == null*/true) {
 			authorBlock.visibility = GONE
 		} else {
-			authorBlock.visibility = VISIBLE
-			if (user.authorId != null) {
-				author.setOnClickListener {
-					AuthorPagerActivity.startActivity(view!!.context, user.authorId, user.authorName!!, 0)
-				}
-			} else {
-				author.visibility = View.GONE
-				divider.visibility = View.GONE
+			author.setOnClickListener {
+				AuthorPagerActivity.startActivity(view!!.context, user.authorId, user.authorName!!, 0)
 			}
 			if (/*user.blogId != null*/false /* раскомментировать, когда появится функционал блога */) {
 				blog.setOnClickListener {
@@ -163,7 +157,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		if (user.sign.isNullOrEmpty()) {
 			sign.visibility = View.GONE
 		} else {
-			HtmlHelper.htmlIntoTextView(sign, user.sign ?: "", sign.width)
+			sign.html = user.sign
 		}
 		if (user.blocked == 1) {
 			block.text = if (user.blockEndDate != null) {

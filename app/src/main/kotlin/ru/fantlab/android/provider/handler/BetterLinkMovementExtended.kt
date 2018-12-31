@@ -1,4 +1,4 @@
-package ru.fantlab.android.provider.timeline.handler
+package ru.fantlab.android.provider.handler
 
 import android.content.Context
 import android.graphics.RectF
@@ -14,6 +14,7 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.TextView
+import ru.fantlab.android.ui.widgets.htmlview.SpoilerSpan
 
 class BetterLinkMovementExtended private constructor(context: Context) : LinkMovementMethod() {
 
@@ -164,7 +165,7 @@ class BetterLinkMovementExtended private constructor(context: Context) : LinkMov
 	) {
 		val spanUrl = spanWithText.text()
 		val spanLabel = ClickableSpanWithText.label(textView, spanWithText.span())
-		if (spanWithText.span !is SpoilerHandler.SpoilerSpan) {
+		if (spanWithText.span !is SpoilerSpan) {
 			val handled = this.onLinkClickListener != null && this.onLinkClickListener!!.onClick(
 					textView,
 					spanUrl,
@@ -184,7 +185,7 @@ class BetterLinkMovementExtended private constructor(context: Context) : LinkMov
 	) {
 		val spanUrl = spanWithText.text()
 		val spanLabel = ClickableSpanWithText.label(textView, spanWithText.span())
-		if (onLinkLongClickListener != null && spanWithText.span !is SpoilerHandler.SpoilerSpan) {
+		if (onLinkLongClickListener != null && spanWithText.span !is SpoilerSpan) {
 			onLinkLongClickListener!!.onLongClick(textView, spanUrl, spanLabel)
 		}
 	}

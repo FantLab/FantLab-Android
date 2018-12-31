@@ -4,8 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.EditionContentChild
-import ru.fantlab.android.provider.timeline.HtmlHelper
-import ru.fantlab.android.ui.widgets.FontTextView
+import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import ru.fantlab.android.ui.widgets.treeview.TreeViewBinder
@@ -26,10 +25,10 @@ class EditionContentChildViewHolder : TreeViewBinder<EditionContentChildViewHold
 	) {
 		val childNode = node.content as EditionContentChild?
 		(holder as EditionContentChildViewHolder.ViewHolder)
-		HtmlHelper.htmlIntoTextView(holder.title, childNode!!.title, holder.title.width)
+		holder.title.html = childNode!!.title
 	}
 
 	inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
-		var title: FontTextView = rootView.findViewById<View>(R.id.title) as FontTextView
+		var title: HTMLTextView = rootView.findViewById<View>(R.id.title) as HTMLTextView
 	}
 }

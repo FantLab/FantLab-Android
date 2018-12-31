@@ -1,4 +1,4 @@
-package ru.fantlab.android.provider.timeline.handler.drawable
+package ru.fantlab.android.ui.widgets.htmlview.drawable
 
 import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat

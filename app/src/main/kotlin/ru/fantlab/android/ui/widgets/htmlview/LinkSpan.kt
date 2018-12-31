@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.widgets.markdown.style
+package ru.fantlab.android.ui.widgets.htmlview
 
 import android.text.TextPaint
 import android.text.style.URLSpan

@@ -16,13 +16,13 @@ import ru.fantlab.android.data.dao.model.Biography
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
-import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
 import ru.fantlab.android.ui.widgets.CoverLayout
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.StateLayout
+import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 
 class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOverviewPresenter>(),
 		AuthorOverviewMvp.View {
@@ -38,7 +38,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 	@BindView(R.id.biographyCard) lateinit var biographyCard: View
 	@BindView(R.id.biography) lateinit var biographyText: FontTextView
 	@BindView(R.id.source) lateinit var source: FontTextView
-	@BindView(R.id.homepage) lateinit var homepage: FontTextView
+	@BindView(R.id.homepage) lateinit var homepage: HTMLTextView
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
 	private var pagerCallback: AuthorPagerMvp.View? = null
@@ -95,7 +95,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 				sb.append("<a href=\"${it.site}\">${it.description.capitalize()}</a>")
 				if (index <= biography.sites.size) sb.append("\n")
 			}
-			MarkDownProvider.setMdText(homepage, sb.toString())
+			homepage.html = sb.toString()
 		}
 
 		if (author.isOpened == 1) {
@@ -112,7 +112,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 			biographyText.text = bio
 
 			when {
-				biography!!.source.isNotEmpty() && biography.sourceLink.isNotEmpty() -> {
+				biography.source.isNotEmpty() && biography.sourceLink.isNotEmpty() -> {
 					val sourceText = "© <a href=\"${biography.sourceLink}\">${biography.source}</a>"
 					source.text = Html.fromHtml(sourceText)
 				}

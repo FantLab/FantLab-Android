@@ -11,7 +11,7 @@
 		android:layout_height="45dp"
 		android:layout_gravity="center_vertical"
 		android:layout_margin="5dp"
-		android:src="@drawable/ic_keyboard_arrow_right_black_18dp"
+		android:src="@drawable/ic_arrow_right"
 		/>
 
 	<CheckBox

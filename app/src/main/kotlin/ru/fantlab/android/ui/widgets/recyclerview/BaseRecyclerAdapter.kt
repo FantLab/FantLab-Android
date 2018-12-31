@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import ru.fantlab.android.helper.AnimHelper
 import ru.fantlab.android.helper.PrefGetter
 
-	abstract class BaseRecyclerAdapter<M, VH : BaseViewHolder<M>>(internal var data: MutableList<M> = mutableListOf(), var listener: BaseViewHolder.OnItemClickListener<M>? = null) : RecyclerView.Adapter<VH>() {
+abstract class BaseRecyclerAdapter<M, VH : BaseViewHolder<M>>(internal var data: MutableList<M> = mutableListOf(), var listener: BaseViewHolder.OnItemClickListener<M>? = null) : RecyclerView.Adapter<VH>() {
 	private val PROGRESS_TYPE = 2017
 	private var lastKnowingPosition = -1
 	private var enableAnimation = PrefGetter.isRVAnimationEnabled()
@@ -195,12 +195,19 @@ import ru.fantlab.android.helper.PrefGetter
 
 	fun addItem(item: M?) {
 		removeProgress()
-		data.add(item!!)
+		addNullSafe(data, item);
 		if (data.size == 0) {
 			notifyDataSetChanged()
 		} else {
 			notifyItemInserted(data.size - 1)
 		}
+	}
+
+	private fun <T> addNullSafe(list: MutableList<T>, element: T?): Boolean {
+		return if (list.isEmpty() || element == null) {
+			false
+		} else list.add(element)
+
 	}
 
 	fun isProgressAdded(): Boolean {

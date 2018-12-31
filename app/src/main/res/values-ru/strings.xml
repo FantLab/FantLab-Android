@@ -102,7 +102,7 @@
 	<string name="title">Заголовок</string>
 	<string name="link">Ссылка</string>
 	<string name="insert">Вставить</string>
-	<string name="markdown">Редактор</string>
+	<string name="editor">Редактор</string>
 	<string name="copy">Скопировать</string>
 	<string name="open">Открыть</string>
 	<string name="message">Сообщение</string>

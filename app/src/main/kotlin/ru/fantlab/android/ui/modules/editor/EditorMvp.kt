@@ -4,15 +4,15 @@ import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.modules.editor.popup.EditorLinkImageMvp
 import ru.fantlab.android.ui.modules.editor.smiles.SmileMvp
-import ru.fantlab.android.ui.widgets.markdown.MarkDownLayout
+import ru.fantlab.android.ui.widgets.editor.EditorLayout
 
 interface EditorMvp {
 
 	interface View : BaseMvp.View, EditorLinkImageMvp.EditorLinkCallback,
-			MarkDownLayout.MarkdownListener, SmileMvp.SmileCallback {
+			EditorLayout.EditorListener, SmileMvp.SmileCallback {
 		fun onSendResultAndFinish(commentModel: Response, isNew: Boolean)
 
-		fun onSendMarkDownResult()
+		fun onSendEditorResult()
 
 		fun onSendReviewResultAndFinish(comment: Response, isNew: Boolean)
 

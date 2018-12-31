@@ -4,20 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.support.transition.TransitionManager
 import android.support.v4.app.FragmentManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
-import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.ListView
 import butterknife.BindView
-import butterknife.OnClick
 import com.evernote.android.state.State
-import kotlinx.android.synthetic.main.markdown_buttons_layout.view.*
+import kotlinx.android.synthetic.main.editor_buttons_layout.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.data.dao.model.Smile
@@ -25,25 +20,18 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.ViewHelper
-import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.ui.base.BaseActivity
-import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.dialog.MessageDialogView
-import ru.fantlab.android.ui.widgets.markdown.MarkDownLayout
-import ru.fantlab.android.ui.widgets.markdown.MarkdownEditText
-import java.util.*
+import ru.fantlab.android.ui.widgets.editor.EditorEditText
+import ru.fantlab.android.ui.widgets.editor.EditorLayout
+import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 
 class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMvp.View {
 
-	private var participants: ArrayList<String>? = null
-
-	@BindView(R.id.replyQuote) lateinit var replyQuote: LinearLayout
-	@BindView(R.id.replyQuoteText) lateinit var quote: FontTextView
-	@BindView(R.id.markDownLayout) lateinit var markDownLayout: MarkDownLayout
-	@BindView(R.id.editText) lateinit var editText: MarkdownEditText
-	@BindView(R.id.list_divider) lateinit var listDivider: View
+	@BindView(R.id.editorLayout) lateinit var editorLayout: EditorLayout
+	@BindView(R.id.editText) lateinit var editText: EditorEditText
+	@BindView(R.id.htmlText) lateinit var htmlText: HTMLTextView
 	@BindView(R.id.parentView) lateinit var parentView: View
-	@BindView(R.id.autocomplete) lateinit var mention: ListView
 
 	@State var extraType: String? = null
 	@State var itemId: Int? = null
@@ -57,30 +45,16 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 
 	override fun providePresenter(): EditorPresenter = EditorPresenter()
 
-	@OnClick(R.id.replyQuoteText)
-	internal fun onToggleQuote() {
-		TransitionManager.beginDelayedTransition((parentView as ViewGroup))
-		if (quote.maxLines == 3) {
-			quote.maxLines = Integer.MAX_VALUE
-		} else {
-			quote.maxLines = 3
-		}
-		quote.setCompoundDrawablesWithIntrinsicBounds(0, 0,
-				if (quote.maxLines == 3) R.drawable.ic_arrow_drop_down
-				else R.drawable.ic_arrow_drop_up, 0)
-	}
-
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		if (!isLoggedIn()) finish()
-		markDownLayout.markdownListener = this
-		title = getString(R.string.markdown)
+		editorLayout.editorListener = this
+		title = getString(R.string.editor)
 		setToolbarIcon(R.drawable.ic_clear)
 		if (savedInstanceState == null) {
 			onCreate()
 		}
 		invalidateOptionsMenu()
-		editText.initListView(mention, listDivider, participants)
 		editText.requestFocus()
 	}
 
@@ -95,7 +69,7 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 		finish()
 	}
 
-	override fun onSendMarkDownResult() {
+	override fun onSendEditorResult() {
 		val intent = Intent()
 		intent.putExtras(Bundler.start().put(BundleConstant.EXTRA, editText.savedText).end())
 		setResult(Activity.RESULT_OK, intent)
@@ -104,7 +78,7 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 
 	override fun onSendMessageResult(result: String) {
 		hideProgress()
-		onSendMarkDownResult()
+		onSendEditorResult()
 	}
 
 	override fun onSendReviewResultAndFinish(comment: Response, isNew: Boolean) {
@@ -194,14 +168,16 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 	}
 
 	override fun onAppendLink(title: String, link: String, isLink: Boolean) {
-		markDownLayout.onAppendLink(title, link, isLink)
+		editorLayout.onAppendLink(title, link, isLink)
 	}
 
 	override fun onSmileAdded(smile: Smile?) {
-		markDownLayout.onSmileAdded(smile)
+		editorLayout.onSmileAdded(smile)
 	}
 
 	override fun getEditText(): EditText = editText
+
+	override fun getHtmlsText(): HTMLTextView = htmlText
 
 	override fun getSavedText(): CharSequence? = editText.savedText
 
@@ -220,27 +196,22 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 				editText.setText(String.format("%s ", textToUpdate))
 				editText.setSelection(InputHelper.toString(editText).length)
 			}
-			if (bundle.getString("message", "").isBlank()) {
-				replyQuote.visibility = GONE
-			} else {
-				MarkDownProvider.setMdText(quote, bundle.getString("message", ""))
-			}
-			participants = bundle.getStringArrayList("participants")
 			when (extraType) {
 				BundleConstant.EDITOR_NEW_RESPONSE -> {
 					title = getString(R.string.editor_review)
-					markDownLayout.addEmojiView.visibility = GONE
-					markDownLayout.bold.visibility = GONE
-					markDownLayout.strikethrough.visibility = GONE
-					markDownLayout.italic.visibility = GONE
-					markDownLayout.quote.visibility = GONE
-					markDownLayout.list.visibility = GONE
-					markDownLayout.link.visibility = GONE
-					markDownLayout.image.visibility = GONE
+					editorLayout.addSmileView.visibility = GONE
+					editorLayout.bold.visibility = GONE
+					editorLayout.strikethrough.visibility = GONE
+					editorLayout.italic.visibility = GONE
+					editorLayout.underlined.visibility = GONE
+					editorLayout.quote.visibility = GONE
+					editorLayout.list.visibility = GONE
+					editorLayout.link.visibility = GONE
+					editorLayout.image.visibility = GONE
 				}
 				BundleConstant.EDITOR_NEW_COMMENT -> {
 					title = getString(R.string.editor_comment)
-					markDownLayout.editorIconsHolder.visibility = View.INVISIBLE
+					editorLayout.editorIconsHolder.visibility = View.INVISIBLE
 				}
 				BundleConstant.EDITOR_NEW_MESSAGE -> {
 					title = getString(R.string.editor_message)

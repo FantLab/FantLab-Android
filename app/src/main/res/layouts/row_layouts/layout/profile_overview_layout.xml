@@ -219,7 +219,7 @@
 								style="@style/Base.TextAppearance.AppCompat.Subhead"
 								/>
 
-							<ru.fantlab.android.ui.widgets.FontTextView
+							<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 								android:id="@+id/sign"
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"

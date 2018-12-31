@@ -19,24 +19,19 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 		}
 		when (extraType) {
 			EDITOR_NEW_RESPONSE -> {
-				onEditorNewResponse(itemId, prepareHTML(savedText), mode)
+				onEditorNewResponse(itemId, savedText, mode)
 			}
 			EDITOR_NEW_MESSAGE -> {
 				if (itemId == PrefGetter.getLoggedUser()?.id) {
 					sendToView { it.showErrorMessage("Ошибка") }
 					return
 				}
-				onEditorNewMessage(itemId, prepareHTML(savedText), mode)
+				onEditorNewMessage(itemId, savedText, mode)
 			}
 			EDITOR_NEW_COMMENT -> {
-				onEditorNewComment(itemId, prepareHTML(savedText))
+				onEditorNewComment(itemId, savedText)
 			}
 		}
-	}
-
-	private fun prepareHTML(savedText: CharSequence?): CharSequence? {
-		val REGEX_TAGS = "<(.*?)>".toRegex()
-		return savedText?.replace(REGEX_TAGS, "[$1]")?.replace("[li]", "*")
 	}
 
 	override fun onEditorNewResponse(id: Int, savedText: CharSequence?, mode: String) {

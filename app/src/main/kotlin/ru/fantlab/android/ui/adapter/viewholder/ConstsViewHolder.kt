@@ -6,7 +6,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.ConstsParent
-import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.ui.widgets.ExpandableTextView
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
@@ -28,13 +27,13 @@ class ConstsViewHolder : TreeViewBinder<ConstsViewHolder.ViewHolder>() {
 			onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
 	) {
 		(holder as ConstsViewHolder.ViewHolder).ivArrow.rotation = 0f
-		holder.ivArrow.setImageResource(R.drawable.ic_keyboard_arrow_right_black_18dp)
+		holder.ivArrow.setImageResource(R.drawable.ic_arrow_right)
 		val rotateDegree = if (node.isExpand) 90f else 0f
 		holder.ivArrow.rotation = rotateDegree
 		val nodeRoot = node.content as ConstsParent?
 		holder.name.text = nodeRoot!!.title
 		if (!nodeRoot.description.isNullOrEmpty()) {
-			MarkDownProvider.setMdText(holder.description, nodeRoot.description!!)
+			holder.description.text = nodeRoot.description!!.replace("\\[.*?\\]".toRegex(), "")
 			holder.description.visibility = View.VISIBLE
 		} else holder.description.visibility = View.GONE
 

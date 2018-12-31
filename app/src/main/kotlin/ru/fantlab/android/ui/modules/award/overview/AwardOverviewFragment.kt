@@ -15,13 +15,13 @@ import ru.fantlab.android.data.dao.model.Award
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
-import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.award.AwardPagerMvp
 import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.ForegroundImageView
 import ru.fantlab.android.ui.widgets.StateLayout
+import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 
 class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewPresenter>(),
 		AwardOverviewMvp.View {
@@ -31,11 +31,11 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 	@BindView(R.id.langIcon) lateinit var langLayout: ImageView
 	@BindView(R.id.title) lateinit var title: FontTextView
 	@BindView(R.id.title2) lateinit var title2: FontTextView
-	@BindView(R.id.description) lateinit var description: FontTextView
+	@BindView(R.id.description) lateinit var description: HTMLTextView
 	@BindView(R.id.aboutView) lateinit var descriptionView: CardView
-	@BindView(R.id.comment) lateinit var comment: FontTextView
+	@BindView(R.id.comment) lateinit var comment: HTMLTextView
 	@BindView(R.id.commentView) lateinit var commentView: CardView
-	@BindView(R.id.notes) lateinit var notes: FontTextView
+	@BindView(R.id.notes) lateinit var notes: HTMLTextView
 	@BindView(R.id.notesView) lateinit var notesView: CardView
 	@BindView(R.id.country) lateinit var country: FontTextView
 	@BindView(R.id.date) lateinit var date: FontTextView
@@ -90,15 +90,15 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 		}
 
 		if (!InputHelper.isEmpty(award.description))
-			MarkDownProvider.setMdText(description, award.description)
+			description.html = award.description
 		else descriptionView.visibility = View.GONE
 
 		if (!InputHelper.isEmpty(award.comment))
-			MarkDownProvider.setMdText(comment, award.comment)
+			comment.html = award.comment
 		else commentView.visibility = View.GONE
 
 		if (!InputHelper.isEmpty(award.notes))
-			MarkDownProvider.setMdText(notes, award.notes)
+			notes.html = award.notes
 		else notesView.visibility = View.GONE
 
 		Glide.with(context)

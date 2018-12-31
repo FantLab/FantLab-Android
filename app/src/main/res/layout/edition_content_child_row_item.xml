@@ -12,7 +12,7 @@
 	tools:ignore="RtlSymmetry"
 	>
 
-	<ru.fantlab.android.ui.widgets.FontTextView
+	<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 		android:id="@+id/title"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"

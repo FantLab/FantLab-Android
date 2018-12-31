@@ -1,11 +1,11 @@
-package ru.fantlab.android.ui.widgets.markdown.style
+package ru.fantlab.android.ui.widgets.htmlview
 
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.text.Layout
 import android.text.style.QuoteSpan
 
-class MarkDownQuoteSpan(color: Int) : QuoteSpan(color) {
+class CustomQuoteSpan(color: Int) : QuoteSpan(color) {
 
 	override fun drawLeadingMargin(c: Canvas, p: Paint, x: Int, dir: Int, top: Int, baseline: Int, bottom: Int, text: CharSequence, start: Int, end: Int,
 								   first: Boolean, layout: Layout) {

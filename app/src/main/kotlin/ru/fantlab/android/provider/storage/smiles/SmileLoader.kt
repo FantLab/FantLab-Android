@@ -1,4 +1,4 @@
-package ru.fantlab.android.provider.markdown.extension.smiles
+package ru.fantlab.android.provider.storage.smiles
 
 import org.json.JSONArray
 import org.json.JSONObject

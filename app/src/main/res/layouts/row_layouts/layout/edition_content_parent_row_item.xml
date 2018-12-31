@@ -13,10 +13,10 @@
 		android:layout_height="45dp"
 		android:layout_gravity="center_vertical"
 		android:layout_margin="5dp"
-		android:src="@drawable/ic_keyboard_arrow_right_black_18dp"
+		android:src="@drawable/ic_arrow_right"
 		/>
 
-	<ru.fantlab.android.ui.widgets.FontTextView
+	<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 		android:id="@+id/title"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"

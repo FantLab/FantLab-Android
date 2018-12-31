@@ -14,12 +14,12 @@ import ru.fantlab.android.data.dao.model.Edition
 import ru.fantlab.android.data.dao.model.SliderModel
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
-import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.edition.EditionPagerMvp
 import ru.fantlab.android.ui.widgets.*
 import ru.fantlab.android.ui.widgets.dialog.ListDialogView
+import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 
 class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOverviewPresenter>(),
 		EditionOverviewMvp.View {
@@ -37,9 +37,9 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 	@BindView(R.id.pagesCount) lateinit var pagesCount: FontTextView
 	@BindView(R.id.planDate) lateinit var planDate: FontTextView
 	@BindView(R.id.descriptionCard) lateinit var descriptionCard: CardView
-	@BindView(R.id.description) lateinit var description: FontTextView
+	@BindView(R.id.description) lateinit var description: HTMLTextView
 	@BindView(R.id.notesCard) lateinit var notesCard: CardView
-	@BindView(R.id.notes) lateinit var notes: FontTextView
+	@BindView(R.id.notes) lateinit var notes: HTMLTextView
 	@BindView(R.id.progress) lateinit var progress: View
 	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
@@ -180,12 +180,12 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 		} else planDate.visibility = View.GONE
 
 		if (edition.description.isNotBlank()) {
-			MarkDownProvider.setMdText(description, edition.description)
+			description.html = edition.description
 		} else {
 			descriptionCard.visibility = View.GONE
 		}
 		if (edition.notes.isNotBlank()) {
-			MarkDownProvider.setMdText(notes, edition.notes)
+			notes.html = edition.notes
 		} else {
 			notesCard.visibility = View.GONE
 		}

@@ -47,7 +47,7 @@
 							>
 
 
-							<ru.fantlab.android.ui.widgets.FontTextView
+							<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 								android:id="@+id/notes"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
@@ -64,16 +64,18 @@
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_below="@+id/title2"
+								android:layout_marginEnd="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverView"
 								tools:text="Роман, 1996"
 								style="@style/TextAppearance.AppCompat.Caption"
 								/>
 
-							<ru.fantlab.android.ui.widgets.FontTextView
+							<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 								android:id="@+id/root"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_below="@+id/types"
+								android:layout_marginEnd="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverView"
 								tools:text="Входит в цикл: Наместный маг"
 								style="@style/TextAppearance.AppCompat.Caption"
@@ -85,6 +87,7 @@
 								android:layout_height="wrap_content"
 								android:layout_alignParentEnd="true"
 								android:layout_alignTop="@+id/coverView"
+								android:layout_marginEnd="@dimen/spacing_normal"
 								android:layout_marginTop="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverView"
 								tools:text="Игра престолов"
@@ -95,6 +98,7 @@
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_below="@+id/title"
+								android:layout_marginEnd="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverView"
 								tools:text="A Game of Thrones"
 								style="@style/TextAppearance.AppCompat.Caption"
@@ -181,8 +185,8 @@
 									android:layout_below="@+id/root"
 									android:layout_centerHorizontal="false"
 									android:layout_toEndOf="@+id/classified"
-									android:drawableStart="@drawable/ic_star_small"
 									android:drawablePadding="1dp"
+									android:drawableStart="@drawable/ic_star_small"
 									android:visibility="gone"
 									app:drawableColor="?android:attr/textColorSecondary"
 									tools:text="7"
@@ -227,7 +231,7 @@
 							style="@style/TextAppearance.AppCompat.Title"
 							/>
 
-						<ru.fantlab.android.ui.widgets.FontTextView
+						<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 							android:id="@+id/description"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"

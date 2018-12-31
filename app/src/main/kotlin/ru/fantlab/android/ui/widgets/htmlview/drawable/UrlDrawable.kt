@@ -1,4 +1,4 @@
-package ru.fantlab.android.provider.timeline.handler.drawable
+package ru.fantlab.android.ui.widgets.htmlview.drawable
 
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable

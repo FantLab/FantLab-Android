@@ -16,7 +16,6 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.PrefGetter
-import ru.fantlab.android.provider.markdown.MarkDownProvider
 import ru.fantlab.android.ui.adapter.WorkAuthorsAdapter
 import ru.fantlab.android.ui.adapter.WorkAwardsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
@@ -29,6 +28,7 @@ import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.ForegroundImageView
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
+import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 
 class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPresenter>(),
@@ -44,9 +44,9 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	@BindView(R.id.mymark) lateinit var mymark: FontTextView
 	@BindView(R.id.classified) lateinit var classified: ForegroundImageView
 	@BindView(R.id.types) lateinit var types: FontTextView
-	@BindView(R.id.root) lateinit var root: FontTextView
-	@BindView(R.id.description) lateinit var description: FontTextView
-	@BindView(R.id.notes) lateinit var notes: FontTextView
+	@BindView(R.id.root) lateinit var root: HTMLTextView
+	@BindView(R.id.description) lateinit var description: HTMLTextView
+	@BindView(R.id.notes) lateinit var notes: HTMLTextView
 	@BindView(R.id.recyclerNoms) lateinit var nomsList: DynamicRecyclerView
 	@BindView(R.id.recyclerWins) lateinit var winsList: DynamicRecyclerView
 	@BindView(R.id.recyclerAuthors) lateinit var authorsList: DynamicRecyclerView
@@ -111,7 +111,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 						.append("\n")
 			}
 		}
-		if (roots.length > 1) MarkDownProvider.setMdText(root, roots.toString()) else root.visibility = View.GONE
+		if (roots.length > 1) root.html = (roots.toString()) else root.visibility = View.GONE
 
 		if (work.rating.votersCount != "0") {
 			rate.text = StringBuilder()
@@ -121,10 +121,10 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		} else rate.visibility = View.GONE
 
 		if (!InputHelper.isEmpty(work.notes))
-			work.notes.let { MarkDownProvider.setMdText(notes, work.notes) } else notes.visibility = View.GONE
+			work.notes.let { notes.html = (work.notes) } else notes.visibility = View.GONE
 
 		if (!InputHelper.isEmpty(work.description))
-			work.description?.let { MarkDownProvider.setMdText(description, work.description) }
+			work.description?.let { description.html = (work.description) }
 		else
 			aboutView.visibility = View.GONE
 

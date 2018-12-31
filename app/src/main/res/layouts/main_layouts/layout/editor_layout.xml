@@ -25,34 +25,7 @@
 			android:orientation="vertical"
 			>
 
-			<LinearLayout
-				android:id="@+id/replyQuote"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical"
-				>
-
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/replyQuoteText"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:alpha="0.6"
-					android:drawableEnd="@drawable/ic_arrow_drop_down"
-					android:drawablePadding="@dimen/spacing_normal"
-					android:maxLines="3"
-					android:padding="@dimen/spacing_xs_large"
-					android:textIsSelectable="true"
-					tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis sagittis purus. Cras pulvinar urna ut velit accumsan consectetur. Aenean mauris purus, rutrum eget luctus sit amet, efficitur vel mauris. Sed pulvinar nisl non ligula lacinia ultricies. Etiam quis purus sem. Morbi rutrum tristique ex sed commodo. Pellentesque volutpat laoreet urna et vestibulum. Vivamus id justo sed felis cursus venenatis id vitae felis. Praesent at condimentum erat. Vivamus vel est a dolor tincidunt porta. Mauris ut nisl tortor."
-					/>
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="1dp"
-					android:background="?dividerColor"
-					/>
-			</LinearLayout>
-
-			<ru.fantlab.android.ui.widgets.markdown.MarkdownEditText
+			<ru.fantlab.android.ui.widgets.editor.EditorEditText
 				android:id="@+id/editText"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
@@ -66,24 +39,22 @@
 				tools:ignore="ScrollViewSize"
 				/>
 
+			<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
+				android:id="@+id/htmlText"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="@color/transparent"
+				android:gravity="top|start"
+				android:padding="@dimen/spacing_xs_large"
+				android:scrollbars="vertical"
+				android:visibility="gone"
+				tools:ignore="ScrollViewSize"
+				style="@style/Base.Widget.AppCompat.EditText"
+				/>
+
 		</LinearLayout>
 
 	</ScrollView>
-
-	<View
-		android:id="@+id/list_divider"
-		android:layout_width="match_parent"
-		android:layout_height="1dp"
-		android:background="?dividerColor"
-		android:visibility="gone"
-		/>
-
-	<ListView
-		android:id="@+id/autocomplete"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:visibility="gone"
-		/>
 
 	<View
 		android:layout_width="match_parent"
@@ -91,8 +62,8 @@
 		android:background="@drawable/toolbar_shadow_up"
 		/>
 
-	<ru.fantlab.android.ui.widgets.markdown.MarkDownLayout
-		android:id="@+id/markDownLayout"
+	<ru.fantlab.android.ui.widgets.editor.EditorLayout
+		android:id="@+id/editorLayout"
 		android:layout_width="match_parent"
 		android:layout_height="?actionBarSize"
 		android:orientation="horizontal"

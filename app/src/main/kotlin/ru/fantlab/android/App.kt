@@ -5,9 +5,9 @@ import com.github.kittinunf.fuel.core.FuelManager
 import ru.fantlab.android.data.service.dbResponseInterceptor
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.fabric.FabricProvider
-import ru.fantlab.android.provider.markdown.extension.smiles.SmileManager
 import ru.fantlab.android.provider.stetho.StethoProvider
 import ru.fantlab.android.provider.storage.DbProvider
+import ru.fantlab.android.provider.storage.smiles.SmileManager
 import ru.fantlab.android.provider.timber.TimberProvider
 import shortbread.Shortbread
 

@@ -132,7 +132,7 @@
 	<string name="title">Title</string>
 	<string name="link">Link</string>
 	<string name="insert">Insert</string>
-	<string name="markdown">Editor</string>
+	<string name="editor">Editor</string>
 	<string name="copy">Copy</string>
 	<string name="open">Open</string>
 	<string name="message">Message</string>

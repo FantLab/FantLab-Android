@@ -24,7 +24,7 @@ class ClassParentViewHolder : TreeViewBinder<ClassParentViewHolder.ViewHolder>()
 			holder: RecyclerView.ViewHolder, position: Int, node: TreeNode<*>, onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
 	) {
 		(holder as ClassParentViewHolder.ViewHolder).ivArrow.rotation = 0f
-		holder.ivArrow.setImageResource(R.drawable.ic_keyboard_arrow_right_black_18dp)
+		holder.ivArrow.setImageResource(R.drawable.ic_arrow_right)
 		val rotateDegree = if (node.isExpand) 90f else 0f
 		holder.ivArrow.rotation = rotateDegree
 		val parentNode = node.content as ClassParent?

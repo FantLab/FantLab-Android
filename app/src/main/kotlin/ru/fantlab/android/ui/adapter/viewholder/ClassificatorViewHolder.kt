@@ -37,7 +37,7 @@ class ClassificatorViewHolder : TreeViewBinder<ClassificatorViewHolder.ViewHolde
 			onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
 	) {
 		(holder as ClassificatorViewHolder.ViewHolder).arrow.rotation = 0f
-		holder.arrow.setImageResource(R.drawable.ic_keyboard_arrow_right_black_18dp)
+		holder.arrow.setImageResource(R.drawable.ic_arrow_right)
 		val rotateDegree = if (node.isExpand) 90f else 0f
 		holder.arrow.rotation = rotateDegree
 		val nodr = node.content as Classificator?

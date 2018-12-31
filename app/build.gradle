@@ -32,9 +32,6 @@ ext {
 	shortbread = '1.0.1'
 	timber = '4.7.1'
 	stetho = '1.5.0'
-	commonmark = '0.10.0'
-	htmlSpanner = '0.4'
-	yslibrary = '2.1.0'
 	// назвать переменную crashlytics нельзя
 	crashlytics_version = '2.9.1'
 }
@@ -161,8 +158,4 @@ dependencies {
 	}
 	implementation "com.facebook.stetho:stetho:$stetho"
 	implementation "com.facebook.stetho:stetho-okhttp3:$stetho"
-	implementation "com.atlassian.commonmark:commonmark:${commonmark}"
-	implementation "com.atlassian.commonmark:commonmark-ext-autolink:${commonmark}"
-	implementation "net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:${yslibrary}"
-	implementation "com.github.nightwhistler:HtmlSpanner:${htmlSpanner}"
 }
