@@ -204,7 +204,7 @@ abstract class BaseRecyclerAdapter<M, VH : BaseViewHolder<M>>(internal var data:
 	}
 
 	private fun <T> addNullSafe(list: MutableList<T>, element: T?): Boolean {
-		return if (list.isEmpty() || element == null) {
+		return if (element == null) {
 			false
 		} else list.add(element)
 

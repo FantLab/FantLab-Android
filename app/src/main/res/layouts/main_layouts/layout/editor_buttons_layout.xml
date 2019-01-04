@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<HorizontalScrollView
+		android:id="@+id/editorIconsHolder"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:fadeScrollbars="true"
+		android:scrollbarFadeDuration="500"
+		android:scrollbarSize="1dp"
+		android:scrollbarStyle="outsideOverlay"
+		>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="start|center"
+			android:gravity="center"
+			android:orientation="horizontal"
+			>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:id="@+id/bold"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="?selectableItemBackgroundBorderless"
+				android:padding="@dimen/spacing_normal"
+				android:src="@drawable/ic_format_bold"
+				/>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:id="@+id/italic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="?selectableItemBackgroundBorderless"
+				android:padding="@dimen/spacing_normal"
+				android:src="@drawable/ic_format_italic"
+				/>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:id="@+id/underlined"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="?selectableItemBackgroundBorderless"
+				android:padding="@dimen/spacing_normal"
+				android:src="@drawable/ic_format_underlined"
+				/>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:id="@+id/strikethrough"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="?selectableItemBackgroundBorderless"
+				android:padding="@dimen/spacing_normal"
+				android:src="@drawable/ic_format_strikethrough"
+				/>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:id="@+id/list"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="?selectableItemBackgroundBorderless"
+				android:padding="@dimen/spacing_normal"
+				android:src="@drawable/ic_format_list_bulleted"
+				/>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:id="@+id/quote"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="?selectableItemBackgroundBorderless"
+				android:padding="@dimen/spacing_normal"
+
+				android:src="@drawable/ic_format_quote"
+				/>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:id="@+id/spoiler"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="?selectableItemBackgroundBorderless"
+				android:padding="@dimen/spacing_normal"
+				android:src="@drawable/ic_book_small"
+				/>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:id="@+id/link"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="?selectableItemBackgroundBorderless"
+				android:padding="@dimen/spacing_micro"
+				android:src="@drawable/ic_insert_link"
+				/>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:id="@+id/image"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="?selectableItemBackgroundBorderless"
+				android:padding="@dimen/spacing_normal"
+				android:src="@drawable/ic_image"
+				/>
+
+		</LinearLayout>
+
+	</HorizontalScrollView>
+
+	<View
+		android:layout_width="1dp"
+		android:layout_height="match_parent"
+		android:background="?dividerColor"
+		/>
+
+	<ru.fantlab.android.ui.widgets.ForegroundImageView
+		android:id="@+id/addSmile"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="end|center"
+		android:background="?selectableItemBackgroundBorderless"
+		android:padding="@dimen/spacing_normal"
+		android:src="@drawable/ic_add_smile"
+		/>
+
+	<ru.fantlab.android.ui.widgets.ForegroundImageView
+		android:id="@+id/view"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="end|center"
+		android:background="?selectableItemBackgroundBorderless"
+		android:padding="@dimen/spacing_normal"
+		android:src="@drawable/ic_eye"
+		/>
+</merge>

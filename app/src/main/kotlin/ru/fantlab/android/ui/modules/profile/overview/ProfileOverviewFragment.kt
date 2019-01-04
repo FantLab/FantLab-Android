@@ -104,7 +104,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 			authorBlock.visibility = GONE
 		} else {
 			author.setOnClickListener {
-				AuthorPagerActivity.startActivity(view!!.context, user.authorId, user.authorName!!, 0)
+				AuthorPagerActivity.startActivity(view!!.context, user.authorId ?: 0, user.authorName!!, 0)
 			}
 			if (/*user.blogId != null*/false /* раскомментировать, когда появится функционал блога */) {
 				blog.setOnClickListener {

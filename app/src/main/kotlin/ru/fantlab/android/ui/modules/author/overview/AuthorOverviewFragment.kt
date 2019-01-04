@@ -112,7 +112,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 			biographyText.text = bio
 
 			when {
-				biography.source.isNotEmpty() && biography.sourceLink.isNotEmpty() -> {
+				biography!!.source.isNotEmpty() && biography.sourceLink.isNotEmpty() -> {
 					val sourceText = "© <a href=\"${biography.sourceLink}\">${biography.source}</a>"
 					source.text = Html.fromHtml(sourceText)
 				}
