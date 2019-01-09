@@ -54,7 +54,7 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
         userId = arguments!!.getInt(BundleConstant.EXTRA)
         getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
         recycler.addOnScrollListener(getLoadMore())
-        //presenter.getResponses(userId, false)
+        presenter.getBookcases(userId, false)
         fastScroller.attachRecyclerView(recycler)
     }
 
@@ -99,7 +99,7 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
     }
 
     override fun onRefresh() {
-        //presenter.getResponses(userId, true)
+        presenter.getBookcases(userId, true)
     }
 
     override fun onClick(v: View?) {

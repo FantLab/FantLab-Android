@@ -26,6 +26,7 @@ interface ProfileBookcasesMvp {
             BaseViewHolder.OnItemClickListener<Bookcase>,
             BaseMvp.PaginationListener<Int> {
 
+        fun getBookcases(userId: Int, force: Boolean)
     }
 
 }

@@ -196,6 +196,15 @@ object DataManager {
 					.rxObject(ResponsesResponse.Deserializer(perPage = 50))
 					.map { it.get() }
 
+	fun getUserBookcases(
+			userId: Int,
+			page: Int = 1
+	): Single<BookcasesResponse> =
+			getUserBookcasesPath(userId, page)
+					.httpGet()
+					.rx_object(BookcasesResponse.Deserializer(perPage = 50))
+					.map { it.get() }
+
 	fun sendUserMark(
 			workId: Int,
 			toWorkId: Int,
@@ -604,6 +613,11 @@ fun getUserResponsesPath(
 		page: Int = 1,
 		sortOption: ResponsesSortOption = ResponsesSortOption.BY_DATE
 ) = "/user/$userId/responses?page=$page&sort=${sortOption.value}".toAbsolutePathWithApiVersion()
+
+fun getUserBookcasesPath(
+		userId: Int,
+		page: Int = 1
+) = "/user/$userId/bookcases?page=$page".toAbsolutePathWithApiVersion()
 
 fun sendUserMarkPath(
 		workId: Int,

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/grid_spacing"
+    android:foreground="?android:selectableItemBackground"
+    android:paddingBottom="@dimen/spacing_normal"
+    android:paddingEnd="@dimen/spacing_xs_large"
+    android:paddingTop="@dimen/spacing_normal"
+    tools:ignore="RtlSymmetry"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        >
+
+        <ru.fantlab.android.ui.widgets.CoverLayout
+            android:id="@+id/coverLayout"
+            android:layout_width="48dp"
+            android:layout_height="64dp"
+            android:layout_marginEnd="@dimen/avatar_margin_end"
+            android:layout_marginStart="@dimen/avatar_margin"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <ru.fantlab.android.ui.widgets.FontTextView
+                android:id="@+id/bookcaseName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textColor="?android:textColorPrimary"
+                android:textStyle="bold"
+                tools:text="Мои книги"
+                style="@style/TextAppearance.AppCompat.Medium"
+                />
+
+            <ru.fantlab.android.ui.widgets.FontTextView
+                android:id="@+id/bookcaseDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginEnd="@dimen/spacing_micro"
+                android:ellipsize="end"
+                android:gravity="start|center"
+                android:maxLines="4"
+                android:textColor="?android:attr/textColorSecondary"
+                tools:text="Книги, имеющиеся в моей библиотеке"
+                style="@style/TextAppearance.AppCompat.Caption"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
