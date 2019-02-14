@@ -19,4 +19,6 @@
 	<dimen name="star_size">30dp</dimen>
 	<dimen name="star_size_large">45dp</dimen>
 	<item name="drawable_callback" type="id">drawable_callback</item>
+	<dimen name="bbn_bottom_navigation_width">0dp</dimen>
+
 </resources>
