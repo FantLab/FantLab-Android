@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	tools:context=".ui.modules.about.AboutActivity"
+	>
+
+	<include layout="@layout/appbar_start_margin" />
+
+	<android.support.v7.widget.CardView
+		android:id="@+id/aboutView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/spacing_normal"
+		android:elevation="@dimen/spacing_normal"
+		app:cardBackgroundColor="?card_background"
+		app:cardCornerRadius="0dp"
+		>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical"
+			>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/fontTextView5"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:includeFontPadding="false"
+				android:paddingBottom="8dp"
+				android:paddingEnd="16dp"
+				android:paddingStart="16dp"
+				android:paddingTop="8dp"
+				android:text="@string/about_app"
+				style="@style/TextAppearance.AppCompat.Caption"
+				/>
+
+			<RelativeLayout
+				android:id="@+id/developersView"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="?attr/selectableItemBackground"
+				android:clickable="true"
+				android:focusable="true"
+				android:paddingBottom="8dp"
+				android:paddingEnd="16dp"
+				android:paddingStart="16dp"
+				android:paddingTop="8dp"
+				>
+
+				<ru.fantlab.android.ui.widgets.ForegroundImageView
+					android:id="@+id/developersIcon"
+					android:layout_width="24dp"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="16dp"
+					android:src="@drawable/ic_person"
+					app:tint="?android:attr/textColorSecondary"
+					style="@style/TextAppearance.AppCompat.Caption"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/developersTitle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_toEndOf="@+id/developersIcon"
+					android:text="@string/developers"
+					app:drawableColor="?android:attr/textColorSecondary"
+					style="@style/TextAppearance.AppCompat"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/developersText"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/developersTitle"
+					android:layout_toEndOf="@+id/developersIcon"
+					android:text="@string/developers_names"
+					app:drawableColor="?android:attr/textColorSecondary"
+					style="@style/TextAppearance.AppCompat.Caption"
+					/>
+
+			</RelativeLayout>
+
+			<RelativeLayout
+				android:id="@+id/forumView"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="?android:selectableItemBackground"
+				android:clickable="true"
+				android:focusable="true"
+				android:paddingBottom="8dp"
+				android:paddingEnd="16dp"
+				android:paddingStart="16dp"
+				android:paddingTop="8dp"
+				>
+
+				<ru.fantlab.android.ui.widgets.ForegroundImageView
+					android:id="@+id/forumIcon"
+					android:layout_width="24dp"
+					android:layout_height="24dp"
+					android:layout_marginEnd="16dp"
+					android:src="@drawable/ic_globe_small"
+					app:tint="?android:attr/textColorSecondary"
+					style="@style/TextAppearance.AppCompat.Caption"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/forumTitle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_toEndOf="@+id/forumIcon"
+					android:text="@string/discuss"
+					app:drawableColor="?android:attr/textColorSecondary"
+					style="@style/TextAppearance.AppCompat"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/forumText"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/forumTitle"
+					android:layout_toEndOf="@+id/forumIcon"
+					android:text="@string/discuss_url"
+					app:drawableColor="?android:attr/textColorSecondary"
+					style="@style/TextAppearance.AppCompat.Caption"
+					/>
+
+			</RelativeLayout>
+
+
+			<RelativeLayout
+				android:id="@+id/githubView"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="?android:selectableItemBackground"
+				android:clickable="true"
+				android:focusable="true"
+				android:paddingBottom="8dp"
+				android:paddingEnd="16dp"
+				android:paddingStart="16dp"
+				android:paddingTop="8dp"
+				>
+
+				<ru.fantlab.android.ui.widgets.ForegroundImageView
+					android:id="@+id/githubIcon"
+					android:layout_width="24dp"
+					android:layout_height="24dp"
+					android:layout_marginEnd="16dp"
+					android:src="@drawable/ic_github"
+					app:tint="?android:attr/textColorSecondary"
+					style="@style/TextAppearance.AppCompat.Caption"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/githubTitle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_toEndOf="@+id/githubIcon"
+					android:text="@string/github"
+					app:drawableColor="?android:attr/textColorSecondary"
+					style="@style/TextAppearance.AppCompat"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/githubText"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/githubTitle"
+					android:layout_toEndOf="@+id/githubIcon"
+					android:text="@string/github_url"
+					app:drawableColor="?android:attr/textColorSecondary"
+					style="@style/TextAppearance.AppCompat.Caption"
+					/>
+
+			</RelativeLayout>
+
+		</LinearLayout>
+	</android.support.v7.widget.CardView>
+
+	<android.support.v7.widget.CardView
+		android:id="@+id/versionView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/spacing_normal"
+		android:elevation="@dimen/spacing_normal"
+		app:cardBackgroundColor="?card_background"
+		app:cardCornerRadius="0dp"
+		>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="?android:selectableItemBackground"
+			android:clickable="true"
+			android:focusable="true"
+			android:orientation="vertical"
+			android:paddingBottom="8dp"
+			android:paddingEnd="16dp"
+			android:paddingStart="16dp"
+			android:paddingTop="8dp"
+			>
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				>
+
+				<ru.fantlab.android.ui.widgets.ForegroundImageView
+					android:id="@+id/versionIcon"
+					android:layout_width="24dp"
+					android:layout_height="24dp"
+					android:layout_marginEnd="16dp"
+					android:src="@drawable/ic_version"
+					app:tint="?android:attr/textColorSecondary"
+					style="@style/TextAppearance.AppCompat.Caption"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/versionTitle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_toEndOf="@+id/versionIcon"
+					android:text="@string/app_name"
+					app:drawableColor="?android:attr/textColorSecondary"
+					style="@style/TextAppearance.AppCompat"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/versionText"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/versionTitle"
+					android:layout_toEndOf="@+id/versionIcon"
+					android:text="@string/VERSION_NAME"
+					app:drawableColor="?android:attr/textColorSecondary"
+					style="@style/TextAppearance.AppCompat.Caption"
+					/>
+
+			</RelativeLayout>
+
+		</LinearLayout>
+
+	</android.support.v7.widget.CardView>
+
+</LinearLayout>

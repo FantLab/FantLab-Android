@@ -196,4 +196,12 @@
 	<string name="markchart_2">Histogram by type of work</string>
 	<string name="select_chart">Select type</string>
 	<string name="incl">Included in</string>
+	<string name="about_app">About</string>
+	<string name="send_with">Send with Telegram</string>
+	<string name="developers">Developers</string>
+	<string name="developers_names" translatable="false">\@kenrube, \@ilya_kokhan</string>
+	<string name="discuss">Discuss on forum</string>
+	<string name="github" translatable="false">Github</string>
+	<string name="github_url" translatable="false">https://github.com/FantLab/FantLab-Android</string>
+	<string name="discuss_url" translatable="false">https://fantlab.ru/forum/forum2page1/topic10144page1</string>
 </resources>
