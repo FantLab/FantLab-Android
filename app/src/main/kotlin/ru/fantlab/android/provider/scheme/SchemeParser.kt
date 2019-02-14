@@ -43,7 +43,7 @@ object SchemeParser {
 				}
 				else -> {
 					Timber.d("${context.getString(R.string.not_recognized)} ($type:$id)")
-					openUrl(context, "$PROTOCOL_HTTPS://$HOST_DEFAULT$url")
+					openUrl(context, "$PROTOCOL_HTTPS://$HOST_DEFAULT/$type$id")
 				}
 			}
 		} else {
