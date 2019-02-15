@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/kenrube/FantLab-client.svg?branch=master)](https://travis-ci.org/kenrube/FantLab-client)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FFantLab%2FFantLab-Android.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FFantLab%2FFantLab-Android?ref=badge_shield)
 
 # FantLab-Android
 Android-клиент для краудсорсингового библиографического проекта [FantLab.ru](https://fantlab.ru). Основан на [FastHub](https://github.com/k0shk0sh/FastHub) by Kosh Sergani.
