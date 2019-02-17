@@ -3,10 +3,10 @@ package ru.fantlab.android.ui.modules.author.bibliography
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import butterknife.BindView
+import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
+import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.*
@@ -19,11 +19,8 @@ import ru.fantlab.android.ui.adapter.viewholder.CycleWorkViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
-import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import java.util.*
@@ -32,11 +29,6 @@ import kotlin.collections.ArrayList
 
 class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, AuthorBibliographyPresenter>(),
 		AuthorBibliographyMvp.View {
-
-	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
-	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
-	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
-	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
 	private var countCallback: AuthorPagerMvp.View? = null
 	private lateinit var adapter: TreeViewAdapter

@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.adapter.viewholder
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import kotlinx.android.synthetic.main.edition_content_child_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.EditionContentChild
 import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
@@ -29,6 +30,6 @@ class EditionContentChildViewHolder : TreeViewBinder<EditionContentChildViewHold
 	}
 
 	inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
-		var title: HTMLTextView = rootView.findViewById<View>(R.id.title) as HTMLTextView
+		var title: HTMLTextView = rootView.title
 	}
 }

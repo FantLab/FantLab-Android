@@ -6,8 +6,8 @@ import android.os.Parcelable
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
-import butterknife.BindView
 import es.dmoral.toasty.Toasty
+import kotlinx.android.synthetic.main.simple_list_dialog.*
 import ru.fantlab.android.App
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.ContextMenus
@@ -16,16 +16,9 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.ui.adapter.ContextListAdapter
 import ru.fantlab.android.ui.base.BaseBottomSheetDialog
-import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 
 class ContextMenuDialogView : BaseBottomSheetDialog(), BaseViewHolder.OnItemClickListener<ContextMenus.MenuItem> {
-
-	@BindView(R.id.title) lateinit var title: FontTextView
-	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
-	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
 	private var callbacks: ListDialogViewActionCallback? = null
 	private lateinit var id: String
@@ -34,9 +27,7 @@ class ContextMenuDialogView : BaseBottomSheetDialog(), BaseViewHolder.OnItemClic
 	private var menu = ArrayList<ContextMenus>()
 	private var childs = ArrayList<ContextMenus.MenuItem>()
 
-	override fun layoutRes(): Int {
-		return R.layout.simple_list_dialog
-	}
+	override fun layoutRes(): Int = R.layout.simple_list_dialog
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)

@@ -6,11 +6,9 @@ import android.support.design.widget.TabLayout
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.ArrayAdapter
-import butterknife.BindView
-import butterknife.OnClick
-import butterknife.OnEditorAction
 import com.evernote.android.state.State
 import com.google.zxing.integration.android.IntentIntegrator
+import kotlinx.android.synthetic.main.search_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
@@ -18,20 +16,12 @@ import ru.fantlab.android.helper.AnimHelper
 import ru.fantlab.android.helper.ViewHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
-import ru.fantlab.android.ui.widgets.FontAutoCompleteEditText
-import ru.fantlab.android.ui.widgets.ForegroundImageView
-import ru.fantlab.android.ui.widgets.ViewPagerView
 import shortbread.Shortcut
 import java.text.NumberFormat
 import java.util.*
 
 @Shortcut(id = "search", icon = R.drawable.sb_search, shortLabelRes = R.string.search, rank = 1)
 class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMvp.View {
-
-	@BindView(R.id.searchEditText) lateinit var searchEditText: FontAutoCompleteEditText
-	@BindView(R.id.clear) lateinit var clear: ForegroundImageView
-	@BindView(R.id.tabs) lateinit var tabs: TabLayout
-	@BindView(R.id.pager) lateinit var pager: ViewPagerView
 
 	@State var tabsCountSet: HashSet<TabsCountStateModel> = LinkedHashSet<TabsCountStateModel>()
 	private val numberFormat = NumberFormat.getNumberInstance()
@@ -81,7 +71,18 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 				onScrollTop(tab.position)
 			}
 		})
+
+		search.setOnClickListener { onSearchClicked() }
+
 		clear.setOnClickListener { searchEditText.setText("") }
+
+		scan_barcode.setOnClickListener { onScanBarcodeClicked() }
+
+		searchEditText.setOnEditorActionListener { _, _, _ ->
+			onSearchClicked()
+			true
+		}
+
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -98,13 +99,11 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 		}
 	}
 
-	@OnClick(R.id.search)
 	fun onSearchClicked() {
 		presenter.onSearchClicked(pager, searchEditText)
 	}
 
-	@OnClick(R.id.scan_barcode)
-	fun onScanBarcodeClicked() {
+	private fun onScanBarcodeClicked() {
 		val integrator = IntentIntegrator(this)
 		with(integrator) {
 			setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)
@@ -116,11 +115,6 @@ class SearchActivity : BaseActivity<SearchMvp.View, SearchPresenter>(), SearchMv
 		}
 	}
 
-	@OnEditorAction(R.id.searchEditText)
-	fun onEditor(): Boolean {
-		onSearchClicked()
-		return true
-	}
 
 	override fun onNotifyAdapter(query: String?) {
 		if (query == null)

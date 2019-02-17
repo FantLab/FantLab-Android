@@ -6,7 +6,8 @@ import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import butterknife.BindView
+import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
+import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Award
 import ru.fantlab.android.data.dao.model.Consts
@@ -29,11 +30,6 @@ import java.util.*
 
 class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsPresenter>(),
 		AwardContestsMvp.View {
-
-	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
-	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
-	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
-	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
 	private var countCallback: AwardPagerMvp.View? = null
 

@@ -4,7 +4,6 @@ import android.view.ViewGroup
 import ru.fantlab.android.data.dao.model.Award
 import ru.fantlab.android.ui.adapter.viewholder.AwardNominationViewHolder
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
-import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.util.*
 
 class AwardNominationsAdapter constructor(authors: ArrayList<Award.Nominations>)

@@ -8,11 +8,8 @@ import android.support.v4.app.FragmentManager
 import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
-import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
+import kotlinx.android.synthetic.main.editor_buttons_layout.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Smile
 import ru.fantlab.android.helper.BundleConstant
@@ -23,13 +20,7 @@ import ru.fantlab.android.ui.modules.editor.smiles.SmileBottomSheet
 import ru.fantlab.android.ui.modules.editor.smiles.SmileMvp
 import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 
-
 class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
-
-	@BindView(R.id.editorIconsHolder)
-	lateinit var editorIconsHolder: HorizontalScrollView
-	@BindView(R.id.addSmile)
-	lateinit var addSmileView: View
 
 	var editorListener: EditorListener? = null
 	var selectionIndex = 0
@@ -43,7 +34,17 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 		orientation = HORIZONTAL
 		View.inflate(context, R.layout.editor_buttons_layout, this)
 		if (isInEditMode) return
-		ButterKnife.bind(this)
+		view.setOnClickListener { onViewEditor() }
+		spoiler.setOnClickListener { onActions(it) }
+		bold.setOnClickListener { onActions(it) }
+		italic.setOnClickListener { onActions(it) }
+		underlined.setOnClickListener { onActions(it) }
+		strikethrough.setOnClickListener { onActions(it) }
+		list.setOnClickListener { onActions(it) }
+		quote.setOnClickListener { onActions(it) }
+		link.setOnClickListener { onActions(it) }
+		image.setOnClickListener { onActions(it) }
+		addSmile.setOnClickListener { onActions(it) }
 	}
 
 	override fun onDetachedFromWindow() {
@@ -51,8 +52,7 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 		super.onDetachedFromWindow()
 	}
 
-	@OnClick(R.id.view)
-	fun onViewEditor() {
+	private fun onViewEditor() {
 		editorListener?.let {
 			it.getEditText().let { editText ->
 				TransitionManager.beginDelayedTransition(this)
@@ -64,7 +64,7 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 					it.getHtmlsText().visibility = View.VISIBLE
 					selectionIndex = editText.selectionEnd
 					editorIconsHolder.visibility = View.INVISIBLE
-					if (addSmileView.visibility == View.VISIBLE) addSmileView.visibility = View.INVISIBLE
+					if (addSmile.visibility == View.VISIBLE) addSmile.visibility = View.INVISIBLE
 					ViewHelper.hideKeyboard(editText)
 				} else {
 					editText.setText(it.getSavedText())
@@ -76,15 +76,13 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 						editorIconsHolder.visibility = View.INVISIBLE
 					else
 						editorIconsHolder.visibility = View.VISIBLE
-					if (addSmileView.visibility == View.INVISIBLE) addSmileView.visibility = View.VISIBLE
+					if (addSmile.visibility == View.INVISIBLE) addSmile.visibility = View.VISIBLE
 					ViewHelper.showKeyboard(editText)
 				}
 			}
 		}
 	}
 
-	@OnClick(R.id.spoiler, R.id.bold, R.id.italic, R.id.underlined, R.id.strikethrough,
-			R.id.list, R.id.quote, R.id.link, R.id.image, R.id.addSmile)
 	fun onActions(v: View) {
 		editorListener?.let {
 			it.getEditText().let { editText ->

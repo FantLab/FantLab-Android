@@ -6,10 +6,10 @@ import android.support.annotation.StringRes
 import android.support.v7.widget.CardView
 import android.view.View
 import android.widget.ImageView
-import butterknife.BindView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.award_overview_layout.*
+import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Award
 import ru.fantlab.android.helper.BundleConstant
@@ -25,22 +25,6 @@ import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 
 class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewPresenter>(),
 		AwardOverviewMvp.View {
-
-	@BindView(R.id.progress) lateinit var progress: View
-	@BindView(R.id.coverLayout) lateinit var coverLayout: ForegroundImageView
-	@BindView(R.id.langIcon) lateinit var langLayout: ImageView
-	@BindView(R.id.title) lateinit var title: FontTextView
-	@BindView(R.id.title2) lateinit var title2: FontTextView
-	@BindView(R.id.description) lateinit var description: HTMLTextView
-	@BindView(R.id.aboutView) lateinit var descriptionView: CardView
-	@BindView(R.id.comment) lateinit var comment: HTMLTextView
-	@BindView(R.id.commentView) lateinit var commentView: CardView
-	@BindView(R.id.notes) lateinit var notes: HTMLTextView
-	@BindView(R.id.notesView) lateinit var notesView: CardView
-	@BindView(R.id.country) lateinit var country: FontTextView
-	@BindView(R.id.date) lateinit var date: FontTextView
-	@BindView(R.id.homepage) lateinit var homepage: FontTextView
-	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
 	private var pagerCallback: AwardPagerMvp.View? = null
 
@@ -91,7 +75,7 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 
 		if (!InputHelper.isEmpty(award.description))
 			description.html = award.description
-		else descriptionView.visibility = View.GONE
+		else aboutView.visibility = View.GONE
 
 		if (!InputHelper.isEmpty(award.comment))
 			comment.html = award.comment
@@ -105,7 +89,7 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 				.load("https://${LinkParserHelper.HOST_DEFAULT}/img/flags/${award.countryId}.png")
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.dontAnimate()
-				.into(langLayout)
+				.into(langIcon)
 
 		country.text = award.countryName
 		date.text = StringBuilder()

@@ -6,11 +6,10 @@ import android.support.annotation.StyleRes
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
-import butterknife.BindView
-import butterknife.ButterKnife
 import cn.gavinliu.android.lib.shapedimageview.ShapedImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import kotlinx.android.synthetic.main.image_layout.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.PrefGetter
 
@@ -19,8 +18,6 @@ import ru.fantlab.android.helper.PrefGetter
  */
 
 class AvatarLayout : FrameLayout {
-
-	@BindView(R.id.image) lateinit var avatar: ShapedImageView
 
 	constructor(context: Context) : super(context)
 
@@ -34,10 +31,9 @@ class AvatarLayout : FrameLayout {
 		super.onFinishInflate()
 		View.inflate(context, R.layout.image_layout, this)
 		if (isInEditMode) return
-		ButterKnife.bind(this)
 		if (PrefGetter.isRectAvatar()) {
 			setBackgroundResource(R.drawable.rect_shape)
-			avatar.setShape(ShapedImageView.SHAPE_MODE_ROUND_RECT, 15f)
+			image.setShape(ShapedImageView.SHAPE_MODE_ROUND_RECT, 15f)
 		} else {
 			setBackgroundResource(R.drawable.circle_shape)
 		}
@@ -50,6 +46,6 @@ class AvatarLayout : FrameLayout {
 				//.fallback(ContextCompat.getDrawable(context, R.drawable.ic_fantlab_mascot))
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.dontAnimate()
-				.into(avatar)
+				.into(image)
 	}
 }

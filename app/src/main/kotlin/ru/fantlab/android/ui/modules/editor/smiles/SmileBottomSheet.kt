@@ -3,9 +3,9 @@ package ru.fantlab.android.ui.modules.editor.smiles
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
-import butterknife.BindView
-import butterknife.OnTextChanged
+import kotlinx.android.synthetic.main.smile_popup_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Smile
 import ru.fantlab.android.ui.adapter.SmileAdapter
@@ -15,9 +15,6 @@ import ru.fantlab.android.ui.widgets.recyclerview.layoutManager.GridManager
 import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 
 class SmileBottomSheet : BaseMvpBottomSheetDialogFragment<SmileMvp.View, SmilePresenter>(), SmileMvp.View {
-
-	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
-	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
 	val adapter: SmileAdapter by lazy { SmileAdapter(this) }
 	private var smileCallback: SmileMvp.SmileCallback? = null
@@ -33,11 +30,18 @@ class SmileBottomSheet : BaseMvpBottomSheetDialogFragment<SmileMvp.View, SmilePr
 		presenter.onLoadSmile()
 		val gridManager = recycler.layoutManager as GridManager
 		gridManager.iconSize = resources.getDimensionPixelSize(R.dimen.header_icon_size)
-	}
+		editText.addTextChangedListener(object: TextWatcher{
+			override fun afterTextChanged(text: Editable?) {
+				adapter.filter.filter(text)
+			}
 
-	@OnTextChanged(value = [(R.id.editText)], callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-	fun onTextChange(text: Editable) {
-		adapter.filter.filter(text)
+			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+			}
+
+			override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+			}
+
+		})
 	}
 
 	override fun onAttach(context: Context?) {

@@ -6,7 +6,8 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import butterknife.BindView
+import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
+import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.AwardInList
@@ -22,11 +23,6 @@ import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScrolle
 
 
 class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMvp.View {
-
-	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
-	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
-	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
-	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
 	private val adapter: AwardsAdapter by lazy { AwardsAdapter(arrayListOf()) }
 

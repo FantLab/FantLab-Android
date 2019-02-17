@@ -8,8 +8,6 @@ import android.support.annotation.LayoutRes
 import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.BottomSheetDialogFragment
 import android.view.*
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.evernote.android.state.StateSaver
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.ViewHelper
@@ -37,7 +35,6 @@ abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
 		}
 	}
 	protected var isAlreadyHidden: Boolean = false
-	private var unbinder: Unbinder? = null
 
 	@LayoutRes
 	protected abstract fun layoutRes(): Int
@@ -59,7 +56,6 @@ abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
 		val contextThemeWrapper = ContextThemeWrapper(context, context?.theme)
 		val themeAwareInflater = inflater.cloneInContext(contextThemeWrapper)
 		val view = themeAwareInflater.inflate(layoutRes(), container, false)
-		unbinder = ButterKnife.bind(this, view)
 		view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
 			override fun onGlobalLayout() {
 				view.viewTreeObserver.removeOnGlobalLayoutListener(this)
@@ -76,11 +72,6 @@ abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
 			}
 		})
 		return view
-	}
-
-	override fun onDestroyView() {
-		super.onDestroyView()
-		unbinder?.unbind()
 	}
 
 	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

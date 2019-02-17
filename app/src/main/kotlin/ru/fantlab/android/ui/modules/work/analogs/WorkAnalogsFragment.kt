@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.view.View
-import butterknife.BindView
+import kotlinx.android.synthetic.main.analogs_list.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.WorkAnalog
 import ru.fantlab.android.helper.BundleConstant
@@ -17,8 +17,6 @@ import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 
 class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresenter>(),
 		WorkAnalogsMvp.View {
-
-    @BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 
 	private val adapter: AnalogsAdapter by lazy { AnalogsAdapter(arrayListOf()) }
 	private var countCallback: WorkPagerMvp.View? = null

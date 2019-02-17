@@ -53,7 +53,7 @@
 					android:textColor="?android:attr/textColorSecondary"
 					tools:text="Стивен Кинг"
 					tools:visibility="visible"
-					style="@style/TextAppearance.AppCompat.Caption"
+					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
 			</RelativeLayout>
@@ -100,7 +100,7 @@
 						android:textColor="?android:attr/textColorSecondary"
 						app:drawableColor="?android:attr/textColorSecondary"
 						tools:text="роман"
-						style="@style/TextAppearance.AppCompat.Caption"
+						style="@style/TextAppearance.AppCompat.Subhead"
 						/>
 
 					<ru.fantlab.android.ui.widgets.FontTextView
@@ -117,7 +117,7 @@
 						app:drawableColor="?android:attr/textColorSecondary"
 						tools:text="7"
 						tools:visibility="visible"
-						style="@style/TextAppearance.AppCompat.Caption"
+						style="@style/TextAppearance.AppCompat.Subhead"
 						/>
 
 					<ru.fantlab.android.ui.widgets.FontTextView
@@ -133,7 +133,7 @@
 						android:textColor="?android:attr/textColorSecondary"
 						android:visibility="gone"
 						app:drawableColor="?android:attr/textColorSecondary"
-						style="@style/TextAppearance.AppCompat.Caption"
+						style="@style/TextAppearance.AppCompat.Subhead"
 						tools:visibility="visible"
 						tools:text="1935"
 						/>
@@ -158,7 +158,7 @@
 						android:visibility="gone"
 						tools:visibility="visible"
 						app:tint="?android:attr/textColorSecondary"
-						style="@style/TextAppearance.AppCompat.Caption"
+						style="@style/TextAppearance.AppCompat.Subhead"
 						/>
 
 					<ru.fantlab.android.ui.widgets.ForegroundImageView
@@ -170,7 +170,7 @@
 						android:visibility="gone"
 						app:tint="?android:attr/textColorSecondary"
 						tools:visibility="visible"
-						style="@style/TextAppearance.AppCompat.Caption"
+						style="@style/TextAppearance.AppCompat.Subhead"
 						/>
 
 				</ru.fantlab.android.ui.widgets.FlowLayout>

@@ -24,7 +24,8 @@
 		android:includeFontPadding="false"
 		android:minHeight="30dp"
 		tools:text="Хьюго / Hugo Award, 1954, ретроспективная // Роман"
-		style="@style/TextAppearance.AppCompat.Small"
+		android:textColor="?android:attr/textColorSecondary"
+		style="@style/TextAppearance.AppCompat.Subhead"
 		/>
 
 </LinearLayout>

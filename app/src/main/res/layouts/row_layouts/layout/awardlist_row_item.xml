@@ -46,7 +46,8 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:visibility="gone"
-				style="@style/TextAppearance.AppCompat.Caption"
+				app:drawableColor="?android:attr/textColorSecondary"
+				style="@style/TextAppearance.AppCompat.Subhead"
 				/>
 		</LinearLayout>
 
@@ -71,7 +72,7 @@
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
 				android:padding="@dimen/spacing_micro"
-				style="@style/TextAppearance.AppCompat.Caption"
+				style="@style/TextAppearance.AppCompat.Subhead"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -82,7 +83,7 @@
 				android:drawableStart="@drawable/ic_type_small"
 				android:padding="@dimen/spacing_micro"
 				app:drawableColor="?android:attr/textColorSecondary"
-				style="@style/TextAppearance.AppCompat.Caption"
+				style="@style/TextAppearance.AppCompat.Subhead"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -93,7 +94,7 @@
 				android:drawableStart="@drawable/ic_time_small"
 				android:padding="@dimen/spacing_micro"
 				app:drawableColor="?android:attr/textColorSecondary"
-				style="@style/TextAppearance.AppCompat.Caption"
+				style="@style/TextAppearance.AppCompat.Subhead"
 				/>
 		</LinearLayout>
 

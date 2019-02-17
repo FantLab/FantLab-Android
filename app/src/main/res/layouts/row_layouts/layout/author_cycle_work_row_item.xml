@@ -31,7 +31,7 @@
 			android:maxLines="1"
 			android:textColor="?android:attr/textColorSecondary"
 			tools:text="Кэтрин Мур, Абрахам Меррит, Г. Ф. Лавкрафт, Роберт И. Говард"
-			style="@style/TextAppearance.AppCompat.Caption"
+			style="@style/TextAppearance.AppCompat.Subhead"
 			/>
 
 		<ru.fantlab.android.ui.widgets.FontTextView
@@ -41,9 +41,8 @@
 			android:ellipsize="end"
 			android:maxLines="3"
 			android:textColor="?android:textColorPrimary"
-			android:textStyle="bold"
 			tools:text="Вызов извне / The Challenge from Beyond"
-			style="@style/TextAppearance.AppCompat.Medium"
+			style="@style/TextAppearance.AppCompat.Title"
 			/>
 
 		<ru.fantlab.android.ui.widgets.FontTextView
@@ -52,7 +51,8 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/spacing_micro"
 			tools:text="Вызов извне / The Challenge from Beyond"
-			style="@style/TextAppearance.AppCompat.Small"
+			android:textColor="?android:textColorSecondary"
+			style="@style/TextAppearance.AppCompat.Subhead"
 			/>
 
 		<RelativeLayout
@@ -75,7 +75,7 @@
 				android:textColor="?android:attr/textColorSecondary"
 				android:visibility="visible"
 				app:drawableColor="?android:attr/textColorSecondary"
-				style="@style/TextAppearance.AppCompat.Caption"
+				style="@style/TextAppearance.AppCompat.Subhead"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FlowLayout
@@ -99,7 +99,7 @@
 					android:textColor="?android:attr/textColorSecondary"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="1935"
-					style="@style/TextAppearance.AppCompat.Caption"
+					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -115,7 +115,7 @@
 					android:visibility="gone"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="7.26 / 65"
-					style="@style/TextAppearance.AppCompat.Caption"
+					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -130,7 +130,7 @@
 					android:textColor="?android:attr/textColorSecondary"
 					android:visibility="gone"
 					app:drawableColor="?android:attr/textColorSecondary"
-					style="@style/TextAppearance.AppCompat.Caption"
+					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
 			</ru.fantlab.android.ui.widgets.FlowLayout>

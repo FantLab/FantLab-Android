@@ -56,7 +56,8 @@
 								android:layout_marginTop="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverView"
 								tools:text="Перед выходом романа пролог и первые восемь глав были напечатаны..."
-								style="@style/TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -67,7 +68,8 @@
 								android:layout_marginEnd="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverView"
 								tools:text="Роман, 1996"
-								style="@style/TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
@@ -78,7 +80,8 @@
 								android:layout_marginEnd="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverView"
 								tools:text="Входит в цикл: Наместный маг"
-								style="@style/TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -91,6 +94,7 @@
 								android:layout_marginTop="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverView"
 								tools:text="Игра престолов"
+								style="@style/TextAppearance.AppCompat.Title"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -101,7 +105,8 @@
 								android:layout_marginEnd="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverView"
 								tools:text="A Game of Thrones"
-								style="@style/TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<LinearLayout
@@ -132,7 +137,8 @@
 									android:drawablePadding="@dimen/spacing_micro"
 									android:drawableStart="@drawable/ic_star_small"
 									tools:text="9.04 - 8870"
-									style="@style/TextAppearance.AppCompat.Caption"
+									android:textColor="?android:attr/textColorSecondary"
+									style="@style/TextAppearance.AppCompat.Subhead"
 									/>
 
 
@@ -154,8 +160,8 @@
 
 								<ru.fantlab.android.ui.widgets.ForegroundImageView
 									android:id="@+id/response"
-									android:layout_width="16dp"
-									android:layout_height="16dp"
+									android:layout_width="24dp"
+									android:layout_height="24dp"
 									android:src="@drawable/ic_response_small"
 									android:visibility="gone"
 									app:tint="?android:attr/textColorSecondary"
@@ -165,8 +171,8 @@
 
 								<ru.fantlab.android.ui.widgets.ForegroundImageView
 									android:id="@+id/classified"
-									android:layout_width="16dp"
-									android:layout_height="16dp"
+									android:layout_width="24dp"
+									android:layout_height="24dp"
 									android:layout_alignTop="@+id/response"
 									android:layout_below="@+id/root"
 									android:layout_toEndOf="@+id/response"
@@ -180,18 +186,19 @@
 								<ru.fantlab.android.ui.widgets.FontTextView
 									android:id="@+id/mymark"
 									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"
+									android:layout_height="24dp"
 									android:layout_alignTop="@+id/response"
 									android:layout_below="@+id/root"
 									android:layout_centerHorizontal="false"
 									android:layout_toEndOf="@+id/classified"
 									android:drawablePadding="1dp"
 									android:drawableStart="@drawable/ic_star_small"
+									android:textColor="?android:attr/textColorSecondary"
 									android:visibility="gone"
 									app:drawableColor="?android:attr/textColorSecondary"
 									tools:text="7"
 									tools:visibility="visible"
-									style="@style/TextAppearance.AppCompat.Caption"
+									style="@style/TextAppearance.AppCompat.Subhead"
 									/>
 
 							</ru.fantlab.android.ui.widgets.FlowLayout>
@@ -236,7 +243,8 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							tools:text="При странных обстоятельствах умирает десница владыки Вестероса..."
-							style="@style/TextAppearance.AppCompat.Caption"
+							android:textColor="?android:attr/textColorSecondary"
+							style="@style/TextAppearance.AppCompat.Subhead"
 							/>
 
 					</LinearLayout>

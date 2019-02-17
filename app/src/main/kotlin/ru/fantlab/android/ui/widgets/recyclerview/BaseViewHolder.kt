@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.ButterKnife
 
 abstract class BaseViewHolder<T>(itemView: View, protected var adapter: BaseRecyclerAdapter<T, *>?) : RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
 
@@ -14,7 +13,6 @@ abstract class BaseViewHolder<T>(itemView: View, protected var adapter: BaseRecy
 	private val item: T? = null
 
 	init {
-		ButterKnife.bind(this, itemView)
 		itemView.setOnClickListener(this)
 		itemView.setOnLongClickListener(this)
 	}

@@ -11,8 +11,9 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
-import butterknife.BindView
 import com.evernote.android.state.State
+import kotlinx.android.synthetic.main.appbar_tabbed_elevation.*
+import kotlinx.android.synthetic.main.tabbed_pager_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
@@ -32,10 +33,6 @@ import java.util.*
 
 class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<AuthorPagerMvp.View>>(),
 		AuthorPagerMvp.View {
-
-	@BindView(R.id.tabs) lateinit var tabs: TabLayout
-	@BindView(R.id.tabbedPager) lateinit var pager: ViewPagerView
-	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
 
 	@State var index: Int = 0
 	@State var authorId: Int = 0

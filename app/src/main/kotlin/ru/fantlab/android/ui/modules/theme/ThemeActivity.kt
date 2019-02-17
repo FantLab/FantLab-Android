@@ -6,7 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewAnimationUtils
-import butterknife.BindView
+import kotlinx.android.synthetic.main.theme_viewpager.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.helper.PrefGetter
@@ -20,9 +20,6 @@ import ru.fantlab.android.ui.widgets.ViewPagerView
 
 
 class ThemeActivity : BaseActivity<BaseMvp.View, BasePresenter<BaseMvp.View>>(), ThemeFragmentMvp.ThemeListener {
-
-	@BindView(R.id.pager) lateinit var pager: ViewPagerView
-	@BindView(R.id.parentLayout) lateinit var parentLayout: View
 
 	override fun layout(): Int = R.layout.theme_viewpager
 

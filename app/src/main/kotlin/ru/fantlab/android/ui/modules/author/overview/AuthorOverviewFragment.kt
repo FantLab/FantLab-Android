@@ -6,10 +6,10 @@ import android.support.annotation.StringRes
 import android.text.Html
 import android.view.View
 import android.widget.ImageView
-import butterknife.BindView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.author_overview_layout.*
+import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Author
 import ru.fantlab.android.data.dao.model.Biography
@@ -26,20 +26,6 @@ import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 
 class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOverviewPresenter>(),
 		AuthorOverviewMvp.View {
-
-	@BindView(R.id.progress) lateinit var progress: View
-	@BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
-	@BindView(R.id.author) lateinit var authorName: FontTextView
-	@BindView(R.id.author2) lateinit var authorNameOrig: FontTextView
-	@BindView(R.id.date) lateinit var date: FontTextView
-	@BindView(R.id.country) lateinit var country: FontTextView
-	@BindView(R.id.langIcon) lateinit var langIcon: ImageView
-	@BindView(R.id.notOpened) lateinit var notOpened: FontTextView
-	@BindView(R.id.biographyCard) lateinit var biographyCard: View
-	@BindView(R.id.biography) lateinit var biographyText: FontTextView
-	@BindView(R.id.source) lateinit var source: FontTextView
-	@BindView(R.id.homepage) lateinit var homepage: HTMLTextView
-	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
 	private var pagerCallback: AuthorPagerMvp.View? = null
 

@@ -2,10 +2,8 @@ package ru.fantlab.android.ui.modules.editor.popup
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.TextInputLayout
 import android.view.View
-import butterknife.BindView
-import butterknife.OnClick
+import kotlinx.android.synthetic.main.editor_link_image_dialog_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
@@ -13,9 +11,6 @@ import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.ui.base.BaseDialogFragment
 
 class EditorLinkImageDialogFragment : BaseDialogFragment<EditorLinkImageMvp.View, EditorLinkImagePresenter>(), EditorLinkImageMvp.View {
-
-	@BindView(R.id.link_title) lateinit var title: TextInputLayout
-	@BindView(R.id.link_link) lateinit var link: TextInputLayout
 
 	private var callbacks: EditorLinkImageMvp.EditorLinkCallback? = null
 
@@ -33,6 +28,8 @@ class EditorLinkImageDialogFragment : BaseDialogFragment<EditorLinkImageMvp.View
 		} else if (context is EditorLinkImageMvp.EditorLinkCallback) {
 			callbacks = context
 		}
+		cancel.setOnClickListener { dismiss() }
+		insert.setOnClickListener { onInsertClicked() }
 	}
 
 	override fun onDetach() {
@@ -52,10 +49,10 @@ class EditorLinkImageDialogFragment : BaseDialogFragment<EditorLinkImageMvp.View
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		if (savedInstanceState == null) {
-			title.editText!!.setText(arguments!!.getString(BundleConstant.ITEM))
+			link_title.editText!!.setText(arguments!!.getString(BundleConstant.ITEM))
 			if (!isLink) {
-				title.isEnabled = false
-				title.hint = getString(R.string.no_title)
+				link_title.isEnabled = false
+				link_title.hint = getString(R.string.no_title)
 			}
 		}
 	}
@@ -64,15 +61,9 @@ class EditorLinkImageDialogFragment : BaseDialogFragment<EditorLinkImageMvp.View
 		return EditorLinkImagePresenter()
 	}
 
-	@OnClick(R.id.cancel)
-	fun onCancelClicked() {
-		dismiss()
-	}
-
-	@OnClick(R.id.insert)
 	fun onInsertClicked() {
 		if (callbacks != null) {
-			callbacks!!.onAppendLink(InputHelper.toString(title), InputHelper.toString(link), isLink)
+			callbacks!!.onAppendLink(InputHelper.toString(link_title), InputHelper.toString(link_link), isLink)
 		}
 		dismiss()
 	}

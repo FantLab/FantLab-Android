@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import kotlinx.android.synthetic.main.author_cycle_row_item.view.*
 
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Cycle
@@ -39,7 +40,7 @@ class CycleViewHolder : TreeViewBinder<CycleViewHolder.ViewHolder>() {
 	}
 
 	class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
-		val ivArrow: ImageView = rootView.findViewById<View>(R.id.iv_arrow) as ImageView
-		var tvName: TextView = rootView.findViewById<View>(R.id.tv_name) as TextView
+		val ivArrow: ImageView = rootView.iv_arrow
+		var tvName: TextView = rootView.tv_name
 	}
 }

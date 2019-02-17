@@ -82,7 +82,7 @@
 					android:textColor="?android:attr/textColorSecondary"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="США"
-					style="@style/TextAppearance.AppCompat.Caption"
+					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -98,7 +98,7 @@
 					android:visibility="visible"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="1900-2000"
-					style="@style/TextAppearance.AppCompat.Caption"
+					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -114,7 +114,7 @@
 					android:visibility="visible"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="7.88 / 12280"
-					style="@style/TextAppearance.AppCompat.Caption"
+					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -130,7 +130,7 @@
 					android:visibility="visible"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="425"
-					style="@style/TextAppearance.AppCompat.Caption"
+					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -146,7 +146,7 @@
 					android:visibility="visible"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="315"
-					style="@style/TextAppearance.AppCompat.Caption"
+					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -162,7 +162,7 @@
 					android:visibility="visible"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="1"
-					style="@style/TextAppearance.AppCompat.Caption"
+					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
 			</ru.fantlab.android.ui.widgets.FlowLayout>

@@ -27,7 +27,8 @@
 		android:layout_marginTop="@dimen/spacing_micro"
 		android:gravity="center"
 		android:visibility="gone"
-		style="@style/TextAppearance.AppCompat.Caption"
+		style="@style/TextAppearance.AppCompat.Subhead"
+		android:textColor="?android:attr/textColorSecondary"
 		/>
 
 	<android.support.v4.widget.NestedScrollView

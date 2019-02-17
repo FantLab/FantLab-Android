@@ -7,19 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import butterknife.BindView
+import kotlinx.android.synthetic.main.picker_dialog.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.AppLanguageModel
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.ui.base.BaseBottomSheetDialog
-import ru.fantlab.android.ui.widgets.FontTextView
 import kotlin.reflect.KFunction0
 
 
 class LanguageBottomSheetDialog : BaseBottomSheetDialog() {
-
-	@BindView(R.id.title) lateinit var title: FontTextView
-	@BindView(R.id.picker) lateinit var radioGroup: RadioGroup
 
 	private var callback: LanguageDialogViewActionCallback? = null
 
@@ -62,11 +58,11 @@ class LanguageBottomSheetDialog : BaseBottomSheetDialog() {
 					radioButtonView.tag = appLanguageModel.value
 					radioButtonView.gravity = Gravity.CENTER_VERTICAL
 					radioButtonView.setPadding(padding, padding, padding, padding)
-					radioGroup.addView(radioButtonView)
-					if (appLanguageModel.value.equals(language, ignoreCase = true)) radioGroup.check(index)
+					picker.addView(radioButtonView)
+					if (appLanguageModel.value.equals(language, ignoreCase = true)) picker.check(index)
 				}
-		radioGroup.setOnCheckedChangeListener { group, checkedId ->
-			val tag = radioGroup.getChildAt(checkedId).tag as String
+		picker.setOnCheckedChangeListener { group, checkedId ->
+			val tag = picker.getChildAt(checkedId).tag as String
 			if (!tag.equals(language, ignoreCase = true)) {
 				PrefGetter.setAppLanguage(tag)
 				callback?.onLanguageChanged(this::dismiss)

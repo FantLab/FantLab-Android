@@ -14,8 +14,6 @@ import android.support.v7.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.evernote.android.state.StateSaver
 import net.grandcentrix.thirtyinch.TiDialogFragment
 import ru.fantlab.android.R
@@ -31,8 +29,6 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 abstract class BaseMvpBottomSheetDialogFragment<V : BaseMvp.View, P : BasePresenter<V>> : TiDialogFragment<P, V>(), BaseMvp.View {
 
 	protected var callback: BaseMvp.View? = null
-
-	private var unbinder: Unbinder? = null
 
 	@LayoutRes
 	protected abstract fun fragmentLayout(): Int
@@ -69,9 +65,7 @@ abstract class BaseMvpBottomSheetDialogFragment<V : BaseMvp.View, P : BasePresen
 		if (fragmentLayout() != 0) {
 			val contextThemeWrapper = ContextThemeWrapper(context, context!!.theme)
 			val themeAwareInflater = inflater.cloneInContext(contextThemeWrapper)
-			val view = themeAwareInflater.inflate(fragmentLayout(), container, false)
-			unbinder = ButterKnife.bind(this, view)
-			return view
+			return themeAwareInflater.inflate(fragmentLayout(), container, false)
 		}
 		return super.onCreateView(inflater, container, savedInstanceState)
 	}
@@ -123,11 +117,6 @@ abstract class BaseMvpBottomSheetDialogFragment<V : BaseMvp.View, P : BasePresen
 	}
 
 	override fun onScrollTop(index: Int) {
-	}
-
-	override fun onDestroyView() {
-		super.onDestroyView()
-		unbinder?.unbind()
 	}
 
 	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

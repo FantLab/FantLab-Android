@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
-import butterknife.BindView
+import kotlinx.android.synthetic.main.rate_dialog.*
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
@@ -13,11 +13,7 @@ import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.ratingbar.BaseRatingBar
 import ru.fantlab.android.ui.widgets.ratingbar.ScaleRatingBar
 
-
 open class RatingDialogView : BaseBottomSheetDialog(), BaseRatingBar.OnRatingDoneListener {
-	@BindView(R.id.ratingBar) lateinit var ratingBar: ScaleRatingBar
-	@BindView(R.id.caption) lateinit var title: FontTextView
-
 	private var callback: RatingDialogViewActionCallback? = null
 	var position: Int = -1
 	var item: Any? = null
@@ -49,13 +45,13 @@ open class RatingDialogView : BaseBottomSheetDialog(), BaseRatingBar.OnRatingDon
 		val bundle = arguments ?: return
 		val numStars = bundle.getInt(BundleConstant.EXTRA)
 		val currentRate = bundle.getFloat(BundleConstant.EXTRA_TWO)
-		val caption = bundle.getString(BundleConstant.EXTRA_FOUR)
+		val captionText = bundle.getString(BundleConstant.EXTRA_FOUR)
 		position = bundle.getInt(BundleConstant.EXTRA_THREE)
 		item = bundle.getParcelable(BundleConstant.ITEM)
 
-		if (caption.isNotEmpty()) {
-			title.text = caption
-			title.visibility = View.VISIBLE
+		if (captionText.isNotEmpty()) {
+			caption.text = captionText
+			caption.visibility = View.VISIBLE
 		}
 
 		ratingBar.numStars = numStars

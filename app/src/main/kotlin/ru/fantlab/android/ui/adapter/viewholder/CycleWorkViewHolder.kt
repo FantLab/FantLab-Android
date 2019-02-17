@@ -3,6 +3,7 @@ package ru.fantlab.android.ui.adapter.viewholder
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import kotlinx.android.synthetic.main.author_cycle_work_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.CycleWork
 import ru.fantlab.android.helper.InputHelper
@@ -75,12 +76,12 @@ class CycleWorkViewHolder : TreeViewBinder<CycleWorkViewHolder.ViewHolder>() {
 	}
 
 	inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
-		var title: TextView = rootView.findViewById<View>(R.id.title) as FontTextView
-		var authors: TextView = rootView.findViewById<View>(R.id.authors) as FontTextView
-		var description: TextView = rootView.findViewById<View>(R.id.description) as FontTextView
-		var year: TextView = rootView.findViewById<View>(R.id.year) as FontTextView
-		var rating: TextView = rootView.findViewById<View>(R.id.rating) as FontTextView
-		var responses: TextView = rootView.findViewById<View>(R.id.responses) as FontTextView
-		var mark: TextView = rootView.findViewById<View>(R.id.mark) as FontTextView
+		var title: TextView = rootView.title
+		var authors: TextView = rootView.authors
+		var description: TextView = rootView.description
+		var year: TextView = rootView.year
+		var rating: TextView = rootView.rating
+		var responses: TextView = rootView.responses
+		var mark: TextView = rootView.mark
 	}
 }

@@ -9,8 +9,6 @@ import android.support.v7.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.evernote.android.state.StateSaver
 import net.grandcentrix.thirtyinch.TiFragment
 import ru.fantlab.android.ui.base.mvp.BaseMvp
@@ -23,8 +21,6 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 abstract class BaseFragment<V : BaseMvp.View, P : BasePresenter<V>> : TiFragment<P, V>(), BaseMvp.View {
 
 	protected var callback: BaseMvp.View? = null
-
-	private var unbinder: Unbinder? = null
 
 	@LayoutRes
 	protected abstract fun fragmentLayout(): Int
@@ -62,9 +58,7 @@ abstract class BaseFragment<V : BaseMvp.View, P : BasePresenter<V>> : TiFragment
 		if (fragmentLayout() != 0) {
 			val contextThemeWrapper = ContextThemeWrapper(context, context?.theme)
 			val themeAwareInflater = inflater.cloneInContext(contextThemeWrapper)
-			val view = themeAwareInflater.inflate(fragmentLayout(), container, false)
-			unbinder = ButterKnife.bind(this, view)
-			return view
+			return themeAwareInflater.inflate(fragmentLayout(), container, false)
 		}
 		return super.onCreateView(inflater, container, savedInstanceState)
 	}
@@ -74,11 +68,6 @@ abstract class BaseFragment<V : BaseMvp.View, P : BasePresenter<V>> : TiFragment
 		//if (AbstractLogin.getUser() != null) {
 		onFragmentCreated(view, savedInstanceState)
 		//}
-	}
-
-	override fun onDestroyView() {
-		super.onDestroyView()
-		unbinder?.unbind()
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {

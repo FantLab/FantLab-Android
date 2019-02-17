@@ -41,8 +41,8 @@
 					android:layout_gravity="start|center"
 					android:paddingStart="@dimen/keyline_1"
 					android:text="@string/logout"
-					android:textColor="@color/search_tab_highlighter"
 					style="@style/TextAppearance.AppCompat.Subhead"
+					android:textColor="?android:attr/textColorSecondary"
 					/>
 
 			</FrameLayout>

@@ -3,18 +3,12 @@ package ru.fantlab.android.ui.widgets.dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import butterknife.BindView
+import kotlinx.android.synthetic.main.message_dialog.*
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.ui.base.BaseBottomSheetDialog
-import ru.fantlab.android.ui.widgets.FontButton
-import ru.fantlab.android.ui.widgets.FontTextView
-
-/**
- * Created by Kosh on 16 Sep 2016, 2:15 PM
- */
 
 open class MessageDialogView : BaseBottomSheetDialog() {
 
@@ -24,11 +18,6 @@ open class MessageDialogView : BaseBottomSheetDialog() {
 
 		fun onDialogDismissed()
 	}
-
-	@BindView(R.id.title) lateinit var title: FontTextView
-	@BindView(R.id.message) lateinit var message: FontTextView
-	@BindView(R.id.cancel) lateinit var cancel: FontButton
-	@BindView(R.id.ok) lateinit var ok: FontButton
 
 	private var callback: MessageDialogViewActionCallback? = null
 

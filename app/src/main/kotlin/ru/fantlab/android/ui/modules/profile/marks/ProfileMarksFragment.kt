@@ -3,10 +3,10 @@ package ru.fantlab.android.ui.modules.profile.marks
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
-import butterknife.BindView
 import com.evernote.android.state.State
+import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
+import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.ContextMenus
@@ -21,20 +21,12 @@ import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.user.UserPagerMvp
 import ru.fantlab.android.ui.modules.work.CyclePagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
-import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.chartbar.ChartBar
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 
 class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPresenter>(),
 		ProfileMarksMvp.View {
-
-	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
-	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
-	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
-	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
 	@State var userId: Int = -1
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, userId) }

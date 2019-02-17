@@ -2,19 +2,13 @@ package ru.fantlab.android.ui.widgets.chartbar
 
 import android.os.Bundle
 import android.view.View
-import butterknife.BindView
+import kotlinx.android.synthetic.main.chartbar.*
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.base.BaseBottomSheetDialog
-import ru.fantlab.android.ui.widgets.FontTextView
-
 
 open class ChartBar : BaseBottomSheetDialog() {
-
-	@BindView(R.id.title) lateinit var title: FontTextView
-	@BindView(R.id.caption) lateinit var caption: FontTextView
-	@BindView(R.id.chartBarView) lateinit var chartView: ChartBarView
 
 	override fun layoutRes(): Int = R.layout.chartbar
 
@@ -38,7 +32,7 @@ open class ChartBar : BaseBottomSheetDialog() {
 	}
 
 	private fun renderChart(points: ArrayList<Pair<String, Int>>, colored: Boolean) {
-		chartView.setPoints(points, colored)
+		chartBarView.setPoints(points, colored)
 	}
 
 	companion object {

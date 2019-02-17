@@ -43,7 +43,8 @@
 				android:includeFontPadding="false"
 				android:lines="1"
 				tools:text="Джордж Р.Р. Мартин"
-				style="@style/TextAppearance.AppCompat.Caption"
+				android:textColor="?android:attr/textColorSecondary"
+				style="@style/TextAppearance.AppCompat.Subhead"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -55,6 +56,7 @@
 				android:includeFontPadding="false"
 				android:lines="1"
 				tools:text="George R.R. Martin"
+				style="@style/TextAppearance.AppCompat.Title"
 				/>
 
 		</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

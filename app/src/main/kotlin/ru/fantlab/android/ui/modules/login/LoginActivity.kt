@@ -7,19 +7,12 @@ import android.support.design.widget.TextInputLayout
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
-import butterknife.BindView
-import butterknife.OnEditorAction
+import kotlinx.android.synthetic.main.login_form_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.*
 import ru.fantlab.android.ui.base.BaseActivity
 
 class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.View {
-
-	@BindView(R.id.username) lateinit var username: TextInputLayout
-	@BindView(R.id.password) lateinit var password: TextInputLayout
-	@BindView(R.id.login) lateinit var login: FloatingActionButton
-	@BindView(R.id.proceedWithoutLogin) lateinit var proceedWithoutLogin: Button
-	@BindView(R.id.progress) lateinit var progress: ProgressBar
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		setTheme(R.style.LoginTheme)
@@ -31,6 +24,10 @@ class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.Vi
 		proceedWithoutLogin.setOnClickListener {
 			presenter.proceedWithoutLogin()
 		}
+		passwordEditText.setOnEditorActionListener { _, _, _ ->
+			doLogin()
+			true
+		}
 	}
 
 	override fun isTransparent(): Boolean = true
@@ -40,12 +37,6 @@ class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.Vi
 	override fun layout(): Int = R.layout.login_form_layout
 
 	override fun canBack(): Boolean = false
-
-	@OnEditorAction(R.id.passwordEditText)
-	fun onSendPassword(): Boolean {
-		doLogin()
-		return true
-	}
 
 	override fun onEmptyUserName(isEmpty: Boolean) {
 		username.error = if (isEmpty) getString(R.string.required_field) else null

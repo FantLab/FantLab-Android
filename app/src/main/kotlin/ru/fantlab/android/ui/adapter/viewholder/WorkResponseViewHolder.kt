@@ -2,7 +2,7 @@ package ru.fantlab.android.ui.adapter.viewholder
 
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.response_row_item.view.*
+import kotlinx.android.synthetic.main.work_response_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.getTimeAgo
@@ -11,12 +11,10 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 
-class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, ResponseViewHolder>)
+class WorkResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, WorkResponseViewHolder>)
 	: BaseViewHolder<Response>(itemView, adapter) {
 
 	override fun bind(response: Response) {
-		itemView.coverLayout.setUrl(if (response.workImage != null) "https:${response.workImage}" else null)
-
 		itemView.info.text = StringBuilder()
 				.append(response.userName)
 				.append(", ")
@@ -74,12 +72,12 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<Response, ResponseViewHolder>
-		): ResponseViewHolder {
-			return ResponseViewHolder(getView(viewGroup, R.layout.response_row_item), adapter)
+				adapter: BaseRecyclerAdapter<Response, WorkResponseViewHolder>
+		): WorkResponseViewHolder {
+			return WorkResponseViewHolder(getView(viewGroup, R.layout.work_response_row_item), adapter)
 		}
 
-		fun setOnContextMenuListener(listener: ResponseViewHolder.OnOpenContextMenu) {
+		fun setOnContextMenuListener(listener: WorkResponseViewHolder.OnOpenContextMenu) {
 			this.listener = listener
 		}
 	}

@@ -101,7 +101,7 @@
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/author"
+								android:id="@+id/authorName"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_alignParentEnd="true"
@@ -112,11 +112,11 @@
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/author2"
+								android:id="@+id/authorNameOrig"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_alignParentEnd="true"
-								android:layout_below="@+id/author"
+								android:layout_below="@+id/authorName"
 								android:layout_toEndOf="@+id/coverLayout"
 								tools:text="Dan Simmons"
 								style="@style/TextAppearance.AppCompat.Caption"
@@ -126,7 +126,7 @@
 								android:id="@+id/date"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
-								android:layout_below="@+id/author2"
+								android:layout_below="@+id/authorNameOrig"
 								android:layout_marginTop="@dimen/spacing_micro"
 								android:layout_toEndOf="@+id/coverLayout"
 								tools:text="4 апреля 1948 г."
@@ -170,7 +170,7 @@
 							/>
 
 						<ru.fantlab.android.ui.widgets.FontTextView
-							android:id="@+id/biography"
+							android:id="@+id/biographyText"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							tools:text="Дэн Симмонс родился в Пеории, штат Иллинойс, 4 апреля 1948 года. "

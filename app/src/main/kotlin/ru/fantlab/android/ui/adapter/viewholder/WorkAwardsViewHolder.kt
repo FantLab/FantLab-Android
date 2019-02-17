@@ -2,24 +2,19 @@ package ru.fantlab.android.ui.adapter.viewholder
 
 import android.view.View
 import android.view.ViewGroup
-import butterknife.BindView
+import kotlinx.android.synthetic.main.award_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Nomination
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.scheme.LinkParserHelper
-import ru.fantlab.android.ui.widgets.AvatarLayout
-import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 class WorkAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Nomination, WorkAwardsViewHolder>)
 	: BaseViewHolder<Nomination>(itemView, adapter) {
 
-	@BindView(R.id.awardIcon) lateinit var coverLayout: AvatarLayout
-	@BindView(R.id.award) lateinit var award: FontTextView
-
 	override fun bind(nom: Nomination) {
-		coverLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/awards/${nom.awardId}")
+		itemView.awardIcon.setUrl("https://${LinkParserHelper.HOST_DATA}/images/awards/${nom.awardId}")
 		val info = StringBuilder()
 		if (!InputHelper.isEmpty(nom.awardRusName)) {
 			info.append(nom.awardRusName).append(" / ")
@@ -33,7 +28,7 @@ class WorkAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Nominati
 		if (!InputHelper.isEmpty(nom.nominationRusName)) {
 			info.append(nom.nominationRusName)
 		}
-		award.text = info.toString()
+		itemView.award.text = info.toString()
 	}
 
 	companion object {

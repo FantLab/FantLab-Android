@@ -3,7 +3,7 @@ package ru.fantlab.android.ui.adapter.viewholder
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
-import butterknife.BindView
+import kotlinx.android.synthetic.main.search_works_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.SearchWork
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
@@ -17,12 +17,6 @@ import java.text.NumberFormat
 class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchWork, SearchWorksViewHolder>)
 	: BaseViewHolder<SearchWork>(itemView, adapter) {
 
-	@BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
-	@BindView(R.id.authors) lateinit var authors: FontTextView
-	@BindView(R.id.title) lateinit var title: FontTextView
-	@BindView(R.id.year) lateinit var year: FontTextView
-	@BindView(R.id.rating) lateinit var rating: FontTextView
-
 	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun bind(work: SearchWork) {
@@ -31,7 +25,7 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 		} else {
 			0 // no image
 		}
-		coverLayout.setUrl(Uri.Builder().scheme(PROTOCOL_HTTPS)
+		itemView.coverLayout.setUrl(Uri.Builder().scheme(PROTOCOL_HTTPS)
 				.authority(HOST_DATA)
 				.appendPath("images")
 				.appendPath("editions")
@@ -63,10 +57,10 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 			else -> ""
 		}
 		if (authorsText.isNotEmpty()) {
-			authors.text = authorsText
-			authors.visibility = View.VISIBLE
+			itemView.authors.text = authorsText
+			itemView.authors.visibility = View.VISIBLE
 		} else {
-			authors.visibility = View.GONE
+			itemView.authors.visibility = View.GONE
 		}
 
 		val rusName = if (work.rusName.contains(AUTHORS_REGEX) || work.rusName.contains(AUTHOR_REGEX)) {
@@ -79,7 +73,7 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 		} else {
 			work.name
 		}
-		title.text = if (rusName.isNotEmpty()) {
+		itemView.title.text = if (rusName.isNotEmpty()) {
 			if (name.isNotEmpty()) {
 				String.format("%s / %s", rusName, name)
 			} else {
@@ -90,18 +84,18 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 		}
 
 		if (work.year.toString().isNotEmpty() && work.year != 0) {
-			year.text = work.year.toString()
+			itemView.year.text = work.year.toString()
 		} else {
-			year.visibility = View.GONE
+			itemView.year.visibility = View.GONE
 		}
 
 		if (work.markCount != 0) {
-			rating.text = String.format("%s / %s",
+			itemView.rating.text = String.format("%s / %s",
 					numberFormat.format(work.midMark[0].toDouble()),
 					numberFormat.format(work.markCount.toLong()))
-			rating.visibility = View.VISIBLE
+			itemView.rating.visibility = View.VISIBLE
 		} else {
-			rating.visibility = View.GONE
+			itemView.rating.visibility = View.GONE
 		}
 	}
 

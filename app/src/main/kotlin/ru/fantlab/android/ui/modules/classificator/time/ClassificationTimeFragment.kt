@@ -6,7 +6,8 @@ import android.support.annotation.StringRes
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import butterknife.BindView
+import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
+import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Classificator
 import ru.fantlab.android.data.dao.model.ClassificatorModel
@@ -24,11 +25,6 @@ import java.util.*
 
 class ClassificationTimeFragment : BaseFragment<ClassificationTimeMvp.View, ClassificationTimePresenter>(),
 		ClassificationTimeMvp.View {
-
-	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
-	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
-	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
-	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
 	private var pagerCallback: ClassificatorPagerMvp.View? = null
 	var selectedItems = 0

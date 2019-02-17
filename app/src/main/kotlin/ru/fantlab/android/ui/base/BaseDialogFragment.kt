@@ -13,8 +13,6 @@ import android.support.v7.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.evernote.android.state.StateSaver
 import net.grandcentrix.thirtyinch.TiDialogFragment
 import ru.fantlab.android.R
@@ -30,7 +28,6 @@ abstract class BaseDialogFragment<V : BaseMvp.View, P : BasePresenter<V>>
 
 	protected var callback: BaseMvp.View? = null
 	protected var suppressAnimation = false
-	private var unbinder: Unbinder? = null
 
 	@LayoutRes
 	protected abstract fun fragmentLayout(): Int
@@ -94,9 +91,7 @@ abstract class BaseDialogFragment<V : BaseMvp.View, P : BasePresenter<V>>
 		if (fragmentLayout() != 0) {
 			val contextThemeWrapper = ContextThemeWrapper(context, context?.theme)
 			val themeAwareInflater = inflater.cloneInContext(contextThemeWrapper)
-			val view = themeAwareInflater.inflate(fragmentLayout(), container, false)
-			unbinder = ButterKnife.bind(this, view)
-			return view
+			return themeAwareInflater.inflate(fragmentLayout(), container, false)
 		}
 		return super.onCreateView(inflater, container, savedInstanceState)
 	}
@@ -104,9 +99,9 @@ abstract class BaseDialogFragment<V : BaseMvp.View, P : BasePresenter<V>>
 	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 		val dialog = super.onCreateDialog(savedInstanceState)
 		if (!PrefGetter.isAppAnimationDisabled() && this !is ProgressDialogFragment && !suppressAnimation) {
-			dialog.setOnShowListener({
+			dialog.setOnShowListener {
 				AnimHelper.revealDialog(dialog, resources.getInteger(android.R.integer.config_longAnimTime))
-			})
+			}
 		}
 		return dialog
 	}
@@ -114,11 +109,6 @@ abstract class BaseDialogFragment<V : BaseMvp.View, P : BasePresenter<V>>
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		onFragmentCreated(view, savedInstanceState)
-	}
-
-	override fun onDestroyView() {
-		super.onDestroyView()
-		unbinder?.unbind()
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {

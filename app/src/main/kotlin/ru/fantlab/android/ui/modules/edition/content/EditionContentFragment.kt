@@ -5,7 +5,8 @@ import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import butterknife.BindView
+import kotlinx.android.synthetic.main.edition_content_layout.*
+import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.EditionContent
 import ru.fantlab.android.data.dao.model.EditionContentChild
@@ -16,18 +17,12 @@ import ru.fantlab.android.ui.adapter.viewholder.EditionContentChildViewHolder
 import ru.fantlab.android.ui.adapter.viewholder.EditionContentParentViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.edition.EditionPagerMvp
-import ru.fantlab.android.ui.widgets.StateLayout
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import java.util.*
 
 class EditionContentFragment : BaseFragment<EditionContentMvp.View, EditionContentPresenter>(),
 		EditionContentMvp.View {
-
-	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
-	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
-	@BindView(R.id.progress) lateinit var progress: View
 
 	private var countCallback: EditionPagerMvp.View? = null
 

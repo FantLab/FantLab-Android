@@ -9,7 +9,6 @@ Android-клиент для краудсорсингового библиогр�
 - **MVP**-паттерн: [**ThirtyInch**](https://github.com/grandcentrix/ThirtyInch)
 - [**RxJava2**](https://github.com/ReactiveX/RxJava) & [**RxAndroid**](https://github.com/ReactiveX/RxAndroid) для многопоточности
 - [**Fuel**](https://github.com/kittinunf/Fuel) для REST API
-- [**ButterKnife**](https://github.com/JakeWharton/butterknife) для биндинга view
 - [**Android State**](https://github.com/evernote/android-state) для сохранения стейта
 - [**Material-BottomNavigation**](https://github.com/sephiroth74/Material-BottomNavigation) для `BottomBar`
 - [**Glide**](https://github.com/bumptech/glide) для загрузки изображений

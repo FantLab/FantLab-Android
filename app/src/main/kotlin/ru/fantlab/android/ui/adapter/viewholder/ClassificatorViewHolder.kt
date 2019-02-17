@@ -5,9 +5,9 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import kotlinx.android.synthetic.main.classif_parent_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Classificator
-import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import ru.fantlab.android.ui.widgets.treeview.TreeViewBinder
@@ -65,9 +65,9 @@ class ClassificatorViewHolder : TreeViewBinder<ClassificatorViewHolder.ViewHolde
 	}
 
 	class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
-		val arrow: ImageView = rootView.findViewById<View>(R.id.iv_arrow) as ImageView
-		var name: TextView = rootView.findViewById<View>(R.id.name) as FontTextView
-		var description: TextView = rootView.findViewById<View>(R.id.description) as FontTextView
-		var checkbox: CheckBox = rootView.findViewById<View>(R.id.checkbox) as CheckBox
+		val arrow: ImageView = rootView.iv_arrow
+		var name: TextView = rootView.name
+		var description: TextView = rootView.description
+		var checkbox: CheckBox = rootView.checkbox
 	}
 }

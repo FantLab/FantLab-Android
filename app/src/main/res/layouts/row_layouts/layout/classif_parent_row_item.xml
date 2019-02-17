@@ -30,7 +30,8 @@
 		android:layout_alignBaseline="@+id/checkbox"
 		android:layout_toEndOf="@+id/iv_arrow"
 		android:layout_toStartOf="@+id/checkbox"
-		android:textSize="18sp"
+		style="@style/TextAppearance.AppCompat.Title"
+		android:textColor="?android:attr/textColorSecondary"
 		/>
 
 	<ru.fantlab.android.ui.widgets.FontTextView

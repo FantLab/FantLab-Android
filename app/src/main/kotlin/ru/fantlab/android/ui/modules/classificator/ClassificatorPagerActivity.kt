@@ -7,9 +7,9 @@ import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
 import android.view.View
-import butterknife.BindView
-import butterknife.OnClick
 import com.evernote.android.state.State
+import kotlinx.android.synthetic.main.appbar_tabbed_elevation.*
+import kotlinx.android.synthetic.main.tabbed_pager_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
@@ -25,10 +25,6 @@ import java.util.*
 
 class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, ClassificatorPagerPresenter>(),
 		ClassificatorPagerMvp.View {
-
-	@BindView(R.id.tabs) lateinit var tabs: TabLayout
-	@BindView(R.id.tabbedPager) lateinit var pager: ViewPagerView
-	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
 
 	@State var index: Int = 0
 	@State var workId: Int = 0
@@ -55,6 +51,7 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 		setTaskName(null)
 		title = getString(R.string.classificator)
 		fab.setImageResource(R.drawable.ic_send)
+		fab.setOnClickListener { onFabClicked() }
 		selectMenuItem(R.id.mainView, false)
 		val adapter = FragmentsPagerAdapter(
 				supportFragmentManager,
@@ -101,7 +98,6 @@ class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, Clas
 		hideShowFab()
 	}
 
-	@OnClick(R.id.fab)
 	fun onFabClicked() {
 		if (checkSelections()) {
 			val resultQuery = StringBuilder()

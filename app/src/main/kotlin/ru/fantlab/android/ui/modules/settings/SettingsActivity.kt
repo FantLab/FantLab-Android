@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import butterknife.BindView
+import kotlinx.android.synthetic.main.activity_settings.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.SettingsModel
 import ru.fantlab.android.ui.adapter.SettingsAdapter
@@ -24,7 +24,6 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
 
 	private val adapter: SettingsAdapter by lazy { SettingsAdapter(arrayListOf()) }
 
-	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
 	private val THEME_CHANGE = 55
 
 	override fun onCreate(savedInstanceState: Bundle?) {

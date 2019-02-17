@@ -17,15 +17,12 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.Toast
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
-import butterknife.Optional
 import com.bumptech.glide.Glide
 import com.evernote.android.state.State
 import com.evernote.android.state.StateSaver
 import es.dmoral.toasty.Toasty
 import io.reactivex.Observable
+import kotlinx.android.synthetic.main.accounts_menu_layout.*
 import net.grandcentrix.thirtyinch.TiActivity
 import ru.fantlab.android.App
 import ru.fantlab.android.R
@@ -40,17 +37,14 @@ import ru.fantlab.android.ui.widgets.dialog.MessageDialogView
 import ru.fantlab.android.ui.widgets.dialog.ProgressDialogFragment
 import java.util.*
 
-/**
- * Created by Kosh on 24 May 2016, 8:48 PM
- */
 abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	: TiActivity<P, V>(), BaseMvp.View, NavigationView.OnNavigationItemSelectedListener {
 
-	@JvmField @BindView(R.id.toolbar) var toolbar: Toolbar? = null
-	@JvmField @BindView(R.id.appbar) var appbar: AppBarLayout? = null
-	@JvmField @BindView(R.id.drawer) var drawer: DrawerLayout? = null
-	@JvmField @BindView(R.id.extrasNav) var extraNav: NavigationView? = null
-	@JvmField @BindView(R.id.accountsNav) var accountsNav: NavigationView? = null
+	var toolbar: Toolbar? = null
+	var appbar: AppBarLayout? = null
+	var drawer: DrawerLayout? = null
+	var extraNav: NavigationView? = null
+	var accountsNav: NavigationView? = null
 	@State var isProgressShowing: Boolean = false
 	@State var presenterStateBundle = Bundle()
 	private var toast: Toast? = null
@@ -71,7 +65,12 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		super.onCreate(savedInstanceState)
 		if (layout() != 0) {
 			setContentView(layout())
-			ButterKnife.bind(this)
+			toolbar = findViewById(R.id.toolbar)
+			appbar = findViewById(R.id.appbar)
+			drawer = findViewById(R.id.drawer)
+			extraNav = findViewById(R.id.extrasNav)
+			accountsNav = findViewById(R.id.accountsNav)
+			logout?.setOnClickListener { onLogoutClicked() }
 		}
 		if (!validateAuth()) return
 		showChangelog()
@@ -153,8 +152,6 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	override fun onDialogDismissed() {
 	}
 
-	@Optional
-	@OnClick(R.id.logout)
 	internal fun onLogoutClicked() {
 		closeDrawer()
 		onLogoutPressed()

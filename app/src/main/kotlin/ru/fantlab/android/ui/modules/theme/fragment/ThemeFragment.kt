@@ -2,15 +2,11 @@ package ru.fantlab.android.ui.modules.theme.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.widget.Toolbar
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
+import kotlinx.android.synthetic.main.theme_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
@@ -19,11 +15,6 @@ import ru.fantlab.android.helper.ViewHelper
 import ru.fantlab.android.ui.base.BaseFragment
 
 class ThemeFragment : BaseFragment<ThemeFragmentMvp.View, ThemeFragmentPresenter>(), ThemeFragmentMvp.View {
-
-    @BindView(R.id.apply) lateinit var apply: FloatingActionButton
-    @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
-
-	private var unbinder: Unbinder? = null
 
 	private val THEME = "appTheme"
 	private var primaryDarkColor: Int = 0
@@ -43,7 +34,7 @@ class ThemeFragment : BaseFragment<ThemeFragmentMvp.View, ThemeFragmentPresenter
 	override fun fragmentLayout(): Int = 0
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		apply.setOnClickListener {
+		applyButton.setOnClickListener {
 			setTheme()
 		}
 		toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
@@ -56,7 +47,6 @@ class ThemeFragment : BaseFragment<ThemeFragmentMvp.View, ThemeFragmentPresenter
 		primaryDarkColor = ViewHelper.getPrimaryDarkColor(contextThemeWrapper)
 		val localInflater = inflater.cloneInContext(contextThemeWrapper)
 		val view = localInflater.inflate(R.layout.theme_layout, container, false)!!
-		unbinder = ButterKnife.bind(this, view)
 		return view
 	}
 
@@ -91,12 +81,8 @@ class ThemeFragment : BaseFragment<ThemeFragmentMvp.View, ThemeFragmentPresenter
 	}
 
 	private fun setTheme(theme: String) {
-		PrefHelper.set(THEME, theme)
+		PrefHelper[THEME] = theme
 		themeListener?.onThemeApplied()
 	}
 
-	override fun onDestroyView() {
-		super.onDestroyView()
-		unbinder?.unbind()
-	}
 }

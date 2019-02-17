@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import kotlinx.android.synthetic.main.work_classif_parent_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.ClassParent
 import ru.fantlab.android.ui.widgets.FontTextView
@@ -44,8 +45,8 @@ class ClassParentViewHolder : TreeViewBinder<ClassParentViewHolder.ViewHolder>()
 	}
 
 	class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
-		val ivArrow: ImageView = rootView.findViewById<View>(R.id.iv_arrow) as ImageView
-		var title: TextView = rootView.findViewById<View>(R.id.title) as FontTextView
-		var percent: TextView = rootView.findViewById<View>(R.id.percent) as FontTextView
+		val ivArrow: ImageView = rootView.iv_arrow
+		var title: TextView = rootView.title
+		var percent: TextView = rootView.percent
 	}
 }

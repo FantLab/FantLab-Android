@@ -3,11 +3,10 @@ package ru.fantlab.android.ui.modules.edition.overview
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.support.v7.widget.CardView
 import android.text.SpannableStringBuilder
 import android.view.View
-import butterknife.BindView
 import kotlinx.android.synthetic.main.edition_overview_layout.*
+import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.AdditionalImages
 import ru.fantlab.android.data.dao.model.Edition
@@ -19,29 +18,9 @@ import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.edition.EditionPagerMvp
 import ru.fantlab.android.ui.widgets.*
 import ru.fantlab.android.ui.widgets.dialog.ListDialogView
-import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 
 class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOverviewPresenter>(),
 		EditionOverviewMvp.View {
-
-	@BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
-	@BindView(R.id.authors) lateinit var authors: FontTextView
-	@BindView(R.id.title) lateinit var title: FontTextView
-	@BindView(R.id.compilers) lateinit var compilers: FontTextView
-	@BindView(R.id.types) lateinit var types: FontTextView
-	@BindView(R.id.publishers) lateinit var publishers: FontTextView
-	@BindView(R.id.series) lateinit var series: FontTextView
-	@BindView(R.id.copyCount) lateinit var copyCount: FontTextView
-	@BindView(R.id.isbns) lateinit var isbns: FontTextView
-	@BindView(R.id.coverType) lateinit var coverType: FontTextView
-	@BindView(R.id.pagesCount) lateinit var pagesCount: FontTextView
-	@BindView(R.id.planDate) lateinit var planDate: FontTextView
-	@BindView(R.id.descriptionCard) lateinit var descriptionCard: CardView
-	@BindView(R.id.description) lateinit var description: HTMLTextView
-	@BindView(R.id.notesCard) lateinit var notesCard: CardView
-	@BindView(R.id.notes) lateinit var notes: HTMLTextView
-	@BindView(R.id.progress) lateinit var progress: View
-	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
 	private lateinit var edition: Edition
 	private var pagerCallback: EditionPagerMvp.View? = null

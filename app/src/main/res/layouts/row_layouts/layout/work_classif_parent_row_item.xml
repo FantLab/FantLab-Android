@@ -25,7 +25,7 @@
 		android:drawablePadding="10dp"
 		android:drawableStart="@drawable/ic_book"
 		android:gravity="center_vertical"
-		android:textSize="14sp"
+		style="@style/TextAppearance.AppCompat.Subhead"
 		/>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
@@ -36,7 +36,8 @@
 		android:layout_margin="2dp"
 		android:gravity="center_vertical"
 		android:paddingEnd="@dimen/spacing_normal"
-		android:textSize="12sp"
+		style="@style/TextAppearance.AppCompat.Subhead"
 		tools:text="90%"
+		tools:ignore="RtlSymmetry"
 		/>
 </RelativeLayout>

@@ -68,7 +68,8 @@
 								android:layout_below="@+id/compilers"
 								android:layout_toEndOf="@+id/coverLayout"
 								tools:text="авторский сборник"
-								style="@style/TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -79,7 +80,8 @@
 								android:layout_marginTop="@dimen/spacing_micro"
 								android:layout_toEndOf="@+id/coverLayout"
 								tools:text="Составитель: !"
-								style="@style/TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -90,6 +92,7 @@
 								android:layout_alignTop="@+id/coverLayout"
 								android:layout_marginTop="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverLayout"
+								style="@style/TextAppearance.AppCompat.Title"
 								tools:text="Гиперион"
 								/>
 
@@ -100,7 +103,8 @@
 								android:layout_below="@+id/title"
 								android:layout_toEndOf="@+id/coverLayout"
 								tools:text="Дэн Симмонс"
-								style="@style/TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 
@@ -142,7 +146,8 @@
 							android:id="@+id/description"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							style="@style/TextAppearance.AppCompat.Caption"
+							android:textColor="?android:attr/textColorSecondary"
+							style="@style/TextAppearance.AppCompat.Subhead"
 							/>
 
 					</LinearLayout>
@@ -188,7 +193,8 @@
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								tools:text="АСТ, 2003 г."
-								style="@style/Base.TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -196,7 +202,8 @@
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								tools:text="Серия: Библиотека фантастики"
-								style="@style/Base.TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -204,7 +211,8 @@
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								tools:text="Тираж: 6000 экз."
-								style="@style/Base.TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -212,7 +220,8 @@
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								tools:text="ISBN: 5-17-016546-3"
-								style="@style/Base.TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -220,7 +229,8 @@
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								tools:text="Тип обложки: твёрдая"
-								style="@style/Base.TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -228,7 +238,8 @@
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								tools:text="Формат: 60x90/16 (145x215 мм)"
-								style="@style/Base.TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -236,7 +247,8 @@
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								tools:text="Страниц: 976"
-								style="@style/Base.TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -244,7 +256,8 @@
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
 								tools:text="Выход по плану: январь 2018"
-								style="@style/Base.TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 						</LinearLayout>
@@ -286,7 +299,8 @@
 							android:id="@+id/notes"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							style="@style/TextAppearance.AppCompat.Caption"
+							android:textColor="?android:attr/textColorSecondary"
+							style="@style/TextAppearance.AppCompat.Subhead"
 							/>
 
 					</LinearLayout>

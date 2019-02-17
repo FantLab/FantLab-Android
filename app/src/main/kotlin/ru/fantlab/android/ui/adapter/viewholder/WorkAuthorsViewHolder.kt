@@ -2,32 +2,26 @@ package ru.fantlab.android.ui.adapter.viewholder
 
 import android.view.View
 import android.view.ViewGroup
-import butterknife.BindView
+import kotlinx.android.synthetic.main.author_row_item.view.*
 import ru.fantlab.android.App
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Work
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
-import ru.fantlab.android.ui.widgets.AvatarLayout
-import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 class WorkAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Work.Author, WorkAuthorsViewHolder>)
 	: BaseViewHolder<Work.Author>(itemView, adapter) {
 
-	@BindView(R.id.avatarLayout) lateinit var avatarLayout: AvatarLayout
-	@BindView(R.id.name) lateinit var name: FontTextView
-	@BindView(R.id.name_orig) lateinit var nameOrig: FontTextView
-
 	override fun bind(author: Work.Author) {
-		avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/autors/${author.id}")
-		name.text = author.name
+		itemView.avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/autors/${author.id}")
+		itemView.name.text = author.name
 		if (!InputHelper.isEmpty(author.nameOrig))
-			nameOrig.text = author.nameOrig
+			itemView.name_orig.text = author.nameOrig
 		else
-			nameOrig.visibility = View.GONE
+			itemView.name_orig.visibility = View.GONE
 
 		itemView.setOnClickListener {
 			AuthorPagerActivity.startActivity(App.instance, author.id, author.name, 0)

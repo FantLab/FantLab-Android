@@ -6,13 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import butterknife.BindView
-import butterknife.OnClick
 import com.evernote.android.state.State
+import kotlinx.android.synthetic.main.response_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.ContextMenus
@@ -24,23 +22,10 @@ import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.modules.work.CyclePagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
-import ru.fantlab.android.ui.widgets.CoverLayout
-import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
-import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 
 class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverviewPresenter>(),
 		ResponseOverviewMvp.View {
-
-	@JvmField @BindView(R.id.coverLayout) var coverLayout: CoverLayout? = null
-	@BindView(R.id.date) lateinit var date: FontTextView
-	@BindView(R.id.username) lateinit var username: FontTextView
-	@BindView(R.id.workName) lateinit var workTitle: FontTextView
-	@BindView(R.id.text) lateinit var text: HTMLTextView
-	@BindView(R.id.rating) lateinit var rating: FontTextView
-	@BindView(R.id.votes) lateinit var votes: FontTextView
-	@BindView(R.id.mark) lateinit var mark: FontTextView
-	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
 
 	@State lateinit var response: Response
 
@@ -62,6 +47,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 			finish()
 			return
 		}
+		fab.setOnClickListener { onFabClicked() }
 		title = getString(R.string.view_response)
 	}
 
@@ -93,7 +79,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		}
 		date.text = response.dateIso.parseFullDate(true).getTimeAgo()
 
-		workTitle.text = if (response.workName.isNotEmpty()) {
+		workName.text = if (response.workName.isNotEmpty()) {
 			if (response.workNameOrig.isNotEmpty()) {
 				String.format("%s / %s", response.workName, response.workNameOrig)
 			} else {
@@ -102,7 +88,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		} else {
 			response.workNameOrig
 		}
-		workTitle.setOnClickListener {
+		workName.setOnClickListener {
 			if (response.workTypeId == FantlabHelper.WorkType.CYCLE.id)
 				CyclePagerActivity.startActivity(this, response.workId, response.workName, 0)
 			else
@@ -141,7 +127,6 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		}
 	}
 
-	@OnClick(R.id.fab)
 	fun onFabClicked() {
 		presenter.onGetUserLevel()
 	}

@@ -45,7 +45,7 @@
 				android:maxLines="1"
 				android:textColor="?android:attr/textColorSecondary"
 				tools:text="creator, 28 апреля 2009 г. 14:44"
-				style="@style/TextAppearance.AppCompat.Caption"
+				style="@style/TextAppearance.AppCompat.Subhead"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -71,7 +71,7 @@
 				android:maxLines="4"
 				android:textColor="?android:attr/textColorSecondary"
 				tools:text="Да, это не тот Ши и не тот Ниффт, которых я ожидал. Буйная фантазия автора, которую он продемонстрировал в «Рыбалке», оживает лишь на последних 50-70 страницах книги"
-				style="@style/TextAppearance.AppCompat.Caption"
+				style="@style/TextAppearance.AppCompat.Subhead"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FlowLayout

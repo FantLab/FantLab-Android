@@ -11,9 +11,9 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
-import butterknife.BindView
-import butterknife.OnClick
 import com.evernote.android.state.State
+import kotlinx.android.synthetic.main.appbar_tabbed_elevation.*
+import kotlinx.android.synthetic.main.tabbed_pager_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
@@ -35,10 +35,6 @@ import java.util.*
 
 class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPagerMvp.View>>(),
 		WorkPagerMvp.View {
-
-	@BindView(R.id.tabs) lateinit var tabs: TabLayout
-	@BindView(R.id.tabbedPager) lateinit var pager: ViewPagerView
-	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
 
 	@State var index: Int = 0
 	@State var workId: Int = 0
@@ -100,6 +96,7 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 			tabsCountSet.forEach { setupTab(count = it.count, index = it.tabIndex) }
 		}
 		hideShowFab(pager.currentItem)
+		fab.setOnClickListener { onFabClicked() }
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -179,7 +176,6 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 		fab.hide()
 	}
 
-	@OnClick(R.id.fab)
 	fun onFabClicked() {
 		when (pager.currentItem) {
 			2 -> {

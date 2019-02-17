@@ -68,7 +68,8 @@
 								android:layout_below="@+id/country"
 								android:layout_marginTop="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverLayout"
-								style="@style/TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -79,7 +80,8 @@
 								android:layout_marginTop="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverLayout"
 								android:autoLink="web"
-								style="@style/TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ImageView
@@ -97,7 +99,8 @@
 								android:layout_below="@+id/title2"
 								android:layout_toEndOf="@+id/langIcon"
 								android:paddingStart="@dimen/spacing_micro"
-								style="@style/TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -108,6 +111,8 @@
 								android:layout_alignTop="@+id/coverLayout"
 								android:layout_marginTop="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverLayout"
+								tools:text="AnLab"
+								style="@style/TextAppearance.AppCompat.Title"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -116,7 +121,9 @@
 								android:layout_height="wrap_content"
 								android:layout_below="@+id/title"
 								android:layout_toEndOf="@+id/coverLayout"
-								style="@style/TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
+								tools:text="AnLab award (Analog)"
 								/>
 
 
@@ -159,8 +166,8 @@
 							android:id="@+id/description"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							style="@style/TextAppearance.AppCompat.Caption"
-							/>
+							android:textColor="?android:attr/textColorSecondary"
+							style="@style/TextAppearance.AppCompat.Subhead"							/>
 
 					</LinearLayout>
 				</android.support.v7.widget.CardView>
@@ -198,8 +205,8 @@
 							android:id="@+id/comment"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							style="@style/TextAppearance.AppCompat.Caption"
-							/>
+							android:textColor="?android:attr/textColorSecondary"
+							style="@style/TextAppearance.AppCompat.Subhead"							/>
 
 					</LinearLayout>
 				</android.support.v7.widget.CardView>
@@ -237,8 +244,8 @@
 							android:id="@+id/notes"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							style="@style/TextAppearance.AppCompat.Caption"
-							/>
+							android:textColor="?android:attr/textColorSecondary"
+							style="@style/TextAppearance.AppCompat.Subhead"							/>
 
 					</LinearLayout>
 				</android.support.v7.widget.CardView>

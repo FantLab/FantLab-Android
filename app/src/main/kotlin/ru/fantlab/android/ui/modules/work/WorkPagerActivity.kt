@@ -6,14 +6,13 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
-import butterknife.BindView
-import butterknife.OnClick
 import com.evernote.android.state.State
+import kotlinx.android.synthetic.main.appbar_tabbed_elevation.*
+import kotlinx.android.synthetic.main.tabbed_pager_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
@@ -29,17 +28,12 @@ import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.work.classification.WorkClassificationFragment
 import ru.fantlab.android.ui.modules.work.overview.WorkOverviewFragment
 import ru.fantlab.android.ui.modules.work.responses.WorkResponsesFragment
-import ru.fantlab.android.ui.widgets.ViewPagerView
 import java.text.NumberFormat
 import java.util.*
 
 
 class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPagerMvp.View>>(),
 		WorkPagerMvp.View {
-
-	@BindView(R.id.tabs) lateinit var tabs: TabLayout
-	@BindView(R.id.tabbedPager) lateinit var pager: ViewPagerView
-	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
 
 	@State var index: Int = 0
 	@State var workId: Int = 0
@@ -103,6 +97,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 			tabsCountSet.forEach { setupTab(count = it.count, index = it.tabIndex) }
 		}
 		hideShowFab(pager.currentItem)
+		fab.setOnClickListener { onFabClicked() }
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -197,7 +192,6 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 		fab.hide()
 	}
 
-	@OnClick(R.id.fab)
 	fun onFabClicked() {
 		when (pager.currentItem) {
 			0 -> {

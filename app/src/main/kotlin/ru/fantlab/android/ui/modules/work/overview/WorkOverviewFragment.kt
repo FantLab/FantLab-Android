@@ -3,9 +3,8 @@ package ru.fantlab.android.ui.modules.work.overview
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.support.v7.widget.CardView
 import android.view.View
-import butterknife.BindView
+import kotlinx.android.synthetic.main.state_layout.*
 import kotlinx.android.synthetic.main.work_overview_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.MarkMini
@@ -23,37 +22,10 @@ import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
 import ru.fantlab.android.ui.modules.work.analogs.WorkAnalogsFragment
-import ru.fantlab.android.ui.widgets.CoverLayout
-import ru.fantlab.android.ui.widgets.FontTextView
-import ru.fantlab.android.ui.widgets.ForegroundImageView
-import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
-import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 
 class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPresenter>(),
 		WorkOverviewMvp.View {
-
-	@BindView(R.id.progress) lateinit var progress: View
-	@BindView(R.id.coverLayout) lateinit var coverLayout: CoverLayout
-	@BindView(R.id.authorView) lateinit var authorView: CardView
-	@BindView(R.id.title) lateinit var name: FontTextView
-	@BindView(R.id.title2) lateinit var name2: FontTextView
-	@BindView(R.id.rate) lateinit var rate: FontTextView
-	@BindView(R.id.response) lateinit var response: ForegroundImageView
-	@BindView(R.id.mymark) lateinit var mymark: FontTextView
-	@BindView(R.id.classified) lateinit var classified: ForegroundImageView
-	@BindView(R.id.types) lateinit var types: FontTextView
-	@BindView(R.id.root) lateinit var root: HTMLTextView
-	@BindView(R.id.description) lateinit var description: HTMLTextView
-	@BindView(R.id.notes) lateinit var notes: HTMLTextView
-	@BindView(R.id.recyclerNoms) lateinit var nomsList: DynamicRecyclerView
-	@BindView(R.id.recyclerWins) lateinit var winsList: DynamicRecyclerView
-	@BindView(R.id.recyclerAuthors) lateinit var authorsList: DynamicRecyclerView
-	@BindView(R.id.aboutView) lateinit var aboutView: CardView
-	@BindView(R.id.winsView) lateinit var winsView: CardView
-	@BindView(R.id.nomsView) lateinit var nomsView: CardView
-	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
 	private lateinit var work: Work
 	private val adapterNoms: WorkAwardsAdapter by lazy { WorkAwardsAdapter(arrayListOf()) }
@@ -87,14 +59,14 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		coverLayout.setUrl(if (work.image != null) "https:${work.image}" else null, R.drawable.not_found_poster)
 
 		if (InputHelper.isEmpty(work.name)) {
-			name.text = work.nameOrig
-			name2.visibility = View.GONE
+			title.text = work.nameOrig
+			title2.visibility = View.GONE
 		} else {
-			name.text = work.name
+			title.text = work.name
 			if (!InputHelper.isEmpty(work.nameOrig))
-				name2.text = work.nameOrig
+				title2.text = work.nameOrig
 			else
-				name2.visibility = View.GONE
+				title2.visibility = View.GONE
 		}
 
 		types.text = if (work.year != null) "${work.type}, ${work.year}" else work.type
@@ -130,18 +102,18 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 		if (authors.isNotEmpty()) {
 			adapterAuthors.insertItems(authors)
-			authorsList.adapter = adapterAuthors
+			recyclerAuthors.adapter = adapterAuthors
 		} else authorView.visibility = View.GONE
 
 		if (nominations.isNotEmpty()) {
 			adapterNoms.insertItems(nominations)
-			nomsList.adapter = adapterNoms
+			recyclerNoms.adapter = adapterNoms
 			adapterNoms.listener = presenter
 		} else nomsView.visibility = View.GONE
 
 		if (wins.isNotEmpty()) {
 			adapterWins.insertItems(wins)
-			winsList.adapter = adapterWins
+			recyclerWins.adapter = adapterWins
 			adapterWins.listener = presenter
 		} else winsView.visibility = View.GONE
 
@@ -191,7 +163,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		val author = adapterAuthors.getItem(0).name
 		RatingDialogView.newInstance(10, pagerCallback?.onGetMark()?.toFloat() ?: 0f,
 				work,
-				"$author - ${name.text}",
+				"$author - ${title.text}",
 				-1
 		).show(childFragmentManager, RatingDialogView.TAG)
 	}

@@ -5,9 +5,8 @@ import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.view.Menu
 import android.view.MenuItem
-import butterknife.BindView
 import com.evernote.android.state.State
-import it.sephiroth.android.library.bottomnavigation.BottomNavigation
+import kotlinx.android.synthetic.main.main_bottom_navigation.*
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.PrefGetter
@@ -17,8 +16,6 @@ import ru.fantlab.android.ui.modules.main.responses.ResponsesFragment
 import ru.fantlab.android.ui.modules.search.SearchActivity
 
 class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
-
-	@BindView(R.id.bottomNavigation) lateinit var bottomNavigation: BottomNavigation
 
 	@State var navType = MainMvp.NavigationType.RESPONSES
 

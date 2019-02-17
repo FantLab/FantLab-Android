@@ -10,9 +10,9 @@ import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.widget.EditText
-import butterknife.BindView
 import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.editor_buttons_layout.view.*
+import kotlinx.android.synthetic.main.editor_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.data.dao.model.Smile
@@ -22,16 +22,9 @@ import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.ViewHelper
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.widgets.dialog.MessageDialogView
-import ru.fantlab.android.ui.widgets.editor.EditorEditText
-import ru.fantlab.android.ui.widgets.editor.EditorLayout
 import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 
 class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMvp.View {
-
-	@BindView(R.id.editorLayout) lateinit var editorLayout: EditorLayout
-	@BindView(R.id.editText) lateinit var editText: EditorEditText
-	@BindView(R.id.htmlText) lateinit var htmlText: HTMLTextView
-	@BindView(R.id.parentView) lateinit var parentView: View
 
 	@State var extraType: String? = null
 	@State var itemId: Int? = null
@@ -199,7 +192,7 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 			when (extraType) {
 				BundleConstant.EDITOR_NEW_RESPONSE -> {
 					title = getString(R.string.editor_review)
-					editorLayout.addSmileView.visibility = GONE
+					editorLayout.addSmile.visibility = GONE
 					editorLayout.bold.visibility = GONE
 					editorLayout.strikethrough.visibility = GONE
 					editorLayout.italic.visibility = GONE

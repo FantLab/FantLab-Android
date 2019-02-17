@@ -23,7 +23,8 @@
 		android:layout_centerVertical="true"
 		android:layout_marginEnd="@dimen/spacing_micro"
 		android:layout_toEndOf="@+id/arrow"
-		android:textSize="14sp"
+		style="@style/TextAppearance.AppCompat.Medium"
+		android:textColor="?android:attr/textColorPrimary"
 		tools:text="Сказка о царе Шахрияре и его брате (сказка, перевод М. Салье), стр. 7-18 "
 		/>
 

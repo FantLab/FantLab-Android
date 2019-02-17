@@ -7,10 +7,9 @@ import android.support.v7.widget.TooltipCompat
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.ViewGroup
-import android.widget.LinearLayout
-import butterknife.BindView
+import kotlinx.android.synthetic.main.profile_overview_icons_layout.*
 import kotlinx.android.synthetic.main.profile_overview_layout.*
+import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.User
 import ru.fantlab.android.helper.BundleConstant
@@ -21,50 +20,10 @@ import ru.fantlab.android.helper.parseFullDate
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.user.UserPagerMvp
-import ru.fantlab.android.ui.widgets.AvatarLayout
-import ru.fantlab.android.ui.widgets.FontButton
-import ru.fantlab.android.ui.widgets.FontTextView
-import ru.fantlab.android.ui.widgets.StateLayout
-import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 import java.text.NumberFormat
 
 class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOverviewPresenter>(),
 		ProfileOverviewMvp.View {
-
-	@BindView(R.id.login) lateinit var login: FontTextView
-	@BindView(R.id.fio) lateinit var fio: FontTextView
-	@BindView(R.id.avatarLayout) lateinit var avatarLayout: AvatarLayout
-	@BindView(R.id.level) lateinit var level: FontTextView
-	@BindView(R.id.author) lateinit var author: FontButton
-	@BindView(R.id.divider) lateinit var divider: View
-	@BindView(R.id.blog) lateinit var blog: FontButton
-	@BindView(R.id.authorBlock) lateinit var authorBlock: LinearLayout
-	@BindView(R.id.marksLayout) lateinit var marksLayout: ViewGroup
-	@BindView(R.id.marks) lateinit var marks: FontTextView
-	@BindView(R.id.responsesLayout) lateinit var responsesLayout: ViewGroup
-	@BindView(R.id.responses) lateinit var responses: FontTextView
-	@BindView(R.id.votesLayout) lateinit var votesLayout: ViewGroup
-	@BindView(R.id.votes) lateinit var votes: FontTextView
-	@BindView(R.id.descriptionsLayout) lateinit var descriptionsLayout: ViewGroup
-	@BindView(R.id.descriptions) lateinit var descriptions: FontTextView
-	@BindView(R.id.classificationsLayout) lateinit var classificationsLayout: ViewGroup
-	@BindView(R.id.classifications) lateinit var classifications: FontTextView
-	@BindView(R.id.ticketsLayout) lateinit var ticketsLayout: ViewGroup
-	@BindView(R.id.tickets) lateinit var tickets: FontTextView
-	@BindView(R.id.messagesLayout) lateinit var messagesLayout: ViewGroup
-	@BindView(R.id.messages) lateinit var messages: FontTextView
-	@BindView(R.id.topicsLayout) lateinit var topicsLayout: ViewGroup
-	@BindView(R.id.topics) lateinit var topics: FontTextView
-	@BindView(R.id.bookcasesLayout) lateinit var bookcasesLayout: ViewGroup
-	@BindView(R.id.bookcases) lateinit var bookcases: FontTextView
-	@BindView(R.id.birthDay) lateinit var birthDay: FontTextView
-	@BindView(R.id.location) lateinit var location: FontTextView
-	@BindView(R.id.regDate) lateinit var regDate: FontTextView
-	@BindView(R.id.lastActionDate) lateinit var lastActionDate: FontTextView
-	@BindView(R.id.sign) lateinit var sign: HTMLTextView
-	@BindView(R.id.block) lateinit var block: FontTextView
-	@BindView(R.id.progress) lateinit var progress: View
-	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
 	private val numberFormat = NumberFormat.getNumberInstance()
 

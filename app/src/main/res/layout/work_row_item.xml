@@ -45,7 +45,7 @@
 				android:maxLines="1"
 				android:textColor="?android:attr/textColorSecondary"
 				tools:text="Кэтрин Мур, Абрахам Меррит, Г. Ф. Лавкрафт, Роберт И. Говард"
-				style="@style/TextAppearance.AppCompat.Caption"
+				style="@style/TextAppearance.AppCompat.Subhead"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -81,7 +81,7 @@
 					android:textColor="?android:attr/textColorSecondary"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="1935"
-					style="@style/TextAppearance.AppCompat.Caption"
+					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -98,7 +98,7 @@
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="7.26 / 65"
 					tools:visibility="visible"
-					style="@style/TextAppearance.AppCompat.Caption"
+					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
 			</ru.fantlab.android.ui.widgets.FlowLayout>

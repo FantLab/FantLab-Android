@@ -6,13 +6,13 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
-import butterknife.BindView
 import com.evernote.android.state.State
+import kotlinx.android.synthetic.main.appbar_tabbed_elevation.*
+import kotlinx.android.synthetic.main.tabbed_pager_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
@@ -25,16 +25,11 @@ import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
-import ru.fantlab.android.ui.widgets.ViewPagerView
 import java.text.NumberFormat
 import java.util.*
 
 class EditionPagerActivity : BaseActivity<EditionPagerMvp.View, BasePresenter<EditionPagerMvp.View>>(),
 		EditionPagerMvp.View {
-
-	@BindView(R.id.tabs) lateinit var tabs: TabLayout
-	@BindView(R.id.tabbedPager) lateinit var pager: ViewPagerView
-	@BindView(R.id.fab) lateinit var fab: FloatingActionButton
 
 	@State var index: Int = 0
 	@State var editionId: Int = 0

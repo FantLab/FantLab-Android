@@ -3,13 +3,11 @@ package ru.fantlab.android.ui.adapter.viewholder
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
-import butterknife.BindView
+import kotlinx.android.synthetic.main.search_authors_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.SearchAuthor
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
 import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
-import ru.fantlab.android.ui.widgets.AvatarLayout
-import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.text.NumberFormat
@@ -17,27 +15,17 @@ import java.text.NumberFormat
 class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchAuthor, SearchAuthorsViewHolder>)
 	: BaseViewHolder<SearchAuthor>(itemView, adapter) {
 
-	@BindView(R.id.avatarLayout) lateinit var avatarLayout: AvatarLayout
-	@BindView(R.id.name) lateinit var name: FontTextView
-	@BindView(R.id.pseudo_names) lateinit var pseudoNames: FontTextView
-	@BindView(R.id.country) lateinit var country: FontTextView
-	@BindView(R.id.dates) lateinit var dates: FontTextView
-	@BindView(R.id.rating) lateinit var rating: FontTextView
-	@BindView(R.id.responses) lateinit var responses: FontTextView
-	@BindView(R.id.editions) lateinit var editions: FontTextView
-	@BindView(R.id.movies) lateinit var movies: FontTextView
-
 	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun bind(author: SearchAuthor) {
-		avatarLayout.setUrl(Uri.Builder().scheme(PROTOCOL_HTTPS)
+		itemView.avatarLayout.setUrl(Uri.Builder().scheme(PROTOCOL_HTTPS)
 				.authority(HOST_DATA)
 				.appendPath("images")
 				.appendPath("autors")
 				.appendPath(author.authorId.toString())
 				.toString())
 
-		name.text = if (author.rusName.isNotEmpty()) {
+		itemView.name.text = if (author.rusName.isNotEmpty()) {
 			if (author.name.isNotEmpty()) {
 				String.format("%s / %s", author.rusName, author.name)
 			} else {
@@ -48,49 +36,49 @@ class SearchAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Searc
 		}
 
 		if (author.pseudoNames.isNotEmpty()) {
-			pseudoNames.text = author.pseudoNames
-			pseudoNames.visibility = View.VISIBLE
+			itemView.pseudo_names.text = author.pseudoNames
+			itemView.pseudo_names.visibility = View.VISIBLE
 		} else {
-			pseudoNames.visibility = View.GONE
+			itemView.pseudo_names.visibility = View.GONE
 		}
 
 
-		if (author.country.isNotEmpty()) country.text = author.country else country.visibility = View.GONE
+		if (author.country.isNotEmpty()) itemView.country.text = author.country else itemView.country.visibility = View.GONE
 
 		if (author.birthYear != 0 || author.deathYear != 0) {
-			dates.text = StringBuilder()
+			itemView.dates.text = StringBuilder()
 					.append(if (author.birthYear != 0) author.birthYear else "N/A")
 					.append(if (author.deathYear != 0) " - ${author.deathYear}" else "")
-		} else dates.visibility = View.GONE
+		} else itemView.dates.visibility = View.GONE
 
 		if (author.markCount != 0) {
-			rating.text = String.format("%s / %s",
+			itemView.rating.text = String.format("%s / %s",
 					numberFormat.format(author.midMark / 100.0),
 					numberFormat.format(author.markCount.toLong()))
-			rating.visibility = View.VISIBLE
+			itemView.rating.visibility = View.VISIBLE
 		} else {
-			rating.visibility = View.GONE
+			itemView.rating.visibility = View.GONE
 		}
 
 		if (author.responseCount != 0) {
-			responses.text = numberFormat.format(author.responseCount.toLong())
-			responses.visibility = View.VISIBLE
+			itemView.responses.text = numberFormat.format(author.responseCount.toLong())
+			itemView.responses.visibility = View.VISIBLE
 		} else {
-			responses.visibility = View.GONE
+			itemView.responses.visibility = View.GONE
 		}
 
 		if (author.editionCount != 0) {
-			editions.text = numberFormat.format(author.editionCount.toLong())
-			editions.visibility = View.VISIBLE
+			itemView.editions.text = numberFormat.format(author.editionCount.toLong())
+			itemView.editions.visibility = View.VISIBLE
 		} else {
-			editions.visibility = View.GONE
+			itemView.editions.visibility = View.GONE
 		}
 
 		if (author.movieCount != 0) {
-			movies.text = numberFormat.format(author.movieCount.toLong())
-			movies.visibility = View.VISIBLE
+			itemView.movies.text = numberFormat.format(author.movieCount.toLong())
+			itemView.movies.visibility = View.VISIBLE
 		} else {
-			movies.visibility = View.GONE
+			itemView.movies.visibility = View.GONE
 		}
 	}
 

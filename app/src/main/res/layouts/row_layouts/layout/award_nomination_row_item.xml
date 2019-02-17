@@ -3,6 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:foreground="?selectableItemBackgroundBorderless"
 	android:minHeight="?listPreferredItemHeightSmall"
 	android:orientation="vertical"
@@ -16,8 +17,9 @@
 		android:drawablePadding="10dp"
 		android:drawableStart="@drawable/ic_type_small"
 		android:ellipsize="end"
-		android:textSize="14sp"
 		style="@style/TextAppearance.AppCompat.Title"
+		android:textSize="16sp"
+		tools:text="Дебютный роман"
 		/>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
@@ -26,6 +28,8 @@
 		android:layout_height="wrap_content"
 		android:ellipsize="end"
 		android:visibility="gone"
-		style="@style/TextAppearance.AppCompat.Caption"
+		android:textColor="?android:attr/textColorSecondary"
+		style="@style/TextAppearance.AppCompat.Subhead"
+		tools:text="Юн Ха Ли Гамбит девятихвостого лиса"
 		/>
 </LinearLayout>

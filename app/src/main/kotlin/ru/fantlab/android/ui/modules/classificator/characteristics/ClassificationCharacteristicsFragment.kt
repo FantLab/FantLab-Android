@@ -3,10 +3,10 @@ package ru.fantlab.android.ui.modules.classificator.characteristics
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import butterknife.BindView
+import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
+import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Classificator
 import ru.fantlab.android.data.dao.model.ClassificatorModel
@@ -15,9 +15,6 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.viewholder.ClassificatorViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.classificator.ClassificatorPagerMvp
-import ru.fantlab.android.ui.widgets.StateLayout
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import java.util.*
@@ -25,11 +22,6 @@ import java.util.*
 class ClassificationCharacteristicsFragment :
 		BaseFragment<ClassificationCharacteristicsMvp.View, ClassificationCharacteristicsPresenter>(),
 		ClassificationCharacteristicsMvp.View {
-
-	@BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
-	@BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
-	@BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
-	@BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
 
 	private var pagerCallback: ClassificatorPagerMvp.View? = null
 	var selectedItems = 0

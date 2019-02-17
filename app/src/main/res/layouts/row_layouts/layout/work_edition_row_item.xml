@@ -47,7 +47,7 @@
 				android:visibility="gone"
 				tools:text="Илья Ильф, Евгений Петров"
 				tools:visibility="visible"
-				style="@style/TextAppearance.AppCompat.Caption"
+				style="@style/TextAppearance.AppCompat.Subhead"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -83,7 +83,7 @@
 					android:textColor="?android:attr/textColorSecondary"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="2009"
-					style="@style/TextAppearance.AppCompat.Caption"
+					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
 			</ru.fantlab.android.ui.widgets.FlowLayout>

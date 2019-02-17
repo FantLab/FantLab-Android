@@ -2,7 +2,7 @@ package ru.fantlab.android.ui.adapter.viewholder
 
 import android.view.View
 import android.view.ViewGroup
-import butterknife.BindView
+import kotlinx.android.synthetic.main.award_nomination_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Award
 import ru.fantlab.android.ui.widgets.FontTextView
@@ -12,11 +12,8 @@ import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 class AwardNominationViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Award.Nominations, AwardNominationViewHolder>)
 	: BaseViewHolder<Award.Nominations>(itemView, adapter) {
 
-	@BindView(R.id.title) lateinit var name: FontTextView
-	@BindView(R.id.description) lateinit var description: FontTextView
-
 	override fun bind(award: Award.Nominations) {
-		name.text = if (award.rusname.isNotEmpty()) {
+		itemView.title.text = if (award.rusname.isNotEmpty()) {
 			if (award.name.isNotEmpty()) {
 				String.format("%s / %s", award.rusname, award.name)
 			} else {
@@ -26,11 +23,11 @@ class AwardNominationViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Awa
 			award.name
 		}
 		if (!award.description.isEmpty()) {
-			description.text = award.description
-			description.visibility = View.VISIBLE
+			itemView.description.text = award.description
+			itemView.description.visibility = View.VISIBLE
 		} else {
-			description.text = ""
-			description.visibility = View.GONE
+			itemView.description.text = ""
+			itemView.description.visibility = View.GONE
 		}
 	}
 

@@ -19,10 +19,9 @@
 		android:layout_height="wrap_content"
 		android:ellipsize="end"
 		android:maxLines="3"
-		android:textColor="?android:textColorPrimary"
-		android:textStyle="bold"
 		tools:text="Гамильтон, Эдмонд"
-		style="@style/TextAppearance.AppCompat.Medium"
+		style="@style/TextAppearance.AppCompat.Subhead"
+		android:textColor="?android:attr/textColorSecondary"
 		/>
 
 </ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
