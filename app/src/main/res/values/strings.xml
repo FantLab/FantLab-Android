@@ -199,9 +199,12 @@
 	<string name="about_app">About</string>
 	<string name="send_with">Send with Telegram</string>
 	<string name="developers">Developers</string>
-	<string name="developers_names" translatable="false">\@kenrube, \@ilya_kokhan</string>
+	<string name="developers_names" translatable="false">\kenrube\n\ilyakokhan</string>
 	<string name="discuss">Discuss on forum</string>
 	<string name="github" translatable="false">Github</string>
 	<string name="github_url" translatable="false">https://github.com/FantLab/FantLab-Android</string>
 	<string name="discuss_url" translatable="false">https://fantlab.ru/forum/forum2page1/topic10144page1</string>
+	<string name="support">Support</string>
+	<string name="support_email" translatable="false">android@fantlab.ru</string>
+	<string name="send_email">Send email</string>
 </resources>

@@ -170,5 +170,7 @@
 	<string name="send_with">Связаться в Telegram</string>
 	<string name="developers">Разработчики</string>
 	<string name="discuss">Обсудить на форуме</string>
+	<string name="support">Обратная связь</string>
+	<string name="send_email">Отправить email</string>
 
 </resources>

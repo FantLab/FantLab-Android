@@ -41,10 +41,10 @@
 				/>
 
 			<RelativeLayout
-				android:id="@+id/developersView"
+				android:id="@+id/supportView"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:background="?attr/selectableItemBackground"
+				android:background="?android:selectableItemBackground"
 				android:clickable="true"
 				android:focusable="true"
 				android:paddingBottom="8dp"
@@ -54,32 +54,32 @@
 				>
 
 				<ru.fantlab.android.ui.widgets.ForegroundImageView
-					android:id="@+id/developersIcon"
+					android:id="@+id/supportIcon"
 					android:layout_width="24dp"
-					android:layout_height="wrap_content"
+					android:layout_height="24dp"
 					android:layout_marginEnd="16dp"
-					android:src="@drawable/ic_person"
+					android:src="@drawable/ic_email"
 					app:tint="?android:attr/textColorSecondary"
 					style="@style/TextAppearance.AppCompat.Caption"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/developersTitle"
+					android:id="@+id/supportTitle"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_toEndOf="@+id/developersIcon"
-					android:text="@string/developers"
+					android:layout_toEndOf="@+id/supportIcon"
+					android:text="@string/support"
 					app:drawableColor="?android:attr/textColorSecondary"
 					style="@style/TextAppearance.AppCompat"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/developersText"
+					android:id="@+id/supportText"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_below="@+id/developersTitle"
-					android:layout_toEndOf="@+id/developersIcon"
-					android:text="@string/developers_names"
+					android:layout_below="@+id/supportTitle"
+					android:layout_toEndOf="@+id/supportIcon"
+					android:text="@string/support_email"
 					app:drawableColor="?android:attr/textColorSecondary"
 					style="@style/TextAppearance.AppCompat.Caption"
 					/>
@@ -132,6 +132,51 @@
 
 			</RelativeLayout>
 
+			<RelativeLayout
+				android:id="@+id/developersView"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="?attr/selectableItemBackground"
+				android:clickable="true"
+				android:focusable="true"
+				android:paddingBottom="8dp"
+				android:paddingEnd="16dp"
+				android:paddingStart="16dp"
+				android:paddingTop="8dp"
+				>
+
+				<ru.fantlab.android.ui.widgets.ForegroundImageView
+					android:id="@+id/developersIcon"
+					android:layout_width="24dp"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="16dp"
+					android:src="@drawable/ic_person"
+					app:tint="?android:attr/textColorSecondary"
+					style="@style/TextAppearance.AppCompat.Caption"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/developersTitle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_toEndOf="@+id/developersIcon"
+					android:text="@string/developers"
+					app:drawableColor="?android:attr/textColorSecondary"
+					style="@style/TextAppearance.AppCompat"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/developersText"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/developersTitle"
+					android:layout_toEndOf="@+id/developersIcon"
+					android:text="@string/developers_names"
+					app:drawableColor="?android:attr/textColorSecondary"
+					style="@style/TextAppearance.AppCompat.Caption"
+					/>
+
+			</RelativeLayout>
 
 			<RelativeLayout
 				android:id="@+id/githubView"

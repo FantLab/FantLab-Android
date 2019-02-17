@@ -9,7 +9,7 @@ ext {
 	compile_sdk = 27
 	target_sdk = 27
 	build_tools = '27.0.3'
-	version_code = 16
+	version_code = 17
 	version_name = '0.1.4'
 
 	annotations = '16.0.2'
@@ -45,7 +45,7 @@ android {
 		targetSdkVersion target_sdk
 		versionCode version_code
 		versionName version_name
-		archivesBaseName = "fantlab-${versionName}"
+		archivesBaseName = "fantlab-${versionName}(${versionCode})"
 		buildConfigField "String", "REST_URL", '"https://api.fantlab.ru/"'
 		buildConfigField "String", "API_VERSION", '"0.9.20"'
 		resValue "string", "VERSION_NAME", "$versionName ($versionCode)"

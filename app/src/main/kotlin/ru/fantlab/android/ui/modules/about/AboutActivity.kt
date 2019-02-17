@@ -1,6 +1,5 @@
 package ru.fantlab.android.ui.modules.about
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -24,6 +23,7 @@ class AboutActivity : BaseActivity<AboutMvp.View, AboutPresenter>(), AboutMvp.Vi
 		developersView.setOnClickListener(this)
 		forumView.setOnClickListener(this)
 		githubView.setOnClickListener(this)
+		supportView.setOnClickListener(this)
 		versionView.setOnClickListener(this)
 	}
 
@@ -32,6 +32,7 @@ class AboutActivity : BaseActivity<AboutMvp.View, AboutPresenter>(), AboutMvp.Vi
 			R.id.developersView -> toTelegram()
 			R.id.forumView -> SchemeParser.openUrl(this, "https://fantlab.ru/forum/forum2page1/topic10144page1")
 			R.id.githubView -> SchemeParser.openUrl(this, "https://github.com/FantLab/FantLab-Android")
+			R.id.supportView -> emailUs()
 			R.id.versionView -> {}
 		}
 	}
@@ -40,5 +41,12 @@ class AboutActivity : BaseActivity<AboutMvp.View, AboutPresenter>(), AboutMvp.Vi
 		val telegram = Intent(Intent.ACTION_VIEW)
 		telegram.data =  Uri.parse("tg:resolve?domain=ilya_kokhan")
 		startActivity(Intent.createChooser(telegram, getString(R.string.send_with)))
+	}
+
+	private fun emailUs() {
+		val intent = Intent(Intent.ACTION_SENDTO)
+		intent.data = Uri.parse("mailto:");
+		intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("android@fantlab.ru"))
+		startActivity(Intent.createChooser(intent, getString(R.string.send_email)))
 	}
 }
