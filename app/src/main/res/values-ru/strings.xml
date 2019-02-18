@@ -172,5 +172,7 @@
 	<string name="discuss">Обсудить на форуме</string>
 	<string name="support">Обратная связь</string>
 	<string name="send_email">Отправить email</string>
+	<string name="discuss_caption">Перейти на форум Fantlab</string>
+	<string name="github_caption">Присоединиться к разработке</string>
 
 </resources>

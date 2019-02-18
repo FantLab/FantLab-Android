@@ -64,11 +64,11 @@
 								android:id="@+id/homepage"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
-								android:layout_below="@+id/country"
+								android:layout_below="@+id/countryView"
 								android:layout_toEndOf="@+id/coverLayout"
 								tools:text="dansimmons.com"
-								style="@style/TextAppearance.AppCompat.Caption"
-								/>
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
 								android:id="@+id/notOpened"
@@ -82,23 +82,35 @@
 								style="@style/Base.TextAppearance.AppCompat.Subhead"
 								/>
 
-							<ru.fantlab.android.ui.widgets.FontTextView
-								android:id="@+id/country"
+							<LinearLayout
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_below="@+id/date"
-								android:layout_toEndOf="@+id/langIcon"
-								android:paddingStart="@dimen/spacing_micro"
-								style="@style/TextAppearance.AppCompat.Caption"
-								/>
-
-							<ImageView
-								android:id="@+id/langIcon"
-								android:layout_width="12dp"
-								android:layout_height="12dp"
-								android:layout_below="@+id/date"
 								android:layout_toEndOf="@+id/coverLayout"
-								/>
+								android:gravity="center_vertical"
+								android:orientation="horizontal"
+								android:id="@+id/countryView"
+								>
+
+								<ImageView
+									android:id="@+id/langIcon"
+									android:layout_width="12dp"
+									android:layout_height="12dp"
+									/>
+
+								<ru.fantlab.android.ui.widgets.FontTextView
+									android:id="@+id/country"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+
+									android:paddingStart="@dimen/spacing_micro"
+									android:textColor="?android:attr/textColorSecondary"
+									style="@style/TextAppearance.AppCompat.Subhead"
+									/>
+
+							</LinearLayout>
+
+
 
 							<ru.fantlab.android.ui.widgets.FontTextView
 								android:id="@+id/authorName"
@@ -109,6 +121,7 @@
 								android:layout_marginTop="@dimen/spacing_normal"
 								android:layout_toEndOf="@+id/coverLayout"
 								tools:text="Дэн Симмонс"
+								style="@style/TextAppearance.AppCompat.Title"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -119,7 +132,8 @@
 								android:layout_below="@+id/authorName"
 								android:layout_toEndOf="@+id/coverLayout"
 								tools:text="Dan Simmons"
-								style="@style/TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -130,7 +144,8 @@
 								android:layout_marginTop="@dimen/spacing_micro"
 								android:layout_toEndOf="@+id/coverLayout"
 								tools:text="4 апреля 1948 г."
-								style="@style/TextAppearance.AppCompat.Caption"
+								android:textColor="?android:attr/textColorSecondary"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 
@@ -174,7 +189,8 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							tools:text="Дэн Симмонс родился в Пеории, штат Иллинойс, 4 апреля 1948 года. "
-							style="@style/TextAppearance.AppCompat.Caption"
+							android:textColor="?android:attr/textColorSecondary"
+							style="@style/TextAppearance.AppCompat.Subhead"
 							/>
 
 						<ru.fantlab.android.ui.widgets.FontTextView
@@ -184,7 +200,8 @@
 							android:layout_marginTop="@dimen/spacing_micro"
 							android:autoLink="web"
 							tools:text="\@ Источник биографии"
-							style="@style/TextAppearance.AppCompat.Caption"
+							android:textColor="?android:attr/textColorSecondary"
+							style="@style/TextAppearance.AppCompat.Subhead"
 							/>
 
 					</LinearLayout>

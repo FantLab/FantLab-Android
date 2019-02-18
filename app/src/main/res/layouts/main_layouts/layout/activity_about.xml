@@ -70,7 +70,7 @@
 					android:layout_height="wrap_content"
 					android:layout_toEndOf="@+id/supportIcon"
 					android:text="@string/support"
-					style="@style/TextAppearance.AppCompat.Title"
+					style="@style/TextAppearance.AppCompat.Medium"
 					android:textColor="?android:attr/textColorPrimary"
 					/>
 
@@ -116,7 +116,7 @@
 					android:layout_height="wrap_content"
 					android:layout_toEndOf="@+id/forumIcon"
 					android:text="@string/discuss"
-					style="@style/TextAppearance.AppCompat.Title"
+					style="@style/TextAppearance.AppCompat.Medium"
 					android:textColor="?android:attr/textColorPrimary"
 					/>
 
@@ -126,7 +126,7 @@
 					android:layout_height="wrap_content"
 					android:layout_below="@+id/forumTitle"
 					android:layout_toEndOf="@+id/forumIcon"
-					android:text="@string/discuss_url"
+					android:text="@string/discuss_caption"
 					android:textColor="?android:attr/textColorSecondary"
 					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
@@ -162,7 +162,7 @@
 					android:layout_height="wrap_content"
 					android:layout_toEndOf="@+id/developersIcon"
 					android:text="@string/developers"
-					style="@style/TextAppearance.AppCompat.Title"
+					style="@style/TextAppearance.AppCompat.Medium"
 					android:textColor="?android:attr/textColorPrimary"
 					/>
 
@@ -208,7 +208,7 @@
 					android:layout_height="wrap_content"
 					android:layout_toEndOf="@+id/githubIcon"
 					android:text="@string/github"
-					style="@style/TextAppearance.AppCompat.Title"
+					style="@style/TextAppearance.AppCompat.Medium"
 					android:textColor="?android:attr/textColorPrimary"
 					/>
 
@@ -218,7 +218,7 @@
 					android:layout_height="wrap_content"
 					android:layout_below="@+id/githubTitle"
 					android:layout_toEndOf="@+id/githubIcon"
-					android:text="@string/github_url"
+					android:text="@string/github_caption"
 					android:textColor="?android:attr/textColorSecondary"
 					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
@@ -273,7 +273,7 @@
 					android:layout_height="wrap_content"
 					android:layout_toEndOf="@+id/versionIcon"
 					android:text="@string/app_name"
-					style="@style/TextAppearance.AppCompat.Title"
+					style="@style/TextAppearance.AppCompat.Medium"
 					android:textColor="?android:attr/textColorPrimary"
 					/>
 

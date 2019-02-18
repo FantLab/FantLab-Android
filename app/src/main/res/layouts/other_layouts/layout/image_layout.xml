@@ -18,7 +18,6 @@
 			android:scaleType="centerCrop"
 			android:src="?colorPrimaryDark"
 			android:transitionName="@string/icon_transition"
-			app:shape_mode="circle"
 			/>
 
 		<ru.fantlab.android.ui.widgets.Dot

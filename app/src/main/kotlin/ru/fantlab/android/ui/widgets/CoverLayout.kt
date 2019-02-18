@@ -28,10 +28,6 @@ class CoverLayout : FrameLayout {
 		super.onFinishInflate()
 		View.inflate(context, R.layout.image_layout, this)
 		if (isInEditMode) return
-		image.apply {
-			setBackgroundResource(R.drawable.rect_shape)
-			setShape(ShapedImageView.SHAPE_MODE_ROUND_RECT, 15f)
-		}
 	}
 
 	fun setUrl(url: String?, @DrawableRes fallbackImage: Int = R.drawable.work) {

@@ -23,7 +23,7 @@
 		android:drawableStart="@drawable/ic_book"
 		android:gravity="center_vertical"
 		tools:text="@string/app_name"
-		style="@style/TextAppearance.AppCompat.Subhead"
-		android:textColor="?android:attr/textColorSecondary"
+		style="@style/TextAppearance.AppCompat.Medium"
+		android:textColor="?android:textColorPrimary"
 		/>
 </LinearLayout>

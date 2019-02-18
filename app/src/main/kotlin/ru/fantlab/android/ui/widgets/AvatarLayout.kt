@@ -31,12 +31,8 @@ class AvatarLayout : FrameLayout {
 		super.onFinishInflate()
 		View.inflate(context, R.layout.image_layout, this)
 		if (isInEditMode) return
-		if (PrefGetter.isRectAvatar()) {
-			setBackgroundResource(R.drawable.rect_shape)
-			image.setShape(ShapedImageView.SHAPE_MODE_ROUND_RECT, 15f)
-		} else {
-			setBackgroundResource(R.drawable.circle_shape)
-		}
+		image.setShape(ShapedImageView.SHAPE_MODE_CIRCLE, 0f)
+		setBackgroundResource(R.drawable.circle_shape)
 	}
 
 	fun setUrl(url: String?) {

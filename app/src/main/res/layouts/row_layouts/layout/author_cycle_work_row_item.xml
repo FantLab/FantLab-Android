@@ -42,7 +42,9 @@
 			android:maxLines="3"
 			android:textColor="?android:textColorPrimary"
 			tools:text="Вызов извне / The Challenge from Beyond"
-			style="@style/TextAppearance.AppCompat.Title"
+			android:textStyle="bold"
+			style="@style/TextAppearance.AppCompat.Medium"
+
 			/>
 
 		<ru.fantlab.android.ui.widgets.FontTextView

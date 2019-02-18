@@ -207,4 +207,6 @@
 	<string name="support">Support</string>
 	<string name="support_email" translatable="false">android@fantlab.ru</string>
 	<string name="send_email">Send email</string>
+	<string name="discuss_caption">Go to Fantlab forum</string>
+	<string name="github_caption">Join development</string>
 </resources>

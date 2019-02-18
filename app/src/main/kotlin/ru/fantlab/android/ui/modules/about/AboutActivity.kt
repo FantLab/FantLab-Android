@@ -30,8 +30,8 @@ class AboutActivity : BaseActivity<AboutMvp.View, AboutPresenter>(), AboutMvp.Vi
 	override fun onClick(v: View?) {
 		when (v?.id) {
 			R.id.developersView -> toTelegram()
-			R.id.forumView -> SchemeParser.openUrl(this, "https://fantlab.ru/forum/forum2page1/topic10144page1")
-			R.id.githubView -> SchemeParser.openUrl(this, "https://github.com/FantLab/FantLab-Android")
+			R.id.forumView -> SchemeParser.openUrl(this, getString(R.string.discuss_url))
+			R.id.githubView -> SchemeParser.openUrl(this,  getString(R.string.github_url))
 			R.id.supportView -> emailUs()
 			R.id.versionView -> {}
 		}
