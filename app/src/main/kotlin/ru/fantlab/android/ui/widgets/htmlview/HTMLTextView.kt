@@ -32,6 +32,8 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 		BetterLinkMovementExtended.OnLinkClickListener,
 		BetterLinkMovementExtended.OnLinkLongClickListener {
 
+	private val sb = SpannableStringBuilder()
+
 	var html: CharSequence? = null
 		set(value) {
 			field = value
@@ -54,15 +56,16 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 	}
 
 	private fun render(html: CharSequence?) {
-		val sb = SpannableStringBuilder()
 
-		parseHtml(sb, html
-				?.replace(LIST_TAG.toRegex(), "")
-				?.replace(LI_TAG.toRegex(), list)
-				?.replace(A_TAG.toRegex(), "[url=$1]$2[/url]")
-				?.replace(OLD_TAG.toRegex(), "")
-				?.replace(PHOTO_TAG.toRegex(), "")
-		)
+		if (sb.isEmpty()) {
+			parseHtml(sb, html
+					?.replace(LIST_TAG.toRegex(), "")
+					?.replace(LI_TAG.toRegex(), list)
+					?.replace(A_TAG.toRegex(), "[url=$1]$2[/url]")
+					?.replace(OLD_TAG.toRegex(), "")
+					?.replace(PHOTO_TAG.toRegex(), "")
+			)
+		}
 		text = sb
 
 		registerClickEvent(this)

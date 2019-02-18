@@ -12,8 +12,7 @@ import ru.fantlab.android.ui.widgets.treeview.TreeViewBinder
 
 class EditionContentChildViewHolder : TreeViewBinder<EditionContentChildViewHolder.ViewHolder>() {
 
-	override val layoutId: Int
-		get() = R.layout.edition_content_child_row_item
+	override val layoutId: Int = R.layout.edition_content_child_row_item
 
 	override fun provideViewHolder(itemView: View) = ViewHolder(itemView)
 

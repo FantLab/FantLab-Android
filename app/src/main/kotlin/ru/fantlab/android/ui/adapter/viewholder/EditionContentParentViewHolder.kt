@@ -15,9 +15,7 @@ class EditionContentParentViewHolder : TreeViewBinder<EditionContentParentViewHo
 
 	override val layoutId: Int = R.layout.edition_content_parent_row_item
 
-	override fun provideViewHolder(itemView: View): ViewHolder {
-		return ViewHolder(itemView)
-	}
+	override fun provideViewHolder(itemView: View) = ViewHolder(itemView)
 
 	override fun bindView(
 			holder: RecyclerView.ViewHolder, position: Int, node: TreeNode<*>, onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
@@ -34,7 +32,7 @@ class EditionContentParentViewHolder : TreeViewBinder<EditionContentParentViewHo
 			holder.arrow.rotation = rotateDegree
 			holder.arrow.visibility = View.VISIBLE
 		}
-		holder.title.text = parentNode!!.title
+		holder.title.html = parentNode!!.title
 	}
 
 	class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
