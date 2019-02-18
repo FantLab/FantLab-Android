@@ -99,7 +99,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 			sb = SpannableStringBuilder()
 			publishersList.map { sb.append(it.name).append(", ") }
 			sb.append(edition.year.toString())
-			publishers.text = sb
+			publishers.html = sb
 		} else {
 			publishers.visibility = View.GONE
 		}
