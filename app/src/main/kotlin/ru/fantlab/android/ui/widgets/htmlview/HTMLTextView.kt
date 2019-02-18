@@ -223,7 +223,7 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 		private val PHOTO_TAG: Pattern = Pattern.compile("\\[PHOTO.*?]")
 		private val LIST_TAG: Pattern = Pattern.compile("\\[list\\]|\\[\\/list\\]", Pattern.CASE_INSENSITIVE)
 		private val LI_TAG: Pattern = Pattern.compile("\\[\\*\\]")
-		private val A_TAG: Pattern = Pattern.compile("<a href=(.*?)>(.*?)<\\/a>")
+		private val A_TAG: Pattern = Pattern.compile("<a href=\"(.*?)\">(.*?)<\\/a>")
 		private val SMILES_TAG: Pattern = Pattern.compile(":([a-z]+):")
 		private val linkColor = Color.parseColor("#4078C0")
 		private const val newLine = "\n"

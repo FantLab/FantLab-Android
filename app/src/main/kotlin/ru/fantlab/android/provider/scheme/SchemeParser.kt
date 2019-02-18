@@ -55,7 +55,7 @@ object SchemeParser {
 
 	fun openUrl(context: Context, url: String) {
 		val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-		context.startActivity(browserIntent)
+		context.startActivity(Intent.createChooser(browserIntent, context.getString(R.string.open)))
 	}
 
 }
