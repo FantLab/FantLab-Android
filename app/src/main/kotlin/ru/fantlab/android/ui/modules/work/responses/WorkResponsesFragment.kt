@@ -173,4 +173,9 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 		dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(recycler.context), userItem, 0)
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
+
+	override fun onStart() {
+		if (presenter != null) adapter.setOnContextMenuListener(this)
+		super.onStart()
+	}
 }

@@ -176,4 +176,9 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 		}
 	}
 
+	override fun onStart() {
+		if (presenter != null) adapter.setOnContextMenuListener(this)
+		super.onStart()
+	}
+
 }
