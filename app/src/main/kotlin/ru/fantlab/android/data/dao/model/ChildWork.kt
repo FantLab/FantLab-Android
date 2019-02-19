@@ -13,7 +13,7 @@ data class ChildWork(
 		val plus: Int?,
 		@SerializedName("publish_status") val publishStatus: String,
 		@SerializedName("val_midmark_by_weight") val rating: Float?,
-		@SerializedName("val_voters") val votersCount: Int?,
+		@SerializedName("val_voters") val votersCount: String?,
 		@SerializedName("val_responsecount") val responses: String?,
 		@SerializedName("work_description") val description: String?,
 		@SerializedName("work_id") val id: Int?,

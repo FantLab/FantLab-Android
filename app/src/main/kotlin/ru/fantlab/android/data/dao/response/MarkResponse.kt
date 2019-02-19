@@ -4,15 +4,15 @@ import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.JsonParser
 
 data class MarkResponse(
-		val markCount: Double,
-		val midMark: Double
+		val markCount: String,
+		val midMark: String
 ) {
 	class Deserializer() : ResponseDeserializable<MarkResponse> {
 
 		override fun deserialize(content: String): MarkResponse {
 			val jsonObject = JsonParser().parse(content).asJsonObject
-			val markCount = jsonObject.getAsJsonPrimitive("markcount").asDouble
-			val midMark = jsonObject.getAsJsonPrimitive("midmark").asDouble
+			val markCount = jsonObject.getAsJsonPrimitive("markcount").asString
+			val midMark = jsonObject.getAsJsonPrimitive("midmark").asString
 
 			return MarkResponse(markCount, midMark)
 		}

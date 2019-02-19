@@ -200,12 +200,12 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		} else pagerCallback?.onSetMarked(false, 0)
 	}
 
-	override fun onSetMark(mark: Int, markCount: Double, midMark: Double) {
+	override fun onSetMark(mark: Int, markCount: String, midMark: String) {
 		hideProgress()
 		rate.text = StringBuilder()
 				.append(midMark)
 				.append(" - ")
-				.append(markCount.toInt())
+				.append(markCount)
 		if (mark > 0) {
 			mymark.text = mark.toString()
 			mymark.visibility = View.VISIBLE

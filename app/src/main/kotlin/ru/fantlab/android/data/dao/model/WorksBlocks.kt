@@ -36,7 +36,7 @@ data class WorksBlocks(
 			@SerializedName("publish_status") val publishStatus: String,
 			@SerializedName("val midmark_by_weight") val rating: Float?,
 			@SerializedName("val_responsecount") val responseCount: Int?,
-			@SerializedName("val_voters") val votersCount: Int?,
+			@SerializedName("val_voters") val votersCount: String?,
 			@SerializedName("work_description") val description: String?,
 			@SerializedName("work_id") val id: Int?,
 			@SerializedName("work_lp") val hasLinguaProfile: Int?,

@@ -59,11 +59,11 @@ class CycleWorkViewHolder : TreeViewBinder<CycleWorkViewHolder.ViewHolder>() {
 			holder.responses.visibility = View.VISIBLE
 		} else holder.responses.visibility = View.GONE
 
-		if (work.votersCount != 0 && work.rating != null) {
+		if (work.votersCount?.toIntOrNull() != null && work.rating != null) {
 
 			holder.rating.text = String.format("%s / %s",
 					numberFormat.format(work.rating),
-					numberFormat.format(work.votersCount))
+					work.votersCount)
 			holder.rating.visibility = View.VISIBLE
 		} else {
 			holder.rating.visibility = View.GONE
