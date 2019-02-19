@@ -118,7 +118,8 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 				return true
 			}
 			R.id.sort -> {
-				((pager.adapter as FragmentsPagerAdapter).getItem(2) as WorkResponsesFragment).showSortDialog()
+				val fragment = pager.adapter?.instantiateItem(pager, 2) as? WorkResponsesFragment
+				fragment?.showSortDialog()
 			}
 		}
 		return super.onOptionsItemSelected(item)

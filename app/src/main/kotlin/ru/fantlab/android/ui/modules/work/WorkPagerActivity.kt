@@ -117,7 +117,8 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 				return true
 			}
 			R.id.sort -> {
-				((pager.adapter as FragmentsPagerAdapter).getItem(2) as WorkResponsesFragment).showSortDialog()
+				val fragment = pager.adapter?.instantiateItem(pager, 2) as? WorkResponsesFragment
+				fragment?.showSortDialog()
 			}
 		}
 		return super.onOptionsItemSelected(item)
@@ -198,7 +199,8 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	private fun onFabClicked() {
 		when (pager.currentItem) {
 			0 -> {
-				((pager.adapter as FragmentsPagerAdapter).getItem(0) as WorkOverviewFragment).showMarkDialog()
+				val fragment = pager.adapter?.instantiateItem(pager, 0) as? WorkOverviewFragment
+				fragment?.showMarkDialog()
 			}
 			1 -> {
 				ClassificatorPagerActivity.startActivity(this, workId)
@@ -239,7 +241,8 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		if (resultCode == RESULT_OK && requestCode == CLASSIFICATOR_CODE) {
-			((pager.adapter as FragmentsPagerAdapter).getItem(1) as WorkClassificationFragment).onRefresh()
+			val fragment = pager.adapter?.instantiateItem(pager, 1) as? WorkClassificationFragment
+			fragment?.onRefresh()
 		}
 	}
 

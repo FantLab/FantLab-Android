@@ -186,7 +186,8 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 						.putExtra(BundleConstant.ID, userId))
 			}
 			1 -> {
-				((pager.adapter as FragmentsPagerAdapter).getItem(1) as ProfileMarksFragment).showChartsDialog()
+				val fragment = pager.adapter?.instantiateItem(pager, 1) as? ProfileMarksFragment
+				fragment?.showChartsDialog()
 			}
 		}
 	}

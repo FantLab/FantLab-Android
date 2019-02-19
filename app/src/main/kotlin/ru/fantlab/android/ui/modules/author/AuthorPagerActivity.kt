@@ -112,7 +112,8 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 				return true
 			}
 			R.id.sort -> {
-				((pager.adapter as FragmentsPagerAdapter).getItem(3) as AuthorResponsesFragment).showSortDialog()
+				val fragment = pager.adapter?.instantiateItem(pager, 3) as? AuthorResponsesFragment
+				fragment?.showSortDialog()
 			}
 		}
 		return super.onOptionsItemSelected(item)
