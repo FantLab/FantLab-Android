@@ -98,6 +98,7 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
 		menuInflater.inflate(R.menu.author_menu, menu)
 		toolbarMenu = menu
+		hideShowToolbar(pager.currentItem)
 		return super.onCreateOptionsMenu(menu)
 	}
 
@@ -144,18 +145,20 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 	}
 
 	private fun hideShowToolbar(position: Int) {
-		when (position) {
-			0 -> {
-				toolbarMenu.findItem(R.id.sort).isVisible = false
-				toolbarMenu.findItem(R.id.share).isVisible = true
-			}
-			3 -> {
-				toolbarMenu.findItem(R.id.share).isVisible = false
-				toolbarMenu.findItem(R.id.sort).isVisible = true
-			}
-			else -> {
-				toolbarMenu.findItem(R.id.share).isVisible = false
-				toolbarMenu.findItem(R.id.sort).isVisible = false
+		if (::toolbarMenu.isInitialized) {
+			when (position) {
+				0 -> {
+					toolbarMenu.findItem(R.id.sort).isVisible = false
+					toolbarMenu.findItem(R.id.share).isVisible = true
+				}
+				3 -> {
+					toolbarMenu.findItem(R.id.share).isVisible = false
+					toolbarMenu.findItem(R.id.sort).isVisible = true
+				}
+				else -> {
+					toolbarMenu.findItem(R.id.share).isVisible = false
+					toolbarMenu.findItem(R.id.sort).isVisible = false
+				}
 			}
 		}
 	}

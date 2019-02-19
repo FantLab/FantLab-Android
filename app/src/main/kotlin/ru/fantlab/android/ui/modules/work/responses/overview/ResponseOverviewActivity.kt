@@ -49,6 +49,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		}
 		fab.setOnClickListener { onFabClicked() }
 		title = getString(R.string.view_response)
+		hideShowShadow(true)
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {

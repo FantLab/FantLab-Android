@@ -37,6 +37,7 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
 		recycler.adapter = adapter
 		adapter.addItem(SettingsModel(R.drawable.ic_color, getString(R.string.theme_title), "", SettingsModel.THEME))
 		adapter.addItem(SettingsModel(R.drawable.ic_language, getString(R.string.language), "", SettingsModel.LANGUAGE))
+		hideShowShadow(true)
 	}
 
 	override fun onItemClicked(item: SettingsModel) {

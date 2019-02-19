@@ -103,6 +103,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
 		menuInflater.inflate(R.menu.work_menu, menu)
 		toolbarMenu = menu
+		hideShowToolbar(pager.currentItem)
 		return super.onCreateOptionsMenu(menu)
 	}
 
@@ -171,18 +172,20 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	}
 
 	private fun hideShowToolbar(position: Int) {
-		when (position) {
-			0 -> {
-				toolbarMenu.findItem(R.id.sort).isVisible = false
-				toolbarMenu.findItem(R.id.share).isVisible = true
-			}
-			2 -> {
-				toolbarMenu.findItem(R.id.share).isVisible = false
-				toolbarMenu.findItem(R.id.sort).isVisible = true
-			}
-			else -> {
-				toolbarMenu.findItem(R.id.share).isVisible = false
-				toolbarMenu.findItem(R.id.sort).isVisible = false
+		if (::toolbarMenu.isInitialized) {
+			when (position) {
+				0 -> {
+					toolbarMenu.findItem(R.id.sort).isVisible = false
+					toolbarMenu.findItem(R.id.share).isVisible = true
+				}
+				2 -> {
+					toolbarMenu.findItem(R.id.share).isVisible = false
+					toolbarMenu.findItem(R.id.sort).isVisible = true
+				}
+				else -> {
+					toolbarMenu.findItem(R.id.share).isVisible = false
+					toolbarMenu.findItem(R.id.sort).isVisible = false
+				}
 			}
 		}
 	}
@@ -192,7 +195,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 		fab.hide()
 	}
 
-	fun onFabClicked() {
+	private fun onFabClicked() {
 		when (pager.currentItem) {
 			0 -> {
 				((pager.adapter as FragmentsPagerAdapter).getItem(0) as WorkOverviewFragment).showMarkDialog()

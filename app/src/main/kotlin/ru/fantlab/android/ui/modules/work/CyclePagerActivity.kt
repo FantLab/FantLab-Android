@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.view.Menu
@@ -28,7 +27,6 @@ import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.work.responses.WorkResponsesFragment
-import ru.fantlab.android.ui.widgets.ViewPagerView
 import java.text.NumberFormat
 import java.util.*
 
@@ -36,10 +34,14 @@ import java.util.*
 class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPagerMvp.View>>(),
 		WorkPagerMvp.View {
 
-	@State var index: Int = 0
-	@State var workId: Int = 0
-	@State var workName: String = ""
-	@State var tabsCountSet = HashSet<TabsCountStateModel>()
+	@State
+	var index: Int = 0
+	@State
+	var workId: Int = 0
+	@State
+	var workName: String = ""
+	@State
+	var tabsCountSet = HashSet<TabsCountStateModel>()
 	private val numberFormat = NumberFormat.getNumberInstance()
 	private lateinit var toolbarMenu: Menu
 	private var isError = false
@@ -102,6 +104,7 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
 		menuInflater.inflate(R.menu.work_menu, menu)
 		toolbarMenu = menu
+		hideShowToolbar(pager.currentItem)
 		return super.onCreateOptionsMenu(menu)
 	}
 
@@ -155,18 +158,20 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 			fab.hide()
 			return
 		}
-		when (position) {
-			0 -> {
-				toolbarMenu.findItem(R.id.sort).isVisible = false
-				toolbarMenu.findItem(R.id.share).isVisible = true
-			}
-			2 -> {
-				toolbarMenu.findItem(R.id.share).isVisible = false
-				toolbarMenu.findItem(R.id.sort).isVisible = true
-			}
-			else -> {
-				toolbarMenu.findItem(R.id.share).isVisible = false
-				toolbarMenu.findItem(R.id.sort).isVisible = false
+		if (::toolbarMenu.isInitialized) {
+			when (position) {
+				0 -> {
+					toolbarMenu.findItem(R.id.sort).isVisible = false
+					toolbarMenu.findItem(R.id.share).isVisible = true
+				}
+				2 -> {
+					toolbarMenu.findItem(R.id.share).isVisible = false
+					toolbarMenu.findItem(R.id.sort).isVisible = true
+				}
+				else -> {
+					toolbarMenu.findItem(R.id.share).isVisible = false
+					toolbarMenu.findItem(R.id.sort).isVisible = false
+				}
 			}
 		}
 	}
@@ -176,7 +181,7 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 		fab.hide()
 	}
 
-	fun onFabClicked() {
+	private fun onFabClicked() {
 		when (pager.currentItem) {
 			2 -> {
 				startActivity(Intent(this, EditorActivity::class.java)

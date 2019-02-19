@@ -178,7 +178,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	}
 
 
-	fun onFabClicked() {
+	private fun onFabClicked() {
 		when (pager.currentItem) {
 			0 -> {
 				startActivity(Intent(this, EditorActivity::class.java)
