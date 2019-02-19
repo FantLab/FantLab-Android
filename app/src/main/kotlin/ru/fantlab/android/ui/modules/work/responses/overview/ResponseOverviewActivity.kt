@@ -42,7 +42,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		if (savedInstanceState == null) {
 			response = intent!!.extras.getParcelable(BundleConstant.EXTRA)
 			onInitViews(response)
-		}
+		} else onInitViews(response)
 		if (response.id == -1) {
 			finish()
 			return
