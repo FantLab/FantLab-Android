@@ -32,6 +32,7 @@
 					android:id="@+id/topView"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:layout_marginBottom="@dimen/spacing_normal"
 					android:elevation="@dimen/spacing_normal"
 					app:cardBackgroundColor="?card_background"
 					app:cardCornerRadius="0dp"
@@ -66,9 +67,10 @@
 								android:layout_height="wrap_content"
 								android:layout_below="@+id/countryView"
 								android:layout_toEndOf="@+id/coverLayout"
-								tools:text="dansimmons.com"
 								android:textColor="?android:attr/textColorSecondary"
-								style="@style/TextAppearance.AppCompat.Subhead"								/>
+								tools:text="dansimmons.com"
+								style="@style/TextAppearance.AppCompat.Subhead"
+								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
 								android:id="@+id/notOpened"
@@ -83,13 +85,13 @@
 								/>
 
 							<LinearLayout
+								android:id="@+id/countryView"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_below="@+id/date"
 								android:layout_toEndOf="@+id/coverLayout"
 								android:gravity="center_vertical"
 								android:orientation="horizontal"
-								android:id="@+id/countryView"
 								>
 
 								<ImageView
@@ -111,7 +113,6 @@
 							</LinearLayout>
 
 
-
 							<ru.fantlab.android.ui.widgets.FontTextView
 								android:id="@+id/authorName"
 								android:layout_width="wrap_content"
@@ -131,8 +132,8 @@
 								android:layout_alignParentEnd="true"
 								android:layout_below="@+id/authorName"
 								android:layout_toEndOf="@+id/coverLayout"
-								tools:text="Dan Simmons"
 								android:textColor="?android:attr/textColorSecondary"
+								tools:text="Dan Simmons"
 								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
@@ -143,8 +144,8 @@
 								android:layout_below="@+id/authorNameOrig"
 								android:layout_marginTop="@dimen/spacing_micro"
 								android:layout_toEndOf="@+id/coverLayout"
-								tools:text="4 апреля 1948 г."
 								android:textColor="?android:attr/textColorSecondary"
+								tools:text="4 апреля 1948 г."
 								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
@@ -159,7 +160,6 @@
 					android:layout_height="wrap_content"
 					android:layout_below="@+id/topView"
 					android:layout_marginBottom="@dimen/spacing_normal"
-					android:layout_marginTop="@dimen/spacing_normal"
 					android:elevation="@dimen/spacing_normal"
 					app:cardBackgroundColor="?card_background"
 					app:cardCornerRadius="0dp"
@@ -188,8 +188,8 @@
 							android:id="@+id/biographyText"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							tools:text="Дэн Симмонс родился в Пеории, штат Иллинойс, 4 апреля 1948 года. "
 							android:textColor="?android:attr/textColorSecondary"
+							tools:text="Дэн Симмонс родился в Пеории, штат Иллинойс, 4 апреля 1948 года. "
 							style="@style/TextAppearance.AppCompat.Subhead"
 							/>
 
@@ -199,8 +199,8 @@
 							android:layout_height="wrap_content"
 							android:layout_marginTop="@dimen/spacing_micro"
 							android:autoLink="web"
-							tools:text="\@ Источник биографии"
 							android:textColor="?android:attr/textColorSecondary"
+							tools:text="\@ Источник биографии"
 							style="@style/TextAppearance.AppCompat.Subhead"
 							/>
 

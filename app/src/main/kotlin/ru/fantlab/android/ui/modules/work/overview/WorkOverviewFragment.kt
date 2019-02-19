@@ -85,7 +85,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		}
 		if (roots.length > 1) root.html = (roots.toString()) else root.visibility = View.GONE
 
-		if (work.rating.votersCount != "0") {
+		if (work.rating.votersCount.toIntOrNull() != null) {
 			rate.text = StringBuilder()
 					.append(work.rating.rating)
 					.append(" - ")
