@@ -39,6 +39,7 @@
 	<string name="proceed_without_login">Продолжить без авторизации</string>
 	<string name="required_field">Обязательное поле</string>
 	<string name="failed_login">Ошибка авторизации</string>
+	<string name="second_failed_login">Ошибка авторизации. Попробуйте еще раз.</string>
 	<string name="user_blocked">Ваш профиль будет разблокирован %s</string>
 	<string name="user_blocked_forever">К сожалению, Ваш профиль заблокирован навсегда</string>
 	<string name="minimum_three_chars">Минимум символов - 2</string>

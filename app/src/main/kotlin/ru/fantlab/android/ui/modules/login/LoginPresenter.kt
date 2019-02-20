@@ -43,6 +43,10 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 				makeRestCall(
 						DataManager.getUserId(username).toObservable(),
 						Consumer { response ->
+							if (response.userId.id == 0) {
+								sendToView { it.showSignInSecondFailed() }
+								return@Consumer
+							}
 							makeRestCall(
 									DataManager.getUser(response.userId.id).toObservable(),
 									Consumer { onUserResponse(it.user) }

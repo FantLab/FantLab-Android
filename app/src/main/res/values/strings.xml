@@ -68,6 +68,7 @@
 	<string name="proceed_without_login">Proceed without login</string>
 	<string name="required_field">Required field</string>
 	<string name="failed_login">Sign in failed</string>
+	<string name="second_failed_login">Sign in failed. Try again.</string>
 	<string name="user_blocked">Your profile will be unblocked at %s</string>
 	<string name="user_blocked_forever">Unfortunately your profile is blocked forever</string>
 	<string name="minimum_three_chars">Minimum characters (2)</string>

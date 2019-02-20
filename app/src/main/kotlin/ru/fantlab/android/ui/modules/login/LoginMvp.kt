@@ -14,6 +14,8 @@ interface LoginMvp {
 
 		fun showSignInFailed()
 
+		fun showSignInSecondFailed()
+
 		fun showUserBlocked(endDate: String)
 
 		fun showUserBlockedForever()
