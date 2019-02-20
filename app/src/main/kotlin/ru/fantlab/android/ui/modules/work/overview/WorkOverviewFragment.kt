@@ -160,10 +160,10 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	}
 
 	fun showMarkDialog() {
-		val author = adapterAuthors.getItem(0).name
+		val author = if (!adapterAuthors.isEmpty()) "${adapterAuthors.getItem(0).name} - "  else ""
 		RatingDialogView.newInstance(10, pagerCallback?.onGetMark()?.toFloat() ?: 0f,
 				work,
-				"$author - ${title.text}",
+				"$author${title.text}",
 				-1
 		).show(childFragmentManager, RatingDialogView.TAG)
 	}
