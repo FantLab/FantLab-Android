@@ -11,6 +11,7 @@ import android.view.*
 import com.evernote.android.state.StateSaver
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.ViewHelper
+import android.support.v7.view.ContextThemeWrapper;
 
 /**
  * Created by Kosh on 16 Sep 2016, 2:11 PM
