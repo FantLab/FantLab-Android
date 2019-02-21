@@ -2,6 +2,7 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:foreground="?android:selectableItemBackground"
@@ -26,12 +27,13 @@
 			/>
 
 		<LinearLayout
+			android:id="@+id/topView"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_alignBottom="@+id/awardIcon"
 			android:layout_alignTop="@+id/awardIcon"
 			android:layout_toEndOf="@+id/awardIcon"
 			android:gravity="center_vertical"
+			android:minHeight="35dp"
 			android:orientation="vertical"
 			>
 
@@ -39,6 +41,7 @@
 				android:id="@+id/name_rus"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				style="@style/TextAppearance.AppCompat.Title"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -46,7 +49,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:visibility="gone"
-				app:drawableColor="?android:attr/textColorSecondary"
+				android:textColor="?android:attr/textColorSecondary"
 				style="@style/TextAppearance.AppCompat.Subhead"
 				/>
 		</LinearLayout>
@@ -55,7 +58,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_alignStart="@+id/awardIcon"
-			android:layout_below="@+id/awardIcon"
+			android:layout_below="@+id/topView"
+			android:layout_marginTop="@dimen/spacing_normal"
 			android:gravity="center_vertical"
 			android:orientation="horizontal"
 			>
@@ -71,7 +75,10 @@
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
+				android:ellipsize="end"
+				android:lines="1"
 				android:padding="@dimen/spacing_micro"
+				android:textColor="?android:attr/textColorSecondary"
 				style="@style/TextAppearance.AppCompat.Subhead"
 				/>
 
@@ -83,6 +90,7 @@
 				android:drawableStart="@drawable/ic_type_small"
 				android:padding="@dimen/spacing_micro"
 				app:drawableColor="?android:attr/textColorSecondary"
+				android:textColor="?android:attr/textColorSecondary"
 				style="@style/TextAppearance.AppCompat.Subhead"
 				/>
 
@@ -94,6 +102,7 @@
 				android:drawableStart="@drawable/ic_time_small"
 				android:padding="@dimen/spacing_micro"
 				app:drawableColor="?android:attr/textColorSecondary"
+				android:textColor="?android:attr/textColorSecondary"
 				style="@style/TextAppearance.AppCompat.Subhead"
 				/>
 		</LinearLayout>

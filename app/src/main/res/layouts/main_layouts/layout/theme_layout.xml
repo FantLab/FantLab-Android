@@ -129,10 +129,7 @@
 						android:layout_marginStart="@dimen/avatar_margin"
 						android:background="?selectableItemBackgroundBorderless"
 						android:scaleType="centerCrop"
-						android:src="?colorPrimaryDark"
-						android:transitionName="@string/icon_transition"
-						app:round_radius="15dp"
-						app:shape_mode="round_rect"
+						android:src="@drawable/work"
 						/>
 
 					<LinearLayout
@@ -152,7 +149,7 @@
 							android:text="creator, 28 апреля 2009 г. 14:44"
 							android:textColor="?android:attr/textColorSecondary"
 							tools:ignore="HardcodedText"
-							style="@style/TextAppearance.AppCompat.Caption"
+							style="@style/TextAppearance.AppCompat.Subhead"
 							/>
 
 						<ru.fantlab.android.ui.widgets.FontTextView
@@ -178,14 +175,14 @@
 							android:text="Да, это не тот Ши и не тот Ниффт, которых я ожидал. Буйная фантазия автора, которую он продемонстрировал в «Рыбалке», оживает лишь на последних 50-70 страницах книги"
 							android:textColor="?android:attr/textColorSecondary"
 							tools:ignore="HardcodedText"
-							style="@style/TextAppearance.AppCompat.Caption"
+							style="@style/TextAppearance.AppCompat.Subhead"
 							/>
 
 						<ru.fantlab.android.ui.widgets.FlowLayout
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:layout_marginTop="@dimen/spacing_micro"
-							app:flChildSpacing="2dp"
+							app:flChildSpacing="5dp"
 							app:flChildSpacingForLastRow="align"
 							app:flRowSpacing="8dp"
 							>
@@ -202,7 +199,7 @@
 								android:textColor="?android:attr/textColorSecondary"
 								app:drawableColor="?android:attr/textColorSecondary"
 								tools:ignore="HardcodedText"
-								style="@style/TextAppearance.AppCompat.Caption"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -217,7 +214,7 @@
 								android:textColor="?android:attr/textColorSecondary"
 								app:drawableColor="?android:attr/textColorSecondary"
 								tools:ignore="HardcodedText"
-								style="@style/TextAppearance.AppCompat.Caption"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 						</ru.fantlab.android.ui.widgets.FlowLayout>
@@ -240,10 +237,7 @@
 						android:layout_marginStart="@dimen/avatar_margin"
 						android:background="?selectableItemBackgroundBorderless"
 						android:scaleType="centerCrop"
-						android:src="?colorPrimaryDark"
-						android:transitionName="@string/icon_transition"
-						app:round_radius="15dp"
-						app:shape_mode="round_rect"
+						android:src="@drawable/work"
 						/>
 
 					<LinearLayout
@@ -264,7 +258,7 @@
 							android:text="creator, 28 апреля 2009 г. 14:44"
 							android:textColor="?android:attr/textColorSecondary"
 							tools:ignore="HardcodedText"
-							style="@style/TextAppearance.AppCompat.Caption"
+							style="@style/TextAppearance.AppCompat.Subhead"
 							/>
 
 						<ru.fantlab.android.ui.widgets.FontTextView
@@ -292,14 +286,14 @@
 							android:text="Да, это не тот Ши и не тот Ниффт, которых я ожидал. Буйная фантазия автора, которую он продемонстрировал в «Рыбалке», оживает лишь на последних 50-70 страницах книги"
 							android:textColor="?android:attr/textColorSecondary"
 							tools:ignore="HardcodedText"
-							style="@style/TextAppearance.AppCompat.Caption"
+							style="@style/TextAppearance.AppCompat.Subhead"
 							/>
 
 						<ru.fantlab.android.ui.widgets.FlowLayout
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:layout_marginTop="@dimen/spacing_micro"
-							app:flChildSpacing="2dp"
+							app:flChildSpacing="5dp"
 							app:flChildSpacingForLastRow="align"
 							app:flRowSpacing="8dp"
 							>
@@ -316,7 +310,7 @@
 								android:textColor="?android:attr/textColorSecondary"
 								app:drawableColor="?android:attr/textColorSecondary"
 								tools:ignore="HardcodedText"
-								style="@style/TextAppearance.AppCompat.Caption"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -331,7 +325,7 @@
 								android:textColor="?android:attr/textColorSecondary"
 								app:drawableColor="?android:attr/textColorSecondary"
 								tools:ignore="HardcodedText"
-								style="@style/TextAppearance.AppCompat.Caption"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 						</ru.fantlab.android.ui.widgets.FlowLayout>
@@ -354,10 +348,7 @@
 						android:layout_marginStart="@dimen/avatar_margin"
 						android:background="?selectableItemBackgroundBorderless"
 						android:scaleType="centerCrop"
-						android:src="?colorPrimaryDark"
-						android:transitionName="@string/icon_transition"
-						app:round_radius="15dp"
-						app:shape_mode="round_rect"
+						android:src="@drawable/work"
 						/>
 
 					<LinearLayout
@@ -377,7 +368,7 @@
 							android:text="creator, 28 апреля 2009 г. 14:44"
 							android:textColor="?android:attr/textColorSecondary"
 							tools:ignore="HardcodedText"
-							style="@style/TextAppearance.AppCompat.Caption"
+							style="@style/TextAppearance.AppCompat.Subhead"
 							/>
 
 						<ru.fantlab.android.ui.widgets.FontTextView
@@ -403,14 +394,14 @@
 							android:text="Да, это не тот Ши и не тот Ниффт, которых я ожидал. Буйная фантазия автора, которую он продемонстрировал в «Рыбалке», оживает лишь на последних 50-70 страницах книги"
 							android:textColor="?android:attr/textColorSecondary"
 							tools:ignore="HardcodedText"
-							style="@style/TextAppearance.AppCompat.Caption"
+							style="@style/TextAppearance.AppCompat.Subhead"
 							/>
 
 						<ru.fantlab.android.ui.widgets.FlowLayout
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:layout_marginTop="@dimen/spacing_micro"
-							app:flChildSpacing="2dp"
+							app:flChildSpacing="5dp"
 							app:flChildSpacingForLastRow="align"
 							app:flRowSpacing="8dp"
 							>
@@ -427,7 +418,7 @@
 								android:textColor="?android:attr/textColorSecondary"
 								app:drawableColor="?android:attr/textColorSecondary"
 								tools:ignore="HardcodedText"
-								style="@style/TextAppearance.AppCompat.Caption"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -441,7 +432,8 @@
 								android:text="4"
 								android:textColor="?android:attr/textColorSecondary"
 								app:drawableColor="?android:attr/textColorSecondary"
-								style="@style/TextAppearance.AppCompat.Caption"
+								style="@style/TextAppearance.AppCompat.Subhead"
+								tools:ignore="HardcodedText"
 								/>
 
 						</ru.fantlab.android.ui.widgets.FlowLayout>
@@ -465,10 +457,7 @@
 						android:layout_marginStart="@dimen/avatar_margin"
 						android:background="?selectableItemBackgroundBorderless"
 						android:scaleType="centerCrop"
-						android:src="?colorPrimaryDark"
-						android:transitionName="@string/icon_transition"
-						app:round_radius="15dp"
-						app:shape_mode="round_rect"
+						android:src="@drawable/work"
 						/>
 
 					<LinearLayout
@@ -488,7 +477,7 @@
 							android:text="creator, 28 апреля 2009 г. 14:44"
 							android:textColor="?android:attr/textColorSecondary"
 							tools:ignore="HardcodedText"
-							style="@style/TextAppearance.AppCompat.Caption"
+							style="@style/TextAppearance.AppCompat.Subhead"
 							/>
 
 						<ru.fantlab.android.ui.widgets.FontTextView
@@ -514,14 +503,14 @@
 							android:text="Да, это не тот Ши и не тот Ниффт, которых я ожидал. Буйная фантазия автора, которую он продемонстрировал в «Рыбалке», оживает лишь на последних 50-70 страницах книги"
 							android:textColor="?android:attr/textColorSecondary"
 							tools:ignore="HardcodedText"
-							style="@style/TextAppearance.AppCompat.Caption"
+							style="@style/TextAppearance.AppCompat.Subhead"
 							/>
 
 						<ru.fantlab.android.ui.widgets.FlowLayout
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:layout_marginTop="@dimen/spacing_micro"
-							app:flChildSpacing="2dp"
+							app:flChildSpacing="5dp"
 							app:flChildSpacingForLastRow="align"
 							app:flRowSpacing="8dp"
 							>
@@ -538,7 +527,7 @@
 								android:textColor="?android:attr/textColorSecondary"
 								app:drawableColor="?android:attr/textColorSecondary"
 								tools:ignore="HardcodedText"
-								style="@style/TextAppearance.AppCompat.Caption"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -553,7 +542,7 @@
 								android:textColor="?android:attr/textColorSecondary"
 								app:drawableColor="?android:attr/textColorSecondary"
 								tools:ignore="HardcodedText"
-								style="@style/TextAppearance.AppCompat.Caption"
+								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
 						</ru.fantlab.android.ui.widgets.FlowLayout>

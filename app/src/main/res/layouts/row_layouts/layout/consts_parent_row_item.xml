@@ -50,6 +50,7 @@
 		android:paddingTop="2dp"
 		android:visibility="gone"
 		app:trimLength="100"
-		style="@style/TextAppearance.AppCompat.Caption"
+		style="@style/TextAppearance.AppCompat.Subhead"
+		android:textColor="?android:attr/textColorSecondary"
 		/>
 </LinearLayout>
