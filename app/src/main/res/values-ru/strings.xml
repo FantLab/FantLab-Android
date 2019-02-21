@@ -175,5 +175,6 @@
 	<string name="send_email">Отправить email</string>
 	<string name="discuss_caption">Перейти на форум Fantlab</string>
 	<string name="github_caption">Присоединиться к разработке</string>
-
+	<string name="alphabet_authors">Авторы на букву</string>
+	<string name="alphabet_sort">Авторы по алфавиту</string>
 </resources>

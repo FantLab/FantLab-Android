@@ -2,14 +2,19 @@ package ru.fantlab.android.ui.modules.authors
 
 import android.os.Bundle
 import android.support.annotation.StringRes
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.AuthorInList
+import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.ui.adapter.AuthorsAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
+import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 
 class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), AuthorsMvp.View {
 
@@ -83,5 +88,29 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 	private fun showReload() {
 		hideProgress()
 		stateLayout.showReload(adapter.itemCount)
+	}
+
+	override fun onCreateOptionsMenu(menu: Menu): Boolean {
+		menuInflater.inflate(R.menu.authors_menu, menu)
+		return super.onCreateOptionsMenu(menu)
+	}
+
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		when (item.itemId) {
+			R.id.sort -> {
+				showSortDialog()
+			}
+		}
+		return super.onOptionsItemSelected(item)
+	}
+
+	private fun showSortDialog() {
+		val dialogView = ContextMenuDialogView()
+		dialogView.initArguments("main", ContextMenuBuilder.buildForAuthorsSorting(recycler.context))
+		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
+	}
+
+	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
+		presenter.setCurrentSort(item.id)
 	}
 }

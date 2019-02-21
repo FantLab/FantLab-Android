@@ -12,6 +12,7 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class AuthorsPresenter : BasePresenter<AuthorsMvp.View>(), AuthorsMvp.Presenter {
 
+	var sort: String = "all"
 	var authors: ArrayList<AuthorInList> = ArrayList()
 		private set
 
@@ -32,19 +33,24 @@ class AuthorsPresenter : BasePresenter<AuthorsMvp.View>(), AuthorsMvp.Presenter 
 					}
 
 	private fun getAuthorsFromServer(): Single<ArrayList<AuthorInList>> =
-			DataManager.getAuthors()
+			DataManager.getAuthors(sort)
 					.map { getAuthors(it) }
 
 	private fun getAuthorsFromDb(): Single<ArrayList<AuthorInList>> =
 			DbProvider.mainDatabase
 					.responseDao()
-					.get(getAuthorsPath())
+					.get(getAuthorsPath(sort))
 					.map { it.response }
 					.map { AuthorsResponse.Deserializer().deserialize(it) }
 					.map { getAuthors(it) }
 
 	private fun getAuthors(response: AuthorsResponse): ArrayList<AuthorInList> =
 			response.authors
+
+	override fun setCurrentSort(sortValue: String) {
+		sort = sortValue
+		onReload()
+	}
 
 	override fun onItemClick(position: Int, v: View?, item: AuthorInList) {
 		sendToView { it.onItemClicked(item) }

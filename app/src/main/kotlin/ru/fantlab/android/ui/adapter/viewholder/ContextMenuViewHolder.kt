@@ -13,7 +13,11 @@ class ContextMenuViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Context
 	: BaseViewHolder<ContextMenus.MenuItem>(itemView, adapter) {
 
 	override fun bind(item: ContextMenus.MenuItem) {
-		itemView.icon.setImageResource(item.icon)
+		if (item.icon != null) {
+			itemView.icon.setImageResource(item.icon)
+			itemView.icon.visibility = View.VISIBLE
+		} else itemView.icon.visibility = View.GONE
+
 		itemView.title.text = item.title
 	}
 

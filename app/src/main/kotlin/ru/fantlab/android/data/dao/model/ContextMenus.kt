@@ -15,7 +15,7 @@ data class ContextMenus(
 	@Parcelize
 	data class MenuItem(
 			val title: String,
-			val icon: Int,
+			val icon: Int?,
 			val id: String,
 			val logged: Boolean = false
 	) : Parcelable

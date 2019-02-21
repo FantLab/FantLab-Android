@@ -105,4 +105,18 @@ object ContextMenuBuilder {
 
 		return items
 	}
+
+	fun buildForAuthorsSorting(context: Context): ArrayList<ContextMenus> {
+		val items = ArrayList<ContextMenus>()
+
+		val actions = arrayListOf<ContextMenus.MenuItem>()
+		val alphabetIdsArray = context.resources.getStringArray(R.array.alphabet_array_id)
+		context.resources.getStringArray(R.array.alphabet_array).mapIndexed { index, title ->
+			actions.add(ContextMenus.MenuItem(title, null, alphabetIdsArray[index]))
+		}
+
+		items.add(ContextMenus(context.getString(R.string.alphabet_authors), actions, "main"))
+
+		return items
+	}
 }
