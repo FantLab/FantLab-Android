@@ -9,6 +9,7 @@ import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
+import timber.log.Timber
 
 class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 
@@ -44,6 +45,7 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 						DataManager.getUserId(username).toObservable(),
 						Consumer { response ->
 							if (response.userId.id == 0) {
+								Timber.e("Not found (0) ID  for user: $username")
 								sendToView { it.showSignInSecondFailed() }
 								return@Consumer
 							}

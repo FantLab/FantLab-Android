@@ -28,8 +28,6 @@ class EditorLinkImageDialogFragment : BaseDialogFragment<EditorLinkImageMvp.View
 		} else if (context is EditorLinkImageMvp.EditorLinkCallback) {
 			callbacks = context
 		}
-		cancel.setOnClickListener { dismiss() }
-		insert.setOnClickListener { onInsertClicked() }
 	}
 
 	override fun onDetach() {
@@ -55,13 +53,15 @@ class EditorLinkImageDialogFragment : BaseDialogFragment<EditorLinkImageMvp.View
 				link_title.hint = getString(R.string.no_title)
 			}
 		}
+		cancel.setOnClickListener { dismiss() }
+		insert.setOnClickListener { onInsertClicked() }
 	}
 
 	override fun providePresenter(): EditorLinkImagePresenter {
 		return EditorLinkImagePresenter()
 	}
 
-	fun onInsertClicked() {
+	private fun onInsertClicked() {
 		if (callbacks != null) {
 			callbacks!!.onAppendLink(InputHelper.toString(link_title), InputHelper.toString(link_link), isLink)
 		}
