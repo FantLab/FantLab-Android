@@ -50,6 +50,10 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 		TypeFaceHelper.applyTypeface(this)
 	}
 
+	fun clear() {
+		sb.clear()
+	}
+
 	override fun onGlobalLayout() {
 		viewTreeObserver.removeOnGlobalLayoutListener(this);
 		render(text.toString())

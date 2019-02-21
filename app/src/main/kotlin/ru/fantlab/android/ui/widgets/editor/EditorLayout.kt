@@ -58,6 +58,7 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 				TransitionManager.beginDelayedTransition(this)
 
 				if (editText.isEnabled && !InputHelper.isEmpty(editText)) {
+					it.getHtmlsText().clear()
 					it.getHtmlsText().html = it.getSavedText()
 					editText.isEnabled = false
 					editText.visibility = View.GONE
