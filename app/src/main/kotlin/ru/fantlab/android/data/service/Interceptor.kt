@@ -12,11 +12,11 @@ fun dbResponseInterceptor() =
 		{ next: (Request, Response) -> Response ->
 			{ req: Request, res: Response ->
 				if (res.isSuccessful) {
-					val pageValue = Uri.parse(req.path).getQueryParameter("page")
+					val pageValue = Uri.parse(req.url.toExternalForm()).getQueryParameter("page")
 					// пагинационные запросы для страниц дальше 1-й не сохраняем
 					if (pageValue == null || pageValue == "1") {
 						val response = ru.fantlab.android.data.db.response.Response(
-								req.path,
+								req.url.toExternalForm(),
 								PrefGetter.getSessionUserId(),
 								String(res.data),
 								BuildConfig.API_VERSION,

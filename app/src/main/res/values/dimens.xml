@@ -7,7 +7,7 @@
 	<dimen name="spacing_xlarge">48dp</dimen>
 	<dimen name="keyline_1">72dp</dimen>
 	<dimen name="keyline_2">76dp</dimen>
-	<dimen name="fab_spacing">86dp</dimen> <!-- keyline + fab margin -->
+	<dimen name="fab_spacing">86dp</dimen>
 	<dimen name="fab_margin">16dp</dimen>
 	<dimen name="large_icon_zie">48dp</dimen>
 	<dimen name="divider_height">1px</dimen>
@@ -18,7 +18,7 @@
 	<dimen name="header_icon_size">32dp</dimen>
 	<dimen name="star_size">30dp</dimen>
 	<dimen name="star_size_large">45dp</dimen>
-	<item name="drawable_callback" type="id">drawable_callback</item>
+	<item name="drawable_callback" type="id" />
 	<dimen name="bbn_bottom_navigation_width">0dp</dimen>
 
 </resources>

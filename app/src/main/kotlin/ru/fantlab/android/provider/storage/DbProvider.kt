@@ -12,7 +12,7 @@ object DbProvider {
 	fun initDatabase(context: Context) {
 		mainDatabase =
 				Room.databaseBuilder(context, MainDatabase::class.java, "main")
-						//.allowMainThreadQueries()
+						.allowMainThreadQueries()
 						.build()
 	}
 }

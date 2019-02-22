@@ -3,9 +3,7 @@ package ru.fantlab.android.provider.rest
 import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
-import com.github.kittinunf.fuel.rx.rx_object
-import com.github.kittinunf.fuel.rx.rx_response
-import com.github.kittinunf.fuel.rx.rx_string
+import com.github.kittinunf.fuel.rx.*
 import com.google.gson.Gson
 import io.reactivex.Single
 import ru.fantlab.android.data.dao.response.*
@@ -17,7 +15,7 @@ object DataManager {
 	fun getAuthors(sort: String): Single<AuthorsResponse> =
 			getAuthorsPath(sort)
 					.httpGet()
-					.rx_object(AuthorsResponse.Deserializer())
+					.rxObject(AuthorsResponse.Deserializer())
 					.map { it.get() }
 
 	fun getAwards(
@@ -26,7 +24,7 @@ object DataManager {
 	): Single<AwardsResponse> =
 			getAwardsPath(nonfant, sortOption)
 					.httpGet()
-					.rx_object(AwardsResponse.Deserializer())
+					.rxObject(AwardsResponse.Deserializer())
 					.map { it.get() }
 
 	fun getAuthor(
@@ -39,7 +37,7 @@ object DataManager {
 	): Single<AuthorResponse> =
 			getAuthorPath(id, showBiography, showAwards, showLinguaProfile, showBiblioBlocks, sortOption)
 					.httpGet()
-					.rx_object(AuthorResponse.Deserializer())
+					.rxObject(AuthorResponse.Deserializer())
 					.map { it.get() }
 
 	fun getAuthorEditions(
@@ -48,7 +46,7 @@ object DataManager {
 	): Single<AuthorEditionsResponse> =
 			getAuthorEditionsPath(authorId, showEditionsBlocks)
 					.httpGet()
-					.rx_object(AuthorEditionsResponse.Deserializer())
+					.rxObject(AuthorEditionsResponse.Deserializer())
 					.map { it.get() }
 
 	fun getAuthorResponses(
@@ -58,7 +56,7 @@ object DataManager {
 	): Single<ResponsesResponse> =
 			getAuthorResponsesPath(authorId, page, sortOption)
 					.httpGet()
-					.rx_object(ResponsesResponse.Deserializer(perPage = 50))
+					.rxObject(ResponsesResponse.Deserializer(perPage = 50))
 					.map { it.get() }
 
 	fun getAward(
@@ -69,7 +67,7 @@ object DataManager {
 	): Single<AwardResponse> =
 			getAwardPath(id, showNomi, showContests, sortOption)
 					.httpGet()
-					.rx_object(AwardResponse.Deserializer())
+					.rxObject(AwardResponse.Deserializer())
 					.map { it.get() }
 
 	fun getWork(
@@ -87,7 +85,7 @@ object DataManager {
 			getWorkPath(id, showAwards, showChildren, showClassificatory, showEditionsBlocks,
 					showEditionsInfo, showFilms, showLinguaProfile, showParents, showTranslations)
 					.httpGet()
-					.rx_object(WorkResponse.Deserializer())
+					.rxObject(WorkResponse.Deserializer())
 					.map { it.get() }
 
 	fun getWorkResponses(
@@ -97,7 +95,7 @@ object DataManager {
 	): Single<ResponsesResponse> =
 			getWorkResponsesPath(workId, page, sortOption)
 					.httpGet()
-					.rx_object(ResponsesResponse.Deserializer(perPage = 15))
+					.rxObject(ResponsesResponse.Deserializer(perPage = 15))
 					.map { it.get() }
 
 	fun getWorkAnalogs(
@@ -105,7 +103,7 @@ object DataManager {
 	): Single<WorkAnalogsResponse> =
 			getWorkAnalogsPath(workId)
 					.httpGet()
-					.rx_object(WorkAnalogsResponse.Deserializer())
+					.rxObject(WorkAnalogsResponse.Deserializer())
 					.map { it.get() }
 
 	fun getEdition(
@@ -115,7 +113,7 @@ object DataManager {
 	): Single<EditionResponse> =
 			getEditionPath(id, showContent, showAdditionalImages)
 					.httpGet()
-					.rx_object(EditionResponse.Deserializer())
+					.rxObject(EditionResponse.Deserializer())
 					.map { it.get() }
 
 	fun getUser(
@@ -123,7 +121,7 @@ object DataManager {
 	): Single<UserResponse> =
 			getUserPath(id)
 					.httpGet()
-					.rx_object(UserResponse.Deserializer())
+					.rxObject(UserResponse.Deserializer())
 					.map { it.get() }
 
 	fun getUserMarks(
@@ -134,7 +132,7 @@ object DataManager {
 	): Single<MarksResponse> =
 			getUserMarksPath(userId, page, typeOption, sortOption)
 					.httpGet()
-					.rx_object(MarksResponse.Deserializer(perPage = 200))
+					.rxObject(MarksResponse.Deserializer(perPage = 200))
 					.map { it.get() }
 
 	fun getUserMarksMini(
@@ -143,7 +141,7 @@ object DataManager {
 	): Single<MarksMiniResponse> =
 			getUserMarksMiniPath(userId, workIds)
 					.httpGet()
-					.rx_object(MarksMiniResponse.Deserializer())
+					.rxObject(MarksMiniResponse.Deserializer())
 					.map { it.get() }
 
 	fun getUserResponses(
@@ -153,7 +151,7 @@ object DataManager {
 	): Single<ResponsesResponse> =
 			getUserResponsesPath(userId, page, sortOption)
 					.httpGet()
-					.rx_object(ResponsesResponse.Deserializer(perPage = 50))
+					.rxObject(ResponsesResponse.Deserializer(perPage = 50))
 					.map { it.get() }
 
 	fun sendUserMark(
@@ -163,7 +161,7 @@ object DataManager {
 	): Single<MarkResponse> =
 			sendUserMarkPath(workId, toWorkId, mark)
 					.httpGet()
-					.rx_object(MarkResponse.Deserializer())
+					.rxObject(MarkResponse.Deserializer())
 					.map { it.get() }
 
 	fun sendResponseVote(
@@ -172,7 +170,7 @@ object DataManager {
 	): Single<String> =
 			sendResponseVotePath(responseId, voteType)
 					.httpGet()
-					.rx_string()
+					.rxString()
 					.map { it.get() }
 
 	fun sendMessage(
@@ -182,7 +180,7 @@ object DataManager {
 	): Single<String> =
 			sendMessagePath(userId, message, mode)
 					.httpPost()
-					.rx_string()
+					.rxString()
 					.map { it.get() }
 
 	fun sendResponse(
@@ -192,7 +190,7 @@ object DataManager {
 	): Single<String> =
 			sendResponsePath(workId, message, mode)
 					.httpPost()
-					.rx_string()
+					.rxString()
 					.map { it.get() }
 
 	fun sendClassification(
@@ -201,7 +199,7 @@ object DataManager {
 	): Single<String> =
 			sendClassificationPath(workId, query)
 					.httpGet()
-					.rx_string()
+					.rxString()
 					.map { it.get() }
 
 	fun login(
@@ -210,7 +208,7 @@ object DataManager {
 	): Single<Response> =
 			loginPath(login, password)
 					.httpPost()
-					.rx_response()
+					.rxResponsePair()
 					.map { it.first }
 
 	fun getUserId(
@@ -218,7 +216,7 @@ object DataManager {
 	): Single<UserIdResponse> =
 			getUserIdPath(login)
 					.httpGet()
-					.rx_object(UserIdResponse.Deserializer())
+					.rxObject(UserIdResponse.Deserializer())
 					.map { it.get() }
 
 	fun searchAuthors(
@@ -227,7 +225,7 @@ object DataManager {
 	): Single<SearchAuthorsResponse> =
 			searchAuthorsPath(query, page)
 					.httpGet()
-					.rx_object(SearchAuthorsResponse.Deserializer(perPage = 25))
+					.rxObject(SearchAuthorsResponse.Deserializer(perPage = 25))
 					.map { it.get() }
 
 	fun searchWorks(
@@ -236,7 +234,7 @@ object DataManager {
 	): Single<SearchWorksResponse> =
 			searchWorksPath(query, page)
 					.httpGet()
-					.rx_object(SearchWorksResponse.Deserializer(perPage = 25))
+					.rxObject(SearchWorksResponse.Deserializer(perPage = 25))
 					.map { it.get() }
 
 	fun searchEditions(
@@ -245,7 +243,7 @@ object DataManager {
 	): Single<SearchEditionsResponse> =
 			searchEditionsPath(query, page)
 					.httpGet()
-					.rx_object(SearchEditionsResponse.Deserializer(perPage = 25))
+					.rxObject(SearchEditionsResponse.Deserializer(perPage = 25))
 					.map { it.get() }
 
 	fun searchAwards(
@@ -254,7 +252,7 @@ object DataManager {
 	): Single<SearchAwardsResponse> =
 			searchAwardsPath(query, page)
 					.httpGet()
-					.rx_object(SearchAwardsResponse.Deserializer(perPage = 25))
+					.rxObject(SearchAwardsResponse.Deserializer(perPage = 25))
 					.map { it.get() }
 
 	fun getLastResponses(
@@ -262,7 +260,7 @@ object DataManager {
 	): Single<ResponsesResponse> =
 			getLastResponsesPath(page)
 					.httpGet()
-					.rx_object(ResponsesResponse.Deserializer(perPage = 50))
+					.rxObject(ResponsesResponse.Deserializer(perPage = 50))
 					.map { it.get() }
 }
 

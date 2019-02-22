@@ -27,7 +27,7 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 			makeRestCall(
 					DataManager.login(username, password).toObservable(),
 					Consumer { response ->
-						if (response.headers["Location"]?.get(0) == "/loginincorrect") {
+						if (response.headers["Location"].contains("/loginincorrect")) {
 							sendToView { it.showSignInFailed() }
 							return@Consumer
 						}
