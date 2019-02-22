@@ -20,13 +20,14 @@ class DrawableGetter(tv: TextView, val width: Int) : Html.ImageGetter, Drawable.
 		this.cachedTargets = HashSet()
 	}
 
-	override fun getDrawable(url: String): Drawable {
+	override fun getDrawable(url: String?): Drawable {
 		val urlDrawable = UrlDrawable()
 		if (container != null && container?.get() != null) {
 			val context = container?.get()!!.context
 			val load = Glide.with(context)
 					.load(url)
 					.placeholder(ContextCompat.getDrawable(context, R.drawable.ic_image))
+					.error(ContextCompat.getDrawable(context, R.drawable.ic_image))
 					.dontAnimate()
 			val target = GlideDrawableTarget(urlDrawable, container, width)
 			load.into(target)

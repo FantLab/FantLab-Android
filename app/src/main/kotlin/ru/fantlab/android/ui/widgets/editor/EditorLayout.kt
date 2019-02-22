@@ -58,7 +58,6 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 				TransitionManager.beginDelayedTransition(this)
 
 				if (editText.isEnabled && !InputHelper.isEmpty(editText)) {
-					it.getHtmlsText().clear()
 					it.getHtmlsText().html = it.getSavedText()
 					editText.isEnabled = false
 					editText.visibility = View.GONE
@@ -175,7 +174,7 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 		substring = source.substring(selectionStart, selectionEnd)
 		val split = substring.split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
 		val stringBuffer = StringBuilder()
-
+		stringBuffer.append("[list]")
 		if (split.isNotEmpty())
 			for (s in split) {
 				if (s.isEmpty() && stringBuffer.isNotEmpty()) {
@@ -194,7 +193,8 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 		if (stringBuffer.isEmpty()) {
 			stringBuffer.append(tag)
 		}
-
+		stringBuffer.append("\n")
+		stringBuffer.append("[/list]")
 		editText.text.replace(selectionStart, selectionEnd, stringBuffer.toString())
 		editText.setSelection(stringBuffer.length + selectionStart)
 	}

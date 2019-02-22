@@ -3,9 +3,7 @@ package ru.fantlab.android.ui.modules.award.overview
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.support.v7.widget.CardView
 import android.view.View
-import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.award_overview_layout.*
@@ -18,10 +16,7 @@ import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.award.AwardPagerMvp
-import ru.fantlab.android.ui.widgets.FontTextView
-import ru.fantlab.android.ui.widgets.ForegroundImageView
-import ru.fantlab.android.ui.widgets.StateLayout
-import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
+
 
 class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewPresenter>(),
 		AwardOverviewMvp.View {
@@ -73,6 +68,14 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 			} else title2.text = award.name
 		}
 
+
+		/*val data = award.description
+				.replace("\\[(.*?)\\]".toRegex(), "<$1>")
+				.replace("<(autor|work|edition|person|user|art|dictor|series|film|translator|pub)=(.*?)>(.*?)<\\/.*>".toRegex(RegexOption.IGNORE_CASE), "<a href=\"$1$2\">$3</a>")
+				.replace("<(link|url)=(.*?)>(.*?)<\\/.*>".toRegex(RegexOption.IGNORE_CASE), "<a href=\"$2\">$3</a>")
+		description.text = Html.fromHtml(data, null, CustomTagHandler())
+		println(data)*/
+
 		if (!InputHelper.isEmpty(award.description))
 			description.html = award.description
 		else aboutView.visibility = View.GONE
@@ -96,7 +99,7 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 				.append(award.minDate.split("-")[0])
 				.append(" - ")
 				.append(award.maxDate.split("-")[0])
-		homepage.text = award.homepage
+		homepage.html = award.homepage
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {

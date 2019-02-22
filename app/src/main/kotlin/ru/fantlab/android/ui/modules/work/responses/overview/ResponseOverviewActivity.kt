@@ -96,7 +96,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 				WorkPagerActivity.startActivity(this, response.workId, response.workName, 0)
 		}
 
-		text.text = response.text
+		text.html = response.text
 
 		if (response.mark == null) {
 			rating.visibility = View.GONE

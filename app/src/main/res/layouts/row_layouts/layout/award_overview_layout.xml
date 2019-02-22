@@ -72,7 +72,7 @@
 								style="@style/TextAppearance.AppCompat.Subhead"
 								/>
 
-							<ru.fantlab.android.ui.widgets.FontTextView
+							<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 								android:id="@+id/homepage"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
@@ -256,7 +256,8 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:textColor="?android:attr/textColorSecondary"
-							style="@style/TextAppearance.AppCompat.Subhead"							/>
+							style="@style/TextAppearance.AppCompat.Subhead"
+							/>
 
 					</LinearLayout>
 				</android.support.v7.widget.CardView>
