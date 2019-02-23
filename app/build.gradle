@@ -9,8 +9,8 @@ ext {
 	min_sdk = 21
 	compile_sdk = 27
 	target_sdk = 27
-	version_code = 17
-	version_name = '0.1.4'
+	version_code = 18
+	version_name = '0.1.6'
 
 	annotations = '16.0.2'
 	support = '27.1.1'
@@ -74,8 +74,6 @@ android {
 			proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
 		}
 		debug {
-			applicationIdSuffix ".debug"
-			versionNameSuffix "-debug"
 			ext.alwaysUpdateBuildId = false
 		}
 	}

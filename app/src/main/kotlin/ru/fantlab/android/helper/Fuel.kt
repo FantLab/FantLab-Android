@@ -9,14 +9,20 @@ private val jsonParser = JsonParser()
 private val gson = Gson().newBuilder().setPrettyPrinting().create()
 
 fun Request.format(): String = buildString {
-	appendln("--> $method $url")
+	val url = url.toString()
+	val safeUrl = if (url.contains("password")) {
+		url.substring(0, url.indexOf("password") - 1)
+	} else {
+		url
+	}
+	appendln("--> $method $safeUrl")
 	appendln("Headers : (${headers.size})")
 	headers.transformIterate({ key: String, value: String -> appendln("\t$key : $value") })
 	appendln("Body :\n${String(body.toByteArray()).prettify()}")
 }
 
 fun Response.format(): String = buildString {
-	appendln("<-- $statusCode $url")
+	appendln("<-- $statusCode")
 	appendln("Response : $responseMessage")
 	appendln("Length : $contentLength")
 	appendln("Headers : (${headers.size})")
