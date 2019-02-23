@@ -19,9 +19,12 @@ import ru.fantlab.android.ui.modules.classificator.story.ClassificationStoryFrag
 import ru.fantlab.android.ui.modules.classificator.time.ClassificationTimeFragment
 import ru.fantlab.android.ui.modules.edition.content.EditionContentFragment
 import ru.fantlab.android.ui.modules.edition.overview.EditionOverviewFragment
+import ru.fantlab.android.ui.modules.plans.autplans.AutPlansFragment
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
 import ru.fantlab.android.ui.modules.profile.overview.ProfileOverviewFragment
 import ru.fantlab.android.ui.modules.profile.responses.ProfileResponsesFragment
+import ru.fantlab.android.ui.modules.plans.pubnews.PubnewsFragment
+import ru.fantlab.android.ui.modules.plans.pubplans.PubplansFragment
 import ru.fantlab.android.ui.modules.search.authors.SearchAuthorsFragment
 import ru.fantlab.android.ui.modules.search.awards.SearchAwardsFragment
 import ru.fantlab.android.ui.modules.search.editions.SearchEditionsFragment
@@ -116,6 +119,14 @@ data class FragmentPagerAdapterModel(
 					FragmentPagerAdapterModel(context.getString(R.string.story), ClassificationStoryFragment.newInstance(workId)),
 					FragmentPagerAdapterModel(context.getString(R.string.linearity), ClassificationLinearityFragment.newInstance(workId)),
 					FragmentPagerAdapterModel(context.getString(R.string.age), ClassificationAgeFragment.newInstance(workId))
+			)
+		}
+
+		fun buildForPlans(context: Context): MutableList<FragmentPagerAdapterModel> {
+			return mutableListOf(
+					FragmentPagerAdapterModel(context.getString(R.string.publishers_news), PubnewsFragment.newInstance()),
+					FragmentPagerAdapterModel(context.getString(R.string.publishers_plans), PubplansFragment.newInstance()),
+					FragmentPagerAdapterModel(context.getString(R.string.publishers_autplans), AutPlansFragment.newInstance())
 			)
 		}
 	}

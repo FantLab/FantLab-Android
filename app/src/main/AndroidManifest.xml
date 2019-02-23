@@ -64,6 +64,14 @@
 			android:parentActivityName=".ui.modules.main.MainActivity"
 			/>
 		<activity
+			android:name=".ui.modules.publishers.PublishersActivity"
+			android:parentActivityName=".ui.modules.main.MainActivity"
+			/>
+		<activity
+			android:name=".ui.modules.plans.PlansPagerActivity"
+			android:parentActivityName=".ui.modules.main.MainActivity"
+			/>
+		<activity
 			android:name=".ui.modules.author.AuthorPagerActivity"
 			android:parentActivityName=".ui.modules.authors.AuthorsActivity"
 			/>

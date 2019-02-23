@@ -6,7 +6,7 @@
 
 	<item
 		android:id="@+id/sort"
-		android:icon="@drawable/ic_filter"
+		android:icon="@drawable/ic_sort"
 		android:title="@string/sorting"
 		app:showAsAction="ifRoom"
 		android:visible="false"

@@ -110,7 +110,7 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 	}
 
-	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
+	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
 		presenter.setCurrentSort(item.id)
 	}
 }

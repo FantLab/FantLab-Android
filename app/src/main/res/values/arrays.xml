@@ -72,6 +72,184 @@
 		<item>222</item>
 		<item>223</item>
 	</string-array>
+	<string-array name="countries_array_id" translatable="false">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>169</item>
+		<item>129</item>
+		<item>19</item>
+		<item>88</item>
+		<item>193</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>12</item>
+		<item>13</item>
+		<item>21</item>
+		<item>23</item>
+		<item>25</item>
+		<item>27</item>
+		<item>34</item>
+		<item>36</item>
+		<item>45</item>
+		<item>48</item>
+		<item>49</item>
+		<item>50</item>
+		<item>57</item>
+		<item>58</item>
+		<item>59</item>
+		<item>63</item>
+		<item>64</item>
+		<item>65</item>
+		<item>66</item>
+		<item>69</item>
+		<item>72</item>
+		<item>75</item>
+		<item>77</item>
+		<item>81</item>
+		<item>84</item>
+		<item>86</item>
+		<item>91</item>
+		<item>93</item>
+		<item>32</item>
+		<item>106</item>
+		<item>132</item>
+		<item>110</item>
+		<item>116</item>
+		<item>117</item>
+		<item>119</item>
+		<item>120</item>
+		<item>130</item>
+		<item>134</item>
+		<item>146</item>
+		<item>147</item>
+		<item>149</item>
+		<item>150</item>
+		<item>156</item>
+		<item>157</item>
+		<item>165</item>
+		<item>166</item>
+		<item>168</item>
+		<item>173</item>
+		<item>174</item>
+		<item>175</item>
+		<item>179</item>
+		<item>180</item>
+		<item>181</item>
+		<item>182</item>
+		<item>187</item>
+		<item>192</item>
+		<item>189</item>
+		<item>194</item>
+		<item>191</item>
+	</string-array>
+	<string-array name="countries_array" translatable="false">
+		<item>Все</item>
+		<item>Россия</item>
+		<item>США</item>
+		<item>Великобритания</item>
+		<item>Украина</item>
+		<item>Польша</item>
+		<item>Беларусь</item>
+		<item>Латвия</item>
+		<item>Абхазия</item>
+		<item>Австралия</item>
+		<item>Австрия</item>
+		<item>Азербайджан</item>
+		<item>Аргентина</item>
+		<item>Армения</item>
+		<item>Бельгия</item>
+		<item>Болгария</item>
+		<item>Босния и Герцеговина</item>
+		<item>Бразилия</item>
+		<item>Венгрия</item>
+		<item>Вьетнам</item>
+		<item>Германия</item>
+		<item>Греция</item>
+		<item>Грузия</item>
+		<item>Дания</item>
+		<item>Израиль</item>
+		<item>Индия</item>
+		<item>Индонезия</item>
+		<item>Ирландия</item>
+		<item>Исландия</item>
+		<item>Испания</item>
+		<item>Италия</item>
+		<item>Казахстан</item>
+		<item>Канада</item>
+		<item>Кипр</item>
+		<item>Китай</item>
+		<item>Корея</item>
+		<item>Куба</item>
+		<item>Кыргызстан</item>
+		<item>Ливан</item>
+		<item>Литва</item>
+		<item>Македония</item>
+		<item>Мексика</item>
+		<item>Молдова</item>
+		<item>Монголия</item>
+		<item>Нигерия</item>
+		<item>Нидерланды</item>
+		<item>Новая Зеландия</item>
+		<item>Норвегия</item>
+		<item>Португалия</item>
+		<item>Румыния</item>
+		<item>Сербия</item>
+		<item>Сингапур</item>
+		<item>Словакия</item>
+		<item>Словения</item>
+		<item>Таджикистан</item>
+		<item>Таиланд</item>
+		<item>Туркменистан</item>
+		<item>Турция</item>
+		<item>Узбекистан</item>
+		<item>Финляндия</item>
+		<item>Франция</item>
+		<item>Хорватия</item>
+		<item>Чехия</item>
+		<item>Чили</item>
+		<item>Швейцария</item>
+		<item>Швеция</item>
+		<item>Эстония</item>
+		<item>ЮАР</item>
+		<item>Югославия</item>
+		<item>Южная Осетия</item>
+		<item>Япония</item>
+	</string-array>
+	<string-array name="categories_array_id" translatable="false">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+		<item>8</item>
+	</string-array>
+	<string-array name="categories_array" translatable="false">
+		<item>Все</item>
+		<item>Фантастические</item>
+		<item>Аудио-издательства</item>
+		<item>Электронные издательства</item>
+		<item>Современные издательства</item>
+		<item>Советские издательства</item>
+		<item>Дореволюционные издательства</item>
+		<item>Эмигрантские</item>
+		<item>Русское зарубежье</item>
+	</string-array>
 
+	<string-array name="lang_array_id" translatable="false">
+		<item>2</item>
+		<item>0</item>
+		<item>1</item>
+	</string-array>
+	<string-array name="lang_array" translatable="false">
+		<item>Все</item>
+		<item>Русскоязычные</item>
+		<item>Зарубежные</item>
+	</string-array>
 
 </resources>

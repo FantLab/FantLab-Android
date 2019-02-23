@@ -2,7 +2,6 @@ package ru.fantlab.android.ui.modules.awards
 
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.support.v4.widget.SwipeRefreshLayout
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -16,10 +15,7 @@ import ru.fantlab.android.provider.rest.AwardsSortOption
 import ru.fantlab.android.ui.adapter.AwardsAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.award.AwardPagerActivity
-import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 
 
 class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMvp.View {
@@ -76,7 +72,7 @@ class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMv
 		return super.onOptionsItemSelected(item)
 	}
 
-	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
+	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
 		presenter.sort = AwardsSortOption.valueOf(item.id)
 	}
 

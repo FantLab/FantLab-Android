@@ -184,7 +184,7 @@
 							style="@style/TextAppearance.AppCompat.Title"
 							/>
 
-						<ru.fantlab.android.ui.widgets.FontTextView
+						<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 							android:id="@+id/biographyText"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"

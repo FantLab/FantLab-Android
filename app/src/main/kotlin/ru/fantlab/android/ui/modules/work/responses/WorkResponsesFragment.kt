@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.view.View
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -96,7 +95,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	override fun onItemLongClicked(position: Int, v: View?, item: Response) {
 	}
 
-	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
+	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
 		if (listItem is Response) when (item.id) {
 			"vote" -> {
 				presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")

@@ -157,7 +157,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 
-	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
+	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
 		if (listItem is Response) when (item.id) {
 			"vote" -> {
 				presenter.onSendVote(listItem.id, if (item.title.contains("+")) "plus" else "minus", position)

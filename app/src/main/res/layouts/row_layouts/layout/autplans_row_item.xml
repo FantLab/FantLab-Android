@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_margin="@dimen/grid_spacing"
+	android:foreground="?android:selectableItemBackground"
+	android:paddingBottom="@dimen/spacing_normal"
+	android:paddingEnd="@dimen/spacing_xs_large"
+	android:paddingTop="@dimen/spacing_normal"
+	tools:ignore="RtlSymmetry"
+	>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:orientation="horizontal"
+		>
+
+		<ru.fantlab.android.ui.widgets.CoverLayout
+			android:id="@+id/coverLayout"
+			android:layout_width="48dp"
+			android:layout_height="64dp"
+			android:layout_marginEnd="@dimen/avatar_margin_end"
+			android:layout_marginStart="@dimen/avatar_margin"
+			/>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/author"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="start"
+				android:layout_marginEnd="@dimen/spacing_micro"
+				android:ellipsize="end"
+				android:gravity="start|center"
+				android:maxLines="1"
+				android:textColor="?android:attr/textColorSecondary"
+				tools:text="Джон Коннолли"
+				style="@style/TextAppearance.AppCompat.Subhead"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/name"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:ellipsize="end"
+				android:maxLines="3"
+				android:textColor="?android:textColorPrimary"
+				android:textStyle="bold"
+				tools:text="A Book of Bones"
+				style="@style/TextAppearance.AppCompat.Medium"
+				/>
+
+			<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
+				android:id="@+id/saga"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="start"
+				android:layout_marginEnd="@dimen/spacing_micro"
+				android:ellipsize="end"
+				android:gravity="start|center"
+				android:maxLines="4"
+				android:textColor="?android:attr/textColorSecondary"
+				tools:text="Цикл «Чарли Паркер»"
+				style="@style/TextAppearance.AppCompat.Subhead"
+				/>
+
+			<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
+				android:id="@+id/description"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="start"
+				android:layout_marginEnd="@dimen/spacing_micro"
+				android:layout_marginTop="@dimen/spacing_normal"
+				android:ellipsize="end"
+				android:gravity="start|center"
+				android:maxLines="4"
+				android:textColor="?android:attr/textColorSecondary"
+				tools:text="Анонсировано на апрель 2019 г."
+				style="@style/TextAppearance.AppCompat.Subhead"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FlowLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/spacing_micro"
+				android:gravity="end"
+				app:flChildSpacing="5dp"
+				app:flChildSpacingForLastRow="align"
+				app:flRowSpacing="8dp"
+				>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/type"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:layout_marginEnd="@dimen/spacing_micro"
+					android:drawablePadding="@dimen/spacing_micro"
+					android:drawableStart="@drawable/ic_type_small"
+					android:gravity="start|center"
+					android:textColor="?android:attr/textColorSecondary"
+					app:drawableColor="?android:attr/textColorSecondary"
+					tools:text="Роман"
+					style="@style/TextAppearance.AppCompat.Subhead"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/date"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:layout_marginEnd="@dimen/spacing_micro"
+					android:drawablePadding="@dimen/spacing_micro"
+					android:drawableStart="@drawable/ic_date"
+					android:gravity="start|center"
+					android:textColor="?android:attr/textColorSecondary"
+					app:drawableColor="?android:attr/textColorSecondary"
+					tools:text="2019"
+					style="@style/TextAppearance.AppCompat.Subhead"
+					/>
+
+			</ru.fantlab.android.ui.widgets.FlowLayout>
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

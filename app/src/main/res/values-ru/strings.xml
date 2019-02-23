@@ -177,4 +177,19 @@
 	<string name="github_caption">Присоединиться к разработке</string>
 	<string name="alphabet_authors">Авторы на букву</string>
 	<string name="alphabet_sort">Авторы по алфавиту</string>
+	<string name="publishers_news">Новинки фантастики</string>
+	<string name="publishers_plans">Планы издательств</string>
+	<string name="publishers">Издательства</string>
+	<string name="publishers_autplans">Планы авторов</string>
+	<string name="sort_editions_count">Количеству изданий</string>
+	<string name="sort_city">Городу</string>
+	<string name="sort_category">Категории</string>
+	<string name="sort_correct">Изменению</string>
+	<string name="select_filter">Фильтровать по…</string>
+	<string name="select_country">Выберите страну</string>
+	<string name="select_category">Выберите категорию</string>
+	<string name="sort_publisher">Издательству и серии</string>
+	<string name="sort_author">Автору</string>
+	<string name="no_publishers">Нет издательств</string>
+	<string name="plans">Новинки и планы</string>
 </resources>

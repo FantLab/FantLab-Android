@@ -262,6 +262,50 @@ object DataManager {
 					.httpGet()
 					.rxObject(ResponsesResponse.Deserializer(perPage = 50))
 					.map { it.get() }
+
+	fun getPublishers(
+			page: Int = 1,
+			sort: String = PublishersSortOption.BY_NAME.value,
+			countryId: Int = 0,
+			type: Int = 0
+	): Single<PublishersResponse> =
+			getPublishersAllPath(page, sort, countryId, type)
+					.httpGet()
+					.rxObject(PublishersResponse.Deserializer(perPage = 250))
+					.map { it.get() }
+
+	fun getPubnews(
+			page: Int = 1,
+			sort: String = PubnewsSortOption.BY_DATE.value,
+			lang: Int,
+			pubId: Int
+	): Single<PubnewsResponse> =
+			getPublisherPubnewsPath(page, sort, lang, pubId)
+					.httpGet()
+					.rxObject(PubnewsResponse.Deserializer())
+					.map { it.get() }
+
+
+	fun getPubplans(
+			page: Int = 1,
+			sort: String = PubplansSortOption.BY_CORRECT.value,
+			lang: Int,
+			pubId: Int
+	): Single<PubplansResponse> =
+			getPublisherPubplansPath(page, sort, lang, pubId)
+					.httpGet()
+					.rxObject(PubplansResponse.Deserializer())
+					.map { it.get() }
+
+	fun getAutplans(
+			page: Int = 1,
+			sort: String = AutplansSortOption.BY_CORRECT.value,
+			lang: Int
+	): Single<AutplansResponse> =
+			getPublisherAutplansPath(page, sort, lang)
+					.httpGet()
+					.rxObject(AutplansResponse.Deserializer())
+					.map { it.get() }
 }
 
 //region Sort options
@@ -304,6 +348,36 @@ enum class AwardsSortOption(val value: String) {
 enum class AwardSortOption(val value: String) {
 	BY_CONTEST("contest"),
 	BY_NOMI("nomi")
+}
+
+enum class PublishersSortOption(val value: String) {
+	BY_NAME("name"),
+	BY_COUNT("editions_count"),
+	BY_COUNTRY("country"),
+	BY_CITY("city")
+}
+
+enum class PubnewsSortOption(val value: String) {
+	BY_DATE("date"),
+	BY_TYPE("type"),
+	BY_PUBLISHER("pub"),
+	BY_AUTHOR("author"),
+	BY_NAME("title")
+}
+
+enum class PubplansSortOption(val value: String) {
+	BY_CORRECT("correct"),
+	BY_DATE("date"),
+	BY_TYPE("type"),
+	BY_PUBLISHER("pub"),
+	BY_AUTHOR("author"),
+	BY_NAME("title")
+}
+
+enum class AutplansSortOption(val value: String) {
+	BY_CORRECT("correct"),
+	BY_AUTHOR("author"),
+	BY_NAME("title")
 }
 //endregion
 
@@ -465,6 +539,33 @@ fun searchAwardsPath(
 fun getLastResponsesPath(
 		page: Int = 1
 ) = "/responses?page=$page".toAbsolutePathWithApiVersion()
+
+fun getPublishersAllPath(
+		page: Int,
+		sort: String,
+		countryId: Int,
+		type: Int
+) = "/publishers.json?page=$page&sort=$sort&country_id=$countryId&type=$type".toAbsolutePath()
+
+fun getPublisherPubnewsPath(
+		page: Int,
+		sort: String,
+		lang: Int,
+		pubId: Int
+) = "/pubnews.json?page=$page&lang=$lang&sort=$sort&pub_id=$pubId".toAbsolutePath()
+
+fun getPublisherPubplansPath(
+		page: Int,
+		sort: String,
+		lang: Int,
+		pubId: Int
+) = "/pubplans.json?page=$page&lang=$lang&sort=$sort&pub_id=$pubId".toAbsolutePath()
+
+fun getPublisherAutplansPath(
+		page: Int,
+		sort: String,
+		lang: Int
+) = "/autplans.json?page=$page&sort=$sort&lang=$lang".toAbsolutePath()
 //endregion
 
 //region Utils

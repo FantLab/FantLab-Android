@@ -147,7 +147,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 
-	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
+	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
 		listItem as Response
 		when (item.id) {
 			"vote" -> {

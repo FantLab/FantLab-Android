@@ -116,7 +116,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 		} else showErrorMessage(getString(R.string.unauthorized_user))
 	}
 
-	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
+	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
 		if (listItem is Response) when (item.id) {
 			"vote" -> {
 				if (PrefGetter.getLoggedUser()?.id != listItem.userId)

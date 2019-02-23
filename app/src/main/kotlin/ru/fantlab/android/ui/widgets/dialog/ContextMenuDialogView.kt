@@ -62,7 +62,7 @@ class ContextMenuDialogView : BaseBottomSheetDialog(), BaseViewHolder.OnItemClic
 					Toasty.error(App.instance, getString(R.string.unauthorized_user), Toast.LENGTH_SHORT).show()
 					return
 				}
-				callbacks!!.onItemSelected(item, listItem, if (positionItem != -1) positionItem  else position)
+				callbacks!!.onItemSelected(id, item, if (positionItem != -1) positionItem  else position, listItem)
 			} else {
 				id = item.id
 				recreate(menuForLevel)
@@ -105,7 +105,7 @@ class ContextMenuDialogView : BaseBottomSheetDialog(), BaseViewHolder.OnItemClic
 	}
 
 	interface ListDialogViewActionCallback {
-		fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int)
+		fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any)
 	}
 
 }

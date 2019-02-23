@@ -65,7 +65,7 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 		view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
 		val menu = PopupMenu(view.context, view)
 		menu.setOnMenuItemClickListener { menuItem ->
-			val url = if (link.contains("http")) link else "${LinkParserHelper.PROTOCOL_HTTPS}://${LinkParserHelper.HOST_DEFAULT}$link"
+			val url = if (link.contains("http")) link else "${LinkParserHelper.PROTOCOL_HTTPS}://${LinkParserHelper.HOST_DEFAULT}/$link"
 			when (menuItem.itemId) {
 				R.id.copy -> {
 					ActivityHelper.copyToClipboard(view.context, url)

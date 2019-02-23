@@ -117,7 +117,7 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 		}
 	}
 
-	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
+	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
 		if (listItem is Mark) when (item.id) {
 			"revote" -> {
 				RatingDialogView.newInstance(10, listItem.mark.toFloat(),

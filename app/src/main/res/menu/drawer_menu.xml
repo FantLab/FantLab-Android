@@ -39,6 +39,18 @@
 			android:title="@string/awards_list"
 			/>
 
+		<item
+			android:id="@+id/publishers"
+			android:icon="@drawable/ic_publishers"
+			android:title="@string/publishers"
+			/>
+
+		<item
+			android:id="@+id/plans"
+			android:icon="@drawable/ic_plans"
+			android:title="@string/plans"
+			/>
+
 	</group>
 
 	<group android:id="@+id/group_three">

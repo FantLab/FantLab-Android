@@ -90,13 +90,10 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 
 		val bio = biography?.biography
 				?.replace("(\r\n)+".toRegex(), "\n")
-				?.replace("\\[(.*?)]".toRegex(), "") // удаление только тегов, без содержимого (!)
-				?.replace("<(.*?)>".toRegex(), "") // аналогично, но с другими скобками
 				?.trim()
 
 		if (!bio.isNullOrEmpty()) {
-			biographyText.text = bio
-
+			biographyText.html = bio
 			when {
 				biography!!.source.isNotEmpty() && biography.sourceLink.isNotEmpty() -> {
 					val sourceText = "© <a href=\"${biography.sourceLink}\">${biography.source}</a>"

@@ -17,6 +17,8 @@ import ru.fantlab.android.ui.modules.authors.AuthorsActivity
 import ru.fantlab.android.ui.modules.awards.AwardsActivity
 import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.modules.main.MainActivity
+import ru.fantlab.android.ui.modules.plans.PlansPagerActivity
+import ru.fantlab.android.ui.modules.publishers.PublishersActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
@@ -97,6 +99,8 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 					}
 					R.id.authors -> view.startActivity(Intent(view, AuthorsActivity::class.java))
 					R.id.awards -> view.startActivity(Intent(view, AwardsActivity::class.java))
+					R.id.publishers -> view.startActivity(Intent(view, PublishersActivity::class.java))
+					R.id.plans -> view.startActivity(Intent(view, PlansPagerActivity::class.java))
 				}
 			}
 		}, 250)

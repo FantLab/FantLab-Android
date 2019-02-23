@@ -146,7 +146,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		votes.text = votesCount
 	}
 
-	override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
+	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
 		listItem as Response
 		when (item.id) {
 			"vote" -> {

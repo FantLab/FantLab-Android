@@ -19,6 +19,10 @@ object InputHelper {
 		return text == null || TextUtils.isEmpty(text) || isWhiteSpaces(text) || text.equals("null", ignoreCase = true)
 	}
 
+	fun isNullEmpty(text: String?): Boolean {
+		return text == null || TextUtils.isEmpty(text) || isWhiteSpaces(text) || text.equals("null", ignoreCase = true) || text.equals("0", ignoreCase = true)
+	}
+
 	fun isEmpty(text: Any?): Boolean {
 		return text == null || isEmpty(text.toString())
 	}

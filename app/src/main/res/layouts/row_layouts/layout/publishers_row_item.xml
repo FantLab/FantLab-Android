@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:foreground="?android:selectableItemBackground"
+	android:gravity="center_vertical"
+	>
+
+	<RelativeLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingBottom="@dimen/spacing_normal"
+		android:paddingLeft="@dimen/spacing_xs_large"
+		android:paddingRight="@dimen/spacing_xs_large"
+		android:paddingTop="@dimen/spacing_normal"
+		>
+
+		<ru.fantlab.android.ui.widgets.AvatarLayout
+			android:id="@+id/publisherIcon"
+			android:layout_width="35dp"
+			android:layout_height="35dp"
+			android:layout_marginBottom="@dimen/spacing_normal"
+			android:layout_marginEnd="@dimen/spacing_normal"
+			/>
+
+		<LinearLayout
+			android:id="@+id/topView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignTop="@+id/publisherIcon"
+			android:layout_toEndOf="@+id/publisherIcon"
+			android:gravity="center_vertical"
+			android:minHeight="35dp"
+			android:orientation="vertical"
+			>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/publisherName"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				style="@style/TextAppearance.AppCompat.Title"
+				tools:text="Academia"
+				/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignStart="@+id/publisherIcon"
+			android:layout_below="@+id/topView"
+			android:layout_marginTop="@dimen/spacing_normal"
+			android:gravity="center_vertical"
+			android:orientation="horizontal"
+			>
+
+			<ImageView
+				android:id="@+id/langIcon"
+				android:layout_width="12dp"
+				android:layout_height="12dp"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/country"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:ellipsize="end"
+				android:lines="1"
+				android:padding="@dimen/spacing_micro"
+				android:textColor="?android:attr/textColorSecondary"
+				style="@style/TextAppearance.AppCompat.Subhead"
+				tools:text="Россия"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/editions"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:drawablePadding="@dimen/spacing_micro"
+				android:drawableStart="@drawable/ic_edition"
+				android:padding="@dimen/spacing_micro"
+				android:textColor="?android:attr/textColorSecondary"
+				app:drawableColor="?android:attr/textColorSecondary"
+				style="@style/TextAppearance.AppCompat.Subhead"
+				tools:text="24"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/years"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:drawablePadding="@dimen/spacing_micro"
+				android:drawableStart="@drawable/ic_date"
+				android:padding="@dimen/spacing_micro"
+				android:textColor="?android:attr/textColorSecondary"
+				app:drawableColor="?android:attr/textColorSecondary"
+				style="@style/TextAppearance.AppCompat.Subhead"
+				tools:text="1921-1928"
+				/>
+		</LinearLayout>
+
+	</RelativeLayout>
+</LinearLayout>

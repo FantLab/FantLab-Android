@@ -212,4 +212,19 @@
 	<string name="github_caption">Join development</string>
 	<string name="alphabet_authors">Authors by letter</string>
 	<string name="alphabet_sort">Alphabetical authors</string>
+	<string name="publishers_news">New fiction</string>
+	<string name="publishers_plans">Publishing plans</string>
+	<string name="publishers_autplans">Authors plans</string>
+	<string name="publishers">Publishers</string>
+	<string name="sort_editions_count">Editions count</string>
+	<string name="sort_city">City</string>
+	<string name="sort_category">Category</string>
+	<string name="sort_correct">Change</string>
+	<string name="select_filter">Filter by…</string>
+	<string name="select_country">Select country</string>
+	<string name="select_category">Select category</string>
+	<string name="sort_publisher">Publisher and series</string>
+	<string name="sort_author">Author</string>
+	<string name="no_publishers">No publishers</string>
+	<string name="plans">News and plans</string>
 </resources>

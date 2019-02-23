@@ -37,6 +37,29 @@ object FantlabHelper {
 		TYPE_TIME("time")
 	}
 
+	data class PublishersAllSort<A, B, C>(
+			var sortBy: A,
+			var filterCountry: B,
+			var filterCategory: C
+	)
+
+	data class PublishersPubnewsSort<A, B, C>(
+			var sortBy: A,
+			var filterLang: B,
+			var filterPublisher: C
+	)
+
+	data class PublishersPubplansSort<A, B, C>(
+			var sortBy: A,
+			var filterLang: B,
+			var filterPublisher: C
+	)
+
+	data class PublishersAutPlansSort<A, B, C>(
+			var sortBy: A,
+			var filterLang: B
+	)
+
 	var currentUserId: Int = -1
 
 	val minLevelToVote = FantlabHelper.User.classRanges[Levels.NOVICE.`class`]
