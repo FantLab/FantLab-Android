@@ -8,3 +8,5 @@
 /captures
 .idea
 /gradle.properties
+app/fabric.properties
+app/google-services.json
