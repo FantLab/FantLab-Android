@@ -2,7 +2,8 @@ package ru.fantlab.android
 
 import android.app.Application
 import com.github.kittinunf.fuel.core.FuelManager
-import ru.fantlab.android.data.service.dbResponseInterceptor
+import ru.fantlab.android.data.service.DbResponseInterceptor
+import ru.fantlab.android.data.service.LogReqRespInterceptor
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.fabric.FabricProvider
 import ru.fantlab.android.provider.stetho.StethoProvider
@@ -34,7 +35,8 @@ class App : Application() {
 		FuelManager.instance.apply {
 			// to prevent from auto redirection
 			removeAllResponseInterceptors()
-			addResponseInterceptor(dbResponseInterceptor())
+			addResponseInterceptor(LogReqRespInterceptor)
+			addResponseInterceptor(DbResponseInterceptor)
 			baseHeaders = mapOf(
 					"User-Agent" to "FantLab for Android v${BuildConfig.VERSION_NAME}",
 					"Cookie" to (PrefGetter.getToken() ?: "")
