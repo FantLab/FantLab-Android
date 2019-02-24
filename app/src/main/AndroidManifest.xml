@@ -137,6 +137,9 @@
 				<data android:pathPattern=".*\\/work.*" />
 				<data android:pathPattern=".*\\/edition.*" />
 				<data android:pathPattern=".*\\/award.*" />
+				<data android:pathPattern=".*\\/pubnews" />
+				<data android:pathPattern=".*\\/pubplans" />
+				<data android:pathPattern=".*\\/autplans" />
 
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />

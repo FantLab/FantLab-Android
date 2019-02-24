@@ -11,7 +11,9 @@ import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.authors.AuthorsActivity
 import ru.fantlab.android.ui.modules.award.AwardPagerActivity
+import ru.fantlab.android.ui.modules.awards.AwardsActivity
 import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
+import ru.fantlab.android.ui.modules.plans.PlansPagerActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.modules.work.CyclePagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
@@ -46,14 +48,31 @@ object SchemeParser {
 				"user" -> {
 					UserPagerActivity.startActivity(App.instance.applicationContext, label, id.toInt(), 0)
 				}
-				else -> {
-					Timber.d("${context.getString(R.string.not_recognized)} ($type:$id)")
-					openUrl(context, "$PROTOCOL_HTTPS://$HOST_DEFAULT/$type$id")
-				}
+				else -> notRecognizedUrl(context, "$PROTOCOL_HTTPS://$HOST_DEFAULT/$type$id", type, id)
 			}
 		} else {
 			if (url.contains(HOST_DEFAULT)) {
-				launchUri(context, url.substringAfterLast("/"), label)
+
+				val type = url.substringAfterLast("/").substringBefore("?")
+				when (type) {
+					"autors" -> {
+						context.startActivity(Intent(context, AuthorsActivity::class.java).putExtra(EXTRA, "all"))
+					}
+					"awards" -> {
+						context.startActivity(Intent(context, AwardsActivity::class.java))
+					}
+					"pubnews" -> {
+						PlansPagerActivity.startActivity(App.instance.applicationContext, 0)
+					}
+					"pubplans" -> {
+						PlansPagerActivity.startActivity(App.instance.applicationContext, 1)
+					}
+					"autplans" -> {
+						PlansPagerActivity.startActivity(App.instance.applicationContext, 2)
+					}
+					else -> openUrl(context, url)
+				}
+
 			} else openUrl(context, url)
 		}
 	}
@@ -61,6 +80,11 @@ object SchemeParser {
 	fun openUrl(context: Context, url: String) {
 		val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
 		context.startActivity(Intent.createChooser(browserIntent, context.getString(R.string.open)))
+	}
+
+	fun notRecognizedUrl(context: Context, url: String, type: String, id: String) {
+		Timber.d("${context.getString(R.string.not_recognized)} ($type:$id)")
+		openUrl(context, url)
 	}
 
 }

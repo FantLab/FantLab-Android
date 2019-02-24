@@ -40,7 +40,7 @@ class PlansPagerActivity : BaseActivity<PlansPagerMvp.View, BasePresenter<PlansP
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		if (savedInstanceState == null) {
-			index = intent?.extras?.getInt(BundleConstant.EXTRA_THREE, -1) ?: -1
+			index = intent?.extras?.getInt(BundleConstant.EXTRA, -1) ?: -1
 		}
 		setTaskName(getString(R.string.publishers))
 		title = getString(R.string.publishers)
@@ -133,12 +133,10 @@ class PlansPagerActivity : BaseActivity<PlansPagerMvp.View, BasePresenter<PlansP
 
 	companion object {
 
-		fun startActivity(context: Context, editionId: Int, editionName: String, index: Int = -1) {
+		fun startActivity(context: Context, index: Int = -1) {
 			val intent = Intent(context, PlansPagerActivity::class.java)
 			intent.putExtras(Bundler.start()
-					.put(BundleConstant.EXTRA, editionId)
-					.put(BundleConstant.EXTRA_TWO, editionName)
-					.put(BundleConstant.EXTRA_THREE, index)
+					.put(BundleConstant.EXTRA, index)
 					.end())
 			if (context is Service || context is Application) {
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
