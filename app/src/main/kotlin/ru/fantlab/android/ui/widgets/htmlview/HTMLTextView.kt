@@ -19,10 +19,11 @@ import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.provider.scheme.SchemeParser
 import ru.fantlab.android.ui.widgets.htmlview.drawable.DrawableGetter
 import java.util.regex.Pattern
+import android.view.ViewTreeObserver
 
 open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr),
 		BetterLinkMovementExtended.OnLinkClickListener,
-		BetterLinkMovementExtended.OnLinkLongClickListener {
+		BetterLinkMovementExtended.OnLinkLongClickListener, ViewTreeObserver.OnGlobalLayoutListener {
 
 	lateinit var betterLinkMovementMethod: BetterLinkMovementExtended
 
@@ -43,7 +44,7 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 		betterLinkMovementMethod = BetterLinkMovementExtended.linkifyHtml(this)
 		betterLinkMovementMethod.setOnLinkClickListener(this)
 		betterLinkMovementMethod.setOnLinkLongClickListener(this)
-
+		viewTreeObserver.addOnGlobalLayoutListener(this)
 	}
 
 	private fun render(html: CharSequence?) {
@@ -67,6 +68,9 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 
 	override fun onTouchEvent(event: MotionEvent): Boolean {
 		val action = event.actionMasked
+		if (action == MotionEvent.ACTION_CANCEL) {
+			betterLinkMovementMethod.isLongPress = false
+		}
 		if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_DOWN) {
 
 			var x = event.x.toInt()
@@ -84,6 +88,7 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 
 			val link = buffer.getSpans(off, off, ClickableSpan::class.java)
 			if (link.isNotEmpty()) {
+				betterLinkMovementMethod.isLongPress = true
 				betterLinkMovementMethod.onTouchEvent(this, buffer, event)
 				return true
 			}
@@ -119,6 +124,17 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 	override fun onClick(view: TextView, link: String, label: String): Boolean {
 		SchemeParser.launchUri(view.context, link, label)
 		return true
+	}
+
+	override fun onGlobalLayout() {
+		viewTreeObserver.removeOnGlobalLayoutListener(this)
+		if (lineCount >= maxLines) {
+			val lineEndIndex = layout.getLineEnd(maxLines - 1)
+			if (length() > lineEndIndex) {
+				val text = text.subSequence(0, lineEndIndex - 3).toString() + "..."
+				setText(text)
+			}
+		}
 	}
 
 	companion object {

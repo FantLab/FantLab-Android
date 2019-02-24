@@ -26,6 +26,7 @@ class BetterLinkMovementExtended private constructor(context: Context) : LinkMov
 	private var isUrlHighlighted: Boolean = false
 	private var touchStartedOverLink: Boolean = false
 	private var activeTextViewHashcode: Int = 0
+	var isLongPress = false
 
 	init {
 		gestureDetector = GestureDetector(context, clickGestureListener)
@@ -70,10 +71,11 @@ class BetterLinkMovementExtended private constructor(context: Context) : LinkMov
 
 			override fun onLongPress(e: MotionEvent) {
 				if (touchedClickableSpan != null && touchStartedOverLink) {
-					dispatchUrlLongClick(view, touchedClickableSpan)
+					if (isLongPress) {
+						dispatchUrlLongClick(view, touchedClickableSpan)
+					}
 					removeUrlHighlightColor(view)
 				}
-
 				touchStartedOverLink = false
 			}
 		}
@@ -166,13 +168,15 @@ class BetterLinkMovementExtended private constructor(context: Context) : LinkMov
 		val spanUrl = spanWithText.text()
 		val spanLabel = ClickableSpanWithText.label(textView, spanWithText.span())
 		if (spanWithText.span !is SpoilerSpan) {
-			val handled = this.onLinkClickListener != null && this.onLinkClickListener!!.onClick(
-					textView,
-					spanUrl,
-					spanLabel
-			)
-			if (!handled) {
-				spanWithText.span().onClick(textView)
+			if (spanLabel != null) {
+				val handled = this.onLinkClickListener != null && this.onLinkClickListener!!.onClick(
+						textView,
+						spanUrl,
+						spanLabel
+				)
+				if (!handled) {
+					spanWithText.span().onClick(textView)
+				}
 			}
 		} else {
 			spanWithText.span().onClick(textView)
@@ -186,7 +190,7 @@ class BetterLinkMovementExtended private constructor(context: Context) : LinkMov
 		val spanUrl = spanWithText.text()
 		val spanLabel = ClickableSpanWithText.label(textView, spanWithText.span())
 		if (onLinkLongClickListener != null && spanWithText.span !is SpoilerSpan) {
-			onLinkLongClickListener!!.onLongClick(textView, spanUrl, spanLabel)
+			if (spanLabel != null) onLinkLongClickListener!!.onLongClick(textView, spanUrl, spanLabel)
 		}
 	}
 
@@ -225,11 +229,11 @@ class BetterLinkMovementExtended private constructor(context: Context) : LinkMov
 				return BetterLinkMovementExtended.ClickableSpanWithText(span, text)
 			}
 
-			fun label(textView: TextView, span: ClickableSpan): String {
+			fun label(textView: TextView, span: ClickableSpan): String? {
 				val s = textView.text as Spanned
 				val start = s.getSpanStart(span)
 				val end = s.getSpanEnd(span)
-				return s.subSequence(start, end).toString().replace("\"", "")
+				return if (start != -1 && end != -1) s.subSequence(start, end).toString().replace("\"", "") else null
 			}
 		}
 	}
