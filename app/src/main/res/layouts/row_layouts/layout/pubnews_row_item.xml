@@ -61,11 +61,26 @@
 				/>
 
 			<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
+				android:id="@+id/publisher"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="start"
+				android:layout_marginEnd="@dimen/spacing_micro"
+				android:ellipsize="end"
+				android:gravity="start|center"
+				android:maxLines="4"
+				android:textColor="?android:attr/textColorSecondary"
+				tools:text="Издательство Марины Батасовой"
+				style="@style/TextAppearance.AppCompat.Subhead"
+				/>
+
+			<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 				android:id="@+id/description"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_gravity="start"
 				android:layout_marginEnd="@dimen/spacing_micro"
+				android:layout_marginTop="@dimen/spacing_micro"
 				android:ellipsize="end"
 				android:gravity="start|center"
 				android:maxLines="4"

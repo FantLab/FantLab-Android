@@ -10,6 +10,7 @@ import android.widget.TextView
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.ActivityHelper
 import ru.fantlab.android.helper.TypeFaceHelper
+import ru.fantlab.android.helper.ViewHelper
 import ru.fantlab.android.provider.handler.BetterLinkMovementExtended
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.provider.scheme.SchemeParser
@@ -33,6 +34,7 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 	private fun init() {
 		if (isInEditMode) return
 		TypeFaceHelper.applyTypeface(this)
+		setLinkTextColor(ViewHelper.getSecondaryTextColor(context))
 	}
 
 	private fun render(html: CharSequence?) {

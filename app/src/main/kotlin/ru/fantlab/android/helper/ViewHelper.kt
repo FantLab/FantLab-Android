@@ -46,6 +46,11 @@ object ViewHelper {
 		return getColorAttr(context, android.R.attr.textColorTertiary)
 	}
 
+	@ColorInt
+	fun getSecondaryTextColor(context: Context): Int {
+		return getColorAttr(context, android.R.attr.textColorSecondary)
+	}
+
 	fun tintDrawable(drawable: Drawable, @ColorInt color: Int) {
 		drawable.mutate().setColorFilter(color, PorterDuff.Mode.SRC_IN)
 	}
