@@ -11,6 +11,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.AuthorInList
 import ru.fantlab.android.data.dao.model.ContextMenus
+import ru.fantlab.android.helper.BundleConstant.EXTRA
 import ru.fantlab.android.ui.adapter.AuthorsAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
@@ -43,8 +44,9 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
+		val letter = intent.extras?.getString(EXTRA) ?: "all"
 		if (presenter.authors.isEmpty() && !presenter.isApiCalled()) {
-			presenter.onReload()
+			presenter.setCurrentSort(letter)
 		}
 		fastScroller.attachRecyclerView(recycler)
 	}

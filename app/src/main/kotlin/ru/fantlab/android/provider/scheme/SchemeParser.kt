@@ -5,9 +5,11 @@ import android.content.Intent
 import android.net.Uri
 import ru.fantlab.android.App
 import ru.fantlab.android.R
+import ru.fantlab.android.helper.BundleConstant.EXTRA
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DEFAULT
 import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
+import ru.fantlab.android.ui.modules.authors.AuthorsActivity
 import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
@@ -31,6 +33,9 @@ object SchemeParser {
 				}
 				"author", "autor" -> {
 					AuthorPagerActivity.startActivity(App.instance.applicationContext, id.toInt(), label, 0)
+				}
+				"autors" -> {
+					context.startActivity(Intent(context, AuthorsActivity::class.java).putExtra(EXTRA, id))
 				}
 				"award" -> {
 					AwardPagerActivity.startActivity(App.instance.applicationContext, id.toInt(), label, 0)
