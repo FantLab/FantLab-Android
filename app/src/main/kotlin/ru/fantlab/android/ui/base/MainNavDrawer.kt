@@ -99,7 +99,7 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 					}
 					R.id.authors -> view.startActivity(Intent(view, AuthorsActivity::class.java))
 					R.id.awards -> view.startActivity(Intent(view, AwardsActivity::class.java))
-					R.id.publishers -> view.startActivity(Intent(view, PublishersActivity::class.java))
+					//R.id.publishers -> view.startActivity(Intent(view, PublishersActivity::class.java))
 					R.id.plans -> view.startActivity(Intent(view, PlansPagerActivity::class.java))
 				}
 			}

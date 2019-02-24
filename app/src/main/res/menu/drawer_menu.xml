@@ -43,6 +43,7 @@
 			android:id="@+id/publishers"
 			android:icon="@drawable/ic_publishers"
 			android:title="@string/publishers"
+			android:visible="false"
 			/>
 
 		<item
