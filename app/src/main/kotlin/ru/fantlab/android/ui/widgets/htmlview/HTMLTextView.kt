@@ -3,8 +3,11 @@ package ru.fantlab.android.ui.widgets.htmlview
 import android.content.Context
 import android.support.v7.widget.AppCompatTextView
 import android.text.Html
+import android.text.SpannableString
+import android.text.style.ClickableSpan
 import android.util.AttributeSet
 import android.view.HapticFeedbackConstants
+import android.view.MotionEvent
 import android.widget.PopupMenu
 import android.widget.TextView
 import ru.fantlab.android.R
@@ -21,6 +24,8 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 		BetterLinkMovementExtended.OnLinkClickListener,
 		BetterLinkMovementExtended.OnLinkLongClickListener {
 
+	lateinit var betterLinkMovementMethod: BetterLinkMovementExtended
+
 	var html: CharSequence? = null
 		set(value) {
 			field = value
@@ -35,6 +40,10 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 		if (isInEditMode) return
 		TypeFaceHelper.applyTypeface(this)
 		setLinkTextColor(ViewHelper.getSecondaryTextColor(context))
+		betterLinkMovementMethod = BetterLinkMovementExtended.linkifyHtml(this)
+		betterLinkMovementMethod.setOnLinkClickListener(this)
+		betterLinkMovementMethod.setOnLinkLongClickListener(this)
+
 	}
 
 	private fun render(html: CharSequence?) {
@@ -54,13 +63,32 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 		} else {
 			Html.fromHtml(data, DrawableGetter(this, width), CustomTagHandler());
 		}
-		registerClickEvent(this)
 	}
 
-	private fun registerClickEvent(textView: TextView) {
-		val betterLinkMovementMethod = BetterLinkMovementExtended.linkifyHtml(textView)
-		betterLinkMovementMethod.setOnLinkClickListener(this)
-		betterLinkMovementMethod.setOnLinkLongClickListener(this)
+	override fun onTouchEvent(event: MotionEvent): Boolean {
+		val action = event.actionMasked
+		if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_DOWN) {
+
+			var x = event.x.toInt()
+			var y = event.y.toInt()
+			x -= totalPaddingLeft
+			y -= totalPaddingTop
+			x += scrollX
+			y += scrollY
+
+			val layout = layout
+			val line = layout.getLineForVertical(y)
+			val off = layout.getOffsetForHorizontal(line, x.toFloat())
+
+			val buffer = SpannableString(text)
+
+			val link = buffer.getSpans(off, off, ClickableSpan::class.java)
+			if (link.isNotEmpty()) {
+				betterLinkMovementMethod.onTouchEvent(this, buffer, event)
+				return true
+			}
+		}
+		return false
 	}
 
 	override fun onLongClick(view: TextView, link: String, label: String): Boolean {

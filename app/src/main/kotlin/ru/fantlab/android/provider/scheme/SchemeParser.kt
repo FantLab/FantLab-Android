@@ -22,7 +22,7 @@ import timber.log.Timber
 object SchemeParser {
 	fun launchUri(context: Context, url: String, label: String) {
 		val pattern = Regex("([a-z]+).*?(\\d+)(\\D|\\Z)")
-		val results = pattern.matchEntire(url.substringAfterLast("/").substringBefore("?"))?.groupValues
+		val results = pattern.matchEntire(url.substringAfterLast("/").substringBefore("?").substringBefore(":"))?.groupValues
 		if (results != null) {
 			val type = results[1]
 			val id = results[2]
@@ -48,12 +48,16 @@ object SchemeParser {
 				"user" -> {
 					UserPagerActivity.startActivity(App.instance.applicationContext, label, id.toInt(), 0)
 				}
+				"pub" -> {
+					// TODO изменить после появления возможности открыть издательство
+					val link = "${LinkParserHelper.PROTOCOL_HTTPS}://${LinkParserHelper.HOST_DEFAULT}/${url.replace("pub", "publisher").substringBefore(":")}"
+					openUrl(context, link)
+				}
 				else -> notRecognizedUrl(context, "$PROTOCOL_HTTPS://$HOST_DEFAULT/$type$id", type, id)
 			}
 		} else {
 			if (url.contains(HOST_DEFAULT)) {
-
-				val type = url.substringAfterLast("/").substringBefore("?")
+				val type = url.substringAfterLast("/").substringBefore("?").substringBefore(":")
 				when (type) {
 					"autors" -> {
 						context.startActivity(Intent(context, AuthorsActivity::class.java).putExtra(EXTRA, "all"))
