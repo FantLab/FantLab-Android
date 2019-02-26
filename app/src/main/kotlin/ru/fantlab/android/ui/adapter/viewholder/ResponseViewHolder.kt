@@ -5,8 +5,11 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.response_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.helper.getTimeAgo
 import ru.fantlab.android.helper.parseFullDate
+import ru.fantlab.android.ui.modules.work.CyclePagerActivity
+import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
@@ -23,6 +26,13 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 				.append(response.dateIso.parseFullDate(true).getTimeAgo())
 		itemView.info.setOnClickListener {
 			listener?.onOpenContextMenu(response)
+		}
+
+		itemView.coverLayout.setOnClickListener {
+			if (response.workTypeId == FantlabHelper.WorkType.CYCLE.id)
+				CyclePagerActivity.startActivity(itemView.context, response.workId, response.workName, 0)
+			else
+				WorkPagerActivity.startActivity(itemView.context, response.workId, response.workName, 0)
 		}
 
 		itemView.workName.text = if (response.workName.isNotEmpty()) {
