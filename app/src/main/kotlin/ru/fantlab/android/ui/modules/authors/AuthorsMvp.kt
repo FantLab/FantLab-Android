@@ -21,9 +21,9 @@ interface AuthorsMvp {
 	interface Presenter : BaseMvp.Presenter,
 			BaseViewHolder.OnItemClickListener<AuthorInList> {
 
-		fun setCurrentSort(sortValue: String)
+		fun setCurrentSort(sortValue: Int)
 
-		fun getCurrentSort(): String
+		fun getCurrentSort(): Int
 
 		fun onReload()
 	}

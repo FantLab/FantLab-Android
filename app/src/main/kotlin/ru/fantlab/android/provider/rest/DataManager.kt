@@ -12,7 +12,7 @@ object DataManager {
 
 	val gson = Gson()
 
-	fun getAuthors(sort: String): Single<AuthorsResponse> =
+	fun getAuthors(sort: Int): Single<AuthorsResponse> =
 			getAuthorsPath(sort)
 					.httpGet()
 					.rxObject(AuthorsResponse.Deserializer())
@@ -382,8 +382,8 @@ enum class AutplansSortOption(val value: String) {
 //endregion
 
 //region Urls
-fun getAuthorsPath(sort: String) =
-		"/autors$sort".toAbsolutePathWithApiVersion()
+fun getAuthorsPath(sort: Int) =
+		"/autors/$sort".toAbsolutePathWithApiVersion()
 
 fun getAwardsPath(
 		nonfant: Boolean,

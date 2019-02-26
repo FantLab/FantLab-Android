@@ -9,7 +9,6 @@
 		<item>ru</item>
 	</string-array>
 	<string-array name="alphabet_array" translatable="false">
-		<item>Все</item>
 		<item>А</item>
 		<item>Б</item>
 		<item>В</item>
@@ -40,8 +39,7 @@
 		<item>Ю</item>
 		<item>Я</item>
 	</string-array>
-	<string-array name="alphabet_array_id" translatable="false">
-		<item>all</item>
+	<integer-array name="alphabet_array_id" translatable="false">
 		<item>192</item>
 		<item>193</item>
 		<item>194</item>
@@ -71,7 +69,7 @@
 		<item>221</item>
 		<item>222</item>
 		<item>223</item>
-	</string-array>
+	</integer-array>
 	<string-array name="countries_array_id" translatable="false">
 		<item>0</item>
 		<item>1</item>

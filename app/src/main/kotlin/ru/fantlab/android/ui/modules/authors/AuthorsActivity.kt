@@ -44,7 +44,7 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		recycler.addKeyLineDivider()
-		val letter = intent.extras?.getString(EXTRA) ?: "all"
+		val letter = intent.extras?.getInt(EXTRA, 192) ?: 192
 		if (presenter.authors.isEmpty() && !presenter.isApiCalled()) {
 			presenter.setCurrentSort(letter)
 		}
@@ -114,6 +114,7 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 	}
 
 	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
-		presenter.setCurrentSort(item.id)
+		recycler?.scrollToPosition(0)
+		presenter.setCurrentSort(item.id.toInt())
 	}
 }

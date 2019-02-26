@@ -36,7 +36,7 @@ object SchemeParser {
 					AuthorPagerActivity.startActivity(context, id.toInt(), label, 0)
 				}
 				"autors" -> {
-					context.startActivity(Intent(context, AuthorsActivity::class.java).putExtra(EXTRA, id))
+					context.startActivity(Intent(context, AuthorsActivity::class.java).putExtra(EXTRA, id.toInt()))
 				}
 				"award" -> {
 					AwardPagerActivity.startActivity(context, id.toInt(), label, 0)

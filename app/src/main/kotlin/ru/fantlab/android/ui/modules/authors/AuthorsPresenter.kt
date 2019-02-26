@@ -12,7 +12,7 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class AuthorsPresenter : BasePresenter<AuthorsMvp.View>(), AuthorsMvp.Presenter {
 
-	var sort: String = "all"
+	var sort: Int = 192
 	var authors: ArrayList<AuthorInList> = ArrayList()
 		private set
 
@@ -47,7 +47,7 @@ class AuthorsPresenter : BasePresenter<AuthorsMvp.View>(), AuthorsMvp.Presenter 
 	private fun getAuthors(response: AuthorsResponse): ArrayList<AuthorInList> =
 			response.authors
 
-	override fun setCurrentSort(sortValue: String) {
+	override fun setCurrentSort(sortValue: Int) {
 		sort = sortValue
 		onReload()
 	}

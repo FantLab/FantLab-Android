@@ -109,13 +109,13 @@ object ContextMenuBuilder {
 		return items
 	}
 
-	fun buildForAuthorsSorting(context: Context, sort: String): ArrayList<ContextMenus> {
+	fun buildForAuthorsSorting(context: Context, sort: Int): ArrayList<ContextMenus> {
 		val items = ArrayList<ContextMenus>()
 
 		val actions = arrayListOf<ContextMenus.MenuItem>()
-		val alphabetIdsArray = context.resources.getStringArray(R.array.alphabet_array_id)
+		val alphabetIdsArray = context.resources.getIntArray(R.array.alphabet_array_id)
 		context.resources.getStringArray(R.array.alphabet_array).mapIndexed { index, title ->
-			actions.add(ContextMenus.MenuItem(title, null, alphabetIdsArray[index], selected = sort.equals(alphabetIdsArray[index])))
+			actions.add(ContextMenus.MenuItem(title, null, alphabetIdsArray[index].toString(), selected = sort == alphabetIdsArray[index]))
 		}
 
 		items.add(ContextMenus(context.getString(R.string.alphabet_authors), actions, "main"))
