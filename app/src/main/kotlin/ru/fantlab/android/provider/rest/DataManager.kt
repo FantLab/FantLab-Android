@@ -359,6 +359,7 @@ enum class PublishersSortOption(val value: String) {
 
 enum class PubnewsSortOption(val value: String) {
 	BY_DATE("date"),
+	BY_POPULARITY("popularity"),
 	BY_TYPE("type"),
 	BY_PUBLISHER("pub"),
 	BY_AUTHOR("author"),
@@ -367,6 +368,7 @@ enum class PubnewsSortOption(val value: String) {
 
 enum class PubplansSortOption(val value: String) {
 	BY_CORRECT("correct"),
+	BY_POPULARITY("popularity"),
 	BY_DATE("date"),
 	BY_TYPE("type"),
 	BY_PUBLISHER("pub"),
@@ -376,6 +378,7 @@ enum class PubplansSortOption(val value: String) {
 
 enum class AutplansSortOption(val value: String) {
 	BY_CORRECT("correct"),
+	BY_POPULARITY("popularity"),
 	BY_AUTHOR("author"),
 	BY_NAME("title")
 }
