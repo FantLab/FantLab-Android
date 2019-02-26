@@ -33,6 +33,6 @@ class LinksParserActivity : Activity() {
 	}
 
 	private fun onUriReceived(uri: Uri?) {
-		SchemeParser.launchUri(this, uri.toString().substringAfterLast("/").substringBefore("?"), "")
+		SchemeParser.launchUri(this, uri.toString(), "")
 	}
 }

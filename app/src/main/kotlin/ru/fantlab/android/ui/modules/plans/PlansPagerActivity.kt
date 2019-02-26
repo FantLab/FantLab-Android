@@ -42,8 +42,8 @@ class PlansPagerActivity : BaseActivity<PlansPagerMvp.View, BasePresenter<PlansP
 		if (savedInstanceState == null) {
 			index = intent?.extras?.getInt(BundleConstant.EXTRA, -1) ?: -1
 		}
-		setTaskName(getString(R.string.publishers))
-		title = getString(R.string.publishers)
+		setTaskName(getString(R.string.plans))
+		title = getString(R.string.plans)
 		selectMenuItem(R.id.plans, true)
 		val adapter = FragmentsPagerAdapter(
 				supportFragmentManager,

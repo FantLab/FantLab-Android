@@ -3,7 +3,6 @@ package ru.fantlab.android.provider.scheme
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import ru.fantlab.android.App
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.BundleConstant.EXTRA
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DEFAULT
@@ -28,25 +27,25 @@ object SchemeParser {
 			val id = results[2]
 			when (type) {
 				"work" -> {
-					WorkPagerActivity.startActivity(App.instance.applicationContext, id.toInt(), label, 0)
+					WorkPagerActivity.startActivity(context, id.toInt(), label, 0)
 				}
 				"edition" -> {
-					EditionPagerActivity.startActivity(App.instance.applicationContext, id.toInt(), label, 0)
+					EditionPagerActivity.startActivity(context, id.toInt(), label, 0)
 				}
 				"author", "autor" -> {
-					AuthorPagerActivity.startActivity(App.instance.applicationContext, id.toInt(), label, 0)
+					AuthorPagerActivity.startActivity(context, id.toInt(), label, 0)
 				}
 				"autors" -> {
 					context.startActivity(Intent(context, AuthorsActivity::class.java).putExtra(EXTRA, id))
 				}
 				"award" -> {
-					AwardPagerActivity.startActivity(App.instance.applicationContext, id.toInt(), label, 0)
+					AwardPagerActivity.startActivity(context, id.toInt(), label, 0)
 				}
 				"cycle" -> {
-					CyclePagerActivity.startActivity(App.instance.applicationContext, id.toInt(), label, 0)
+					CyclePagerActivity.startActivity(context, id.toInt(), label, 0)
 				}
 				"user" -> {
-					UserPagerActivity.startActivity(App.instance.applicationContext, label, id.toInt(), 0)
+					UserPagerActivity.startActivity(context, label, id.toInt(), 0)
 				}
 				"pub" -> {
 					// TODO изменить после появления возможности открыть издательство
@@ -66,13 +65,13 @@ object SchemeParser {
 						context.startActivity(Intent(context, AwardsActivity::class.java))
 					}
 					"pubnews" -> {
-						PlansPagerActivity.startActivity(App.instance.applicationContext, 0)
+						PlansPagerActivity.startActivity(context, 0)
 					}
 					"pubplans" -> {
-						PlansPagerActivity.startActivity(App.instance.applicationContext, 1)
+						PlansPagerActivity.startActivity(context, 1)
 					}
 					"autplans" -> {
-						PlansPagerActivity.startActivity(App.instance.applicationContext, 2)
+						PlansPagerActivity.startActivity(context, 2)
 					}
 					else -> openUrl(context, url)
 				}
