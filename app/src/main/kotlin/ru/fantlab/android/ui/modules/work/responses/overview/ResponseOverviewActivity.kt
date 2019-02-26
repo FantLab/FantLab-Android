@@ -89,12 +89,8 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		} else {
 			response.workNameOrig
 		}
-		workName.setOnClickListener {
-			if (response.workTypeId == FantlabHelper.WorkType.CYCLE.id)
-				CyclePagerActivity.startActivity(this, response.workId, response.workName, 0)
-			else
-				WorkPagerActivity.startActivity(this, response.workId, response.workName, 0)
-		}
+		headerView.setOnClickListener { openWorkPager(response) }
+		workName.setOnClickListener { openWorkPager(response) }
 
 		text.html = response.text
 
@@ -126,6 +122,13 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		} else {
 			fab.visibility = View.GONE
 		}
+	}
+
+	private fun openWorkPager(response: Response) {
+		if (response.workTypeId == FantlabHelper.WorkType.CYCLE.id)
+			CyclePagerActivity.startActivity(this, response.workId, response.workName, 0)
+		else
+			WorkPagerActivity.startActivity(this, response.workId, response.workName, 0)
 	}
 
 	fun onFabClicked() {
