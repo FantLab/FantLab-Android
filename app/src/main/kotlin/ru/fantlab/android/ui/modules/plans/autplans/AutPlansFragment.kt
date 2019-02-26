@@ -125,6 +125,7 @@ class AutPlansFragment : BaseFragment<AutPlansMvp.View, AutPlansPresenter>(),
 	}
 
 	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
+		recycler?.scrollToPosition(0)
 		when (item.id) {
 			"sort" -> {
 				presenter.setCurrentSort(AutplansSortOption.values()[position], null)

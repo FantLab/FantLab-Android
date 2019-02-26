@@ -84,6 +84,7 @@ class PublishersActivity : BaseActivity<PublishersMvp.View, PublishersPresenter>
 	}
 
 	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
+		recycler?.scrollToPosition(0)
 		when (item.id) {
 			"sort" -> {
 				presenter.setCurrentSort(PublishersSortOption.values()[position], null, null)

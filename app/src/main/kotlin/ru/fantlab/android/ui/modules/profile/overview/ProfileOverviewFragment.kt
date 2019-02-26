@@ -51,7 +51,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 					.append(")")
 		}
 		login.text = user.login
-		avatarLayout.setUrl("https://${user.avatar}")
+		avatarLayout.setUrl("https:${user.avatar}")
 		val userLevel = numberFormat.format(user.level.toDouble())
 		val maxClassLevel = numberFormat.format(classRanges[user.`class`].toLong())
 		level.text = StringBuilder()

@@ -44,7 +44,7 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 
 	private fun setupView(view: View) {
 		if (userModel != null) {
-			view.navAvatarLayout.setUrl("https://${userModel.avatar}")
+			view.navAvatarLayout.setUrl("https:${userModel.avatar}")
 			view.navUsername.text = userModel.login
 			val navFullName = view.navFullName
 			if (userModel.fio.isBlank()) {
