@@ -52,6 +52,8 @@ class AuthorsPresenter : BasePresenter<AuthorsMvp.View>(), AuthorsMvp.Presenter 
 		onReload()
 	}
 
+	override fun getCurrentSort() = sort
+
 	override fun onItemClick(position: Int, v: View?, item: AuthorInList) {
 		sendToView { it.onItemClicked(item) }
 	}

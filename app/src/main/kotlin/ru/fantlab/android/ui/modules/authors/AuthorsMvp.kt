@@ -23,6 +23,8 @@ interface AuthorsMvp {
 
 		fun setCurrentSort(sortValue: String)
 
+		fun getCurrentSort(): String
+
 		fun onReload()
 	}
 }

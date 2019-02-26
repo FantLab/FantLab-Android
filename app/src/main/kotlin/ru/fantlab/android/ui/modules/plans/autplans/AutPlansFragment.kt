@@ -141,13 +141,15 @@ class AutPlansFragment : BaseFragment<AutPlansMvp.View, AutPlansPresenter>(),
 
 	fun showSortDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("sort", ContextMenuBuilder.buildForAutplansSorting(recycler.context))
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("sort", ContextMenuBuilder.buildForAutplansSorting(recycler.context, sort.sortBy))
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 
 	fun showFilterDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("filter", ContextMenuBuilder.buildForAutplansFilter(recycler.context))
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("filter", ContextMenuBuilder.buildForAutplansFilter(recycler.context, sort.filterLang))
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 

@@ -143,13 +143,15 @@ class PubplansFragment : BaseFragment<PubplansMvp.View, PubplansPresenter>(),
 
 	fun showSortDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("sort", ContextMenuBuilder.buildForPubplansSorting(recycler.context))
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("sort", ContextMenuBuilder.buildForPubplansSorting(recycler.context, sort.sortBy))
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 
 	fun showFilterDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("filter", ContextMenuBuilder.buildForPubplansFilter(recycler.context, presenter.publishers))
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("filter", ContextMenuBuilder.buildForPubplansFilter(recycler.context, presenter.publishers, sort.filterLang, sort.filterPublisher))
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 

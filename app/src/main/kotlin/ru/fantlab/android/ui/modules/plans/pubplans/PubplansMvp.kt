@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.plans.pubplans
 
 import android.support.v4.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Pubplans
+import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.provider.rest.PubplansSortOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.base.mvp.BaseMvp
@@ -32,5 +33,7 @@ interface PubplansMvp {
 		fun getPubplans(page: Int, force: Boolean)
 
 		fun setCurrentSort(sortBy: PubplansSortOption?, filterLang: String?, filterPublisher: String?)
+
+		fun getCurrentSort(): FantlabHelper.PubplansSort<PubplansSortOption, Int, Int>
 	}
 }

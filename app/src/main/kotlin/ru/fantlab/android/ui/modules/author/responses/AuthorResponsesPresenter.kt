@@ -79,6 +79,8 @@ class AuthorResponsesPresenter : BasePresenter<AuthorResponsesMvp.View>(),
 		onCallApi(1, authorId)
 	}
 
+	override fun getCurrentSort() = sort
+
 	override fun onSendVote(responseId: Int, voteType: String, position: Int) {
 		makeRestCall(
 				voteInternal(responseId, voteType).toObservable(),

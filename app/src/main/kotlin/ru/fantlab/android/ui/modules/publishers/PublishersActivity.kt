@@ -91,10 +91,10 @@ class PublishersActivity : BaseActivity<PublishersMvp.View, PublishersPresenter>
 			else -> {
 				when (parent) {
 					"countries" -> {
-						presenter.setCurrentSort(null, item.id, null)
+						presenter.setCurrentSort(null, item.id.toInt(), null)
 					}
 					"category" -> {
-						presenter.setCurrentSort(null, null, item.id)
+						presenter.setCurrentSort(null, null, item.id.toInt())
 					}
 				}
 			}
@@ -137,13 +137,15 @@ class PublishersActivity : BaseActivity<PublishersMvp.View, PublishersPresenter>
 
 	fun showSortDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("sort", ContextMenuBuilder.buildForPublishersSorting(recycler.context))
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("sort", ContextMenuBuilder.buildForPublishersSorting(recycler.context, sort.sortBy))
 		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 	}
 
 	fun showFilterDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("filter", ContextMenuBuilder.buildForPublishersFilter(recycler.context))
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("filter", ContextMenuBuilder.buildForPublishersFilter(recycler.context, sort.filterCategory, sort.filterCountry))
 		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 	}
 

@@ -108,7 +108,8 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 
 	private fun showSortDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForAuthorsSorting(recycler.context))
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("main", ContextMenuBuilder.buildForAuthorsSorting(recycler.context, sort))
 		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 	}
 

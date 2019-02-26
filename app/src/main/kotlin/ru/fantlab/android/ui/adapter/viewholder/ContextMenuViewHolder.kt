@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.adapter.viewholder
 
+import android.graphics.Typeface
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.context_row_item.view.*
@@ -19,6 +20,11 @@ class ContextMenuViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Context
 		} else itemView.icon.visibility = View.GONE
 
 		itemView.title.text = item.title
+		if (item.selected)
+			itemView.title.setTypeface(itemView.title.typeface, Typeface.BOLD)
+		else
+			itemView.title.setTypeface(itemView.title.typeface, Typeface.NORMAL)
+
 	}
 
 	companion object {

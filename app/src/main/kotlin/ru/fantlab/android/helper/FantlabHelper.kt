@@ -37,25 +37,25 @@ object FantlabHelper {
 		TYPE_TIME("time")
 	}
 
-	data class PublishersAllSort<A, B, C>(
+	data class PublishersSort<A, B, C>(
 			var sortBy: A,
 			var filterCountry: B,
 			var filterCategory: C
 	)
 
-	data class PublishersPubnewsSort<A, B, C>(
+	data class PubnewsSort<A, B, C>(
 			var sortBy: A,
 			var filterLang: B,
 			var filterPublisher: C
 	)
 
-	data class PublishersPubplansSort<A, B, C>(
+	data class PubplansSort<A, B, C>(
 			var sortBy: A,
 			var filterLang: B,
 			var filterPublisher: C
 	)
 
-	data class PublishersAutPlansSort<A, B, C>(
+	data class AutPlansSort<A, B>(
 			var sortBy: A,
 			var filterLang: B
 	)

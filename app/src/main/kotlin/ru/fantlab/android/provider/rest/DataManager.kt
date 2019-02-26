@@ -269,7 +269,7 @@ object DataManager {
 			countryId: Int = 0,
 			type: Int = 0
 	): Single<PublishersResponse> =
-			getPublishersAllPath(page, sort, countryId, type)
+			getPublishersPath(page, sort, countryId, type)
 					.httpGet()
 					.rxObject(PublishersResponse.Deserializer(perPage = 250))
 					.map { it.get() }
@@ -280,7 +280,7 @@ object DataManager {
 			lang: Int,
 			pubId: Int
 	): Single<PubnewsResponse> =
-			getPublisherPubnewsPath(page, sort, lang, pubId)
+			getPubnewsPath(page, sort, lang, pubId)
 					.httpGet()
 					.rxObject(PubnewsResponse.Deserializer())
 					.map { it.get() }
@@ -292,7 +292,7 @@ object DataManager {
 			lang: Int,
 			pubId: Int
 	): Single<PubplansResponse> =
-			getPublisherPubplansPath(page, sort, lang, pubId)
+			getPubplansPath(page, sort, lang, pubId)
 					.httpGet()
 					.rxObject(PubplansResponse.Deserializer())
 					.map { it.get() }
@@ -302,7 +302,7 @@ object DataManager {
 			sort: String = AutplansSortOption.BY_CORRECT.value,
 			lang: Int
 	): Single<AutplansResponse> =
-			getPublisherAutplansPath(page, sort, lang)
+			getAutplansPath(page, sort, lang)
 					.httpGet()
 					.rxObject(AutplansResponse.Deserializer())
 					.map { it.get() }
@@ -540,28 +540,28 @@ fun getLastResponsesPath(
 		page: Int = 1
 ) = "/responses?page=$page".toAbsolutePathWithApiVersion()
 
-fun getPublishersAllPath(
+fun getPublishersPath(
 		page: Int,
 		sort: String,
 		countryId: Int,
 		type: Int
 ) = "/publishers.json?page=$page&sort=$sort&country_id=$countryId&type=$type".toAbsolutePath()
 
-fun getPublisherPubnewsPath(
+fun getPubnewsPath(
 		page: Int,
 		sort: String,
 		lang: Int,
 		pubId: Int
 ) = "/pubnews.json?page=$page&lang=$lang&sort=$sort&pub_id=$pubId".toAbsolutePath()
 
-fun getPublisherPubplansPath(
+fun getPubplansPath(
 		page: Int,
 		sort: String,
 		lang: Int,
 		pubId: Int
 ) = "/pubplans.json?page=$page&lang=$lang&sort=$sort&pub_id=$pubId".toAbsolutePath()
 
-fun getPublisherAutplansPath(
+fun getAutplansPath(
 		page: Int,
 		sort: String,
 		lang: Int

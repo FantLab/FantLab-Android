@@ -95,6 +95,8 @@ class WorkResponsesPresenter : BasePresenter<WorkResponsesMvp.View>(),
 		onCallApi(1, workId)
 	}
 
+	override fun getCurrentSort() = sort
+
 	override fun onItemClick(position: Int, v: View?, item: Response) {
 		sendToView { it.onItemClicked(item) }
 	}

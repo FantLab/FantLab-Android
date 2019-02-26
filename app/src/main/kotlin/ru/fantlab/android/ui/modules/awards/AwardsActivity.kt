@@ -53,7 +53,7 @@ class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMv
 
 	fun showSortDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForAwardsSorting(recycler.context))
+		dialogView.initArguments("main", ContextMenuBuilder.buildForAwardsSorting(recycler.context, presenter.sort))
 		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 	}
 

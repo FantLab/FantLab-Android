@@ -148,7 +148,8 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 
 	fun showSortDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting(recycler.context))
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting(recycler.context, sort))
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 

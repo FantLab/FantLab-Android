@@ -17,6 +17,7 @@ data class ContextMenus(
 			val title: String,
 			val icon: Int?,
 			val id: String,
-			val logged: Boolean = false
+			val logged: Boolean = false,
+			val selected: Boolean = false
 	) : Parcelable
 }

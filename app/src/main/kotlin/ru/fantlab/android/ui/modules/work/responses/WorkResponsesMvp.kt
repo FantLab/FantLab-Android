@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.work.responses
 
 import android.support.v4.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.provider.rest.ResponsesSortOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.viewholder.WorkResponseViewHolder
 import ru.fantlab.android.ui.base.mvp.BaseMvp
@@ -38,5 +39,7 @@ interface WorkResponsesMvp {
 		fun onSendVote(item: Response, position: Int, voteType: String)
 
 		fun setCurrentSort(sortValue: String)
+
+		fun getCurrentSort(): ResponsesSortOption
 	}
 }

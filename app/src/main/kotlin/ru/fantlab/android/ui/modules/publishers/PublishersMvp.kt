@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.publishers
 
 import android.support.v4.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Publishers
+import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.provider.rest.PublishersSortOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.base.mvp.BaseMvp
@@ -31,6 +32,9 @@ interface PublishersMvp {
 
 		fun getPublishers(page: Int, force: Boolean)
 
-		fun setCurrentSort(sortBy: PublishersSortOption?, filterCountry: String?, filterCategory: String?)
+		fun setCurrentSort(sortBy: PublishersSortOption?, filterCountry: Int?, filterCategory: Int?)
+
+		fun getCurrentSort(): FantlabHelper.PublishersSort<PublishersSortOption, Int, Int>
+
 	}
 }
