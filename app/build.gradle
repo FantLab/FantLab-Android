@@ -9,7 +9,7 @@ ext {
 	min_sdk = 21
 	compile_sdk = 27
 	target_sdk = 27
-	version_code = 19
+	version_code = 20
 	version_name = '0.1.7'
 
 	annotations = '16.0.2'
