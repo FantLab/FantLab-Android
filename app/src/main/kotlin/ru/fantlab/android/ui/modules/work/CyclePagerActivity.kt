@@ -26,6 +26,7 @@ import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.editor.EditorActivity
+import ru.fantlab.android.ui.modules.work.overview.WorkOverviewFragment
 import ru.fantlab.android.ui.modules.work.responses.WorkResponsesFragment
 import java.text.NumberFormat
 import java.util.*
@@ -45,6 +46,8 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 	private val numberFormat = NumberFormat.getNumberInstance()
 	private lateinit var toolbarMenu: Menu
 	private var isError = false
+	@State var mark: Int = 0
+	@State var isMarked: Boolean = false
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
@@ -144,11 +147,17 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 
 	private fun hideShowFab(position: Int) {
 		when (position) {
+			0 -> {
+				if (isLoggedIn()) {
+					fab.setImageResource(R.drawable.ic_star)
+					fab.show()
+				} else fab.hide()
+			}
 			2 -> {
 				if (isLoggedIn()) {
 					fab.setImageResource(R.drawable.ic_response)
 					fab.show()
-				}
+				} else fab.hide()
 			}
 			else -> fab.hide()
 		}
@@ -184,6 +193,10 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 
 	private fun onFabClicked() {
 		when (pager.currentItem) {
+			0 -> {
+				val fragment = pager.adapter?.instantiateItem(pager, 0) as? WorkOverviewFragment
+				fragment?.showMarkDialog()
+			}
 			2 -> {
 				startActivity(Intent(this, EditorActivity::class.java)
 						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_RESPONSE)
@@ -225,7 +238,11 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 	}
 
 	override fun onSetMarked(isMarked: Boolean, mark: Int) {
+		this.isMarked = isMarked
+		this.mark = mark
 	}
 
-	override fun onGetMark(): Int? = -1
+	override fun onGetMark(): Int {
+		return mark
+	}
 }
