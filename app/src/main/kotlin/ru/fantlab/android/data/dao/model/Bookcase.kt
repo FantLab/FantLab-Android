@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Keep
 @Parcelize
 data class Bookcase (
-        val id: String,
-        val name: String,
-        val description: String
+    val id: String,
+    val name: String,
+    val description: String
 ) : Parcelable
