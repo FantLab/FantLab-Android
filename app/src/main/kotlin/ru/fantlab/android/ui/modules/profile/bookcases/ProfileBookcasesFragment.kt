@@ -17,6 +17,7 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.BookcasesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.bookcases.editions.BookcaseEditionsActivity
 import ru.fantlab.android.ui.modules.user.UserPagerMvp
 import ru.fantlab.android.ui.widgets.StateLayout
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
@@ -95,7 +96,9 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
     }
 
     override fun onItemClicked(item: Bookcase) {
-        //ResponseOverviewActivity.startActivity(context!!, item)
+        /// TODO: replace with the real call
+        BookcaseEditionsActivity.startActivity(context!!, 3056)
+        //BookcaseEditionsActivity.startActivity(context!!, item.id)
     }
 
     override fun onRefresh() {

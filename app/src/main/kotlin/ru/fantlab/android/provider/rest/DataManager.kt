@@ -205,6 +205,15 @@ object DataManager {
 					.rx_object(BookcasesResponse.Deserializer(perPage = 50))
 					.map { it.get() }
 
+	fun getBookcaseEditions(
+			bookcaseId: Int,
+			offset: Int = 0
+	): Single<BookcaseEditionsResponse> =
+			getBookcaseEditionsPath(bookcaseId, offset)
+					.httpGet()
+					.rx_object(BookcaseEditionsResponse.Deserializer(perPage = 50))
+					.map { it.get() }
+
 	fun sendUserMark(
 			workId: Int,
 			toWorkId: Int,
@@ -618,6 +627,11 @@ fun getUserBookcasesPath(
 		userId: Int,
 		page: Int = 1
 ) = "/user/$userId/bookcases?page=$page".toAbsolutePathWithApiVersion()
+
+fun getBookcaseEditionsPath(
+		bookcaseId: Int,
+		offset: Int = 0
+) = "/bookcasechange$bookcaseId?offset=$offset&type=edition".toAbsolutePath()
 
 fun sendUserMarkPath(
 		workId: Int,
