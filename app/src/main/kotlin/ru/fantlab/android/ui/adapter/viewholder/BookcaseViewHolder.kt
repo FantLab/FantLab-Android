@@ -18,7 +18,7 @@ class BookcaseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Bookcase, 
     @BindView(R.id.bookcaseDescription) lateinit var bookcaseDescription: FontTextView
 
     override fun bind(bookcase: Bookcase) {
-        coverLayout?.setUrl(null)
+        coverLayout?.setUrl("http://www.fantlab.ru/img/bc_mybooks.gif")
 
         bookcaseName.text = bookcase.name
 
