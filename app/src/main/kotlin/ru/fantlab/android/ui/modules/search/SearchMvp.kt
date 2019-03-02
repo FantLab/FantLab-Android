@@ -1,8 +1,8 @@
 package ru.fantlab.android.ui.modules.search
 
-import android.support.annotation.IntRange
-import android.support.v4.view.ViewPager
 import android.widget.AutoCompleteTextView
+import androidx.annotation.IntRange
+import androidx.viewpager.widget.ViewPager
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import java.util.*
 

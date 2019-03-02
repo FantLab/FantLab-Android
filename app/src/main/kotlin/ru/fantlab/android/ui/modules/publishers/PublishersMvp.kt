@@ -1,6 +1,6 @@
 package ru.fantlab.android.ui.modules.publishers
 
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Publishers
 import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.provider.rest.PublishersSortOption

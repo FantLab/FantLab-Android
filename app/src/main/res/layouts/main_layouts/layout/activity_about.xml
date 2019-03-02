@@ -11,7 +11,7 @@
 
 	<include layout="@layout/appbar_start_margin" />
 
-	<android.support.v7.widget.CardView
+	<androidx.cardview.widget.CardView
 		android:id="@+id/aboutView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -226,9 +226,9 @@
 			</RelativeLayout>
 
 		</LinearLayout>
-	</android.support.v7.widget.CardView>
+	</androidx.cardview.widget.CardView>
 
-	<android.support.v7.widget.CardView
+	<androidx.cardview.widget.CardView
 		android:id="@+id/versionView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -292,6 +292,6 @@
 
 		</LinearLayout>
 
-	</android.support.v7.widget.CardView>
+	</androidx.cardview.widget.CardView>
 
 </LinearLayout>

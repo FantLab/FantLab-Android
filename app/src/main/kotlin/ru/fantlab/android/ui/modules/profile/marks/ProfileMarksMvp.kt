@@ -1,6 +1,6 @@
 package ru.fantlab.android.ui.modules.profile.marks
 
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Mark
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.base.mvp.BaseMvp

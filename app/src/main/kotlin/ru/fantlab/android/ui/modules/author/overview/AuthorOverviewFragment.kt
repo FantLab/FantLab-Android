@@ -2,10 +2,9 @@ package ru.fantlab.android.ui.modules.author.overview
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.text.Html
 import android.view.View
-import android.widget.ImageView
+import androidx.annotation.StringRes
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.author_overview_layout.*
@@ -19,10 +18,6 @@ import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
-import ru.fantlab.android.ui.widgets.CoverLayout
-import ru.fantlab.android.ui.widgets.FontTextView
-import ru.fantlab.android.ui.widgets.StateLayout
-import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 
 class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOverviewPresenter>(),
 		AuthorOverviewMvp.View {
@@ -138,7 +133,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 		super.showMessage(titleRes, msgRes)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is AuthorPagerMvp.View) {
 			pagerCallback = context

@@ -2,8 +2,8 @@ package ru.fantlab.android.ui.modules.award.overview
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.View
+import androidx.annotation.StringRes
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.award_overview_layout.*
@@ -127,7 +127,7 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 		super.showMessage(titleRes, msgRes)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is AwardPagerMvp.View) {
 			pagerCallback = context

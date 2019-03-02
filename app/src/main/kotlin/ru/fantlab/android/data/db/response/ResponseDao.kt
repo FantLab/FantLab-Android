@@ -1,9 +1,9 @@
 package ru.fantlab.android.data.db.response
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import io.reactivex.Single
 import ru.fantlab.android.BuildConfig
 import ru.fantlab.android.helper.PrefGetter

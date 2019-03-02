@@ -1,13 +1,13 @@
 package ru.fantlab.android.ui.widgets
 
 import android.content.Context
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation
 import it.sephiroth.android.library.bottomnavigation.MiscUtils
 
@@ -23,7 +23,7 @@ class FloatingActionButtonBehavior : CoordinatorLayout.Behavior<FloatingActionBu
 		// super.onAttachedToLayoutParams(lp);
 	}
 
-	override fun layoutDependsOn(parent: CoordinatorLayout?, child: FloatingActionButton?, dependency: View?): Boolean {
+	override fun layoutDependsOn(parent: CoordinatorLayout, child: FloatingActionButton, dependency: View): Boolean {
 		if (BottomNavigation::class.java.isInstance(dependency)) {
 			return true
 		} else if (Snackbar.SnackbarLayout::class.java.isInstance(dependency)) {
@@ -32,7 +32,7 @@ class FloatingActionButtonBehavior : CoordinatorLayout.Behavior<FloatingActionBu
 		return super.layoutDependsOn(parent, child, dependency)
 	}
 
-	override fun onDependentViewChanged(parent: CoordinatorLayout, child: FloatingActionButton, dependency: View?): Boolean {
+	override fun onDependentViewChanged(parent: CoordinatorLayout, child: FloatingActionButton, dependency: View): Boolean {
 		MiscUtils.log(TAG, Log.INFO, "onDependentViewChanged: " + dependency!!)
 		val list = parent.getDependencies(child)
 		val params = child.layoutParams as ViewGroup.MarginLayoutParams

@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.widgets
 
-import android.support.v4.view.ViewPager
 import android.view.View
+import androidx.viewpager.widget.ViewPager
 
 class CardsPagerTransformerBasic(private val baseElevation: Int, private val raisingElevation: Int) :
 		ViewPager.PageTransformer {

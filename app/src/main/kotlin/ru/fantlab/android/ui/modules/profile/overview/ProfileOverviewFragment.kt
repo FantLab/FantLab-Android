@@ -2,11 +2,11 @@ package ru.fantlab.android.ui.modules.profile.overview
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.TooltipCompat
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.annotation.StringRes
+import androidx.appcompat.widget.TooltipCompat
 import kotlinx.android.synthetic.main.profile_overview_icons_layout.*
 import kotlinx.android.synthetic.main.profile_overview_layout.*
 import kotlinx.android.synthetic.main.state_layout.*
@@ -169,7 +169,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		}
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is UserPagerMvp.View) {
 			pagerCallback = context

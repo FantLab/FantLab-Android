@@ -1,7 +1,6 @@
 package ru.fantlab.android.ui.widgets.htmlview
 
 import android.content.Context
-import android.support.v7.widget.AppCompatTextView
 import android.text.Html
 import android.text.SpannableString
 import android.text.style.ClickableSpan
@@ -20,6 +19,7 @@ import ru.fantlab.android.provider.scheme.SchemeParser
 import ru.fantlab.android.ui.widgets.htmlview.drawable.DrawableGetter
 import java.util.regex.Pattern
 import android.view.ViewTreeObserver
+import androidx.appcompat.widget.AppCompatTextView
 
 open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr),
 		BetterLinkMovementExtended.OnLinkClickListener,

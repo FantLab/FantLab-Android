@@ -2,14 +2,14 @@ package ru.fantlab.android.ui.widgets
 
 import android.app.Dialog
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewPager
+import androidx.core.content.ContextCompat
 import android.view.MotionEvent
 import android.view.View
 import android.view.Window
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.viewpager.widget.ViewPager
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.SliderModel
 import ru.fantlab.android.ui.adapter.SliderAdapter

@@ -1,8 +1,8 @@
 package ru.fantlab.android.ui.adapter.viewholder
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.edition_content_parent_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.EditionContentParent

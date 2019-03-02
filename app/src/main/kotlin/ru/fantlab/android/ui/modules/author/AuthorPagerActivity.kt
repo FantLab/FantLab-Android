@@ -6,12 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
+import androidx.viewpager.widget.ViewPager
 import com.evernote.android.state.State
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.appbar_tabbed_elevation.*
 import kotlinx.android.synthetic.main.tabbed_pager_layout.*
 import ru.fantlab.android.R
@@ -27,7 +26,6 @@ import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.author.responses.AuthorResponsesFragment
-import ru.fantlab.android.ui.widgets.ViewPagerView
 import java.text.NumberFormat
 import java.util.*
 

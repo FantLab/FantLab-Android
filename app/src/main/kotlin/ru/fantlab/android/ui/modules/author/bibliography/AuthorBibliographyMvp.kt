@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.modules.author.bibliography
 
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.MarkMini
 import ru.fantlab.android.data.dao.model.WorksBlocks
 import ru.fantlab.android.ui.base.mvp.BaseMvp

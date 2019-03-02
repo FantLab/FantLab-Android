@@ -2,12 +2,12 @@ package ru.fantlab.android.ui.widgets
 
 import android.graphics.Typeface.BOLD
 import android.graphics.drawable.Drawable
-import android.support.annotation.ColorInt
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.TextPaint
 import android.text.style.*
 import android.view.View
+import androidx.annotation.ColorInt
 import ru.fantlab.android.helper.InputHelper
 
 /**

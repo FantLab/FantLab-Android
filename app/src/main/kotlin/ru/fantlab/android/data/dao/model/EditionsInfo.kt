@@ -1,7 +1,7 @@
 package ru.fantlab.android.data.dao.model
 
 import android.os.Parcelable
-import android.support.annotation.Keep
+import androidx.annotation.Keep
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.JsonParser
 import com.google.gson.annotations.SerializedName

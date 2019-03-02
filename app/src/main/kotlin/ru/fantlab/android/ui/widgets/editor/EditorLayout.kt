@@ -2,13 +2,13 @@ package ru.fantlab.android.ui.widgets.editor
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.design.widget.Snackbar
-import android.support.transition.TransitionManager
-import android.support.v4.app.FragmentManager
 import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.fragment.app.FragmentManager
+import androidx.transition.TransitionManager
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.editor_buttons_layout.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Smile

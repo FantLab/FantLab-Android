@@ -3,10 +3,10 @@ package ru.fantlab.android.helper
 import android.content.Context
 import android.content.res.Resources
 import android.os.Build
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import java.util.*
 
 

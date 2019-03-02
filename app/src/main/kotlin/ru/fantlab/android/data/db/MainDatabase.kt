@@ -1,7 +1,7 @@
 package ru.fantlab.android.data.db
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 import ru.fantlab.android.data.db.response.Response
 import ru.fantlab.android.data.db.response.ResponseDao
 import ru.fantlab.android.data.db.response.Search

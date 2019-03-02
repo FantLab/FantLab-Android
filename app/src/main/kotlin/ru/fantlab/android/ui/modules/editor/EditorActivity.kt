@@ -3,13 +3,13 @@ package ru.fantlab.android.ui.modules.editor
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v4.app.FragmentManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.widget.EditText
+import androidx.annotation.StringRes
+import androidx.fragment.app.FragmentManager
 import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.editor_buttons_layout.view.*
 import kotlinx.android.synthetic.main.editor_layout.*

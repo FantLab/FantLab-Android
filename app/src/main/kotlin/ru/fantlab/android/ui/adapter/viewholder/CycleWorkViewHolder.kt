@@ -1,13 +1,12 @@
 package ru.fantlab.android.ui.adapter.viewholder
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.author_cycle_work_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.CycleWork
 import ru.fantlab.android.helper.InputHelper
-import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import ru.fantlab.android.ui.widgets.treeview.TreeViewBinder

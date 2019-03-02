@@ -2,9 +2,9 @@ package ru.fantlab.android.ui.modules.plans.autplans
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -47,13 +47,13 @@ class AutPlansFragment : BaseFragment<AutPlansMvp.View, AutPlansPresenter>(),
 		presenter.onCallApi(1, null)
 		fastScroller.attachRecyclerView(recycler)
 		recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-			override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-				publisherCallback?.onScrolled(dy > 0);
+			override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+				publisherCallback?.onScrolled(dy > 0)
 			}
 		})
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is PlansPagerMvp.View) {
 			publisherCallback = context

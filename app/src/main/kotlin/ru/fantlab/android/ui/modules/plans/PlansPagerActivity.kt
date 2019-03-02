@@ -5,10 +5,10 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import android.view.Menu
 import android.view.MenuItem
 import com.evernote.android.state.State
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.appbar_tabbed_elevation.*
 import kotlinx.android.synthetic.main.tabbed_pager_layout.*
 import ru.fantlab.android.R

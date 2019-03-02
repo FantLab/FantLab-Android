@@ -1,11 +1,11 @@
 package ru.fantlab.android.ui.modules.publishers
 
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.publishers_layout.*
 import kotlinx.android.synthetic.main.state_layout.*
@@ -52,8 +52,8 @@ class PublishersActivity : BaseActivity<PublishersMvp.View, PublishersPresenter>
 		presenter.onCallApi(1, null)
 		fastScroller.attachRecyclerView(recycler)
 		recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-			override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-				onScrolled(dy > 0);
+			override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+				onScrolled(dy > 0)
 			}
 		})
 		fab.setImageResource(R.drawable.ic_filter)

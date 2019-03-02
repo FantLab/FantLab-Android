@@ -3,8 +3,8 @@ package ru.fantlab.android.ui.widgets.dialog
 import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.simple_list_dialog.*
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.BundleConstant
@@ -13,10 +13,7 @@ import ru.fantlab.android.ui.adapter.SimpleListAdapter
 import ru.fantlab.android.ui.base.BaseDialogFragment
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
-import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 import java.util.*
 
 class ListDialogView<T : Parcelable> : BaseDialogFragment<BaseMvp.View, BasePresenter<BaseMvp.View>>(), BaseViewHolder.OnItemClickListener<T> {
@@ -76,7 +73,7 @@ class ListDialogView<T : Parcelable> : BaseDialogFragment<BaseMvp.View, BasePres
 				.end()
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (parentFragment != null && parentFragment is ListDialogViewActionCallback) {
 			callbacks = parentFragment as ListDialogViewActionCallback

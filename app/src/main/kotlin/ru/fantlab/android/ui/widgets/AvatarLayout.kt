@@ -1,19 +1,18 @@
 package ru.fantlab.android.ui.widgets
 
 import android.content.Context
-import android.support.annotation.AttrRes
-import android.support.annotation.DrawableRes
-import android.support.annotation.StyleRes
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import androidx.annotation.AttrRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.StyleRes
 import cn.gavinliu.android.lib.shapedimageview.ShapedImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.image_layout.view.*
 import ru.fantlab.android.R
-import ru.fantlab.android.helper.PrefGetter
 
 /**
  * Created by Kosh on 14 Nov 2016, 7:59 PM

@@ -6,13 +6,13 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
-import android.support.annotation.ColorInt
-import android.support.design.widget.TabLayout
 import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.ColorInt
+import com.google.android.material.tabs.TabLayout
 import ru.fantlab.android.R
 
 object ViewHelper {

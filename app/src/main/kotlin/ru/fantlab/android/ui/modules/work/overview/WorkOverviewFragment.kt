@@ -2,8 +2,8 @@ package ru.fantlab.android.ui.modules.work.overview
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.View
+import androidx.annotation.StringRes
 import kotlinx.android.synthetic.main.state_layout.*
 import kotlinx.android.synthetic.main.work_overview_layout.*
 import ru.fantlab.android.R
@@ -217,7 +217,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		presenter.onSendMark((listItem as Work).id, rating.toInt())
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is WorkPagerMvp.View) {
 			pagerCallback = context

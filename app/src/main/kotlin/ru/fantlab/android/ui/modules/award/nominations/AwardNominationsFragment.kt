@@ -2,9 +2,8 @@ package ru.fantlab.android.ui.modules.award.nominations
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
+import androidx.annotation.StringRes
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -14,9 +13,6 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.AwardNominationsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.award.AwardPagerMvp
-import ru.fantlab.android.ui.widgets.StateLayout
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 
 class AwardNominationsFragment : BaseFragment<AwardNominationsMvp.View, AwardNominationsPresenter>(),
 		AwardNominationsMvp.View {
@@ -92,7 +88,7 @@ class AwardNominationsFragment : BaseFragment<AwardNominationsMvp.View, AwardNom
 		countCallback?.onSetBadge(2, allCount)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is AwardPagerMvp.View) {
 			countCallback = context

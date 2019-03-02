@@ -1,10 +1,10 @@
 package ru.fantlab.android.ui.modules.authors
 
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.StringRes
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R

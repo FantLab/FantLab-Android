@@ -6,13 +6,13 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.ScaleDrawable
 import android.os.Parcelable
-import android.support.annotation.ColorInt
-import android.support.annotation.DrawableRes
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
+import androidx.appcompat.widget.AppCompatTextView
 import com.crashlytics.android.Crashlytics
 import com.evernote.android.state.State
 import com.evernote.android.state.StateSaver

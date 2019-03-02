@@ -2,8 +2,8 @@ package ru.fantlab.android.ui.modules.work.analogs
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.View
+import androidx.annotation.StringRes
 import kotlinx.android.synthetic.main.analogs_list.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.WorkAnalog
@@ -13,7 +13,6 @@ import ru.fantlab.android.ui.adapter.AnalogsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 
 class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresenter>(),
 		WorkAnalogsMvp.View {
@@ -68,7 +67,7 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 		}
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is WorkPagerMvp.View) {
 			countCallback = context

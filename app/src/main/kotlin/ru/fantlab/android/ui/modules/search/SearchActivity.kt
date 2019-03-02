@@ -2,11 +2,11 @@ package ru.fantlab.android.ui.modules.search
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import com.evernote.android.state.State
+import com.google.android.material.tabs.TabLayout
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.search_layout.*
 import ru.fantlab.android.R
