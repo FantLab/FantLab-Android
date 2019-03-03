@@ -208,8 +208,11 @@ object DataManager {
 			login: String,
 			password: String
 	): Single<Response> =
-			loginPath(login, password)
-					.httpPost()
+			loginPath()
+					.httpPost(listOf(
+							"login" to login,
+							"password" to password
+					))
 					.rxResponsePair()
 					.map { it.first }
 
@@ -530,10 +533,7 @@ fun sendClassificationPath(
 		query: String
 ) = "/genrevote$workId?$query".toAbsolutePath()
 
-fun loginPath(
-		login: String,
-		password: String
-) = "/login?login=$login&password=$password".toAbsolutePath()
+fun loginPath() = "/login".toAbsolutePath()
 
 fun getUserIdPath(
 		login: String
