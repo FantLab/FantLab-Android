@@ -60,7 +60,6 @@
 								android:layout_height="@dimen/keyline_1"
 								android:layout_gravity="top"
 								android:layout_marginEnd="@dimen/avatar_margin_end"
-								android:transitionName="@string/icon_transition"
 								/>
 
 							<LinearLayout
@@ -75,7 +74,6 @@
 									android:layout_width="match_parent"
 									android:layout_height="wrap_content"
 									android:textStyle="bold"
-									android:transitionName="@string/title_transition"
 									tools:text="Львов Алексей"
 									style="@style/Base.TextAppearance.AppCompat.Medium"
 									/>
@@ -85,7 +83,6 @@
 									android:layout_width="match_parent"
 									android:layout_height="wrap_content"
 									android:textStyle="bold"
-									android:transitionName="@string/title_transition"
 									tools:text="creator"
 									style="@style/Base.TextAppearance.AppCompat.Title"
 									/>
@@ -94,7 +91,6 @@
 									android:id="@+id/level"
 									android:layout_width="match_parent"
 									android:layout_height="wrap_content"
-									android:transitionName="@string/title_transition"
 									tools:text="философ, 3868.54 из 4000"
 									style="@style/Base.TextAppearance.AppCompat.Subhead"
 									/>

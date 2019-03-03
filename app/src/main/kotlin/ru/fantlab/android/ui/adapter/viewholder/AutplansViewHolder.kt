@@ -11,7 +11,6 @@ import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
 import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
-import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
@@ -41,15 +40,21 @@ class AutplansViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Autplans.O
 
 		itemView.type.text = autplan.workType.capitalize()
 
-		if (!InputHelper.isEmpty(autplan.saga.workType) || !InputHelper.isNullEmpty(autplan.saga.workId)) {
-			val saga = StringBuilder()
-			if (!InputHelper.isEmpty(autplan.saga.workType)) saga.append(autplan.saga.workType.capitalize()).append(" ")
-			saga.append("[work=${autplan.saga.workId}]")
-					.append(itemView.name.text.toString())
-					.append("[/work]")
-			itemView.saga.html = saga
+		if (!autplan.saga.workType.isEmpty() && autplan.saga.workId != "0") {
+			val sagaName = buildString {
+				if (!autplan.saga.workType.isEmpty()) {
+					append(autplan.saga.workType.capitalize())
+					append(" ")
+				}
+				append("[work=${autplan.saga.workId}]")
+				append(autplan.saga.rusname ?: autplan.saga.name)
+				append("[/work]")
+			}
+			itemView.saga.html = sagaName
 			itemView.saga.visibility = View.VISIBLE
-		} else itemView.saga.visibility = View.GONE
+		} else {
+			itemView.saga.visibility = View.GONE
+		}
 
 		if (!InputHelper.isEmpty(autplan.year)) {
 			itemView.date.text = autplan.year

@@ -68,14 +68,6 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 			} else title2.text = award.name
 		}
 
-
-		/*val data = award.description
-				.replace("\\[(.*?)\\]".toRegex(), "<$1>")
-				.replace("<(autor|work|edition|person|user|art|dictor|series|film|translator|pub)=(.*?)>(.*?)<\\/.*>".toRegex(RegexOption.IGNORE_CASE), "<a href=\"$1$2\">$3</a>")
-				.replace("<(link|url)=(.*?)>(.*?)<\\/.*>".toRegex(RegexOption.IGNORE_CASE), "<a href=\"$2\">$3</a>")
-		description.text = Html.fromHtml(data, null, CustomTagHandler())
-		println(data)*/
-
 		if (!InputHelper.isEmpty(award.description))
 			description.html = award.description
 		else aboutView.visibility = View.GONE

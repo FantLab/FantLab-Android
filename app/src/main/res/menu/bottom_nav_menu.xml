@@ -18,19 +18,19 @@
 		/>
 
 	<item
+		android:id="@+id/pubnews"
+		android:color="?colorPrimary"
+		android:contentDescription="@string/pubnew"
+		android:icon="@drawable/ic_new"
+		android:title="@string/pubnew"
+		/>
+
+	<item
 		android:id="@+id/responses"
 		android:color="?colorPrimary"
 		android:contentDescription="@string/responses"
 		android:icon="@drawable/ic_response"
 		android:title="@string/responses"
-		/>
-
-	<item
-		android:id="@+id/forum"
-		android:color="?colorPrimary"
-		android:contentDescription="@string/forum"
-		android:icon="@drawable/ic_forum"
-		android:title="@string/forum"
 		/>
 
 </menu>

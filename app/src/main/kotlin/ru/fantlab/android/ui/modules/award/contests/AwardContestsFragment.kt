@@ -3,7 +3,6 @@ package ru.fantlab.android.ui.modules.award.contests
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
@@ -20,10 +19,7 @@ import ru.fantlab.android.ui.adapter.viewholder.ConstsWorkViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.award.AwardPagerMvp
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
-import ru.fantlab.android.ui.widgets.StateLayout
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.layoutManager.StaggeredManager
-import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import java.util.*
@@ -45,7 +41,6 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
-		recycler.addDivider()
 		presenter.onFragmentCreated(arguments!!)
 	}
 

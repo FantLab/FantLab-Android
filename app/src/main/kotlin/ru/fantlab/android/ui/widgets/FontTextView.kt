@@ -24,7 +24,7 @@ import ru.fantlab.android.helper.ViewHelper
 /**
  * Created by Kosh on 8/18/2015. copyrights are reserved
  */
-class FontTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+open class FontTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
 		AppCompatTextView(context, attrs, defStyleAttr) {
 
 	@State

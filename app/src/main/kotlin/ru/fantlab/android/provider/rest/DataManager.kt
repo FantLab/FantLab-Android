@@ -3,7 +3,9 @@ package ru.fantlab.android.provider.rest
 import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
-import com.github.kittinunf.fuel.rx.*
+import com.github.kittinunf.fuel.rx.rxObject
+import com.github.kittinunf.fuel.rx.rxResponsePair
+import com.github.kittinunf.fuel.rx.rxString
 import com.google.gson.Gson
 import io.reactivex.Single
 import ru.fantlab.android.data.dao.response.*
@@ -306,6 +308,24 @@ object DataManager {
 					.httpGet()
 					.rxObject(AutplansResponse.Deserializer())
 					.map { it.get() }
+
+	fun getNews(
+			page: Int = 1,
+			perPage: Int = 15
+	): Single<NewsResponse> =
+			getNewsPath(page, perPage)
+					.httpGet()
+					.rxObject(NewsResponse.Deserializer(perPage = perPage))
+					.map { it.get() }
+
+	fun getContest(
+			contestId: Int,
+			includeWorks: Boolean
+	): Single<ContestResponse> =
+			getContestPath(contestId, includeWorks)
+					.httpGet()
+					.rxObject(ContestResponse.Deserializer())
+					.map { it.get() }
 }
 
 //region Sort options
@@ -548,27 +568,37 @@ fun getPublishersPath(
 		sort: String,
 		countryId: Int,
 		type: Int
-) = "/publishers.json?page=$page&sort=$sort&country_id=$countryId&type=$type".toAbsolutePath()
+) = "/publishers?page=$page&sort=$sort&country_id=$countryId&type=$type".toAbsolutePathWithApiVersion()
 
 fun getPubnewsPath(
 		page: Int,
 		sort: String,
 		lang: Int,
 		pubId: Int
-) = "/pubnews.json?page=$page&lang=$lang&sort=$sort&pub_id=$pubId".toAbsolutePath()
+) = "/pubnews?page=$page&lang=$lang&sort=$sort&pub_id=$pubId".toAbsolutePathWithApiVersion()
 
 fun getPubplansPath(
 		page: Int,
 		sort: String,
 		lang: Int,
 		pubId: Int
-) = "/pubplans.json?page=$page&lang=$lang&sort=$sort&pub_id=$pubId".toAbsolutePath()
+) = "/pubplans?page=$page&lang=$lang&sort=$sort&pub_id=$pubId".toAbsolutePathWithApiVersion()
 
 fun getAutplansPath(
 		page: Int,
 		sort: String,
 		lang: Int
-) = "/autplans.json?page=$page&sort=$sort&lang=$lang".toAbsolutePath()
+) = "/autplans?page=$page&sort=$sort&lang=$lang".toAbsolutePathWithApiVersion()
+
+fun getNewsPath(
+		page: Int,
+		perPage: Int
+) = "/news?page=$page&mpp=$perPage".toAbsolutePathWithApiVersion()
+
+fun getContestPath(
+		contestId: Int,
+		includeWorks: Boolean
+) = "/contest/$contestId?include_works=${includeWorks.toInt()}".toAbsolutePathWithApiVersion()
 //endregion
 
 //region Utils

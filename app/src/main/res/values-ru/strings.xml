@@ -178,6 +178,7 @@
 	<string name="alphabet_authors">Авторы на букву</string>
 	<string name="alphabet_sort">Авторы по алфавиту</string>
 	<string name="publishers_news">Новинки фантастики</string>
+	<string name="pubnew">Новинки</string>
 	<string name="publishers_plans">Планы издательств</string>
 	<string name="publishers">Издательства</string>
 	<string name="publishers_autplans">Планы авторов</string>

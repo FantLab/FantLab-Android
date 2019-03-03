@@ -104,6 +104,10 @@
 			android:parentActivityName=".ui.modules.main.MainActivity"
 			/>
 		<activity
+			android:name=".ui.modules.main.news.overview.NewsOverviewActivity"
+			android:parentActivityName=".ui.modules.main.MainActivity"
+			/>
+		<activity
 			android:name=".ui.modules.settings.SettingsActivity"
 			android:configChanges="keyboard|orientation|screenSize"
 			/>

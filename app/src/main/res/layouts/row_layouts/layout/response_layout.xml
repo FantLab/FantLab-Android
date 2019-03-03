@@ -16,7 +16,7 @@
 		android:layout_height="match_parent"
 		>
 
-		<include layout="@layout/appbar_start_margin" />
+		<include layout="@layout/appbar" />
 
 		<android.support.v4.widget.NestedScrollView
 			android:id="@+id/parentView"

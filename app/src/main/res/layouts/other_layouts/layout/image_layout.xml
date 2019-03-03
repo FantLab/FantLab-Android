@@ -17,7 +17,6 @@
 			android:background="?selectableItemBackgroundBorderless"
 			android:scaleType="centerCrop"
 			android:src="?colorPrimaryDark"
-			android:transitionName="@string/icon_transition"
 			/>
 
 		<ru.fantlab.android.ui.widgets.Dot

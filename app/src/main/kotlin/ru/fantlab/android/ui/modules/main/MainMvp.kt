@@ -7,6 +7,8 @@ import ru.fantlab.android.ui.base.mvp.BaseMvp
 interface MainMvp {
 
 	enum class NavigationType {
+		NEWS,
+		NEWFICTION,
 		RESPONSES
 	}
 

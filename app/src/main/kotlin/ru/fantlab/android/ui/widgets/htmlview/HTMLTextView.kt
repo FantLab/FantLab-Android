@@ -20,8 +20,9 @@ import ru.fantlab.android.provider.scheme.SchemeParser
 import ru.fantlab.android.ui.widgets.htmlview.drawable.DrawableGetter
 import java.util.regex.Pattern
 import android.view.ViewTreeObserver
+import ru.fantlab.android.ui.widgets.FontTextView
 
-open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr),
+open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : FontTextView(context, attrs, defStyleAttr),
 		BetterLinkMovementExtended.OnLinkClickListener,
 		BetterLinkMovementExtended.OnLinkLongClickListener, ViewTreeObserver.OnGlobalLayoutListener {
 

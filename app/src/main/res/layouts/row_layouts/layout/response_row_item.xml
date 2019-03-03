@@ -95,7 +95,7 @@
 					android:textColor="?android:attr/textColorSecondary"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="8"
-					style="@style/TextAppearance.AppCompat.Caption"
+					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -110,7 +110,7 @@
 					android:textColor="?android:attr/textColorSecondary"
 					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="4"
-					style="@style/TextAppearance.AppCompat.Caption"
+					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
 			</ru.fantlab.android.ui.widgets.FlowLayout>

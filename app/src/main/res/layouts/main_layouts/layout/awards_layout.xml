@@ -15,7 +15,7 @@
 		android:layout_height="match_parent"
 		>
 
-		<include layout="@layout/appbar_start_margin" />
+		<include layout="@layout/appbar" />
 
 		<include layout="@layout/micro_grid_refresh_list" />
 

@@ -213,6 +213,7 @@
 	<string name="alphabet_authors">Authors by letter</string>
 	<string name="alphabet_sort">Alphabetical authors</string>
 	<string name="publishers_news">New fiction</string>
+	<string name="pubnew">New</string>
 	<string name="publishers_plans">Publishing plans</string>
 	<string name="publishers_autplans">Authors plans</string>
 	<string name="publishers">Publishers</string>

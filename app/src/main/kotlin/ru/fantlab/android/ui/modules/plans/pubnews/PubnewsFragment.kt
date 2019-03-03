@@ -157,6 +157,7 @@ class PubnewsFragment : BaseFragment<PubnewsMvp.View, PubnewsPresenter>(),
 	}
 
 	companion object {
+		val TAG: String = PubnewsFragment::class.java.simpleName
 
 		fun newInstance(): PubnewsFragment {
 			val view = PubnewsFragment()

@@ -7,7 +7,6 @@
 	android:layout_margin="@dimen/grid_spacing"
 	android:foreground="?android:selectableItemBackground"
 	android:paddingBottom="@dimen/spacing_normal"
-	android:paddingEnd="@dimen/spacing_xs_large"
 	android:paddingTop="@dimen/spacing_normal"
 	tools:ignore="RtlSymmetry"
 	>
@@ -16,9 +15,7 @@
 		android:id="@+id/icon"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="20dp"
 		android:padding="10dp"
-		android:paddingEnd="@dimen/spacing_large"
 		android:src="@drawable/ic_trophy"
 		/>
 
@@ -34,16 +31,16 @@
 		/>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
-		android:id="@+id/description"
+		android:id="@+id/place"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/title"
 		android:layout_toEndOf="@+id/icon"
 		android:paddingBottom="2dp"
 		android:paddingTop="2dp"
-		tools:text="@string/app_name"
-		style="@style/TextAppearance.AppCompat.Subhead"
 		android:textColor="?android:attr/textColorSecondary"
+		tools:text="1 место"
+		style="@style/TextAppearance.AppCompat.Subhead"
 		/>
 
 </ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

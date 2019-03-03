@@ -9,7 +9,7 @@
 	tools:context=".ui.modules.about.AboutActivity"
 	>
 
-	<include layout="@layout/appbar_start_margin" />
+	<include layout="@layout/appbar" />
 
 	<android.support.v7.widget.CardView
 		android:id="@+id/aboutView"

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="?android:selectableItemBackground"
+	android:paddingEnd="@dimen/spacing_normal"
+	android:paddingStart="@dimen/spacing_normal"
+	android:paddingTop="@dimen/spacing_normal"
+	tools:ignore="RtlSymmetry"
+	>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/category"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_gravity="center"
+		android:layout_marginEnd="@dimen/spacing_micro"
+		android:layout_marginStart="@dimen/spacing_micro"
+		android:background="@drawable/category"
+		android:gravity="center"
+		android:textColor="?android:attr/textColorSecondary"
+		tools:text="На сайте"
+		style="@style/TextAppearance.AppCompat.Subhead"
+		/>
+
+	<android.support.v7.widget.CardView
+		android:id="@+id/topView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/category"
+		android:layout_marginTop="@dimen/spacing_micro"
+		app:cardBackgroundColor="?card_background"
+		app:cardElevation="1dp"
+		app:cardUseCompatPadding="true"
+		app:cardCornerRadius="0dp"
+		>
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:orientation="vertical"
+			android:padding="@dimen/spacing_normal"
+			>
+
+			<ImageView
+				android:id="@+id/coverLayout"
+				android:layout_width="72dp"
+				android:layout_height="108dp"
+				android:layout_alignParentEnd="true"
+				android:scaleType="fitCenter"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/title"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="@dimen/spacing_micro"
+				android:layout_marginEnd="@dimen/spacing_normal"
+				android:layout_marginTop="@dimen/spacing_micro"
+				android:layout_toStartOf="@+id/coverLayout"
+				android:textColor="?android:textColorPrimary"
+				android:textStyle="bold"
+				tools:text="Восьмая нога бога"
+				style="@style/TextAppearance.AppCompat.Medium"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/newsText"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/title"
+				android:layout_marginBottom="@dimen/spacing_micro"
+				android:layout_marginEnd="@dimen/spacing_micro"
+				android:layout_marginStart="@dimen/spacing_micro"
+				android:layout_marginTop="@dimen/spacing_micro"
+				android:layout_toStartOf="@+id/coverLayout"
+				android:ellipsize="end"
+				android:maxLines="4"
+				android:textColor="?android:attr/textColorSecondary"
+				tools:text="Громова привлекла к сотрудничеству с издательством таких авторов, как: Ю.М. Лотман, Н.Я. Эйдельман, К.Н. Тарновский, А.Л. Осповат, Р.Д. Тименчик, М.О. Чудакова, Н.Н. Покровский, Ю.В. Манн. Благодаря Громовой были основаны важнейшие для издательства серии и продолжающиеся издания; выходили сборники художественных произведений о книге, чтении, книжниках разных стран и эпох: «Корабли мысли», «Лучезарный феникс», «Очарованные книгой», «Зеркало мира», «Листая вечные страницы», «Библиотека в саду». Благодаря ей состоялась и стала популярной серия «Писатели о писателях»."
+				style="@style/TextAppearance.AppCompat.Subhead"
+				/>
+
+
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/newsText"
+				android:layout_marginTop="@dimen/spacing_micro"
+				android:gravity="center_vertical"
+				android:orientation="horizontal"
+				>
+
+				<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
+					android:id="@+id/author"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:layout_marginEnd="@dimen/spacing_micro"
+					android:drawablePadding="@dimen/spacing_micro"
+					android:drawableStart="@drawable/ic_profile"
+					android:gravity="start|center"
+					android:textColor="?android:attr/textColorSecondary"
+					app:drawableColor="?android:attr/textColorSecondary"
+					tools:text="volga"
+					style="@style/TextAppearance.AppCompat.Subhead"
+					/>
+
+
+				<View
+					android:id="@+id/cycleDivider"
+					android:layout_width="4dp"
+					android:layout_height="4dp"
+					android:layout_marginEnd="@dimen/spacing_micro"
+					android:background="@drawable/cycle"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/date"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:layout_marginEnd="@dimen/spacing_micro"
+					android:gravity="start|center"
+					android:textColor="?android:attr/textColorSecondary"
+					tools:text="23.02.2019"
+					style="@style/TextAppearance.AppCompat.Subhead"
+					/>
+
+			</LinearLayout>
+		</RelativeLayout>
+
+	</android.support.v7.widget.CardView>
+
+</RelativeLayout>

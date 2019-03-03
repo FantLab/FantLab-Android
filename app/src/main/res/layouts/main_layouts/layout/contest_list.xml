@@ -5,24 +5,17 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	app:layout_behavior="@string/scroll_behavior"
+	tools:ignore="MergeRootFrame"
 	android:orientation="vertical"
-	tools:context=".ui.modules.settings.SettingsActivity"
 	>
-
-	<include layout="@layout/appbar" />
 
 	<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 		android:id="@+id/recycler"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		app:layoutManager="@string/staggered_layout_manager"
-		app:spanCount="@integer/micro_spans"
-		/>
-
-	<FrameLayout
-		android:id="@+id/settingsContainer"
-		android:layout_width="match_parent"
 		android:layout_height="match_parent"
+		app:layoutManager="@string/staggered_layout_manager"
+		tools:listitem="@layout/contest_row_item"
 		/>
 
 </LinearLayout>
