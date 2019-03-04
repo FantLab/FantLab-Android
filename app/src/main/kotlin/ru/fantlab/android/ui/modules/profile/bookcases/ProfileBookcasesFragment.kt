@@ -22,7 +22,6 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
         ProfileBookcasesMvp.View {
 
     @State var userId: Int = -1
-    private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, userId) }
     private val adapter: BookcasesAdapter by lazy { BookcasesAdapter(arrayListOf()) }
     private var countCallback: UserPagerMvp.View? = null
 
@@ -34,57 +33,31 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
         if (savedInstanceState == null) {
             stateLayout.hideProgress()
         }
+        userId = arguments!!.getInt(BundleConstant.EXTRA)
         stateLayout.setEmptyText(R.string.no_responses)
         stateLayout.setOnReloadListener(this)
         refresh.setOnRefreshListener(this)
         recycler.setEmptyView(stateLayout, refresh)
+        fastScroller.attachRecyclerView(recycler)
+        presenter.onFragmentCreated(arguments!!)
+    }
+
+    override fun onInitViews(items: ArrayList<Bookcase>?) {
+        hideProgress()
+        if (items != null) {
+            onSetTabCount(items.size)
+            initAdapter(items)
+        }
+    }
+
+    private fun initAdapter(items: ArrayList<Bookcase>) {
         adapter.listener = presenter
         recycler.adapter = adapter
         recycler.addKeyLineDivider()
-        userId = arguments!!.getInt(BundleConstant.EXTRA)
-        getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
-        recycler.addOnScrollListener(getLoadMore())
-        presenter.getBookcases(userId, false)
-        fastScroller.attachRecyclerView(recycler)
+        adapter.insertItems(items)
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is UserPagerMvp.View) {
-            countCallback = context
-        }
-    }
-
-    override fun onDetach() {
-        countCallback = null
-        super.onDetach()
-    }
-
-    override fun onDestroyView() {
-        recycler.removeOnScrollListener(getLoadMore())
-        super.onDestroyView()
-    }
-
-    override fun onNotifyAdapter(items: ArrayList<Bookcase>, page: Int) {
-        hideProgress()
-        if (items.isEmpty()) {
-            adapter.clear()
-            return
-        }
-        if (page <= 1) {
-            adapter.insertItems(items)
-        } else {
-            adapter.addItems(items)
-        }
-    }
-
-    override fun getLoadMore() = onLoadMore
-
-    override fun onSetTabCount(count: Int) {
-        countCallback?.onSetBadge(2, count)
-    }
-
-    override fun onItemClicked(item: Bookcase) {
+    override fun onItemClicked(item: Bookcase, position: Int) {
         /// TODO: replace with the real call
         BookcaseEditionsActivity.startActivity(context!!, 3056)
         //BookcaseEditionsActivity.startActivity(context!!, item.id)
@@ -96,6 +69,10 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
 
     override fun onClick(v: View?) {
         onRefresh()
+    }
+
+    override fun onSetTabCount(allCount: Int) {
+        countCallback?.onSetBadge(3, allCount)
     }
 
     override fun hideProgress() {
@@ -121,6 +98,19 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
         hideProgress()
         stateLayout.showReload(adapter.itemCount)
     }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (context is UserPagerMvp.View) {
+            countCallback = context
+        }
+    }
+
+    override fun onDetach() {
+        countCallback = null
+        super.onDetach()
+    }
+
 
     companion object {
 

@@ -9,5 +9,6 @@ import kotlinx.android.parcel.Parcelize
 data class Bookcase (
     val id: String,
     val name: String,
-    val description: String
+    val description: String,
+    val type: String
 ) : Parcelable

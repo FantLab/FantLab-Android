@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.profile.bookcases
 
+import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Bookcase
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
@@ -13,18 +14,17 @@ interface ProfileBookcasesMvp {
             android.view.View.OnClickListener,
             ContextMenuDialogView.ListDialogViewActionCallback {
 
-        fun onNotifyAdapter(items: ArrayList<Bookcase>, page: Int)
+        fun onInitViews(items: ArrayList<Bookcase>?)
 
-        fun getLoadMore(): OnLoadMore<Int>
+        fun onSetTabCount(allCount: Int)
 
-        fun onSetTabCount(count: Int)
-
-        fun onItemClicked(item: Bookcase)
+        fun onItemClicked(item: Bookcase, position: Int)
     }
 
     interface Presenter : BaseMvp.Presenter,
-            BaseViewHolder.OnItemClickListener<Bookcase>,
-            BaseMvp.PaginationListener<Int> {
+            BaseViewHolder.OnItemClickListener<Bookcase> {
+
+        fun onFragmentCreated(bundle: Bundle)
 
         fun getBookcases(userId: Int, force: Boolean)
     }
