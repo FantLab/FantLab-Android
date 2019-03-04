@@ -80,7 +80,8 @@ class ProfileBookcasesPresenter : BasePresenter<ProfileBookcasesMvp.View>(),
         sendToView { it.onItemClicked(item) }
     }
 
-    override fun onItemLongClick(position: Int, v: View?, item: Bookcase?) {
+    override fun onItemLongClick(position: Int, v: View?, item: Bookcase) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun getCurrentPage(): Int = page

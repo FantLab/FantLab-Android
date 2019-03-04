@@ -6,8 +6,8 @@ import ru.fantlab.android.ui.adapter.viewholder.BookcaseEditionViewHolder
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class BookcaseEditionsAdapter constructor(editions: ArrayList<BookcaseEdition>)
-    : BaseRecyclerAdapter<BookcaseEdition, BookcaseEditionViewHolder, BaseViewHolder.OnItemClickListener<BookcaseEdition>>(editions) {
+class BookcaseEditionsAdapter(nom: ArrayList<BookcaseEdition>?)
+    : BaseRecyclerAdapter<BookcaseEdition, BookcaseEditionViewHolder>(nom!!) {
 
     override fun viewHolder(parent: ViewGroup, viewType: Int): BookcaseEditionViewHolder =
             BookcaseEditionViewHolder.newInstance(parent, this)
@@ -16,3 +16,4 @@ class BookcaseEditionsAdapter constructor(editions: ArrayList<BookcaseEdition>)
         holder.bind(getItem(position))
     }
 }
+

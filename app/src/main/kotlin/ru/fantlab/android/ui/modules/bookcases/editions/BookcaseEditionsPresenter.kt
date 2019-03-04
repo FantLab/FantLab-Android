@@ -11,7 +11,6 @@ import ru.fantlab.android.provider.rest.getBookcaseEditionsPath
 import ru.fantlab.android.provider.storage.DbProvider
 
 class BookcaseEditionsPresenter : BasePresenter<BookcaseEditionsMvp.View>(), BookcaseEditionsMvp.Presenter {
-
     override fun getEditions(force: Boolean, bookcaseId: Int) {
         makeRestCall(
                 getEditionsInternal(force, bookcaseId).toObservable(),
@@ -47,6 +46,8 @@ class BookcaseEditionsPresenter : BasePresenter<BookcaseEditionsMvp.View>(), Boo
         sendToView { it.onItemClicked(item) }
     }
 
-    override fun onItemLongClick(position: Int, v: View?, item: BookcaseEdition?) {
+    override fun onItemLongClick(position: Int, v: View?, item: BookcaseEdition) {
+        TODO("not implemented")
     }
+
 }

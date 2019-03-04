@@ -6,12 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.support.v4.widget.SwipeRefreshLayout
 import android.view.Menu
 import android.view.View
 import android.view.MenuItem
 import ru.fantlab.android.R
-import butterknife.BindView
+import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
+import kotlinx.android.synthetic.main.state_layout.*
 import com.evernote.android.state.State
 import ru.fantlab.android.helper.*
 import ru.fantlab.android.data.dao.model.BookcaseEdition
@@ -19,16 +19,8 @@ import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.ui.adapter.BookcaseEditionsAdapter
 import ru.fantlab.android.ui.base.BaseActivity
-import ru.fantlab.android.ui.widgets.StateLayout
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 
 class BookcaseEditionsActivity : BaseActivity<BookcaseEditionsMvp.View, BookcaseEditionsPresenter>(), BookcaseEditionsMvp.View {
-
-    @BindView(R.id.recycler) lateinit var recycler: DynamicRecyclerView
-    @BindView(R.id.refresh) lateinit var refresh: SwipeRefreshLayout
-    @BindView(R.id.stateLayout) lateinit var stateLayout: StateLayout
-    @BindView(R.id.fastScroller) lateinit var fastScroller: RecyclerViewFastScroller
 
     @State var bookcaseId: Int = 0
 
@@ -92,8 +84,8 @@ class BookcaseEditionsActivity : BaseActivity<BookcaseEditionsMvp.View, Bookcase
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onItemSelected(item: ContextMenus.MenuItem, listItem: Any, position: Int) {
-        //presenter.sort = AwardsSortOption.valueOf(item.id)
+    override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onNotifyAdapter(items: ArrayList<BookcaseEdition>) {
