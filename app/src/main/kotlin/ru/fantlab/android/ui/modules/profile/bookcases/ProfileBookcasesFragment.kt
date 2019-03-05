@@ -3,31 +3,44 @@ package ru.fantlab.android.ui.modules.profile.bookcases
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
+import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import com.evernote.android.state.State
 import ru.fantlab.android.R
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.data.dao.model.Bookcase
+import ru.fantlab.android.data.dao.model.BookcaseCategory
+import ru.fantlab.android.data.dao.model.BookcaseChild
 import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
-import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
-import ru.fantlab.android.ui.adapter.BookcasesAdapter
+import ru.fantlab.android.ui.adapter.viewholder.BookcaseHeaderViewHolder
+import ru.fantlab.android.ui.adapter.viewholder.BookcaseViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.bookcases.editions.BookcaseEditionsActivity
 import ru.fantlab.android.ui.modules.user.UserPagerMvp
+import ru.fantlab.android.ui.widgets.treeview.TreeNode
+import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
+import java.util.*
 
 class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileBookcasesPresenter>(),
         ProfileBookcasesMvp.View {
 
     @State var userId: Int = -1
-    private val adapter: BookcasesAdapter by lazy { BookcasesAdapter(arrayListOf()) }
     private var countCallback: UserPagerMvp.View? = null
+    private var categories: ArrayList<Pair<String, String>> = arrayListOf()
 
     override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
 
     override fun providePresenter(): ProfileBookcasesPresenter = ProfileBookcasesPresenter()
+
+    init {
+        categories.add(Pair("work", "Подборки произведений"))
+        categories.add(Pair("edition", "Книжные полки изданий"))
+        categories.add(Pair("films", "Кинополки"))
+    }
 
     override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
@@ -38,7 +51,6 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
         stateLayout.setOnReloadListener(this)
         refresh.setOnRefreshListener(this)
         recycler.setEmptyView(stateLayout, refresh)
-        fastScroller.attachRecyclerView(recycler)
         presenter.onFragmentCreated(arguments!!)
     }
 
@@ -50,11 +62,54 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
         }
     }
 
-    private fun initAdapter(items: ArrayList<Bookcase>) {
-        adapter.listener = presenter
-        recycler.adapter = adapter
-        recycler.addKeyLineDivider()
-        adapter.insertItems(items)
+    private fun initAdapter(bookcases: ArrayList<Bookcase>) {
+        val nodes = arrayListOf<TreeNode<*>>()
+        categories.forEachIndexed { subIndex, category ->
+            val categoryNode = TreeNode(BookcaseCategory(category.second))
+            nodes.add(categoryNode)
+            bookcases.forEach{ bookcase ->
+                if (bookcase.type.equals(category.first)) {
+                    nodes[subIndex].addChild(TreeNode(BookcaseChild(bookcase.name, bookcase.description, bookcase.type)))
+                }
+            }
+            categoryNode.expandAll()
+        }
+
+        Log.v("ProfileBookcasesFragmen", "categories=" + categories.toString());
+        Log.v("ProfileBookcasesFragmen", "nodes=" + nodes.toString());
+        Log.v("ProfileBookcasesFragmen", "bookcases=" + bookcases.toString());
+
+        val adapter = TreeViewAdapter(nodes, Arrays.asList(BookcaseViewHolder(), BookcaseHeaderViewHolder()))
+        if (recycler.adapter == null)
+            recycler.adapter = adapter
+        else
+            adapter.notifyDataSetChanged()
+        Log.v("ProfileBookcasesFragmen", "adapter=" + recycler.adapter);
+        Log.v("ProfileBookcasesFragmen", "adapter.items=" + recycler.adapter.itemCount);
+        adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
+            override fun onSelected(extra: Int, add: Boolean) {
+            }
+
+            override fun onClick(node: TreeNode<*>, holder: RecyclerView.ViewHolder): Boolean {
+                if (!node.isLeaf) {
+                    onToggle(!node.isExpand, holder)
+                } else if (node.isLeaf && node.content is BookcaseCategory) {
+                    return false
+                } else {
+                    /// TODO: replace with the real call
+                    BookcaseEditionsActivity.startActivity(context!!, 3056)
+                    /*val itemWork = node.content as Consts
+                    if (itemWork.workId != 0) {
+                        WorkPagerActivity.startActivity(context!!, itemWork.workId, itemWork.title)
+                    }*/
+                }
+                return false
+            }
+
+            override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
+            }
+        })
+        fastScroller.attachRecyclerView(recycler)
     }
 
     override fun onItemClicked(item: Bookcase, position: Int) {
@@ -77,7 +132,7 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
 
     override fun hideProgress() {
         refresh.isRefreshing = false
-        stateLayout.hideProgress()
+        stateLayout.showReload(recycler.adapter?.itemCount ?: 0)
     }
 
     override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
@@ -86,17 +141,13 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
     }
 
     override fun showErrorMessage(msgRes: String?) {
-        callback?.showErrorMessage(msgRes)
+        hideProgress()
+        super.showErrorMessage(msgRes)
     }
 
     override fun showMessage(titleRes: Int, msgRes: Int) {
-        showReload()
-        super.showMessage(titleRes, msgRes)
-    }
-
-    private fun showReload() {
         hideProgress()
-        stateLayout.showReload(adapter.itemCount)
+        super.showMessage(titleRes, msgRes)
     }
 
     override fun onAttach(context: Context?) {
@@ -111,7 +162,6 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
         super.onDetach()
     }
 
-
     companion object {
 
         fun newInstance(userId: Int): ProfileBookcasesFragment {
@@ -122,12 +172,6 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
     }
 
     override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented")
     }
-
-    override fun onStart() {
-        //if (presenter != null) adapter.setOnContextMenuListener(this)
-        super.onStart()
-    }
-
 }
