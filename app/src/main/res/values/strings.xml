@@ -229,4 +229,5 @@
 	<string name="no_publishers">No publishers</string>
 	<string name="plans">News and plans</string>
 	<string name="sort_popularity">Popularity</string>
+	<string name="wait">Please, wait…</string>
 </resources>

@@ -194,4 +194,5 @@
 	<string name="no_publishers">Нет издательств</string>
 	<string name="plans">Новинки и планы</string>
 	<string name="sort_popularity">Популярности</string>
+	<string name="wait">Пожалуйста, подождите…</string>
 </resources>

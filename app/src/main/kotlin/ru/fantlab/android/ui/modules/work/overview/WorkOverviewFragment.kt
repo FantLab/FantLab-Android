@@ -160,6 +160,10 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	}
 
 	fun showMarkDialog() {
+		if (!::work.isInitialized) {
+			showErrorMessage(getString(R.string.wait))
+			return
+		}
 		val author = if (!adapterAuthors.isEmpty()) "${adapterAuthors.getItem(0).name} - "  else ""
 		RatingDialogView.newInstance(10, pagerCallback?.onGetMark()?.toFloat() ?: 0f,
 				work,
