@@ -109,18 +109,6 @@
 								>
 
 								<ru.fantlab.android.ui.widgets.FontTextView
-									android:id="@+id/votes"
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"
-									android:drawablePadding="@dimen/spacing_micro"
-									android:drawableStart="@drawable/ic_thumb_up_small"
-									android:textColor="?android:attr/textColorSecondary"
-									app:drawableColor="?android:attr/textColorSecondary"
-									tools:text="4"
-									style="@style/TextAppearance.AppCompat.Subhead"
-									/>
-
-								<ru.fantlab.android.ui.widgets.FontTextView
 									android:id="@+id/rating"
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"
@@ -131,6 +119,18 @@
 									android:textColor="?android:attr/textColorSecondary"
 									app:drawableColor="?android:attr/textColorSecondary"
 									tools:text="8"
+									style="@style/TextAppearance.AppCompat.Subhead"
+									/>
+
+								<ru.fantlab.android.ui.widgets.FontTextView
+									android:id="@+id/votes"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:drawablePadding="@dimen/spacing_micro"
+									android:drawableStart="@drawable/ic_thumb_up_small"
+									android:textColor="?android:attr/textColorSecondary"
+									app:drawableColor="?android:attr/textColorSecondary"
+									tools:text="4"
 									style="@style/TextAppearance.AppCompat.Subhead"
 									/>
 							</ru.fantlab.android.ui.widgets.FlowLayout>
