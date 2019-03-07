@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.main.responses
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.Keep
 import android.support.annotation.StringRes
 import android.view.View
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
@@ -102,6 +103,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 		recycler.scrollToPosition(0)
 	}
 
+	@Keep
 	companion object {
 		val TAG: String = ResponsesFragment::class.java.simpleName
 	}

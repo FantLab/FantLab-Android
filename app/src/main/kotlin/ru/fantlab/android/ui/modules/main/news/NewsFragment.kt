@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.modules.main.news
 
-import android.app.Activity
 import android.os.Bundle
+import android.support.annotation.Keep
 import android.support.annotation.StringRes
 import android.view.View
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
@@ -95,6 +95,7 @@ class NewsFragment : BaseFragment<NewsMvp.View, NewsPresenter>(), NewsMvp.View {
 		recycler.scrollToPosition(0)
 	}
 
+	@Keep
 	companion object {
 		val TAG: String = NewsFragment::class.java.simpleName
 	}

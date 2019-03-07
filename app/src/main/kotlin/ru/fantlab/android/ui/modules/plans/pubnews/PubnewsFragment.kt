@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.plans.pubnews
 
 import android.content.Context
 import android.os.Bundle
+import android.support.annotation.Keep
 import android.support.annotation.StringRes
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -156,6 +157,7 @@ class PubnewsFragment : BaseFragment<PubnewsMvp.View, PubnewsPresenter>(),
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 
+	@Keep
 	companion object {
 		val TAG: String = PubnewsFragment::class.java.simpleName
 
