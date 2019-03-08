@@ -230,4 +230,5 @@
 	<string name="plans">News and plans</string>
 	<string name="sort_popularity">Popularity</string>
 	<string name="wait">Please, wait…</string>
+	<string name="sort_year">Year</string>
 </resources>

@@ -15,6 +15,8 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.helper.PrefGetter
+import ru.fantlab.android.provider.rest.MarksSortOption
+import ru.fantlab.android.provider.rest.MarksTypeOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ProfileMarksAdapter
 import ru.fantlab.android.ui.base.BaseFragment
@@ -144,7 +146,16 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 							points = points,
 							colored = position == 0
 					).show(childFragmentManager, ChartBar.TAG)
-
+				}
+				"sort" -> {
+					presenter.setCurrentSort(MarksSortOption.values()[position], null)
+				}
+				else -> {
+					when (parent) {
+						"category" -> {
+							presenter.setCurrentSort(null, MarksTypeOption.values()[position])
+						}
+					}
 				}
 			}
 		}
@@ -189,6 +200,20 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	fun showChartsDialog() {
 		val dialogView = ContextMenuDialogView()
 		dialogView.initArguments("main", ContextMenuBuilder.buildForMarksCharts(recycler.context))
+		dialogView.show(childFragmentManager, "ContextMenuDialogView")
+	}
+
+	fun showSortDialog() {
+		val dialogView = ContextMenuDialogView()
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("sort", ContextMenuBuilder.buildForProfileMarksSorting(recycler.context, sort.sortBy))
+		dialogView.show(childFragmentManager, "ContextMenuDialogView")
+	}
+
+	fun showFilterDialog() {
+		val dialogView = ContextMenuDialogView()
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("filter", ContextMenuBuilder.buildForProfileMarksFilter(recycler.context, sort.filterCategory))
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 

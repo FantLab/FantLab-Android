@@ -43,6 +43,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	@State var login: String? = null
 	@State var userId: Int = 0
 	@State var tabsCountSet = HashSet<TabsCountStateModel>()
+	private lateinit var toolbarMenu: Menu
 	private val numberFormat = NumberFormat.getNumberInstance()
 	private var isError = false
 
@@ -105,6 +106,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 			override fun onPageSelected(position: Int) {
 				super.onPageSelected(position)
 				hideShowFab(position)
+				hideShowToolbar(position)
 			}
 		})
 		if (savedInstanceState != null && !tabsCountSet.isEmpty()) {
@@ -115,7 +117,9 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
-		menuInflater.inflate(R.menu.share_menu, menu)
+		menuInflater.inflate(R.menu.profile_marks_menu, menu)
+		toolbarMenu = menu
+		hideShowToolbar(pager.currentItem)
 		return super.onCreateOptionsMenu(menu)
 	}
 
@@ -129,6 +133,14 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 							.toString())
 					return true
 				}
+			}
+			R.id.sort -> {
+				val fragment = pager.adapter?.instantiateItem(pager, 1) as? ProfileMarksFragment
+				fragment?.showSortDialog()
+			}
+			R.id.filter -> {
+				val fragment = pager.adapter?.instantiateItem(pager, 1) as? ProfileMarksFragment
+				fragment?.showFilterDialog()
 			}
 		}
 		return super.onOptionsItemSelected(item)
@@ -197,6 +209,23 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		when (index) {
 			1 -> textView.text = String.format("%s (%s)", getString(R.string.marks), numberFormat.format(count.toLong()))
 			2 -> textView.text = String.format("%s (%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
+		}
+	}
+
+	private fun hideShowToolbar(position: Int) {
+		if (::toolbarMenu.isInitialized) {
+			when (position) {
+				1 -> {
+					toolbarMenu.findItem(R.id.share).isVisible = false
+					toolbarMenu.findItem(R.id.sort).isVisible = true
+					toolbarMenu.findItem(R.id.filter).isVisible = true
+				}
+				else -> {
+					toolbarMenu.findItem(R.id.share).isVisible = true
+					toolbarMenu.findItem(R.id.sort).isVisible = false
+					toolbarMenu.findItem(R.id.filter).isVisible = false
+				}
+			}
 		}
 	}
 

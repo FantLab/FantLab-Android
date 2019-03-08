@@ -16,7 +16,7 @@ class WorkResponsesPresenter : BasePresenter<WorkResponsesMvp.View>(),
 		WorkResponsesMvp.Presenter {
 
 	private var page: Int = 1
-	private var sort: ResponsesSortOption = ResponsesSortOption.BY_RATING
+	private var sort: ResponsesSortOption = ResponsesSortOption.BY_DATE
 	private var previousTotal: Int = 0
 	private var workId: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE

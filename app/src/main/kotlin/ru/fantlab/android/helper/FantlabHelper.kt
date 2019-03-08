@@ -60,6 +60,11 @@ object FantlabHelper {
 			var filterLang: B
 	)
 
+	data class ProfileMarksSort<A, B>(
+			var sortBy: A,
+			var filterCategory: B
+	)
+
 	var currentUserId: Int = -1
 
 	val minLevelToVote = FantlabHelper.User.classRanges[Levels.NOVICE.`class`]

@@ -93,7 +93,7 @@ object DataManager {
 	fun getWorkResponses(
 			workId: Int,
 			page: Int = 1,
-			sortOption: ResponsesSortOption = ResponsesSortOption.BY_RATING
+			sortOption: ResponsesSortOption = ResponsesSortOption.BY_DATE
 	): Single<ResponsesResponse> =
 			getWorkResponsesPath(workId, page, sortOption)
 					.httpGet()
@@ -467,7 +467,7 @@ fun getWorkPath(
 fun getWorkResponsesPath(
 		workId: Int,
 		page: Int = 1,
-		sortOption: ResponsesSortOption = ResponsesSortOption.BY_RATING
+		sortOption: ResponsesSortOption = ResponsesSortOption.BY_DATE
 ) = "/work/$workId/responses?page=$page&sort=${sortOption.value}".toAbsolutePathWithApiVersion()
 
 fun getWorkAnalogsPath(
@@ -489,7 +489,7 @@ fun getUserMarksPath(
 		userId: Int,
 		page: Int = 1,
 		typeOption: MarksTypeOption = MarksTypeOption.ALL,
-		sortOption: MarksSortOption = MarksSortOption.BY_MARK
+		sortOption: MarksSortOption = MarksSortOption.BY_DATE
 ) = "/user/$userId/marks/extended?page=$page&type=${typeOption.value}&sort=${sortOption.value}"
 		.toAbsolutePathWithApiVersion()
 

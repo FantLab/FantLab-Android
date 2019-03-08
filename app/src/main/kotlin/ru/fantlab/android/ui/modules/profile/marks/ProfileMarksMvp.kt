@@ -2,6 +2,9 @@ package ru.fantlab.android.ui.modules.profile.marks
 
 import android.support.v4.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Mark
+import ru.fantlab.android.helper.FantlabHelper
+import ru.fantlab.android.provider.rest.MarksSortOption
+import ru.fantlab.android.provider.rest.MarksTypeOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
@@ -36,5 +39,9 @@ interface ProfileMarksMvp {
 		fun getMarks(userId: Int, force: Boolean)
 
 		fun onSendMark(item: Mark, mark: Int, position: Int)
+
+		fun setCurrentSort(sortBy: MarksSortOption?, filterCategory: MarksTypeOption?)
+
+		fun getCurrentSort(): FantlabHelper.ProfileMarksSort<MarksSortOption, MarksTypeOption>
 	}
 }

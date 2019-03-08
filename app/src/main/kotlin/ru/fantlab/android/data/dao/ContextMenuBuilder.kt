@@ -292,4 +292,39 @@ object ContextMenuBuilder {
 		return items
 	}
 
+	fun buildForProfileMarksSorting(context: Context, sortBy: MarksSortOption): ArrayList<ContextMenus> {
+		val items = ArrayList<ContextMenus>()
+		val actions =
+				arrayListOf(
+						ContextMenus.MenuItem(context.getString(R.string.sort_mark), R.drawable.ic_star_small, "sort", selected = MarksSortOption.values()[0] == sortBy),
+						ContextMenus.MenuItem(context.getString(R.string.sort_name), R.drawable.ic_title, "sort", selected = MarksSortOption.values()[1] == sortBy),
+						ContextMenus.MenuItem(context.getString(R.string.sort_author), R.drawable.ic_person, "sort", selected = MarksSortOption.values()[2] == sortBy),
+						ContextMenus.MenuItem(context.getString(R.string.sort_date), R.drawable.ic_time_small, "sort", selected = MarksSortOption.values()[3] == sortBy),
+						ContextMenus.MenuItem(context.getString(R.string.sort_year), R.drawable.ic_date, "sort", selected = MarksSortOption.values()[4] == sortBy)
+				)
+		items.add(ContextMenus(context.getString(R.string.select_sort), actions, "sort"))
+
+		return items
+	}
+
+	fun buildForProfileMarksFilter(context: Context, filterCategory: MarksTypeOption): ArrayList<ContextMenus> {
+		val items = ArrayList<ContextMenus>()
+
+		val actions =
+				arrayListOf(
+						ContextMenus.MenuItem(context.getString(R.string.sort_category), R.drawable.ic_type_small, "category")
+				)
+		items.add(ContextMenus(context.getString(R.string.select_filter), actions, "filter"))
+
+		val categories = ArrayList<ContextMenus.MenuItem>()
+		val catIdsArray = MarksTypeOption.values()
+		context.resources.getStringArray(R.array.marks_categories_array).mapIndexed { index, title ->
+			categories.add(ContextMenus.MenuItem(title, null, catIdsArray[index].value, selected = filterCategory.name.equals(catIdsArray[index].name)))
+		}
+
+		items.add(ContextMenus(context.getString(R.string.select_category), categories, "category"))
+
+		return items
+	}
+
 }
