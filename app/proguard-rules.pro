@@ -28,3 +28,5 @@
 -dontwarn org.jaxen.**
 -dontwarn ru.fantlab.android.ui.modules.**
 -dontnote com.google.android.gms.**
+
+-keepnames class * { @com.evernote.android.state.State *;}
