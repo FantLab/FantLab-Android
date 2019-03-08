@@ -40,7 +40,7 @@ class AutplansViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Autplans.O
 
 		itemView.type.text = autplan.workType.capitalize()
 
-		if (!autplan.saga.workType.isEmpty() && autplan.saga.workId != "0") {
+		if (!autplan.saga.workType.isNullOrEmpty() && autplan.saga.workId != "0") {
 			val sagaName = buildString {
 				if (!autplan.saga.workType.isEmpty()) {
 					append(autplan.saga.workType.capitalize())

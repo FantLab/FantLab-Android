@@ -157,7 +157,7 @@ data class Autplans(
 				@SerializedName("work_id")
 				val workId: String,
 				@SerializedName("work_type")
-				val workType: String
+				val workType: String?
 		) : Parcelable
 	}
 
