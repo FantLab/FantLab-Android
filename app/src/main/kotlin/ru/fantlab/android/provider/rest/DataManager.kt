@@ -180,8 +180,12 @@ object DataManager {
 			message: CharSequence?,
 			mode: String
 	): Single<String> =
-			sendMessagePath(userId, message, mode)
-					.httpPost()
+			sendMessagePath(userId)
+					.httpPost(listOf(
+							"message" to message,
+							"mode" to mode,
+							"action" to "/user$userId/sendprivatemessage"
+					))
 					.rxString()
 					.map { it.get() }
 
@@ -190,8 +194,12 @@ object DataManager {
 			message: CharSequence?,
 			mode: String
 	): Single<String> =
-			sendResponsePath(workId, message, mode)
-					.httpPost()
+			sendResponsePath(workId)
+					.httpPost(listOf(
+							"message" to message,
+							"mode" to mode,
+							"autosave" to "0"
+					))
 					.rxString()
 					.map { it.get() }
 
@@ -516,17 +524,13 @@ fun sendResponseVotePath(
 ) = "/vote$responseId$voteType".toAbsolutePath()
 
 fun sendMessagePath(
-		userId: Int,
-		message: CharSequence?,
-		mode: String
-) = "/user$userId/sendprivatemessage?message=$message&mode=$mode&action=/user$userId/sendprivatemessage"
+		userId: Int
+) = "/user$userId/sendprivatemessage"
 		.toAbsolutePath()
 
 fun sendResponsePath(
-		workId: Int,
-		message: CharSequence?,
-		mode: String
-) = "/work$workId/addresponse?message=$message&mode=$mode&autosave=0".toAbsolutePath()
+		workId: Int
+) = "/work$workId/addresponse".toAbsolutePath()
 
 fun sendClassificationPath(
 		workId: Int,
