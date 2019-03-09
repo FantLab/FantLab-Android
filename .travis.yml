@@ -29,7 +29,7 @@ before_script:
 script:
   - ./gradlew clean assembleDebug --no-daemon --stacktrace
   - fossa init
-  - fossa analyze
+  # - fossa analyze
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
