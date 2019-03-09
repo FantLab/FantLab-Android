@@ -74,7 +74,7 @@ android {
 			proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
 		}
 		debug {
-			signingConfig signingConfigs.debug
+			signingConfig debug.signingConfig
 			ext.alwaysUpdateBuildId = false
 		}
 	}
