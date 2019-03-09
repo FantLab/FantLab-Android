@@ -37,6 +37,20 @@ ext {
 
 android {
 	compileSdkVersion compile_sdk
+	signingConfigs {
+		release {
+			storeFile file(RELEASE_STORE_FILE)
+			keyAlias RELEASE_KEY_ALIAS
+			keyPassword RELEASE_KEY_PASSWORD
+			storePassword RELEASE_STORE_PASSWORD
+		}
+		debug {
+			storeFile file("debug.keystore")
+			keyAlias "androiddebugkey"
+			keyPassword "android"
+			storePassword "android"
+		}
+	}
 	defaultConfig {
 		applicationId "ru.fantlab.android"
 		minSdkVersion min_sdk
@@ -56,20 +70,6 @@ android {
 			arguments {
 				arg("room.schemaLocation", "$projectDir/schemas".toString())
 			}
-		}
-	}
-	signingConfigs {
-		release {
-			storeFile file(RELEASE_STORE_FILE)
-			keyAlias RELEASE_KEY_ALIAS
-			keyPassword RELEASE_KEY_PASSWORD
-			storePassword RELEASE_STORE_PASSWORD
-		}
-		debug {
-			storeFile file("debug.keystore")
-			keyAlias "androiddebugkey"
-			keyPassword "android"
-			storePassword "android"
 		}
 	}
 	buildTypes {
