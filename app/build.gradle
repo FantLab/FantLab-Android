@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
 apply plugin: "io.fabric"
 apply plugin: "com.github.ben-manes.versions"
+apply plugin: 'com.novoda.build-properties'
 
 ext {
 	min_sdk = 21
@@ -35,20 +36,20 @@ ext {
 	crashlytics_version = '2.9.9'
 }
 
+buildProperties {
+	secrets {
+		using(rootProject.file("gradle.properties")).or(rootProject.file("gradle_debug.properties"))
+	}
+}
+
 android {
 	compileSdkVersion compile_sdk
 	signingConfigs {
-		debug {
-			storeFile file("debug.keystore")
-			keyAlias "androiddebugkey"
-			keyPassword "android"
-			storePassword "android"
-		}
-		release {
-			storeFile file(RELEASE_STORE_FILE)
-			keyAlias RELEASE_KEY_ALIAS
-			keyPassword RELEASE_KEY_PASSWORD
-			storePassword RELEASE_STORE_PASSWORD
+		signing {
+			storeFile file(buildProperties.secrets['RELEASE_STORE_FILE'].string)
+			keyAlias buildProperties.secrets['RELEASE_KEY_ALIAS'].string
+			keyPassword buildProperties.secrets['RELEASE_KEY_PASSWORD'].string
+			storePassword buildProperties.secrets['RELEASE_STORE_PASSWORD'].string
 		}
 	}
 	defaultConfig {
@@ -74,13 +75,13 @@ android {
 	}
 	buildTypes {
 		debug {
-			signingConfig signingConfigs.debug
+			signingConfig signingConfigs.signing
 			ext.alwaysUpdateBuildId = false
 		}
 		release {
 			minifyEnabled true
 			shrinkResources true
-			signingConfig signingConfigs.release
+			signingConfig signingConfigs.signing
 			proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
 		}
 	}
