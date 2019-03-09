@@ -65,6 +65,12 @@ android {
 			keyPassword RELEASE_KEY_PASSWORD
 			storePassword RELEASE_STORE_PASSWORD
 		}
+		debug {
+			storeFile file("debug.keystore")
+			keyAlias "androiddebugkey"
+			keyPassword "android"
+			storePassword "android"
+		}
 	}
 	buildTypes {
 		release {
@@ -74,7 +80,7 @@ android {
 			proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
 		}
 		debug {
-			signingConfig debug.signingConfig
+			signingConfig signingConfigs.debug
 			ext.alwaysUpdateBuildId = false
 		}
 	}
