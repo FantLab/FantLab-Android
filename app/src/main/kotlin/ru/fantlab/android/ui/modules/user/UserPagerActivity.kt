@@ -207,6 +207,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		when (index) {
 			1 -> textView.text = String.format("%s (%s)", getString(R.string.marks), numberFormat.format(count.toLong()))
 			2 -> textView.text = String.format("%s (%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
+			3 -> textView.text = String.format("%s (%s)", getString(R.string.bookcases), numberFormat.format(count.toLong()))
 		}
 	}
 
