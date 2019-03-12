@@ -14,9 +14,11 @@ data class BookcasesResponse(
             val bc1 = Bookcase("aaa", "Мои книги", "Книги, имеющиеся в моей библиотеке", "edition")
             val bc2 = Bookcase("bbb", "Продаю", "Книги, которые я готов продать или обменять", "edition")
             val bc3 = Bookcase("ccc", "Куплю", "Имею желание приобрести эти книги", "edition")
+            val bc5 = Bookcase("eee", "Издания", "Произведения", "work")
             items.add(bc1)
             items.add(bc2)
             items.add(bc3)
+            items.add(bc5)
             return BookcasesResponse(items)
             /*val jsonObject = JsonParser().parse(content).asJsonObject
             val items: ArrayList<Bookcase> = arrayListOf()

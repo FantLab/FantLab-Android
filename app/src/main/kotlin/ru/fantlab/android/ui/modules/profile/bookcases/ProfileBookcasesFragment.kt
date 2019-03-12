@@ -74,18 +74,11 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
             }
             categoryNode.expandAll()
         }
-
-        Log.v("ProfileBookcasesFragmen", "categories=" + categories.toString());
-        Log.v("ProfileBookcasesFragmen", "nodes=" + nodes.toString());
-        Log.v("ProfileBookcasesFragmen", "bookcases=" + bookcases.toString());
-
         val adapter = TreeViewAdapter(nodes, Arrays.asList(BookcaseViewHolder(), BookcaseHeaderViewHolder()))
         if (recycler.adapter == null)
             recycler.adapter = adapter
         else
             adapter.notifyDataSetChanged()
-        Log.v("ProfileBookcasesFragmen", "adapter=" + recycler.adapter);
-        Log.v("ProfileBookcasesFragmen", "adapter.items=" + recycler.adapter.itemCount);
         adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
             override fun onSelected(extra: Int, add: Boolean) {
             }

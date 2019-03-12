@@ -26,7 +26,7 @@ class BookcaseHeaderViewHolder : TreeViewBinder<BookcaseHeaderViewHolder.ViewHol
             onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
     ) {
         val nodeItem = node.content as BookcaseCategory?
-        (holder as BookcaseViewHolder.ViewHolder).title.text = nodeItem!!.name
+        (holder as BookcaseHeaderViewHolder.ViewHolder).title.text = nodeItem!!.name
     }
 
     inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
