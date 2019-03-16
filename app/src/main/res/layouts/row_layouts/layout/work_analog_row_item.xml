@@ -1,92 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
+	android:layout_width="100dp"
 	android:layout_height="wrap_content"
-	android:foreground="?android:selectableItemBackground"
+	android:background="?android:selectableItemBackground"
+	android:gravity="center_horizontal"
+	android:orientation="vertical"
 	android:paddingBottom="@dimen/spacing_normal"
 	android:paddingTop="@dimen/spacing_normal"
-	tools:ignore="RtlSymmetry"
 	>
 
-	<LinearLayout
-		android:layout_width="match_parent"
+	<ru.fantlab.android.ui.widgets.CoverLayout
+		android:id="@+id/coverLayout"
+		android:layout_width="70dp"
+		android:layout_height="90dp"
+		/>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/title"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:orientation="horizontal"
-		>
+		android:gravity="center_horizontal"
+		android:includeFontPadding="false"
+		android:textColor="?android:attr/textColorSecondary"
+		tools:text="Вызов извне"
+		style="@style/TextAppearance.AppCompat.Subhead"
+		android:maxLines="2"
+		android:ellipsize="end"
+		/>
 
-		<ru.fantlab.android.ui.widgets.CoverLayout
-			android:id="@+id/coverLayout"
-			android:layout_width="48dp"
-			android:layout_height="64dp"
-			android:layout_marginEnd="@dimen/avatar_margin_end"
-			/>
-
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			>
-
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/authors"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="start"
-				android:layout_marginEnd="@dimen/spacing_micro"
-				android:ellipsize="end"
-				android:gravity="start|center"
-				android:maxLines="1"
-				android:textColor="?android:attr/textColorSecondary"
-				android:visibility="gone"
-				tools:text="Илья Ильф, Евгений Петров"
-				tools:visibility="visible"
-				style="@style/TextAppearance.AppCompat.Subhead"
-				/>
-
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/title"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:ellipsize="end"
-				android:maxLines="3"
-				android:textColor="?android:textColorPrimary"
-				android:textStyle="bold"
-				tools:text="Двенадцать стульев. Золотой теленок"
-				style="@style/TextAppearance.AppCompat.Medium"
-				/>
-
-			<ru.fantlab.android.ui.widgets.FlowLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="@dimen/spacing_micro"
-				app:flChildSpacing="2dp"
-				app:flChildSpacingForLastRow="align"
-				app:flRowSpacing="8dp"
-				>
-
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/year"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center"
-					android:layout_marginEnd="@dimen/spacing_micro"
-					android:drawablePadding="@dimen/spacing_micro"
-					android:drawableStart="@drawable/ic_time_small"
-					android:gravity="start|center"
-					android:textColor="?android:attr/textColorSecondary"
-					app:drawableColor="?android:attr/textColorSecondary"
-					tools:text="2009"
-					style="@style/TextAppearance.AppCompat.Subhead"
-					/>
-
-			</ru.fantlab.android.ui.widgets.FlowLayout>
-
-		</LinearLayout>
-
-	</LinearLayout>
-
-</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+</LinearLayout>

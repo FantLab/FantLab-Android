@@ -283,8 +283,8 @@
 							android:id="@+id/recyclerAuthors"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							app:layoutManager="@string/staggered_layout_manager"
-							app:spanCount="@integer/micro_spans"
+							app:layoutManager="@string/linear_layout_manager"
+							android:orientation="horizontal"
 							tools:listitem="@layout/author_row_item"
 							/>
 
@@ -324,8 +324,8 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							app:layoutManager="@string/staggered_layout_manager"
-							app:spanCount="@integer/micro_spans"
 							tools:listitem="@layout/award_row_item"
+							android:orientation="horizontal"
 							/>
 
 					</LinearLayout>
@@ -364,8 +364,8 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							app:layoutManager="@string/staggered_layout_manager"
-							app:spanCount="@integer/micro_spans"
 							tools:listitem="@layout/award_row_item"
+							android:orientation="horizontal"
 							/>
 
 					</LinearLayout>

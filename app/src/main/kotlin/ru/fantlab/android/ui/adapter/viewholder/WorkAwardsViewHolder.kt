@@ -15,20 +15,7 @@ class WorkAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Nominati
 
 	override fun bind(nom: Nomination) {
 		itemView.awardIcon.setUrl("https://${LinkParserHelper.HOST_DATA}/images/awards/${nom.awardId}")
-		val info = StringBuilder()
-		if (!InputHelper.isEmpty(nom.awardRusName)) {
-			info.append(nom.awardRusName).append(" / ")
-		}
-		if (!InputHelper.isEmpty(nom.awardName)) {
-			info.append(nom.awardName).append(", ")
-		}
-		if (!InputHelper.isEmpty(nom.contestName)) {
-			info.append(nom.contestName).append(" // ")
-		}
-		if (!InputHelper.isEmpty(nom.nominationRusName)) {
-			info.append(nom.nominationRusName)
-		}
-		itemView.award.text = info.toString()
+		itemView.title.text = if (!InputHelper.isEmpty(nom.awardRusName)) nom.awardRusName else nom.awardName
 	}
 
 	companion object {

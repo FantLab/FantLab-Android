@@ -108,12 +108,14 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		if (nominations.isNotEmpty()) {
 			adapterNoms.insertItems(nominations)
 			recyclerNoms.adapter = adapterNoms
+			recyclerNoms.isNestedScrollingEnabled = false
 			adapterNoms.listener = presenter
 		} else nomsView.visibility = View.GONE
 
 		if (wins.isNotEmpty()) {
 			adapterWins.insertItems(wins)
 			recyclerWins.adapter = adapterWins
+			recyclerWins.isNestedScrollingEnabled = false
 			adapterWins.listener = presenter
 		} else winsView.visibility = View.GONE
 

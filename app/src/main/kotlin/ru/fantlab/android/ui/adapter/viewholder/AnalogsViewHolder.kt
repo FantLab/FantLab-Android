@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.work_analog_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.WorkAnalog
-import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
@@ -15,21 +14,10 @@ class AnalogsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<WorkAnalog,
 	override fun bind(analog: WorkAnalog) {
 		itemView.coverLayout.setUrl("https:${analog.imagePreview}")
 
-		if (analog.creators.authors.isNotEmpty()) {
-			itemView.authors.text = analog.creators.authors.joinToString(separator = ", "){ it.name }
-			itemView.authors.visibility = View.VISIBLE
-		} else {
-			itemView.authors.visibility = View.GONE
-		}
-
 		itemView.title.text = if (analog.name.isNotEmpty())
 			analog.name.replace(ANY_CHARACTERS_IN_BRACKETS_REGEX, "")
 		else
 			analog.nameOrig
-
-		if (!InputHelper.isEmpty(analog.year)) {
-			itemView.year.text = analog.year.toString()
-		} else itemView.year.visibility = View.GONE
 	}
 
 	companion object {

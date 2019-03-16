@@ -2,29 +2,31 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
+	android:layout_width="100dp"
 	android:layout_height="wrap_content"
-	android:layout_marginBottom="@dimen/spacing_normal"
-	android:layout_marginTop="@dimen/spacing_normal"
-	android:foreground="?android:selectableItemBackground"
+	android:background="?android:selectableItemBackground"
+	android:gravity="center_horizontal"
+	android:orientation="vertical"
+	android:paddingBottom="@dimen/spacing_normal"
+	android:paddingTop="@dimen/spacing_normal"
 	>
 
 	<ru.fantlab.android.ui.widgets.AvatarLayout
 		android:id="@+id/awardIcon"
-		android:layout_width="30dp"
-		android:layout_height="30dp"
-		android:layout_marginEnd="@dimen/spacing_normal"
+		android:layout_width="70dp"
+		android:layout_height="70dp"
 		/>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
-		android:id="@+id/award"
+		android:id="@+id/title"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:gravity="center_vertical"
+		android:gravity="center_horizontal"
 		android:includeFontPadding="false"
-		android:minHeight="30dp"
-		tools:text="Хьюго / Hugo Award, 1954, ретроспективная // Роман"
+		android:paddingEnd="@dimen/spacing_micro"
+		android:paddingStart="@dimen/spacing_micro"
 		android:textColor="?android:attr/textColorSecondary"
+		tools:text="Вызов извне"
 		style="@style/TextAppearance.AppCompat.Subhead"
 		/>
 

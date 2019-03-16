@@ -1,64 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
+	android:layout_width="100dp"
 	android:layout_height="wrap_content"
-	android:layout_margin="@dimen/grid_spacing"
-	android:foreground="?android:selectableItemBackground"
-	android:paddingBottom="@dimen/spacing_normal"
-	android:paddingTop="@dimen/spacing_normal"
-	tools:ignore="RtlSymmetry"
+	android:background="?android:selectableItemBackground"
+	android:gravity="center_horizontal"
+	android:orientation="vertical"
 	>
 
-	<LinearLayout
-		android:layout_width="match_parent"
+	<ru.fantlab.android.ui.widgets.AvatarLayout
+		android:id="@+id/avatarLayout"
+		android:layout_width="70dp"
+		android:layout_height="70dp"
+		/>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/name"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:orientation="horizontal"
-		>
+		android:gravity="center_horizontal"
+		android:includeFontPadding="false"
+		android:textColor="?android:attr/textColorSecondary"
+		tools:text="George R.R. Martin"
+		style="@style/TextAppearance.AppCompat.Subhead"
+		/>
 
-		<ru.fantlab.android.ui.widgets.AvatarLayout
-			android:id="@+id/avatarLayout"
-			android:layout_width="45dp"
-			android:layout_height="45dp"
-			android:layout_marginEnd="8dp"
-			/>
-
-		<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:gravity="center_vertical"
-			>
-
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/name_orig"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@+id/name"
-				android:layout_marginTop="4dp"
-				android:ellipsize="end"
-				android:includeFontPadding="false"
-				android:lines="1"
-				tools:text="Джордж Р.Р. Мартин"
-				android:textColor="?android:attr/textColorSecondary"
-				style="@style/TextAppearance.AppCompat.Subhead"
-				/>
-
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/name"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_toEndOf="@+id/authorLayout"
-				android:ellipsize="end"
-				android:includeFontPadding="false"
-				android:lines="1"
-				tools:text="George R.R. Martin"
-				style="@style/TextAppearance.AppCompat.Title"
-				/>
-
-		</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
-
-	</LinearLayout>
-
-</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+</LinearLayout>
