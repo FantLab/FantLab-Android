@@ -34,7 +34,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginStart="5dp"
 			android:drawablePadding="10dp"
-			android:drawableStart="@drawable/ic_book"
+			android:drawableStart="@drawable/ic_books"
 			android:gravity="center_vertical"
 			android:textColor="?android:textColorPrimary"
 			android:textStyle="bold"

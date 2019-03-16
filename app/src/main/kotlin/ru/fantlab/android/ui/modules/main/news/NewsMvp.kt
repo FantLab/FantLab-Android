@@ -3,14 +3,18 @@ package ru.fantlab.android.ui.modules.main.news
 import android.support.v4.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.News
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
+import ru.fantlab.android.ui.adapter.viewholder.NewsViewHolder
 import ru.fantlab.android.ui.base.mvp.BaseMvp
+import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 interface NewsMvp {
 
 	interface View : BaseMvp.View,
 			SwipeRefreshLayout.OnRefreshListener,
-			android.view.View.OnClickListener {
+			android.view.View.OnClickListener,
+			ContextMenuDialogView.ListDialogViewActionCallback,
+			NewsViewHolder.OnOpenContextMenu {
 
 		fun onNotifyAdapter(items: ArrayList<News>, page: Int)
 
@@ -20,6 +24,7 @@ interface NewsMvp {
 
 		fun onItemLongClicked(position: Int, v: android.view.View?, item: News)
 
+		override fun onOpenContextMenu(news: News)
 
 	}
 

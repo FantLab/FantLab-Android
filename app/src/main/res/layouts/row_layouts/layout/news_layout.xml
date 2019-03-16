@@ -103,7 +103,7 @@
 					android:layout_gravity="center"
 					android:layout_marginEnd="@dimen/spacing_micro"
 					android:drawablePadding="@dimen/spacing_micro"
-					android:drawableStart="@drawable/ic_profile"
+					android:drawableStart="@drawable/ic_person"
 					android:gravity="start|center"
 					android:textColor="?android:attr/textColorSecondary"
 					app:drawableColor="?android:attr/textColorSecondary"

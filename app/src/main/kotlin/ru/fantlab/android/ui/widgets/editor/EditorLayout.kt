@@ -5,6 +5,7 @@ import android.content.Context
 import android.support.design.widget.Snackbar
 import android.support.transition.TransitionManager
 import android.support.v4.app.FragmentManager
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
@@ -58,6 +59,7 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 				TransitionManager.beginDelayedTransition(this)
 
 				if (editText.isEnabled && !InputHelper.isEmpty(editText)) {
+					view.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_eye_off))
 					it.getHtmlsText().html = it.getSavedText()
 					editText.isEnabled = false
 					editText.visibility = View.GONE
@@ -67,6 +69,7 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 					if (addSmile.visibility == View.VISIBLE) addSmile.visibility = View.INVISIBLE
 					ViewHelper.hideKeyboard(editText)
 				} else {
+					view.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_eye))
 					editText.setText(it.getSavedText())
 					editText.setSelection(selectionIndex)
 					editText.isEnabled = true

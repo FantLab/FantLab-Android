@@ -156,7 +156,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 			1 -> {
 				val user = PrefGetter.getLoggedUser()
 				if (user != null && user.`class` >= FantlabHelper.Levels.PHILOSOPHER.`class` && isMarked) {
-					fab.setImageResource(R.drawable.ic_classif)
+					fab.setImageResource(R.drawable.ic_classification)
 					fab.show()
 				} else fab.hide()
 			}

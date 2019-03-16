@@ -2,38 +2,24 @@ package ru.fantlab.android.ui.adapter.viewholder
 
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.GlideDrawable
-import com.bumptech.glide.request.RequestListener
-import kotlinx.android.synthetic.main.news_row_item.view.*
+import kotlinx.android.synthetic.main.restyle_news_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.News
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.getTimeAgo
 import ru.fantlab.android.helper.parseFullDate
+import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
-import com.bumptech.glide.request.target.Target
 
 class NewsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<News, NewsViewHolder>)
 	: BaseViewHolder<News>(itemView, adapter) {
 
 	override fun bind(news: News) {
-		Glide.with(itemView.context).load("https:${news.image}")
-				.diskCacheStrategy(DiskCacheStrategy.ALL)
-				.dontAnimate()
-				.listener(object : RequestListener<String, GlideDrawable> {
-					override fun onException(e: Exception?, model: String?, target: Target<GlideDrawable>?, isFirstResource: Boolean): Boolean {
-						itemView.coverLayout.visibility = View.GONE
-						return false
-					}
-					override fun onResourceReady(resource: GlideDrawable?, model: String?, target: Target<GlideDrawable>?, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
-						itemView.coverLayout.visibility = View.VISIBLE
-						return false
-					}
-				})
-				.into(itemView.coverLayout)
+		val authorId = "user(\\d+)\\D".toRegex().find(news.author)
+		itemView.avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/users/${authorId?.groupValues?.get(1)}")
+
+		itemView.coverLayout.setUrl("https:${news.image}", R.drawable.ic_news)
 
 		if (!InputHelper.isEmpty(news.title)) {
 			itemView.title.text = news.title
@@ -47,17 +33,27 @@ class NewsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<News, NewsView
 
 		itemView.category.text = news.category.capitalize()
 		itemView.date.text = news.newsDateIso.parseFullDate(true).getTimeAgo()
-		itemView.author.html = news.author
+		itemView.author.text = news.author.replace("<.*>(.*?)<.*>".toRegex(), "$1")
+
+		itemView.userInfo.setOnClickListener { listener?.onOpenContextMenu(news) }
 	}
 
+	interface OnOpenContextMenu {
+		fun onOpenContextMenu(news: News)
+	}
 
 	companion object {
+		private var listener: OnOpenContextMenu? = null
 
 		fun newInstance(
 				viewGroup: ViewGroup,
 				adapter: BaseRecyclerAdapter<News, NewsViewHolder>
 		): NewsViewHolder {
-			return NewsViewHolder(getView(viewGroup, R.layout.news_row_item), adapter)
+			return NewsViewHolder(getView(viewGroup, R.layout.restyle_news_row_item), adapter)
+		}
+
+		fun setOnContextMenuListener(listener: NewsViewHolder.OnOpenContextMenu) {
+			this.listener = listener
 		}
 
 	}

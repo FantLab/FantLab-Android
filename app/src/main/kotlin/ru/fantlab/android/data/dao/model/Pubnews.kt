@@ -78,6 +78,10 @@ data class Pubnews(
 			val picOrig: String,
 			@SerializedName("plan_description")
 			val planDescription: String,
+			@SerializedName("popularity")
+			val popularity: String,
+			@SerializedName("popularity_date_of_calc")
+			val popularityDate: String,
 			@SerializedName("preread")
 			val preread: String,
 			@SerializedName("publisher")

@@ -20,7 +20,7 @@
 		android:layout_height="match_parent"
 		android:layout_marginStart="5dp"
 		android:drawablePadding="10dp"
-		android:drawableStart="@drawable/ic_book"
+		android:drawableStart="@drawable/ic_books"
 		android:gravity="center_vertical"
 		tools:text="@string/app_name"
 		style="@style/TextAppearance.AppCompat.Medium"

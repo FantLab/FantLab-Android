@@ -164,9 +164,9 @@
 					<ru.fantlab.android.ui.widgets.ForegroundImageView
 						android:id="@+id/classified"
 						android:layout_width="16dp"
-						android:layout_height="16dp"
+						android:layout_height="match_parent"
 						android:layout_marginEnd="@dimen/spacing_micro"
-						android:src="@drawable/ic_classif"
+						android:src="@drawable/ic_classification"
 						android:visibility="gone"
 						app:tint="?android:attr/textColorSecondary"
 						tools:visibility="visible"

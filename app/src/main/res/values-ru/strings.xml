@@ -196,4 +196,7 @@
 	<string name="sort_popularity">Популярности</string>
 	<string name="wait">Пожалуйста, подождите…</string>
 	<string name="sort_year">Году</string>
+	<string name="left">оставил</string>
+	<string name="left_female">оставила</string>
+	<string name="response">%s отзыв</string>
 </resources>

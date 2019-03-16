@@ -29,7 +29,7 @@
 	<group android:id="@+id/group_two">
 		<item
 			android:id="@+id/authors"
-			android:icon="@drawable/ic_book"
+			android:icon="@drawable/ic_authors"
 			android:title="@string/authors"
 			/>
 

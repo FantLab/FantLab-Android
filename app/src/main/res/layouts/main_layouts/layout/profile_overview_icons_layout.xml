@@ -163,7 +163,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:padding="@dimen/spacing_micro"
-					android:src="@drawable/ic_classif"
+					android:src="@drawable/ic_classification"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -309,7 +309,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:padding="@dimen/spacing_micro"
-					android:src="@drawable/ic_book"
+					android:src="@drawable/ic_books"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView

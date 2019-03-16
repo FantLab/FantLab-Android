@@ -19,11 +19,7 @@ class ContextMenuViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Context
 			itemView.icon.visibility = View.VISIBLE
 		} else itemView.icon.visibility = View.GONE
 
-		itemView.title.text = item.title
-		if (item.selected)
-			itemView.title.setTypeface(itemView.title.typeface, Typeface.BOLD)
-		else
-			itemView.title.setTypeface(itemView.title.typeface, Typeface.NORMAL)
+		if (item.selected) itemView.title.text = "✓ ${item.title}" else itemView.title.text = item.title
 
 	}
 

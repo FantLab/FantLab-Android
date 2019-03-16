@@ -10,7 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.evernote.android.state.State
-import kotlinx.android.synthetic.main.response_layout.*
+import kotlinx.android.synthetic.main.restyle_response_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.ContextMenus
@@ -29,7 +29,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 
 	@State lateinit var response: Response
 
-	override fun layout(): Int = R.layout.response_layout
+	override fun layout(): Int = R.layout.restyle_response_layout
 
 	override fun isTransparent(): Boolean = false
 
@@ -71,28 +71,27 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 	}
 
 	override fun onInitViews(response: Response) {
-		coverLayout?.setUrl(if (response.workImage != null) "https:${response.workImage}" else null)
-		username.text = response.userName
-		username.setOnClickListener {
-			val dialogView = ContextMenuDialogView()
-			dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(username.context), response, 0)
-			dialogView.show(supportFragmentManager, "ContextMenuDialogView")
-		}
+		avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/autors/${response.userId}")
+		responseUser.text = response.userName.capitalize()
+
+		action.text = String.format(getString(R.string.response), if (response.userSex == "m") getString(R.string.left) else getString(R.string.left_female))
 		date.text = response.dateIso.parseFullDate(true).getTimeAgo()
 
-		workName.text = if (response.workName.isNotEmpty()) {
-			if (response.workNameOrig.isNotEmpty()) {
-				String.format("%s / %s", response.workName, response.workNameOrig)
-			} else {
-				response.workName
-			}
-		} else {
-			response.workNameOrig
-		}
-		headerView.setOnClickListener { openWorkPager(response) }
-		workName.setOnClickListener { openWorkPager(response) }
+		authors.text = if (!InputHelper.isEmpty(response.workAuthor)) response.workAuthor else response.workAuthorOrig
 
-		text.html = response.text
+		workName.text = if (response.workName.isNotEmpty()) response.workName else response.workNameOrig
+		workName.setOnClickListener { openWorkPager() }
+
+		coverLayout.setUrl(if (response.workImage != null) "https:${response.workImage}" else null)
+		coverLayout.setOnClickListener { openWorkPager() }
+
+		userInfo.setOnClickListener { showUserMenu() }
+
+		responseText.text = response.text
+				.replace("(\r\n)+".toRegex(), "\n")
+				.replace("\\[spoiler].*|\\[\\/spoiler]".toRegex(), "")
+				.replace("\\[.*]".toRegex(), "")
+				.replace(":\\w+:".toRegex(), "")
 
 		if (response.mark == null) {
 			rating.visibility = View.GONE
@@ -104,12 +103,12 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		response.voteCount.let {
 			when {
 				it < 0 -> {
-					votes.setDrawables(R.drawable.ic_thumb_down_small)
+					votes.setDrawables(R.drawable.ic_thumb_down)
 					votes.text = response.voteCount.toString()
 					votes.visibility = View.VISIBLE
 				}
 				it > 0 -> {
-					votes.setDrawables(R.drawable.ic_thumb_up_small)
+					votes.setDrawables(R.drawable.ic_thumb_up)
 					votes.text = response.voteCount.toString()
 					votes.visibility = View.VISIBLE
 				}
@@ -124,11 +123,17 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		}
 	}
 
-	private fun openWorkPager(response: Response) {
+	private fun openWorkPager() {
 		if (response.workTypeId == FantlabHelper.WorkType.CYCLE.id)
 			CyclePagerActivity.startActivity(this, response.workId, response.workName, 0)
 		else
 			WorkPagerActivity.startActivity(this, response.workId, response.workName, 0)
+	}
+
+	private fun showUserMenu() {
+		val dialogView = ContextMenuDialogView()
+		dialogView.initArguments("main", ContextMenuBuilder.buildForProfile(responseUser.context), response, 0)
+		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 	}
 
 	fun onFabClicked() {

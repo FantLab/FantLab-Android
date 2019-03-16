@@ -45,7 +45,6 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
 		recycler.adapter = adapter
-		recycler.addKeyLineDivider()
 		if (savedInstanceState == null) {
 			authorId = arguments?.getInt(BundleConstant.EXTRA)
 		}

@@ -172,7 +172,7 @@ object ContextMenuBuilder {
 		val actions =
 				arrayListOf(
 						ContextMenus.MenuItem(context.getString(R.string.sort_date), R.drawable.ic_time_small, "sort", selected = PubnewsSortOption.values()[0] == sortBy),
-						ContextMenus.MenuItem(context.getString(R.string.sort_popularity), R.drawable.ic_popularity, "sort", selected = PubnewsSortOption.values()[1] == sortBy),
+						ContextMenus.MenuItem(context.getString(R.string.sort_popularity), R.drawable.ic_star, "sort", selected = PubnewsSortOption.values()[1] == sortBy),
 						ContextMenus.MenuItem(context.getString(R.string.sort_type), R.drawable.ic_type_small, "sort", selected = PubnewsSortOption.values()[2] == sortBy),
 						ContextMenus.MenuItem(context.getString(R.string.sort_publisher), R.drawable.ic_publishers, "sort", selected = PubnewsSortOption.values()[3] == sortBy),
 						ContextMenus.MenuItem(context.getString(R.string.sort_author), R.drawable.ic_person, "sort", selected = PubnewsSortOption.values()[4] == sortBy),
@@ -217,7 +217,7 @@ object ContextMenuBuilder {
 		val actions =
 				arrayListOf(
 						ContextMenus.MenuItem(context.getString(R.string.sort_correct), R.drawable.ic_correct, "sort", selected = PubplansSortOption.values()[0] == sortBy),
-						ContextMenus.MenuItem(context.getString(R.string.sort_popularity), R.drawable.ic_popularity, "sort", selected = PubplansSortOption.values()[1] == sortBy),
+						ContextMenus.MenuItem(context.getString(R.string.sort_popularity), R.drawable.ic_star, "sort", selected = PubplansSortOption.values()[1] == sortBy),
 						ContextMenus.MenuItem(context.getString(R.string.sort_date), R.drawable.ic_time_small, "sort", selected = PubplansSortOption.values()[2] == sortBy),
 						ContextMenus.MenuItem(context.getString(R.string.sort_type), R.drawable.ic_type_small, "sort", selected = PubplansSortOption.values()[3] == sortBy),
 						ContextMenus.MenuItem(context.getString(R.string.sort_publisher), R.drawable.ic_publishers, "sort", selected = PubplansSortOption.values()[4] == sortBy),
@@ -263,7 +263,7 @@ object ContextMenuBuilder {
 		val actions =
 				arrayListOf(
 						ContextMenus.MenuItem(context.getString(R.string.sort_correct), R.drawable.ic_correct, "sort", selected = AutplansSortOption.values()[0] == sortBy),
-						ContextMenus.MenuItem(context.getString(R.string.sort_popularity), R.drawable.ic_popularity, "sort", selected = AutplansSortOption.values()[1] == sortBy),
+						ContextMenus.MenuItem(context.getString(R.string.sort_popularity), R.drawable.ic_star, "sort", selected = AutplansSortOption.values()[1] == sortBy),
 						ContextMenus.MenuItem(context.getString(R.string.sort_author), R.drawable.ic_person, "sort", selected = AutplansSortOption.values()[2] == sortBy),
 						ContextMenus.MenuItem(context.getString(R.string.sort_name), R.drawable.ic_title, "sort", selected = AutplansSortOption.values()[3] == sortBy)
 				)
@@ -300,7 +300,7 @@ object ContextMenuBuilder {
 						ContextMenus.MenuItem(context.getString(R.string.sort_name), R.drawable.ic_title, "sort", selected = MarksSortOption.values()[1] == sortBy),
 						ContextMenus.MenuItem(context.getString(R.string.sort_author), R.drawable.ic_person, "sort", selected = MarksSortOption.values()[2] == sortBy),
 						ContextMenus.MenuItem(context.getString(R.string.sort_date), R.drawable.ic_time_small, "sort", selected = MarksSortOption.values()[3] == sortBy),
-						ContextMenus.MenuItem(context.getString(R.string.sort_year), R.drawable.ic_date, "sort", selected = MarksSortOption.values()[4] == sortBy)
+						ContextMenus.MenuItem(context.getString(R.string.sort_year), R.drawable.ic_time_small, "sort", selected = MarksSortOption.values()[4] == sortBy)
 				)
 		items.add(ContextMenus(context.getString(R.string.select_sort), actions, "sort"))
 

@@ -231,4 +231,7 @@
 	<string name="sort_popularity">Popularity</string>
 	<string name="wait">Please, wait…</string>
 	<string name="sort_year">Year</string>
+	<string name="left">left</string>
+	<string name="left_female">left</string>
+	<string name="response">%s response</string>
 </resources>

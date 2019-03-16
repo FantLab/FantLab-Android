@@ -40,7 +40,6 @@ class PubplansFragment : BaseFragment<PubplansMvp.View, PubplansPresenter>(),
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
 		recycler.adapter = adapter
-		recycler.addNormalSpacingDivider()
 		getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
 		recycler.addOnScrollListener(getLoadMore())
 		presenter.onCallApi(1, null)

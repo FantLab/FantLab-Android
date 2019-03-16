@@ -23,7 +23,7 @@
 		android:layout_toEndOf="@+id/iv_arrow"
 		android:layout_toStartOf="@+id/percent"
 		android:drawablePadding="10dp"
-		android:drawableStart="@drawable/ic_book"
+		android:drawableStart="@drawable/ic_classification"
 		android:gravity="center_vertical"
 		style="@style/TextAppearance.AppCompat.Subhead"
 		/>

@@ -16,4 +16,8 @@ class NewsAdapter constructor(news: ArrayList<News>)
 		holder.bind(getItem(position))
 	}
 
+	fun setOnContextMenuListener(listener: NewsViewHolder.OnOpenContextMenu) {
+		NewsViewHolder.setOnContextMenuListener(listener)
+	}
+
 }

@@ -2,12 +2,14 @@ package ru.fantlab.android.ui.adapter.viewholder
 
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.response_row_item.view.*
+import kotlinx.android.synthetic.main.restyle_response_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.FantlabHelper
+import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.getTimeAgo
 import ru.fantlab.android.helper.parseFullDate
+import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.modules.work.CyclePagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
@@ -18,16 +20,20 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 	: BaseViewHolder<Response>(itemView, adapter) {
 
 	override fun bind(response: Response) {
-		itemView.coverLayout.setUrl(if (response.workImage != null) "https:${response.workImage}" else null)
 
-		itemView.info.text = StringBuilder()
-				.append(response.userName)
-				.append(", ")
-				.append(response.dateIso.parseFullDate(true).getTimeAgo())
-		itemView.info.setOnClickListener {
+		itemView.avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/autors/${response.userId}")
+		itemView.responseUser.text = response.userName.capitalize()
+
+		itemView.userInfo.setOnClickListener {
 			listener?.onOpenContextMenu(response)
 		}
+		itemView.action.text = String.format(itemView.context.getString(R.string.response), if (response.userSex == "m") itemView.context.getString(R.string.left) else itemView.context.getString(R.string.left_female))
+		itemView.date.text = response.dateIso.parseFullDate(true).getTimeAgo()
 
+		itemView.authors.text = if (!InputHelper.isEmpty(response.workAuthor)) response.workAuthor else response.workAuthorOrig
+		itemView.workName.text = if (response.workName.isNotEmpty()) response.workName else response.workNameOrig
+
+		itemView.coverLayout.setUrl(if (response.workImage != null) "https:${response.workImage}" else null)
 		itemView.coverLayout.setOnClickListener {
 			if (response.workTypeId == FantlabHelper.WorkType.CYCLE.id)
 				CyclePagerActivity.startActivity(itemView.context, response.workId, response.workName, 0)
@@ -35,21 +41,11 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 				WorkPagerActivity.startActivity(itemView.context, response.workId, response.workName, 0)
 		}
 
-		itemView.workName.text = if (response.workName.isNotEmpty()) {
-			if (response.workNameOrig.isNotEmpty()) {
-				String.format("%s / %s", response.workName, response.workNameOrig)
-			} else {
-				response.workName
-			}
-		} else {
-			response.workNameOrig
-		}
-
-		itemView.text.text = response.text
-				.replace("(\r\n)+".toRegex(), "\n")    // пустые переносы строк
+		itemView.responseText.text = response.text
+				.replace("(\r\n)+".toRegex(), "\n")
 				.replace("\\[spoiler].*|\\[\\/spoiler]".toRegex(), "")
-				.replace("\\[.*]".toRegex(), "")       // bb-коды
-				.replace(":\\w+:".toRegex(), "")       // смайлы
+				.replace("\\[.*]".toRegex(), "")
+				.replace(":\\w+:".toRegex(), "")
 
 		if (response.mark == null) {
 			itemView.rating.visibility = View.GONE
@@ -61,12 +57,12 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 		response.voteCount.let {
 			when {
 				it < 0 -> {
-					itemView.votes.setDrawables(R.drawable.ic_thumb_down_small)
+					itemView.votes.setDrawables(R.drawable.ic_thumb_down)
 					itemView.votes.text = response.voteCount.toString()
 					itemView.votes.visibility = View.VISIBLE
 				}
 				it > 0 -> {
-					itemView.votes.setDrawables(R.drawable.ic_thumb_up_small)
+					itemView.votes.setDrawables(R.drawable.ic_thumb_up)
 					itemView.votes.text = response.voteCount.toString()
 					itemView.votes.visibility = View.VISIBLE
 				}
@@ -86,7 +82,7 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 				viewGroup: ViewGroup,
 				adapter: BaseRecyclerAdapter<Response, ResponseViewHolder>
 		): ResponseViewHolder {
-			return ResponseViewHolder(getView(viewGroup, R.layout.response_row_item), adapter)
+			return ResponseViewHolder(getView(viewGroup, R.layout.restyle_response_row_item), adapter)
 		}
 
 		fun setOnContextMenuListener(listener: ResponseViewHolder.OnOpenContextMenu) {

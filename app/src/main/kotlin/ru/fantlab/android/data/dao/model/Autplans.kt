@@ -67,6 +67,10 @@ data class Autplans(
 			val description: String,
 			@SerializedName("name")
 			val name: String,
+			@SerializedName("popularity")
+			val popularity: String,
+			@SerializedName("popularity_date_of_calc")
+			val popularityDate: String,
 			@SerializedName("rusname")
 			val rusname: String,
 			@SerializedName("saga")
