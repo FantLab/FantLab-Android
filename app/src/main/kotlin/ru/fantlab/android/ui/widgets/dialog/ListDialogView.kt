@@ -23,10 +23,6 @@ class ListDialogView<T : Parcelable> : BaseDialogFragment<BaseMvp.View, BasePres
 
 	private var callbacks: ListDialogViewActionCallback? = null
 
-	init {
-		suppressAnimation = true
-	}
-
 	override fun fragmentLayout(): Int {
 		return R.layout.simple_list_dialog
 	}

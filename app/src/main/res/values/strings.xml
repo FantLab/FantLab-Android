@@ -13,6 +13,9 @@
 	<string name="title_transition" translatable="false">profile_title_transition</string>
 	<string name="light_theme_mode" translatable="false">Light Theme</string>
 	<string name="dark_theme_mode" translatable="false">Dark Theme</string>
+	<string name="amlod_theme_mode" translatable="false">Amlod Theme</string>
+	<string name="mid_night_blue_theme_mode" translatable="false">Mid Night Blue</string>
+	<string name="bluish_theme" translatable="false">Bluish Theme</string>
 	<string name="red_theme_mode" translatable="false">Red</string>
 	<string name="pink_theme_mode" translatable="false">Pink</string>
 	<string name="purple_theme_mode" translatable="false">Purple</string>
@@ -234,4 +237,15 @@
 	<string name="left">left</string>
 	<string name="left_female">left</string>
 	<string name="response">%s response</string>
+	<string name="customization">Кастомизация</string>
+	<string name="customizationHint">Дополнительные настройки приложения</string>
+	<string name="currentColor">Accent color, current: %s</string>
+	<string name="colored_navbar_summary">Enable colored navigation bar</string>
+	<string name="colored_navbar_title">Colorless Navbar</string>
+	<string name="list_animation_title">List animation</string>
+	<string name="list_animation_summary">Animating list items</string>
+	<string name="theme_color_title">Colour</string>
+	<string name="theme_color_summary">Primary color of the application</string>
+	<string name="back_button_summary">Press back button twice to close application</string>
+	<string name="back_button_title">Double click to exit</string>
 </resources>

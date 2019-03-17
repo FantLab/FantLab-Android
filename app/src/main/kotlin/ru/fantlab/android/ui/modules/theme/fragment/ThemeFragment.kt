@@ -46,8 +46,7 @@ class ThemeFragment : BaseFragment<ThemeFragmentMvp.View, ThemeFragmentPresenter
 		val contextThemeWrapper = ContextThemeWrapper(activity, theme)
 		primaryDarkColor = ViewHelper.getPrimaryDarkColor(contextThemeWrapper)
 		val localInflater = inflater.cloneInContext(contextThemeWrapper)
-		val view = localInflater.inflate(R.layout.theme_layout, container, false)!!
-		return view
+		return localInflater.inflate(R.layout.theme_layout, container, false)!!
 	}
 
 	override fun providePresenter(): ThemeFragmentPresenter {
@@ -77,6 +76,9 @@ class ThemeFragment : BaseFragment<ThemeFragmentMvp.View, ThemeFragmentPresenter
 		when (theme) {
 			R.style.ThemeLight -> setTheme(getString(R.string.light_theme_mode))
 			R.style.ThemeDark -> setTheme(getString(R.string.dark_theme_mode))
+			R.style.ThemeAmlod -> setTheme(getString(R.string.amlod_theme_mode))
+			R.style.ThemeBluish -> setTheme(getString(R.string.bluish_theme))
+			R.style.ThemeMidnight -> setTheme(getString(R.string.mid_night_blue_theme_mode))
 		}
 	}
 

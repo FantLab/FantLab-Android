@@ -34,8 +34,8 @@ class CustomTagHandler : TagHandler {
 
 	private fun endBlockquote(text: Editable) {
 		endBlockElement(text)
-		val theme = PrefGetter.getThemeType().ordinal
-		end(text, Blockquote::class.java, CustomQuoteSpan(getWindowBackground(theme)))
+		val theme = PrefGetter.getThemeType()
+		end(text, Blockquote::class.java, CustomQuoteSpan(getWindowBackground(theme - 1)))
 	}
 
 	private fun endBlockElement(text: Editable) {

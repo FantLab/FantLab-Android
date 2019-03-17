@@ -26,10 +26,6 @@ class ProgressDialogFragment : BaseDialogFragment<BaseMvp.View, BasePresenter<Ba
 		}
 	}
 
-	init {
-		suppressAnimation = true
-	}
-
 	override fun fragmentLayout(): Int {
 		return R.layout.progress_dialog_layout
 	}

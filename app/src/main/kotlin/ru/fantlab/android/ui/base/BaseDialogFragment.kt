@@ -1,7 +1,5 @@
 package ru.fantlab.android.ui.base
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
@@ -16,18 +14,14 @@ import android.view.ViewGroup
 import com.evernote.android.state.StateSaver
 import net.grandcentrix.thirtyinch.TiDialogFragment
 import ru.fantlab.android.R
-import ru.fantlab.android.helper.AnimHelper
 import ru.fantlab.android.helper.AppHelper
-import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
-import ru.fantlab.android.ui.widgets.dialog.ProgressDialogFragment
 
 abstract class BaseDialogFragment<V : BaseMvp.View, P : BasePresenter<V>>
 	: TiDialogFragment<P, V>(), BaseMvp.View {
 
 	protected var callback: BaseMvp.View? = null
-	protected var suppressAnimation = false
 
 	@LayoutRes
 	protected abstract fun fragmentLayout(): Int
@@ -65,27 +59,6 @@ abstract class BaseDialogFragment<V : BaseMvp.View, P : BasePresenter<V>>
 		}
 	}
 
-	override fun dismiss() {
-		if (suppressAnimation) {
-			super.dismiss()
-			return
-		}
-		if (PrefGetter.isAppAnimationDisabled()) {
-			super.dismiss()
-		} else {
-			AnimHelper.dismissDialog(
-					this,
-					resources.getInteger(android.R.integer.config_shortAnimTime),
-					object : AnimatorListenerAdapter() {
-						override fun onAnimationEnd(animation: Animator) {
-							super.onAnimationEnd(animation)
-							super@BaseDialogFragment.dismiss()
-						}
-					}
-			)
-		}
-	}
-
 	@SuppressLint("RestrictedApi")
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		if (fragmentLayout() != 0) {
@@ -94,16 +67,6 @@ abstract class BaseDialogFragment<V : BaseMvp.View, P : BasePresenter<V>>
 			return themeAwareInflater.inflate(fragmentLayout(), container, false)
 		}
 		return super.onCreateView(inflater, container, savedInstanceState)
-	}
-
-	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-		val dialog = super.onCreateDialog(savedInstanceState)
-		if (!PrefGetter.isAppAnimationDisabled() && this !is ProgressDialogFragment && !suppressAnimation) {
-			dialog.setOnShowListener {
-				AnimHelper.revealDialog(dialog, resources.getInteger(android.R.integer.config_longAnimTime))
-			}
-		}
-		return dialog
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -42,6 +42,11 @@ object ViewHelper {
 	}
 
 	@ColorInt
+	fun getPrimaryTextColor(context: Context): Int {
+		return getColorAttr(context, android.R.attr.textColorPrimary)
+	}
+
+	@ColorInt
 	fun getTertiaryTextColor(context: Context): Int {
 		return getColorAttr(context, android.R.attr.textColorTertiary)
 	}

@@ -106,7 +106,10 @@ data class FragmentPagerAdapterModel(
 
 		fun buildForTheme(): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(FragmentPagerAdapterModel("", ThemeFragment.newInstance(R.style.ThemeLight)),
-					FragmentPagerAdapterModel("", ThemeFragment.newInstance(R.style.ThemeDark))
+					FragmentPagerAdapterModel("", ThemeFragment.newInstance(R.style.ThemeDark)),
+					FragmentPagerAdapterModel("", ThemeFragment.newInstance(R.style.ThemeAmlod)),
+					FragmentPagerAdapterModel("", ThemeFragment.newInstance(R.style.ThemeBluish)),
+					FragmentPagerAdapterModel("", ThemeFragment.newInstance(R.style.ThemeMidnight))
 			)
 		}
 

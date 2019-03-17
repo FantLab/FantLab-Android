@@ -111,7 +111,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		if (drawer != null && drawer!!.isDrawerOpen(GravityCompat.START)) {
 			closeDrawer()
 		} else {
-			val clickTwiceToExit = !PrefGetter.isTwiceBackButtonDisabled()
+			val clickTwiceToExit = PrefGetter.isTwiceBackButtonEnabled()
 			superOnBackPressed(clickTwiceToExit)
 		}
 	}
@@ -377,7 +377,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	private fun setupDrawer() {
-		if (this !is MainActivity) {
+		if (this is MainActivity) {
 			if (!PrefGetter.isNavDrawerHintShowed()) {
 				drawer?.let {
 					it.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
@@ -389,7 +389,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 									drawerView.postDelayed({
 										closeDrawer()
 										it.removeDrawerListener(this)
-									}, 1000)
+									}, 800)
 								}
 							})
 							it.viewTreeObserver.removeOnPreDrawListener(this)

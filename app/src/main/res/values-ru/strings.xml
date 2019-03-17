@@ -199,4 +199,15 @@
 	<string name="left">оставил</string>
 	<string name="left_female">оставила</string>
 	<string name="response">%s отзыв</string>
+	<string name="customization">Кастомизация</string>
+	<string name="customizationHint">Дополнительные настройки приложения</string>
+	<string name="currentColor">Смена цвета, текущий: %s</string>
+	<string name="colored_navbar_title">Окраска панели навигации</string>
+	<string name="colored_navbar_summary">Цветная панель согласно темы</string>
+	<string name="list_animation_title">Анимация списка</string>
+	<string name="list_animation_summary">Анимация элементов списка</string>
+	<string name="theme_color_title">Цвет</string>
+	<string name="theme_color_summary">Основной цвет приложения</string>
+	<string name="back_button_summary">Нажмите дважды кнопку назад, чтобы закрыть приложение</string>
+	<string name="back_button_title">Двойной клик, чтобы выйти</string>
 </resources>

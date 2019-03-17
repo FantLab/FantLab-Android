@@ -9,6 +9,9 @@ import android.widget.Toast
 import es.dmoral.toasty.Toasty
 import ru.fantlab.android.App
 import ru.fantlab.android.R
+import android.support.v4.app.ActivityOptionsCompat
+import android.content.Intent
+import android.view.View
 
 object ActivityHelper {
 
