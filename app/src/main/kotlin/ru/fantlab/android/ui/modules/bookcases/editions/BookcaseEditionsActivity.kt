@@ -23,6 +23,7 @@ import ru.fantlab.android.ui.base.BaseActivity
 class BookcaseEditionsActivity : BaseActivity<BookcaseEditionsMvp.View, BookcaseEditionsPresenter>(), BookcaseEditionsMvp.View {
 
     @State var bookcaseId: Int = 0
+    @State var bookcaseName: String = ""
 
     private val adapter: BookcaseEditionsAdapter by lazy { BookcaseEditionsAdapter(arrayListOf()) }
 
@@ -40,15 +41,15 @@ class BookcaseEditionsActivity : BaseActivity<BookcaseEditionsMvp.View, Bookcase
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             bookcaseId = intent?.extras?.getInt(BundleConstant.EXTRA, -1) ?: -1
+            bookcaseName = intent?.extras?.getString(BundleConstant.EXTRA_TWO, "") ?: ""
         }
         if (bookcaseId == -1) {
             finish()
             return
         }
 
-        //title = getString(R.string.awards_list)
+        title = bookcaseName
         hideShowShadow(true)
-        //selectMenuItem(R.id.awards, true)
         if (savedInstanceState == null) {
             stateLayout.hideProgress()
         }
@@ -140,10 +141,11 @@ class BookcaseEditionsActivity : BaseActivity<BookcaseEditionsMvp.View, Bookcase
 
     companion object {
 
-        fun startActivity(context: Context, bookcaseId: Int) {
+        fun startActivity(context: Context, bookcaseId: Int, bookcaseName: String) {
             val intent = Intent(context, BookcaseEditionsActivity::class.java)
             intent.putExtras(Bundler.start()
                     .put(BundleConstant.EXTRA, bookcaseId)
+                    .put(BundleConstant.EXTRA_TWO, bookcaseName)
                     .end())
             if (context is Service || context is Application) {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

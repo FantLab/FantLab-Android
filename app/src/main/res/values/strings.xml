@@ -33,7 +33,6 @@
 	<string name="orange_theme_mode" translatable="false">Orange</string>
 	<string name="deep_orange_theme_mode" translatable="false">Deep Orange</string>
 	<string name="share">Share</string>
-
 	<string name="in_progress">Loading, please wait…</string>
 	<string name="cancel">Cancel</string>
 	<string name="ok">OK</string>
@@ -275,4 +274,13 @@
 	<string name="sort_update">Update</string>
 	<string name="sort_articles">Articles</string>
 	<string name="sort_subscribers">Subscribers</string>
+	<string name="bookcase_access">Bookcase is visible for other users</string>
+	<string name="bookcase_name_hint">Name</string>
+	<string name="bookcase_creation_title">Create a new bookcase</string>
+	<string name="bookcase_work">Sets of works</string>
+	<string name="bookcase_edition">Sets of editions</string>
+	<string name="bookcase_film">Sets of films</string>
+	<string name="bookcase_work_type">for works</string>
+	<string name="bookcase_edition_type">for editions</string>
+	<string name="bookcase_film_type">for films</string>
 </resources>

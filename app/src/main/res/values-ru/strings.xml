@@ -237,5 +237,13 @@
 	<string name="sort_update">Дате выхода последней статьи</string>
 	<string name="sort_articles">Количеству статей</string>
 	<string name="sort_subscribers">Количеству подписчиков</string>
-
+	<string name="bookcase_access">полка доступна для просмотра другим пользователям</string>
+	<string name="bookcase_name_hint">Название</string>
+	<string name="bookcase_creation_title">Добавление новой полки</string>
+	<string name="bookcase_work">Подборки произведений</string>
+	<string name="bookcase_edition">Книжные полки изданий</string>
+	<string name="bookcase_film">Кинополки</string>
+	<string name="bookcase_work_type">для изданий</string>
+	<string name="bookcase_edition_type">для произведений</string>
+	<string name="bookcase_film_type">для кинофильмов</string>
 </resources>

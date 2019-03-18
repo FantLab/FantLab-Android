@@ -26,6 +26,7 @@ import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
+import ru.fantlab.android.ui.modules.bookcases.editor.BookcaseEditorActivty
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
@@ -178,6 +179,10 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 				fab.show()
 			}
 			2 -> fab.hide()/*fab.show()*/
+			3 -> {
+				fab.setImageResource(R.drawable.ic_add)
+				fab.show()
+			}
 			else -> fab.hide()
 		}
 	}
@@ -198,6 +203,10 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 			1 -> {
 				val fragment = pager.adapter?.instantiateItem(pager, 1) as? ProfileMarksFragment
 				fragment?.showChartsDialog()
+			}
+			3 -> {
+				startActivity(Intent(this, BookcaseEditorActivty::class.java)
+						.putExtra(BundleConstant.ID, userId))
 			}
 		}
 	}

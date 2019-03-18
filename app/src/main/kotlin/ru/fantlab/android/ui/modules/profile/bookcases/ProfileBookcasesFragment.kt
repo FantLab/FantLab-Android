@@ -36,13 +36,11 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
 
     override fun providePresenter(): ProfileBookcasesPresenter = ProfileBookcasesPresenter()
 
-    init {
-        categories.add(Pair("work", "Подборки произведений"))
-        categories.add(Pair("edition", "Книжные полки изданий"))
-        categories.add(Pair("films", "Кинополки"))
-    }
-
     override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
+        categories.add(Pair("work", getString(R.string.bookcase_work)))
+        categories.add(Pair("edition", getString(R.string.bookcase_edition)))
+        categories.add(Pair("films", getString(R.string.bookcase_film)))
+
         if (savedInstanceState == null) {
             stateLayout.hideProgress()
         }
@@ -90,7 +88,8 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
                     return false
                 } else {
                     /// TODO: replace with the real call
-                    BookcaseEditionsActivity.startActivity(context!!, 3056)
+                    val item = node.content as BookcaseChild
+                    BookcaseEditionsActivity.startActivity(context!!, 3056, item.name)
                     /*val itemWork = node.content as Consts
                     if (itemWork.workId != 0) {
                         WorkPagerActivity.startActivity(context!!, itemWork.workId, itemWork.title)
@@ -107,7 +106,7 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
 
     override fun onItemClicked(item: Bookcase, position: Int) {
         /// TODO: replace with the real call
-        BookcaseEditionsActivity.startActivity(context!!, 3056)
+        BookcaseEditionsActivity.startActivity(context!!, 3056, item.name)
         //BookcaseEditionsActivity.startActivity(context!!, item.id)
     }
 
