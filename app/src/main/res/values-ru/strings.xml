@@ -247,4 +247,8 @@
 	<string name="bookcase_edition_type">для произведений</string>
 	<string name="bookcase_film_type">для кинофильмов</string>
 	<string name="bookcase_created">Полка добавлена</string>
+	<string name="bookcase_delete">Удалить</string>
+	<string name="bookcase_deleting">Удаление полки</string>
+	<string name="bookcase_modify">Править</string>
+	<string name="bookcase_deleted">Полка удалена</string>
 </resources>

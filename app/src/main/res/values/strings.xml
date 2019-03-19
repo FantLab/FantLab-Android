@@ -284,4 +284,8 @@
 	<string name="bookcase_edition_type">for editions</string>
 	<string name="bookcase_film_type">for films</string>
 	<string name="bookcase_created">Bookcase created</string>
+	<string name="bookcase_delete">Remove</string>
+	<string name="bookcase_deleting">Removing bookcase</string>
+	<string name="bookcase_modify">Modify</string>
+	<string name="bookcase_deleted">Bookcase deleted</string>
 </resources>

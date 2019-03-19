@@ -1,29 +1,31 @@
 package ru.fantlab.android.ui.modules.bookcases.editions
 
-import android.app.Application
-import android.app.Service
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.view.Menu
 import android.view.View
 import android.view.MenuItem
+import android.widget.Toast
 import ru.fantlab.android.R
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import com.evernote.android.state.State
+import es.dmoral.toasty.Toasty
 import ru.fantlab.android.helper.*
 import ru.fantlab.android.data.dao.model.BookcaseEdition
 import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.ui.adapter.BookcaseEditionsAdapter
 import ru.fantlab.android.ui.base.BaseActivity
+import ru.fantlab.android.ui.widgets.dialog.MessageDialogView
 
 class BookcaseEditionsActivity : BaseActivity<BookcaseEditionsMvp.View, BookcaseEditionsPresenter>(), BookcaseEditionsMvp.View {
 
     @State var bookcaseId: Int = 0
     @State var bookcaseName: String = ""
+    @State var userId: Int = -1
 
     private val adapter: BookcaseEditionsAdapter by lazy { BookcaseEditionsAdapter(arrayListOf()) }
 
@@ -42,8 +44,9 @@ class BookcaseEditionsActivity : BaseActivity<BookcaseEditionsMvp.View, Bookcase
         if (savedInstanceState == null) {
             bookcaseId = intent?.extras?.getInt(BundleConstant.EXTRA, -1) ?: -1
             bookcaseName = intent?.extras?.getString(BundleConstant.EXTRA_TWO, "") ?: ""
+            userId = intent?.extras?.getInt(BundleConstant.EXTRA_THREE, -1) ?: -1
         }
-        if (bookcaseId == -1) {
+        if (bookcaseId == -1 || userId == -1) {
             finish()
             return
         }
@@ -64,25 +67,48 @@ class BookcaseEditionsActivity : BaseActivity<BookcaseEditionsMvp.View, Bookcase
         fastScroller.attachRecyclerView(recycler)
     }
 
-    fun showSortDialog() {
-        /*val dialogView = ContextMenuDialogView()
-        dialogView.initArguments("main", ContextMenuBuilder.buildForAwardsSorting(recycler.context))
-        dialogView.show(supportFragmentManager, "ContextMenuDialogView")*/
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.awards_menu, menu)
+        menuInflater.inflate(R.menu.bookcase_menu, menu)
         toolbarMenu = menu
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.sort -> {
-                showSortDialog()
+            R.id.bookcaseEdit -> {
+                // TODO not implemented
+            }
+            R.id.bookcaseDelete -> {
+                MessageDialogView.newInstance(
+                        bundleTitle = getString(R.string.bookcase_deleting),
+                        bundleMsg = getString(R.string.confirm_message),
+                        bundle = Bundler.start()
+                                .put(BundleConstant.YES_NO_EXTRA, true)
+                                .put("bookcase_deletion", true)
+                                .end()
+                ).show(supportFragmentManager, MessageDialogView.TAG)
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onMessageDialogActionClicked(isOk: Boolean, bundle: Bundle?) {
+        if (isOk && bundle != null) {
+            val deletion = bundle.getBoolean("bookcase_deletion")
+            if (deletion) {
+                presenter.deleteBookcase(bookcaseId, userId)
+            }
+        }
+    }
+
+    override fun onSuccessfullyDeleted() {
+        Toasty.info(applicationContext!!, getString(R.string.bookcase_deleted), Toast.LENGTH_LONG).show()
+        val intent = Intent()
+        intent.putExtras(Bundler.start()
+                .put(BundleConstant.EXTRA, true)
+                .end())
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
     override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
@@ -141,16 +167,14 @@ class BookcaseEditionsActivity : BaseActivity<BookcaseEditionsMvp.View, Bookcase
 
     companion object {
 
-        fun startActivity(context: Context, bookcaseId: Int, bookcaseName: String) {
-            val intent = Intent(context, BookcaseEditionsActivity::class.java)
+        fun startActivity(activity: Activity, bookcaseId: Int, bookcaseName: String, userId: Int) {
+            val intent = Intent(activity, BookcaseEditionsActivity::class.java)
             intent.putExtras(Bundler.start()
                     .put(BundleConstant.EXTRA, bookcaseId)
                     .put(BundleConstant.EXTRA_TWO, bookcaseName)
+                    .put(BundleConstant.EXTRA_THREE, userId)
                     .end())
-            if (context is Service || context is Application) {
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            context.startActivity(intent)
+            activity.startActivityForResult(intent, BundleConstant.BOOKCASE_VIEWER)
         }
     }
 

@@ -225,6 +225,15 @@ object DataManager {
 					.rxString()
 					.map { it.get() }
 
+	fun deleteBookcase(
+			bookcaseId: Int,
+			userId: Int
+	): Single<String> =
+			deleteBookcasePath(bookcaseId, userId)
+					.httpGet()
+					.rxString()
+					.map { it.get() }
+
 	fun sendUserMark(
 			workId: Int,
 			toWorkId: Int,
@@ -648,6 +657,11 @@ fun createBookcasePath(
 		name: String,
 		publicBookcase: String
 ) = "/bookcasecreate$type?name=$name&type=$type&shared=$publicBookcase".toAbsolutePath()
+
+fun deleteBookcasePath(
+		bookcaseId: Int,
+		userId: Int
+) = "/user/$userId/bookcases/deletebookcase$bookcaseId".toAbsolutePath()
 
 fun sendUserMarkPath(
 		workId: Int,

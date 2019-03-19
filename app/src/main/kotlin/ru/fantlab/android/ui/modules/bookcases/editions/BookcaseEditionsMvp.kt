@@ -16,11 +16,15 @@ interface BookcaseEditionsMvp {
         fun onNotifyAdapter(items: ArrayList<BookcaseEdition>)
 
         fun onItemClicked(item: BookcaseEdition)
+
+        fun onSuccessfullyDeleted()
     }
 
     interface Presenter : BaseMvp.Presenter,
             BaseViewHolder.OnItemClickListener<BookcaseEdition> {
 
         fun getEditions(force: Boolean, bookcaseId: Int)
+
+        fun deleteBookcase(bookcaseId: Int, userId: Int)
     }
 }

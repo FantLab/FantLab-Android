@@ -66,7 +66,7 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
             val categoryNode = TreeNode(BookcaseCategory(category.second))
             nodes.add(categoryNode)
             bookcases.forEach{ bookcase ->
-                if (bookcase.type.equals(category.first)) {
+                if (bookcase.type == category.first) {
                     nodes[subIndex].addChild(TreeNode(BookcaseChild(bookcase.name, bookcase.description, bookcase.type)))
                 }
             }
@@ -89,7 +89,7 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
                 } else {
                     /// TODO: replace with the real call
                     val item = node.content as BookcaseChild
-                    BookcaseEditionsActivity.startActivity(context!!, 3056, item.name)
+                    BookcaseEditionsActivity.startActivity(activity!!, 3056, item.name, userId)
                     /*val itemWork = node.content as Consts
                     if (itemWork.workId != 0) {
                         WorkPagerActivity.startActivity(context!!, itemWork.workId, itemWork.title)
@@ -106,7 +106,7 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
 
     override fun onItemClicked(item: Bookcase, position: Int) {
         /// TODO: replace with the real call
-        BookcaseEditionsActivity.startActivity(context!!, 3056, item.name)
+        BookcaseEditionsActivity.startActivity(activity!!, 3056, item.name, userId)
         //BookcaseEditionsActivity.startActivity(context!!, item.id)
     }
 

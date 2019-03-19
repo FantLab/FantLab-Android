@@ -166,7 +166,8 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		if (resultCode == Activity.RESULT_OK) {
-			if (requestCode == BundleConstant.BOOKCASE_EDITOR && pager.currentItem == 3) {
+			if ((requestCode == BundleConstant.BOOKCASE_EDITOR || requestCode == BundleConstant.BOOKCASE_VIEWER)
+					&& pager.currentItem == 3) {
 				val fragment = pager.adapter?.instantiateItem(pager, 3) as? ProfileBookcasesFragment
 				fragment?.onRefresh()
 			}

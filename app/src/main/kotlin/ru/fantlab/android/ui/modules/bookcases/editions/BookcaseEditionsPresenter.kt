@@ -7,6 +7,7 @@ import android.view.View
 import io.reactivex.Single
 import ru.fantlab.android.data.dao.model.BookcaseEdition
 import ru.fantlab.android.data.dao.response.BookcaseEditionsResponse
+import ru.fantlab.android.data.dao.response.DeleteBookcaseResponse
 import ru.fantlab.android.provider.rest.getBookcaseEditionsPath
 import ru.fantlab.android.provider.storage.DbProvider
 
@@ -15,6 +16,20 @@ class BookcaseEditionsPresenter : BasePresenter<BookcaseEditionsMvp.View>(), Boo
         makeRestCall(
                 getEditionsInternal(force, bookcaseId).toObservable(),
                 Consumer { editions -> sendToView { it.onNotifyAdapter(editions) } }
+        )
+    }
+
+    override fun deleteBookcase(bookcaseId: Int, userId: Int) {
+        makeRestCall(
+                DataManager.deleteBookcase(bookcaseId, userId).toObservable(),
+                Consumer { response ->
+                    val result = DeleteBookcaseResponse.Parser().parse(response)
+                    if (result != null) {
+                        sendToView { it.onSuccessfullyDeleted() }
+                    } else {
+                        sendToView { it.showErrorMessage(response) }
+                    }
+                }
         )
     }
 
