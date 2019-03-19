@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.user
 
+import android.app.Activity
 import android.app.Application
 import android.app.Service
 import android.content.Context
@@ -29,6 +30,7 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.bookcases.editor.BookcaseEditorActivty
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.login.LoginActivity
+import ru.fantlab.android.ui.modules.profile.bookcases.ProfileBookcasesFragment
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
 import shortbread.Shortcut
 import java.text.NumberFormat
@@ -162,6 +164,16 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		pager.currentItem = tabIndex
 	}
 
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		if (resultCode == Activity.RESULT_OK) {
+			if (requestCode == BundleConstant.BOOKCASE_EDITOR && pager.currentItem == 3) {
+				val fragment = pager.adapter?.instantiateItem(pager, 3) as? ProfileBookcasesFragment
+				fragment?.onRefresh()
+			}
+		}
+		super.onActivityResult(requestCode, resultCode, data)
+	}
+
 	private fun hideShowFab(position: Int) {
 		if (isError) {
 			fab.hide()
@@ -205,8 +217,8 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 				fragment?.showChartsDialog()
 			}
 			3 -> {
-				startActivity(Intent(this, BookcaseEditorActivty::class.java)
-						.putExtra(BundleConstant.ID, userId))
+				startActivityForResult(Intent(this, BookcaseEditorActivty::class.java)
+						.putExtra(BundleConstant.ID, userId), BundleConstant.BOOKCASE_EDITOR)
 			}
 		}
 	}

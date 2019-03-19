@@ -1,10 +1,13 @@
 package ru.fantlab.android.ui.modules.bookcases.editor
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.annotation.StringRes
 import ru.fantlab.android.R
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import es.dmoral.toasty.Toasty
 import ru.fantlab.android.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.bookcase_editor_layout.*
 import ru.fantlab.android.helper.AnimHelper
@@ -45,6 +48,9 @@ class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEdito
 
     override fun onSuccessfullyCreated() {
         hideProgress()
+        Toasty.info(applicationContext!!, getString(R.string.bookcase_created), Toast.LENGTH_LONG).show()
+        setResult(Activity.RESULT_OK)
+        finish()
     }
 
     override fun onSuccessfullyUpdated() {

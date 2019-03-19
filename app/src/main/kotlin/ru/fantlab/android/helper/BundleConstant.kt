@@ -12,6 +12,7 @@ object BundleConstant {
 	var REFRESH_RESPONSE_CODE = 65
 	var NEW_TOPIC_MESSAGE_CODE = 65
 	val REQUEST_CODE = 2563
+	val BOOKCASE_EDITOR = 319
 	val CLASSIFICATOR_CODE = 2364
 	val ITEM = "item"
 	val REVIEW_EXTRA = "review_extra"

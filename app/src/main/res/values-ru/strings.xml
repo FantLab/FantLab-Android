@@ -246,4 +246,5 @@
 	<string name="bookcase_work_type">для изданий</string>
 	<string name="bookcase_edition_type">для произведений</string>
 	<string name="bookcase_film_type">для кинофильмов</string>
+	<string name="bookcase_created">Полка добавлена</string>
 </resources>
