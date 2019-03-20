@@ -10,6 +10,7 @@ import ru.fantlab.android.ui.modules.author.responses.AuthorResponsesFragment
 import ru.fantlab.android.ui.modules.award.contests.AwardContestsFragment
 import ru.fantlab.android.ui.modules.award.nominations.AwardNominationsFragment
 import ru.fantlab.android.ui.modules.award.overview.AwardOverviewFragment
+import ru.fantlab.android.ui.modules.bookcases.overview.BookcasesOverviewFragment
 import ru.fantlab.android.ui.modules.classificator.age.ClassificationAgeFragment
 import ru.fantlab.android.ui.modules.classificator.characteristics.ClassificationCharacteristicsFragment
 import ru.fantlab.android.ui.modules.classificator.genres.ClassificationGenreFragment
@@ -20,7 +21,6 @@ import ru.fantlab.android.ui.modules.classificator.time.ClassificationTimeFragme
 import ru.fantlab.android.ui.modules.edition.content.EditionContentFragment
 import ru.fantlab.android.ui.modules.edition.overview.EditionOverviewFragment
 import ru.fantlab.android.ui.modules.plans.autplans.AutPlansFragment
-import ru.fantlab.android.ui.modules.profile.bookcases.ProfileBookcasesFragment
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
 import ru.fantlab.android.ui.modules.profile.overview.ProfileOverviewFragment
 import ru.fantlab.android.ui.modules.profile.responses.ProfileResponsesFragment
@@ -51,7 +51,7 @@ data class FragmentPagerAdapterModel(
 					FragmentPagerAdapterModel(context.getString(R.string.overview), ProfileOverviewFragment.newInstance(userId)),
 					FragmentPagerAdapterModel(context.getString(R.string.marks), ProfileMarksFragment.newInstance(userId)),
 					FragmentPagerAdapterModel(context.getString(R.string.responses), ProfileResponsesFragment.newInstance(userId)),
-					FragmentPagerAdapterModel(context.getString(R.string.bookcases), ProfileBookcasesFragment.newInstance(userId))
+					FragmentPagerAdapterModel(context.getString(R.string.bookcases), BookcasesOverviewFragment.newInstance(userId))
 			)
 		}
 

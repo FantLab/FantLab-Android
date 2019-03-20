@@ -28,9 +28,9 @@ import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.bookcases.editor.BookcaseEditorActivty
+import ru.fantlab.android.ui.modules.bookcases.overview.BookcasesOverviewFragment
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.login.LoginActivity
-import ru.fantlab.android.ui.modules.profile.bookcases.ProfileBookcasesFragment
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
 import shortbread.Shortcut
 import java.text.NumberFormat
@@ -168,7 +168,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		if (resultCode == Activity.RESULT_OK) {
 			if ((requestCode == BundleConstant.BOOKCASE_EDITOR || requestCode == BundleConstant.BOOKCASE_VIEWER)
 					&& pager.currentItem == 3) {
-				val fragment = pager.adapter?.instantiateItem(pager, 3) as? ProfileBookcasesFragment
+				val fragment = pager.adapter?.instantiateItem(pager, 3) as? BookcasesOverviewFragment
 				fragment?.onRefresh()
 			}
 		}

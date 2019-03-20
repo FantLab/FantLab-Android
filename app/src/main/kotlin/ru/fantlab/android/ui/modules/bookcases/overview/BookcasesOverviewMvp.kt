@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.profile.bookcases
+package ru.fantlab.android.ui.modules.bookcases.overview
 
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -8,7 +8,7 @@ import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-interface ProfileBookcasesMvp {
+interface BookcasesOverviewMvp {
     interface View : BaseMvp.View,
             SwipeRefreshLayout.OnRefreshListener,
             android.view.View.OnClickListener,

@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.profile.bookcases
+package ru.fantlab.android.ui.modules.bookcases.overview
 
 import android.os.Bundle
 import android.view.View
@@ -14,8 +14,8 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.getUserBookcasesPath
 import ru.fantlab.android.provider.storage.DbProvider
 
-class ProfileBookcasesPresenter : BasePresenter<ProfileBookcasesMvp.View>(),
-        ProfileBookcasesMvp.Presenter {
+class BookcasesOverviewPresenter : BasePresenter<BookcasesOverviewMvp.View>(),
+        BookcasesOverviewMvp.Presenter {
 
     override fun onFragmentCreated(bundle: Bundle) {
         val userId = bundle.getInt(BundleConstant.EXTRA)

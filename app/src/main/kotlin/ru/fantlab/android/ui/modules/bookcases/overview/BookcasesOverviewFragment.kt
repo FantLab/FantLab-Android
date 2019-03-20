@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.profile.bookcases
+package ru.fantlab.android.ui.modules.bookcases.overview
 
 import android.content.Context
 import android.os.Bundle
@@ -24,8 +24,8 @@ import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import java.util.*
 
-class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileBookcasesPresenter>(),
-        ProfileBookcasesMvp.View {
+class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, BookcasesOverviewPresenter>(),
+        BookcasesOverviewMvp.View {
 
     @State var userId: Int = -1
     private var countCallback: UserPagerMvp.View? = null
@@ -33,7 +33,7 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
 
     override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
 
-    override fun providePresenter(): ProfileBookcasesPresenter = ProfileBookcasesPresenter()
+    override fun providePresenter(): BookcasesOverviewPresenter = BookcasesOverviewPresenter()
 
     override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
         categories.add(Pair("work", getString(R.string.bookcase_work)))
@@ -148,8 +148,8 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
 
     companion object {
 
-        fun newInstance(userId: Int): ProfileBookcasesFragment {
-            val view = ProfileBookcasesFragment()
+        fun newInstance(userId: Int): BookcasesOverviewFragment {
+            val view = BookcasesOverviewFragment()
             view.arguments = Bundler.start().put(BundleConstant.EXTRA, userId).end()
             return view
         }
