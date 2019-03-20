@@ -210,9 +210,27 @@ object DataManager {
 			bookcaseId: Int,
 			offset: Int = 0
 	): Single<BookcaseEditionsResponse> =
-			getBookcaseEditionsPath(bookcaseId, offset)
+			getBookcasePath(bookcaseId, "edition", offset)
 					.httpGet()
 					.rxObject(BookcaseEditionsResponse.Deserializer(perPage = 50))
+					.map { it.get() }
+
+	fun getBookcaseWorks(
+			bookcaseId: Int,
+			offset: Int = 0
+	): Single<BookcaseWorksResponse> =
+			getBookcasePath(bookcaseId, "work", offset)
+					.httpGet()
+					.rxObject(BookcaseWorksResponse.Deserializer(perPage = 50))
+					.map { it.get() }
+
+	fun getBookcaseFilms(
+			bookcaseId: Int,
+			offset: Int = 0
+	): Single<BookcaseFilmsResponse> =
+			getBookcasePath(bookcaseId, "film", offset)
+					.httpGet()
+					.rxObject(BookcaseFilmsResponse.Deserializer(perPage = 50))
 					.map { it.get() }
 
 	fun createBookcase(
@@ -647,10 +665,11 @@ fun getUserBookcasesPath(
 		userId: Int
 ) = "/user/$userId/bookcases".toAbsolutePathWithApiVersion()
 
-fun getBookcaseEditionsPath(
+fun getBookcasePath(
 		bookcaseId: Int,
+		bookcaseType: String,
 		offset: Int = 0
-) = "/bookcasechange$bookcaseId?offset=$offset&type=edition".toAbsolutePath()
+) = "/bookcasechange$bookcaseId?offset=$offset&type=$bookcaseType".toAbsolutePath()
 
 fun createBookcasePath(
 		type: String,

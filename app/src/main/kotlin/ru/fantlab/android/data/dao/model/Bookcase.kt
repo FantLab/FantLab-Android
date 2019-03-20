@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Keep
 @Parcelize
 data class Bookcase (
-    val id: String,
+    val id: Int,
     val name: String,
     val description: String,
     val type: String

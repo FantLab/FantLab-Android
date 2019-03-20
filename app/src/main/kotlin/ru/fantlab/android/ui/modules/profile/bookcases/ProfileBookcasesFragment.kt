@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import com.evernote.android.state.State
 import ru.fantlab.android.R
@@ -39,7 +38,7 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
     override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
         categories.add(Pair("work", getString(R.string.bookcase_work)))
         categories.add(Pair("edition", getString(R.string.bookcase_edition)))
-        categories.add(Pair("films", getString(R.string.bookcase_film)))
+        categories.add(Pair("film", getString(R.string.bookcase_film)))
 
         if (savedInstanceState == null) {
             stateLayout.hideProgress()
@@ -67,7 +66,7 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
             nodes.add(categoryNode)
             bookcases.forEach{ bookcase ->
                 if (bookcase.type == category.first) {
-                    nodes[subIndex].addChild(TreeNode(BookcaseChild(bookcase.name, bookcase.description, bookcase.type)))
+                    nodes[subIndex].addChild(TreeNode(BookcaseChild(bookcase.name, bookcase.description, bookcase.type, bookcase.id)))
                 }
             }
             categoryNode.expandAll()
@@ -87,13 +86,8 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
                 } else if (node.isLeaf && node.content is BookcaseCategory) {
                     return false
                 } else {
-                    /// TODO: replace with the real call
                     val item = node.content as BookcaseChild
-                    BookcaseEditionsActivity.startActivity(activity!!, 3056, item.name, userId)
-                    /*val itemWork = node.content as Consts
-                    if (itemWork.workId != 0) {
-                        WorkPagerActivity.startActivity(context!!, itemWork.workId, itemWork.title)
-                    }*/
+                    BookcaseEditionsActivity.startActivity(activity!!, item.id, item.name, userId, item.type)
                 }
                 return false
             }
@@ -105,9 +99,7 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
     }
 
     override fun onItemClicked(item: Bookcase, position: Int) {
-        /// TODO: replace with the real call
-        BookcaseEditionsActivity.startActivity(activity!!, 3056, item.name, userId)
-        //BookcaseEditionsActivity.startActivity(context!!, item.id)
+        BookcaseEditionsActivity.startActivity(activity!!, item.id, item.name, userId, item.type)
     }
 
     override fun onRefresh() {

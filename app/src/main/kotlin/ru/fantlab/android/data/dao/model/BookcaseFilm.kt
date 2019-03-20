@@ -7,12 +7,13 @@ import kotlinx.android.parcel.Parcelize
 
 @Keep
 @Parcelize
-data class BookcaseEdition (
-        val name: String,
-        @SerializedName("bookcase_item_id") val itemId: Int,
-        val autors: String,
-        @SerializedName("edition_id") val editionId: Int,
-        val publisher: String,
+data class BookcaseFilm (
+        val country: String,
+        val director: String,
         val year: Int,
+        @SerializedName("film_id") val filmId: Int,
+        @SerializedName("bookcase_item_id") val bookcaseItemId: Int,
+        val name: String,
+        val rusname: String,
         @SerializedName("item_comment") val comment: String?
 ) : Parcelable
