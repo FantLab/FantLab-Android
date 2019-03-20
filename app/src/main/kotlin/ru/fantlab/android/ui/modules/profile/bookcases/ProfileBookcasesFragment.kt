@@ -18,7 +18,7 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.viewholder.BookcaseHeaderViewHolder
 import ru.fantlab.android.ui.adapter.viewholder.BookcaseViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
-import ru.fantlab.android.ui.modules.bookcases.editions.BookcaseEditionsActivity
+import ru.fantlab.android.ui.modules.bookcases.viewer.BookcaseViewerActivity
 import ru.fantlab.android.ui.modules.user.UserPagerMvp
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
@@ -87,7 +87,7 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
                     return false
                 } else {
                     val item = node.content as BookcaseChild
-                    BookcaseEditionsActivity.startActivity(activity!!, item.id, item.name, userId, item.type)
+                    BookcaseViewerActivity.startActivity(activity!!, item.id, item.name, userId, item.type)
                 }
                 return false
             }
@@ -99,7 +99,7 @@ class ProfileBookcasesFragment : BaseFragment<ProfileBookcasesMvp.View, ProfileB
     }
 
     override fun onItemClicked(item: Bookcase, position: Int) {
-        BookcaseEditionsActivity.startActivity(activity!!, item.id, item.name, userId, item.type)
+        BookcaseViewerActivity.startActivity(activity!!, item.id, item.name, userId, item.type)
     }
 
     override fun onRefresh() {

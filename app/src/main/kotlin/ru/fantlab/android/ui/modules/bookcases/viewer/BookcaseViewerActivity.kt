@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.bookcases.editions
+package ru.fantlab.android.ui.modules.bookcases.viewer
 
 import android.app.Activity
 import android.content.Intent
@@ -25,7 +25,7 @@ import ru.fantlab.android.ui.adapter.BookcaseWorksAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.widgets.dialog.MessageDialogView
 
-class BookcaseEditionsActivity : BaseActivity<BookcaseEditionsMvp.View, BookcaseEditionsPresenter>(), BookcaseEditionsMvp.View {
+class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseViewerPresenter>(), BookcaseViewerMvp.View {
 
     @State var bookcaseId: Int = 0
     @State var bookcaseName: String = ""
@@ -44,7 +44,7 @@ class BookcaseEditionsActivity : BaseActivity<BookcaseEditionsMvp.View, Bookcase
 
     override fun canBack(): Boolean = true
 
-    override fun providePresenter(): BookcaseEditionsPresenter = BookcaseEditionsPresenter()
+    override fun providePresenter(): BookcaseViewerPresenter = BookcaseViewerPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -203,7 +203,7 @@ class BookcaseEditionsActivity : BaseActivity<BookcaseEditionsMvp.View, Bookcase
     companion object {
 
         fun startActivity(activity: Activity, bookcaseId: Int, bookcaseName: String, userId: Int, bookcaseType: String) {
-            val intent = Intent(activity, BookcaseEditionsActivity::class.java)
+            val intent = Intent(activity, BookcaseViewerActivity::class.java)
             intent.putExtras(Bundler.start()
                     .put(BundleConstant.EXTRA, bookcaseId)
                     .put(BundleConstant.EXTRA_TWO, bookcaseName)

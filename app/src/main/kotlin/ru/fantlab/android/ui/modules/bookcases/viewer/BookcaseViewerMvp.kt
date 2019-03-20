@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.bookcases.editions
+package ru.fantlab.android.ui.modules.bookcases.viewer
 
 import android.support.v4.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.BookcaseEdition
@@ -8,7 +8,7 @@ import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-interface BookcaseEditionsMvp {
+interface BookcaseViewerMvp {
 
     interface View : BaseMvp.View,
             SwipeRefreshLayout.OnRefreshListener,

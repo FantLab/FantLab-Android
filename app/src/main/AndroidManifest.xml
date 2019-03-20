@@ -97,7 +97,7 @@
 			android:parentActivityName=".ui.modules.main.MainActivity"
 			/>
 		<activity
-			android:name=".ui.modules.bookcases.editions.BookcaseEditionsActivity"
+			android:name=".ui.modules.bookcases.viewer.BookcaseViewerActivity"
 			android:parentActivityName=".ui.modules.main.MainActivity"
 			/>
 

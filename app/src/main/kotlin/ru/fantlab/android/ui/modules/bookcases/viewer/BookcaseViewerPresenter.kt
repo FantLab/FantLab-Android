@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.bookcases.editions
+package ru.fantlab.android.ui.modules.bookcases.viewer
 
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import io.reactivex.functions.Consumer
@@ -14,7 +14,7 @@ import ru.fantlab.android.data.dao.response.DeleteBookcaseResponse
 import ru.fantlab.android.provider.rest.getBookcasePath
 import ru.fantlab.android.provider.storage.DbProvider
 
-class BookcaseEditionsPresenter : BasePresenter<BookcaseEditionsMvp.View>(), BookcaseEditionsMvp.Presenter {
+class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), BookcaseViewerMvp.Presenter {
     override fun getEditions(force: Boolean, bookcaseId: Int) {
         makeRestCall(
                 getEditionsInternal(force, bookcaseId).toObservable(),
