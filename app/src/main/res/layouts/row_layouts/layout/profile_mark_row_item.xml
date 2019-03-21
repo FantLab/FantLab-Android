@@ -6,29 +6,23 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:layout_margin="@dimen/grid_spacing"
-	android:foreground="?android:selectableItemBackground"
-	android:paddingBottom="@dimen/spacing_normal"
-	android:paddingEnd="@dimen/spacing_xs_large"
+	android:background="?android:selectableItemBackground"
+	android:paddingEnd="@dimen/spacing_normal"
+	android:paddingStart="@dimen/spacing_normal"
 	android:paddingTop="@dimen/spacing_normal"
 	tools:ignore="RtlSymmetry"
 	>
 
-	<LinearLayout
+	<android.support.v7.widget.CardView
+		android:id="@+id/topView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:orientation="horizontal"
+		android:layout_below="@+id/category"
+		app:cardBackgroundColor="?card_background"
+		app:cardCornerRadius="0dp"
+		app:cardElevation="1dp"
+		app:cardUseCompatPadding="true"
 		>
-
-		<ru.fantlab.android.ui.widgets.CoverLayout
-			android:id="@+id/coverLayout"
-			android:layout_width="48dp"
-			android:layout_height="64dp"
-			android:layout_marginEnd="@dimen/avatar_margin_end"
-			android:layout_marginStart="@dimen/avatar_margin"
-			>
-
-		</ru.fantlab.android.ui.widgets.CoverLayout>
 
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -37,108 +31,84 @@
 			>
 
 			<RelativeLayout
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:layout_marginEnd="@dimen/spacing_xs_large"
+				android:layout_marginStart="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
 				>
+
+				<ru.fantlab.android.ui.widgets.CoverLayout
+					android:id="@+id/coverLayout"
+					android:layout_width="70dp"
+					android:layout_height="90dp"
+					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
 					android:id="@+id/authors"
-					android:layout_width="match_parent"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_gravity="start"
+					android:layout_gravity="center"
 					android:layout_marginEnd="@dimen/spacing_micro"
-					android:ellipsize="end"
+					android:layout_marginStart="@dimen/spacing_normal"
+					android:layout_toEndOf="@+id/coverLayout"
 					android:gravity="start|center"
-					android:maxLines="1"
+					android:inputType="textPersonName"
 					android:textColor="?android:attr/textColorSecondary"
-					tools:text="Стивен Кинг"
-					tools:visibility="visible"
+					tools:text="Александр Санфиров"
 					style="@style/TextAppearance.AppCompat.Subhead"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/title"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignStart="@+id/authors"
+					android:layout_below="@+id/authors"
+					android:ellipsize="end"
+					android:maxLines="3"
+					android:textColor="?android:textColorTertiary"
+					tools:text="Гиперион"
+					style="@style/TextAppearance.AppCompat.Medium"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/date"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignStart="@+id/authors"
+					android:layout_below="@+id/title"
+					android:layout_marginTop="@dimen/spacing_micro"
+					android:ellipsize="end"
+					android:maxLines="4"
+					android:textColor="?android:textColorSecondary"
+					android:textSize="15sp"
+					tools:text="Вчера"
+					style="@style/TextAppearance.AppCompat.Medium"
 					/>
 
 			</RelativeLayout>
 
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/title"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:ellipsize="end"
-				android:maxLines="3"
-				android:textColor="?android:textColorPrimary"
-				android:textStyle="bold"
-				tools:text="Зеленая Миля/The Green Mile"
-				style="@style/TextAppearance.AppCompat.Medium"
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="0.5dp"
+				android:layout_marginLeft="@dimen/spacing_xs_large"
+				android:layout_marginRight="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
+				android:background="?dividerColor"
 				/>
 
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="@dimen/spacing_micro"
+				android:layout_marginEnd="@dimen/spacing_xs_large"
+				android:layout_marginStart="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
+				android:layout_marginBottom="@dimen/spacing_normal"
+				android:baselineAligned="false"
 				android:orientation="horizontal"
 				android:weightSum="1"
-				android:baselineAligned="false"
 				>
-
-				<ru.fantlab.android.ui.widgets.FlowLayout
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					app:flChildSpacing="5dp"
-					app:flChildSpacingForLastRow="align"
-					app:flRowSpacing="8dp"
-					>
-
-					<ru.fantlab.android.ui.widgets.FontTextView
-						android:id="@+id/type"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_gravity="center"
-						android:layout_marginEnd="@dimen/spacing_micro"
-						android:drawablePadding="@dimen/spacing_micro"
-						android:drawableStart="@drawable/ic_type_small"
-						android:gravity="start|center"
-						android:textColor="?android:attr/textColorSecondary"
-						app:drawableColor="?android:attr/textColorSecondary"
-						tools:text="роман"
-						style="@style/TextAppearance.AppCompat.Subhead"
-						/>
-
-					<ru.fantlab.android.ui.widgets.FontTextView
-						android:id="@+id/mark"
-						android:layout_width="wrap_content"
-						android:layout_height="match_parent"
-						android:layout_gravity="center"
-						android:layout_marginEnd="@dimen/spacing_micro"
-						android:layout_toEndOf="@+id/year"
-						android:drawablePadding="@dimen/spacing_micro"
-						android:drawableStart="@drawable/ic_star_small"
-						android:gravity="start|center"
-						android:textColor="?android:attr/textColorSecondary"
-						app:drawableColor="?android:attr/textColorSecondary"
-						tools:text="7"
-						tools:visibility="visible"
-						style="@style/TextAppearance.AppCompat.Subhead"
-						/>
-
-					<ru.fantlab.android.ui.widgets.FontTextView
-						android:id="@+id/year"
-						android:layout_width="wrap_content"
-						android:layout_height="match_parent"
-						android:layout_gravity="center"
-						android:layout_marginEnd="@dimen/spacing_micro"
-						android:layout_toEndOf="@+id/type"
-						android:drawablePadding="@dimen/spacing_micro"
-						android:drawableStart="@drawable/ic_time_small"
-						android:gravity="start|center"
-						android:textColor="?android:attr/textColorSecondary"
-						android:visibility="gone"
-						app:drawableColor="?android:attr/textColorSecondary"
-						style="@style/TextAppearance.AppCompat.Subhead"
-						tools:visibility="visible"
-						tools:text="1935"
-						/>
-
-				</ru.fantlab.android.ui.widgets.FlowLayout>
 
 				<ru.fantlab.android.ui.widgets.FlowLayout
 					android:layout_width="wrap_content"
@@ -154,16 +124,16 @@
 						android:layout_width="wrap_content"
 						android:layout_height="match_parent"
 						android:layout_marginEnd="@dimen/spacing_micro"
-						android:src="@drawable/ic_response_small"
+						android:src="@drawable/ic_response"
 						android:visibility="gone"
-						tools:visibility="visible"
 						app:tint="?android:attr/textColorSecondary"
+						tools:visibility="visible"
 						style="@style/TextAppearance.AppCompat.Subhead"
 						/>
 
 					<ru.fantlab.android.ui.widgets.ForegroundImageView
 						android:id="@+id/classified"
-						android:layout_width="16dp"
+						android:layout_width="wrap_content"
 						android:layout_height="match_parent"
 						android:layout_marginEnd="@dimen/spacing_micro"
 						android:src="@drawable/ic_classification"
@@ -175,10 +145,72 @@
 
 				</ru.fantlab.android.ui.widgets.FlowLayout>
 
+				<ru.fantlab.android.ui.widgets.FlowLayout
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:gravity="end"
+					app:flChildSpacing="5dp"
+					app:flChildSpacingForLastRow="align"
+					app:flRowSpacing="8dp"
+					>
+
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:id="@+id/type"
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:layout_gravity="center"
+						android:layout_marginEnd="@dimen/spacing_micro"
+						android:layout_toEndOf="@+id/type"
+						android:drawablePadding="@dimen/spacing_micro"
+						android:drawableStart="@drawable/ic_type"
+						android:gravity="start|center"
+						android:textColor="?android:attr/textColorSecondary"
+						android:visibility="gone"
+						app:drawableColor="?android:attr/textColorSecondary"
+						tools:text="Роман"
+						tools:visibility="visible"
+						style="@style/TextAppearance.AppCompat.Subhead"
+						/>
+
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:id="@+id/year"
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:layout_gravity="center"
+						android:layout_marginEnd="@dimen/spacing_micro"
+						android:layout_toEndOf="@+id/type"
+						android:drawablePadding="@dimen/spacing_micro"
+						android:drawableStart="@drawable/ic_time"
+						android:gravity="start|center"
+						android:textColor="?android:attr/textColorSecondary"
+						android:visibility="gone"
+						app:drawableColor="?android:attr/textColorSecondary"
+						tools:text="1935"
+						tools:visibility="visible"
+						style="@style/TextAppearance.AppCompat.Subhead"
+						/>
+
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:id="@+id/mark"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:layout_marginEnd="@dimen/spacing_micro"
+						android:drawablePadding="@dimen/spacing_micro"
+						android:drawableStart="@drawable/ic_star"
+						android:gravity="start|center"
+						android:textColor="?android:attr/textColorSecondary"
+						app:drawableColor="?android:attr/textColorSecondary"
+						tools:text="8"
+						style="@style/TextAppearance.AppCompat.Subhead"
+						/>
+
+				</ru.fantlab.android.ui.widgets.FlowLayout>
+
 			</LinearLayout>
 
 		</LinearLayout>
-
-	</LinearLayout>
+	</android.support.v7.widget.CardView>
 
 </ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

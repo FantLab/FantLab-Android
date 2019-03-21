@@ -25,8 +25,9 @@
 		android:includeFontPadding="false"
 		android:paddingEnd="@dimen/spacing_micro"
 		android:paddingStart="@dimen/spacing_micro"
+		android:paddingTop="@dimen/spacing_micro"
 		android:textColor="?android:attr/textColorSecondary"
-		tools:text="Вызов извне"
+		tools:text="British Fantasy Award"
 		style="@style/TextAppearance.AppCompat.Subhead"
 		/>
 

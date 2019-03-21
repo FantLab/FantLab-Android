@@ -13,6 +13,7 @@ import ru.fantlab.android.data.dao.model.Award
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
+import ru.fantlab.android.provider.glide.GlideApp
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.award.AwardPagerMvp
@@ -52,7 +53,7 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 
 		pagerCallback?.onSetTitle(awardLabel)
 
-		Glide.with(context)
+		GlideApp.with(context!!)
 				.load("https://${LinkParserHelper.HOST_DATA}/images/awards/${award.awardId}")
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.dontAnimate()
@@ -80,7 +81,7 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 			notes.html = award.notes
 		else notesView.visibility = View.GONE
 
-		Glide.with(context)
+		GlideApp.with(context!!)
 				.load("https://${LinkParserHelper.HOST_DEFAULT}/img/flags/${award.countryId}.png")
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.dontAnimate()

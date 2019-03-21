@@ -53,13 +53,12 @@
 			android:paddingTop="@dimen/spacing_normal"
 			>
 
-			<ImageView
+			<ru.fantlab.android.ui.widgets.CoverLayout
 				android:id="@+id/coverLayout"
 				android:layout_width="96dp"
 				android:layout_height="124dp"
 				android:layout_alignParentEnd="true"
 				android:layout_marginStart="@dimen/spacing_xs_large"
-				android:scaleType="fitCenter"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView

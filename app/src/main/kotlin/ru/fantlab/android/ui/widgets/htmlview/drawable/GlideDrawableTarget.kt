@@ -1,17 +1,18 @@
 package ru.fantlab.android.ui.widgets.htmlview.drawable
 
 import android.graphics.Rect
+import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.widget.TextView
-import com.bumptech.glide.load.resource.drawable.GlideDrawable
-import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import ru.fantlab.android.R
 import java.lang.ref.WeakReference
+import com.bumptech.glide.load.resource.gif.GifDrawable
 
-internal class GlideDrawableTarget(private val urlDrawable: UrlDrawable, private val container: WeakReference<TextView>?, private val width: Int) : SimpleTarget<GlideDrawable>() {
+internal class GlideDrawableTarget(private val urlDrawable: UrlDrawable, private val container: WeakReference<TextView>?, private val width: Int) : SimpleTarget<Drawable>() {
 
-	override fun onResourceReady(resource: GlideDrawable, glideAnimation: GlideAnimation<in GlideDrawable>) {
+	override fun onResourceReady(resource: Drawable, glideAnimation: Transition<in Drawable>?) {
 		if (container?.get() != null) {
 			val textView = container.get() ?: return
 			val width: Float
@@ -29,9 +30,9 @@ internal class GlideDrawableTarget(private val urlDrawable: UrlDrawable, private
 			resource.bounds = rect
 			urlDrawable.bounds = rect
 			urlDrawable.drawable = resource
-			if (resource.isAnimated) {
+			if (resource is Animatable) {
 				urlDrawable.callback = textView.getTag(R.id.drawable_callback) as Drawable.Callback
-				resource.setLoopCount(GlideDrawable.LOOP_FOREVER)
+				if (resource is GifDrawable) resource.setLoopCount(GifDrawable.LOOP_FOREVER)
 				resource.start()
 			}
 			textView.text = textView.text

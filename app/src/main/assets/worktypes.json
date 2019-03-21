@@ -1,0 +1,233 @@
+﻿[
+  {
+    "work_type_id": 1,
+    "work_type": "novel",
+    "work_type_name": "роман",
+    "work_type_icon": "novel",
+    "work_type_image": "//fantlab.ru/img/coverwork_novel.svg"
+  },
+  {
+    "work_type_id": 3,
+    "work_type": "collection",
+    "work_type_name": "сборник",
+    "work_type_icon": "cycle",
+    "work_type_image": "//fantlab.ru/img/coverwork_collection.svg"
+  },
+  {
+    "work_type_id": 4,
+    "work_type": "cycle",
+    "work_type_name": "цикл",
+    "work_type_icon": "cycle",
+    "work_type_image": "//fantlab.ru/img/coverwork_cycle.svg"
+  },
+  {
+    "work_type_id": 5,
+    "work_type": "poem",
+    "work_type_name": "стихотворение",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_poem.svg"
+  },
+  {
+    "work_type_id": 7,
+    "work_type": "other",
+    "work_type_name": "прочие произведения",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_novel.svg"
+  },
+  {
+    "work_type_id": 8,
+    "work_type": "tale",
+    "work_type_name": "сказка",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_poem.svg"
+  },
+  {
+    "work_type_id": 11,
+    "work_type": "essay",
+    "work_type_name": "эссе",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_article.svg"
+  },
+  {
+    "work_type_id": 12,
+    "work_type": "article",
+    "work_type_name": "статья",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_article.svg"
+  },
+  {
+    "work_type_id": 13,
+    "work_type": "epic",
+    "work_type_name": "роман-эпопея",
+    "work_type_icon": "cycle",
+    "work_type_image": "//fantlab.ru/img/coverwork_cycle.svg"
+  },
+  {
+    "work_type_id": 17,
+    "work_type": "antology",
+    "work_type_name": "антология",
+    "work_type_icon": "cycle",
+    "work_type_image": "//fantlab.ru/img/coverwork_antology.svg"
+  },
+  {
+    "work_type_id": 18,
+    "work_type": "piece",
+    "work_type_name": "пьеса",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_article.svg"
+  },
+  {
+    "work_type_id": 19,
+    "work_type": "scenario",
+    "work_type_name": "киносценарий",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_film.svg"
+  },
+  {
+    "work_type_id": 20,
+    "work_type": "documental",
+    "work_type_name": "документальное произведение",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_article.svg"
+  },
+  {
+    "work_type_id": 21,
+    "work_type": "microstory",
+    "work_type_name": "микрорассказ",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_shortstory.svg"
+  },
+  {
+    "work_type_id": 22,
+    "work_type": "disser",
+    "work_type_name": "диссертация",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_article.svg"
+  },
+  {
+    "work_type_id": 23,
+    "work_type": "monography",
+    "work_type_name": "монография",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_article.svg"
+  },
+  {
+    "work_type_id": 24,
+    "work_type": "study",
+    "work_type_name": "учебное издание",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_study.svg"
+  },
+  {
+    "work_type_id": 25,
+    "work_type": "encyclopedy",
+    "work_type_name": "энциклопедия/справочник",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_study.svg"
+  },
+  {
+    "work_type_id": 26,
+    "work_type": "magazine",
+    "work_type_name": "журнал",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_magazine.svg"
+  },
+  {
+    "work_type_id": 27,
+    "work_type": "poem",
+    "work_type_name": "поэма",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_poem.svg"
+  },
+  {
+    "work_type_id": 28,
+    "work_type": "poem",
+    "work_type_name": "стихотворение",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_poem.svg"
+  },
+  {
+    "work_type_id": 29,
+    "work_type": "poem",
+    "work_type_name": "стихотворение в прозе",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_poem.svg"
+  },
+  {
+    "work_type_id": 41,
+    "work_type": "comix",
+    "work_type_name": "комикс",
+    "work_type_icon": "graph",
+    "work_type_image": "//fantlab.ru/img/coverwork_comic.svg"
+  },
+  {
+    "work_type_id": 42,
+    "work_type": "manga",
+    "work_type_name": "манга",
+    "work_type_icon": "graph",
+    "work_type_image": "//fantlab.ru/img/coverwork_comic.svg"
+  },
+  {
+    "work_type_id": 43,
+    "work_type": "graphicnovel",
+    "work_type_name": "графический роман",
+    "work_type_icon": "graph",
+    "work_type_image": "//fantlab.ru/img/coverwork_comic.svg"
+  },
+  {
+    "work_type_id": 44,
+    "work_type": "story",
+    "work_type_name": "повесть",
+    "work_type_icon": "story",
+    "work_type_image": "//fantlab.ru/img/coverwork_story.svg"
+  },
+  {
+    "work_type_id": 45,
+    "work_type": "shortstory",
+    "work_type_name": "рассказ",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_shortstory.svg"
+  },
+  {
+    "work_type_id": 46,
+    "work_type": "sketch",
+    "work_type_name": "очерк",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_article.svg"
+  },
+  {
+    "work_type_id": 47,
+    "work_type": "reportage",
+    "work_type_name": "репортаж",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_article.svg"
+  },
+  {
+    "work_type_id": 48,
+    "work_type": "conditionalcycle",
+    "work_type_name": "условный цикл",
+    "work_type_icon": "story",
+    "work_type_image": "//fantlab.ru/img/coverwork_cycle.svg"
+  },
+  {
+    "work_type_id": 49,
+    "work_type": "excerpt",
+    "work_type_name": "отрывок",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_shortstory.svg"
+  },
+  {
+    "work_type_id": 51,
+    "work_type": "interview",
+    "work_type_name": "интервью",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_article.svg"
+  },
+  {
+    "work_type_id": 52,
+    "work_type": "review",
+    "work_type_name": "рецензия",
+    "work_type_icon": "other",
+    "work_type_image": "//fantlab.ru/img/coverwork_article.svg"
+  }
+]

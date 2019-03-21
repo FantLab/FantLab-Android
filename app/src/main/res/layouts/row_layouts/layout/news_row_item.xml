@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+	android:layout_margin="@dimen/grid_spacing"
 	android:background="?android:selectableItemBackground"
 	android:paddingEnd="@dimen/spacing_normal"
 	android:paddingStart="@dimen/spacing_normal"
@@ -12,105 +13,67 @@
 	tools:ignore="RtlSymmetry"
 	>
 
-	<ru.fantlab.android.ui.widgets.FontTextView
-		android:id="@+id/category"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true"
-		android:layout_gravity="center"
-		android:layout_marginEnd="@dimen/spacing_micro"
-		android:layout_marginStart="@dimen/spacing_micro"
-		android:background="@drawable/category"
-		android:gravity="center"
-		android:textColor="?android:attr/textColorSecondary"
-		tools:text="На сайте"
-		style="@style/TextAppearance.AppCompat.Subhead"
-		/>
-
 	<android.support.v7.widget.CardView
 		android:id="@+id/topView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/category"
-		android:layout_marginTop="@dimen/spacing_micro"
 		app:cardBackgroundColor="?card_background"
+		app:cardCornerRadius="0dp"
 		app:cardElevation="1dp"
 		app:cardUseCompatPadding="true"
-		app:cardCornerRadius="0dp"
 		>
 
-		<RelativeLayout
+		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center"
 			android:orientation="vertical"
-			android:padding="@dimen/spacing_normal"
 			>
 
-			<ImageView
-				android:id="@+id/coverLayout"
-				android:layout_width="72dp"
-				android:layout_height="108dp"
-				android:layout_alignParentEnd="true"
-				android:scaleType="fitCenter"
-				/>
-
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/title"
+			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginBottom="@dimen/spacing_micro"
-				android:layout_marginEnd="@dimen/spacing_normal"
-				android:layout_marginTop="@dimen/spacing_micro"
-				android:layout_toStartOf="@+id/coverLayout"
-				android:textColor="?android:textColorPrimary"
-				android:textStyle="bold"
-				tools:text="Восьмая нога бога"
-				style="@style/TextAppearance.AppCompat.Medium"
-				/>
-
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/newsText"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_below="@+id/title"
-				android:layout_marginBottom="@dimen/spacing_micro"
-				android:layout_marginEnd="@dimen/spacing_micro"
-				android:layout_marginStart="@dimen/spacing_micro"
-				android:layout_marginTop="@dimen/spacing_micro"
-				android:layout_toStartOf="@+id/coverLayout"
-				android:ellipsize="end"
-				android:maxLines="4"
-				android:textColor="?android:attr/textColorSecondary"
-				tools:text="Громова привлекла к сотрудничеству с издательством таких авторов, как: Ю.М. Лотман, Н.Я. Эйдельман, К.Н. Тарновский, А.Л. Осповат, Р.Д. Тименчик, М.О. Чудакова, Н.Н. Покровский, Ю.В. Манн. Благодаря Громовой были основаны важнейшие для издательства серии и продолжающиеся издания; выходили сборники художественных произведений о книге, чтении, книжниках разных стран и эпох: «Корабли мысли», «Лучезарный феникс», «Очарованные книгой», «Зеркало мира», «Листая вечные страницы», «Библиотека в саду». Благодаря ей состоялась и стала популярной серия «Писатели о писателях»."
-				style="@style/TextAppearance.AppCompat.Subhead"
-				/>
-
-
-			<LinearLayout
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_below="@+id/newsText"
-				android:layout_marginTop="@dimen/spacing_micro"
+				android:layout_marginEnd="@dimen/spacing_xs_large"
+				android:layout_marginStart="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
 				android:gravity="center_vertical"
 				android:orientation="horizontal"
+				android:id="@+id/userInfo"
+				android:background="?selectableItemBackground"
 				>
 
-				<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
+				<ru.fantlab.android.ui.widgets.AvatarLayout
+					android:id="@+id/avatarLayout"
+					android:layout_width="40dp"
+					android:layout_height="40dp"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
 					android:id="@+id/author"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_gravity="center"
 					android:layout_marginEnd="@dimen/spacing_micro"
-					android:drawablePadding="@dimen/spacing_micro"
-					android:drawableStart="@drawable/ic_profile"
+					android:layout_marginStart="@dimen/spacing_normal"
 					android:gravity="start|center"
+					android:inputType="textPersonName"
 					android:textColor="?android:attr/textColorSecondary"
-					app:drawableColor="?android:attr/textColorSecondary"
 					tools:text="volga"
 					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/action"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:layout_marginEnd="@dimen/spacing_micro"
+					android:gravity="start|center"
+					android:text="@string/in_news"
+					android:textColor="?android:attr/textColorSecondary"
+					tools:text="@string/in_news"
+					style="@style/TextAppearance.AppCompat.Caption"
+					/>
 
 				<View
 					android:id="@+id/cycleDivider"
@@ -129,12 +92,92 @@
 					android:gravity="start|center"
 					android:textColor="?android:attr/textColorSecondary"
 					tools:text="23.02.2019"
-					style="@style/TextAppearance.AppCompat.Subhead"
+					style="@style/TextAppearance.AppCompat.Caption"
 					/>
 
 			</LinearLayout>
-		</RelativeLayout>
 
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="0.5dp"
+				android:layout_marginBottom="@dimen/spacing_normal"
+				android:layout_marginLeft="@dimen/spacing_xs_large"
+				android:layout_marginRight="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
+				android:background="?dividerColor"
+				/>
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="@dimen/spacing_xs_large"
+				android:layout_marginStart="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
+				>
+
+				<ru.fantlab.android.ui.widgets.CoverLayout
+					android:id="@+id/coverLayout"
+					android:layout_width="70dp"
+					android:layout_height="90dp"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/title"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="@dimen/spacing_normal"
+					android:layout_toEndOf="@+id/coverLayout"
+					android:ellipsize="end"
+					android:maxLines="3"
+					android:textColor="?android:textColorTertiary"
+					tools:text="Юрий Каменский и Вера Каменская"
+					style="@style/TextAppearance.AppCompat.Medium"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/newsText"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignStart="@+id/title"
+					android:layout_below="@+id/title"
+					android:layout_marginTop="@dimen/spacing_micro"
+					android:ellipsize="end"
+					android:maxLines="4"
+					android:textColor="?android:textColorSecondary"
+					tools:text="Составлены библиографии российских писателей, работающих в жанре «попаданческой» фантастики, Юрия и Веры Каменских."
+					style="@style/TextAppearance.AppCompat.Medium"
+					android:textSize="15sp"
+					/>
+
+			</RelativeLayout>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="0.5dp"
+				android:layout_marginLeft="@dimen/spacing_xs_large"
+				android:layout_marginRight="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_xs_large"
+				android:background="?dividerColor"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/category"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="end"
+				android:layout_marginBottom="@dimen/spacing_normal"
+				android:layout_marginEnd="@dimen/spacing_xs_large"
+				android:layout_marginStart="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
+				android:drawablePadding="@dimen/spacing_micro"
+				android:drawableStart="@drawable/ic_type"
+				android:textColor="?android:attr/textColorSecondary"
+				app:drawableColor="?android:attr/textColorSecondary"
+				tools:text="На сайте"
+				style="@style/TextAppearance.AppCompat.Subhead"
+				/>
+
+		</LinearLayout>
 	</android.support.v7.widget.CardView>
 
-</RelativeLayout>
+</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

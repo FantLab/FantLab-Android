@@ -13,6 +13,7 @@ import ru.fantlab.android.data.dao.model.Edition
 import ru.fantlab.android.data.dao.model.SliderModel
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.provider.storage.WorkTypesProvider
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.edition.EditionPagerMvp
@@ -38,7 +39,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 		this.edition = edition
 
 		hideProgress()
-		coverLayout.setUrl("https:${edition.image}")
+		coverLayout.setUrl("https:${edition.image}", WorkTypesProvider.getCoverByTypeId(edition.typeId))
 		coverLayout.setDotColor(
 				when {
 					edition.planDate.isNotEmpty() -> Dot.Color.GREY

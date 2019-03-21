@@ -2,7 +2,7 @@ package ru.fantlab.android.ui.adapter.viewholder
 
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.restyle_response_row_item.view.*
+import kotlinx.android.synthetic.main.response_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.FantlabHelper
@@ -10,6 +10,7 @@ import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.getTimeAgo
 import ru.fantlab.android.helper.parseFullDate
 import ru.fantlab.android.provider.scheme.LinkParserHelper
+import ru.fantlab.android.provider.storage.WorkTypesProvider
 import ru.fantlab.android.ui.modules.work.CyclePagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
@@ -33,7 +34,8 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 		itemView.authors.text = if (!InputHelper.isEmpty(response.workAuthor)) response.workAuthor else response.workAuthorOrig
 		itemView.workName.text = if (response.workName.isNotEmpty()) response.workName else response.workNameOrig
 
-		itemView.coverLayout.setUrl(if (response.workImage != null) "https:${response.workImage}" else null)
+		itemView.coverLayout.setUrl("https:${response.workImage}", WorkTypesProvider.getCoverByTypeId(response.workTypeId))
+
 		itemView.coverLayout.setOnClickListener {
 			if (response.workTypeId == FantlabHelper.WorkType.CYCLE.id)
 				CyclePagerActivity.startActivity(itemView.context, response.workId, response.workName, 0)
@@ -82,7 +84,7 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 				viewGroup: ViewGroup,
 				adapter: BaseRecyclerAdapter<Response, ResponseViewHolder>
 		): ResponseViewHolder {
-			return ResponseViewHolder(getView(viewGroup, R.layout.restyle_response_row_item), adapter)
+			return ResponseViewHolder(getView(viewGroup, R.layout.response_row_item), adapter)
 		}
 
 		fun setOnContextMenuListener(listener: ResponseViewHolder.OnOpenContextMenu) {

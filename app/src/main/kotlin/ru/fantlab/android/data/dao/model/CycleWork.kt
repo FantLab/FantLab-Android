@@ -18,7 +18,8 @@ class CycleWork(
 		var responseCount: Int?,
 		var votersCount: String?,
 		var rating: Float?,
-		var mark: Int?
+		var mark: Int?,
+		var classified: Int?
 ) : LayoutItemType, Parcelable {
 
 	override val layoutId = R.layout.author_cycle_work_row_item

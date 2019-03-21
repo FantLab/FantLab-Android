@@ -36,8 +36,7 @@ class ContextMenuDialogView : BaseBottomSheetDialog(), BaseViewHolder.OnItemClic
 		positionItem = arguments!!.getInt(BundleConstant.EXTRA_THREE, -1)
 		menu = arguments!!.getParcelableArrayList<ContextMenus>(BundleConstant.ITEM)
 		childs = menu[0].items
-		title.text = menu[0].title
-		if (title.text.isEmpty()) title.visibility = View.GONE
+		setTitle(menu[0].title)
 		val adapter = ContextListAdapter(childs)
 		adapter.listener = this
 		recycler.addDivider()
@@ -47,10 +46,16 @@ class ContextMenuDialogView : BaseBottomSheetDialog(), BaseViewHolder.OnItemClic
 	}
 
 	private fun recreate(menuForLevel: List<ContextMenus>) {
-		title.text = menuForLevel[0].title
+		setTitle(menuForLevel[0].title)
 		childs.clear()
 		childs.addAll(menuForLevel[0].items)
 		recycler.adapter.notifyDataSetChanged()
+	}
+
+	private fun setTitle(titleText: String) {
+		if (titleText.isNotEmpty()) {
+			title.text = titleText
+		} else title.visibility = View.GONE
 	}
 
 	override fun onItemClick(position: Int, v: View?, item: ContextMenus.MenuItem) {

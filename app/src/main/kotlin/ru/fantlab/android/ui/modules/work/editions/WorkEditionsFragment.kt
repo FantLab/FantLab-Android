@@ -40,7 +40,6 @@ class WorkEditionsFragment : BaseFragment<WorkEditionsMvp.View, WorkEditionsPres
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
 		recycler.adapter = adapter
-		recycler.addKeyLineDivider()
 		presenter.onFragmentCreated(arguments!!)
 		fastScroller.attachRecyclerView(recycler)
 	}

@@ -45,7 +45,6 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
-		recycler.addDivider()
 		presenter.onFragmentCreated(arguments!!)
 	}
 
@@ -53,14 +52,16 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		this.cycles = cycles
 		this.works = works
 
-		val ids = ArrayList<ArrayList<WorksBlocks.Work>>()
+		val ids = ArrayList<WorksBlocks.Work>()
 		val workIds = arrayListOf<Int>()
-		this.cycles?.worksBlocks?.map { ids.add(it.list) }
-		ids.map { it ->
-			it.map { cycle ->
-				cycle.children?.filter { it.id != null }?.map { workIds.add(it.id!!) }
-			}
+		this.cycles?.worksBlocks?.map {
+			ids.addAll(it.list)
 		}
+		this.works?.worksBlocks?.map {
+			ids.addAll(it.list)
+		}
+
+		ids.filter { it.id != null }.map { workIds.add(it.id!!) }
 		if (isLoggedIn()) {
 			presenter.getMarks(PrefGetter.getLoggedUser()!!.id, workIds)
 		} else {
@@ -74,7 +75,6 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 
 	private fun initAdapter(bibliography: WorksBlocks?, works: WorksBlocks?, marks: ArrayList<MarkMini>?) {
 		hideProgress()
-
 		val nodes = arrayListOf<TreeNode<*>>()
 		extractListData(bibliography, nodes, marks)
 		extractListData(works, nodes, marks)
@@ -151,7 +151,9 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 								item.responses?.toInt(),
 								item.votersCount,
 								item.rating,
-								if (mark != null && mark.isNotEmpty()) mark.first().mark else null))
+								if (mark != null && mark.isNotEmpty()) mark.first().mark else null,
+								if (mark != null && mark.isNotEmpty()) mark.first().user_work_classif_flag else 0
+								))
 						)
 					}
 				} else {
@@ -166,7 +168,9 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 							work.responseCount,
 							work.votersCount,
 							work.rating,
-							if (mark != null && mark.isNotEmpty()) mark.first().mark else null))
+							if (mark != null && mark.isNotEmpty()) mark.first().mark else null,
+							if (mark != null && mark.isNotEmpty()) mark.first().user_work_classif_flag else 0
+							))
 					)
 				}
 			}

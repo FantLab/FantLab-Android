@@ -3,12 +3,12 @@ package ru.fantlab.android
 import android.app.Application
 import com.github.kittinunf.fuel.core.FuelManager
 import ru.fantlab.android.data.service.DbResponseInterceptor
-import ru.fantlab.android.data.service.LogReqRespInterceptor
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.fabric.FabricProvider
 import ru.fantlab.android.provider.stetho.StethoProvider
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.provider.storage.smiles.SmileManager
+import ru.fantlab.android.provider.storage.WorkTypesProvider
 import ru.fantlab.android.provider.timber.TimberProvider
 import shortbread.Shortbread
 
@@ -42,6 +42,7 @@ class App : Application() {
 					"Cookie" to (PrefGetter.getToken() ?: "")
 			)
 		}
+		WorkTypesProvider.init()
 		SmileManager.load()
 	}
 }

@@ -30,3 +30,10 @@
 -dontnote com.google.android.gms.**
 
 -keepnames class * { @com.evernote.android.state.State *;}
+
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}

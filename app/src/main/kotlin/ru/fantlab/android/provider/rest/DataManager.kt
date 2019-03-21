@@ -337,6 +337,13 @@ object DataManager {
 					.httpGet()
 					.rxObject(ContestResponse.Deserializer())
 					.map { it.get() }
+
+	fun getWorkTypes(
+	): Single<String> =
+			getWorkTypesPath()
+					.httpGet()
+					.rxString()
+					.map { it.get() }
 }
 
 //region Sort options
@@ -603,6 +610,9 @@ fun getContestPath(
 		contestId: Int,
 		includeWorks: Boolean
 ) = "/contest/$contestId?include_works=${includeWorks.toInt()}".toAbsolutePathWithApiVersion()
+
+fun getWorkTypesPath(
+) = "/conf/worktypes.json".toAbsolutePathWithApiVersion()
 //endregion
 
 //region Utils

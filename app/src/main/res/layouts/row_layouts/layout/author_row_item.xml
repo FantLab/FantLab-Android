@@ -21,6 +21,7 @@
 		android:layout_height="wrap_content"
 		android:gravity="center_horizontal"
 		android:includeFontPadding="false"
+		android:paddingTop="@dimen/spacing_micro"
 		android:textColor="?android:attr/textColorSecondary"
 		tools:text="George R.R. Martin"
 		style="@style/TextAppearance.AppCompat.Subhead"

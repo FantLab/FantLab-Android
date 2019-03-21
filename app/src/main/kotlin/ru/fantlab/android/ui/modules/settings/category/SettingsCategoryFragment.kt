@@ -39,7 +39,7 @@ class SettingsCategoryFragment : PreferenceFragmentCompat(), android.support.v7.
 	}
 
 	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-
+		println(settingsCallback)
 		when (settingsCallback!!.getSettingsType()) {
 			SettingsModel.CUSTOMIZATION -> addCustomization()
 			else -> Toast.makeText(App.instance, "Ошибка", Toast.LENGTH_SHORT).show()
@@ -47,22 +47,26 @@ class SettingsCategoryFragment : PreferenceFragmentCompat(), android.support.v7.
 	}
 
 	override fun onPreferenceChange(preference: android.support.v7.preference.Preference, newValue: Any?): Boolean {
-		if (preference.key.equals("recylerViewAnimation", ignoreCase = true)) {
-			callback!!.onThemeChanged()
-			return true
-		} else if (preference.key.equals("appColor", ignoreCase = true)) {
-			if (newValue.toString().equals(appColor, ignoreCase = true))
+		when {
+			preference.key.equals("recylerViewAnimation", ignoreCase = true) -> {
+				callback!!.onThemeChanged()
 				return true
-			Toasty.warning(App.instance, getString(R.string.change_theme_warning), Toast.LENGTH_LONG).show()
-			callback!!.onThemeChanged()
-			return true
-		} else if (preference.key.equals("app_language", ignoreCase = true)) {
-			if (newValue.toString().equals(appLanguage!!, ignoreCase = true))
+			}
+			preference.key.equals("appColor", ignoreCase = true) -> {
+				if (newValue.toString().equals(appColor, ignoreCase = true))
+					return true
+				Toasty.warning(App.instance, getString(R.string.change_theme_warning), Toast.LENGTH_LONG).show()
+				callback!!.onThemeChanged()
 				return true
-			callback!!.onThemeChanged()
-			return true
+			}
+			preference.key.equals("app_language", ignoreCase = true) -> {
+				if (newValue.toString().equals(appLanguage!!, ignoreCase = true))
+					return true
+				callback!!.onThemeChanged()
+				return true
+			}
+			else -> return false
 		}
-		return false
 	}
 
 	override fun onDestroyView() {

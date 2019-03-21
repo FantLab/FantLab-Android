@@ -30,7 +30,6 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
-		recycler.addKeyLineDivider()
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		presenter.onFragmentCreated(arguments!!)

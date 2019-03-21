@@ -33,7 +33,6 @@ class WorkContentFragment : BaseFragment<WorkContentMvp.View, WorkContentPresent
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
 		recycler.adapter = adapter
-		recycler.addDivider()
 		presenter.onFragmentCreated(arguments!!)
 		fastScroller.attachRecyclerView(recycler)
 	}

@@ -15,6 +15,7 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.PrefGetter
+import ru.fantlab.android.provider.storage.WorkTypesProvider
 import ru.fantlab.android.ui.adapter.WorkAuthorsAdapter
 import ru.fantlab.android.ui.adapter.WorkAwardsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
@@ -56,7 +57,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			presenter.getMarks(PrefGetter.getLoggedUser()?.id ?: -1, arrayListOf(work.id))
 		} else hideProgress()
 
-		coverLayout.setUrl(if (work.image != null) "https:${work.image}" else null, R.drawable.not_found_poster)
+		coverLayout.setUrl("https:${work.image}", WorkTypesProvider.getCoverByTypeId(work.typeId))
 
 		if (InputHelper.isEmpty(work.name)) {
 			title.text = work.nameOrig

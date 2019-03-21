@@ -6,27 +6,23 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:layout_margin="@dimen/grid_spacing"
-	android:foreground="?android:selectableItemBackground"
-	android:paddingBottom="@dimen/spacing_normal"
-	android:paddingEnd="@dimen/spacing_xs_large"
+	android:background="?android:selectableItemBackground"
+	android:paddingEnd="@dimen/spacing_normal"
+	android:paddingStart="@dimen/spacing_normal"
 	android:paddingTop="@dimen/spacing_normal"
 	tools:ignore="RtlSymmetry"
 	>
 
-	<LinearLayout
+	<android.support.v7.widget.CardView
+		android:id="@+id/topView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:orientation="horizontal"
+		android:layout_below="@+id/category"
+		app:cardBackgroundColor="?card_background"
+		app:cardCornerRadius="0dp"
+		app:cardElevation="1dp"
+		app:cardUseCompatPadding="true"
 		>
-
-		<ru.fantlab.android.ui.widgets.CoverLayout
-			android:id="@+id/coverLayout"
-			android:layout_width="48dp"
-			android:layout_height="64dp"
-			android:layout_marginEnd="@dimen/avatar_margin_end"
-			android:layout_marginStart="@dimen/avatar_margin"
-			/>
 
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -34,39 +30,75 @@
 			android:orientation="vertical"
 			>
 
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/authors"
-				android:layout_width="wrap_content"
+			<RelativeLayout
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_gravity="start"
-				android:layout_marginEnd="@dimen/spacing_micro"
-				android:ellipsize="end"
-				android:gravity="start|center"
-				android:maxLines="1"
-				android:textColor="?android:attr/textColorSecondary"
-				android:visibility="gone"
-				tools:text="Илья Ильф, Евгений Петров"
-				tools:visibility="visible"
-				style="@style/TextAppearance.AppCompat.Subhead"
-				/>
+				android:layout_marginEnd="@dimen/spacing_xs_large"
+				android:layout_marginStart="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
+				>
 
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/title"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:ellipsize="end"
-				android:maxLines="3"
-				android:textColor="?android:textColorPrimary"
-				android:textStyle="bold"
-				tools:text="Двенадцать стульев. Золотой теленок"
-				style="@style/TextAppearance.AppCompat.Medium"
+				<ru.fantlab.android.ui.widgets.CoverLayout
+					android:id="@+id/coverLayout"
+					android:layout_width="70dp"
+					android:layout_height="90dp"
+					/>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:layout_toEndOf="@+id/coverLayout"
+					android:gravity="center_vertical"
+					android:orientation="vertical"
+					android:layout_marginStart="@dimen/spacing_normal"
+					>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/authors"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="@dimen/spacing_micro"
+					android:inputType="textPersonName"
+					android:textColor="?android:attr/textColorSecondary"
+					tools:text="Александр Санфиров"
+					style="@style/TextAppearance.AppCompat.Subhead"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/title"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:gravity="center_vertical"
+					android:maxLines="3"
+					android:textColor="?android:textColorTertiary"
+					tools:text="Лыжник"
+					style="@style/TextAppearance.AppCompat.Medium"
+					/>
+
+				</LinearLayout>
+
+			</RelativeLayout>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="0.5dp"
+				android:layout_marginLeft="@dimen/spacing_xs_large"
+				android:layout_marginRight="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
+				android:background="?dividerColor"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FlowLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="@dimen/spacing_micro"
-				app:flChildSpacing="2dp"
+				android:layout_marginBottom="@dimen/spacing_normal"
+				android:layout_marginEnd="@dimen/spacing_xs_large"
+				android:layout_marginStart="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
+				android:gravity="end"
+				app:flChildSpacing="5dp"
 				app:flChildSpacingForLastRow="align"
 				app:flRowSpacing="8dp"
 				>
@@ -78,7 +110,7 @@
 					android:layout_gravity="center"
 					android:layout_marginEnd="@dimen/spacing_micro"
 					android:drawablePadding="@dimen/spacing_micro"
-					android:drawableStart="@drawable/ic_time_small"
+					android:drawableStart="@drawable/ic_time"
 					android:gravity="start|center"
 					android:textColor="?android:attr/textColorSecondary"
 					app:drawableColor="?android:attr/textColorSecondary"
@@ -89,7 +121,6 @@
 			</ru.fantlab.android.ui.widgets.FlowLayout>
 
 		</LinearLayout>
-
-	</LinearLayout>
+	</android.support.v7.widget.CardView>
 
 </ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

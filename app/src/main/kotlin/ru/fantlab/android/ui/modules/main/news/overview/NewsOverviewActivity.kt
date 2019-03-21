@@ -11,7 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.RequestListener
 import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.news_layout.*
@@ -71,19 +70,7 @@ class NewsOverviewActivity : BaseActivity<NewsOverviewMvp.View, NewsOverviewPres
 	}
 
 	override fun onInitViews(news: News) {
-		Glide.with(this).load("https:${news.image}")
-				.diskCacheStrategy(DiskCacheStrategy.ALL)
-				.dontAnimate()
-				.listener(object : RequestListener<String, GlideDrawable> {
-					override fun onException(e: Exception?, model: String?, target: Target<GlideDrawable>?, isFirstResource: Boolean): Boolean {
-						coverLayout.visibility = View.GONE
-						return false
-					}
-					override fun onResourceReady(resource: GlideDrawable?, model: String?, target: Target<GlideDrawable>?, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
-						return false
-					}
-				})
-				.into(coverLayout)
+		coverLayout.setUrl("https:${news.image}", "file:///android_asset/svg/fl_news.svg")
 
 		if (!InputHelper.isEmpty(news.title)) {
 			titleNews.text = news.title

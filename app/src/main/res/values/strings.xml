@@ -248,4 +248,8 @@
 	<string name="theme_color_summary">Primary color of the application</string>
 	<string name="back_button_summary">Press back button twice to close application</string>
 	<string name="back_button_title">Double click to exit</string>
+	<string name="planned">planned</string>
+	<string name="anons">anons</string>
+	<string name="in_news">news</string>
+	<string name="inplans">plans</string>
 </resources>

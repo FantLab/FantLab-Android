@@ -2,7 +2,7 @@ package ru.fantlab.android.ui.adapter.viewholder
 
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.restyle_news_row_item.view.*
+import kotlinx.android.synthetic.main.news_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.News
 import ru.fantlab.android.helper.InputHelper
@@ -19,7 +19,7 @@ class NewsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<News, NewsView
 		val authorId = "user(\\d+)\\D".toRegex().find(news.author)
 		itemView.avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/users/${authorId?.groupValues?.get(1)}")
 
-		itemView.coverLayout.setUrl("https:${news.image}", R.drawable.ic_news)
+		itemView.coverLayout.setUrl("https:${news.image}", "file:///android_asset/svg/fl_news.svg")
 
 		if (!InputHelper.isEmpty(news.title)) {
 			itemView.title.text = news.title
@@ -49,7 +49,7 @@ class NewsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<News, NewsView
 				viewGroup: ViewGroup,
 				adapter: BaseRecyclerAdapter<News, NewsViewHolder>
 		): NewsViewHolder {
-			return NewsViewHolder(getView(viewGroup, R.layout.restyle_news_row_item), adapter)
+			return NewsViewHolder(getView(viewGroup, R.layout.news_row_item), adapter)
 		}
 
 		fun setOnContextMenuListener(listener: NewsViewHolder.OnOpenContextMenu) {

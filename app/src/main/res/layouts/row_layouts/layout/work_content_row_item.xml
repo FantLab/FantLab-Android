@@ -5,98 +5,146 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:foreground="?android:selectableItemBackground"
-	android:paddingBottom="@dimen/spacing_normal"
-	android:paddingEnd="@dimen/spacing_xs_large"
-	android:paddingStart="@dimen/spacing_xs_large"
+	android:layout_margin="@dimen/grid_spacing"
+	android:background="?android:selectableItemBackground"
+	android:paddingEnd="@dimen/spacing_normal"
+	android:paddingStart="@dimen/spacing_normal"
 	android:paddingTop="@dimen/spacing_normal"
 	tools:ignore="RtlSymmetry"
 	>
 
-	<LinearLayout
+	<android.support.v7.widget.CardView
+		android:id="@+id/topView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:orientation="vertical"
+		android:layout_below="@+id/category"
+		app:cardBackgroundColor="?card_background"
+		app:cardCornerRadius="0dp"
+		app:cardElevation="1dp"
+		app:cardUseCompatPadding="true"
 		>
 
-		<ru.fantlab.android.ui.widgets.FontTextView
-			android:id="@+id/workType"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:ellipsize="end"
-			android:maxLines="1"
-			tools:text="Повесть"
-			style="@style/TextAppearance.AppCompat.Subhead"
-			/>
-
-		<ru.fantlab.android.ui.widgets.FontTextView
-			android:id="@+id/workName"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:ellipsize="end"
-			android:maxLines="3"
-			android:textColor="?android:textColorPrimary"
-			android:textStyle="bold"
-			tools:text="Восьмая нога бога"
-			style="@style/TextAppearance.AppCompat.Medium"
-			/>
-
-		<ru.fantlab.android.ui.widgets.FlowLayout
+		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/spacing_micro"
-			app:flChildSpacing="5dp"
-			app:flChildSpacingForLastRow="align"
-			app:flRowSpacing="8dp"
+			android:orientation="vertical"
 			>
 
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/year"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:layout_marginEnd="@dimen/spacing_micro"
-				android:drawablePadding="@dimen/spacing_micro"
-				android:drawableStart="@drawable/ic_time_small"
-				android:gravity="start|center"
-				android:textColor="?android:attr/textColorSecondary"
-				app:drawableColor="?android:attr/textColorSecondary"
-				tools:text="2018"
-				style="@style/TextAppearance.AppCompat.Subhead"
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center_vertical"
+					android:orientation="vertical"
+					android:layout_marginEnd="@dimen/spacing_xs_large"
+					android:layout_marginStart="@dimen/spacing_xs_large"
+					android:layout_marginTop="@dimen/spacing_normal"
+					>
+
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:id="@+id/workType"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginEnd="@dimen/spacing_micro"
+						android:gravity="start|center"
+						android:textColor="?android:attr/textColorSecondary"
+						android:visibility="visible"
+						tools:text="Цикл «Федерация»"
+						style="@style/TextAppearance.AppCompat.Subhead"
+						/>
+
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:id="@+id/workName"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:ellipsize="end"
+						android:maxLines="3"
+						android:textColor="?android:textColorTertiary"
+						tools:text="Город демонов"
+						style="@style/TextAppearance.AppCompat.Medium"
+						/>
+
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:id="@+id/description"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="@dimen/spacing_micro"
+						android:textColor="?android:textColorSecondary"
+						android:textSize="15sp"
+						tools:text="Без описания"
+						style="@style/TextAppearance.AppCompat.Medium"
+						/>
+				</LinearLayout>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="0.5dp"
+				android:layout_marginLeft="@dimen/spacing_xs_large"
+				android:layout_marginRight="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
+				android:background="?dividerColor"
 				/>
 
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/rating"
-				android:layout_width="wrap_content"
+			<ru.fantlab.android.ui.widgets.FlowLayout
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:layout_marginEnd="@dimen/spacing_micro"
-				android:drawablePadding="@dimen/spacing_micro"
-				android:drawableStart="@drawable/ic_star_small"
-				android:gravity="start|center"
-				android:textColor="?android:attr/textColorSecondary"
-				app:drawableColor="?android:attr/textColorSecondary"
-				tools:text="8"
-				style="@style/TextAppearance.AppCompat.Subhead"
-				/>
+				android:layout_marginBottom="@dimen/spacing_normal"
+				android:layout_marginEnd="@dimen/spacing_xs_large"
+				android:layout_marginStart="@dimen/spacing_xs_large"
+				android:layout_marginTop="@dimen/spacing_normal"
+				android:gravity="end"
+				app:flChildSpacing="5dp"
+				app:flChildSpacingForLastRow="align"
+				app:flRowSpacing="8dp"
+				>
 
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/votes"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:layout_marginEnd="@dimen/spacing_micro"
-				android:drawablePadding="@dimen/spacing_micro"
-				android:drawableStart="@drawable/ic_thumb_up_small"
-				android:gravity="start|center"
-				android:textColor="?android:attr/textColorSecondary"
-				app:drawableColor="?android:attr/textColorSecondary"
-				tools:text="4"
-				style="@style/TextAppearance.AppCompat.Subhead"
-				/>
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/year"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:layout_marginEnd="@dimen/spacing_micro"
+					android:drawablePadding="@dimen/spacing_micro"
+					android:drawableStart="@drawable/ic_time"
+					android:gravity="start|center"
+					android:textColor="?android:attr/textColorSecondary"
+					app:drawableColor="?android:attr/textColorSecondary"
+					tools:text="2005"
+					style="@style/TextAppearance.AppCompat.Subhead"
+					/>
 
-		</ru.fantlab.android.ui.widgets.FlowLayout>
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/rating"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:layout_marginEnd="@dimen/spacing_micro"
+					android:drawablePadding="@dimen/spacing_micro"
+					android:drawableStart="@drawable/ic_star"
+					android:gravity="start|center"
+					android:textColor="?android:attr/textColorSecondary"
+					app:drawableColor="?android:attr/textColorSecondary"
+					tools:text="7.44"
+					style="@style/TextAppearance.AppCompat.Subhead"
+					/>
 
-	</LinearLayout>
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/votes"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:layout_marginEnd="@dimen/spacing_micro"
+					android:drawablePadding="@dimen/spacing_micro"
+					android:drawableStart="@drawable/ic_thumb_up"
+					android:gravity="start|center"
+					android:textColor="?android:attr/textColorSecondary"
+					app:drawableColor="?android:attr/textColorSecondary"
+					tools:text="12"
+					style="@style/TextAppearance.AppCompat.Subhead"
+					/>
+
+			</ru.fantlab.android.ui.widgets.FlowLayout>
+
+		</LinearLayout>
+	</android.support.v7.widget.CardView>
 
 </ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

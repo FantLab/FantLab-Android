@@ -85,7 +85,7 @@ class AutPlansFragment : BaseFragment<AutPlansMvp.View, AutPlansPresenter>(),
 	override fun getLoadMore() = onLoadMore
 
 	override fun onItemClicked(item: Autplans.Object) {
-		WorkPagerActivity.startActivity(context!!, item.saga.workId.toInt(), if (!InputHelper.isEmpty(item.rusname)) item.rusname else item.name, 0)
+		WorkPagerActivity.startActivity(context!!, item.workId.toInt(), if (!InputHelper.isEmpty(item.rusname)) item.rusname else item.name, 0)
 	}
 
 	override fun onItemLongClicked(position: Int, v: View?, item: Autplans.Object) {

@@ -17,6 +17,7 @@ data class WorkAnalog(
 		@SerializedName("name") val name: String,
 		@SerializedName("name_orig") val nameOrig: String,
 		@SerializedName("name_type") val nameType: String,
+		@SerializedName("name_type_id") val nameTypeId: Int,
 		@SerializedName("name_type_icon") val nameTypeIcon: String,
 		@SerializedName("published") val published: Int,
 		@SerializedName("saga") val saga: Saga?,

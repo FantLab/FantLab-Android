@@ -10,13 +10,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.evernote.android.state.State
-import kotlinx.android.synthetic.main.restyle_response_layout.*
+import kotlinx.android.synthetic.main.response_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.*
 import ru.fantlab.android.provider.scheme.LinkParserHelper
+import ru.fantlab.android.provider.storage.WorkTypesProvider
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
@@ -29,7 +30,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 
 	@State lateinit var response: Response
 
-	override fun layout(): Int = R.layout.restyle_response_layout
+	override fun layout(): Int = R.layout.response_layout
 
 	override fun isTransparent(): Boolean = false
 
@@ -82,7 +83,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		workName.text = if (response.workName.isNotEmpty()) response.workName else response.workNameOrig
 		workName.setOnClickListener { openWorkPager() }
 
-		coverLayout.setUrl(if (response.workImage != null) "https:${response.workImage}" else null)
+		coverLayout.setUrl("https:${response.workImage}", WorkTypesProvider.getCoverByTypeId(response.workTypeId))
 		coverLayout.setOnClickListener { openWorkPager() }
 
 		userInfo.setOnClickListener { showUserMenu() }

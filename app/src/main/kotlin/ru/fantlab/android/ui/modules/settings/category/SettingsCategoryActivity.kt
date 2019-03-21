@@ -8,18 +8,15 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.ui.base.BaseActivity
 
 class SettingsCategoryActivity : BaseActivity<SettingsCategoryMvp.View, SettingsCategoryPresenter>(), SettingsCategoryFragment.SettingsCallback {
-	var title: String? = null
 
-	private var settingsType: Int = 0
-	@State var needRecreation: Boolean = false
+	@State var title: String? = null
+	@State @JvmField var settingsType: Int = 0
 
-	override fun layout(): Int {
-		return R.layout.activity_settings_category
-	}
+	override fun layout(): Int = R.layout.activity_settings_category
 
-	override fun isTransparent()= false
+	override fun isTransparent() = false
 
-	override fun canBack()= true
+	override fun canBack() = true
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -36,22 +33,8 @@ class SettingsCategoryActivity : BaseActivity<SettingsCategoryMvp.View, Settings
 		setTitle(title)
 	}
 
-	override fun providePresenter() =  SettingsCategoryPresenter()
+	override fun providePresenter() = SettingsCategoryPresenter()
 
+	override fun getSettingsType(): Int = settingsType
 
-	override fun getSettingsType(): Int {
-		return settingsType
-	}
-
-	override fun onThemeChanged() {
-		needRecreation = true
-	}
-
-	override fun onBackPressed() {
-		if (needRecreation) {
-			super.onThemeChanged()
-			return
-		}
-		super.onBackPressed()
-	}
 }

@@ -13,29 +13,35 @@ class WorkContentViewHolder(itemView: View, adapter: BaseRecyclerAdapter<ChildWo
 	: BaseViewHolder<ChildWork>(itemView, adapter) {
 
 	override fun bind(content: ChildWork) {
-		itemView.workName.text = if (content.name.isNotEmpty()) {
-			if (content.nameOrig.isNotEmpty()) {
-				String.format("%s / %s", content.name, content.nameOrig)
-			} else {
-				content.name
-			}
-		} else {
-			content.nameOrig
-		}
+		itemView.workName.text = if (content.name.isNotEmpty()) content.name else content.nameOrig
 
-		if (content.type != null) itemView.workType.text = content.type.capitalize() else itemView.workType.visibility = View.GONE
+		if (content.type != null) {
+			itemView.workType.text = content.type.capitalize()
+			itemView.workType.visibility = View.VISIBLE
+		} else itemView.workType.visibility = View.GONE
 
-		if (InputHelper.isEmpty(content)) {
+		if (!InputHelper.isEmpty(content.year)) {
 			itemView.year.text = content.year.toString()
+			itemView.year.visibility = View.VISIBLE
 		} else {
-			itemView.year.visibility = View.GONE
+			if (!InputHelper.isEmpty(content.publishStatus)) {
+				itemView.year.text = content.publishStatus.capitalize()
+				itemView.year.visibility = View.VISIBLE
+			} else itemView.year.visibility = View.GONE
 		}
 
-		if (!InputHelper.isEmpty(content.votersCount) && content.votersCount?.toIntOrNull() != null) {
+		if (!InputHelper.isEmpty(content.description)) {
+			itemView.description.text = content.description
+			itemView.description.visibility = View.VISIBLE
+		} else {
+			itemView.description.visibility = View.GONE
+		}
+
+		if (!InputHelper.isEmpty(content.votersCount) && !InputHelper.isEmpty(content.rating)) {
 			itemView.rating.text = content.rating.toString()
 			itemView.votes.text = content.votersCount
-			itemView.rating.visibility = View.VISIBLE
 			itemView.votes.visibility = View.VISIBLE
+			itemView.rating.visibility = View.VISIBLE
 		} else {
 			itemView.rating.visibility = View.GONE
 			itemView.votes.visibility = View.GONE

@@ -2,7 +2,7 @@ package ru.fantlab.android.ui.adapter.viewholder
 
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.work_restyle_response_row_item.view.*
+import kotlinx.android.synthetic.main.work_response_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.getTimeAgo
@@ -64,7 +64,7 @@ class WorkResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Respon
 				viewGroup: ViewGroup,
 				adapter: BaseRecyclerAdapter<Response, WorkResponseViewHolder>
 		): WorkResponseViewHolder {
-			return WorkResponseViewHolder(getView(viewGroup, R.layout.work_restyle_response_row_item), adapter)
+			return WorkResponseViewHolder(getView(viewGroup, R.layout.work_response_row_item), adapter)
 		}
 
 		fun setOnContextMenuListener(listener: WorkResponseViewHolder.OnOpenContextMenu) {

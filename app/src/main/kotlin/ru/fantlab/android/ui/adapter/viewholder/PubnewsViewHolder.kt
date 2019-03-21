@@ -2,7 +2,7 @@ package ru.fantlab.android.ui.adapter.viewholder
 
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.restyle_pubnews_row_item.view.*
+import kotlinx.android.synthetic.main.pubnews_row_item.view.*
 import ru.fantlab.android.App
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Pubnews
@@ -20,6 +20,7 @@ class PubnewsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Pubnews.Obj
 
 		val authorId = "\\[autor=(\\d+)\\]".toRegex().find(publish.autors)
 		itemView.avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/autors/${authorId?.groupValues?.get(1)}")
+		itemView.coverLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/editions/small/${publish.editionId}", "file:///android_asset/svg/fl_pubnews.svg")
 
 		if (!InputHelper.isEmpty(publish.autors)) {
 			itemView.pubnewsAuthor.text = publish.autors.replace("\\[(.*?)]".toRegex(), "").split(",")[0]
@@ -34,8 +35,6 @@ class PubnewsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Pubnews.Obj
 		itemView.pubnewsSeries.text = publish.series.replace("\\[(.*?)]".toRegex(), "")
 		itemView.workName.text = publish.name
 		itemView.pubnewsDescription.text = publish.description.replace("\\[(.*?)]".toRegex(), "")
-
-		itemView.coverLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/editions/small/${publish.editionId}", R.drawable.ic_edition)
 
 		if (!InputHelper.isEmpty(publish.popularity)) {
 			itemView.popularity.text = publish.popularity
@@ -52,7 +51,7 @@ class PubnewsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Pubnews.Obj
 				viewGroup: ViewGroup,
 				adapter: BaseRecyclerAdapter<Pubnews.Object, PubnewsViewHolder>
 		): PubnewsViewHolder {
-			return PubnewsViewHolder(getView(viewGroup, R.layout.restyle_pubnews_row_item), adapter)
+			return PubnewsViewHolder(getView(viewGroup, R.layout.pubnews_row_item), adapter)
 		}
 
 	}

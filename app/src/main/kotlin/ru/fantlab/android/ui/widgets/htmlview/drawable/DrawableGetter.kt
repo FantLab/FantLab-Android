@@ -46,12 +46,4 @@ class DrawableGetter(tv: TextView, val width: Int) : Html.ImageGetter, Drawable.
 
 	override fun unscheduleDrawable(drawable: Drawable, runnable: Runnable) {}
 
-	fun clear(drawableGetter: DrawableGetter) {
-		if (drawableGetter.cachedTargets != null) {
-			for (target in drawableGetter.cachedTargets!!) {
-				Glide.clear(target)
-			}
-		}
-	}
-
 }

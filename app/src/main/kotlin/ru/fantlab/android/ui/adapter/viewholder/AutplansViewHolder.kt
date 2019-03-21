@@ -2,13 +2,15 @@ package ru.fantlab.android.ui.adapter.viewholder
 
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.restyle_autplans_row_item.view.*
+import kotlinx.android.synthetic.main.autplans_row_item.view.*
 import ru.fantlab.android.App
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Autplans
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.scheme.LinkParserHelper
+import ru.fantlab.android.provider.storage.WorkTypesProvider
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
+import ru.fantlab.android.ui.modules.work.CyclePagerActivity
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
@@ -17,6 +19,7 @@ class AutplansViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Autplans.O
 
 	override fun bind(autplan: Autplans.Object) {
 		itemView.avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/autors/${autplan.autors.autorId}")
+		itemView.coverLayout.setUrl(null, WorkTypesProvider.getCoverByTypeName(autplan.workType))
 
 		if (!InputHelper.isEmpty(autplan.autors.autorRusname)) {
 			itemView.autplansAuthor.text = autplan.autors.autorRusname.replace("\\[(.*?)]".toRegex(), "").split(",")[0]
@@ -42,6 +45,7 @@ class AutplansViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Autplans.O
 				append(autplan.saga.rusname)
 			}
 			itemView.autplansSaga.text = sagaName
+			itemView.autplansSaga.setOnClickListener { CyclePagerActivity.startActivity(itemView.context, autplan.saga.workId.toInt(), sagaName, 0) }
 			itemView.autplansSaga.visibility = View.VISIBLE
 		} else {
 			itemView.autplansSaga.visibility = View.GONE
@@ -51,8 +55,6 @@ class AutplansViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Autplans.O
 		if (!InputHelper.isEmpty(autplan.description))
 			itemView.autplansDescription.text = autplan.description.replace("\\[(.*?)]".toRegex(), "").trim()
 		else itemView.autplansDescription.visibility = View.GONE
-
-		itemView.coverLayout.setUrl(null, R.drawable.work)
 
 		if (!InputHelper.isEmpty(autplan.popularity)) {
 			itemView.popularity.text = autplan.popularity
@@ -68,7 +70,7 @@ class AutplansViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Autplans.O
 				viewGroup: ViewGroup,
 				adapter: BaseRecyclerAdapter<Autplans.Object, AutplansViewHolder>
 		): AutplansViewHolder {
-			return AutplansViewHolder(getView(viewGroup, R.layout.restyle_autplans_row_item), adapter)
+			return AutplansViewHolder(getView(viewGroup, R.layout.autplans_row_item), adapter)
 		}
 
 	}

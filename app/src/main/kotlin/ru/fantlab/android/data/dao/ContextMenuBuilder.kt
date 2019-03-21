@@ -17,7 +17,7 @@ object ContextMenuBuilder {
 						ContextMenus.MenuItem(context.getString(R.string.change_mark), R.drawable.ic_star, "revote"),
 						ContextMenus.MenuItem(context.getString(R.string.delete_mark), R.drawable.ic_delete, "delete")
 				)
-		items.add(ContextMenus(context.getString(R.string.select_action), actions, "main"))
+		items.add(ContextMenus("", actions, "main"))
 
 		return items
 	}
@@ -29,7 +29,7 @@ object ContextMenuBuilder {
 				arrayListOf(
 						ContextMenus.MenuItem(context.getString(R.string.vote), R.drawable.ic_star, "votes", true)
 				)
-		items.add(ContextMenus(context.getString(R.string.select_action), actions, "main"))
+		items.add(ContextMenus("", actions, "main"))
 
 		val marks =
 				arrayListOf(
@@ -49,7 +49,7 @@ object ContextMenuBuilder {
 						ContextMenus.MenuItem("+1", R.drawable.ic_thumb_up, "vote"),
 						ContextMenus.MenuItem("-1", R.drawable.ic_thumb_down, "vote")
 				)
-		items.add(ContextMenus(context.getString(R.string.select_mark), actions, "votes"))
+		items.add(ContextMenus("", actions, "votes"))
 
 		return items
 	}
@@ -62,7 +62,7 @@ object ContextMenuBuilder {
 						ContextMenus.MenuItem(context.getString(R.string.show_profile), R.drawable.ic_profile, "profile"),
 						ContextMenus.MenuItem(context.getString(R.string.send_message), R.drawable.ic_message, "message", true)
 				)
-		items.add(ContextMenus(context.getString(R.string.select_action), actions, "main"))
+		items.add(ContextMenus("", actions, "main"))
 
 		return items
 	}
@@ -104,7 +104,7 @@ object ContextMenuBuilder {
 						ContextMenus.MenuItem(context.getString(R.string.markchart_1), R.drawable.ic_chart, "chart"),
 						ContextMenus.MenuItem(context.getString(R.string.markchart_2), R.drawable.ic_chart, "chart")
 				)
-		items.add(ContextMenus(context.getString(R.string.select_chart), actions, "main"))
+		items.add(ContextMenus("", actions, "main"))
 
 		return items
 	}
@@ -160,8 +160,8 @@ object ContextMenuBuilder {
 			categories.add(ContextMenus.MenuItem(title, null, categoriesIdsArray[index], selected = filterCategory == categoriesIdsArray[index].toInt()))
 		}
 
-		items.add(ContextMenus(context.getString(R.string.select_country), countries, "countries"))
-		items.add(ContextMenus(context.getString(R.string.select_category), categories, "category"))
+		items.add(ContextMenus("", countries, "countries"))
+		items.add(ContextMenus("", categories, "category"))
 
 		return items
 	}
@@ -205,8 +205,8 @@ object ContextMenuBuilder {
 			categories.add(ContextMenus.MenuItem(publisher.name, null, publisher.publisherId, selected = filterPublisher == publisher.publisherId.toInt()))
 		}
 
-		items.add(ContextMenus(context.getString(R.string.select_country), langs, "lang"))
-		items.add(ContextMenus(context.getString(R.string.select_category), categories, "publisher"))
+		items.add(ContextMenus("", langs, "lang"))
+		items.add(ContextMenus("", categories, "publisher"))
 
 		return items
 	}
@@ -251,8 +251,8 @@ object ContextMenuBuilder {
 			categories.add(ContextMenus.MenuItem(publisher.name, null, publisher.publisherId, selected = filterPublisher == publisher.publisherId.toInt()))
 		}
 
-		items.add(ContextMenus(context.getString(R.string.select_country), langs, "lang"))
-		items.add(ContextMenus(context.getString(R.string.select_category), categories, "publisher"))
+		items.add(ContextMenus("", langs, "lang"))
+		items.add(ContextMenus("", categories, "publisher"))
 
 		return items
 	}
@@ -287,7 +287,7 @@ object ContextMenuBuilder {
 			langs.add(ContextMenus.MenuItem(title, null, langIdsArray[index], selected = filterLang == langIdsArray[index].toInt()))
 		}
 
-		items.add(ContextMenus(context.getString(R.string.select_country), langs, "lang"))
+		items.add(ContextMenus("", langs, "lang"))
 
 		return items
 	}
@@ -322,7 +322,7 @@ object ContextMenuBuilder {
 			categories.add(ContextMenus.MenuItem(title, null, catIdsArray[index].value, selected = filterCategory.name.equals(catIdsArray[index].name)))
 		}
 
-		items.add(ContextMenus(context.getString(R.string.select_category), categories, "category"))
+		items.add(ContextMenus("", categories, "category"))
 
 		return items
 	}
