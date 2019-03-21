@@ -11,6 +11,7 @@ import ru.fantlab.android.ui.modules.award.contests.AwardContestsFragment
 import ru.fantlab.android.ui.modules.award.nominations.AwardNominationsFragment
 import ru.fantlab.android.ui.modules.award.overview.AwardOverviewFragment
 import ru.fantlab.android.ui.modules.bookcases.overview.BookcasesOverviewFragment
+import ru.fantlab.android.ui.modules.bookcases.selector.BookcaseSelectorFragment
 import ru.fantlab.android.ui.modules.classificator.age.ClassificationAgeFragment
 import ru.fantlab.android.ui.modules.classificator.characteristics.ClassificationCharacteristicsFragment
 import ru.fantlab.android.ui.modules.classificator.genres.ClassificationGenreFragment
@@ -90,6 +91,16 @@ data class FragmentPagerAdapterModel(
 			)
 		}
 
+		fun buildForWork(context: Context, workId: Int, userId: Int): MutableList<FragmentPagerAdapterModel> {
+			return mutableListOf(
+					FragmentPagerAdapterModel(context.getString(R.string.overview), WorkOverviewFragment.newInstance(workId)),
+					FragmentPagerAdapterModel(context.getString(R.string.classification), WorkClassificationFragment.newInstance(workId)),
+					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId)),
+					FragmentPagerAdapterModel(context.getString(R.string.editions), WorkEditionsFragment.newInstance(workId)),
+					FragmentPagerAdapterModel(context.getString(R.string.my_bookcases), BookcaseSelectorFragment.newInstance(userId, "work", workId))
+			)
+		}
+
 		fun buildForCycle(context: Context, workId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
 					FragmentPagerAdapterModel(context.getString(R.string.overview), WorkOverviewFragment.newInstance(workId)),
@@ -103,6 +114,14 @@ data class FragmentPagerAdapterModel(
 			return mutableListOf(
 					FragmentPagerAdapterModel(context.getString(R.string.overview), EditionOverviewFragment.newInstance(editionId)),
 					FragmentPagerAdapterModel(context.getString(R.string.content), EditionContentFragment.newInstance(editionId))
+			)
+		}
+
+		fun buildForEdition(context: Context, editionId: Int, userId: Int): MutableList<FragmentPagerAdapterModel> {
+			return mutableListOf(
+					FragmentPagerAdapterModel(context.getString(R.string.overview), EditionOverviewFragment.newInstance(editionId)),
+					FragmentPagerAdapterModel(context.getString(R.string.content), EditionContentFragment.newInstance(editionId)),
+					FragmentPagerAdapterModel(context.getString(R.string.my_bookcases), BookcaseSelectorFragment.newInstance(userId, "edition", editionId))
 			)
 		}
 

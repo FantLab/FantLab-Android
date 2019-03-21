@@ -251,4 +251,6 @@
 	<string name="bookcase_deleting">Удаление полки</string>
 	<string name="bookcase_modify">Править</string>
 	<string name="bookcase_deleted">Полка удалена</string>
+	<string name="no_bookcases">Нет полок</string>
+	<string name="my_bookcases">Мои книжные полки</string>
 </resources>

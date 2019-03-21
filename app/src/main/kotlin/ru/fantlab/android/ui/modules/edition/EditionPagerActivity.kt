@@ -16,10 +16,7 @@ import kotlinx.android.synthetic.main.tabbed_pager_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
-import ru.fantlab.android.helper.ActivityHelper
-import ru.fantlab.android.helper.BundleConstant
-import ru.fantlab.android.helper.Bundler
-import ru.fantlab.android.helper.ViewHelper
+import ru.fantlab.android.helper.*
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
@@ -59,10 +56,19 @@ class EditionPagerActivity : BaseActivity<EditionPagerMvp.View, BasePresenter<Ed
 		setTaskName(editionName)
 		title = editionName
 		selectMenuItem(R.id.mainView, false)
-		val adapter = FragmentsPagerAdapter(
-				supportFragmentManager,
-				FragmentPagerAdapterModel.buildForEdition(this, editionId)
-		)
+		val currentUser = PrefGetter.getLoggedUser()
+		val adapter = if (currentUser == null) {
+			FragmentsPagerAdapter(
+					supportFragmentManager,
+					FragmentPagerAdapterModel.buildForEdition(this, editionId)
+			)
+		}
+		else {
+			FragmentsPagerAdapter(
+					supportFragmentManager,
+					FragmentPagerAdapterModel.buildForEdition(this, editionId, currentUser.id)
+			)
+		}
 		pager.adapter = adapter
 		tabs.tabGravity = TabLayout.GRAVITY_FILL
 		tabs.tabMode = TabLayout.MODE_SCROLLABLE

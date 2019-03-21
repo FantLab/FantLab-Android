@@ -44,7 +44,7 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
             stateLayout.hideProgress()
         }
         userId = arguments!!.getInt(BundleConstant.EXTRA)
-        stateLayout.setEmptyText(R.string.no_responses)
+        stateLayout.setEmptyText(R.string.no_bookcases)
         stateLayout.setOnReloadListener(this)
         refresh.setOnRefreshListener(this)
         recycler.setEmptyView(stateLayout, refresh)

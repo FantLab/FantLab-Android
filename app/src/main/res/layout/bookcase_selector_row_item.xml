@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    >
+
+    <CheckBox
+        android:id="@+id/bookcaseIncluded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:checked="false"/>
+
+    <TextView
+        android:id="@+id/bookcaseName"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/spacing_normal"
+        android:gravity="center_vertical"
+        tools:text="Моя книжняя полка"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="?android:textColorPrimary"
+        />
+
+</LinearLayout>

@@ -68,10 +68,19 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 		setTaskName(workName)
 		title = workName
 		selectMenuItem(R.id.mainView, false)
-		val adapter = FragmentsPagerAdapter(
-				supportFragmentManager,
-				FragmentPagerAdapterModel.buildForWork(this, workId)
-		)
+		val currentUser = PrefGetter.getLoggedUser()
+		val adapter = if (currentUser == null) {
+				FragmentsPagerAdapter(
+						supportFragmentManager,
+						FragmentPagerAdapterModel.buildForWork(this, workId)
+				)
+			}
+			else {
+				FragmentsPagerAdapter(
+						supportFragmentManager,
+						FragmentPagerAdapterModel.buildForWork(this, workId, currentUser.id)
+				)
+			}
 		pager.adapter = adapter
 		tabs.tabGravity = TabLayout.GRAVITY_FILL
 		tabs.tabMode = TabLayout.MODE_SCROLLABLE

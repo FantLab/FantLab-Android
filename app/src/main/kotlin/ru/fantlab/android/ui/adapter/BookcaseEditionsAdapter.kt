@@ -16,4 +16,3 @@ class BookcaseEditionsAdapter(nom: ArrayList<BookcaseEdition>?)
         holder.bind(getItem(position))
     }
 }
-
