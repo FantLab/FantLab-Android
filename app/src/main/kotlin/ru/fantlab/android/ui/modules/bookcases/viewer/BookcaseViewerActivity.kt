@@ -38,7 +38,7 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
 
     private lateinit var toolbarMenu: Menu
 
-    override fun layout(): Int = R.layout.bookcase_editions_layout
+    override fun layout(): Int = R.layout.bookcase_viewer_layout
 
     override fun isTransparent(): Boolean = false
 
