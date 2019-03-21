@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/spacing_normal"
         android:checked="false"/>
 
     <TextView
