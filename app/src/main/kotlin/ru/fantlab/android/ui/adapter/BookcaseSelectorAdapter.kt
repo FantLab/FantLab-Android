@@ -5,7 +5,7 @@ import ru.fantlab.android.data.dao.model.BookcaseSelection
 import ru.fantlab.android.ui.adapter.viewholder.BookcaseSelectionViewHolder
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 
-class BookcaseSelectorAdapter(nom: ArrayList<BookcaseSelection>?)
+class BookcaseSelectorAdapter(nom: ArrayList<BookcaseSelection>?, var selectionListener: BookcaseSelectionViewHolder.OnItemSelectListener<BookcaseSelection>? = null)
     : BaseRecyclerAdapter<BookcaseSelection, BookcaseSelectionViewHolder>(nom!!) {
 
     override fun viewHolder(parent: ViewGroup, viewType: Int): BookcaseSelectionViewHolder =

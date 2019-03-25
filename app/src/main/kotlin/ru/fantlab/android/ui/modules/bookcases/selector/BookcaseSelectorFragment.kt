@@ -19,9 +19,7 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
 
     @State var userId: Int = -1
     @State var bookcaseType: String = ""
-    @State var editionId: Int = -1
-    @State var workId: Int = -1
-    @State var filmId: Int = -1
+    @State var entityId: Int = -1
 
     private val adapter: BookcaseSelectorAdapter by lazy { BookcaseSelectorAdapter(arrayListOf()) }
 
@@ -36,22 +34,13 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
         }
         userId = arguments!!.getInt(BundleConstant.EXTRA)
         bookcaseType = arguments!!.getString(BundleConstant.EXTRA_TWO)
-        when (bookcaseType) {
-            "edition" -> {
-                editionId = arguments!!.getInt(BundleConstant.EXTRA_THREE)
-            }
-            "work" -> {
-                workId = arguments!!.getInt(BundleConstant.EXTRA_THREE)
-            }
-            "film" -> {
-                filmId = arguments!!.getInt(BundleConstant.EXTRA_THREE)
-            }
-        }
+        entityId = arguments!!.getInt(BundleConstant.EXTRA_THREE)
         stateLayout.setEmptyText(R.string.no_bookcases)
         stateLayout.setOnReloadListener(this)
         refresh.setOnRefreshListener(this)
         recycler.setEmptyView(stateLayout, refresh)
         adapter.listener = presenter
+        adapter.selectionListener = presenter
         recycler.adapter = adapter
         presenter.onFragmentCreated(arguments!!)
     }
@@ -69,21 +58,18 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
     }
 
     override fun onItemClicked(item: BookcaseSelection, position: Int) {
+        // TODO: not implemented
+    }
+
+    override fun onItemSelected(item: BookcaseSelection, position: Int) {
+        presenter.includeItem(item.bookcase.id, entityId, !item.included)
+    }
+
+    override fun onItemSelectionUpdated() {
+        hideProgress()
     }
 
     override fun onRefresh() {
-        var entityId: Int = -1
-        when (bookcaseType) {
-            "edition" -> {
-                entityId = editionId
-            }
-            "work" -> {
-                entityId = workId
-            }
-            "film" -> {
-                entityId = filmId
-            }
-        }
         presenter.getBookcases(userId, bookcaseType, entityId, true)
     }
 

@@ -11,10 +11,7 @@ import io.reactivex.functions.Consumer
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import ru.fantlab.android.data.dao.model.*
-import ru.fantlab.android.data.dao.response.BookcaseEditionsResponse
-import ru.fantlab.android.data.dao.response.BookcaseFilmsResponse
-import ru.fantlab.android.data.dao.response.BookcaseWorksResponse
-import ru.fantlab.android.data.dao.response.BookcasesResponse
+import ru.fantlab.android.data.dao.response.*
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.provider.rest.getBookcasePath
@@ -194,6 +191,24 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
 
     override fun onItemLongClick(position: Int, v: View?, item: BookcaseSelection) {
         TODO("not implemented")
+    }
+
+    override fun onItemSelected(position: Int, v: View?, item: BookcaseSelection) {
+        sendToView { it.onItemSelected(item, position) }
+    }
+
+    override fun includeItem(bookcaseId: Int, entityId: Int, include: Boolean) {
+        makeRestCall(
+                DataManager.includeItemToBookcase(bookcaseId, entityId, if (include) "true" else "false").toObservable(),
+                Consumer { response ->
+                    val result = BookcaseItemIncludedResponse.Parser().parse(response)
+                    if (result == null) {
+                        sendToView { it.showErrorMessage(response) }
+                    } else {
+                        sendToView { it.onItemSelectionUpdated() }
+                    }
+                }
+        )
     }
 
     // TODO: The next code is copypasted from Viewer presenter, should be replaced with adequate API call
