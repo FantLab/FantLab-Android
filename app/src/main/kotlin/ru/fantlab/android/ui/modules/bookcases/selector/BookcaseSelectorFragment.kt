@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
-import ru.fantlab.android.data.dao.model.Bookcase
 import ru.fantlab.android.data.dao.model.BookcaseSelection
 import ru.fantlab.android.ui.adapter.BookcaseSelectorAdapter
 
@@ -57,7 +56,7 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
         presenter.onFragmentCreated(arguments!!)
     }
 
-    override fun onInitViews(items: ArrayList<Bookcase>?) {
+    override fun onInitViews(items: ArrayList<BookcaseSelection>?) {
         hideProgress()
         if (items != null) {
             onSetTabCount(items.size)
@@ -65,11 +64,7 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
         }
     }
 
-    private fun initAdapter(bookcases: ArrayList<Bookcase>) {
-        var selections: ArrayList<BookcaseSelection> = ArrayList()
-        bookcases.forEach {
-            bookcase -> if (bookcase.type == bookcaseType) selections.add(BookcaseSelection(bookcase, false))
-        }
+    private fun initAdapter(selections: ArrayList<BookcaseSelection>) {
         adapter.addItems(selections)
     }
 
@@ -77,7 +72,19 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
     }
 
     override fun onRefresh() {
-        presenter.getBookcases(userId, true)
+        var entityId: Int = -1
+        when (bookcaseType) {
+            "edition" -> {
+                entityId = editionId
+            }
+            "work" -> {
+                entityId = workId
+            }
+            "film" -> {
+                entityId = filmId
+            }
+        }
+        presenter.getBookcases(userId, bookcaseType, entityId, true)
     }
 
     override fun onClick(v: View?) {

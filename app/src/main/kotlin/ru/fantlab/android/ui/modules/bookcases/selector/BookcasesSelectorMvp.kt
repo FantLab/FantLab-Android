@@ -14,7 +14,7 @@ interface BookcasesSelectorMvp {
             android.view.View.OnClickListener,
             ContextMenuDialogView.ListDialogViewActionCallback {
 
-        fun onInitViews(items: ArrayList<Bookcase>?)
+        fun onInitViews(items: ArrayList<BookcaseSelection>?)
 
         fun onSetTabCount(allCount: Int)
 
@@ -26,7 +26,7 @@ interface BookcasesSelectorMvp {
 
         fun onFragmentCreated(bundle: Bundle)
 
-        fun getBookcases(userId: Int, force: Boolean)
+        fun getBookcases(userId: Int, bookcaseType: String, entityId: Int, force: Boolean)
     }
 
 }
