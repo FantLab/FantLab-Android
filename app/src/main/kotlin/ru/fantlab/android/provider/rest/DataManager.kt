@@ -212,7 +212,7 @@ object DataManager {
 	): Single<BookcaseEditionsResponse> =
 			getBookcasePath(bookcaseId, "edition", offset)
 					.httpGet()
-					.rxObject(BookcaseEditionsResponse.Deserializer(perPage = 50))
+					.rxObject(BookcaseEditionsResponse.Deserializer(perPage = 10))
 					.map { it.get() }
 
 	fun getBookcaseWorks(
@@ -221,7 +221,7 @@ object DataManager {
 	): Single<BookcaseWorksResponse> =
 			getBookcasePath(bookcaseId, "work", offset)
 					.httpGet()
-					.rxObject(BookcaseWorksResponse.Deserializer(perPage = 50))
+					.rxObject(BookcaseWorksResponse.Deserializer(perPage = 10))
 					.map { it.get() }
 
 	fun getBookcaseFilms(
@@ -230,7 +230,7 @@ object DataManager {
 	): Single<BookcaseFilmsResponse> =
 			getBookcasePath(bookcaseId, "film", offset)
 					.httpGet()
-					.rxObject(BookcaseFilmsResponse.Deserializer(perPage = 50))
+					.rxObject(BookcaseFilmsResponse.Deserializer(perPage = 10))
 					.map { it.get() }
 
 	fun createBookcase(

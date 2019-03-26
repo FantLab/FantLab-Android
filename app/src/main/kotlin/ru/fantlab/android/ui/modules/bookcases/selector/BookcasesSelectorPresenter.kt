@@ -235,7 +235,7 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
                     .map { BookcaseEditionsResponse.Deserializer(perPage = 50).deserialize(it) }
                     .map { getEditions(it) }
 
-    private fun getEditions(response: BookcaseEditionsResponse): ArrayList<BookcaseEdition> = response.editions
+    private fun getEditions(response: BookcaseEditionsResponse): ArrayList<BookcaseEdition> = response.editions.items
 
     private fun getWorksInternal(force: Boolean, bookcaseId: Int) =
             getWorksFromServer(bookcaseId)
@@ -259,7 +259,7 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
                     .map { BookcaseWorksResponse.Deserializer(perPage = 50).deserialize(it) }
                     .map { getWorks(it) }
 
-    private fun getWorks(response: BookcaseWorksResponse): ArrayList<BookcaseWork> = response.works
+    private fun getWorks(response: BookcaseWorksResponse): ArrayList<BookcaseWork> = response.works.items
 
     private fun getFilmsInternal(force: Boolean, bookcaseId: Int) =
             getFilmsFromServer(bookcaseId)
@@ -283,6 +283,6 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
                     .map { BookcaseFilmsResponse.Deserializer(perPage = 50).deserialize(it) }
                     .map { getFilms(it) }
 
-    private fun getFilms(response: BookcaseFilmsResponse): ArrayList<BookcaseFilm> = response.films
+    private fun getFilms(response: BookcaseFilmsResponse): ArrayList<BookcaseFilm> = response.films.items
 
 }

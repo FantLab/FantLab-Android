@@ -2,11 +2,12 @@ package ru.fantlab.android.data.dao.response
 
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.JsonParser
+import ru.fantlab.android.data.dao.Pageable
 import ru.fantlab.android.data.dao.model.BookcaseEdition
 import ru.fantlab.android.provider.rest.DataManager
 
 data class BookcaseEditionsResponse(
-        val editions: ArrayList<BookcaseEdition>
+        val editions: Pageable<BookcaseEdition>
 ) {
     class Deserializer(private val perPage: Int) : ResponseDeserializable<BookcaseEditionsResponse> {
 
@@ -17,7 +18,10 @@ data class BookcaseEditionsResponse(
             array.map {
                 items.add(DataManager.gson.fromJson(it, BookcaseEdition::class.java))
             }
-            return BookcaseEditionsResponse(items)
+            val totalCount = jsonObject.getAsJsonPrimitive("count").asInt
+            val lastPage = (totalCount - 1) / perPage + 1
+            val editions = Pageable(lastPage, totalCount, items)
+            return BookcaseEditionsResponse(editions)
         }
     }
 }

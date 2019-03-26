@@ -19,6 +19,7 @@ import ru.fantlab.android.data.dao.model.BookcaseFilm
 import ru.fantlab.android.data.dao.model.BookcaseWork
 import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.BookcaseEditionsAdapter
 import ru.fantlab.android.ui.adapter.BookcaseFilmsAdapter
 import ru.fantlab.android.ui.adapter.BookcaseWorksAdapter
@@ -35,6 +36,8 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
     private val editionsAdapter: BookcaseEditionsAdapter by lazy { BookcaseEditionsAdapter(arrayListOf()) }
     private val worksAdapter: BookcaseWorksAdapter by lazy { BookcaseWorksAdapter(arrayListOf()) }
     private val filmsAdapter: BookcaseFilmsAdapter by lazy { BookcaseFilmsAdapter(arrayListOf()) }
+
+    private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, bookcaseId) }
 
     private lateinit var toolbarMenu: Menu
 
@@ -58,7 +61,7 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
             finish()
             return
         }
-
+        presenter.setBookcaseType(bookcaseType)
         title = bookcaseName
         hideShowShadow(true)
         if (savedInstanceState == null) {
@@ -69,23 +72,25 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
         refresh.setOnRefreshListener(this)
         recycler.setEmptyView(stateLayout, refresh)
         recycler.addDivider()
+        getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
+        recycler.addOnScrollListener(getLoadMore())
         fastScroller.attachRecyclerView(recycler)
 
         when (bookcaseType) {
             "edition" -> {
                 recycler.adapter = editionsAdapter
-                presenter.getEditions(false, bookcaseId)
             }
             "work" -> {
                 recycler.adapter = worksAdapter
-                presenter.getWorks(false, bookcaseId)
             }
             "film" -> {
                 recycler.adapter = filmsAdapter
-                presenter.getFilms(false, bookcaseId)
             }
         }
+        presenter.onCallApi(1, bookcaseId)
     }
+
+    override fun getLoadMore() = onLoadMore
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.bookcase_menu, menu)
@@ -135,43 +140,55 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onNotifyEditionsAdapter(items: ArrayList<BookcaseEdition>) {
+    override fun onNotifyEditionsAdapter(items: ArrayList<BookcaseEdition>, page: Int) {
         hideProgress()
         if (items.isEmpty()) {
             editionsAdapter.clear()
             return
         }
-        editionsAdapter.insertItems(items)
+        if (page <= 1) {
+            editionsAdapter.insertItems(items)
+        } else {
+            editionsAdapter.addItems(items)
+        }
     }
 
-    override fun onNotifyWorksAdapter(items: ArrayList<BookcaseWork>) {
+    override fun onNotifyWorksAdapter(items: ArrayList<BookcaseWork>, page: Int) {
         hideProgress()
         if (items.isEmpty()) {
             worksAdapter.clear()
             return
         }
-        worksAdapter.insertItems(items)
+        if (page <= 1) {
+            worksAdapter.insertItems(items)
+        } else {
+            worksAdapter.addItems(items)
+        }
     }
 
-    override fun onNotifyFilmsAdapter(items: ArrayList<BookcaseFilm>) {
+    override fun onNotifyFilmsAdapter(items: ArrayList<BookcaseFilm>, page: Int) {
         hideProgress()
         if (items.isEmpty()) {
             filmsAdapter.clear()
             return
         }
-        filmsAdapter.insertItems(items)
+        if (page <= 1) {
+            filmsAdapter.insertItems(items)
+        } else {
+            filmsAdapter.addItems(items)
+        }
     }
 
     override fun onRefresh() {
         when (bookcaseType) {
             "edition" -> {
-                presenter.getEditions(true, bookcaseId)
+                presenter.getEditions(true, bookcaseId, 1)
             }
             "work" -> {
-                presenter.getWorks(true, bookcaseId)
+                presenter.getWorks(true, bookcaseId, 1)
             }
             "film" -> {
-                presenter.getFilms(true, bookcaseId)
+                presenter.getFilms(true, bookcaseId, 1)
             }
         }
     }
