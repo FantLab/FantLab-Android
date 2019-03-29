@@ -2,9 +2,9 @@ package ru.fantlab.android.ui.modules.main.news
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.Keep
-import android.support.annotation.StringRes
+import androidx.annotation.Keep
 import android.view.View
+import androidx.annotation.StringRes
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R

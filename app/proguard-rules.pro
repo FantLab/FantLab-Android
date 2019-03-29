@@ -28,9 +28,10 @@
 -dontwarn org.jaxen.**
 -dontwarn ru.fantlab.android.ui.modules.**
 -dontnote com.google.android.gms.**
+-dontwarn com.caverock.androidsvg.**
 
 -keepnames class * { @com.evernote.android.state.State *;}
-
+-keep class androidx.fragment.app.Fragment { *; }
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public class * extends com.bumptech.glide.module.AppGlideModule
 -keep public enum com.bumptech.glide.load.ImageHeaderParser$** {

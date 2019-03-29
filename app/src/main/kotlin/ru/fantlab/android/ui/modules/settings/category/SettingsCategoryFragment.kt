@@ -2,8 +2,9 @@ package ru.fantlab.android.ui.modules.settings.category
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.preference.PreferenceFragmentCompat
 import android.widget.Toast
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 
 import es.dmoral.toasty.Toasty
 import io.reactivex.disposables.CompositeDisposable
@@ -13,7 +14,7 @@ import ru.fantlab.android.data.dao.SettingsModel
 import ru.fantlab.android.helper.PrefHelper
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 
-class SettingsCategoryFragment : PreferenceFragmentCompat(), android.support.v7.preference.Preference.OnPreferenceChangeListener {
+class SettingsCategoryFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
 	private var callback: BaseMvp.View? = null
 	private var appColor: String? = null
 	private var appLanguage: String? = null
@@ -24,7 +25,7 @@ class SettingsCategoryFragment : PreferenceFragmentCompat(), android.support.v7.
 		fun getSettingsType(): Int
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		this.callback = context as BaseMvp.View?
 		this.settingsCallback = context as SettingsCallback?
@@ -46,7 +47,7 @@ class SettingsCategoryFragment : PreferenceFragmentCompat(), android.support.v7.
 		}
 	}
 
-	override fun onPreferenceChange(preference: android.support.v7.preference.Preference, newValue: Any?): Boolean {
+	override fun onPreferenceChange(preference: Preference, newValue: Any?): Boolean {
 		when {
 			preference.key.equals("recylerViewAnimation", ignoreCase = true) -> {
 				callback!!.onThemeChanged()

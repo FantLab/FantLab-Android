@@ -1,8 +1,8 @@
 package ru.fantlab.android.ui.adapter.viewholder
 
-import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.autplans_row_item.view.*
 import ru.fantlab.android.App
 import ru.fantlab.android.R

@@ -1,8 +1,8 @@
 package ru.fantlab.android.ui.modules.main.news.contests
 
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Award

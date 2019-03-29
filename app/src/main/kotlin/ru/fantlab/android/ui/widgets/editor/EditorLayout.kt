@@ -5,11 +5,11 @@ import android.content.Context
 import androidx.fragment.app.FragmentManager
 import androidx.transition.TransitionManager
 import com.google.android.material.snackbar.Snackbar
-import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.editor_buttons_layout.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Smile

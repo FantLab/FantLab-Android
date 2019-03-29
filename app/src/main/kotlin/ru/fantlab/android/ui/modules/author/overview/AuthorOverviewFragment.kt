@@ -38,7 +38,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 		hideProgress()
 		coverLayout.setUrl("https:${author.image}")
 
-		GlideApp.with(context)
+		GlideApp.with(context!!)
 				.load("https://${LinkParserHelper.HOST_DEFAULT}/img/flags/${author.countryId}.png")
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.dontAnimate()
@@ -134,7 +134,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 		super.showMessage(titleRes, msgRes)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is AuthorPagerMvp.View) {
 			pagerCallback = context

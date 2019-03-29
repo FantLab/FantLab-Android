@@ -13,7 +13,7 @@
 	tools:ignore="RtlSymmetry"
 	>
 
-	<android.support.v7.widget.CardView
+	<androidx.cardview.widget.CardView
 		android:id="@+id/topView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -207,6 +207,6 @@
 			</ru.fantlab.android.ui.widgets.FlowLayout>
 
 		</LinearLayout>
-	</android.support.v7.widget.CardView>
+	</androidx.cardview.widget.CardView>
 
 </ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

@@ -3,7 +3,6 @@ package ru.fantlab.android.ui.modules.award.contests
 import android.content.Context
 import android.os.Bundle
 import androidx.annotation.StringRes
-import android.support.v4.widget.SwipeRefreshLayout
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
@@ -191,7 +190,7 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 		countCallback?.onSetBadge(1, allCount)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is AwardPagerMvp.View) {
 			countCallback = context

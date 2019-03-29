@@ -1,14 +1,13 @@
 package ru.fantlab.android.ui.widgets
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.PorterDuff
-import android.support.v7.preference.Preference
-import android.support.v7.preference.PreferenceViewHolder
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.widget.Button
 import android.widget.TextView
+import androidx.preference.Preference
+import androidx.preference.PreferenceViewHolder
 import petrov.kristiyan.colorpicker.ColorPicker
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.PrefGetter

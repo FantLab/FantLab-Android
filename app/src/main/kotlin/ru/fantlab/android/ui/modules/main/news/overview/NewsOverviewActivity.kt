@@ -9,9 +9,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestListener
 import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.news_layout.*
 import ru.fantlab.android.R
@@ -20,8 +17,7 @@ import ru.fantlab.android.helper.*
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.main.news.contests.NewsContestsFragment
-import android.support.v4.util.Pair as UtilPair
-import com.bumptech.glide.request.target.Target
+import androidx.core.util.Pair as UtilPair
 
 class NewsOverviewActivity : BaseActivity<NewsOverviewMvp.View, NewsOverviewPresenter>(),
 		NewsOverviewMvp.View {
