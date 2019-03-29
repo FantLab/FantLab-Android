@@ -1,6 +1,6 @@
 package ru.fantlab.android.ui.modules.awards
 
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.AwardInList
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView

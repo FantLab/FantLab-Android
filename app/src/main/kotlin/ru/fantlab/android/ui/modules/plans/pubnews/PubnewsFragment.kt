@@ -2,9 +2,8 @@ package ru.fantlab.android.ui.modules.plans.pubnews
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.Keep
-import android.support.annotation.StringRes
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
@@ -41,6 +40,7 @@ class PubnewsFragment : BaseFragment<PubnewsMvp.View, PubnewsPresenter>(),
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
 		recycler.adapter = adapter
+		recycler.addNormalSpacingDivider()
 		getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
 		recycler.addOnScrollListener(getLoadMore())
 		presenter.onCallApi(1, null)

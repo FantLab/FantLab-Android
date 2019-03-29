@@ -2,9 +2,11 @@ package ru.fantlab.android.ui.modules.author.overview
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import android.text.Html
 import android.view.View
+import android.widget.ImageView
+import ru.fantlab.android.provider.glide.GlideApp
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.author_overview_layout.*
 import kotlinx.android.synthetic.main.state_layout.*
@@ -14,7 +16,6 @@ import ru.fantlab.android.data.dao.model.Biography
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
-import ru.fantlab.android.provider.glide.GlideApp
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
@@ -37,7 +38,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 		hideProgress()
 		coverLayout.setUrl("https:${author.image}")
 
-		GlideApp.with(context!!)
+		GlideApp.with(context)
 				.load("https://${LinkParserHelper.HOST_DEFAULT}/img/flags/${author.countryId}.png")
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.dontAnimate()

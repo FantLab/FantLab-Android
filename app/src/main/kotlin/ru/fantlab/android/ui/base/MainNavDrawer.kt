@@ -2,11 +2,11 @@ package ru.fantlab.android.ui.base
 
 import android.content.Intent
 import android.os.Handler
-import android.support.design.widget.NavigationView
-import android.support.transition.TransitionManager
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.transition.TransitionManager
+import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.drawer_header.view.*
 import kotlinx.android.synthetic.main.nav_menu_layout.*
 import ru.fantlab.android.R
@@ -18,7 +18,6 @@ import ru.fantlab.android.ui.modules.awards.AwardsActivity
 import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.modules.main.MainActivity
 import ru.fantlab.android.ui.modules.plans.PlansPagerActivity
-import ru.fantlab.android.ui.modules.publishers.PublishersActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 

@@ -2,8 +2,8 @@ package ru.fantlab.android.ui.modules.author.editions
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.View
+import androidx.annotation.StringRes
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -84,7 +84,7 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 		countCallback?.onSetBadge(2, allCount)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is AuthorPagerMvp.View) {
 			countCallback = context

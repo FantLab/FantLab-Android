@@ -4,14 +4,14 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.app.Dialog
-import android.support.annotation.UiThread
-import android.support.v4.app.DialogFragment
-import android.support.v4.view.ViewCompat
+import androidx.core.view.ViewCompat
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewTreeObserver
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.LinearInterpolator
+import androidx.annotation.UiThread
+import androidx.fragment.app.DialogFragment
 import java.util.*
 
 object AnimHelper {

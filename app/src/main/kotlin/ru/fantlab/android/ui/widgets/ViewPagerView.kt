@@ -2,10 +2,10 @@ package ru.fantlab.android.ui.widgets
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.MotionEvent
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 
 /**
  * Created by kosh20111 on 10/8/2015.

@@ -3,10 +3,10 @@ package ru.fantlab.android.ui.widgets
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.support.annotation.ColorRes
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
+import androidx.annotation.ColorRes
 import ru.fantlab.android.R
 
 class Dot @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :

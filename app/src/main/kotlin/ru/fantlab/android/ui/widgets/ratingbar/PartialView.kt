@@ -3,7 +3,7 @@ package ru.fantlab.android.ui.widgets.ratingbar
 import android.content.Context
 import android.graphics.drawable.ClipDrawable
 import android.graphics.drawable.Drawable
-import android.support.annotation.IntRange
+import androidx.annotation.IntRange
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.ViewGroup

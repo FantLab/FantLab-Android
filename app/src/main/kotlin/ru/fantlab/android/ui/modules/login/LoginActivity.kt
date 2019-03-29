@@ -1,12 +1,8 @@
 package ru.fantlab.android.ui.modules.login
 
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.TextInputLayout
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
+import androidx.annotation.StringRes
 import kotlinx.android.synthetic.main.login_form_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.*

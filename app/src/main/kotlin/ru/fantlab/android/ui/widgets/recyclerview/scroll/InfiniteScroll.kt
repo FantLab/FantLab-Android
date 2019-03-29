@@ -1,9 +1,9 @@
 package ru.fantlab.android.ui.widgets.recyclerview.scroll
 
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 
 abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
@@ -53,7 +53,7 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 		return maxSize
 	}
 
-	override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+	override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 		if (newlyAdded) {
 			newlyAdded = false
 			return
@@ -65,7 +65,7 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 		}
 
 		if (layoutManager == null) {
-			initLayoutManager(recyclerView!!.layoutManager)
+			initLayoutManager(recyclerView.layoutManager!!)
 		}
 		if (adapter == null) {
 			if (recyclerView!!.adapter is BaseRecyclerAdapter<*, *>) {

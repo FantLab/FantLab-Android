@@ -1,7 +1,6 @@
 package ru.fantlab.android.ui.modules.theme.fragment
 
-import android.support.annotation.ColorInt
-
+import androidx.annotation.ColorInt
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 
 interface ThemeFragmentMvp {

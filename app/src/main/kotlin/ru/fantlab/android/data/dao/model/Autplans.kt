@@ -1,7 +1,7 @@
 package ru.fantlab.android.data.dao.model
 
 import android.os.Parcelable
-import android.support.annotation.Keep
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -155,9 +155,9 @@ data class Autplans(
 		@Parcelize
 		data class Saga(
 				@SerializedName("name")
-				val name: String,
+				val name: String?,
 				@SerializedName("rusname")
-				val rusname: String,
+				val rusname: String?,
 				@SerializedName("work_id")
 				val workId: String,
 				@SerializedName("work_type")

@@ -1,6 +1,6 @@
 package ru.fantlab.android.data.dao
 
-import android.support.annotation.DrawableRes
+import androidx.annotation.DrawableRes
 import java.io.Serializable
 
 data class TabsCountStateModel(

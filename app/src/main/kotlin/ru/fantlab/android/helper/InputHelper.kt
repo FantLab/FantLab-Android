@@ -1,8 +1,8 @@
 package ru.fantlab.android.helper
 
-import android.support.design.widget.TextInputLayout
 import android.text.TextUtils
 import android.widget.EditText
+import com.google.android.material.textfield.TextInputLayout
 
 /**
  * Created by kosh20111 on 3/11/2015. CopyRights @

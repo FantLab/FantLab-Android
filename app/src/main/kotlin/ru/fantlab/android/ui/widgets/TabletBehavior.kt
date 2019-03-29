@@ -1,11 +1,11 @@
 package ru.fantlab.android.ui.widgets
 
 import android.content.Context
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CoordinatorLayout
-import android.support.v7.widget.Toolbar
 import android.util.AttributeSet
 import android.view.View
+import androidx.appcompat.widget.Toolbar
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.appbar.AppBarLayout
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation
 import it.sephiroth.android.library.bottomnavigation.VerticalScrollingBehavior
 
@@ -17,11 +17,11 @@ class TabletBehavior : VerticalScrollingBehavior<BottomNavigation> {
 
 	fun setLayoutValues(bottomNavWidth: Int, topInset: Int, translucentStatus: Boolean) {}
 
-	override fun layoutDependsOn(parent: CoordinatorLayout?, child: BottomNavigation?, dependency: View?): Boolean {
+	override fun layoutDependsOn(parent: CoordinatorLayout, child: BottomNavigation, dependency: View): Boolean {
 		return AppBarLayout::class.java.isInstance(dependency) || Toolbar::class.java.isInstance(dependency)
 	}
 
-	override fun onDependentViewChanged(parent: CoordinatorLayout?, child: BottomNavigation?, dependency: View?): Boolean {
+	override fun onDependentViewChanged(parent: CoordinatorLayout, child: BottomNavigation, dependency: View): Boolean {
 		return true
 	}
 

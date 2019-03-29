@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.widgets.htmlview
 
 import android.content.Context
-import android.support.v7.widget.AppCompatTextView
+import androidx.appcompat.widget.AppCompatTextView
 import android.text.Html
 import android.text.SpannableString
 import android.text.style.ClickableSpan
@@ -22,7 +22,7 @@ import java.util.regex.Pattern
 import android.view.ViewTreeObserver
 import ru.fantlab.android.ui.widgets.FontTextView
 
-open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : FontTextView(context, attrs, defStyleAttr),
+open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr),
 		BetterLinkMovementExtended.OnLinkClickListener,
 		BetterLinkMovementExtended.OnLinkLongClickListener, ViewTreeObserver.OnGlobalLayoutListener {
 
@@ -140,8 +140,8 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 
 	companion object {
 		private val SQUARE_TAG: Pattern = Pattern.compile("\\[(.*?)\\]")
-		private val BBCODES_TAG: Pattern = Pattern.compile("<(autor|author|work|edition|person|user|art|dictor|series|film|translator|pub)=(.*?)>(.*?)<\\/.*?>", Pattern.CASE_INSENSITIVE)
-		private val URL_LINK_TAG: Pattern = Pattern.compile("<(link|url)=(.*?)>(.*?)<\\/.*?>", Pattern.CASE_INSENSITIVE)
+		private val BBCODES_TAG: Pattern = Pattern.compile("<(autor|author|work|edition|person|user|art|dictor|series|film|translator|pub)=(.*?)>(.*?)<\\/.*>", Pattern.CASE_INSENSITIVE)
+		private val URL_LINK_TAG: Pattern = Pattern.compile("<(link|url)=(.*?)>(.*?)<\\/.*>", Pattern.CASE_INSENSITIVE)
 		private val PHOTO_TAG: Pattern = Pattern.compile("<PHOTO.*?>")
 		private val LIST_TAG: Pattern = Pattern.compile("<list>(.*?)<\\/list>", Pattern.CASE_INSENSITIVE or Pattern.DOTALL)
 		private val LI_TAG = "<*>"

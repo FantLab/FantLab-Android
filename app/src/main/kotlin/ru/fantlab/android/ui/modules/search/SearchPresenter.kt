@@ -1,8 +1,8 @@
 package ru.fantlab.android.ui.modules.search
 
-import android.support.v4.view.ViewPager
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
+import androidx.viewpager.widget.ViewPager
 import io.reactivex.Single
 import ru.fantlab.android.R
 import ru.fantlab.android.data.db.response.Search

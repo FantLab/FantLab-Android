@@ -2,8 +2,8 @@ package ru.fantlab.android.ui.modules.work.content
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.View
+import androidx.annotation.StringRes
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -72,7 +72,7 @@ class WorkContentFragment : BaseFragment<WorkContentMvp.View, WorkContentPresent
 		}
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is WorkPagerMvp.View) {
 			countCallback = context

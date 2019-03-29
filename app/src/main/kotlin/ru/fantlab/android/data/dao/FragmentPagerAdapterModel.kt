@@ -1,7 +1,7 @@
 package ru.fantlab.android.data.dao
 
 import android.content.Context
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import ru.fantlab.android.R
 import ru.fantlab.android.ui.modules.author.bibliography.AuthorBibliographyFragment
 import ru.fantlab.android.ui.modules.author.editions.AuthorEditionsFragment

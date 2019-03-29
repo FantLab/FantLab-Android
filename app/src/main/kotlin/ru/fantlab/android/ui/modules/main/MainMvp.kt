@@ -1,6 +1,6 @@
 package ru.fantlab.android.ui.modules.main
 
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.FragmentManager
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 

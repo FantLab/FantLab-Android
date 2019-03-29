@@ -21,7 +21,7 @@ class ThemeFragment : BaseFragment<ThemeFragmentMvp.View, ThemeFragmentPresenter
 	private var theme: Int = 0
 	private var themeListener: ThemeFragmentMvp.ThemeListener? = null
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		themeListener = context as ThemeFragmentMvp.ThemeListener
 	}

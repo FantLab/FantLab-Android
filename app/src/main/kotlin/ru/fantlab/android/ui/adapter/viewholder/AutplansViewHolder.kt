@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.adapter.viewholder
 
+import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.autplans_row_item.view.*
@@ -26,14 +27,14 @@ class AutplansViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Autplans.O
 			itemView.authorInfo.setOnClickListener {
 				AuthorPagerActivity.startActivity(App.instance.applicationContext, autplan.autors.autorId.toInt(), itemView.autplansAuthor.text.toString(), 0)
 			}
-			itemView.autplansAuthor.visibility = View.VISIBLE
-		} else itemView.autplansAuthor.visibility = View.GONE
+			itemView.autplansAuthor.isVisible = true
+		} else itemView.autplansAuthor.isVisible = false
 
 		if (!InputHelper.isEmpty(autplan.year)) {
 			itemView.date.text = autplan.year
-			itemView.date.visibility = View.VISIBLE
+			itemView.date.isVisible = true
 		} else {
-			itemView.date.visibility = View.GONE
+			itemView.date.isVisible = false
 		}
 
 		if (!autplan.saga.workType.isNullOrEmpty() && autplan.saga.workId != "0") {
@@ -46,19 +47,19 @@ class AutplansViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Autplans.O
 			}
 			itemView.autplansSaga.text = sagaName
 			itemView.autplansSaga.setOnClickListener { CyclePagerActivity.startActivity(itemView.context, autplan.saga.workId.toInt(), sagaName, 0) }
-			itemView.autplansSaga.visibility = View.VISIBLE
+			itemView.autplansSaga.isVisible = true
 		} else {
-			itemView.autplansSaga.visibility = View.GONE
+			itemView.autplansSaga.isVisible = false
 		}
 
 		itemView.workName.text = if (!InputHelper.isEmpty(autplan.rusname)) autplan.rusname else autplan.name
 		if (!InputHelper.isEmpty(autplan.description))
 			itemView.autplansDescription.text = autplan.description.replace("\\[(.*?)]".toRegex(), "").trim()
-		else itemView.autplansDescription.visibility = View.GONE
+		else itemView.autplansDescription.isVisible = false
 
 		if (!InputHelper.isEmpty(autplan.popularity)) {
 			itemView.popularity.text = autplan.popularity
-			itemView.popularity.visibility = View.VISIBLE
+			itemView.popularity.isVisible = true
 		} else {
 			itemView.popularity.text = "0"
 		}

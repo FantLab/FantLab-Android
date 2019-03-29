@@ -2,9 +2,9 @@ package ru.fantlab.android.ui.modules.edition.content
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.edition_content_layout.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -113,7 +113,7 @@ class EditionContentFragment : BaseFragment<EditionContentMvp.View, EditionConte
 		}
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is EditionPagerMvp.View) {
 			countCallback = context

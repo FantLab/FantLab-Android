@@ -1,6 +1,6 @@
 package ru.fantlab.android.ui.modules.plans.autplans
 
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Autplans
 import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.provider.rest.AutplansSortOption

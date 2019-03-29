@@ -1,11 +1,11 @@
 package ru.fantlab.android.ui.adapter
 
 import android.content.Context
-import android.support.v4.view.PagerAdapter
-import android.support.v4.widget.CircularProgressDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.slider_item_layout.view.*
 import ru.fantlab.android.R

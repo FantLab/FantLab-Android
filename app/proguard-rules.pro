@@ -1,5 +1,5 @@
--keep @android.support.annotation.Keep class *
--keepclassmembers @android.support.annotation.Keep class * {
+-keep @androidx.annotation.Keep class *
+-keepclassmembers @androidx.annotation.Keep class * {
     <fields>;
 }
 
@@ -21,7 +21,7 @@
 -keepattributes Exceptions
 
 # need for valid menu/search_menu.xml/@id:action_search/app:actionViewClass processing
--keep class android.support.v7.widget.SearchView { *; }
+-keep class androidx.appcompat.widget.SearchView { *; }
 
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 -dontwarn java.rmi.**

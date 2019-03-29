@@ -1,8 +1,8 @@
 package ru.fantlab.android.ui.modules.main
 
-import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.ActivityHelper
 import ru.fantlab.android.helper.AppHelper.getFragmentByTag
@@ -47,7 +47,7 @@ class MainPresenter : BasePresenter<MainMvp.View>(), MainMvp.Presenter {
 		toHide?.onHiddenChanged(true)
 		fragmentManager
 				.beginTransaction()
-				.hide(toHide)
+				.apply { if (toHide != null) hide(toHide) }
 				.show(toShow)
 				.commit()
 		toShow.onHiddenChanged(false)
@@ -57,7 +57,7 @@ class MainPresenter : BasePresenter<MainMvp.View>(), MainMvp.Presenter {
 		toHide?.onHiddenChanged(true)
 		fragmentManager
 				.beginTransaction()
-				.hide(toHide)
+				.apply { if (toHide != null) hide(toHide) }
 				.add(R.id.container, toAdd, toAdd.javaClass.simpleName)
 				.commit()
 		toAdd.onHiddenChanged(false)

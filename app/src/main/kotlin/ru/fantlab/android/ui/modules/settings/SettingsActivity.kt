@@ -14,7 +14,6 @@ import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.settings.category.SettingsCategoryActivity
 import ru.fantlab.android.ui.modules.theme.ThemeActivity
 import ru.fantlab.android.ui.widgets.dialog.LanguageBottomSheetDialog
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import kotlin.reflect.KFunction0
 
 class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), SettingsMvp.View,

@@ -1,12 +1,10 @@
 package ru.fantlab.android.ui.widgets
 
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.support.annotation.AttrRes
-import android.support.annotation.DrawableRes
-import android.support.annotation.StyleRes
+import androidx.annotation.AttrRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.StyleRes
 import android.support.v4.content.ContextCompat
-import android.support.v4.widget.CircularProgressDrawable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout

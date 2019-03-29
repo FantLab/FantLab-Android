@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.widgets.htmlview.drawable
 
 import android.graphics.drawable.Drawable
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.text.Html
 import android.widget.TextView
 import com.bumptech.glide.Glide

@@ -2,10 +2,10 @@ package ru.fantlab.android.helper
 
 import android.app.Activity
 import android.content.*
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.ShareCompat
+import androidx.core.app.ShareCompat
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import es.dmoral.toasty.Toasty
 import ru.fantlab.android.App
 import ru.fantlab.android.R

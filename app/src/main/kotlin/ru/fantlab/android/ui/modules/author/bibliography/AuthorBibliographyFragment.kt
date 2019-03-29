@@ -2,9 +2,9 @@ package ru.fantlab.android.ui.modules.author.bibliography
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.StringRes
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -80,7 +80,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		extractListData(works, nodes, marks)
 		adapter = TreeViewAdapter(nodes, Arrays.asList(CycleWorkViewHolder(), CycleViewHolder()))
 		if (recycler.adapter != null)
-			recycler.adapter.notifyDataSetChanged()
+			recycler.adapter!!.notifyDataSetChanged()
 		else
 			recycler.adapter = adapter
 		adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
@@ -249,7 +249,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		onRefresh()
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is AuthorPagerMvp.View) {
 			countCallback = context

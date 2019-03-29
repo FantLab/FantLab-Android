@@ -2,8 +2,9 @@ package ru.fantlab.android.ui.modules.award.contests
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.StringRes
+import android.support.v4.widget.SwipeRefreshLayout
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
@@ -41,6 +42,7 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
+		recycler.addDivider()
 		presenter.onFragmentCreated(arguments!!)
 	}
 

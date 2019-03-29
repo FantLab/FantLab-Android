@@ -2,9 +2,9 @@ package ru.fantlab.android.ui.widgets.editor
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.design.widget.Snackbar
-import android.support.transition.TransitionManager
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.FragmentManager
+import androidx.transition.TransitionManager
+import com.google.android.material.snackbar.Snackbar
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View

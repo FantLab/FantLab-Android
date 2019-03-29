@@ -3,7 +3,7 @@ package ru.fantlab.android.provider.theme
 import android.app.Activity
 import android.app.ActivityManager
 import android.graphics.BitmapFactory
-import android.support.annotation.StyleRes
+import androidx.annotation.StyleRes
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.helper.ViewHelper

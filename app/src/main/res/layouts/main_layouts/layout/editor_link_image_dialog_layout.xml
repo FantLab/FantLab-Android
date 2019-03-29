@@ -30,7 +30,7 @@
 				android:src="@drawable/ic_title"
 				/>
 
-			<android.support.design.widget.TextInputLayout
+			<com.google.android.material.textfield.TextInputLayout
 				android:id="@+id/link_title"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
 				app:hintTextAppearance="@style/TextAppearance.AppCompat.Title"
 				>
 
-				<android.support.design.widget.TextInputEditText
+				<com.google.android.material.textfield.TextInputEditText
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:hint="@string/title"
@@ -46,7 +46,7 @@
 					android:maxLines="1"
 					/>
 
-			</android.support.design.widget.TextInputLayout>
+			</com.google.android.material.textfield.TextInputLayout>
 		</LinearLayout>
 
 		<LinearLayout
@@ -64,7 +64,7 @@
 				android:src="@drawable/ic_insert_link"
 				/>
 
-			<android.support.design.widget.TextInputLayout
+			<com.google.android.material.textfield.TextInputLayout
 				android:id="@+id/link_link"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
 				app:passwordToggleEnabled="false"
 				>
 
-				<android.support.design.widget.TextInputEditText
+				<com.google.android.material.textfield.TextInputEditText
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:hint="@string/link"
@@ -81,7 +81,7 @@
 					android:maxLines="1"
 					/>
 
-			</android.support.design.widget.TextInputLayout>
+			</com.google.android.material.textfield.TextInputLayout>
 		</LinearLayout>
 	</LinearLayout>
 

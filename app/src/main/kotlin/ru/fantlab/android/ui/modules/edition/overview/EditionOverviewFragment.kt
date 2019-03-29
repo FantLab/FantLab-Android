@@ -2,9 +2,9 @@ package ru.fantlab.android.ui.modules.edition.overview
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.text.SpannableStringBuilder
 import android.view.View
+import androidx.annotation.StringRes
 import kotlinx.android.synthetic.main.edition_overview_layout.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -195,7 +195,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 		super.showMessage(titleRes, msgRes)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is EditionPagerMvp.View) {
 			pagerCallback = context

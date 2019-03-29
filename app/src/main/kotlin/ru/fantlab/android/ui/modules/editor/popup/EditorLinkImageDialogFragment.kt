@@ -17,7 +17,7 @@ class EditorLinkImageDialogFragment : BaseDialogFragment<EditorLinkImageMvp.View
 	private val isLink: Boolean
 		get() = arguments != null && arguments!!.getBoolean(BundleConstant.YES_NO_EXTRA)
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (parentFragment is EditorLinkImageMvp.EditorLinkCallback) {
 			callbacks = parentFragment as EditorLinkImageMvp.EditorLinkCallback?

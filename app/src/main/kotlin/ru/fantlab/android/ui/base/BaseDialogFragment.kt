@@ -4,13 +4,13 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.annotation.StringRes
-import android.support.v4.app.DialogFragment
-import android.support.v7.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.fragment.app.DialogFragment
 import com.evernote.android.state.StateSaver
 import net.grandcentrix.thirtyinch.TiDialogFragment
 import ru.fantlab.android.R
@@ -28,7 +28,7 @@ abstract class BaseDialogFragment<V : BaseMvp.View, P : BasePresenter<V>>
 
 	protected abstract fun onFragmentCreated(view: View, savedInstanceState: Bundle?)
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is BaseMvp.View) {
 			callback = context

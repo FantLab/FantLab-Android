@@ -3,9 +3,9 @@ package ru.fantlab.android.ui.widgets.dialog
 import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.simple_list_dialog.*
 import ru.fantlab.android.App
@@ -49,7 +49,7 @@ class ContextMenuDialogView : BaseBottomSheetDialog(), BaseViewHolder.OnItemClic
 		setTitle(menuForLevel[0].title)
 		childs.clear()
 		childs.addAll(menuForLevel[0].items)
-		recycler.adapter.notifyDataSetChanged()
+		recycler.adapter!!.notifyDataSetChanged()
 	}
 
 	private fun setTitle(titleText: String) {
