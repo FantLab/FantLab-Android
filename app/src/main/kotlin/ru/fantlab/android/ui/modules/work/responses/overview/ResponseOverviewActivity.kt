@@ -75,7 +75,6 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/autors/${response.userId}")
 		responseUser.text = response.userName.capitalize()
 
-		action.text = String.format(getString(R.string.response), if (response.userSex == "m") getString(R.string.left) else getString(R.string.left_female))
 		date.text = response.dateIso.parseFullDate(true).getTimeAgo()
 
 		authors.text = if (!InputHelper.isEmpty(response.workAuthor)) response.workAuthor else response.workAuthorOrig

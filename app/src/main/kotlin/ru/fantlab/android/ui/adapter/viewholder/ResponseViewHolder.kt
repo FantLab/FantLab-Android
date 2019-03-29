@@ -28,7 +28,6 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 		itemView.userInfo.setOnClickListener {
 			listener?.onOpenContextMenu(response)
 		}
-		itemView.action.text = String.format(itemView.context.getString(R.string.response), if (response.userSex == "m") itemView.context.getString(R.string.left) else itemView.context.getString(R.string.left_female))
 		itemView.date.text = response.dateIso.parseFullDate(true).getTimeAgo()
 
 		itemView.authors.text = if (!InputHelper.isEmpty(response.workAuthor)) response.workAuthor else response.workAuthorOrig

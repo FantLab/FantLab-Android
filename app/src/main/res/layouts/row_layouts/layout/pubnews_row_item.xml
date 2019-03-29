@@ -62,19 +62,6 @@
 					style="@style/TextAppearance.AppCompat.Subhead"
 					/>
 
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/action"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center"
-					android:layout_marginEnd="@dimen/spacing_micro"
-					android:gravity="start|center"
-					android:textColor="?android:attr/textColorSecondary"
-					tools:text="@string/anons"
-					android:text="@string/anons"
-					style="@style/TextAppearance.AppCompat.Caption"
-					/>
-
 				<View
 					android:id="@+id/cycleDivider"
 					android:layout_width="4dp"

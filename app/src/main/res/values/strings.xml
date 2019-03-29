@@ -234,9 +234,6 @@
 	<string name="sort_popularity">Popularity</string>
 	<string name="wait">Please, wait…</string>
 	<string name="sort_year">Year</string>
-	<string name="left">left</string>
-	<string name="left_female">left</string>
-	<string name="response">%s response</string>
 	<string name="customization">Кастомизация</string>
 	<string name="customizationHint">Дополнительные настройки приложения</string>
 	<string name="currentColor">Accent color, current: %s</string>
@@ -248,8 +245,4 @@
 	<string name="theme_color_summary">Primary color of the application</string>
 	<string name="back_button_summary">Press back button twice to close application</string>
 	<string name="back_button_title">Double click to exit</string>
-	<string name="planned">planned</string>
-	<string name="anons">anons</string>
-	<string name="in_news">news</string>
-	<string name="inplans">plans</string>
 </resources>

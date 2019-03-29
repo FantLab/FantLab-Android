@@ -18,7 +18,6 @@ class WorkResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Respon
 	override fun bind(response: Response) {
 		itemView.avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/autors/${response.userId}")
 		itemView.responseUser.text = response.userName.capitalize()
-		itemView.action.text = String.format(itemView.context.getString(R.string.response), if (response.userSex == "m") itemView.context.getString(R.string.left) else itemView.context.getString(R.string.left_female))
 		itemView.date.text = response.dateIso.parseFullDate(true).getTimeAgo()
 
 		itemView.responseText.text = response.text

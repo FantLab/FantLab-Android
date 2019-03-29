@@ -125,6 +125,7 @@
 		<activity
 			android:name=".ui.modules.settings.category.SettingsCategoryActivity"
 			android:configChanges="keyboard|orientation|screenSize"/>
+		<!--
 		<activity
 			android:name="ru.fantlab.android.provider.parser.LinksParserActivity"
 			android:configChanges="keyboard|orientation|screenSize"
@@ -151,6 +152,7 @@
 				<category android:name="android.intent.category.BROWSABLE" />
 			</intent-filter>
 		</activity>
+		-->
 		<meta-data
 			android:name="io.fabric.ApiKey"
 			android:value="ce31e76eb8e3dbc70e6048f75e846e7117f1574c"
