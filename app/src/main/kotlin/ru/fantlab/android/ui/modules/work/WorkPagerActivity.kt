@@ -26,6 +26,7 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.classificator.ClassificatorPagerActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.work.classification.WorkClassificationFragment
+import ru.fantlab.android.ui.modules.work.editions.WorkEditionsFragment
 import ru.fantlab.android.ui.modules.work.overview.WorkOverviewFragment
 import ru.fantlab.android.ui.modules.work.responses.WorkResponsesFragment
 import java.text.NumberFormat
@@ -120,6 +121,10 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 				val fragment = pager.adapter?.instantiateItem(pager, 2) as? WorkResponsesFragment
 				fragment?.showSortDialog()
 			}
+			R.id.filter -> {
+				val fragment = pager.adapter?.instantiateItem(pager, 3) as? WorkEditionsFragment
+				fragment?.showFilterDialog()
+			}
 		}
 		return super.onOptionsItemSelected(item)
 	}
@@ -183,9 +188,15 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 					toolbarMenu.findItem(R.id.share).isVisible = false
 					toolbarMenu.findItem(R.id.sort).isVisible = true
 				}
+				3 -> {
+					toolbarMenu.findItem(R.id.share).isVisible = false
+					toolbarMenu.findItem(R.id.sort).isVisible = false
+					toolbarMenu.findItem(R.id.filter).isVisible = true
+				}
 				else -> {
 					toolbarMenu.findItem(R.id.share).isVisible = false
 					toolbarMenu.findItem(R.id.sort).isVisible = false
+					toolbarMenu.findItem(R.id.filter).isVisible = false
 				}
 			}
 		}

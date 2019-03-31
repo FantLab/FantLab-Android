@@ -56,7 +56,6 @@
 					android:layout_marginEnd="@dimen/spacing_micro"
 					android:layout_marginStart="@dimen/spacing_normal"
 					android:gravity="start|center"
-					android:inputType="textPersonName"
 					android:textColor="?android:attr/textColorSecondary"
 					tools:text="volga"
 					style="@style/TextAppearance.AppCompat.Subhead"

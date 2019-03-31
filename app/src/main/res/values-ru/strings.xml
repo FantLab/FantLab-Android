@@ -207,4 +207,5 @@
 	<string name="theme_color_summary">Основной цвет приложения</string>
 	<string name="back_button_summary">Нажмите дважды кнопку назад, чтобы закрыть приложение</string>
 	<string name="back_button_title">Двойной клик, чтобы выйти</string>
+	<string name="all">Все</string>
 </resources>

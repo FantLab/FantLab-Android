@@ -327,4 +327,32 @@ object ContextMenuBuilder {
 		return items
 	}
 
+	fun buildForEditionsFilter(context: Context, languages: ArrayList<Pair<String, String>>, types: ArrayList<Pair<String, String>>, currentFilter: Pair<String, String>): ArrayList<ContextMenus> {
+		val items = ArrayList<ContextMenus>()
+
+		val actions =
+				arrayListOf(
+						ContextMenus.MenuItem(context.getString(R.string.sort_lang), R.drawable.ic_language, "lang"),
+						ContextMenus.MenuItem(context.getString(R.string.sort_type), R.drawable.ic_type_small, "type")
+				)
+		items.add(ContextMenus(context.getString(R.string.select_filter), actions, "filter"))
+
+		val langs = ArrayList<ContextMenus.MenuItem>()
+		langs.add(ContextMenus.MenuItem(context.getString(R.string.all), null, "all", selected = currentFilter.first == "all"))
+		languages.mapIndexed { index, lang ->
+			langs.add(ContextMenus.MenuItem(lang.first.capitalize(), null, lang.second, selected = currentFilter.first == lang.second))
+		}
+
+		val categories = ArrayList<ContextMenus.MenuItem>()
+		categories.add(ContextMenus.MenuItem(context.getString(R.string.all), null, "all", selected = currentFilter.second == "all"))
+		types.mapIndexed { index, type ->
+			categories.add(ContextMenus.MenuItem(type.first.capitalize(), null, type.second, selected = currentFilter.second == type.second))
+		}
+
+		items.add(ContextMenus("", langs, "lang"))
+		items.add(ContextMenus("", categories, "type"))
+
+		return items
+	}
+
 }

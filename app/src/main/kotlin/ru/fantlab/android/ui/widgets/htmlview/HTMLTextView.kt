@@ -140,7 +140,7 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 
 	companion object {
 		private val SQUARE_TAG: Pattern = Pattern.compile("\\[(.*?)\\]")
-		private val BBCODES_TAG: Pattern = Pattern.compile("<(autor|author|work|edition|person|user|art|dictor|series|film|translator|pub)=(.*?)>(.*?)<\\/.*>", Pattern.CASE_INSENSITIVE)
+		private val BBCODES_TAG: Pattern = Pattern.compile("<(autor|author|work|cycle|edition|person|user|art|dictor|series|film|translator|pub)=(.*?)>(.*?)<\\/.*>", Pattern.CASE_INSENSITIVE)
 		private val URL_LINK_TAG: Pattern = Pattern.compile("<(link|url)=(.*?)>(.*?)<\\/.*>", Pattern.CASE_INSENSITIVE)
 		private val PHOTO_TAG: Pattern = Pattern.compile("<PHOTO.*?>")
 		private val LIST_TAG: Pattern = Pattern.compile("<list>(.*?)<\\/list>", Pattern.CASE_INSENSITIVE or Pattern.DOTALL)

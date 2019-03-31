@@ -234,8 +234,8 @@
 	<string name="sort_popularity">Popularity</string>
 	<string name="wait">Please, wait…</string>
 	<string name="sort_year">Year</string>
-	<string name="customization">Кастомизация</string>
-	<string name="customizationHint">Дополнительные настройки приложения</string>
+	<string name="customization">Customization</string>
+	<string name="customizationHint">Extended application options</string>
 	<string name="currentColor">Accent color, current: %s</string>
 	<string name="colored_navbar_summary">Enable colored navigation bar</string>
 	<string name="colored_navbar_title">Colorless Navbar</string>
@@ -245,4 +245,5 @@
 	<string name="theme_color_summary">Primary color of the application</string>
 	<string name="back_button_summary">Press back button twice to close application</string>
 	<string name="back_button_title">Double click to exit</string>
+	<string name="all">All</string>
 </resources>
