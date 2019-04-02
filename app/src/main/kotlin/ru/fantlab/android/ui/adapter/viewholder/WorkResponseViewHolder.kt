@@ -16,7 +16,7 @@ class WorkResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Respon
 	: BaseViewHolder<Response>(itemView, adapter) {
 
 	override fun bind(response: Response) {
-		itemView.avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/autors/${response.userId}")
+		itemView.avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/users/${response.userId}")
 		itemView.responseUser.text = response.userName.capitalize()
 		itemView.date.text = response.dateIso.parseFullDate(true).getTimeAgo()
 

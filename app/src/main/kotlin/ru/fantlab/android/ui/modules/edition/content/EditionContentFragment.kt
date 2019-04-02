@@ -45,7 +45,7 @@ class EditionContentFragment : BaseFragment<EditionContentMvp.View, EditionConte
 			if (item.level <= 1) {
 				val parent = TreeNode(EditionContentParent(item.title))
 				nodes.add(parent)
-			} else {
+			} else if (nodes.size > 0) {
 				val parent = nodes[nodes.size - 1]
 				val node = if (index + 1 != content.size && content[index + 1].level == item.level + 1)
 					TreeNode(EditionContentParent(item.title))

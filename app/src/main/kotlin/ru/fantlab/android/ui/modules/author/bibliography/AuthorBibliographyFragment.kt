@@ -125,8 +125,8 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 
 			worksBlock.list.forEachIndexed { subIndex, work ->
 
-				val name = if (work.name.isNotEmpty()) {
-					if (work.nameOrig.isNotEmpty()) {
+				val name = if (!work.name.isNullOrEmpty()) {
+					if (!work.nameOrig.isNullOrEmpty()) {
 						String.format("%s / %s", work.name, work.nameOrig)
 					} else {
 						work.name
@@ -136,7 +136,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 				}
 
 				if (work.children != null) {
-					val apps = TreeNode(Cycle(name))
+					val apps = TreeNode(Cycle(name ?: ""))
 					app.addChild(apps)
 
 					work.children.forEach { item ->
@@ -161,8 +161,8 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 					app.addChild(TreeNode(CycleWork(
 							work.id,
 							work.authors.asSequence().map { it.name }.toList(),
-							work.name,
-							work.nameOrig,
+							work.name ?: "",
+							work.nameOrig ?: "",
 							work.description,
 							work.year,
 							work.responseCount,

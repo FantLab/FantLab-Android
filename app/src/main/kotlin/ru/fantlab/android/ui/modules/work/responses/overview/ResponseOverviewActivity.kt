@@ -72,7 +72,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 	}
 
 	override fun onInitViews(response: Response) {
-		avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/autors/${response.userId}")
+		avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/users/${response.userId}")
 		responseUser.text = response.userName.capitalize()
 
 		date.text = response.dateIso.parseFullDate(true).getTimeAgo()

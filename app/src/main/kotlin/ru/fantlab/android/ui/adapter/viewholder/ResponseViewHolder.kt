@@ -22,7 +22,7 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 
 	override fun bind(response: Response) {
 
-		itemView.avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/autors/${response.userId}")
+		itemView.avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/users/${response.userId}")
 		itemView.responseUser.text = response.userName.capitalize()
 
 		itemView.userInfo.setOnClickListener {
