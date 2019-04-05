@@ -29,6 +29,7 @@ class RecyclerViewFastScroller : FrameLayout {
 	private var appBarLayout: AppBarLayout? = null
 	private var bottomNavigation: BottomNavigation? = null
 	private var toggled: Boolean = false
+	private var hidden: Boolean = false
 	private var registeredObserver = false
 
 	private val onScrollListener = object : RecyclerView.OnScrollListener() {
@@ -216,12 +217,20 @@ class RecyclerViewFastScroller : FrameLayout {
 
 	private fun hideShow() {
 		recyclerView?.let {
-			if (recyclerView != null && it.adapter != null) {
-				visibility = if (it.adapter!!.itemCount > 10) View.VISIBLE else View.GONE
+			if (hidden) {
+				View.GONE
+				return
+			}
+			visibility = if (recyclerView != null && it.adapter != null) {
+				if (it.adapter!!.itemCount > 10) View.VISIBLE else View.GONE
 			} else {
-				visibility = View.GONE
+				View.GONE
 			}
 		}
+	}
+
+	fun setHidden(hidden: Boolean) {
+		this.hidden = hidden
 	}
 
 	companion object {

@@ -29,10 +29,7 @@ class AwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<AwardInList,
 			itemView.name_orig.visibility = View.VISIBLE
 		} else itemView.name_orig.visibility = View.GONE
 
-		itemView.country.text = StringBuilder()
-				.append(nom.countryName)
-				.append(", ")
-				.append(nom.langName)
+		itemView.country.text = nom.countryName
 		itemView.noms.text = StringBuilder()
 				.append(nom.nomCount)
 				.append(" | ")

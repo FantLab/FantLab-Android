@@ -43,12 +43,13 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
 		recycler.adapter = adapter
-		recycler.addKeyLineDivider()
+		recycler.addNormalSpacingDivider()
 		val letter = intent.extras?.getInt(EXTRA, 192) ?: 192
 		if (presenter.authors.isEmpty() && !presenter.isApiCalled()) {
 			presenter.setCurrentSort(letter)
 		}
 		fastScroller.attachRecyclerView(recycler)
+		fastScroller.setHidden(true)
 	}
 
 	override fun onNotifyAdapter(items: ArrayList<AuthorInList>) {

@@ -49,6 +49,7 @@ class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMv
 		recycler.addDivider()
 		presenter.getAwards(false)
 		fastScroller.attachRecyclerView(recycler)
+		fastScroller.setHidden(true)
 	}
 
 	fun showSortDialog() {
