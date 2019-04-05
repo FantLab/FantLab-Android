@@ -10,8 +10,8 @@ ext {
 	min_sdk = 21
 	compile_sdk = 28
 	target_sdk = 28
-	version_code = 22
-	version_name = '0.1.9'
+	version_code = 23
+	version_name = '0.2.0'
 
 	annotations = '17.0.0'
 	compat = '1.1.0-alpha03'
