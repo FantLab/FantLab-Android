@@ -49,79 +49,79 @@ data class FragmentPagerAdapterModel(
 
 		fun buildForProfile(context: Context, userId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
-					FragmentPagerAdapterModel(context.getString(R.string.overview), ProfileOverviewFragment.newInstance(userId)),
-					FragmentPagerAdapterModel(context.getString(R.string.marks), ProfileMarksFragment.newInstance(userId)),
-					FragmentPagerAdapterModel(context.getString(R.string.responses), ProfileResponsesFragment.newInstance(userId)),
-					FragmentPagerAdapterModel(context.getString(R.string.bookcases), BookcasesOverviewFragment.newInstance(userId))
+					FragmentPagerAdapterModel(context.getString(R.string.overview), ProfileOverviewFragment.newInstance(userId), context.getString(R.string.overview)),
+					FragmentPagerAdapterModel(context.getString(R.string.marks), ProfileMarksFragment.newInstance(userId), context.getString(R.string.marks)),
+					FragmentPagerAdapterModel(context.getString(R.string.responses), ProfileResponsesFragment.newInstance(userId), context.getString(R.string.responses)),
+					FragmentPagerAdapterModel(context.getString(R.string.bookcases), BookcasesOverviewFragment.newInstance(userId), context.getString(R.string.bookcases))
 			)
 		}
 
 		fun buildForSearch(context: Context): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
-					FragmentPagerAdapterModel(context.getString(R.string.authors), SearchAuthorsFragment()),
-					FragmentPagerAdapterModel(context.getString(R.string.works), SearchWorksFragment()),
-					FragmentPagerAdapterModel(context.getString(R.string.editions), SearchEditionsFragment()),
-					FragmentPagerAdapterModel(context.getString(R.string.awards), SearchAwardsFragment())
+					FragmentPagerAdapterModel(context.getString(R.string.authors), SearchAuthorsFragment(), context.getString(R.string.authors)),
+					FragmentPagerAdapterModel(context.getString(R.string.works), SearchWorksFragment(), context.getString(R.string.works)),
+					FragmentPagerAdapterModel(context.getString(R.string.editions), SearchEditionsFragment(), context.getString(R.string.editions)),
+					FragmentPagerAdapterModel(context.getString(R.string.awards), SearchAwardsFragment(), context.getString(R.string.awards))
 			)
 		}
 
 		fun buildForAuthor(context: Context, authorId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
-					FragmentPagerAdapterModel(context.getString(R.string.overview), AuthorOverviewFragment.newInstance(authorId)),
-					FragmentPagerAdapterModel(context.getString(R.string.bibiography), AuthorBibliographyFragment.newInstance(authorId)),
-					FragmentPagerAdapterModel(context.getString(R.string.editions), AuthorEditionsFragment.newInstance(authorId)),
-					FragmentPagerAdapterModel(context.getString(R.string.responses), AuthorResponsesFragment.newInstance(authorId))
+					FragmentPagerAdapterModel(context.getString(R.string.overview), AuthorOverviewFragment.newInstance(authorId), context.getString(R.string.overview)),
+					FragmentPagerAdapterModel(context.getString(R.string.bibiography), AuthorBibliographyFragment.newInstance(authorId), context.getString(R.string.bibiography)),
+					FragmentPagerAdapterModel(context.getString(R.string.editions), AuthorEditionsFragment.newInstance(authorId), context.getString(R.string.editions)),
+					FragmentPagerAdapterModel(context.getString(R.string.responses), AuthorResponsesFragment.newInstance(authorId), context.getString(R.string.responses))
 			)
 		}
 
 		fun buildForAward(context: Context, awardId: Int, workId: Int = -1): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
-					FragmentPagerAdapterModel(context.getString(R.string.overview), AwardOverviewFragment.newInstance(awardId)),
-					FragmentPagerAdapterModel(context.getString(R.string.contests), AwardContestsFragment.newInstance(awardId, workId)),
-					FragmentPagerAdapterModel(context.getString(R.string.nominations), AwardNominationsFragment.newInstance(awardId))
+					FragmentPagerAdapterModel(context.getString(R.string.overview), AwardOverviewFragment.newInstance(awardId), context.getString(R.string.overview)),
+					FragmentPagerAdapterModel(context.getString(R.string.contests), AwardContestsFragment.newInstance(awardId, workId), context.getString(R.string.contests)),
+					FragmentPagerAdapterModel(context.getString(R.string.nominations), AwardNominationsFragment.newInstance(awardId), context.getString(R.string.nominations))
 			)
 		}
 
 		fun buildForWork(context: Context, workId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
-					FragmentPagerAdapterModel(context.getString(R.string.overview), WorkOverviewFragment.newInstance(workId)),
-					FragmentPagerAdapterModel(context.getString(R.string.classification), WorkClassificationFragment.newInstance(workId)),
-					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId)),
-					FragmentPagerAdapterModel(context.getString(R.string.editions), WorkEditionsFragment.newInstance(workId))
+					FragmentPagerAdapterModel(context.getString(R.string.overview), WorkOverviewFragment.newInstance(workId), context.getString(R.string.overview)),
+					FragmentPagerAdapterModel(context.getString(R.string.classification), WorkClassificationFragment.newInstance(workId), context.getString(R.string.classification)),
+					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId), context.getString(R.string.responses)),
+					FragmentPagerAdapterModel(context.getString(R.string.editions), WorkEditionsFragment.newInstance(workId), context.getString(R.string.editions))
 			)
 		}
 
 		fun buildForWork(context: Context, workId: Int, userId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
-					FragmentPagerAdapterModel(context.getString(R.string.overview), WorkOverviewFragment.newInstance(workId)),
-					FragmentPagerAdapterModel(context.getString(R.string.classification), WorkClassificationFragment.newInstance(workId)),
-					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId)),
-					FragmentPagerAdapterModel(context.getString(R.string.editions), WorkEditionsFragment.newInstance(workId)),
-					FragmentPagerAdapterModel(context.getString(R.string.my_bookcases), BookcaseSelectorFragment.newInstance(userId, "work", workId))
+					FragmentPagerAdapterModel(context.getString(R.string.overview), WorkOverviewFragment.newInstance(workId), context.getString(R.string.overview)),
+					FragmentPagerAdapterModel(context.getString(R.string.classification), WorkClassificationFragment.newInstance(workId), context.getString(R.string.classification)),
+					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId), context.getString(R.string.responses)),
+					FragmentPagerAdapterModel(context.getString(R.string.editions), WorkEditionsFragment.newInstance(workId), context.getString(R.string.editions)),
+					FragmentPagerAdapterModel(context.getString(R.string.my_bookcases), BookcaseSelectorFragment.newInstance(userId, "work", workId), context.getString(R.string.my_bookcases))
 			)
 		}
 
 		fun buildForCycle(context: Context, workId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
-					FragmentPagerAdapterModel(context.getString(R.string.overview), WorkOverviewFragment.newInstance(workId)),
-					FragmentPagerAdapterModel(context.getString(R.string.content), WorkContentFragment.newInstance(workId)),
-					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId)),
-					FragmentPagerAdapterModel(context.getString(R.string.editions), WorkEditionsFragment.newInstance(workId))
+					FragmentPagerAdapterModel(context.getString(R.string.overview), WorkOverviewFragment.newInstance(workId), context.getString(R.string.overview)),
+					FragmentPagerAdapterModel(context.getString(R.string.content), WorkContentFragment.newInstance(workId), context.getString(R.string.content)),
+					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId), context.getString(R.string.responses)),
+					FragmentPagerAdapterModel(context.getString(R.string.editions), WorkEditionsFragment.newInstance(workId), context.getString(R.string.editions))
 			)
 		}
 
 		fun buildForEdition(context: Context, editionId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
-					FragmentPagerAdapterModel(context.getString(R.string.overview), EditionOverviewFragment.newInstance(editionId)),
-					FragmentPagerAdapterModel(context.getString(R.string.content), EditionContentFragment.newInstance(editionId))
+					FragmentPagerAdapterModel(context.getString(R.string.overview), EditionOverviewFragment.newInstance(editionId), context.getString(R.string.overview)),
+					FragmentPagerAdapterModel(context.getString(R.string.content), EditionContentFragment.newInstance(editionId), context.getString(R.string.content))
 			)
 		}
 
 		fun buildForEdition(context: Context, editionId: Int, userId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
-					FragmentPagerAdapterModel(context.getString(R.string.overview), EditionOverviewFragment.newInstance(editionId)),
-					FragmentPagerAdapterModel(context.getString(R.string.content), EditionContentFragment.newInstance(editionId)),
-					FragmentPagerAdapterModel(context.getString(R.string.my_bookcases), BookcaseSelectorFragment.newInstance(userId, "edition", editionId))
+					FragmentPagerAdapterModel(context.getString(R.string.overview), EditionOverviewFragment.newInstance(editionId), context.getString(R.string.overview)),
+					FragmentPagerAdapterModel(context.getString(R.string.content), EditionContentFragment.newInstance(editionId), context.getString(R.string.content)),
+					FragmentPagerAdapterModel(context.getString(R.string.my_bookcases), BookcaseSelectorFragment.newInstance(userId, "edition", editionId), context.getString(R.string.my_bookcases))
 			)
 		}
 

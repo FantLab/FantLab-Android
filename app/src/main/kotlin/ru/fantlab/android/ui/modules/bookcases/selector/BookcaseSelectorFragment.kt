@@ -13,6 +13,7 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.data.dao.model.BookcaseSelection
 import ru.fantlab.android.ui.adapter.BookcaseSelectorAdapter
+import ru.fantlab.android.ui.modules.bookcases.viewer.BookcaseViewerActivity
 
 class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, BookcasesSelectorPresenter>(),
         BookcasesSelectorMvp.View {
@@ -58,7 +59,7 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
     }
 
     override fun onItemClicked(item: BookcaseSelection, position: Int) {
-        // TODO: not implemented
+        BookcaseViewerActivity.startActivity(activity!!, item.bookcase.id, item.bookcase.name, userId, item.bookcase.type)
     }
 
     override fun onItemSelected(item: BookcaseSelection, position: Int) {

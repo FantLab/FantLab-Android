@@ -33,4 +33,8 @@ class FragmentsPagerAdapter(fm: FragmentManager, private val fragments: MutableL
 		fragments.removeAt(position)
 		notifyDataSetChanged()
 	}
+
+	fun getItemKey(position: Int): String? {
+		return fragments[position].key
+	}
 }

@@ -47,6 +47,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	private lateinit var toolbarMenu: Menu
 	private val numberFormat = NumberFormat.getNumberInstance()
 	private var isError = false
+	private var adapter: FragmentsPagerAdapter? = null
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
@@ -84,7 +85,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		if (login == currentUser?.login) {
 			selectMenuItem(R.id.profile, true)
 		}
-		val adapter = FragmentsPagerAdapter(
+		adapter = FragmentsPagerAdapter(
 				supportFragmentManager,
 				FragmentPagerAdapterModel.buildForProfile(this, userId)
 		)
@@ -167,8 +168,8 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		if (resultCode == Activity.RESULT_OK) {
 			if ((requestCode == BundleConstant.BOOKCASE_EDITOR || requestCode == BundleConstant.BOOKCASE_VIEWER)
-					&& pager.currentItem == 3) {
-				val fragment = pager.adapter?.instantiateItem(pager, 3) as? BookcasesOverviewFragment
+					&& adapter!!.getItemKey(pager.currentItem) == getString(R.string.bookcases)) {
+				val fragment = pager.adapter?.instantiateItem(pager, pager.currentItem) as? BookcasesOverviewFragment
 				fragment?.onRefresh()
 			}
 		}
@@ -180,19 +181,19 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 			fab.hide()
 			return
 		}
-		when (position) {
-			0 -> {
+		when (adapter!!.getItemKey(position)) {
+			getString(R.string.overview) -> {
 				if (isLoggedIn() && userId != PrefGetter.getLoggedUser()?.id) {
 					fab.setImageResource(R.drawable.ic_message)
 					fab.show()
 				} else fab.hide()
 			}
-			1 -> {
+			getString(R.string.marks) -> {
 				fab.setImageResource(R.drawable.ic_charts)
 				fab.show()
 			}
-			2 -> fab.hide()/*fab.show()*/
-			3 -> {
+			getString(R.string.responses) -> fab.hide()/*fab.show()*/
+			getString(R.string.bookcases) -> {
 				fab.setImageResource(R.drawable.ic_add)
 				fab.show()
 			}
@@ -207,17 +208,17 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 
 	private fun onFabClicked() {
-		when (pager.currentItem) {
-			0 -> {
+		when (adapter!!.getItemKey(pager.currentItem)) {
+			getString(R.string.overview) -> {
 				startActivity(Intent(this, EditorActivity::class.java)
 						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_MESSAGE)
 						.putExtra(BundleConstant.ID, userId))
 			}
-			1 -> {
+			getString(R.string.marks) -> {
 				val fragment = pager.adapter?.instantiateItem(pager, 1) as? ProfileMarksFragment
 				fragment?.showChartsDialog()
 			}
-			3 -> {
+			getString(R.string.bookcases) -> {
 				startActivityForResult(Intent(this, BookcaseEditorActivty::class.java)
 						.putExtra(BundleConstant.ID, userId), BundleConstant.BOOKCASE_EDITOR)
 			}
@@ -226,10 +227,10 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 	private fun setupTab(count: Int, index: Int) {
 		val textView = ViewHelper.getTabTextView(tabs, index)
-		when (index) {
-			1 -> textView.text = String.format("%s (%s)", getString(R.string.marks), numberFormat.format(count.toLong()))
-			2 -> textView.text = String.format("%s (%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
-			3 -> textView.text = String.format("%s (%s)", getString(R.string.bookcases), numberFormat.format(count.toLong()))
+		when (adapter!!.getItemKey(index)) {
+			getString(R.string.marks) -> textView.text = String.format("%s (%s)", getString(R.string.marks), numberFormat.format(count.toLong()))
+			getString(R.string.responses) -> textView.text = String.format("%s (%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
+			getString(R.string.bookcases) -> textView.text = String.format("%s (%s)", getString(R.string.bookcases), numberFormat.format(count.toLong()))
 		}
 	}
 
