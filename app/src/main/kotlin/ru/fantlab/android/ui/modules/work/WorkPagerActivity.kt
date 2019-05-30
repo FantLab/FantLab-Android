@@ -217,9 +217,9 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 				ClassificatorPagerActivity.startActivity(this, workId)
 			}
 			2 -> {
-				startActivity(Intent(this, EditorActivity::class.java)
+				startActivityForResult(Intent(this, EditorActivity::class.java)
 						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_RESPONSE)
-						.putExtra(BundleConstant.ID, workId))
+						.putExtra(BundleConstant.ID, workId), BundleConstant.REFRESH_RESPONSE_CODE)
 			}
 		}
 	}
@@ -251,9 +251,18 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-		if (resultCode == RESULT_OK && requestCode == CLASSIFICATOR_CODE) {
-			val fragment = pager.adapter?.instantiateItem(pager, 1) as? WorkClassificationFragment
-			fragment?.onRefresh()
+		super.onActivityResult(requestCode, resultCode, data)
+		when (requestCode) {
+			BundleConstant.REFRESH_RESPONSE_CODE -> {
+				val fragment = pager.adapter?.instantiateItem(pager, 2) as? WorkResponsesFragment
+				fragment?.onRefresh()
+			}
+			BundleConstant.CLASSIFICATOR_CODE -> {
+				if (resultCode == RESULT_OK) {
+					val fragment = pager.adapter?.instantiateItem(pager, 1) as? WorkClassificationFragment
+					fragment?.onRefresh()
+				}
+			}
 		}
 	}
 

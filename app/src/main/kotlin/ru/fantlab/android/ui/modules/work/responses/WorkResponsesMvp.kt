@@ -28,6 +28,8 @@ interface WorkResponsesMvp {
 		fun onItemLongClicked(position: Int, v: android.view.View?, item: Response)
 
 		fun onSetVote(position: Int, votesCount: String)
+
+		fun onResponseDelete(position: Int)
 	}
 
 	interface Presenter : BaseMvp.Presenter,
@@ -41,5 +43,7 @@ interface WorkResponsesMvp {
 		fun setCurrentSort(sortValue: String)
 
 		fun getCurrentSort(): ResponsesSortOption
+
+		fun onDeleteResponse(workId: Int, commentId: Int, position: Int)
 	}
 }

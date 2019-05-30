@@ -122,7 +122,7 @@
 	<string name="sort_country">Стране</string>
 	<string name="sort_type">Типу</string>
 	<string name="sort_lang">Языку</string>
-	<string name="editor_review">Редактор отзыва</string>
+	<string name="editor_response">Редактор отзыва</string>
 	<string name="editor_comment">Редактор комментария</string>
 	<string name="editor_message">Редактор сообщения</string>
 	<string name="wins">Награды и премии</string>
@@ -208,4 +208,6 @@
 	<string name="back_button_summary">Нажмите дважды кнопку назад, чтобы закрыть приложение</string>
 	<string name="back_button_title">Двойной клик, чтобы выйти</string>
 	<string name="all">Все</string>
+	<string name="response_edit">Редактировать</string>
+	<string name="response_delete">Удалить</string>
 </resources>

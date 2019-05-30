@@ -90,6 +90,13 @@ class WorkResponsesPresenter : BasePresenter<WorkResponsesMvp.View>(),
 		)
 	}
 
+	override fun onDeleteResponse(workId: Int, commentId: Int, position: Int) {
+		makeRestCall(
+				DataManager.editResponse(workId, commentId, "").toObservable(),
+				Consumer { sendToView { it.onResponseDelete(position) } }
+		)
+	}
+
 	override fun setCurrentSort(sortValue: String) {
 		sort = ResponsesSortOption.valueOf(sortValue)
 		onCallApi(1, workId)

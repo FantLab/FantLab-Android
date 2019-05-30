@@ -198,9 +198,19 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 				fragment?.showMarkDialog()
 			}
 			2 -> {
-				startActivity(Intent(this, EditorActivity::class.java)
+				startActivityForResult(Intent(this, EditorActivity::class.java)
 						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_RESPONSE)
-						.putExtra(BundleConstant.ID, workId))
+						.putExtra(BundleConstant.ID, workId), BundleConstant.REFRESH_RESPONSE_CODE)
+			}
+		}
+	}
+
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		super.onActivityResult(requestCode, resultCode, data)
+		when (requestCode) {
+			BundleConstant.REFRESH_RESPONSE_CODE -> {
+				val fragment = pager.adapter?.instantiateItem(pager, 2) as? WorkResponsesFragment
+				fragment?.onRefresh()
 			}
 		}
 	}

@@ -12,7 +12,7 @@ data class Response(
 		@SerializedName("response_date") val date: String,
 		@SerializedName("response_date_iso") val dateIso: String,
 		@SerializedName("response_id") val id: Int,
-		@SerializedName("response_text") val text: String,
+		@SerializedName("response_text") var text: String,
 		@SerializedName("response_votes") var voteCount: Int,
 		@SerializedName("user_avatar") val userAvatar: String,
 		@SerializedName("user_id") val userId: Int,

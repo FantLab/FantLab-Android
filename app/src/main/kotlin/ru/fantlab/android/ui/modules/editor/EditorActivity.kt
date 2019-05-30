@@ -27,7 +27,9 @@ import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMvp.View {
 
 	@State var extraType: String? = null
+	@State var extraId: Int? = null
 	@State var itemId: Int? = null
+	@State var extraPosition: Int = -1
 	@State var reviewComment: Response? = null
 
 	override fun layout(): Int = R.layout.editor_layout
@@ -64,7 +66,7 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 
 	override fun onSendEditorResult() {
 		val intent = Intent()
-		intent.putExtras(Bundler.start().put(BundleConstant.EXTRA, editText.savedText).end())
+		intent.putExtras(Bundler.start().put(BundleConstant.EXTRA, editText.savedText).put(BundleConstant.ID, extraPosition).end())
 		setResult(Activity.RESULT_OK, intent)
 		finish()
 	}
@@ -176,6 +178,8 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 
 	override fun getCurrentType(): String? = extraType
 
+	override fun getExtraIds(): Int? = extraId
+
 	override fun fragmentManager(): FragmentManager = supportFragmentManager
 
 	private fun onCreate() {
@@ -186,12 +190,15 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 			itemId = bundle.getInt(BundleConstant.ID)
 			val textToUpdate = bundle.getString(BundleConstant.EXTRA)
 			if (!InputHelper.isEmpty(textToUpdate)) {
+				extraId = bundle.getInt(BundleConstant.EXTRA_TWO)
 				editText.setText(String.format("%s ", textToUpdate))
 				editText.setSelection(InputHelper.toString(editText).length)
 			}
+			extraPosition = bundle.getInt(BundleConstant.EXTRA_THREE)
 			when (extraType) {
-				BundleConstant.EDITOR_NEW_RESPONSE -> {
-					title = getString(R.string.editor_review)
+				BundleConstant.EDITOR_NEW_RESPONSE,
+				BundleConstant.EDITOR_EDIT_RESPONSE -> {
+					title = getString(R.string.editor_response)
 					editorLayout.addSmile.visibility = GONE
 					editorLayout.bold.visibility = GONE
 					editorLayout.strikethrough.visibility = GONE

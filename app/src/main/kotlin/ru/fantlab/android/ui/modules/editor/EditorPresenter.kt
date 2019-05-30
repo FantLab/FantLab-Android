@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.editor
 
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.helper.BundleConstant.EDITOR_EDIT_RESPONSE
 import ru.fantlab.android.helper.BundleConstant.EDITOR_NEW_COMMENT
 import ru.fantlab.android.helper.BundleConstant.EDITOR_NEW_MESSAGE
 import ru.fantlab.android.helper.BundleConstant.EDITOR_NEW_RESPONSE
@@ -21,6 +22,10 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 			EDITOR_NEW_RESPONSE -> {
 				onEditorNewResponse(itemId, savedText, mode)
 			}
+			EDITOR_EDIT_RESPONSE -> {
+				val extraId = view?.getExtraIds()
+				if (extraId!= null) onEditorEditResponse(itemId, extraId, savedText)
+			}
 			EDITOR_NEW_MESSAGE -> {
 				if (itemId == PrefGetter.getLoggedUser()?.id) {
 					sendToView { it.showErrorMessage("Ошибка") }
@@ -38,6 +43,15 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 		if (!InputHelper.isEmpty(savedText)) {
 			makeRestCall(
 					DataManager.sendResponse(id, savedText, mode).toObservable(),
+					Consumer { result -> sendToView { it.onSendMessageResult(result) } }
+			)
+		}
+	}
+
+	override fun onEditorEditResponse(workId: Int, commentId: Int, newText: CharSequence?) {
+		if (!InputHelper.isEmpty(newText)) {
+			makeRestCall(
+					DataManager.editResponse(workId, commentId, newText).toObservable(),
 					Consumer { result -> sendToView { it.onSendMessageResult(result) } }
 			)
 		}

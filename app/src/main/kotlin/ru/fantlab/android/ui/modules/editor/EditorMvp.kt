@@ -23,6 +23,8 @@ interface EditorMvp {
 
 		fun onEditorNewResponse(id: Int, savedText: CharSequence?, mode: String)
 
+		fun onEditorEditResponse(workId: Int, commentId: Int, newText: CharSequence?)
+
 		fun onEditorNewMessage(id: Int, savedText: CharSequence?, mode: String)
 
 		fun onEditorNewComment(id: Int, savedText: CharSequence?)

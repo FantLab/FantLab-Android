@@ -87,11 +87,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 
 		userInfo.setOnClickListener { showUserMenu() }
 
-		responseText.text = response.text
-				.replace("(\r\n)+".toRegex(), "\n")
-				.replace("\\[spoiler].*|\\[\\/spoiler]".toRegex(), "")
-				.replace("\\[.*]".toRegex(), "")
-				.replace(":\\w+:".toRegex(), "")
+		responseText.html = response.text
 
 		if (response.mark == null) {
 			rating.visibility = View.GONE
@@ -117,6 +113,10 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		}
 
 		if (isLoggedIn() && PrefGetter.getLoggedUser()?.id != response.userId) {
+			fab.setImageResource(R.drawable.ic_thumb_up_down)
+			fab.visibility = View.VISIBLE
+		} else if (isLoggedIn()) {
+			fab.setImageResource(R.drawable.ic_response)
 			fab.visibility = View.VISIBLE
 		} else {
 			fab.visibility = View.GONE
@@ -136,14 +136,35 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 	}
 
-	fun onFabClicked() {
-		presenter.onGetUserLevel()
+	private fun onFabClicked() {
+		if (PrefGetter.getLoggedUser()?.id == response.userId) {
+			startActivityForResult(Intent(this, EditorActivity::class.java)
+					.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_EDIT_RESPONSE)
+					.putExtra(BundleConstant.EXTRA, response.text)
+					.putExtra(BundleConstant.EXTRA_TWO, response.id)
+					.putExtra(BundleConstant.ID, response.workId),
+					BundleConstant.REFRESH_RESPONSE_CODE
+			)
+		} else presenter.onGetUserLevel()
+	}
+
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		super.onActivityResult(requestCode, resultCode, data)
+		when (requestCode) {
+			BundleConstant.REFRESH_RESPONSE_CODE -> {
+				if (data != null) {
+					val responseNewText = data.extras?.getCharSequence(BundleConstant.EXTRA)
+					responseText.html = responseNewText
+					response.text = responseNewText.toString()
+				}
+			}
+		}
 	}
 
 	override fun onShowVotesDialog(userLevel: Float) {
 		hideProgress()
 		val dialogView = ContextMenuDialogView()
-		val variants = ContextMenuBuilder.buildForResponse(this)
+		val variants = ContextMenuBuilder.buildForResponse()
 		if (userLevel < FantlabHelper.minLevelToVote) variants[0].items.removeAt(1)
 		dialogView.initArguments("votes", variants, response, 0)
 		dialogView.show(supportFragmentManager, "ContextMenuDialogView")

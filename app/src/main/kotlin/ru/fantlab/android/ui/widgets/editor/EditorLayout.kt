@@ -114,7 +114,7 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 			return
 		}
 		when (id) {
-			R.id.spoiler -> if (editorListener?.getCurrentType() == BundleConstant.EDITOR_NEW_RESPONSE) addSpoiler(editText) else addHidden(editText)
+			R.id.spoiler -> if (editorListener?.getCurrentType() == BundleConstant.EDITOR_NEW_RESPONSE || editorListener?.getCurrentType() == BundleConstant.EDITOR_EDIT_RESPONSE) addSpoiler(editText) else addHidden(editText)
 			R.id.bold -> addBold(editText)
 			R.id.italic -> addItalic(editText)
 			R.id.underlined -> addUnderlined(editText)
@@ -130,6 +130,7 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 		fun fragmentManager(): FragmentManager
 		fun getSavedText(): CharSequence?
 		fun getCurrentType(): String?
+		fun getExtraIds(): Int?
 	}
 
 	fun onAppendLink(title: String, link: String, isLink: Boolean) {

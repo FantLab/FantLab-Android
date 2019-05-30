@@ -155,7 +155,7 @@
 	<string name="sort_country">Country</string>
 	<string name="sort_type">Type</string>
 	<string name="sort_lang">Language</string>
-	<string name="editor_review">Review Editor</string>
+	<string name="editor_response">Response Editor</string>
 	<string name="editor_comment">Comment Editor</string>
 	<string name="editor_message">Message Editor</string>
 	<string name="wins">Awards and prizes</string>
@@ -246,4 +246,6 @@
 	<string name="back_button_summary">Press back button twice to close application</string>
 	<string name="back_button_title">Double click to exit</string>
 	<string name="all">All</string>
+	<string name="response_edit">Edit</string>
+	<string name="response_delete">Delete</string>
 </resources>

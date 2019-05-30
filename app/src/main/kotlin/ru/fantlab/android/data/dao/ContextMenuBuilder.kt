@@ -41,7 +41,7 @@ object ContextMenuBuilder {
 		return items
 	}
 
-	fun buildForResponse(context: Context): ArrayList<ContextMenus> {
+	fun buildForResponse(): ArrayList<ContextMenus> {
 		val items = ArrayList<ContextMenus>()
 
 		val actions =
@@ -50,6 +50,19 @@ object ContextMenuBuilder {
 						ContextMenus.MenuItem("-1", R.drawable.ic_thumb_down, "vote")
 				)
 		items.add(ContextMenus("", actions, "votes"))
+
+		return items
+	}
+
+	fun buildForUserResponse(context: Context): ArrayList<ContextMenus> {
+		val items = ArrayList<ContextMenus>()
+
+		val actions =
+				arrayListOf(
+						ContextMenus.MenuItem(context.getString(R.string.response_edit), R.drawable.ic_response_small, "edit"),
+						ContextMenus.MenuItem(context.getString(R.string.response_delete),  R.drawable.ic_delete,"delete")
+				)
+		items.add(ContextMenus("", actions, "main"))
 
 		return items
 	}

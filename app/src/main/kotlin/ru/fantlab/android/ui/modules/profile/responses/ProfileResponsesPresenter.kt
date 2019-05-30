@@ -43,7 +43,7 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 				Consumer { (responses, totalCount, lastPage) ->
 					this.lastPage = lastPage
 					sendToView {
-						with (it) {
+						with(it) {
 							onNotifyAdapter(responses, page)
 							onSetTabCount(totalCount)
 						}
@@ -90,11 +90,19 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 				})
 	}
 
+	override fun onDeleteResponse(workId: Int, commentId: Int, position: Int) {
+		makeRestCall(
+				DataManager.editResponse(workId, commentId, "").toObservable(),
+				Consumer { sendToView { it.onResponseDelete(position) } }
+		)
+	}
+
 	override fun onItemClick(position: Int, v: View?, item: Response) {
 		sendToView { it.onItemClicked(item) }
 	}
 
 	override fun onItemLongClick(position: Int, v: View?, item: Response) {
+		sendToView { it.onItemLongClicked(item, position) }
 	}
 
 	override fun getCurrentPage(): Int = page

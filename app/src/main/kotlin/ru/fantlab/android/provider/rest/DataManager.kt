@@ -203,6 +203,18 @@ object DataManager {
 					.rxString()
 					.map { it.get() }
 
+	fun editResponse(
+			workId: Int,
+			commentId: Int,
+			newText: CharSequence?
+	): Single<String> =
+			editResponsePath(workId, commentId)
+					.httpPost(listOf(
+							"message" to newText
+					))
+					.rxString()
+					.map { it.get() }
+
 	fun sendClassification(
 			workId: Int,
 			query: String
@@ -538,6 +550,11 @@ fun sendMessagePath(
 fun sendResponsePath(
 		workId: Int
 ) = "/work$workId/addresponse".toAbsolutePath()
+
+fun editResponsePath(
+		workId: Int,
+		commentId: Int
+) = "/work$workId/editresponse$commentId/editresponse${commentId}ok".toAbsolutePath()
 
 fun sendClassificationPath(
 		workId: Int,

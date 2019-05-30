@@ -24,7 +24,11 @@ interface ProfileResponsesMvp {
 
 		fun onItemClicked(item: Response)
 
+		fun onItemLongClicked(item: Response, position: Int)
+
 		fun onSetVote(position: Int, votesCount: String)
+
+		fun onResponseDelete(position: Int)
 
 		override fun onOpenContextMenu(userItem: Response)
 	}
@@ -36,5 +40,7 @@ interface ProfileResponsesMvp {
 		fun getResponses(userId: Int, force: Boolean)
 
 		fun onSendVote(item: Response, position: Int, voteType: String)
+
+		fun onDeleteResponse(workId: Int, commentId: Int, position: Int)
 	}
 }
