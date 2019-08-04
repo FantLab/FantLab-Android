@@ -29,6 +29,31 @@ object DataManager {
 					.rxObject(AwardsResponse.Deserializer())
 					.map { it.get() }
 
+	fun getForums(): Single<ForumsResponse> =
+			getForumsPath()
+					.httpGet()
+					.rxObject(ForumsResponse.Deserializer())
+					.map { it.get() }
+
+	fun getTopics(id: Int,
+				  page: Int,
+				  perPage: Int
+	): Single<ForumResponse> =
+			getTopicsPath(id, page, perPage)
+					.httpGet()
+					.rxObject(ForumResponse.Deserializer())
+					.map { it.get() }
+
+	fun getTopicMessages(id: Int,
+						 page: Int,
+						 order: TopicMessagesSortOption = TopicMessagesSortOption.BY_ASCENDING,
+						 perPage: Int
+	): Single<ForumTopicResponse> =
+			getTopicMessagesPath(id, page, order, perPage)
+					.httpGet()
+					.rxObject(ForumTopicResponse.Deserializer())
+					.map { it.get() }
+
 	fun getAuthor(
 			id: Int,
 			showBiography: Boolean = false,
@@ -432,6 +457,11 @@ enum class AutplansSortOption(val value: String) {
 	BY_AUTHOR("author"),
 	BY_NAME("title")
 }
+
+enum class TopicMessagesSortOption(val value: String) {
+	BY_DESCENDING("desc"),
+	BY_ASCENDING("asc")
+}
 //endregion
 
 //region Urls
@@ -442,6 +472,21 @@ fun getAwardsPath(
 		nonfant: Boolean,
 		sortOption: AwardsSortOption = AwardsSortOption.BY_NAME
 ) = "/awards?nonfant=${nonfant.toInt()}&sort=${sortOption.value}".toAbsolutePathWithApiVersion()
+
+fun getForumsPath() = "/v1/forums".toAbsolutePathWithTestApiVersion()
+
+fun getTopicsPath(
+		id: Int,
+		page: Int,
+		perPage: Int
+) = "/v1/forums/$id?page=$page&limit=$perPage".toAbsolutePathWithTestApiVersion()
+
+fun getTopicMessagesPath(
+		id: Int,
+		page: Int,
+		order: TopicMessagesSortOption,
+		perPage: Int
+) = "/v1/topics/$id?page=$page&order=${order.value}&limit=$perPage".toAbsolutePathWithTestApiVersion()
 
 fun getAuthorPath(
 		id: Int,
@@ -636,6 +681,8 @@ fun getWorkTypesPath(
 fun String.toAbsolutePath() = "https://fantlab.ru$this"
 
 fun String.toAbsolutePathWithApiVersion() = "https://api.fantlab.ru$this"
+
+fun String.toAbsolutePathWithTestApiVersion() = "http://dev3.fantlab.org:4242$this"
 
 fun Boolean.toInt(): Int = if (this) 1 else 0
 //endregion

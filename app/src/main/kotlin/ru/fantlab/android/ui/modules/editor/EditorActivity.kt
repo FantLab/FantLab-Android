@@ -14,6 +14,7 @@ import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.editor_buttons_layout.view.*
 import kotlinx.android.synthetic.main.editor_layout.*
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.model.ForumTopic
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.data.dao.model.Smile
 import ru.fantlab.android.helper.BundleConstant
@@ -45,7 +46,6 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 		if (!isLoggedIn()) finish()
 		editorLayout.editorListener = this
 		title = getString(R.string.editor)
-		setToolbarIcon(R.drawable.ic_clear)
 		if (savedInstanceState == null) {
 			onCreate()
 		}
@@ -76,6 +76,14 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 		onSendEditorResult()
 	}
 
+	override fun onSendNewTopicMessage(message: ForumTopic.Message) {
+		hideProgress()
+		val intent = Intent()
+		intent.putExtra(BundleConstant.ITEM, message)
+		setResult(Activity.RESULT_OK, intent)
+		finish()
+	}
+
 	override fun onSendReviewResultAndFinish(comment: Response, isNew: Boolean) {
 		hideProgress()
 		val intent = Intent()
@@ -88,29 +96,37 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
-		menuInflater.inflate(R.menu.done_menu, menu)
+		menuInflater.inflate(R.menu.editor_menu, menu)
 		return super.onCreateOptionsMenu(menu)
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		if (item.itemId == R.id.submit) {
-			if (extraType != BundleConstant.EDITOR_NEW_COMMENT) {
-				if (extraType == BundleConstant.EDITOR_NEW_RESPONSE && editText.savedText.length < 50) {
-					showErrorMessage(getString(R.string.response_short_text))
-					return true
-				} else if (editText.savedText.isBlank()) {
-					showErrorMessage(getString(R.string.too_short_text))
-					return true
-				}
-				MessageDialogView.newInstance(getString(R.string.select_action), getString(R.string.save_hint), false,
-						Bundler.start()
-								.put("primary_extra", getString(R.string.submit))
-								.put("secondary_extra", getString(R.string.save))
-								.put(BundleConstant.EXTRA_TYPE, extraType!!)
-								.end())
-						.show(supportFragmentManager, MessageDialogView.TAG)
-			} else presenter.onHandleSubmission(editText.savedText, extraType, itemId, reviewComment, "")
-			return true
+		when (item.itemId) {
+			R.id.submit -> {
+				if (extraType != BundleConstant.EDITOR_NEW_COMMENT) {
+					if (extraType == BundleConstant.EDITOR_NEW_RESPONSE && editText.savedText.length < 50) {
+						showErrorMessage(getString(R.string.response_short_text))
+						return true
+					} else if (editText.savedText.isBlank()) {
+						showErrorMessage(getString(R.string.too_short_text))
+						return true
+					}
+					presenter.onHandleSubmission(editText.savedText, extraType, itemId, reviewComment, "send")
+					/*
+					TODO Реализовать после появления возможности работы с черновиком
+					MessageDialogView.newInstance(getString(R.string.select_action), getString(R.string.save_hint), false,
+							Bundler.start()
+									.put("primary_extra", getString(R.string.submit))
+									.put("secondary_extra", getString(R.string.save))
+									.put(BundleConstant.EXTRA_TYPE, extraType!!)
+									.end())
+							.show(supportFragmentManager, MessageDialogView.TAG)*/
+				} else presenter.onHandleSubmission(editText.savedText, extraType, itemId, reviewComment, "")
+				return true
+			}
+			R.id.clear -> {
+				editText.setText("")
+			}
 		}
 		return super.onOptionsItemSelected(item)
 	}
@@ -136,7 +152,7 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 	}
 
 	override fun onBackPressed() {
-		if (!InputHelper.isEmpty(editText)) {
+		if (!InputHelper.isEmpty(editText.text)) {
 			ViewHelper.hideKeyboard(editText)
 			MessageDialogView.newInstance(getString(R.string.close), getString(R.string.unsaved_data_warning), false,
 					Bundler.start()
@@ -215,6 +231,9 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 				}
 				BundleConstant.EDITOR_NEW_MESSAGE -> {
 					title = getString(R.string.editor_message)
+				}
+				BundleConstant.EDITOR_NEW_TOPIC_MESSAGE -> {
+					title = getString(R.string.editor_topic_message)
 				}
 			}
 		}

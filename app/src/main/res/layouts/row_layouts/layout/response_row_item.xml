@@ -6,7 +6,6 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:layout_margin="@dimen/grid_spacing"
-	android:background="?android:selectableItemBackground"
 	android:paddingTop="@dimen/spacing_normal"
 	android:paddingEnd="@dimen/spacing_normal"
 	android:paddingStart="@dimen/spacing_normal"
@@ -28,6 +27,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
+			android:background="?android:selectableItemBackground"
 			>
 
 			<LinearLayout
@@ -142,7 +142,7 @@
 					android:layout_below="@+id/workName"
 					android:layout_marginTop="@dimen/spacing_micro"
 					android:ellipsize="end"
-					android:maxLines="4"
+					android:maxLines="10"
 					android:textColor="?android:textColorSecondary"
 					tools:text="Это первое произведение Майкла Ши которое я прочитал, впечатления противоречивые. Роман — коктейль из приключений в мире фэнтези с элементами фантастики, приправленных «хоррором» и ироничным юмором. Форма изложения — от двух действующих лиц поочерёдно — мне не понравилась. "
 					style="@style/TextAppearance.AppCompat.Medium"

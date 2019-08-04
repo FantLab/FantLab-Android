@@ -16,6 +16,12 @@
 			android:icon="@drawable/ic_home"
 			android:title="@string/home"
 			/>
+
+		<item
+			android:id="@+id/forum"
+			android:icon="@drawable/ic_forum"
+			android:title="@string/forum_list"
+			/>
 	</group>
 
 	<group android:id="@+id/group_one">

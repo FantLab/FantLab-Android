@@ -15,6 +15,7 @@ import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.ui.modules.about.AboutActivity
 import ru.fantlab.android.ui.modules.authors.AuthorsActivity
 import ru.fantlab.android.ui.modules.awards.AwardsActivity
+import ru.fantlab.android.ui.modules.forums.ForumsActivity
 import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.modules.main.MainActivity
 import ru.fantlab.android.ui.modules.plans.PlansPagerActivity
@@ -98,6 +99,7 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 					}
 					R.id.authors -> view.startActivity(Intent(view, AuthorsActivity::class.java))
 					R.id.awards -> view.startActivity(Intent(view, AwardsActivity::class.java))
+					R.id.forum -> view.startActivity(Intent(view, ForumsActivity::class.java))
 					//R.id.publishers -> view.startActivity(Intent(view, PublishersActivity::class.java))
 					R.id.plans -> view.startActivity(Intent(view, PlansPagerActivity::class.java))
 				}

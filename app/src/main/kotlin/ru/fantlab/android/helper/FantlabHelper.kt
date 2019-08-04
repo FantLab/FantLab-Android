@@ -65,6 +65,20 @@ object FantlabHelper {
 			var filterCategory: B
 	)
 
+	fun classToName(`class`: Int): String? {
+		return 	when (`class`) {
+			0 -> "Новичок"
+			1 -> "Активист"
+			2 -> "Авторитет"
+			3 -> "Философ"
+			4 -> "Магистр"
+			5 -> "Гранд-мастер"
+			6 -> "Миродержец"
+			7 -> "Миротворец"
+			else -> this.toString()
+		}
+	}
+
 	var currentUserId: Int = -1
 
 	val minLevelToVote = FantlabHelper.User.classRanges[Levels.NOVICE.`class`]

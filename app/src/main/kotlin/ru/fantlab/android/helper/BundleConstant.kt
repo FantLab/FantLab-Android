@@ -10,6 +10,7 @@ object BundleConstant {
 	val EXTRA_TYPE = "extra_type"
 	var REFRESH_CODE = 64
 	var REFRESH_RESPONSE_CODE = 65
+	var NEW_TOPIC_MESSAGE_CODE = 65
 	val REQUEST_CODE = 2563
 	val CLASSIFICATOR_CODE = 2364
 	val ITEM = "item"
@@ -21,4 +22,6 @@ object BundleConstant {
 	var EDITOR_EDIT_RESPONSE = "editor_edit_response"
 	var EDITOR_NEW_MESSAGE = "editor_new_message"
 	var EDITOR_NEW_COMMENT = "editor_new_comment"
+	var EDITOR_NEW_TOPIC_MESSAGE = "editor_new_topic_message"
+
 }

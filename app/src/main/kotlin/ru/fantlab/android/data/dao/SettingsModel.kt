@@ -14,6 +14,7 @@ data class SettingsModel(
 		const val THEME: Int = 0
 		const val LANGUAGE: Int = 1
 		const val CUSTOMIZATION: Int = 2
+		const val FORUM: Int = 3
 	}
 }
 

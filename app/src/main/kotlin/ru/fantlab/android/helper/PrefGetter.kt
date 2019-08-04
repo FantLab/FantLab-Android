@@ -169,4 +169,13 @@ object PrefGetter {
 	fun isRVAnimationEnabled(): Boolean {
 		return PrefHelper.getBoolean("recylerViewAnimation")
 	}
+
+	fun isForumExtended(): Boolean {
+		return PrefHelper.getBoolean("forumExtended")
+	}
+
+	fun getTopicMessagesOrder(): String {
+		val order = PrefHelper.getString("topicOrder")
+		return order ?: "desc"
+	}
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/drawer"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fitsSystemWindows="true"
+	tools:context=".ui.modules.awards.AwardsActivity"
+	>
+
+	<androidx.coordinatorlayout.widget.CoordinatorLayout
+		android:id="@+id/coordinatorLayout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		>
+
+		<include layout="@layout/appbar" />
+
+		<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="?android:selectableItemBackground"
+			android:paddingEnd="@dimen/spacing_normal"
+			android:paddingStart="@dimen/spacing_normal"
+			android:paddingTop="@dimen/spacing_normal"
+			app:layout_behavior="@string/scroll_behavior"
+			tools:ignore="RtlSymmetry"
+			>
+
+			<androidx.cardview.widget.CardView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/category"
+				app:cardBackgroundColor="?card_background"
+				app:cardCornerRadius="0dp"
+				app:cardElevation="1dp"
+				app:cardUseCompatPadding="true"
+				>
+
+				<include layout="@layout/micro_grid_refresh_list" />
+
+			</androidx.cardview.widget.CardView>
+
+		</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+
+	</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+	<include layout="@layout/nav_menu_layout" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

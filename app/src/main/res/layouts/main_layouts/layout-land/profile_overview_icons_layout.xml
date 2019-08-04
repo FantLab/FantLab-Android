@@ -35,6 +35,7 @@
 				android:layout_height="wrap_content"
 				android:padding="@dimen/spacing_micro"
 				android:src="@drawable/ic_star"
+				android:contentDescription="@string/mark_count"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -65,6 +66,7 @@
 				android:layout_height="wrap_content"
 				android:padding="@dimen/spacing_micro"
 				android:src="@drawable/ic_response"
+				android:contentDescription="@string/response_count"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -94,6 +96,7 @@
 				android:layout_height="wrap_content"
 				android:padding="@dimen/spacing_micro"
 				android:src="@drawable/ic_thumb_up"
+				android:contentDescription="@string/votes_count"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -124,6 +127,7 @@
 				android:layout_height="wrap_content"
 				android:padding="@dimen/spacing_micro"
 				android:src="@drawable/ic_description"
+				android:contentDescription="@string/description_count"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -156,6 +160,7 @@
 				android:layout_height="wrap_content"
 				android:padding="@dimen/spacing_micro"
 				android:src="@drawable/ic_classification"
+				android:contentDescription="@string/classification_count"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -186,6 +191,7 @@
 				android:layout_height="wrap_content"
 				android:padding="@dimen/spacing_micro"
 				android:src="@drawable/ic_ticket"
+				android:contentDescription="@string/ticket_count"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -218,6 +224,7 @@
 				android:layout_height="wrap_content"
 				android:padding="@dimen/spacing_micro"
 				android:src="@drawable/ic_message"
+				android:contentDescription="@string/forum_messages_count"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -250,6 +257,7 @@
 				android:layout_height="wrap_content"
 				android:padding="@dimen/spacing_micro"
 				android:src="@drawable/ic_new_list"
+				android:contentDescription="@string/topic_count"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -282,6 +290,7 @@
 				android:layout_height="wrap_content"
 				android:padding="@dimen/spacing_micro"
 				android:src="@drawable/ic_books"
+				android:contentDescription="@string/bookcase_count"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView

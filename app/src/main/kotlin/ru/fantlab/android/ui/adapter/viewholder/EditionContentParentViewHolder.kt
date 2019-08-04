@@ -24,7 +24,6 @@ class EditionContentParentViewHolder : TreeViewBinder<EditionContentParentViewHo
 		val parentNode = node.content as EditionContentParent?
 		if (node.isLeaf){
 			holder.arrow.visibility = View.INVISIBLE
-			//if (node.isRoot && node.childList.isEmpty()) {}
 		}
 		else {
 			holder.arrow.setImageResource(R.drawable.ic_arrow_right)

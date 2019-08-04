@@ -20,7 +20,6 @@ import ru.fantlab.android.provider.scheme.SchemeParser
 import ru.fantlab.android.ui.widgets.htmlview.drawable.DrawableGetter
 import java.util.regex.Pattern
 import android.view.ViewTreeObserver
-import ru.fantlab.android.ui.widgets.FontTextView
 
 open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr),
 		BetterLinkMovementExtended.OnLinkClickListener,
@@ -49,15 +48,18 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 	}
 
 	private fun render(html: CharSequence?) {
-		val data = html!!
+		if (html == null) return
+		//println(html)
+		val data = html
 				.replace(SQUARE_TAG.toRegex(), "<$1>")
 				.replace(BBCODES_TAG.toRegex(), "<a href=\"$1$2\">$3</a>")
 				.replace(URL_LINK_TAG.toRegex(), "<a href=\"$2\">$3</a>")
 				.replace(LIST_TAG.toRegex(), "<ul>$1</ul>")
 				.replace(PHOTO_TAG.toRegex(), "")
+				.replace(FORUM_QUOTE.toRegex(), "<small>Цитата <b>$1:</b></small>\n<q>$2</q>")
 				.replace(SMILES_TAG.toRegex(), "<img src=\"file:///android_asset/smiles/$1.gif\">")
 				.replace(IMG_TAG.toRegex(), "<img src=\"$1\">")
-				.replace(LI_TAG, "<li>")
+				.replace(LI_TAG, "\t• ")
 				.replace(UNIQUE_URL_TAG.toRegex(), "<a href=\"$1\">$1</a>")
 				.replace("\n", "<br>")
 		text = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
@@ -71,6 +73,7 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 		val action = event.actionMasked
 		if (action == MotionEvent.ACTION_CANCEL) {
 			betterLinkMovementMethod.isLongPress = false
+			return super.onTouchEvent(event)
 		}
 		if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_DOWN) {
 
@@ -93,7 +96,9 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 				betterLinkMovementMethod.onTouchEvent(this, buffer, event)
 				return true
 			}
+			return super.onTouchEvent(event)
 		}
+
 		return false
 	}
 
@@ -143,6 +148,7 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 		private val BBCODES_TAG: Pattern = Pattern.compile("<(autor|author|work|cycle|edition|person|user|art|dictor|series|film|translator|pub)=(.*?)>(.*?)<\\/.*>", Pattern.CASE_INSENSITIVE)
 		private val URL_LINK_TAG: Pattern = Pattern.compile("<(link|url)=(.*?)>(.*?)<\\/.*>", Pattern.CASE_INSENSITIVE)
 		private val PHOTO_TAG: Pattern = Pattern.compile("<PHOTO.*?>")
+		private val FORUM_QUOTE: Pattern = Pattern.compile("<q=(.*?)>(.*?)</q>", Pattern.CASE_INSENSITIVE or Pattern.DOTALL)
 		private val LIST_TAG: Pattern = Pattern.compile("<list>(.*?)<\\/list>", Pattern.CASE_INSENSITIVE or Pattern.DOTALL)
 		private val LI_TAG = "<*>"
 		private val SMILES_TAG: Pattern = Pattern.compile(":([a-z]+):")

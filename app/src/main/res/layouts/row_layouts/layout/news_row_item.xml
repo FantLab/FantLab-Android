@@ -6,7 +6,6 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:layout_margin="@dimen/grid_spacing"
-	android:background="?android:selectableItemBackground"
 	android:paddingEnd="@dimen/spacing_normal"
 	android:paddingStart="@dimen/spacing_normal"
 	android:paddingTop="@dimen/spacing_normal"
@@ -28,6 +27,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
+			android:background="?android:selectableItemBackground"
 			>
 
 			<LinearLayout
@@ -129,7 +129,7 @@
 					android:layout_marginTop="@dimen/spacing_micro"
 					android:layout_toEndOf="@+id/coverLayout"
 					android:ellipsize="end"
-					android:maxLines="4"
+					android:maxLines="10"
 					android:textColor="?android:textColorSecondary"
 					android:textSize="15sp"
 					tools:text="Составлены библиографии российских писателей, работающих в жанре «попаданческой» фантастики, Юрия и Веры Каменских."

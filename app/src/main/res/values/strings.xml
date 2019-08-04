@@ -130,7 +130,7 @@
 	<string name="submit">Submit</string>
 	<string name="close">Close</string>
 	<string name="unsaved_data_warning">Are you sure you want to cancel the entry?</string>
-	<string name="discard">Discard</string>
+	<string name="discard">Close</string>
 	<string name="comment">Comment</string>
 	<string name="type_here">Start type here</string>
 	<string name="title">Title</string>
@@ -248,4 +248,21 @@
 	<string name="all">All</string>
 	<string name="response_edit">Edit</string>
 	<string name="response_delete">Delete</string>
+	<string name="forum_list">Forum</string>
+	<string name="forums_list">FantLab Forums</string>
+	<string name="topic">Forum topic</string>
+	<string name="quote">Quote</string>
+	<string name="editor_topic_message">Topic message editor</string>
+	<string name="copy_link">Copy Link</string>
+	<string name="reply">Reply</string>
+	<string name="topics_count">Topics</string>
+	<string name="messages_count">Messages</string>
+	<string name="views_count">Views</string>
+	<string name="is_pinned">Topic is pinned</string>
+	<string name="is_closed">Topic is closed</string>
+	<string name="from">by</string>
+	<string name="forum_last_summary">Information about the last post and the author in the list of topics</string>
+	<string name="forum_last_title">Details on the topic list</string>
+	<string name="topic_order_title">Message sorting</string>
+	<string name="topic_order_summary">Choosing the order in which the topic messages will be showed</string>
 </resources>

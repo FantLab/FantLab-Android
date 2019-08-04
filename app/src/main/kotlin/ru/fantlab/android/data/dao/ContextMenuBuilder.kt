@@ -368,4 +368,20 @@ object ContextMenuBuilder {
 		return items
 	}
 
+	fun buildForTopicMessage(context: Context, isLoggedIn: Boolean): ArrayList<ContextMenus> {
+		val items = ArrayList<ContextMenus>()
+
+		val actions =
+				arrayListOf(
+						ContextMenus.MenuItem(context.getString(R.string.show_profile), R.drawable.ic_profile, "profile"),
+						ContextMenus.MenuItem(context.getString(R.string.copy_link), R.drawable.copy, "copy_link")
+				)
+
+		if (isLoggedIn) actions.add(ContextMenus.MenuItem(context.getString(R.string.reply), R.drawable.reply, "reply"))
+
+		items.add(ContextMenus("", actions, "main"))
+
+		return items
+	}
+
 }

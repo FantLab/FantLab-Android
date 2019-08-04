@@ -25,6 +25,7 @@
 
 	<SwitchPreference
 		android:defaultValue="true"
+		android:icon="@drawable/ic_clear"
 		android:key="back_button"
 		android:summary="@string/back_button_summary"
 		android:title="@string/back_button_title"/>

@@ -97,7 +97,7 @@
 	<string name="submit">Отправить</string>
 	<string name="close">Закрыть</string>
 	<string name="unsaved_data_warning">Вы действительно хотите отменить ввод?</string>
-	<string name="discard">Сбросить</string>
+	<string name="discard">Закрыть</string>
 	<string name="comment">Комментарий…</string>
 	<string name="type_here">Начните вводить текст</string>
 	<string name="title">Заголовок</string>
@@ -210,4 +210,21 @@
 	<string name="all">Все</string>
 	<string name="response_edit">Редактировать</string>
 	<string name="response_delete">Удалить</string>
+	<string name="forum_list">Форум</string>
+	<string name="forums_list">Форумы FantLab</string>
+	<string name="topic">Тема</string>
+	<string name="quote">Цитировать</string>
+	<string name="editor_topic_message">Ответить в форум</string>
+	<string name="copy_link">Скопировать ссылку</string>
+	<string name="reply">Ответить</string>
+	<string name="topics_count">Тем</string>
+	<string name="messages_count">Сообщений</string>
+	<string name="views_count">Просмотров</string>
+	<string name="is_pinned">Тема закреплена</string>
+	<string name="is_closed">Тема закрыта</string>
+	<string name="from">от</string>
+	<string name="forum_last_summary">Информация о последнем сообщении и авторе в списке тем</string>
+	<string name="forum_last_title">Подробности в списке тем</string>
+	<string name="topic_order_title">Сортировка сообщений</string>
+	<string name="topic_order_summary">Выбор порядка, в котором будут загружены сообщения темы</string>
 </resources>

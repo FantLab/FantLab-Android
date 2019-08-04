@@ -40,9 +40,9 @@ class SettingsCategoryFragment : PreferenceFragmentCompat(), Preference.OnPrefer
 	}
 
 	override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-		println(settingsCallback)
 		when (settingsCallback!!.getSettingsType()) {
 			SettingsModel.CUSTOMIZATION -> addCustomization()
+			SettingsModel.FORUM -> addForum()
 			else -> Toast.makeText(App.instance, "Ошибка", Toast.LENGTH_SHORT).show()
 		}
 	}
@@ -86,6 +86,9 @@ class SettingsCategoryFragment : PreferenceFragmentCompat(), Preference.OnPrefer
 		findPreference("appColor").onPreferenceChangeListener = this
 	}
 
+	private fun addForum() {
+		addPreferencesFromResource(R.xml.forum_settings)
+	}
 
 	companion object {
 

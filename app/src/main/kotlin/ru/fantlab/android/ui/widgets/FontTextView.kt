@@ -9,21 +9,22 @@ import android.os.Parcelable
 import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.Gravity
+import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.appcompat.widget.TooltipCompat
 import com.crashlytics.android.Crashlytics
 import com.evernote.android.state.State
 import com.evernote.android.state.StateSaver
+import ru.fantlab.android.App
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.TypeFaceHelper
 import ru.fantlab.android.helper.ViewHelper
 
 
-/**
- * Created by Kosh on 8/18/2015. copyrights are reserved
- */
 open class FontTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
 		AppCompatTextView(context, attrs, defStyleAttr) {
 
@@ -75,6 +76,9 @@ open class FontTextView @JvmOverloads constructor(context: Context, attrs: Attri
 		if (isInEditMode) return
 		freezesText = true
 		TypeFaceHelper.applyTypeface(this)
+		if (contentDescription != null) {
+			TooltipCompat.setTooltipText(this, contentDescription)
+		}
 	}
 
 	fun tintDrawables(@ColorInt color: Int) {

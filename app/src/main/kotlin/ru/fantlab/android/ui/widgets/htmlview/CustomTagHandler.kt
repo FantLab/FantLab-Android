@@ -16,9 +16,16 @@ class CustomTagHandler : TagHandler {
 				if (opening) startSpoiler(output, SpoilerSpan())
 				else end(output, SpoilerSpan::class.java, SpoilerSpan())
 			}
-			"q" ->
+			"q" ->{
 				if (opening) startBlockquote(output)
-				else endBlockquote(output)
+				else endBlockquote(output)}
+			"moder" ->
+				if (opening) startBlockquote(output)
+				else endModerblock(output)
+			"censor" ->
+				if (opening) startBlockquote(output)
+				else endCensorblock(output)
+
 		}
 	}
 
@@ -36,6 +43,16 @@ class CustomTagHandler : TagHandler {
 		endBlockElement(text)
 		val theme = PrefGetter.getThemeType()
 		end(text, Blockquote::class.java, CustomQuoteSpan(getWindowBackground(theme - 1)))
+	}
+
+	private fun endModerblock(text: Editable) {
+		endBlockElement(text)
+		end(text, Blockquote::class.java, CustomQuoteSpan(Color.RED))
+	}
+
+	private fun endCensorblock(text: Editable) {
+		endBlockElement(text)
+		end(text, Blockquote::class.java, CustomQuoteSpan(Color.parseColor("#fc8c03")))
 	}
 
 	private fun endBlockElement(text: Editable) {
