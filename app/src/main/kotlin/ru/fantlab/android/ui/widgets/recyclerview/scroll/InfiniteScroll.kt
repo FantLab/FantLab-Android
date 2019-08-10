@@ -19,6 +19,9 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 	private var isUp = true
 	private var menuShowed = false
 
+	private var isPageCounter = false
+	private var totalPagesCount = 0
+
 	abstract fun onLoadMore(page: Int, totalItemsCount: Int): Boolean
 
 	private var listener: OnScrollResumed? = null
@@ -96,7 +99,14 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 			previousTotalItemCount = totalItemCount
 		}
 		if (!loading && lastVisibleItemPosition + visibleThreshold > totalItemCount) {
+
+			if (isPageCounter) {
+				if (currentPage+1 == totalPagesCount) {
+					return
+				}
+			}
 			currentPage++
+
 			val isCallingApi = onLoadMore(currentPage, totalItemCount)
 			loading = true
 			if (isCallingApi) {
@@ -112,9 +122,15 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 	}
 
 	fun initialize(page: Int, previousTotal: Int) {
+		this.isPageCounter = false
 		this.currentPage = page
 		this.previousTotalItemCount = previousTotal
 		this.loading = true
+	}
+
+	fun setTotalPagesCount(totalPagesCount: Int) {
+		this.isPageCounter = true
+		this.totalPagesCount = totalPagesCount
 	}
 
 	fun setMenuShowed(menuShowed: Boolean) {

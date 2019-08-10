@@ -16,5 +16,6 @@
 		android:ellipsize="end"
 		android:maxLines="3"
 		style="@style/TextAppearance.AppCompat.Subhead"
+		android:textColor="?android:textColorTertiary"
 		/>
 </FrameLayout>

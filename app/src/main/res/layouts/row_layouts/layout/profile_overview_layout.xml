@@ -85,6 +85,7 @@
 									android:textStyle="bold"
 									tools:text="creator"
 									style="@style/Base.TextAppearance.AppCompat.Title"
+									android:textColor="?android:attr/textColorTertiary"
 									/>
 
 								<ru.fantlab.android.ui.widgets.FontTextView
@@ -93,6 +94,7 @@
 									android:layout_height="wrap_content"
 									tools:text="философ, 3868.54 из 4000"
 									style="@style/Base.TextAppearance.AppCompat.Subhead"
+									android:textColor="?android:attr/textColorSecondary"
 									/>
 
 							</LinearLayout>
@@ -171,6 +173,8 @@
 								android:paddingTop="@dimen/spacing_xs_large"
 								tools:text="May 6, 1981"
 								style="@style/Base.TextAppearance.AppCompat.Subhead"
+								android:textColor="?android:attr/textColorTertiary"
+								app:drawableColor="?android:attr/textColorSecondary"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -185,6 +189,8 @@
 								android:paddingTop="@dimen/spacing_xs_large"
 								tools:text="Россия, Самара"
 								style="@style/Base.TextAppearance.AppCompat.Subhead"
+								android:textColor="?android:attr/textColorTertiary"
+								app:drawableColor="?android:attr/textColorSecondary"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -199,6 +205,8 @@
 								android:paddingTop="@dimen/spacing_xs_large"
 								tools:text="Jul 17, 2004"
 								style="@style/Base.TextAppearance.AppCompat.Subhead"
+								android:textColor="?android:attr/textColorTertiary"
+								app:drawableColor="?android:attr/textColorSecondary"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -213,6 +221,8 @@
 								android:paddingTop="@dimen/spacing_xs_large"
 								tools:text="8 hours ago"
 								style="@style/Base.TextAppearance.AppCompat.Subhead"
+								android:textColor="?android:attr/textColorTertiary"
+								app:drawableColor="?android:attr/textColorSecondary"
 								/>
 
 							<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
@@ -227,6 +237,8 @@
 								android:paddingTop="@dimen/spacing_xs_large"
 								tools:text="Подпись на форуме"
 								style="@style/Base.TextAppearance.AppCompat.Subhead"
+								android:textColor="?android:attr/textColorTertiary"
+								app:drawableColor="?android:attr/textColorSecondary"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -242,6 +254,7 @@
 								android:textColor="@color/material_red_700"
 								tools:text="Feb 16, 2018 - Feb 19, 2018"
 								style="@style/Base.TextAppearance.AppCompat.Subhead"
+								app:drawableColor="?android:attr/textColorSecondary"
 								/>
 
 						</LinearLayout>

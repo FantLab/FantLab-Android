@@ -4,6 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:background="?android:selectableItemBackground"
 	tools:ignore="RtlSymmetry"
 	>
@@ -14,13 +15,24 @@
 		android:background="#16585858"
 		>
 
-		<ImageView
+		<ru.fantlab.android.ui.widgets.ForegroundImageView
 			android:id="@+id/expandButton"
 			android:layout_width="18dp"
 			android:layout_height="18dp"
 			android:layout_gravity="center_vertical"
 			android:layout_marginStart="@dimen/spacing_normal"
 			android:src="@drawable/ic_arrow_right"
+			app:tint="?android:attr/textColorSecondary"
+			/>
+
+		<ru.fantlab.android.ui.widgets.ForegroundImageView
+			android:id="@+id/response"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:layout_marginEnd="@dimen/spacing_micro"
+			android:layout_marginStart="@dimen/spacing_micro"
+			android:src="@drawable/ic_forum"
+			app:tint="?android:attr/textColorSecondary"
 			/>
 
 		<TextView
@@ -28,10 +40,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:layout_marginStart="5dp"
-			android:drawablePadding="10dp"
-			android:drawableStart="@drawable/ic_forum"
 			android:gravity="center_vertical"
-			android:textColor="?android:textColorPrimary"
+			android:textColor="?android:textColorTertiary"
 			tools:text="Фантастика и Фэнтези"
 			style="@style/TextAppearance.AppCompat.Medium"
 			/>

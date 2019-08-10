@@ -20,12 +20,13 @@
 		android:orientation="horizontal"
 		>
 
-		<ImageView
+		<ru.fantlab.android.ui.widgets.ForegroundImageView
 			android:id="@+id/iv_arrow"
 			android:layout_width="18dp"
 			android:layout_height="18dp"
 			android:layout_gravity="center_vertical"
 			android:src="@drawable/ic_arrow_right"
+			app:tint="?android:attr/textColorSecondary"
 			/>
 
 		<ru.fantlab.android.ui.widgets.FontTextView
@@ -36,8 +37,8 @@
 			android:drawablePadding="10dp"
 			android:drawableStart="@drawable/ic_books"
 			android:gravity="center_vertical"
-			android:textColor="?android:textColorPrimary"
-			android:textStyle="bold"
+			android:textColor="?android:textColorTertiary"
+			app:drawableColor="?android:attr/textColorSecondary"
 			tools:text="Восьмая нога бога"
 			style="@style/TextAppearance.AppCompat.Medium"
 			/>

@@ -121,6 +121,7 @@
 								android:layout_toEndOf="@+id/coverLayout"
 								tools:text="Дэн Симмонс"
 								style="@style/TextAppearance.AppCompat.Title"
+								android:textColor="?android:attr/textColorTertiary"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -180,6 +181,7 @@
 							android:layout_marginBottom="@dimen/spacing_normal"
 							android:text="@string/about_author"
 							style="@style/TextAppearance.AppCompat.Title"
+							android:textColor="?android:attr/textColorTertiary"
 							/>
 
 						<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView

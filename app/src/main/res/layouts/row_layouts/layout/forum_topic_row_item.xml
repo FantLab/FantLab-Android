@@ -56,7 +56,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:gravity="center_vertical"
-			android:textColor="?android:attr/textColorPrimary"
+			android:textColor="?android:textColorTertiary"
 			tools:text="Что бы такое почитать?"
 			style="@style/TextAppearance.AppCompat.Medium"
 			/>
@@ -66,7 +66,6 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="@dimen/spacing_normal"
 		android:layout_marginTop="@dimen/spacing_micro"
 		android:layout_marginLeft="@dimen/spacing_normal"
 		android:layout_marginRight="@dimen/spacing_normal"
@@ -174,6 +173,18 @@
 		>
 
 
+		<ru.fantlab.android.ui.widgets.FontTextView
+			android:id="@+id/lastMessage"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/spacing_micro"
+			android:ellipsize="end"
+			android:maxLines="1"
+			android:textColor="?android:attr/textColorSecondary"
+			tools:text="Я не знаю, на каком 'самом деле' он там благородный, но"
+			style="@style/TextAppearance.AppCompat.Small"
+			/>
+
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -188,7 +199,7 @@
 				android:gravity="start|center"
 				android:textColor="?android:attr/textColorSecondary"
 				tools:text="11 июля 21:05"
-				style="@style/TextAppearance.AppCompat.Small"
+				style="@style/TextAppearance.AppCompat.Caption"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -198,7 +209,7 @@
 				android:layout_marginEnd="@dimen/spacing_micro"
 				android:text="@string/from"
 				android:textColor="?android:attr/textColorSecondary"
-				style="@style/TextAppearance.AppCompat.Small"
+				style="@style/TextAppearance.AppCompat.Caption"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView
@@ -208,22 +219,10 @@
 				android:layout_marginEnd="@dimen/spacing_micro"
 				android:textColor="?android:attr/textColorTertiary"
 				tools:text="андрон966"
-				style="@style/TextAppearance.AppCompat.Small"
+				style="@style/TextAppearance.AppCompat.Caption"
 				/>
 
 		</LinearLayout>
-
-		<ru.fantlab.android.ui.widgets.FontTextView
-			android:id="@+id/lastMessage"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginEnd="@dimen/spacing_micro"
-			android:ellipsize="end"
-			android:maxLines="1"
-			android:textColor="?android:attr/textColorSecondary"
-			tools:text="Я не знаю, на каком 'самом деле' он там благородный, но"
-			style="@style/TextAppearance.AppCompat.Small"
-			/>
 
 	</LinearLayout>
 

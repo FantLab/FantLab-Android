@@ -111,7 +111,6 @@
 					android:layout_marginEnd="@dimen/spacing_micro"
 					android:src="@drawable/ic_classification"
 					app:tint="?android:attr/textColorSecondary"
-					style="@style/TextAppearance.AppCompat.Subhead"
 					android:visibility="gone"
 					tools:visibility="visible"
 					/>

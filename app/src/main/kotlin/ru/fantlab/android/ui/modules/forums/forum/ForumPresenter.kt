@@ -38,6 +38,7 @@ class ForumPresenter : BasePresenter<ForumMvp.View>(),
 				getTopicsInternal(force).toObservable(),
 				Consumer { (forum, lastPage) -> sendToView {
 					this.lastPage = lastPage
+					it.getLoadMore().setTotalPagesCount(lastPage)
 					it.onNotifyAdapter(forum, page)
 				} }
 		)

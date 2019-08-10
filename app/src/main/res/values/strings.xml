@@ -265,4 +265,13 @@
 	<string name="forum_last_title">Details on the topic list</string>
 	<string name="topic_order_title">Message sorting</string>
 	<string name="topic_order_summary">Choosing the order in which the topic messages will be showed</string>
+	<string name="communities_list">Communities</string>
+	<string name="general_communities">General communities</string>
+	<string name="additional_communities">Additional communities</string>
+	<string name="no_communities">No communities</string>
+	<string name="blogs_list">Blogs</string>
+	<string name="no_blogs">No blogs</string>
+	<string name="sort_update">Update</string>
+	<string name="sort_articles">Articles</string>
+	<string name="sort_subscribers">Subscribers</string>
 </resources>

@@ -52,7 +52,6 @@ class ForumFragment : BaseFragment<ForumMvp.View, ForumPresenter>(),
 			forumId = arguments!!.getInt(BundleConstant.EXTRA)
 			forumTitle = arguments!!.getString(BundleConstant.EXTRA_TWO) ?: getString(R.string.forum)
 			forumsCallback?.setTitle(forumTitle)
-
 			getLoadMore().initialize(presenter.getCurrentPage(), presenter.getPreviousTotal())
 			recycler.addOnScrollListener(getLoadMore())
 			presenter.onCallApi(1, forumId)
@@ -110,7 +109,7 @@ class ForumFragment : BaseFragment<ForumMvp.View, ForumPresenter>(),
 	}
 
 	override fun onRefresh() {
-		hideProgress()
+		presenter.onCallApi(1, forumId)
 	}
 
 	override fun onItemClicked(item: Forum.Topic) {

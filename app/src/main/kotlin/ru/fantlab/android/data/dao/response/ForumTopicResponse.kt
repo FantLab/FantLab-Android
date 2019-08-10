@@ -43,7 +43,7 @@ data class ForumTopicResponse(
 			val pagesBlock = DataManager.gson.fromJson(`object`, Forum.Pages::class.java)
 			val totalCount = pagesBlock.count
 
-			val messages = Pageable(array.size(), array.size() * totalCount, messages)
+			val messages = Pageable(totalCount, pagesBlock.current, messages)
 
 			return ForumTopicResponse(topic, forum, messages)
 		}

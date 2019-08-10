@@ -140,7 +140,6 @@
 						android:visibility="gone"
 						app:tint="?android:attr/textColorSecondary"
 						tools:visibility="visible"
-						style="@style/TextAppearance.AppCompat.Subhead"
 						/>
 
 				</ru.fantlab.android.ui.widgets.FlowLayout>

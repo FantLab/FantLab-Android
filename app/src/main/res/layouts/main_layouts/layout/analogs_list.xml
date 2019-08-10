@@ -16,6 +16,7 @@
 		android:layout_height="wrap_content"
 		android:text="@string/similar"
 		style="@style/TextAppearance.AppCompat.Title"
+		android:textColor="?android:attr/textColorTertiary"
 		/>
 
 	<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView

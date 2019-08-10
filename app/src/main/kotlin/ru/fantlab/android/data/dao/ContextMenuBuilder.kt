@@ -109,6 +109,20 @@ object ContextMenuBuilder {
 		return items
 	}
 
+	fun buildForBlogsSorting(context: Context, sortBy: BlogsSortOption): ArrayList<ContextMenus> {
+		val items = ArrayList<ContextMenus>()
+
+		val actions =
+				arrayListOf(
+						ContextMenus.MenuItem(context.getString(R.string.sort_update), R.drawable.ic_time_small, "BY_UPDATE", selected = BlogsSortOption.values()[0] == sortBy),
+						ContextMenus.MenuItem(context.getString(R.string.sort_articles), R.drawable.ic_article, "BY_ARTICLES", selected = BlogsSortOption.values()[1] == sortBy),
+						ContextMenus.MenuItem(context.getString(R.string.sort_subscribers), R.drawable.ic_subscribe, "BY_SUBSCRIBERS", selected = BlogsSortOption.values()[2] == sortBy)
+				)
+		items.add(ContextMenus(context.getString(R.string.select_sort), actions, "main"))
+
+		return items
+	}
+
 	fun buildForMarksCharts(context: Context): ArrayList<ContextMenus> {
 		val items = ArrayList<ContextMenus>()
 

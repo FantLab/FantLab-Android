@@ -96,6 +96,7 @@
 								android:layout_toEndOf="@+id/coverView"
 								tools:text="Игра престолов"
 								style="@style/TextAppearance.AppCompat.Title"
+								android:textColor="?android:attr/textColorTertiary"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -168,7 +169,6 @@
 									android:visibility="gone"
 									app:tint="?android:attr/textColorSecondary"
 									tools:visibility="visible"
-									style="@style/TextAppearance.AppCompat.Caption"
 									/>
 
 								<ru.fantlab.android.ui.widgets.ForegroundImageView
@@ -182,7 +182,6 @@
 									android:visibility="gone"
 									app:tint="?android:attr/textColorSecondary"
 									tools:visibility="visible"
-									style="@style/TextAppearance.AppCompat.Caption"
 									/>
 
 								<ru.fantlab.android.ui.widgets.FontTextView
@@ -238,6 +237,7 @@
 							android:includeFontPadding="false"
 							android:text="@string/about"
 							style="@style/TextAppearance.AppCompat.Title"
+							android:textColor="?android:attr/textColorTertiary"
 							/>
 
 						<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
@@ -279,6 +279,7 @@
 							android:layout_weight="1"
 							android:text="@string/authors"
 							style="@style/TextAppearance.AppCompat.Title"
+							android:textColor="?android:attr/textColorTertiary"
 							/>
 
 						<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -319,6 +320,7 @@
 							android:layout_weight="1"
 							android:text="@string/wins"
 							style="@style/TextAppearance.AppCompat.Title"
+							android:textColor="?android:attr/textColorTertiary"
 							/>
 
 						<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
@@ -359,6 +361,7 @@
 							android:layout_weight="1"
 							android:text="@string/noms"
 							style="@style/TextAppearance.AppCompat.Title"
+							android:textColor="?android:attr/textColorTertiary"
 							/>
 
 						<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView

@@ -94,6 +94,7 @@
 								android:layout_toEndOf="@+id/coverLayout"
 								style="@style/TextAppearance.AppCompat.Title"
 								tools:text="Гиперион"
+								android:textColor="?android:attr/textColorTertiary"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -140,6 +141,7 @@
 							android:layout_marginBottom="@dimen/spacing_micro"
 							android:text="@string/description"
 							style="@style/TextAppearance.AppCompat.Title"
+							android:textColor="?android:attr/textColorTertiary"
 							/>
 
 						<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
@@ -180,6 +182,7 @@
 							android:layout_marginBottom="@dimen/spacing_normal"
 							android:text="@string/information"
 							style="@style/TextAppearance.AppCompat.Title"
+							android:textColor="?android:attr/textColorTertiary"
 							/>
 
 						<LinearLayout
@@ -293,6 +296,7 @@
 							android:layout_marginBottom="@dimen/spacing_normal"
 							android:text="@string/note"
 							style="@style/TextAppearance.AppCompat.Title"
+							android:textColor="?android:attr/textColorTertiary"
 							/>
 
 						<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView

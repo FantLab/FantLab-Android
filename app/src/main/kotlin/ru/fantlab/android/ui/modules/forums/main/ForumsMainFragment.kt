@@ -85,11 +85,16 @@ class ForumsMainFragment : BaseFragment<ForumsMainMvp.View, ForumsMainPresenter>
 		if (holder is ForumsChildViewHolder.ViewHolder) {
 			val parentNode = node.content as ForumsTreeChild?
 			forumsCallback?.openForum(ForumFragment.TAG, parentNode?.forumId ?: -1, holder.title.text.toString(), 0)
-		}
+		} else if (!node.isLeaf) onToggle(!node.isExpand, holder)
 		return false
 	}
 
 	override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
+		val viewHolder = holder as ForumsParentViewHolder.ViewHolder
+		val ivArrow = viewHolder.expandButton
+		val rotateDegree = if (isExpand) 90.0f else -90.0f
+		ivArrow.animate().rotationBy(rotateDegree)
+				.start()
 	}
 
 	override fun onSelected(extra: Int, add: Boolean) {
@@ -121,7 +126,7 @@ class ForumsMainFragment : BaseFragment<ForumsMainMvp.View, ForumsMainPresenter>
 	}
 
 	override fun onRefresh() {
-		hideProgress()
+		presenter.getForum(true)
 	}
 
 	override fun onAttach(context: Context) {

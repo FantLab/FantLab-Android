@@ -60,7 +60,7 @@
 					android:layout_height="24dp"
 					android:layout_marginEnd="16dp"
 					android:src="@drawable/ic_email"
-					app:tint="?icon_color"
+					app:tint="?android:textColorSecondary"
 					style="@style/TextAppearance.AppCompat.Caption"
 					/>
 
@@ -71,7 +71,7 @@
 					android:layout_toEndOf="@+id/supportIcon"
 					android:text="@string/support"
 					style="@style/TextAppearance.AppCompat.Medium"
-					android:textColor="?android:attr/textColorPrimary"
+					android:textColor="?android:textColorTertiary"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -81,8 +81,8 @@
 					android:layout_below="@+id/supportTitle"
 					android:layout_toEndOf="@+id/supportIcon"
 					android:text="@string/support_email"
-					android:textColor="?android:attr/textColorSecondary"
-					style="@style/TextAppearance.AppCompat.Subhead"
+					android:textColor="?android:textColorSecondary"
+					style="@style/TextAppearance.AppCompat.Small"
 					/>
 
 			</RelativeLayout>
@@ -106,7 +106,7 @@
 					android:layout_height="24dp"
 					android:layout_marginEnd="16dp"
 					android:src="@drawable/ic_globe_small"
-					app:tint="?icon_color"
+					app:tint="?android:textColorSecondary"
 					style="@style/TextAppearance.AppCompat.Caption"
 					/>
 
@@ -117,7 +117,7 @@
 					android:layout_toEndOf="@+id/forumIcon"
 					android:text="@string/discuss"
 					style="@style/TextAppearance.AppCompat.Medium"
-					android:textColor="?android:attr/textColorPrimary"
+					android:textColor="?android:textColorTertiary"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -127,8 +127,8 @@
 					android:layout_below="@+id/forumTitle"
 					android:layout_toEndOf="@+id/forumIcon"
 					android:text="@string/discuss_caption"
-					android:textColor="?android:attr/textColorSecondary"
-					style="@style/TextAppearance.AppCompat.Subhead"
+					android:textColor="?android:textColorSecondary"
+					style="@style/TextAppearance.AppCompat.Small"
 					/>
 
 			</RelativeLayout>
@@ -152,7 +152,7 @@
 					android:layout_height="wrap_content"
 					android:layout_marginEnd="16dp"
 					android:src="@drawable/ic_person"
-					app:tint="?icon_color"
+					app:tint="?android:textColorSecondary"
 					style="@style/TextAppearance.AppCompat.Caption"
 					/>
 
@@ -163,7 +163,7 @@
 					android:layout_toEndOf="@+id/developersIcon"
 					android:text="@string/developers"
 					style="@style/TextAppearance.AppCompat.Medium"
-					android:textColor="?android:attr/textColorPrimary"
+					android:textColor="?android:attr/textColorTertiary"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -173,8 +173,8 @@
 					android:layout_below="@+id/developersTitle"
 					android:layout_toEndOf="@+id/developersIcon"
 					android:text="@string/developers_names"
-					android:textColor="?android:attr/textColorSecondary"
-					style="@style/TextAppearance.AppCompat.Subhead"
+					android:textColor="?android:textColorSecondary"
+					style="@style/TextAppearance.AppCompat.Small"
 					/>
 
 			</RelativeLayout>
@@ -198,7 +198,7 @@
 					android:layout_height="24dp"
 					android:layout_marginEnd="16dp"
 					android:src="@drawable/ic_github"
-					app:tint="?icon_color"
+					app:tint="?android:textColorSecondary"
 					style="@style/TextAppearance.AppCompat.Caption"
 					/>
 
@@ -209,7 +209,7 @@
 					android:layout_toEndOf="@+id/githubIcon"
 					android:text="@string/github"
 					style="@style/TextAppearance.AppCompat.Medium"
-					android:textColor="?android:attr/textColorPrimary"
+					android:textColor="?android:attr/textColorTertiary"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -219,8 +219,8 @@
 					android:layout_below="@+id/githubTitle"
 					android:layout_toEndOf="@+id/githubIcon"
 					android:text="@string/github_caption"
-					android:textColor="?android:attr/textColorSecondary"
-					style="@style/TextAppearance.AppCompat.Subhead"
+					android:textColor="?android:textColorSecondary"
+					style="@style/TextAppearance.AppCompat.Small"
 					/>
 
 			</RelativeLayout>
@@ -263,8 +263,7 @@
 					android:layout_height="24dp"
 					android:layout_marginEnd="16dp"
 					android:src="@drawable/ic_version"
-					app:tint="?icon_color"
-					style="@style/TextAppearance.AppCompat.Caption"
+					app:tint="?android:textColorSecondary"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -274,7 +273,7 @@
 					android:layout_toEndOf="@+id/versionIcon"
 					android:text="@string/app_name"
 					style="@style/TextAppearance.AppCompat.Medium"
-					android:textColor="?android:attr/textColorPrimary"
+					android:textColor="?android:attr/textColorTertiary"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
@@ -284,8 +283,8 @@
 					android:layout_below="@+id/versionTitle"
 					android:layout_toEndOf="@+id/versionIcon"
 					android:text="@string/VERSION_NAME"
-					android:textColor="?android:attr/textColorSecondary"
-					style="@style/TextAppearance.AppCompat.Subhead"
+					android:textColor="?android:textColorSecondary"
+					style="@style/TextAppearance.AppCompat.Small"
 					/>
 
 			</RelativeLayout>

@@ -54,6 +54,21 @@ object DataManager {
 					.rxObject(ForumTopicResponse.Deserializer())
 					.map { it.get() }
 
+	fun getCommunities(): Single<CommunitiesResponse> =
+			getCommunitiesPath()
+					.httpGet()
+					.rxObject(CommunitiesResponse.Deserializer())
+					.map { it.get() }
+
+	fun getBlogs(page: Int,
+				 limit: Int,
+				 sortOption: BlogsSortOption
+	): Single<BlogsResponse> =
+			getBlogsPath(page, limit, sortOption)
+					.httpGet()
+					.rxObject(BlogsResponse.Deserializer())
+					.map { it.get() }
+
 	fun getAuthor(
 			id: Int,
 			showBiography: Boolean = false,
@@ -462,6 +477,12 @@ enum class TopicMessagesSortOption(val value: String) {
 	BY_DESCENDING("desc"),
 	BY_ASCENDING("asc")
 }
+
+enum class BlogsSortOption(val value: String) {
+	BY_UPDATE("update"),
+	BY_ARTICLES("article"),
+	BY_SUBSCRIBERS("subscriber")
+}
 //endregion
 
 //region Urls
@@ -474,6 +495,14 @@ fun getAwardsPath(
 ) = "/awards?nonfant=${nonfant.toInt()}&sort=${sortOption.value}".toAbsolutePathWithApiVersion()
 
 fun getForumsPath() = "/v1/forums".toAbsolutePathWithTestApiVersion()
+
+fun getCommunitiesPath() = "/v1/communities".toAbsolutePathWithTestApiVersion()
+
+fun getBlogsPath(
+		page: Int,
+		limit: Int,
+		sortOption: BlogsSortOption
+) = "/v1/blogs?page=$page&limit=$limit&sort=${sortOption.value}".toAbsolutePathWithTestApiVersion()
 
 fun getTopicsPath(
 		id: Int,

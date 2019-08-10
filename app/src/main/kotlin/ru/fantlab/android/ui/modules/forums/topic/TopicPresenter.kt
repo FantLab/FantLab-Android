@@ -42,6 +42,7 @@ class TopicPresenter : BasePresenter<TopicMvp.View>(),
 				Consumer { (messages, lastPage) ->
 					sendToView {
 						this.lastPage = lastPage
+						it.getLoadMore().setTotalPagesCount(lastPage)
 						it.onNotifyAdapter(messages, page)
 					}
 				}

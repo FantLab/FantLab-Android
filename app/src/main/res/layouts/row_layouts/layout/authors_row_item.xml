@@ -57,6 +57,7 @@
 				android:lines="1"
 				tools:text="George R.R. Martin"
 				style="@style/TextAppearance.AppCompat.Title"
+				android:textColor="?android:attr/textColorTertiary"
 				/>
 
 		</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

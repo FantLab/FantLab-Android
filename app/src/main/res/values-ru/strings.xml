@@ -227,4 +227,14 @@
 	<string name="forum_last_title">Подробности в списке тем</string>
 	<string name="topic_order_title">Сортировка сообщений</string>
 	<string name="topic_order_summary">Выбор порядка, в котором будут загружены сообщения темы</string>
+	<string name="communities_list">Рубрики</string>
+	<string name="general_communities">Основные рубрики</string>
+	<string name="additional_communities">Дополнительные рубрики</string>
+	<string name="no_communities">Нет рубрик</string>
+	<string name="blogs_list">Авторские колонки</string>
+	<string name="no_blogs">Нет блогов</string>
+	<string name="sort_update">Дате выхода последней статьи</string>
+	<string name="sort_articles">Количеству статей</string>
+	<string name="sort_subscribers">Количеству подписчиков</string>
+
 </resources>

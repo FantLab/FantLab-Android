@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.accounts_menu_layout.*
 import net.grandcentrix.thirtyinch.TiActivity
 import ru.fantlab.android.App
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.model.User
 import ru.fantlab.android.helper.*
 import ru.fantlab.android.provider.theme.ThemeEngine
 import ru.fantlab.android.ui.base.mvp.BaseMvp
@@ -33,6 +34,7 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.modules.main.MainActivity
 import ru.fantlab.android.ui.modules.settings.SettingsActivity
+import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.widgets.dialog.MessageDialogView
 import ru.fantlab.android.ui.widgets.dialog.ProgressDialogFragment
 import java.util.*
@@ -71,6 +73,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 			extraNav = findViewById(R.id.extrasNav)
 			accountsNav = findViewById(R.id.accountsNav)
 			logout?.setOnClickListener { onLogoutClicked() }
+			profile?.setOnClickListener { onProfileClicked() }
 		}
 		if (!validateAuth()) return
 		showChangelog()
@@ -155,6 +158,14 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	internal fun onLogoutClicked() {
 		closeDrawer()
 		onLogoutPressed()
+	}
+
+	private fun onProfileClicked() {
+		closeDrawer()
+		val userModel: User? = PrefGetter.getLoggedUser()
+		userModel?.let {
+			UserPagerActivity.startActivity(this, it.login, it.id, 0)
+		}
 	}
 
 	protected fun selectMenuItem(@IdRes id: Int, check: Boolean) {
@@ -370,7 +381,6 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 			with(it) {
 				setNavigationItemSelectedListener(this@BaseActivity)
 				menu?.findItem(R.id.sign_in)?.isVisible = !isLoggedIn
-				menu?.findItem(R.id.profile)?.isVisible = isLoggedIn
 			}
 		}
 		mainNavDrawer?.setupViewDrawer()

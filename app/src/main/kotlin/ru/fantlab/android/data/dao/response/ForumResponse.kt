@@ -16,17 +16,16 @@ data class ForumResponse(
 		private val topics: ArrayList<Forum.Topic> = arrayListOf()
 
 		override fun deserialize(content: String): ForumResponse {
-			val forumBlock = JsonParser().parse(content).asJsonObject
-			val array = forumBlock.getAsJsonArray("topics")
+			val forumBlock = DataManager.gson.fromJson(content, Forum::class.java)
+			val array = forumBlock.topics
 			array.map {
-				topics.add(DataManager.gson.fromJson(it, Forum.Topic::class.java))
+				topics.add(it)
 			}
 
-			val `object` = forumBlock.getAsJsonObject("pages")
-			val pagesBlock = DataManager.gson.fromJson(`object`, Forum.Pages::class.java)
+			val pagesBlock = forumBlock.pages
 			val totalCount = pagesBlock.count
 
-			val topics = Pageable(array.size(), array.size() * totalCount, topics)
+			val topics = Pageable(totalCount, pagesBlock.current, topics)
 
 			return ForumResponse(topics)
 		}
