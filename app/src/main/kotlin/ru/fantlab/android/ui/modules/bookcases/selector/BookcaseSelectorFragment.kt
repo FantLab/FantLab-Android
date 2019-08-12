@@ -59,11 +59,11 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
     }
 
     override fun onItemClicked(item: BookcaseSelection, position: Int) {
-        BookcaseViewerActivity.startActivity(activity!!, item.bookcase.id, item.bookcase.name, userId, item.bookcase.type)
+        BookcaseViewerActivity.startActivity(activity!!, item.bookcase.bookcaseId, item.bookcase.bookcaseName, userId, item.bookcase.bookcaseType)
     }
 
     override fun onItemSelected(item: BookcaseSelection, position: Int) {
-        presenter.includeItem(item.bookcase.id, entityId, !item.included)
+        presenter.includeItem(item.bookcase.bookcaseId, entityId, !item.included)
     }
 
     override fun onItemSelectionUpdated() {

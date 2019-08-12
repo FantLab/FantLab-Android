@@ -15,7 +15,7 @@ import ru.fantlab.android.data.dao.response.*
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.provider.rest.getBookcasePath
-import ru.fantlab.android.provider.rest.getUserBookcasesPath
+import ru.fantlab.android.provider.rest.getPersonalBookcasesPath
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import java.util.concurrent.ConcurrentHashMap
@@ -57,8 +57,8 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
         val bookcaseDetails: ConcurrentHashMap<Bookcase, ArrayList<Int>> = ConcurrentHashMap()
         val requests: ArrayList<Observable<Any>> = arrayListOf()
         bookcases!!.forEach { bookcase ->
-            if (bookcase.type == "edition") {
-                val singleObservable: ArrayList<Observable<ArrayList<BookcaseEdition>>> = arrayListOf(getEditionsInternal(force, bookcase.id).toObservable())
+            if (bookcase.bookcaseType == "edition") {
+                val singleObservable: ArrayList<Observable<ArrayList<BookcaseEdition>>> = arrayListOf(getEditionsInternal(force, bookcase.bookcaseId).toObservable())
                 requests.add(Observable.combineLatest(singleObservable) { items ->
                     if (!items.isEmpty()) {
                         bookcaseDetails[bookcase] = ArrayList((items[0] as ArrayList<BookcaseEdition>).map{ item -> item.editionId })
@@ -92,8 +92,8 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
         val bookcaseDetails: ConcurrentHashMap<Bookcase, ArrayList<Int>> = ConcurrentHashMap()
         val requests: ArrayList<Observable<Any>> = arrayListOf()
         bookcases!!.forEach { bookcase ->
-            if (bookcase.type == "work") {
-                val singleObservable: ArrayList<Observable<ArrayList<BookcaseWork>>> = arrayListOf(getWorksInternal(force, bookcase.id).toObservable())
+            if (bookcase.bookcaseType == "work") {
+                val singleObservable: ArrayList<Observable<ArrayList<BookcaseWork>>> = arrayListOf(getWorksInternal(force, bookcase.bookcaseId).toObservable())
                 requests.add(Observable.combineLatest(singleObservable) { items ->
                     if (!items.isEmpty()) {
                         bookcaseDetails[bookcase] = ArrayList((items[0] as ArrayList<BookcaseWork>).map{ item -> item.itemId })
@@ -128,8 +128,8 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
         val bookcaseDetails: ConcurrentHashMap<Bookcase, ArrayList<Int>> = ConcurrentHashMap()
         val requests: ArrayList<Observable<Any>> = arrayListOf()
         bookcases!!.forEach { bookcase ->
-            if (bookcase.type == "film") {
-                val singleObservable: ArrayList<Observable<ArrayList<BookcaseFilm>>> = arrayListOf(getFilmsInternal(force, bookcase.id).toObservable())
+            if (bookcase.bookcaseType == "film") {
+                val singleObservable: ArrayList<Observable<ArrayList<BookcaseFilm>>> = arrayListOf(getFilmsInternal(force, bookcase.bookcaseId).toObservable())
                 requests.add(Observable.combineLatest(singleObservable) { items ->
                     if (!items.isEmpty()) {
                         bookcaseDetails[bookcase] = ArrayList((items[0] as ArrayList<BookcaseFilm>).map{ item -> item.filmId })
@@ -171,13 +171,13 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
                     }
 
     private fun getBookcasesFromServer(userId: Int): Single<Optional<ArrayList<Bookcase>>> =
-            DataManager.getUserBookcases(userId)
+            DataManager.getPersonalBookcases()
                     .map { getBookcases(it) }
 
     private fun getBookcasesFromDb(userId: Int): Single<Optional<ArrayList<Bookcase>>> =
             DbProvider.mainDatabase
                     .responseDao()
-                    .get(getUserBookcasesPath(userId))
+                    .get(getPersonalBookcasesPath())
                     .map { it.response }
                     .map { BookcasesResponse.Deserializer().deserialize(it) }
                     .map { getBookcases(it) }

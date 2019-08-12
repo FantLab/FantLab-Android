@@ -11,7 +11,7 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.response.BookcasesResponse
 import ru.fantlab.android.helper.BundleConstant
-import ru.fantlab.android.provider.rest.getUserBookcasesPath
+import ru.fantlab.android.provider.rest.getPersonalBookcasesPath
 import ru.fantlab.android.provider.storage.DbProvider
 
 class BookcasesOverviewPresenter : BasePresenter<BookcasesOverviewMvp.View>(),
@@ -42,13 +42,13 @@ class BookcasesOverviewPresenter : BasePresenter<BookcasesOverviewMvp.View>(),
                     }
 
     private fun getBookcasesFromServer(userId: Int): Single<Optional<ArrayList<Bookcase>>> =
-            DataManager.getUserBookcases(userId)
+            DataManager.getPersonalBookcases()
                     .map { getBookcases(it) }
 
     private fun getBookcasesFromDb(userId: Int): Single<Optional<ArrayList<Bookcase>>> =
             DbProvider.mainDatabase
                     .responseDao()
-                    .get(getUserBookcasesPath(userId))
+                    .get(getPersonalBookcasesPath())
                     .map { it.response }
                     .map { BookcasesResponse.Deserializer().deserialize(it) }
                     .map { getBookcases(it) }

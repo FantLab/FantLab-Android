@@ -13,7 +13,7 @@ class BookcaseSelectionViewHolder(itemView: View, adapter: BookcaseSelectorAdapt
     : BaseViewHolder<BookcaseSelection>(itemView, adapter) {
 
     override fun bind(bookcase: BookcaseSelection) {
-        itemView.bookcaseName.text = bookcase.bookcase.name
+        itemView.bookcaseName.text = bookcase.bookcase.bookcaseName
         itemView.bookcaseIncluded.isChecked = bookcase.included
         itemView.bookcaseIncluded.setOnClickListener{
             if (adapter != null && (adapter as BookcaseSelectorAdapter).selectionListener != null) {

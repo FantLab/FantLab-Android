@@ -2,7 +2,6 @@ package ru.fantlab.android.ui.modules.bookcases.selector
 
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
-import ru.fantlab.android.data.dao.model.Bookcase
 import ru.fantlab.android.data.dao.model.BookcaseSelection
 import ru.fantlab.android.ui.adapter.viewholder.BookcaseSelectionViewHolder
 import ru.fantlab.android.ui.base.mvp.BaseMvp

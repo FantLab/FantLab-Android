@@ -27,7 +27,7 @@ class BookcaseViewHolder : TreeViewBinder<BookcaseViewHolder.ViewHolder>() {
             onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
     ) {
         val nodeItem = node.content as BookcaseChild?
-        (holder as BookcaseViewHolder.ViewHolder).title.text = nodeItem!!.name
+        (holder as ViewHolder).title.text = nodeItem!!.name
         if (!nodeItem.description.isNullOrEmpty()) {
             holder.description.text = nodeItem.description
         } else holder.description.text = holder.itemView.context.getString(R.string.no_description)

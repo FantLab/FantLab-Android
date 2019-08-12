@@ -196,12 +196,9 @@ object DataManager {
 					.rxObject(ResponsesResponse.Deserializer(perPage = 50))
 					.map { it.get() }
 
-	fun getUserBookcases(
-			userId: Int
+	fun getPersonalBookcases(
 	): Single<BookcasesResponse> =
-			//TODO replace with real call
-			getUserResponsesPath(userId, 0, ResponsesSortOption.BY_DATE)
-			//getUserBookcasesPath(userId, page)
+			getPersonalBookcasesPath()
 					.httpGet()
 					.rxObject(BookcasesResponse.Deserializer())
 					.map { it.get() }
@@ -671,9 +668,8 @@ fun getUserResponsesPath(
 		sortOption: ResponsesSortOption = ResponsesSortOption.BY_DATE
 ) = "/user/$userId/responses?page=$page&sort=${sortOption.value}".toAbsolutePathWithApiVersion()
 
-fun getUserBookcasesPath(
-		userId: Int
-) = "/user/$userId/bookcases".toAbsolutePathWithApiVersion()
+fun getPersonalBookcasesPath(
+) = "/my/bookcases".toAbsolutePathWithApiVersion()
 
 fun getBookcasePath(
 		bookcaseId: Int,

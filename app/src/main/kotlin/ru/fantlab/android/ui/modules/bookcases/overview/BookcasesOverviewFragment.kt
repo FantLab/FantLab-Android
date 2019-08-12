@@ -65,8 +65,8 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
             val categoryNode = TreeNode(BookcaseCategory(category.second))
             nodes.add(categoryNode)
             bookcases.forEach{ bookcase ->
-                if (bookcase.type == category.first) {
-                    nodes[subIndex].addChild(TreeNode(BookcaseChild(bookcase.name, bookcase.description, bookcase.type, bookcase.id)))
+                if (bookcase.bookcaseType == category.first) {
+                    nodes[subIndex].addChild(TreeNode(BookcaseChild(bookcase.bookcaseName, bookcase.bookcaseComment, bookcase.bookcaseType, bookcase.bookcaseId)))
                 }
             }
             categoryNode.expandAll()
@@ -99,7 +99,7 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
     }
 
     override fun onItemClicked(item: Bookcase, position: Int) {
-        BookcaseViewerActivity.startActivity(activity!!, item.id, item.name, userId, item.type)
+        BookcaseViewerActivity.startActivity(activity!!, item.bookcaseId, item.bookcaseName, userId, item.bookcaseType)
     }
 
     override fun onRefresh() {
