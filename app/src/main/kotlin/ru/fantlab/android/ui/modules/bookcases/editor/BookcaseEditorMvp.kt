@@ -17,6 +17,6 @@ interface BookcaseEditorMvp {
 
         fun updateBookcase()
 
-        fun createBookcase(bookcaseType: String, bookcaseName: String, isPublic: Boolean)
+        fun createBookcase(bookcaseType: String, bookcaseName: String, isPublic: Boolean, bookcaseComment: String?)
     }
 }

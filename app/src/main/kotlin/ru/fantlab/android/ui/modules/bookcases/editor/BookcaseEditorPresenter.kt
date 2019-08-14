@@ -12,12 +12,12 @@ class BookcaseEditorPresenter : BasePresenter<BookcaseEditorMvp.View>(), Bookcas
         // TODO: not implemented
     }
 
-    override fun createBookcase(bookcaseType: String, bookcaseName: String, isPublic: Boolean) {
+    override fun createBookcase(bookcaseType: String, bookcaseName: String, isPublic: Boolean, bookcaseComment: String?) {
         val bookcaseNameIsEmpty = InputHelper.isEmpty(bookcaseName)
         sendToView { it.onEmptyBookcaseName(bookcaseNameIsEmpty) }
         if (!bookcaseNameIsEmpty) {
             makeRestCall(
-                    DataManager.createBookcase(bookcaseType, bookcaseName, if (isPublic) "on" else "off").toObservable(),
+                    DataManager.createBookcase(bookcaseType, bookcaseName, if (isPublic) "1" else "0", bookcaseComment).toObservable(),
                     Consumer { response ->
                         val result = CreateBookcaseResponse.Parser().parse(response)
                         if (result != null) {

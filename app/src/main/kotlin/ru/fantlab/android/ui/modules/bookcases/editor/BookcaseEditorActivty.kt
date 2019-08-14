@@ -33,7 +33,10 @@ class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEdito
         categories.add(Pair("films", getString(R.string.bookcase_film_type)))
 
         bookcaseEditSave.setOnClickListener {
-            presenter.createBookcase(convertTypeName(bookcaseType.selectedItem.toString()), InputHelper.toString(bookcaseName), bookcasePublic.isChecked)
+            presenter.createBookcase(convertTypeName(bookcaseType.selectedItem.toString()),
+                    InputHelper.toString(bookcaseName),
+                    bookcasePublic.isChecked,
+                    InputHelper.toString(bookcaseDescription))
         }
         bookcaseEditCancel.setOnClickListener {
             finish()

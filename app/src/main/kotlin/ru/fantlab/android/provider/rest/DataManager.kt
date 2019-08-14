@@ -234,10 +234,11 @@ object DataManager {
 	fun createBookcase(
 			type: String,
 			name: String,
-			publicBookcase: String
+			publicBookcase: String,
+			bookcaseComment: String?
 	): Single<String> =
-			createBookcasePath(type, name, publicBookcase)
-					.httpGet()
+			createBookcasePath(type, name, publicBookcase, bookcaseComment)
+					.httpPost()
 					.rxString()
 					.map { it.get() }
 
@@ -679,8 +680,9 @@ fun getPersonalBookcasePath(
 fun createBookcasePath(
 		type: String,
 		name: String,
-		publicBookcase: String
-) = "/bookcasecreate$type?name=$name&type=$type&shared=$publicBookcase".toAbsolutePath()
+		publicBookcase: String,
+		comment: String?
+) = "/my/bookcases/add?name=$name&type=$type&shared=$publicBookcase&comment=$comment".toAbsolutePathWithApiVersion()
 
 fun deletePersonalBookcasePath(
 		bookcaseId: Int
