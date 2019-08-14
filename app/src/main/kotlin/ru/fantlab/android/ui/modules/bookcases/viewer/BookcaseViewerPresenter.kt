@@ -11,7 +11,7 @@ import ru.fantlab.android.data.dao.response.BookcaseEditionsResponse
 import ru.fantlab.android.data.dao.response.BookcaseFilmsResponse
 import ru.fantlab.android.data.dao.response.BookcaseWorksResponse
 import ru.fantlab.android.data.dao.response.DeleteBookcaseResponse
-import ru.fantlab.android.provider.rest.getBookcasePath
+import ru.fantlab.android.provider.rest.getPersonalBookcasePath
 import ru.fantlab.android.provider.storage.DbProvider
 import timber.log.Timber
 
@@ -26,7 +26,7 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
     }
 
     override fun onCallApi(page: Int, bookcaseId: Int?): Boolean {
-        Timber.d("onCallApi with page=$page")
+        //Timber.d("onCallApi with page=$page")
         if (page == 1) {
             lastPage = Integer.MAX_VALUE
             sendToView { it.getLoadMore().reset() }
@@ -53,7 +53,7 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
 
     override fun deleteBookcase(bookcaseId: Int, userId: Int) {
         makeRestCall(
-                DataManager.deleteBookcase(bookcaseId, userId).toObservable(),
+                DataManager.deletePersonalBookcase(bookcaseId).toObservable(),
                 Consumer { response ->
                     val result = DeleteBookcaseResponse.Parser().parse(response)
                     if (result != null) {
@@ -69,7 +69,7 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
         makeRestCall(
                 getEditionsInternal(force, bookcaseId, page - 1).toObservable(),
                 Consumer { (editions, totalCount, lastPage) ->
-                    Timber.d("Editions received=${editions}, totalCount=${totalCount}, lastPage=${lastPage}")
+                    //Timber.d("Editions received=${editions}, totalCount=${totalCount}, lastPage=${lastPage}")
                     this.lastPage = lastPage
                     sendToView {
                         with (it) {
@@ -91,13 +91,13 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
                     }
 
     private fun getEditionsFromServer(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseEdition>, Int, Int>> =
-            DataManager.getBookcaseEditions(bookcaseId, page * 10)
+            DataManager.getPersonalEditionBookcase(bookcaseId, page * 10)
                     .map { getEditions(it) }
 
     private fun getEditionsFromDb(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseEdition>, Int, Int>> =
             DbProvider.mainDatabase
                     .responseDao()
-                    .get(getBookcasePath(bookcaseId, "edition", page * 10))
+                    .get(getPersonalBookcasePath(bookcaseId, page * 10))
                     .map { it.response }
                     .map { BookcaseEditionsResponse.Deserializer(perPage = 10).deserialize(it) }
                     .map { getEditions(it) }
@@ -130,13 +130,13 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
                     }
 
     private fun getWorksFromServer(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseWork>, Int, Int>> =
-            DataManager.getBookcaseWorks(bookcaseId, page)
+            DataManager.getPersonalWorkBookcase(bookcaseId, page)
                     .map { getWorks(it) }
 
     private fun getWorksFromDb(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseWork>, Int, Int>> =
             DbProvider.mainDatabase
                     .responseDao()
-                    .get(getBookcasePath(bookcaseId, "work", page * 10))
+                    .get(getPersonalBookcasePath(bookcaseId, page * 10))
                     .map { it.response }
                     .map { BookcaseWorksResponse.Deserializer(perPage = 10).deserialize(it) }
                     .map { getWorks(it) }
@@ -169,13 +169,13 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
                     }
 
     private fun getFilmsFromServer(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseFilm>, Int, Int>> =
-            DataManager.getBookcaseFilms(bookcaseId, page * 10)
+            DataManager.getPersonalFilmBookcase(bookcaseId, page * 10)
                     .map { getFilms(it) }
 
     private fun getFilmsFromDb(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseFilm>, Int, Int>> =
             DbProvider.mainDatabase
                     .responseDao()
-                    .get(getBookcasePath(bookcaseId, "film", page * 10))
+                    .get(getPersonalBookcasePath(bookcaseId, page * 10))
                     .map { it.response }
                     .map { BookcaseFilmsResponse.Deserializer(perPage = 10).deserialize(it) }
                     .map { getFilms(it) }

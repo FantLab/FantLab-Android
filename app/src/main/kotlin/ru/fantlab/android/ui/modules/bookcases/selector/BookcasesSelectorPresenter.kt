@@ -14,7 +14,6 @@ import ru.fantlab.android.data.dao.model.*
 import ru.fantlab.android.data.dao.response.*
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
-import ru.fantlab.android.provider.rest.getBookcasePath
 import ru.fantlab.android.provider.rest.getPersonalBookcasesPath
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -58,12 +57,12 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
         val requests: ArrayList<Observable<Any>> = arrayListOf()
         bookcases!!.forEach { bookcase ->
             if (bookcase.bookcaseType == "edition") {
-                val singleObservable: ArrayList<Observable<ArrayList<BookcaseEdition>>> = arrayListOf(getEditionsInternal(force, bookcase.bookcaseId).toObservable())
+                /*val singleObservable: ArrayList<Observable<ArrayList<BookcaseEdition>>> = arrayListOf(getEditionsInternal(force, bookcase.bookcaseId).toObservable())
                 requests.add(Observable.combineLatest(singleObservable) { items ->
                     if (!items.isEmpty()) {
                         bookcaseDetails[bookcase] = ArrayList((items[0] as ArrayList<BookcaseEdition>).map{ item -> item.editionId })
                     }
-                })
+                })*/
             }
         }
         manageDisposable(
@@ -93,12 +92,12 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
         val requests: ArrayList<Observable<Any>> = arrayListOf()
         bookcases!!.forEach { bookcase ->
             if (bookcase.bookcaseType == "work") {
-                val singleObservable: ArrayList<Observable<ArrayList<BookcaseWork>>> = arrayListOf(getWorksInternal(force, bookcase.bookcaseId).toObservable())
+                /*val singleObservable: ArrayList<Observable<ArrayList<BookcaseWork>>> = arrayListOf(getWorksInternal(force, bookcase.bookcaseId).toObservable())
                 requests.add(Observable.combineLatest(singleObservable) { items ->
                     if (!items.isEmpty()) {
                         bookcaseDetails[bookcase] = ArrayList((items[0] as ArrayList<BookcaseWork>).map{ item -> item.itemId })
                     }
-                })
+                })*/
             }
         }
         manageDisposable(
@@ -129,12 +128,12 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
         val requests: ArrayList<Observable<Any>> = arrayListOf()
         bookcases!!.forEach { bookcase ->
             if (bookcase.bookcaseType == "film") {
-                val singleObservable: ArrayList<Observable<ArrayList<BookcaseFilm>>> = arrayListOf(getFilmsInternal(force, bookcase.bookcaseId).toObservable())
+                /*val singleObservable: ArrayList<Observable<ArrayList<BookcaseFilm>>> = arrayListOf(getFilmsInternal(force, bookcase.bookcaseId).toObservable())
                 requests.add(Observable.combineLatest(singleObservable) { items ->
                     if (!items.isEmpty()) {
                         bookcaseDetails[bookcase] = ArrayList((items[0] as ArrayList<BookcaseFilm>).map{ item -> item.filmId })
                     }
-                })
+                })*/
             }
         }
         manageDisposable(
@@ -213,7 +212,7 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
 
     // TODO: The next code is copypasted from Viewer presenter, should be replaced with adequate API call
 
-    private fun getEditionsInternal(force: Boolean, bookcaseId: Int) =
+    /*private fun getEditionsInternal(force: Boolean, bookcaseId: Int) =
             getEditionsFromServer(bookcaseId)
                     .onErrorResumeNext { throwable ->
                         if (!force) {
@@ -283,6 +282,6 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
                     .map { BookcaseFilmsResponse.Deserializer(perPage = 50).deserialize(it) }
                     .map { getFilms(it) }
 
-    private fun getFilms(response: BookcaseFilmsResponse): ArrayList<BookcaseFilm> = response.films.items
+    private fun getFilms(response: BookcaseFilmsResponse): ArrayList<BookcaseFilm> = response.films.items*/
 
 }

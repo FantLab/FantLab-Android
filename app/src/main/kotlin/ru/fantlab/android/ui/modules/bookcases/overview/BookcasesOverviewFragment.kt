@@ -22,6 +22,7 @@ import ru.fantlab.android.ui.modules.bookcases.viewer.BookcaseViewerActivity
 import ru.fantlab.android.ui.modules.user.UserPagerMvp
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
+import timber.log.Timber
 import java.util.*
 
 class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, BookcasesOverviewPresenter>(),
@@ -72,30 +73,31 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
             categoryNode.expandAll()
         }
         val adapter = TreeViewAdapter(nodes, Arrays.asList(BookcaseViewHolder(), BookcaseHeaderViewHolder()))
-        if (recycler.adapter == null)
+        if (recycler.adapter == null) {
             recycler.adapter = adapter
-        else
-            adapter.notifyDataSetChanged()
-        adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
-            override fun onSelected(extra: Int, add: Boolean) {
-            }
-
-            override fun onClick(node: TreeNode<*>, holder: RecyclerView.ViewHolder): Boolean {
-                if (!node.isLeaf) {
-                    onToggle(!node.isExpand, holder)
-                } else if (node.isLeaf && node.content is BookcaseCategory) {
-                    return false
-                } else {
-                    val item = node.content as BookcaseChild
-                    BookcaseViewerActivity.startActivity(activity!!, item.id, item.name, userId, item.type)
+            adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
+                override fun onSelected(extra: Int, add: Boolean) {
                 }
-                return false
-            }
 
-            override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
-            }
-        })
-        fastScroller.attachRecyclerView(recycler)
+                override fun onClick(node: TreeNode<*>, holder: RecyclerView.ViewHolder): Boolean {
+                    if (!node.isLeaf) {
+                        onToggle(!node.isExpand, holder)
+                    } else if (node.isLeaf && node.content is BookcaseCategory) {
+                        return false
+                    } else {
+                        val item = node.content as BookcaseChild
+                        BookcaseViewerActivity.startActivity(activity!!, item.id, item.name, userId, item.type)
+                    }
+                    return false
+                }
+
+                override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
+                }
+            })
+            fastScroller.attachRecyclerView(recycler)
+        }
+        else
+            (recycler.adapter as TreeViewAdapter).refresh(nodes)
     }
 
     override fun onItemClicked(item: Bookcase, position: Int) {

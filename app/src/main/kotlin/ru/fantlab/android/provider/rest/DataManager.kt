@@ -1,6 +1,7 @@
 package ru.fantlab.android.provider.rest
 
 import com.github.kittinunf.fuel.core.Response
+import com.github.kittinunf.fuel.httpDelete
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.fuel.rx.rxObject
@@ -203,29 +204,29 @@ object DataManager {
 					.rxObject(BookcasesResponse.Deserializer())
 					.map { it.get() }
 
-	fun getBookcaseEditions(
+	fun getPersonalEditionBookcase(
 			bookcaseId: Int,
 			offset: Int = 0
 	): Single<BookcaseEditionsResponse> =
-			getBookcasePath(bookcaseId, "edition", offset)
+			getPersonalBookcasePath(bookcaseId, offset)
 					.httpGet()
 					.rxObject(BookcaseEditionsResponse.Deserializer(perPage = 10))
 					.map { it.get() }
 
-	fun getBookcaseWorks(
+	fun getPersonalWorkBookcase(
 			bookcaseId: Int,
 			offset: Int = 0
 	): Single<BookcaseWorksResponse> =
-			getBookcasePath(bookcaseId, "work", offset)
+			getPersonalBookcasePath(bookcaseId, offset)
 					.httpGet()
 					.rxObject(BookcaseWorksResponse.Deserializer(perPage = 10))
 					.map { it.get() }
 
-	fun getBookcaseFilms(
+	fun getPersonalFilmBookcase(
 			bookcaseId: Int,
 			offset: Int = 0
 	): Single<BookcaseFilmsResponse> =
-			getBookcasePath(bookcaseId, "film", offset)
+			getPersonalBookcasePath(bookcaseId, offset)
 					.httpGet()
 					.rxObject(BookcaseFilmsResponse.Deserializer(perPage = 10))
 					.map { it.get() }
@@ -240,12 +241,11 @@ object DataManager {
 					.rxString()
 					.map { it.get() }
 
-	fun deleteBookcase(
-			bookcaseId: Int,
-			userId: Int
+	fun deletePersonalBookcase(
+			bookcaseId: Int
 	): Single<String> =
-			deleteBookcasePath(bookcaseId, userId)
-					.httpGet()
+			deletePersonalBookcasePath(bookcaseId)
+					.httpDelete()
 					.rxString()
 					.map { it.get() }
 
@@ -671,11 +671,10 @@ fun getUserResponsesPath(
 fun getPersonalBookcasesPath(
 ) = "/my/bookcases".toAbsolutePathWithApiVersion()
 
-fun getBookcasePath(
+fun getPersonalBookcasePath(
 		bookcaseId: Int,
-		bookcaseType: String,
 		offset: Int = 0
-) = "/bookcasechange$bookcaseId?offset=$offset&type=$bookcaseType".toAbsolutePath()
+) = "/my/bookcases/$bookcaseId?offset=$offset".toAbsolutePathWithApiVersion()
 
 fun createBookcasePath(
 		type: String,
@@ -683,10 +682,9 @@ fun createBookcasePath(
 		publicBookcase: String
 ) = "/bookcasecreate$type?name=$name&type=$type&shared=$publicBookcase".toAbsolutePath()
 
-fun deleteBookcasePath(
-		bookcaseId: Int,
-		userId: Int
-) = "/user/$userId/bookcases/deletebookcase$bookcaseId".toAbsolutePath()
+fun deletePersonalBookcasePath(
+		bookcaseId: Int
+) = "/my/bookcases/$bookcaseId/delete".toAbsolutePathWithApiVersion()
 
 fun includeItemToBookcasePath(
 		bookcaseId: Int,
