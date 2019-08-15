@@ -31,7 +31,7 @@ interface BookcasesSelectorMvp {
 
         fun onFragmentCreated(bundle: Bundle)
 
-        fun getBookcases(userId: Int, bookcaseType: String, entityId: Int, force: Boolean)
+        fun getBookcases(bookcaseType: String, entityId: Int, force: Boolean)
 
         fun includeItem(bookcaseId: Int, entityId: Int, include: Boolean)
     }

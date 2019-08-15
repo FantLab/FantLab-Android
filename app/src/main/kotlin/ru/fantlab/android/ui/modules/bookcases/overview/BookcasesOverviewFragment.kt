@@ -28,7 +28,6 @@ import java.util.*
 class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, BookcasesOverviewPresenter>(),
         BookcasesOverviewMvp.View {
 
-    @State var userId: Int = -1
     private var countCallback: UserPagerMvp.View? = null
     private var categories: ArrayList<Pair<String, String>> = arrayListOf()
 
@@ -44,12 +43,11 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
         if (savedInstanceState == null) {
             stateLayout.hideProgress()
         }
-        userId = arguments!!.getInt(BundleConstant.EXTRA)
         stateLayout.setEmptyText(R.string.no_bookcases)
         stateLayout.setOnReloadListener(this)
         refresh.setOnRefreshListener(this)
         recycler.setEmptyView(stateLayout, refresh)
-        presenter.onFragmentCreated(arguments!!)
+        presenter.onFragmentCreated()
     }
 
     override fun onInitViews(items: ArrayList<Bookcase>?) {
@@ -93,7 +91,6 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
                         BookcaseViewerActivity.startActivity(activity!!,
                                 item.id,
                                 item.name,
-                                userId,
                                 item.type,
                                 item.description ?: "",
                                 item.shared)
@@ -114,14 +111,13 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
         BookcaseViewerActivity.startActivity(activity!!,
                 item.bookcaseId,
                 item.bookcaseName,
-                userId,
                 item.bookcaseType,
                 item.bookcaseComment ?: "",
                 item.bookcaseShared)
     }
 
     override fun onRefresh() {
-        presenter.getBookcases(userId, true)
+        presenter.getBookcases(true)
     }
 
     override fun onClick(v: View?) {
@@ -166,10 +162,8 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
 
     companion object {
 
-        fun newInstance(userId: Int): BookcasesOverviewFragment {
-            val view = BookcasesOverviewFragment()
-            view.arguments = Bundler.start().put(BundleConstant.EXTRA, userId).end()
-            return view
+        fun newInstance(): BookcasesOverviewFragment {
+            return BookcasesOverviewFragment()
         }
     }
 

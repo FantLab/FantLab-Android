@@ -136,4 +136,23 @@ class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEdito
 
         return Pair("work", getString(R.string.bookcase_work_type))
     }
+
+    companion object {
+        fun startActivityForUpdate(activity: Activity,
+                          bookcaseId: Int,
+                          bookcaseName: String,
+                          bookcaseType: String,
+                          bookcaseDescription: String,
+                          bookcaseShared: Int) {
+            val intent = Intent(activity, BookcaseEditorActivty::class.java)
+            intent
+                    .putExtra(BundleConstant.EXTRA, true)
+                    .putExtra(BundleConstant.EXTRA_TWO, bookcaseId)
+                    .putExtra(BundleConstant.EXTRA_THREE, bookcaseName)
+                    .putExtra(BundleConstant.EXTRA_FOUR, bookcaseType)
+                    .putExtra(BundleConstant.EXTRA_FIVE, bookcaseDescription)
+                    .putExtra(BundleConstant.EXTRA_SIX, bookcaseShared)
+            activity.startActivityForResult(intent, BundleConstant.BOOKCASE_EDITOR)
+        }
+    }
 }

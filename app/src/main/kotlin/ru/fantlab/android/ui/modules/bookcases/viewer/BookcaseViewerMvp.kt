@@ -38,6 +38,6 @@ interface BookcaseViewerMvp {
 
         fun getFilms(force: Boolean, bookcaseId: Int, page: Int)
 
-        fun deleteBookcase(bookcaseId: Int, userId: Int)
+        fun deleteBookcase(bookcaseId: Int)
     }
 }

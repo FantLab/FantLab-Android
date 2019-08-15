@@ -23,15 +23,14 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
         BookcasesSelectorMvp.Presenter {
 
     override fun onFragmentCreated(bundle: Bundle) {
-        val userId = bundle.getInt(BundleConstant.EXTRA)
         val bookcaseType = bundle.getString(BundleConstant.EXTRA_TWO)
         val entityId = bundle.getInt(BundleConstant.EXTRA_THREE)
-        getBookcases(userId, bookcaseType, entityId, false)
+        getBookcases(bookcaseType, entityId, false)
     }
 
-    override fun getBookcases(userId: Int, bookcaseType: String, entityId: Int, force: Boolean) {
+    override fun getBookcases(bookcaseType: String, entityId: Int, force: Boolean) {
         makeRestCall(
-                getBookcasesInternal(userId, force).toObservable(),
+                getBookcasesInternal(force).toObservable(),
                 Consumer { bookcases ->
                     if (bookcases == null) {
                         sendToView { it.onInitViews(null) }
@@ -159,21 +158,21 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
 
     }
 
-    private fun getBookcasesInternal(userId: Int, force: Boolean) =
-            getBookcasesFromServer(userId)
+    private fun getBookcasesInternal(force: Boolean) =
+            getBookcasesFromServer()
                     .onErrorResumeNext { throwable ->
                         if (!force) {
-                            getBookcasesFromDb(userId)
+                            getBookcasesFromDb()
                         } else {
                             throw throwable
                         }
                     }
 
-    private fun getBookcasesFromServer(userId: Int): Single<Optional<ArrayList<Bookcase>>> =
+    private fun getBookcasesFromServer(): Single<Optional<ArrayList<Bookcase>>> =
             DataManager.getPersonalBookcases()
                     .map { getBookcases(it) }
 
-    private fun getBookcasesFromDb(userId: Int): Single<Optional<ArrayList<Bookcase>>> =
+    private fun getBookcasesFromDb(): Single<Optional<ArrayList<Bookcase>>> =
             DbProvider.mainDatabase
                     .responseDao()
                     .get(getPersonalBookcasesPath())

@@ -52,7 +52,7 @@ data class FragmentPagerAdapterModel(
 					FragmentPagerAdapterModel(context.getString(R.string.overview), ProfileOverviewFragment.newInstance(userId), context.getString(R.string.overview)),
 					FragmentPagerAdapterModel(context.getString(R.string.marks), ProfileMarksFragment.newInstance(userId), context.getString(R.string.marks)),
 					FragmentPagerAdapterModel(context.getString(R.string.responses), ProfileResponsesFragment.newInstance(userId), context.getString(R.string.responses)),
-					FragmentPagerAdapterModel(context.getString(R.string.bookcases), BookcasesOverviewFragment.newInstance(userId), context.getString(R.string.bookcases))
+					FragmentPagerAdapterModel(context.getString(R.string.bookcases), BookcasesOverviewFragment.newInstance(), context.getString(R.string.bookcases))
 			)
 		}
 
@@ -97,7 +97,7 @@ data class FragmentPagerAdapterModel(
 					FragmentPagerAdapterModel(context.getString(R.string.classification), WorkClassificationFragment.newInstance(workId), context.getString(R.string.classification)),
 					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId), context.getString(R.string.responses)),
 					FragmentPagerAdapterModel(context.getString(R.string.editions), WorkEditionsFragment.newInstance(workId), context.getString(R.string.editions)),
-					FragmentPagerAdapterModel(context.getString(R.string.my_bookcases), BookcaseSelectorFragment.newInstance(userId, "work", workId), context.getString(R.string.my_bookcases))
+					FragmentPagerAdapterModel(context.getString(R.string.my_bookcases), BookcaseSelectorFragment.newInstance("work", workId), context.getString(R.string.my_bookcases))
 			)
 		}
 
@@ -121,7 +121,7 @@ data class FragmentPagerAdapterModel(
 			return mutableListOf(
 					FragmentPagerAdapterModel(context.getString(R.string.overview), EditionOverviewFragment.newInstance(editionId), context.getString(R.string.overview)),
 					FragmentPagerAdapterModel(context.getString(R.string.content), EditionContentFragment.newInstance(editionId), context.getString(R.string.content)),
-					FragmentPagerAdapterModel(context.getString(R.string.my_bookcases), BookcaseSelectorFragment.newInstance(userId, "edition", editionId), context.getString(R.string.my_bookcases))
+					FragmentPagerAdapterModel(context.getString(R.string.my_bookcases), BookcaseSelectorFragment.newInstance("edition", editionId), context.getString(R.string.my_bookcases))
 			)
 		}
 

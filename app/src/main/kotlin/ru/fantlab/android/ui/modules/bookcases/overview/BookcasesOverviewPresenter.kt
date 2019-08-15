@@ -17,35 +17,34 @@ import ru.fantlab.android.provider.storage.DbProvider
 class BookcasesOverviewPresenter : BasePresenter<BookcasesOverviewMvp.View>(),
         BookcasesOverviewMvp.Presenter {
 
-    override fun onFragmentCreated(bundle: Bundle) {
-        val userId = bundle.getInt(BundleConstant.EXTRA)
-        getBookcases(userId, false)
+    override fun onFragmentCreated() {
+        getBookcases(false)
     }
 
-    override fun getBookcases(userId: Int, force: Boolean) {
+    override fun getBookcases(force: Boolean) {
         makeRestCall(
-                getBookcasesInternal(userId, force).toObservable(),
+                getBookcasesInternal(force).toObservable(),
                 Consumer { bookcases ->
                     sendToView { it.onInitViews(bookcases.toNullable()) }
                 }
         )
     }
 
-    private fun getBookcasesInternal(userId: Int, force: Boolean) =
-            getBookcasesFromServer(userId)
+    private fun getBookcasesInternal(force: Boolean) =
+            getBookcasesFromServer()
                     .onErrorResumeNext { throwable ->
                         if (!force) {
-                            getBookcasesFromDb(userId)
+                            getBookcasesFromDb()
                         } else {
                             throw throwable
                         }
                     }
 
-    private fun getBookcasesFromServer(userId: Int): Single<Optional<ArrayList<Bookcase>>> =
+    private fun getBookcasesFromServer(): Single<Optional<ArrayList<Bookcase>>> =
             DataManager.getPersonalBookcases()
                     .map { getBookcases(it) }
 
-    private fun getBookcasesFromDb(userId: Int): Single<Optional<ArrayList<Bookcase>>> =
+    private fun getBookcasesFromDb(): Single<Optional<ArrayList<Bookcase>>> =
             DbProvider.mainDatabase
                     .responseDao()
                     .get(getPersonalBookcasesPath())

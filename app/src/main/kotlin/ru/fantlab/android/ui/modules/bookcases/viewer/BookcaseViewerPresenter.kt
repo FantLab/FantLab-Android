@@ -49,7 +49,7 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
         return true
     }
 
-    override fun deleteBookcase(bookcaseId: Int, userId: Int) {
+    override fun deleteBookcase(bookcaseId: Int) {
         makeRestCall(
                 DataManager.deletePersonalBookcase(bookcaseId).toObservable(),
                 Consumer { response ->

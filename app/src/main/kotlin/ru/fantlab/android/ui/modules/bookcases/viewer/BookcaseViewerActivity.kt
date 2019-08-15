@@ -34,7 +34,6 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
     @State var bookcaseType: String = ""
     @State var bookcaseDescription: String = ""
     @State var bookcaseShared: Int = 0
-    @State var userId: Int = -1
 
     private val editionsAdapter: BookcaseEditionsAdapter by lazy { BookcaseEditionsAdapter(arrayListOf()) }
     private val worksAdapter: BookcaseWorksAdapter by lazy { BookcaseWorksAdapter(arrayListOf()) }
@@ -57,12 +56,11 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
         if (savedInstanceState == null) {
             bookcaseId = intent?.extras?.getInt(BundleConstant.EXTRA, -1) ?: -1
             bookcaseName = intent?.extras?.getString(BundleConstant.EXTRA_TWO, "") ?: ""
-            userId = intent?.extras?.getInt(BundleConstant.EXTRA_THREE, -1) ?: -1
             bookcaseType = intent?.extras?.getString(BundleConstant.EXTRA_FOUR, "") ?: ""
             bookcaseDescription = intent?.extras?.getString(BundleConstant.EXTRA_FIVE, "") ?: ""
             bookcaseShared = intent?.extras?.getInt(BundleConstant.EXTRA_SIX, -1) ?: -1
         }
-        if (bookcaseId == -1 || userId == -1) {
+        if (bookcaseId == -1) {
             finish()
             return
         }
@@ -106,15 +104,8 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.bookcaseEdit -> {
-                val intent = Intent(this, BookcaseEditorActivty::class.java)
-                intent
-                    .putExtra(BundleConstant.EXTRA, true)
-                    .putExtra(BundleConstant.EXTRA_TWO, bookcaseId)
-                    .putExtra(BundleConstant.EXTRA_THREE, bookcaseName)
-                    .putExtra(BundleConstant.EXTRA_FOUR, bookcaseType)
-                    .putExtra(BundleConstant.EXTRA_FIVE, bookcaseDescription)
-                    .putExtra(BundleConstant.EXTRA_SIX, bookcaseShared)
-                startActivityForResult(intent, BundleConstant.BOOKCASE_EDITOR)
+                BookcaseEditorActivty.startActivityForUpdate(this, bookcaseId, bookcaseName,
+                        bookcaseType, bookcaseDescription, bookcaseShared)
             }
             R.id.bookcaseDelete -> {
                 MessageDialogView.newInstance(
@@ -134,7 +125,7 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
         if (isOk && bundle != null) {
             val deletion = bundle.getBoolean("bookcase_deletion")
             if (deletion) {
-                presenter.deleteBookcase(bookcaseId, userId)
+                presenter.deleteBookcase(bookcaseId)
             }
         }
     }
@@ -247,7 +238,6 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
         fun startActivity(activity: Activity,
                           bookcaseId: Int,
                           bookcaseName: String,
-                          userId: Int,
                           bookcaseType: String,
                           bookcaseDescription: String,
                           bookcaseShared: Int) {
@@ -255,7 +245,6 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
             intent.putExtras(Bundler.start()
                     .put(BundleConstant.EXTRA, bookcaseId)
                     .put(BundleConstant.EXTRA_TWO, bookcaseName)
-                    .put(BundleConstant.EXTRA_THREE, userId)
                     .put(BundleConstant.EXTRA_FOUR, bookcaseType)
                     .put(BundleConstant.EXTRA_FIVE, bookcaseDescription)
                     .put(BundleConstant.EXTRA_SIX, bookcaseShared)

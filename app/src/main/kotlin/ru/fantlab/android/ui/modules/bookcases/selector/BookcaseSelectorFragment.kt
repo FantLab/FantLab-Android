@@ -18,7 +18,6 @@ import ru.fantlab.android.ui.modules.bookcases.viewer.BookcaseViewerActivity
 class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, BookcasesSelectorPresenter>(),
         BookcasesSelectorMvp.View {
 
-    @State var userId: Int = -1
     @State var bookcaseType: String = ""
     @State var entityId: Int = -1
 
@@ -33,7 +32,6 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
         if (savedInstanceState == null) {
             stateLayout.hideProgress()
         }
-        userId = arguments!!.getInt(BundleConstant.EXTRA)
         bookcaseType = arguments!!.getString(BundleConstant.EXTRA_TWO)
         entityId = arguments!!.getInt(BundleConstant.EXTRA_THREE)
         stateLayout.setEmptyText(R.string.no_bookcases)
@@ -62,7 +60,6 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
         BookcaseViewerActivity.startActivity(activity!!,
                 item.bookcase.bookcaseId,
                 item.bookcase.bookcaseName,
-                userId,
                 item.bookcase.bookcaseType,
                 item.bookcase.bookcaseComment ?: "",
                 item.bookcase.bookcaseShared)
@@ -77,7 +74,7 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
     }
 
     override fun onRefresh() {
-        presenter.getBookcases(userId, bookcaseType, entityId, true)
+        presenter.getBookcases(bookcaseType, entityId, true)
     }
 
     override fun onClick(v: View?) {
@@ -110,12 +107,11 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
 
     companion object {
 
-        fun newInstance(userId: Int, bookcaseType: String, id: Int): BookcaseSelectorFragment {
+        fun newInstance(bookcaseType: String, itemId: Int): BookcaseSelectorFragment {
             val view = BookcaseSelectorFragment()
             view.arguments = Bundler.start()
-                    .put(BundleConstant.EXTRA, userId)
                     .put(BundleConstant.EXTRA_TWO, bookcaseType)
-                    .put(BundleConstant.EXTRA_THREE, id)
+                    .put(BundleConstant.EXTRA_THREE, itemId)
                     .end()
             return view
         }
