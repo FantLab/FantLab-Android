@@ -219,8 +219,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 				fragment?.showChartsDialog()
 			}
 			getString(R.string.bookcases) -> {
-				startActivityForResult(Intent(this, BookcaseEditorActivty::class.java)
-						.putExtra(BundleConstant.EXTRA, false), BundleConstant.BOOKCASE_EDITOR)
+				BookcaseEditorActivty.startActivityForCreation(this)
 			}
 		}
 	}

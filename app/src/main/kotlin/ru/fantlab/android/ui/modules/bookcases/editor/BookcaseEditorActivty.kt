@@ -154,5 +154,10 @@ class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEdito
                     .putExtra(BundleConstant.EXTRA_SIX, bookcaseShared)
             activity.startActivityForResult(intent, BundleConstant.BOOKCASE_EDITOR)
         }
+
+        fun startActivityForCreation(activity: Activity) {
+            activity.startActivityForResult(Intent(activity, BookcaseEditorActivty::class.java)
+                    .putExtra(BundleConstant.EXTRA, false), BundleConstant.BOOKCASE_EDITOR)
+        }
     }
 }
