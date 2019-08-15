@@ -24,6 +24,7 @@ import ru.fantlab.android.ui.adapter.BookcaseEditionsAdapter
 import ru.fantlab.android.ui.adapter.BookcaseFilmsAdapter
 import ru.fantlab.android.ui.adapter.BookcaseWorksAdapter
 import ru.fantlab.android.ui.base.BaseActivity
+import ru.fantlab.android.ui.modules.bookcases.editor.BookcaseEditorActivty
 import ru.fantlab.android.ui.widgets.dialog.MessageDialogView
 
 class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseViewerPresenter>(), BookcaseViewerMvp.View {
@@ -31,6 +32,8 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
     @State var bookcaseId: Int = 0
     @State var bookcaseName: String = ""
     @State var bookcaseType: String = ""
+    @State var bookcaseDescription: String = ""
+    @State var bookcaseShared: Int = 0
     @State var userId: Int = -1
 
     private val editionsAdapter: BookcaseEditionsAdapter by lazy { BookcaseEditionsAdapter(arrayListOf()) }
@@ -56,6 +59,8 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
             bookcaseName = intent?.extras?.getString(BundleConstant.EXTRA_TWO, "") ?: ""
             userId = intent?.extras?.getInt(BundleConstant.EXTRA_THREE, -1) ?: -1
             bookcaseType = intent?.extras?.getString(BundleConstant.EXTRA_FOUR, "") ?: ""
+            bookcaseDescription = intent?.extras?.getString(BundleConstant.EXTRA_FIVE, "") ?: ""
+            bookcaseShared = intent?.extras?.getInt(BundleConstant.EXTRA_SIX, -1) ?: -1
         }
         if (bookcaseId == -1 || userId == -1) {
             finish()
@@ -101,7 +106,15 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.bookcaseEdit -> {
-                // TODO not implemented
+                val intent = Intent(this, BookcaseEditorActivty::class.java)
+                intent
+                    .putExtra(BundleConstant.EXTRA, true)
+                    .putExtra(BundleConstant.EXTRA_TWO, bookcaseId)
+                    .putExtra(BundleConstant.EXTRA_THREE, bookcaseName)
+                    .putExtra(BundleConstant.EXTRA_FOUR, bookcaseType)
+                    .putExtra(BundleConstant.EXTRA_FIVE, bookcaseDescription)
+                    .putExtra(BundleConstant.EXTRA_SIX, bookcaseShared)
+                startActivityForResult(intent, BundleConstant.BOOKCASE_EDITOR)
             }
             R.id.bookcaseDelete -> {
                 MessageDialogView.newInstance(
@@ -193,6 +206,18 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == BundleConstant.BOOKCASE_EDITOR) {
+                bookcaseName = data?.extras?.getString(BundleConstant.EXTRA_THREE, "") ?: ""
+                bookcaseDescription = data?.extras?.getString(BundleConstant.EXTRA_FIVE, "") ?: ""
+                bookcaseShared = data?.extras?.getInt(BundleConstant.EXTRA_SIX, 0) ?: 1
+                title = bookcaseName
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
     override fun onClick(v: View?) {
         onRefresh()
     }
@@ -219,13 +244,21 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
 
     companion object {
 
-        fun startActivity(activity: Activity, bookcaseId: Int, bookcaseName: String, userId: Int, bookcaseType: String) {
+        fun startActivity(activity: Activity,
+                          bookcaseId: Int,
+                          bookcaseName: String,
+                          userId: Int,
+                          bookcaseType: String,
+                          bookcaseDescription: String,
+                          bookcaseShared: Int) {
             val intent = Intent(activity, BookcaseViewerActivity::class.java)
             intent.putExtras(Bundler.start()
                     .put(BundleConstant.EXTRA, bookcaseId)
                     .put(BundleConstant.EXTRA_TWO, bookcaseName)
                     .put(BundleConstant.EXTRA_THREE, userId)
                     .put(BundleConstant.EXTRA_FOUR, bookcaseType)
+                    .put(BundleConstant.EXTRA_FIVE, bookcaseDescription)
+                    .put(BundleConstant.EXTRA_SIX, bookcaseShared)
                     .end())
             activity.startActivityForResult(intent, BundleConstant.BOOKCASE_VIEWER)
         }

@@ -220,7 +220,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 			}
 			getString(R.string.bookcases) -> {
 				startActivityForResult(Intent(this, BookcaseEditorActivty::class.java)
-						.putExtra(BundleConstant.ID, userId), BundleConstant.BOOKCASE_EDITOR)
+						.putExtra(BundleConstant.EXTRA, false), BundleConstant.BOOKCASE_EDITOR)
 			}
 		}
 	}

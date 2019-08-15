@@ -13,7 +13,6 @@ import ru.fantlab.android.data.dao.response.BookcaseWorksResponse
 import ru.fantlab.android.data.dao.response.DeleteBookcaseResponse
 import ru.fantlab.android.provider.rest.getPersonalBookcasePath
 import ru.fantlab.android.provider.storage.DbProvider
-import timber.log.Timber
 
 class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), BookcaseViewerMvp.Presenter {
     private var page: Int = 1
@@ -26,7 +25,6 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
     }
 
     override fun onCallApi(page: Int, bookcaseId: Int?): Boolean {
-        //Timber.d("onCallApi with page=$page")
         if (page == 1) {
             lastPage = Integer.MAX_VALUE
             sendToView { it.getLoadMore().reset() }
@@ -69,7 +67,6 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
         makeRestCall(
                 getEditionsInternal(force, bookcaseId, page - 1).toObservable(),
                 Consumer { (editions, totalCount, lastPage) ->
-                    //Timber.d("Editions received=${editions}, totalCount=${totalCount}, lastPage=${lastPage}")
                     this.lastPage = lastPage
                     sendToView {
                         with (it) {

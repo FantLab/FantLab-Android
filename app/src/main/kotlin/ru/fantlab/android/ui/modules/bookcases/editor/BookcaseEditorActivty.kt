@@ -1,22 +1,29 @@
 package ru.fantlab.android.ui.modules.bookcases.editor
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.StringRes
 import ru.fantlab.android.R
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.evernote.android.state.State
 import es.dmoral.toasty.Toasty
 import ru.fantlab.android.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.bookcase_editor_layout.*
 import ru.fantlab.android.helper.AnimHelper
+import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
+import ru.fantlab.android.ui.modules.bookcases.viewer.BookcaseViewerActivity
 import java.util.ArrayList
 
 class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEditorPresenter>(), BookcaseEditorMvp.View {
+    private var editorMode: Boolean = false
 
     private var categories: ArrayList<Pair<String, String>> = arrayListOf()
+    private var storedBookcaseId: Int = 0
 
     override fun isTransparent(): Boolean = true
 
@@ -28,21 +35,50 @@ class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEdito
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        editorMode = intent?.extras?.getBoolean(BundleConstant.EXTRA, false) ?: false
+
+        if (editorMode) {
+            storedBookcaseId = intent?.extras?.getInt(BundleConstant.EXTRA_TWO, -1) ?: -1
+        }
+        if (editorMode && storedBookcaseId == -1) {
+            finish()
+            return
+        }
+
         categories.add(Pair("work", getString(R.string.bookcase_work_type)))
         categories.add(Pair("edition", getString(R.string.bookcase_edition_type)))
-        categories.add(Pair("films", getString(R.string.bookcase_film_type)))
+        categories.add(Pair("film", getString(R.string.bookcase_film_type)))
 
-        bookcaseEditSave.setOnClickListener {
-            presenter.createBookcase(convertTypeName(bookcaseType.selectedItem.toString()),
-                    InputHelper.toString(bookcaseName),
-                    bookcasePublic.isChecked,
-                    InputHelper.toString(bookcaseDescription))
-        }
         bookcaseEditCancel.setOnClickListener {
             finish()
         }
         bookcaseType.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, categories.map { it.second })
-        title = getString(R.string.bookcase_creation_title)
+        if (editorMode) {
+            title = getString(R.string.bookcase_update_title)
+
+            bookcaseName.editText?.setText(intent?.extras?.getString(BundleConstant.EXTRA_THREE, "") ?: "")
+            bookcaseDescription.editText?.setText(intent?.extras?.getString(BundleConstant.EXTRA_FIVE, "") ?: "")
+            bookcasePublic.isChecked = ((intent?.extras?.getInt(BundleConstant.EXTRA_SIX, 0) ?: 1) == 1)
+            bookcaseType.setSelection(categories.indexOf(getTypeObject(intent?.extras?.getString(BundleConstant.EXTRA_FOUR, "") ?: "")))
+            bookcaseType.isEnabled = false
+
+            bookcaseEditSave.setOnClickListener {
+                presenter.updateBookcase(storedBookcaseId,
+                        convertTypeName(bookcaseType.selectedItem.toString()),
+                        InputHelper.toString(bookcaseName),
+                        bookcasePublic.isChecked,
+                        InputHelper.toString(bookcaseDescription))
+            }
+
+        } else {
+            title = getString(R.string.bookcase_creation_title)
+            bookcaseEditSave.setOnClickListener {
+                presenter.createBookcase(convertTypeName(bookcaseType.selectedItem.toString()),
+                        InputHelper.toString(bookcaseName),
+                        bookcasePublic.isChecked,
+                        InputHelper.toString(bookcaseDescription))
+            }
+        }
     }
 
     override fun onEmptyBookcaseName(isEmpty: Boolean) {
@@ -58,6 +94,14 @@ class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEdito
 
     override fun onSuccessfullyUpdated() {
         hideProgress()
+        Toasty.info(applicationContext!!, getString(R.string.bookcase_updated), Toast.LENGTH_LONG).show()
+        val intent = Intent(this, BookcaseEditorActivty::class.java)
+        intent
+                .putExtra(BundleConstant.EXTRA_THREE, InputHelper.toString(bookcaseName))
+                .putExtra(BundleConstant.EXTRA_FIVE, InputHelper.toString(bookcaseDescription))
+                .putExtra(BundleConstant.EXTRA_SIX, if (bookcasePublic.isChecked) 1 else 0)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
     override fun hideProgress() {
@@ -81,5 +125,15 @@ class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEdito
         }
 
         return ""
+    }
+
+    private fun getTypeObject(type: String): Pair<String, String> {
+        categories.forEach {
+            if (it.first.equals(type)) {
+                return it
+            }
+        }
+
+        return Pair("work", getString(R.string.bookcase_work_type))
     }
 }

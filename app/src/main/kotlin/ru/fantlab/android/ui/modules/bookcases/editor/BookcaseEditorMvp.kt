@@ -15,7 +15,7 @@ interface BookcaseEditorMvp {
 
     interface Presenter : BaseMvp.Presenter {
 
-        fun updateBookcase()
+        fun updateBookcase(bookcaseId: Int, bookcaseType: String, bookcaseName: String, isPublic: Boolean, bookcaseComment: String?)
 
         fun createBookcase(bookcaseType: String, bookcaseName: String, isPublic: Boolean, bookcaseComment: String?)
     }

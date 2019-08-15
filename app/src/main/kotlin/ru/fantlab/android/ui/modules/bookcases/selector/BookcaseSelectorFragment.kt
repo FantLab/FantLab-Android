@@ -59,7 +59,13 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
     }
 
     override fun onItemClicked(item: BookcaseSelection, position: Int) {
-        BookcaseViewerActivity.startActivity(activity!!, item.bookcase.bookcaseId, item.bookcase.bookcaseName, userId, item.bookcase.bookcaseType)
+        BookcaseViewerActivity.startActivity(activity!!,
+                item.bookcase.bookcaseId,
+                item.bookcase.bookcaseName,
+                userId,
+                item.bookcase.bookcaseType,
+                item.bookcase.bookcaseComment ?: "",
+                item.bookcase.bookcaseShared)
     }
 
     override fun onItemSelected(item: BookcaseSelection, position: Int) {

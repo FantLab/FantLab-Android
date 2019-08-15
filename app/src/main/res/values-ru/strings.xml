@@ -240,6 +240,7 @@
 	<string name="bookcase_access">полка доступна для просмотра другим пользователям</string>
 	<string name="bookcase_name_hint">Название</string>
 	<string name="bookcase_creation_title">Добавление новой полки</string>
+	<string name="bookcase_update_title">Обновление полки</string>
 	<string name="bookcase_work">Подборки произведений</string>
 	<string name="bookcase_edition">Книжные полки изданий</string>
 	<string name="bookcase_film">Кинополки</string>
@@ -247,6 +248,7 @@
 	<string name="bookcase_edition_type">для произведений</string>
 	<string name="bookcase_film_type">для кинофильмов</string>
 	<string name="bookcase_created">Полка добавлена</string>
+	<string name="bookcase_updated">Полка обновлена</string>
 	<string name="bookcase_delete">Удалить</string>
 	<string name="bookcase_deleting">Удаление полки</string>
 	<string name="bookcase_modify">Править</string>

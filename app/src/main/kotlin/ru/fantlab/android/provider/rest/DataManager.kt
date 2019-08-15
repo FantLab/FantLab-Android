@@ -242,6 +242,18 @@ object DataManager {
 					.rxString()
 					.map { it.get() }
 
+	fun updateBookcase(
+			bookcaseId: Int,
+			type: String,
+			name: String,
+			publicBookcase: String,
+			bookcaseComment: String?
+	): Single<String> =
+			updateBookcasePath(bookcaseId, type, name, publicBookcase, bookcaseComment)
+					.httpPost()
+					.rxString()
+					.map { it.get() }
+
 	fun deletePersonalBookcase(
 			bookcaseId: Int
 	): Single<String> =
@@ -683,6 +695,14 @@ fun createBookcasePath(
 		publicBookcase: String,
 		comment: String?
 ) = "/my/bookcases/add?name=$name&type=$type&shared=$publicBookcase&comment=$comment".toAbsolutePathWithApiVersion()
+
+fun updateBookcasePath(
+		bookcaseId: Int,
+		type: String,
+		name: String,
+		publicBookcase: String,
+		comment: String?
+) = "/my/bookcases/$bookcaseId/edit?name=$name&type=$type&shared=$publicBookcase&comment=$comment".toAbsolutePathWithApiVersion()
 
 fun deletePersonalBookcasePath(
 		bookcaseId: Int
