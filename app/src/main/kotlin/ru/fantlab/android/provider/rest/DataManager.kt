@@ -268,8 +268,17 @@ object DataManager {
 			include: String
 	): Single<String> =
 			includeItemToBookcasePath(bookcaseId, entityId, include)
-					.httpGet()
+					.httpPost()
 					.rxString()
+					.map { it.get() }
+
+	fun getBookcaseInclusions(
+			bookcaseType: String,
+			entityId: Int
+	): Single<BookcaseInclusionResponse> =
+			getBookcaseInclusionsPath(bookcaseType, entityId)
+					.httpGet()
+					.rxObject(BookcaseInclusionResponse.Deserializer())
 					.map { it.get() }
 
 	fun sendUserMark(
@@ -712,7 +721,12 @@ fun includeItemToBookcasePath(
 		bookcaseId: Int,
 		entityId: Int,
 		include: String
-) = "/bookcaseclick${entityId}bc${bookcaseId}change$include".toAbsolutePath()
+) = "/my/bookcases/$bookcaseId/items/$entityId/$include".toAbsolutePathWithApiVersion()
+
+fun getBookcaseInclusionsPath(
+		bookcaseType: String,
+		entityId: Int
+) = "/my/bookcases/type/$bookcaseType/$entityId".toAbsolutePathWithApiVersion()
 
 fun sendUserMarkPath(
 		workId: Int,
