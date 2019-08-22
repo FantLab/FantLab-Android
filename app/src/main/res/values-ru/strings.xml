@@ -256,6 +256,7 @@
 	<string name="bookcase_add_comment">Добавить комментарий</string>
 	<string name="bookcase_item_deleting">Удаление элемента с полки</string>
     <string name="bookcase_item_comment_modifying">Редактирование комментария</string>
+	<string name="bookcase_item_count_suffix">шт</string>
 	<string name="no_bookcases">Нет полок</string>
 	<string name="my_bookcases">Мои книжные полки</string>
 </resources>

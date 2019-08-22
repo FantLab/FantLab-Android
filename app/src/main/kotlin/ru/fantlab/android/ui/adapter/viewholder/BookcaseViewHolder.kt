@@ -27,17 +27,29 @@ class BookcaseViewHolder : TreeViewBinder<BookcaseViewHolder.ViewHolder>() {
             onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
     ) {
         val nodeItem = node.content as BookcaseChild?
-        (holder as ViewHolder).title.text = nodeItem!!.name
-        if (!nodeItem.description.isNullOrEmpty()) {
-            holder.description.text = nodeItem.description
+        (holder as ViewHolder).title.text = nodeItem!!.bookcase.bookcaseName
+        if (!nodeItem.bookcase.bookcaseComment.isNullOrEmpty()) {
+            holder.description.text = nodeItem.bookcase.bookcaseComment
         } else holder.description.text = holder.itemView.context.getString(R.string.no_description)
 
-        holder.coverLayout.setUrl("http://www.fantlab.ru/img/bc_mybooks.gif")
+        var url = "http://www.fantlab.ru/img/bc_mybooks.gif"
+        if (nodeItem.bookcase.bookcaseType == "edition" && nodeItem.bookcase.bookcaseGroup == "sale") {
+            url = "http://www.fantlab.ru/img/bc_sell.gif"
+        } else if (nodeItem.bookcase.bookcaseType == "edition" && nodeItem.bookcase.bookcaseGroup == "buy") {
+            url = "http://www.fantlab.ru/img/bc_buy.gif"
+        } else if (nodeItem.bookcase.bookcaseGroup == "read") {
+            url = "http://www.fantlab.ru/img/bc_toread.gif"
+        } else if (nodeItem.bookcase.bookcaseType == "film") {
+            url = "http://www.fantlab.ru/img/bc_kino.gif"
+        }
+        holder.coverLayout.setUrlGif(url)
+        holder.count.text = nodeItem.bookcase.itemCount.toString() + " " + holder.itemView.context.getString(R.string.bookcase_item_count_suffix)
     }
 
     inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
         var title: TextView = rootView.bookcaseName
         var description: TextView = rootView.bookcaseDescription
         var coverLayout: CoverLayout = rootView.coverLayout
+        var count: TextView = rootView.bookcaseCount
     }
 }

@@ -13,11 +13,8 @@ import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import com.evernote.android.state.State
 import es.dmoral.toasty.Toasty
+import ru.fantlab.android.data.dao.model.*
 import ru.fantlab.android.helper.*
-import ru.fantlab.android.data.dao.model.BookcaseEdition
-import ru.fantlab.android.data.dao.model.BookcaseFilm
-import ru.fantlab.android.data.dao.model.BookcaseWork
-import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.BookcaseEditionsAdapter
@@ -276,19 +273,14 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
 
     companion object {
 
-        fun startActivity(activity: Activity,
-                          bookcaseId: Int,
-                          bookcaseName: String,
-                          bookcaseType: String,
-                          bookcaseDescription: String,
-                          bookcaseShared: Int) {
+        fun startActivity(activity: Activity, bookcase: Bookcase) {
             val intent = Intent(activity, BookcaseViewerActivity::class.java)
             intent.putExtras(Bundler.start()
-                    .put(BundleConstant.EXTRA, bookcaseId)
-                    .put(BundleConstant.EXTRA_TWO, bookcaseName)
-                    .put(BundleConstant.EXTRA_FOUR, bookcaseType)
-                    .put(BundleConstant.EXTRA_FIVE, bookcaseDescription)
-                    .put(BundleConstant.EXTRA_SIX, bookcaseShared)
+                    .put(BundleConstant.EXTRA, bookcase.bookcaseId)
+                    .put(BundleConstant.EXTRA_TWO, bookcase.bookcaseName)
+                    .put(BundleConstant.EXTRA_FOUR, bookcase.bookcaseType)
+                    .put(BundleConstant.EXTRA_FIVE, bookcase.bookcaseComment ?: "")
+                    .put(BundleConstant.EXTRA_SIX, bookcase.bookcaseShared)
                     .end())
             activity.startActivityForResult(intent, BundleConstant.BOOKCASE_VIEWER)
         }

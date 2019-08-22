@@ -293,6 +293,7 @@
 	<string name="bookcase_add_comment">Add comment</string>
     <string name="bookcase_item_deleting">Removing item from bookcase</string>
 	<string name="bookcase_item_comment_modifying">Update comment</string>
+	<string name="bookcase_item_count_suffix">el</string>
 	<string name="no_bookcases">No bookcases</string>
 	<string name="my_bookcases">My bookcases</string>
 </resources>

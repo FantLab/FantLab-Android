@@ -13,7 +13,7 @@
     tools:ignore="RtlSymmetry"
     >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -26,12 +26,14 @@
             android:layout_height="64dp"
             android:layout_marginEnd="@dimen/avatar_margin_end"
             android:layout_marginStart="@dimen/avatar_margin"
+            android:layout_alignParentLeft="true"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_toRightOf="@id/coverLayout"
             >
 
             <ru.fantlab.android.ui.widgets.FontTextView
@@ -62,6 +64,20 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+        <ru.fantlab.android.ui.widgets.FontTextView
+            android:id="@+id/bookcaseCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="?android:textColorSecondary"
+            android:textStyle="bold"
+            android:layout_marginEnd="@dimen/spacing_normal"
+            tools:text="41 шт"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
 
 </ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
