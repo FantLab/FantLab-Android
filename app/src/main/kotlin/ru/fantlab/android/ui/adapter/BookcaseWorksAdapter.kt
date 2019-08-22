@@ -5,7 +5,9 @@ import ru.fantlab.android.data.dao.model.BookcaseWork
 import ru.fantlab.android.ui.adapter.viewholder.BookcaseWorkViewHolder
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 
-class BookcaseWorksAdapter(nom: ArrayList<BookcaseWork>?)
+class BookcaseWorksAdapter(nom: ArrayList<BookcaseWork>?,
+                           var itemDeletionListener: BookcaseWorkViewHolder.OnDeleteItemFromBookcaseListener? = null,
+                           var itemCommentUpdateListener: BookcaseWorkViewHolder.OnUpdateItemCommentListener? = null)
     : BaseRecyclerAdapter<BookcaseWork, BookcaseWorkViewHolder>(nom!!) {
 
     override fun viewHolder(parent: ViewGroup, viewType: Int): BookcaseWorkViewHolder =

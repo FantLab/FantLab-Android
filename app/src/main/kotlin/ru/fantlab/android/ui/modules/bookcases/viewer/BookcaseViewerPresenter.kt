@@ -7,10 +7,7 @@ import io.reactivex.Single
 import ru.fantlab.android.data.dao.model.BookcaseEdition
 import ru.fantlab.android.data.dao.model.BookcaseFilm
 import ru.fantlab.android.data.dao.model.BookcaseWork
-import ru.fantlab.android.data.dao.response.BookcaseEditionsResponse
-import ru.fantlab.android.data.dao.response.BookcaseFilmsResponse
-import ru.fantlab.android.data.dao.response.BookcaseWorksResponse
-import ru.fantlab.android.data.dao.response.DeleteBookcaseResponse
+import ru.fantlab.android.data.dao.response.*
 import ru.fantlab.android.provider.rest.getPersonalBookcasePath
 import ru.fantlab.android.provider.storage.DbProvider
 
@@ -58,6 +55,34 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
                         sendToView { it.onSuccessfullyDeleted() }
                     } else {
                         sendToView { it.showErrorMessage(response) }
+                    }
+                }
+        )
+    }
+
+    override fun excludeItem(bookcaseId: Int, entityId: Int) {
+        makeRestCall(
+                DataManager.includeItemToBookcase(bookcaseId, entityId, "delete").toObservable(),
+                Consumer { response ->
+                    val result = BookcaseItemIncludedResponse.Parser().parse(response)
+                    if (result == null) {
+                        sendToView { it.showErrorMessage(response) }
+                    } else {
+                        sendToView { it.onRefresh() }
+                    }
+                }
+        )
+    }
+
+    override fun updateComment(bookcaseId: Int, entityId: Int, comment: String?) {
+        makeRestCall(
+                DataManager.updateBookcaseItemComment(bookcaseId, entityId, comment ?: "").toObservable(),
+                Consumer { response ->
+                    val result = BookcaseItemCommentUpdateResponse.Parser().parse(response)
+                    if (result == null) {
+                        sendToView { it.showErrorMessage(response) }
+                    } else {
+                        sendToView { it.onRefresh() }
                     }
                 }
         )
@@ -190,5 +215,13 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
 
     override fun setPreviousTotal(previousTotal: Int) {
         this.previousTotal = previousTotal
+    }
+
+    override fun onDeleteItemFromBookcase(itemId: Int) {
+        sendToView { it.onDeleteItemFromBookcase(itemId) }
+    }
+
+    override fun onUpdateItemComment(itemId: Int, itemComment: String?) {
+        sendToView { it.onUpdateItemComment(itemId, itemComment) }
     }
 }

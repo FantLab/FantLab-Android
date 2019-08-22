@@ -6,7 +6,9 @@ import ru.fantlab.android.ui.adapter.viewholder.BookcaseEditionViewHolder
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class BookcaseEditionsAdapter(nom: ArrayList<BookcaseEdition>?)
+class BookcaseEditionsAdapter(nom: ArrayList<BookcaseEdition>?,
+                              var itemDeletionListener: BookcaseEditionViewHolder.OnDeleteItemFromBookcaseListener? = null,
+                              var itemCommentUpdateListener: BookcaseEditionViewHolder.OnUpdateItemCommentListener? = null)
     : BaseRecyclerAdapter<BookcaseEdition, BookcaseEditionViewHolder>(nom!!) {
 
     override fun viewHolder(parent: ViewGroup, viewType: Int): BookcaseEditionViewHolder =

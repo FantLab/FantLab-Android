@@ -272,6 +272,16 @@ object DataManager {
 					.rxString()
 					.map { it.get() }
 
+	fun updateBookcaseItemComment(
+			bookcaseId: Int,
+			entityId: Int,
+			text: String
+	): Single<String> =
+			updateBookcaseItemCommentPath(bookcaseId, entityId, text)
+					.httpPost()
+					.rxString()
+					.map { it.get() }
+
 	fun getBookcaseInclusions(
 			bookcaseType: String,
 			entityId: Int
@@ -696,7 +706,7 @@ fun getPersonalBookcasesPath(
 fun getPersonalBookcasePath(
 		bookcaseId: Int,
 		offset: Int = 0
-) = "/my/bookcases/$bookcaseId?offset=$offset".toAbsolutePathWithApiVersion()
+) = "/my/bookcases/$bookcaseId/items?offset=$offset".toAbsolutePathWithApiVersion()
 
 fun createBookcasePath(
 		type: String,
@@ -722,6 +732,12 @@ fun includeItemToBookcasePath(
 		entityId: Int,
 		include: String
 ) = "/my/bookcases/$bookcaseId/items/$entityId/$include".toAbsolutePathWithApiVersion()
+
+fun updateBookcaseItemCommentPath(
+		bookcaseId: Int,
+		entityId: Int,
+		comment: String
+) = "/my/bookcases/$bookcaseId/items/$entityId/editcomm?txt=$comment".toAbsolutePathWithApiVersion()
 
 fun getBookcaseInclusionsPath(
 		bookcaseType: String,

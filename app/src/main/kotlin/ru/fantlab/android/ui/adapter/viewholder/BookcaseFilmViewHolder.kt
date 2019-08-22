@@ -7,6 +7,7 @@ import ru.fantlab.android.R
 import kotlinx.android.synthetic.main.bookcase_film_row_item.view.*
 import ru.fantlab.android.data.dao.model.BookcaseFilm
 import ru.fantlab.android.provider.scheme.LinkParserHelper
+import ru.fantlab.android.ui.adapter.BookcaseFilmsAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
@@ -24,6 +25,25 @@ class BookcaseFilmViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Bookca
 
         itemView.filmAutors.text = bookcase.director
         itemView.filmName.text = bookcase.name
+        itemView.workComment.text = if (bookcase.comment.orEmpty().isEmpty()) itemView.context.getString(R.string.bookcase_add_comment) else bookcase.comment
+        itemView.workComment.setOnClickListener {
+            if (adapter != null && (adapter as BookcaseFilmsAdapter).itemCommentUpdateListener != null) {
+                (adapter as BookcaseFilmsAdapter).itemCommentUpdateListener?.onUpdateItemComment(bookcase.filmId, bookcase.comment)
+            }
+        }
+        itemView.workDelete.setOnClickListener {
+            if (adapter != null && (adapter as BookcaseFilmsAdapter).itemDeletionListener != null) {
+                (adapter as BookcaseFilmsAdapter).itemDeletionListener?.onDeleteItemFromBookcase(bookcase.filmId)
+            }
+        }
+    }
+
+    interface OnDeleteItemFromBookcaseListener {
+        fun onDeleteItemFromBookcase(itemId: Int)
+    }
+
+    interface OnUpdateItemCommentListener {
+        fun onUpdateItemComment(itemId: Int, itemComment: String?)
     }
 
     companion object {

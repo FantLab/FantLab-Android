@@ -5,6 +5,9 @@ import ru.fantlab.android.data.dao.model.BookcaseEdition
 import ru.fantlab.android.data.dao.model.BookcaseFilm
 import ru.fantlab.android.data.dao.model.BookcaseWork
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
+import ru.fantlab.android.ui.adapter.viewholder.BookcaseEditionViewHolder
+import ru.fantlab.android.ui.adapter.viewholder.BookcaseFilmViewHolder
+import ru.fantlab.android.ui.adapter.viewholder.BookcaseWorkViewHolder
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
@@ -25,9 +28,19 @@ interface BookcaseViewerMvp {
         fun onNotifyFilmsAdapter(items: ArrayList<BookcaseFilm>, page: Int)
 
         fun onSuccessfullyDeleted()
+
+        fun onDeleteItemFromBookcase(itemId: Int)
+
+        fun onUpdateItemComment(itemId: Int, itemComment: String?)
     }
 
     interface Presenter : BaseMvp.Presenter,
+            BookcaseWorkViewHolder.OnDeleteItemFromBookcaseListener,
+            BookcaseWorkViewHolder.OnUpdateItemCommentListener,
+            BookcaseEditionViewHolder.OnDeleteItemFromBookcaseListener,
+            BookcaseEditionViewHolder.OnUpdateItemCommentListener,
+            BookcaseFilmViewHolder.OnDeleteItemFromBookcaseListener,
+            BookcaseFilmViewHolder.OnUpdateItemCommentListener,
             BaseMvp.PaginationListener<Int> {
 
         fun setBookcaseType(type: String)
@@ -39,5 +52,9 @@ interface BookcaseViewerMvp {
         fun getFilms(force: Boolean, bookcaseId: Int, page: Int)
 
         fun deleteBookcase(bookcaseId: Int)
+
+        fun excludeItem(bookcaseId: Int, entityId: Int)
+
+        fun updateComment(bookcaseId: Int, entityId: Int, comment: String?)
     }
 }

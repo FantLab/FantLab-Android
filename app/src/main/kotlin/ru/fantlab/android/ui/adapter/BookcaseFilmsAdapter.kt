@@ -5,7 +5,9 @@ import ru.fantlab.android.data.dao.model.BookcaseFilm
 import ru.fantlab.android.ui.adapter.viewholder.BookcaseFilmViewHolder
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 
-class BookcaseFilmsAdapter(nom: ArrayList<BookcaseFilm>?)
+class BookcaseFilmsAdapter(nom: ArrayList<BookcaseFilm>?,
+                           var itemDeletionListener: BookcaseFilmViewHolder.OnDeleteItemFromBookcaseListener? = null,
+                           var itemCommentUpdateListener: BookcaseFilmViewHolder.OnUpdateItemCommentListener? = null)
     : BaseRecyclerAdapter<BookcaseFilm, BookcaseFilmViewHolder>(nom!!) {
 
     override fun viewHolder(parent: ViewGroup, viewType: Int): BookcaseFilmViewHolder =

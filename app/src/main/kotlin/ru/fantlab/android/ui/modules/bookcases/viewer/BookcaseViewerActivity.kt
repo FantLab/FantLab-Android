@@ -81,12 +81,18 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
 
         when (bookcaseType) {
             "edition" -> {
+                editionsAdapter.itemCommentUpdateListener = presenter
+                editionsAdapter.itemDeletionListener = presenter
                 recycler.adapter = editionsAdapter
             }
             "work" -> {
+                worksAdapter.itemCommentUpdateListener = presenter
+                worksAdapter.itemDeletionListener = presenter
                 recycler.adapter = worksAdapter
             }
             "film" -> {
+                filmsAdapter.itemCommentUpdateListener = presenter
+                filmsAdapter.itemDeletionListener = presenter
                 recycler.adapter = filmsAdapter
             }
         }
@@ -123,9 +129,20 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
 
     override fun onMessageDialogActionClicked(isOk: Boolean, bundle: Bundle?) {
         if (isOk && bundle != null) {
-            val deletion = bundle.getBoolean("bookcase_deletion")
-            if (deletion) {
-                presenter.deleteBookcase(bookcaseId)
+            val bookcaseDeletion = bundle.getBoolean("bookcase_deletion")
+            val itemDeletion = bundle.getBoolean("bookcase_item_deletion")
+            val commentUpdate = bundle.getBoolean("bookcase_item_comment")
+            when {
+                bookcaseDeletion -> presenter.deleteBookcase(bookcaseId)
+                itemDeletion -> {
+                    val itemId = bundle.getInt("bookcase_item_id")
+                    presenter.excludeItem(bookcaseId, itemId)
+                }
+                commentUpdate -> {
+                    val itemId = bundle.getInt("bookcase_item_id")
+                    val resComment = bundle.getString("edit_text")
+                    presenter.updateComment(bookcaseId, itemId, resComment)
+                }
             }
         }
     }
@@ -231,6 +248,30 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
     private fun showReload() {
         hideProgress()
         stateLayout.showReload(recycler.adapter.itemCount)
+    }
+
+    override fun onDeleteItemFromBookcase(itemId: Int) {
+        MessageDialogView.newInstance(
+                bundleTitle = getString(R.string.bookcase_item_deleting),
+                bundleMsg = getString(R.string.confirm_message),
+                bundle = Bundler.start()
+                        .put(BundleConstant.YES_NO_EXTRA, true)
+                        .put("bookcase_item_deletion", true)
+                        .put("bookcase_item_id", itemId)
+                        .end()
+        ).show(supportFragmentManager, MessageDialogView.TAG)
+    }
+
+    override fun onUpdateItemComment(itemId: Int, itemComment: String?) {
+        MessageDialogView.newInstanceForEdit(
+                bundleTitle = getString(R.string.bookcase_item_comment_modifying),
+                bundleMsg = itemComment ?: "",
+                bundle = Bundler.start()
+                        .put(BundleConstant.YES_NO_EXTRA, true)
+                        .put("bookcase_item_comment", true)
+                        .put("bookcase_item_id", itemId)
+                        .end()
+        ).show(supportFragmentManager, MessageDialogView.TAG)
     }
 
     companion object {
