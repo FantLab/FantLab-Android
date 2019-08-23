@@ -6,8 +6,6 @@ object BundleConstant {
 	val EXTRA_TWO = "extra2_id"
 	val EXTRA_THREE = "extra3_id"
 	val EXTRA_FOUR = "extra4_id"
-	val EXTRA_FIVE = "extra5_id"
-	val EXTRA_SIX = "extra6_id"
 	val YES_NO_EXTRA = "yes_no_extra"
 	val EXTRA_TYPE = "extra_type"
 	var REFRESH_CODE = 64

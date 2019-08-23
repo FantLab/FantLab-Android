@@ -10,5 +10,6 @@ import kotlinx.android.parcel.Parcelize
 data class BookcaseInclusion (
     @SerializedName("bookcase_id") val bookcaseId: Int,
     @SerializedName("bookcase_name") val bookcaseName: String,
-    @SerializedName("item_added") val itemAdded: Int
+    @SerializedName("item_added") val itemAdded: Int,
+    val bookcaseType: String
 ) : Parcelable

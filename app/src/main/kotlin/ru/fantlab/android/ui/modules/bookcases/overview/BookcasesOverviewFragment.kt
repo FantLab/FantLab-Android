@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.evernote.android.state.State
 import ru.fantlab.android.R
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
@@ -13,8 +12,6 @@ import ru.fantlab.android.data.dao.model.Bookcase
 import ru.fantlab.android.data.dao.model.BookcaseCategory
 import ru.fantlab.android.data.dao.model.BookcaseChild
 import ru.fantlab.android.data.dao.model.ContextMenus
-import ru.fantlab.android.helper.BundleConstant
-import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.viewholder.BookcaseHeaderViewHolder
 import ru.fantlab.android.ui.adapter.viewholder.BookcaseViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
@@ -22,7 +19,6 @@ import ru.fantlab.android.ui.modules.bookcases.viewer.BookcaseViewerActivity
 import ru.fantlab.android.ui.modules.user.UserPagerMvp
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
-import timber.log.Timber
 import java.util.*
 
 class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, BookcasesOverviewPresenter>(),
@@ -84,7 +80,10 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
                         return false
                     } else {
                         val item = node.content as BookcaseChild
-                        BookcaseViewerActivity.startActivity(activity!!, item.bookcase)
+                        BookcaseViewerActivity.startActivity(activity!!,
+                                item.bookcase.bookcaseId,
+                                item.bookcase.bookcaseName,
+                                item.bookcase.bookcaseType)
                     }
                     return false
                 }
@@ -99,7 +98,10 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
     }
 
     override fun onItemClicked(item: Bookcase, position: Int) {
-        BookcaseViewerActivity.startActivity(activity!!, item)
+        BookcaseViewerActivity.startActivity(activity!!,
+                item.bookcaseId,
+                item.bookcaseName,
+                item.bookcaseType)
     }
 
     override fun onRefresh() {

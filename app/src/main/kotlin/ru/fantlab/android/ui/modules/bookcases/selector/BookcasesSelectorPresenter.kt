@@ -15,9 +15,12 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
         BookcasesSelectorMvp.Presenter {
 
+    private var bookcaseType: String = ""
+    private var entityId: Int = 0
+
     override fun onFragmentCreated(bundle: Bundle) {
-        val bookcaseType = bundle.getString(BundleConstant.EXTRA_TWO)
-        val entityId = bundle.getInt(BundleConstant.EXTRA_THREE)
+        bookcaseType = bundle.getString(BundleConstant.EXTRA_TWO)
+        entityId = bundle.getInt(BundleConstant.EXTRA_THREE)
         getBookcases(bookcaseType, entityId, false)
     }
 
@@ -56,8 +59,11 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
                     .map { BookcaseInclusionResponse.Deserializer().deserialize(it) }
                     .map { getBookcases(it) }
 
-    private fun getBookcases(response: BookcaseInclusionResponse): ArrayList<BookcaseInclusion> =
-            response.items
+    private fun getBookcases(response: BookcaseInclusionResponse): ArrayList<BookcaseInclusion> {
+        val inclusions = ArrayList<BookcaseInclusion>()
+        response.items.map { inclusions.add(BookcaseInclusion(it.bookcaseId, it.bookcaseName, it.itemAdded, bookcaseType)) }
+        return inclusions
+    }
 
     override fun onItemClick(position: Int, v: View?, item: BookcaseSelection) {
         sendToView { it.onItemClicked(item, position) }

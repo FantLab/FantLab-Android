@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.bookcases.editor
 
+import ru.fantlab.android.data.dao.model.Bookcase
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 
 interface BookcaseEditorMvp {
@@ -11,6 +12,8 @@ interface BookcaseEditorMvp {
         fun onSuccessfullyUpdated()
 
         fun onSuccessfullyCreated()
+
+        fun onBookcaseInformationRetrieved(bookcase: Bookcase)
     }
 
     interface Presenter : BaseMvp.Presenter {
@@ -18,5 +21,7 @@ interface BookcaseEditorMvp {
         fun updateBookcase(bookcaseId: Int, bookcaseType: String, bookcaseName: String, isPublic: Boolean, bookcaseComment: String?)
 
         fun createBookcase(bookcaseType: String, bookcaseName: String, isPublic: Boolean, bookcaseComment: String?)
+
+        fun retrieveBookcaseInfo(bookcaseId: Int)
     }
 }

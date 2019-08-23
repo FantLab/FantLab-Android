@@ -204,6 +204,14 @@ object DataManager {
 					.rxObject(BookcasesResponse.Deserializer())
 					.map { it.get() }
 
+	fun getPersonalBookcaseInformation(
+			bookcaseId: Int
+	): Single<BookcaseInformationResponse> =
+			getPersonalBookcaseInformationPath(bookcaseId)
+					.httpGet()
+					.rxObject(BookcaseInformationResponse.Deserializer())
+					.map { it.get() }
+
 	fun getPersonalEditionBookcase(
 			bookcaseId: Int,
 			offset: Int = 0
@@ -702,6 +710,10 @@ fun getUserResponsesPath(
 
 fun getPersonalBookcasesPath(
 ) = "/my/bookcases".toAbsolutePathWithApiVersion()
+
+fun getPersonalBookcaseInformationPath(
+		bookcaseId: Int
+) = "/my/bookcases/$bookcaseId/description".toAbsolutePathWithApiVersion()
 
 fun getPersonalBookcasePath(
 		bookcaseId: Int,

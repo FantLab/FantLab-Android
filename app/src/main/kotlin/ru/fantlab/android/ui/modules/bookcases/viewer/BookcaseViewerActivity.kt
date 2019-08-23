@@ -29,8 +29,6 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
     @State var bookcaseId: Int = 0
     @State var bookcaseName: String = ""
     @State var bookcaseType: String = ""
-    @State var bookcaseDescription: String = ""
-    @State var bookcaseShared: Int = 0
 
     private val editionsAdapter: BookcaseEditionsAdapter by lazy { BookcaseEditionsAdapter(arrayListOf()) }
     private val worksAdapter: BookcaseWorksAdapter by lazy { BookcaseWorksAdapter(arrayListOf()) }
@@ -53,9 +51,7 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
         if (savedInstanceState == null) {
             bookcaseId = intent?.extras?.getInt(BundleConstant.EXTRA, -1) ?: -1
             bookcaseName = intent?.extras?.getString(BundleConstant.EXTRA_TWO, "") ?: ""
-            bookcaseType = intent?.extras?.getString(BundleConstant.EXTRA_FOUR, "") ?: ""
-            bookcaseDescription = intent?.extras?.getString(BundleConstant.EXTRA_FIVE, "") ?: ""
-            bookcaseShared = intent?.extras?.getInt(BundleConstant.EXTRA_SIX, -1) ?: -1
+            bookcaseType = intent?.extras?.getString(BundleConstant.EXTRA_THREE, "") ?: ""
         }
         if (bookcaseId == -1) {
             finish()
@@ -107,8 +103,7 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.bookcaseEdit -> {
-                BookcaseEditorActivty.startActivityForUpdate(this, bookcaseId, bookcaseName,
-                        bookcaseType, bookcaseDescription, bookcaseShared)
+                BookcaseEditorActivty.startActivityForUpdate(this, bookcaseId)
             }
             R.id.bookcaseDelete -> {
                 MessageDialogView.newInstance(
@@ -214,9 +209,7 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == BundleConstant.BOOKCASE_EDITOR) {
-                bookcaseName = data?.extras?.getString(BundleConstant.EXTRA_THREE, "") ?: ""
-                bookcaseDescription = data?.extras?.getString(BundleConstant.EXTRA_FIVE, "") ?: ""
-                bookcaseShared = data?.extras?.getInt(BundleConstant.EXTRA_SIX, 0) ?: 1
+                bookcaseName = data?.extras?.getString(BundleConstant.EXTRA, "") ?: ""
                 title = bookcaseName
             }
         }
@@ -273,14 +266,12 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
 
     companion object {
 
-        fun startActivity(activity: Activity, bookcase: Bookcase) {
+        fun startActivity(activity: Activity, bookcaseId: Int, bookcaseName: String, bookcaseType: String) {
             val intent = Intent(activity, BookcaseViewerActivity::class.java)
             intent.putExtras(Bundler.start()
-                    .put(BundleConstant.EXTRA, bookcase.bookcaseId)
-                    .put(BundleConstant.EXTRA_TWO, bookcase.bookcaseName)
-                    .put(BundleConstant.EXTRA_FOUR, bookcase.bookcaseType)
-                    .put(BundleConstant.EXTRA_FIVE, bookcase.bookcaseComment ?: "")
-                    .put(BundleConstant.EXTRA_SIX, bookcase.bookcaseShared)
+                    .put(BundleConstant.EXTRA, bookcaseId)
+                    .put(BundleConstant.EXTRA_TWO, bookcaseName)
+                    .put(BundleConstant.EXTRA_THREE, bookcaseType)
                     .end())
             activity.startActivityForResult(intent, BundleConstant.BOOKCASE_VIEWER)
         }

@@ -8,15 +8,13 @@ import ru.fantlab.android.R
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.evernote.android.state.State
 import es.dmoral.toasty.Toasty
 import ru.fantlab.android.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.bookcase_editor_layout.*
+import ru.fantlab.android.data.dao.model.Bookcase
 import ru.fantlab.android.helper.AnimHelper
 import ru.fantlab.android.helper.BundleConstant
-import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
-import ru.fantlab.android.ui.modules.bookcases.viewer.BookcaseViewerActivity
 import java.util.ArrayList
 
 class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEditorPresenter>(), BookcaseEditorMvp.View {
@@ -55,13 +53,7 @@ class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEdito
         bookcaseType.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, categories.map { it.second })
         if (editorMode) {
             title = getString(R.string.bookcase_update_title)
-
-            bookcaseName.editText?.setText(intent?.extras?.getString(BundleConstant.EXTRA_THREE, "") ?: "")
-            bookcaseDescription.editText?.setText(intent?.extras?.getString(BundleConstant.EXTRA_FIVE, "") ?: "")
-            bookcasePublic.isChecked = ((intent?.extras?.getInt(BundleConstant.EXTRA_SIX, 0) ?: 1) == 1)
-            bookcaseType.setSelection(categories.indexOf(getTypeObject(intent?.extras?.getString(BundleConstant.EXTRA_FOUR, "") ?: "")))
-            bookcaseType.isEnabled = false
-
+            presenter.retrieveBookcaseInfo(storedBookcaseId)
             bookcaseEditSave.setOnClickListener {
                 presenter.updateBookcase(storedBookcaseId,
                         convertTypeName(bookcaseType.selectedItem.toString()),
@@ -81,6 +73,15 @@ class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEdito
         }
     }
 
+    override fun onBookcaseInformationRetrieved(bookcase: Bookcase) {
+        hideProgress()
+        bookcaseName.editText?.setText(bookcase.bookcaseName)
+        bookcaseDescription.editText?.setText(bookcase.bookcaseComment ?: "")
+        bookcasePublic.isChecked = (bookcase.bookcaseShared == 1)
+        bookcaseType.setSelection(categories.indexOf(getTypeObject(bookcase.bookcaseType)))
+        bookcaseType.isEnabled = false
+    }
+
     override fun onEmptyBookcaseName(isEmpty: Boolean) {
         bookcaseName.error = if (isEmpty) getString(R.string.required_field) else null
     }
@@ -96,10 +97,7 @@ class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEdito
         hideProgress()
         Toasty.info(applicationContext!!, getString(R.string.bookcase_updated), Toast.LENGTH_LONG).show()
         val intent = Intent(this, BookcaseEditorActivty::class.java)
-        intent
-                .putExtra(BundleConstant.EXTRA_THREE, InputHelper.toString(bookcaseName))
-                .putExtra(BundleConstant.EXTRA_FIVE, InputHelper.toString(bookcaseDescription))
-                .putExtra(BundleConstant.EXTRA_SIX, if (bookcasePublic.isChecked) 1 else 0)
+        intent.putExtra(BundleConstant.EXTRA, InputHelper.toString(bookcaseName))
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
@@ -119,7 +117,7 @@ class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEdito
 
     private fun convertTypeName(typeName: String): String {
         categories.forEach {
-            if (it.second.equals(typeName)) {
+            if (it.second == typeName) {
                 return it.first
             }
         }
@@ -129,7 +127,7 @@ class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEdito
 
     private fun getTypeObject(type: String): Pair<String, String> {
         categories.forEach {
-            if (it.first.equals(type)) {
+            if (it.first == type) {
                 return it
             }
         }
@@ -139,25 +137,16 @@ class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEdito
 
     companion object {
         fun startActivityForUpdate(activity: Activity,
-                          bookcaseId: Int,
-                          bookcaseName: String,
-                          bookcaseType: String,
-                          bookcaseDescription: String,
-                          bookcaseShared: Int) {
+                          bookcaseId: Int) {
             val intent = Intent(activity, BookcaseEditorActivty::class.java)
-            intent
-                    .putExtra(BundleConstant.EXTRA, true)
-                    .putExtra(BundleConstant.EXTRA_TWO, bookcaseId)
-                    .putExtra(BundleConstant.EXTRA_THREE, bookcaseName)
-                    .putExtra(BundleConstant.EXTRA_FOUR, bookcaseType)
-                    .putExtra(BundleConstant.EXTRA_FIVE, bookcaseDescription)
-                    .putExtra(BundleConstant.EXTRA_SIX, bookcaseShared)
+                .putExtra(BundleConstant.EXTRA, true)
+                .putExtra(BundleConstant.EXTRA_TWO, bookcaseId)
             activity.startActivityForResult(intent, BundleConstant.BOOKCASE_EDITOR)
         }
 
         fun startActivityForCreation(activity: Activity) {
             activity.startActivityForResult(Intent(activity, BookcaseEditorActivty::class.java)
-                    .putExtra(BundleConstant.EXTRA, false), BundleConstant.BOOKCASE_EDITOR)
+                .putExtra(BundleConstant.EXTRA, false), BundleConstant.BOOKCASE_EDITOR)
         }
     }
 }

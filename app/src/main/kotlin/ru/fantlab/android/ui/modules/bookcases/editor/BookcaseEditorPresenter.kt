@@ -1,11 +1,16 @@
 package ru.fantlab.android.ui.modules.bookcases.editor
 
+import io.reactivex.Single
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.data.dao.model.Bookcase
+import ru.fantlab.android.data.dao.response.BookcaseInformationResponse
 import ru.fantlab.android.data.dao.response.CreateBookcaseResponse
 import ru.fantlab.android.data.dao.response.UpdateBookcaseResponse
 import ru.fantlab.android.helper.InputHelper
+import ru.fantlab.android.provider.rest.getPersonalBookcaseInformationPath
+import ru.fantlab.android.provider.storage.DbProvider
 
 class BookcaseEditorPresenter : BasePresenter<BookcaseEditorMvp.View>(), BookcaseEditorMvp.Presenter {
 
@@ -44,4 +49,33 @@ class BookcaseEditorPresenter : BasePresenter<BookcaseEditorMvp.View>(), Bookcas
             )
         }
     }
+
+    override fun retrieveBookcaseInfo(bookcaseId: Int) {
+        makeRestCall(
+                retrieveBookcaseInfoInternal(bookcaseId).toObservable(),
+                Consumer { bookcase ->
+                    sendToView { it.onBookcaseInformationRetrieved(bookcase) }
+                }
+        )
+    }
+
+    private fun retrieveBookcaseInfoInternal(bookcaseId: Int) =
+            retrieveBookcaseInfoFromServer(bookcaseId)
+                    .onErrorResumeNext { retrieveBookcaseInfoFromDb(bookcaseId) }
+
+    private fun retrieveBookcaseInfoFromServer(bookcaseId: Int): Single<Bookcase> =
+            DataManager.getPersonalBookcaseInformation(bookcaseId)
+                    .map { getBookcase(it) }
+
+    private fun retrieveBookcaseInfoFromDb(bookcaseId: Int): Single<Bookcase> =
+            DbProvider.mainDatabase
+                    .responseDao()
+                    .get(getPersonalBookcaseInformationPath(bookcaseId))
+                    .map { it.response }
+                    .map { BookcaseInformationResponse.Deserializer().deserialize(it) }
+                    .map { getBookcase(it) }
+
+    private fun getBookcase(response: BookcaseInformationResponse): Bookcase =
+            response.bookcase
+
 }

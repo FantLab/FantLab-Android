@@ -244,8 +244,8 @@
 	<string name="bookcase_work">Подборки произведений</string>
 	<string name="bookcase_edition">Книжные полки изданий</string>
 	<string name="bookcase_film">Кинополки</string>
-	<string name="bookcase_work_type">для изданий</string>
-	<string name="bookcase_edition_type">для произведений</string>
+	<string name="bookcase_work_type">для произведений</string>
+	<string name="bookcase_edition_type">для изданий</string>
 	<string name="bookcase_film_type">для кинофильмов</string>
 	<string name="bookcase_created">Полка добавлена</string>
 	<string name="bookcase_updated">Полка обновлена</string>
