@@ -3,7 +3,7 @@ package ru.fantlab.android.ui.modules.bookcases.editor
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import ru.fantlab.android.R
 import android.view.View
 import android.widget.ArrayAdapter
@@ -12,9 +12,7 @@ import es.dmoral.toasty.Toasty
 import ru.fantlab.android.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.bookcase_editor_layout.*
 import ru.fantlab.android.data.dao.model.Bookcase
-import ru.fantlab.android.helper.AnimHelper
-import ru.fantlab.android.helper.BundleConstant
-import ru.fantlab.android.helper.InputHelper
+import ru.fantlab.android.helper.*
 import java.util.ArrayList
 
 class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEditorPresenter>(), BookcaseEditorMvp.View {

@@ -205,7 +205,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 					toolbarMenu.findItem(R.id.share).isVisible = false
 					toolbarMenu.findItem(R.id.sort).isVisible = true
 				}
-				3 -> {
+				getString(R.string.editions) -> {
 					toolbarMenu.findItem(R.id.share).isVisible = false
 					toolbarMenu.findItem(R.id.sort).isVisible = false
 					toolbarMenu.findItem(R.id.filter).isVisible = true
@@ -237,7 +237,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 			getString(R.string.classification) -> {
 				ClassificatorPagerActivity.startActivity(this, workId)
 			}
-			2 -> {
+			getString(R.string.responses) -> {
 				startActivityForResult(Intent(this, EditorActivity::class.java)
 						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_RESPONSE)
 						.putExtra(BundleConstant.ID, workId), BundleConstant.REFRESH_RESPONSE_CODE)

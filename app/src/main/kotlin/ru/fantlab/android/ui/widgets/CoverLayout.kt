@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget
 import kotlinx.android.synthetic.main.image_layout.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.provider.glide.GlideApp

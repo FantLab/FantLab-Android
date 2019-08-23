@@ -1,6 +1,6 @@
 package ru.fantlab.android.ui.modules.bookcases.viewer
 
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.BookcaseEdition
 import ru.fantlab.android.data.dao.model.BookcaseFilm
 import ru.fantlab.android.data.dao.model.BookcaseWork

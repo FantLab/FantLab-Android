@@ -3,7 +3,7 @@ package ru.fantlab.android.ui.modules.bookcases.viewer
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import android.view.Menu
 import android.view.View
 import android.view.MenuItem
@@ -237,7 +237,7 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
 
     private fun showReload() {
         hideProgress()
-        stateLayout.showReload(recycler.adapter.itemCount)
+        stateLayout.showReload(recycler.adapter!!.itemCount)
     }
 
     override fun onDeleteItemFromBookcase(itemId: Int) {

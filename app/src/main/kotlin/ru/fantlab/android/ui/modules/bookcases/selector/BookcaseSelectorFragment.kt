@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.modules.bookcases.selector
 
 import android.os.Bundle
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import ru.fantlab.android.R
 import ru.fantlab.android.ui.base.BaseFragment
 import android.view.View

@@ -1,6 +1,6 @@
 package ru.fantlab.android.ui.adapter.viewholder
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import ru.fantlab.android.R
