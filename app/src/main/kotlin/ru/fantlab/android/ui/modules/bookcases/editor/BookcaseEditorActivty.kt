@@ -50,7 +50,9 @@ class BookcaseEditorActivty : BaseActivity<BookcaseEditorMvp.View, BookcaseEdito
         bookcaseEditCancel.setOnClickListener {
             finish()
         }
-        bookcaseType.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, categories.map { it.second })
+        var adapter = ArrayAdapter(this, R.layout.bookcase_type_row_item, categories.map { it.second })
+        adapter.setDropDownViewResource(R.layout.bookcase_type_dropdown)
+        bookcaseType.adapter = adapter
         if (editorMode) {
             title = getString(R.string.bookcase_update_title)
             presenter.retrieveBookcaseInfo(storedBookcaseId)
