@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import ru.fantlab.android.R
 import kotlinx.android.synthetic.main.bookcase_edition_row_item.view.*
 import ru.fantlab.android.data.dao.model.BookcaseEdition
+import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.adapter.BookcaseEditionsAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
@@ -26,26 +27,25 @@ class BookcaseEditionViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Boo
         itemView.editionAutors.text = bookcase.autors
         itemView.editionName.text = bookcase.name
         itemView.editionPublishers.text = bookcase.publisher
-        itemView.workComment.text = if (bookcase.comment.orEmpty().isEmpty()) itemView.context.getString(R.string.bookcase_add_comment) else bookcase.comment
+        itemView.workComment.text = if (InputHelper.isEmpty(bookcase.comment)) itemView.context.getString(R.string.bookcase_add_comment) else bookcase.comment
         itemView.workComment.setOnClickListener {
-            if (adapter != null && (adapter as BookcaseEditionsAdapter).itemCommentUpdateListener != null) {
-                (adapter as BookcaseEditionsAdapter).itemCommentUpdateListener?.onUpdateItemComment(bookcase.editionId, bookcase.comment)
+            if (adapter != null && (adapter as BookcaseEditionsAdapter).itemUpdateListener != null) {
+                (adapter as BookcaseEditionsAdapter).itemUpdateListener?.onUpdateItemComment(bookcase.editionId, bookcase.comment)
             }
         }
         itemView.workDelete.setOnClickListener {
-            if (adapter != null && (adapter as BookcaseEditionsAdapter).itemDeletionListener != null) {
-                (adapter as BookcaseEditionsAdapter).itemDeletionListener?.onDeleteItemFromBookcase(bookcase.editionId)
+            if (adapter != null && (adapter as BookcaseEditionsAdapter).itemUpdateListener != null) {
+                (adapter as BookcaseEditionsAdapter).itemUpdateListener?.onDeleteItemFromBookcase(bookcase.editionId)
             }
         }
     }
 
-    interface OnDeleteItemFromBookcaseListener {
+    interface onUpdateItemListener {
         fun onDeleteItemFromBookcase(itemId: Int)
-    }
 
-    interface OnUpdateItemCommentListener {
         fun onUpdateItemComment(itemId: Int, itemComment: String?)
     }
+
 
     companion object {
 

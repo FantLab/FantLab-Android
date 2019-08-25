@@ -27,22 +27,20 @@ class BookcaseWorkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Bookca
         itemView.workName.text = bookcase.name
         itemView.workComment.text = if (bookcase.comment.orEmpty().isEmpty()) itemView.context.getString(R.string.bookcase_add_comment) else bookcase.comment
         itemView.workComment.setOnClickListener {
-            if (adapter != null && (adapter as BookcaseWorksAdapter).itemCommentUpdateListener != null) {
-                (adapter as BookcaseWorksAdapter).itemCommentUpdateListener?.onUpdateItemComment(bookcase.itemId, bookcase.comment)
+            if (adapter != null && (adapter as BookcaseWorksAdapter).itemUpdateListener != null) {
+                (adapter as BookcaseWorksAdapter).itemUpdateListener?.onUpdateItemComment(bookcase.itemId, bookcase.comment)
             }
         }
         itemView.workDelete.setOnClickListener {
-            if (adapter != null && (adapter as BookcaseWorksAdapter).itemDeletionListener != null) {
-                (adapter as BookcaseWorksAdapter).itemDeletionListener?.onDeleteItemFromBookcase(bookcase.itemId)
+            if (adapter != null && (adapter as BookcaseWorksAdapter).itemUpdateListener != null) {
+                (adapter as BookcaseWorksAdapter).itemUpdateListener?.onDeleteItemFromBookcase(bookcase.itemId)
             }
         }
     }
 
-    interface OnDeleteItemFromBookcaseListener {
+    interface onUpdateItemListener {
         fun onDeleteItemFromBookcase(itemId: Int)
-    }
 
-    interface OnUpdateItemCommentListener {
         fun onUpdateItemComment(itemId: Int, itemComment: String?)
     }
 

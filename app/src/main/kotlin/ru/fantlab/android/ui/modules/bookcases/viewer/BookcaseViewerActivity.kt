@@ -74,18 +74,15 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
 
         when (bookcaseType) {
             "edition" -> {
-                editionsAdapter.itemCommentUpdateListener = presenter
-                editionsAdapter.itemDeletionListener = presenter
+                editionsAdapter.itemUpdateListener = presenter
                 recycler.adapter = editionsAdapter
             }
             "work" -> {
-                worksAdapter.itemCommentUpdateListener = presenter
-                worksAdapter.itemDeletionListener = presenter
+                worksAdapter.itemUpdateListener = presenter
                 recycler.adapter = worksAdapter
             }
             "film" -> {
-                filmsAdapter.itemCommentUpdateListener = presenter
-                filmsAdapter.itemDeletionListener = presenter
+                filmsAdapter.itemUpdateListener = presenter
                 recycler.adapter = filmsAdapter
             }
         }

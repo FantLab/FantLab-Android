@@ -22,7 +22,7 @@ class BookcaseEditorPresenter : BasePresenter<BookcaseEditorMvp.View>(), Bookcas
                     DataManager.updateBookcase(bookcaseId, bookcaseType, bookcaseName, if (isPublic) "1" else "0", bookcaseComment).toObservable(),
                     Consumer { response ->
                         val result = UpdateBookcaseResponse.Parser().parse(response)
-                        if (result != null) {
+                        if (result.resCode != null) {
                             sendToView { it.onSuccessfullyUpdated() }
                         } else {
                             sendToView { it.showErrorMessage(response) }
@@ -40,7 +40,7 @@ class BookcaseEditorPresenter : BasePresenter<BookcaseEditorMvp.View>(), Bookcas
                     DataManager.createBookcase(bookcaseType, bookcaseName, if (isPublic) "1" else "0", bookcaseComment).toObservable(),
                     Consumer { response ->
                         val result = CreateBookcaseResponse.Parser().parse(response)
-                        if (result != null) {
+                        if (result.bookcaseId != null) {
                             sendToView { it.onSuccessfullyCreated() }
                         } else {
                             sendToView { it.showErrorMessage(response) }

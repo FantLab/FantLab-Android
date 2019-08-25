@@ -10,8 +10,7 @@ data class BookcaseInformationResponse(
 ) {
     class Deserializer : ResponseDeserializable<BookcaseInformationResponse> {
         override fun deserialize(content: String): BookcaseInformationResponse {
-            val jsonObject = JsonParser().parse(content).asJsonObject
-            return BookcaseInformationResponse(DataManager.gson.fromJson(jsonObject, Bookcase::class.java))
+            return BookcaseInformationResponse(DataManager.gson.fromJson(JsonParser().parse(content).asJsonObject, Bookcase::class.java))
         }
     }
 }

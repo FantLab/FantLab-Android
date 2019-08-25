@@ -35,12 +35,9 @@ interface BookcaseViewerMvp {
     }
 
     interface Presenter : BaseMvp.Presenter,
-            BookcaseWorkViewHolder.OnDeleteItemFromBookcaseListener,
-            BookcaseWorkViewHolder.OnUpdateItemCommentListener,
-            BookcaseEditionViewHolder.OnDeleteItemFromBookcaseListener,
-            BookcaseEditionViewHolder.OnUpdateItemCommentListener,
-            BookcaseFilmViewHolder.OnDeleteItemFromBookcaseListener,
-            BookcaseFilmViewHolder.OnUpdateItemCommentListener,
+            BookcaseWorkViewHolder.onUpdateItemListener,
+            BookcaseEditionViewHolder.onUpdateItemListener,
+            BookcaseFilmViewHolder.onUpdateItemListener,
             BaseMvp.PaginationListener<Int> {
 
         fun setBookcaseType(type: String)
