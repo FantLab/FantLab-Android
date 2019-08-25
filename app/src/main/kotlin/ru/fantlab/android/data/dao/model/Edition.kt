@@ -17,7 +17,7 @@ data class Edition(
 		@SerializedName("edition_name") val name: String,
 		@SerializedName("edition_type") val type: String,
 		@SerializedName("edition_type_plus") val additionalTypes: ArrayList<String>,
-		val format: String,
+		@SerializedName("format") val format: String,
 		@SerializedName("format_mm") val formatMm: String?,
 		val image: String,
 		@SerializedName("image_preview") val preview: String,

@@ -6,8 +6,8 @@ import ru.fantlab.android.ui.adapter.viewholder.WorkAwardsViewHolder
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class WorkAwardsAdapter(nom: ArrayList<Nomination>?)
-	: BaseRecyclerAdapter<Nomination, WorkAwardsViewHolder>(nom!!) {
+class WorkAwardsAdapter(nom: ArrayList<Nomination>)
+	: BaseRecyclerAdapter<Nomination, WorkAwardsViewHolder>(nom) {
 
 	override fun viewHolder(parent: ViewGroup, viewType: Int): WorkAwardsViewHolder = WorkAwardsViewHolder.newInstance(parent, this)
 

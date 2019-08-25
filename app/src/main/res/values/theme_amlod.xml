@@ -10,6 +10,7 @@
         <item name="card_background">#050910</item>
         <item name="comment_box_style">@style/CommentBoxDarkAmlod</item>
         <item name="icon_color">#eee</item>
+        <item name="button_icon_color">#ECECEC</item>
         <item name="timeLineBackground">@style/TimeLineBackgroundAmlod</item>
         <item name="patch_addition">@color/dark_patch_addition_color</item>
         <item name="patch_deletion">@color/dark_patch_deletion_color</item>

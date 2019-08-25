@@ -69,6 +69,7 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 		tabs.tabGravity = TabLayout.GRAVITY_FILL
 		tabs.tabMode = TabLayout.MODE_SCROLLABLE
 		tabs.setupWithViewPager(pager)
+		invalidateTabs(adapter)
 		if (savedInstanceState == null) {
 			if (index != -1) {
 				pager.currentItem = index
@@ -163,10 +164,31 @@ class AuthorPagerActivity : BaseActivity<AuthorPagerMvp.View, BasePresenter<Auth
 	}
 
 	private fun setupTab(count: Int, index: Int) {
-		val textView = ViewHelper.getTabTextView(tabs, index)
+		val tabView = ViewHelper.getTabView(tabs, index)
 		when (index) {
-			2 -> textView.text = String.format("%s(%s)", getString(R.string.editions), numberFormat.format(count.toLong()))
-			3 -> textView.text = String.format("%s(%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
+			0 -> tabView.first.text = getString(R.string.overview)
+			1 -> {
+				tabView.first.text = getString(R.string.bibiography)
+			}
+			2 -> {
+				tabView.first.text = getString(R.string.editions)
+				tabView.second.text = count.toString()
+			}
+			3 -> {
+				tabView.first.text = getString(R.string.responses)
+				tabView.second.text = count.toString()
+			}
+		}
+	}
+
+	private fun invalidateTabs(adapter: FragmentsPagerAdapter) {
+		for (i in 0 until tabs.tabCount) {
+			val tab = tabs.getTabAt(i)
+			if (tab != null) {
+				val custom = tab.customView
+				if (custom == null) tab.customView = adapter.getCustomTabView(applicationContext)
+				setupTab(0, i)
+			}
 		}
 	}
 

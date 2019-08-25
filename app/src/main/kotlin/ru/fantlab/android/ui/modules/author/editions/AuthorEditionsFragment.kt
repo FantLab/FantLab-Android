@@ -13,7 +13,7 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.EditionsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
-import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
+import ru.fantlab.android.ui.modules.edition.EditionActivity
 
 class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditionsPresenter>(),
 		AuthorEditionsMvp.View {
@@ -97,6 +97,6 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 	}
 
 	override fun onItemClicked(item: EditionsBlocks.Edition) {
-		EditionPagerActivity.startActivity(context!!, item.editionId, item.name, 0)
+		EditionActivity.startActivity(context!!, item.editionId, item.name)
 	}
 }

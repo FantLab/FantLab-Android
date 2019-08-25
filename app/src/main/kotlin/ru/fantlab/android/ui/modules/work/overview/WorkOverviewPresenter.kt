@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.View
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.model.MarkMini
-import ru.fantlab.android.data.dao.model.Nomination
-import ru.fantlab.android.data.dao.model.Work
+import ru.fantlab.android.data.dao.model.*
 import ru.fantlab.android.data.dao.response.MarksMiniResponse
 import ru.fantlab.android.data.dao.response.WorkResponse
 import ru.fantlab.android.helper.BundleConstant
@@ -20,14 +18,19 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(), WorkOverviewMvp.Presenter {
 
+	var workId = -1
+
 	override fun onFragmentCreated(bundle: Bundle) {
-		val workId = bundle.getInt(BundleConstant.EXTRA)
+		workId = bundle.getInt(BundleConstant.EXTRA)
 		makeRestCall(
 				getWorkInternal(workId).toObservable(),
 				Consumer { (response, nominations, wins, authors) ->
-					sendToView { it.onInitViews(response.work, response.rootSagas, nominations, wins, authors) }
+					wins.addAll(nominations)
+					sendToView { it.onInitViews(response.work, response.rootSagas, wins, authors) }
 				}
 		)
+		getClassificatory()
+		getEditions()
 	}
 
 	private fun getWorkInternal(workId: Int) =
@@ -100,6 +103,65 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(), WorkOvervie
 				}
 		)
 	}
+
+	override fun getClassification() = getClassificatory()
+
+	private fun getClassificatory() {
+		makeRestCall(
+				getClassificatoryInternal(workId).toObservable(),
+				Consumer { classificatory -> sendToView { it.onSetClassification(classificatory) } }
+		)
+	}
+
+	private fun getClassificatoryInternal(workId: Int) =
+			getClassificatoryFromServer(workId)
+					.onErrorResumeNext {
+						getClassificatoryFromDb(workId)
+					}
+
+	private fun getClassificatoryFromServer(workId: Int): Single<ArrayList<GenreGroup>> =
+			DataManager.getWork(workId, showClassificatory = true)
+					.map { getClassificatory(it) }
+
+	private fun getClassificatoryFromDb(workId: Int): Single<ArrayList<GenreGroup>> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getWorkPath(workId, showClassificatory = true))
+					.map { it.response }
+					.map { WorkResponse.Deserializer().deserialize(it) }
+					.map { getClassificatory(it) }
+
+	private fun getClassificatory(response: WorkResponse): ArrayList<GenreGroup> =
+			response.classificatory
+
+	private fun getEditions() {
+		makeRestCall(
+				getEditionsInternal().toObservable(),
+				Consumer { (editions) ->
+					sendToView { it.onSetEditions(editions) }
+				}
+		)
+	}
+
+	private fun getEditionsInternal() =
+			getEditionsFromServer()
+					.onErrorResumeNext { getEditionsFromDb() }
+					.onErrorResumeNext { ext -> Single.error(ext) }
+					.doOnError { err -> sendToView { it.hideProgress() } }
+
+	private fun getEditionsFromServer(): Single<EditionsBlocks> =
+			DataManager.getWork(workId, showEditionsBlocks = true)
+					.map { getEditions(it) }
+
+	private fun getEditionsFromDb(): Single<EditionsBlocks> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getWorkPath(workId, showEditionsBlocks = true))
+					.map { it.response }
+					.map { WorkResponse.Deserializer().deserialize(it) }
+					.map { getEditions(it) }
+
+	private fun getEditions(response: WorkResponse): EditionsBlocks = response.editionsBlocks ?: EditionsBlocks(arrayListOf())
 
 	override fun onItemClick(position: Int, v: View?, item: Nomination) {
 		sendToView { it.onItemClicked(item) }

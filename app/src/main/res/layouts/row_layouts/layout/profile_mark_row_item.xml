@@ -6,7 +6,6 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:layout_margin="@dimen/grid_spacing"
-	android:background="?android:selectableItemBackground"
 	android:paddingEnd="@dimen/spacing_normal"
 	android:paddingStart="@dimen/spacing_normal"
 	android:paddingTop="@dimen/spacing_normal"
@@ -28,6 +27,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
+			android:background="?android:selectableItemBackground"
 			>
 
 			<RelativeLayout
@@ -72,12 +72,50 @@
 					style="@style/TextAppearance.AppCompat.Medium"
 					/>
 
+				<LinearLayout
+					android:id="@+id/markMenu"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center_vertical"
+					android:orientation="horizontal"
+					android:layout_marginTop="@dimen/spacing_micro"
+					android:layout_below="@+id/title"
+					android:layout_alignStart="@+id/authors"
+					>
+
+					<ru.fantlab.android.ui.widgets.ratingbar.FlexibleRatingBar
+						android:id="@+id/ratingBar"
+						android:layout_width="140dp"
+						android:layout_height="wrap_content"
+						android:isIndicator="true"
+						android:numStars="10"
+						android:rating="0"
+						android:stepSize="0.1"
+						app:colorFillOff="@color/material_grey_200"
+						app:colorFillOn="@color/gold"
+						app:colorOutlineOff="@color/material_grey_200"
+						app:colorOutlineOn="@color/material_grey_200"
+						app:strokeWidth="0dp"
+						/>
+
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:id="@+id/rateMark"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="@dimen/spacing_normal"
+						android:textColor="@color/material_green_600"
+						tools:text="8"
+						style="@style/TextAppearance.AppCompat.Medium"
+						/>
+
+				</LinearLayout>
+
 				<ru.fantlab.android.ui.widgets.FontTextView
 					android:id="@+id/date"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignStart="@+id/authors"
-					android:layout_below="@+id/title"
+					android:layout_below="@+id/markMenu"
 					android:layout_marginTop="@dimen/spacing_micro"
 					android:ellipsize="end"
 					android:maxLines="4"
@@ -165,7 +203,6 @@
 						android:drawableStart="@drawable/ic_type"
 						android:gravity="start|center"
 						android:textColor="?android:attr/textColorSecondary"
-						android:visibility="gone"
 						app:drawableColor="?android:attr/textColorSecondary"
 						tools:text="Роман"
 						tools:visibility="visible"
@@ -185,23 +222,8 @@
 						android:textColor="?android:attr/textColorSecondary"
 						android:visibility="gone"
 						app:drawableColor="?android:attr/textColorSecondary"
-						tools:text="1935"
+						tools:text="1935 г."
 						tools:visibility="visible"
-						style="@style/TextAppearance.AppCompat.Subhead"
-						/>
-
-					<ru.fantlab.android.ui.widgets.FontTextView
-						android:id="@+id/mark"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_gravity="center"
-						android:layout_marginEnd="@dimen/spacing_micro"
-						android:drawablePadding="@dimen/spacing_micro"
-						android:drawableStart="@drawable/ic_star"
-						android:gravity="start|center"
-						android:textColor="?android:attr/textColorSecondary"
-						app:drawableColor="?android:attr/textColorSecondary"
-						tools:text="8"
 						style="@style/TextAppearance.AppCompat.Subhead"
 						/>
 

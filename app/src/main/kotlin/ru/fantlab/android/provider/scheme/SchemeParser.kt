@@ -11,7 +11,7 @@ import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.authors.AuthorsActivity
 import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 import ru.fantlab.android.ui.modules.awards.AwardsActivity
-import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
+import ru.fantlab.android.ui.modules.edition.EditionActivity
 import ru.fantlab.android.ui.modules.plans.PlansPagerActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.modules.work.CyclePagerActivity
@@ -30,7 +30,7 @@ object SchemeParser {
 					WorkPagerActivity.startActivity(context, id.toInt(), label, 0)
 				}
 				"edition" -> {
-					EditionPagerActivity.startActivity(context, id.toInt(), label, 0)
+					EditionActivity.startActivity(context, id.toInt(), label)
 				}
 				"author", "autor" -> {
 					AuthorPagerActivity.startActivity(context, id.toInt(), label, 0)

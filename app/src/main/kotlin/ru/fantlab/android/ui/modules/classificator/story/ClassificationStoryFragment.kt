@@ -35,7 +35,6 @@ class ClassificationStoryFragment : BaseFragment<ClassificationStoryMvp.View, Cl
 
 	override fun onInitViews(classificators: ArrayList<ClassificatorModel>) {
 		hideProgress()
-		recycler.addKeyLineDivider()
 		fastScroller.attachRecyclerView(recycler)
 		refresh.setOnRefreshListener(this)
 

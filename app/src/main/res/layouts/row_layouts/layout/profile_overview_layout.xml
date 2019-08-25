@@ -174,7 +174,7 @@
 								tools:text="May 6, 1981"
 								style="@style/Base.TextAppearance.AppCompat.Subhead"
 								android:textColor="?android:attr/textColorTertiary"
-								app:drawableColor="?android:attr/textColorSecondary"
+								app:drawableColor="?icon_color"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -190,7 +190,7 @@
 								tools:text="Россия, Самара"
 								style="@style/Base.TextAppearance.AppCompat.Subhead"
 								android:textColor="?android:attr/textColorTertiary"
-								app:drawableColor="?android:attr/textColorSecondary"
+								app:drawableColor="?icon_color"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -206,7 +206,7 @@
 								tools:text="Jul 17, 2004"
 								style="@style/Base.TextAppearance.AppCompat.Subhead"
 								android:textColor="?android:attr/textColorTertiary"
-								app:drawableColor="?android:attr/textColorSecondary"
+								app:drawableColor="?icon_color"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -222,7 +222,7 @@
 								tools:text="8 hours ago"
 								style="@style/Base.TextAppearance.AppCompat.Subhead"
 								android:textColor="?android:attr/textColorTertiary"
-								app:drawableColor="?android:attr/textColorSecondary"
+								app:drawableColor="?icon_color"
 								/>
 
 							<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
@@ -238,7 +238,7 @@
 								tools:text="Подпись на форуме"
 								style="@style/Base.TextAppearance.AppCompat.Subhead"
 								android:textColor="?android:attr/textColorTertiary"
-								app:drawableColor="?android:attr/textColorSecondary"
+								app:drawableColor="?icon_color"
 								/>
 
 							<ru.fantlab.android.ui.widgets.FontTextView
@@ -254,7 +254,7 @@
 								android:textColor="@color/material_red_700"
 								tools:text="Feb 16, 2018 - Feb 19, 2018"
 								style="@style/Base.TextAppearance.AppCompat.Subhead"
-								app:drawableColor="?android:attr/textColorSecondary"
+								app:drawableColor="?icon_color"
 								/>
 
 						</LinearLayout>

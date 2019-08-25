@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.isVisible
 import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.news_layout.*
 import ru.fantlab.android.R
@@ -76,17 +77,18 @@ class NewsOverviewActivity : BaseActivity<NewsOverviewMvp.View, NewsOverviewPres
 		if (!InputHelper.isEmpty(news.description) && !news.newsText.contains("print_contest")) {
 			newsText.html = news.description
 			newsText.visibility = View.VISIBLE
+		} else if (!InputHelper.isEmpty(news.description) && news.newsText.contains("print_contest")) {
+			newsText.html = news.newsText
+			newsText.visibility = View.VISIBLE
 		} else newsText.visibility = View.GONE
 
-		date.text = news.newsDateIso.parseFullDate(true).getTimeAgo()
-		author.html = news.author
 
 		loadContest(news)
 	}
 
 	private fun loadContest(news: News) {
-		val pattern = Regex("\\[print_contest=(\\d+)\\]")
-		val contestId = pattern.matchEntire(news.newsText)?.groupValues?.get(1)
+		val pattern = "\\[print_contest=(\\d+)\\]".toRegex().find(news.newsText)
+		val contestId = pattern?.groupValues?.get(1)
 		if (contestId != null) {
 			val fs = NewsContestsFragment.newInstance(contestId.toInt())
 			supportFragmentManager

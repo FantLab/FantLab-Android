@@ -1,34 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="100dp"
+	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:background="?android:selectableItemBackground"
-	android:gravity="center_horizontal"
+	android:gravity="center_vertical"
 	android:orientation="vertical"
-	android:paddingBottom="@dimen/spacing_normal"
-	android:paddingTop="@dimen/spacing_normal"
+	android:paddingStart="@dimen/spacing_normal"
+	android:paddingEnd="@dimen/spacing_normal"
 	>
 
-	<ru.fantlab.android.ui.widgets.AvatarLayout
+	<ru.fantlab.android.ui.widgets.ForegroundImageView
+		android:id="@+id/trophyIcon"
+		android:layout_width="44dp"
+		android:layout_height="44dp"
+		android:layout_centerVertical="true"
+		android:src="@drawable/ic_trophy"
+		android:layout_marginEnd="@dimen/spacing_normal"
+		app:tint="@color/material_amber_700"
+		/>
+
+	<ru.fantlab.android.ui.widgets.ForegroundImageView
 		android:id="@+id/awardIcon"
-		android:layout_width="70dp"
-		android:layout_height="70dp"
+		android:layout_width="22dp"
+		android:layout_height="22dp"
+		android:layout_alignBottom="@id/trophyIcon"
+		android:layout_alignEnd="@id/trophyIcon"
 		/>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
-		android:id="@+id/title"
+		android:id="@+id/awardInfo"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:gravity="center_horizontal"
-		android:includeFontPadding="false"
-		android:paddingEnd="@dimen/spacing_micro"
-		android:paddingStart="@dimen/spacing_micro"
-		android:paddingTop="@dimen/spacing_micro"
+		android:layout_toEndOf="@id/trophyIcon"
+		tools:text="Хьюго, 1990"
+		style="@style/TextAppearance.AppCompat.Body2"
 		android:textColor="?android:attr/textColorSecondary"
-		tools:text="British Fantasy Award"
-		style="@style/TextAppearance.AppCompat.Subhead"
 		/>
 
-</LinearLayout>
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/awardType"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/awardInfo"
+		android:layout_toEndOf="@id/trophyIcon"
+		tools:text="Лауреат"
+		style="@style/TextAppearance.AppCompat.Body2"
+		android:textColor="?android:attr/textColorSecondary"
+		/>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/awardWorkType"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/awardType"
+		android:layout_toEndOf="@id/trophyIcon"
+		tools:text="Роман"
+		style="@style/TextAppearance.AppCompat.Body2"
+		android:textColor="?android:attr/textColorSecondary"
+		/>
+
+
+</RelativeLayout>

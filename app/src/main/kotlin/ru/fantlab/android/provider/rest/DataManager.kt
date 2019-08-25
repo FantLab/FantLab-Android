@@ -1,7 +1,6 @@
 package ru.fantlab.android.provider.rest
 
 import com.github.kittinunf.fuel.core.Response
-import com.github.kittinunf.fuel.httpDelete
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.fuel.rx.rxObject
@@ -76,9 +75,10 @@ object DataManager {
 			showAwards: Boolean = false,
 			showLinguaProfile: Boolean = false,
 			showBiblioBlocks: Boolean = false,
+			showClassificatory: Boolean = false,
 			sortOption: BiblioSortOption = BiblioSortOption.BY_YEAR
 	): Single<AuthorResponse> =
-			getAuthorPath(id, showBiography, showAwards, showLinguaProfile, showBiblioBlocks, sortOption)
+			getAuthorPath(id, showBiography, showAwards, showLinguaProfile, showBiblioBlocks, showClassificatory, sortOption)
 					.httpGet()
 					.rxObject(AuthorResponse.Deserializer())
 					.map { it.get() }
@@ -298,6 +298,7 @@ object DataManager {
 					.httpGet()
 					.rxObject(BookcaseInclusionResponse.Deserializer())
 					.map { it.get() }
+
 
 	fun sendUserMark(
 			workId: Int,
@@ -626,9 +627,10 @@ fun getAuthorPath(
 		showAwards: Boolean = false,
 		showLinguaProfile: Boolean = false,
 		showBiblioBlocks: Boolean = false,
+		showClassificatory : Boolean = false,
 		sortOption: BiblioSortOption = BiblioSortOption.BY_YEAR
 ) = ("/autor/$id?biography=${showBiography.toInt()}&awards=${showAwards.toInt()}" +
-		"&la_resume=${showLinguaProfile.toInt()}&biblio_blocks=${showBiblioBlocks.toInt()}" +
+		"&la_resume=${showLinguaProfile.toInt()}&biblio_blocks=${showBiblioBlocks.toInt()}&classificatory=${showClassificatory.toInt()}" +
 		"&sort=${sortOption.value}").toAbsolutePathWithApiVersion()
 
 fun getAuthorEditionsPath(

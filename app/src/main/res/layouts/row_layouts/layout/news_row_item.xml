@@ -105,16 +105,15 @@
 					android:id="@+id/coverLayout"
 					android:layout_width="70dp"
 					android:layout_height="90dp"
+					android:layout_alignParentEnd="true"
 					/>
 
 				<ru.fantlab.android.ui.widgets.FontTextView
 					android:id="@+id/title"
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="@dimen/spacing_normal"
-					android:layout_toEndOf="@+id/coverLayout"
-					android:ellipsize="end"
-					android:maxLines="3"
+					android:layout_toStartOf="@id/coverLayout"
 					android:textColor="?android:textColorTertiary"
 					tools:text="Юрий Каменский и Вера Каменская"
 					style="@style/TextAppearance.AppCompat.Medium"
@@ -122,12 +121,12 @@
 
 				<ru.fantlab.android.ui.widgets.FontTextView
 					android:id="@+id/newsText"
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_below="@+id/title"
 					android:layout_marginStart="@dimen/spacing_normal"
 					android:layout_marginTop="@dimen/spacing_micro"
-					android:layout_toEndOf="@+id/coverLayout"
+					android:layout_toStartOf="@id/coverLayout"
 					android:ellipsize="end"
 					android:maxLines="10"
 					android:textColor="?android:textColorSecondary"

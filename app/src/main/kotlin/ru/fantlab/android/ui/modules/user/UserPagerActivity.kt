@@ -85,7 +85,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		if (login == currentUser?.login) {
 			selectMenuItem(R.id.profile, true)
 		}
-		adapter = FragmentsPagerAdapter(
+		val adapter = FragmentsPagerAdapter(
 				supportFragmentManager,
 				FragmentPagerAdapterModel.buildForProfile(this, userId)
 		)
@@ -93,6 +93,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		tabs.tabGravity = TabLayout.GRAVITY_FILL
 		tabs.tabMode = TabLayout.MODE_SCROLLABLE
 		tabs.setupWithViewPager(pager)
+		invalidateTabs(adapter)
 		if (savedInstanceState == null) {
 			if (index != -1) {
 				pager.currentItem = index
@@ -182,7 +183,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 			return
 		}
 		when (adapter!!.getItemKey(position)) {
-			getString(R.string.overview) -> {
+			getString(R.string.overview)  -> {
 				if (isLoggedIn() && userId != PrefGetter.getLoggedUser()?.id) {
 					fab.setImageResource(R.drawable.ic_message)
 					fab.show()
@@ -192,7 +193,6 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 				fab.setImageResource(R.drawable.ic_charts)
 				fab.show()
 			}
-			getString(R.string.responses) -> fab.hide()/*fab.show()*/
 			getString(R.string.bookcases) -> {
 				fab.setImageResource(R.drawable.ic_add)
 				fab.show()
@@ -225,11 +225,32 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	}
 
 	private fun setupTab(count: Int, index: Int) {
-		val textView = ViewHelper.getTabTextView(tabs, index)
+		val tabView = ViewHelper.getTabView(tabs, index)
 		when (adapter!!.getItemKey(index)) {
-			getString(R.string.marks) -> textView.text = String.format("%s (%s)", getString(R.string.marks), numberFormat.format(count.toLong()))
-			getString(R.string.responses) -> textView.text = String.format("%s (%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
-			getString(R.string.bookcases) -> textView.text = String.format("%s (%s)", getString(R.string.bookcases), numberFormat.format(count.toLong()))
+			getString(R.string.overview) -> tabView.first.text = getString(R.string.overview)
+			getString(R.string.marks) -> {
+				tabView.first.text = getString(R.string.marks)
+				tabView.second.text = count.toString()
+			}
+			getString(R.string.responses) -> {
+				tabView.first.text = getString(R.string.responses)
+				tabView.second.text = count.toString()
+			}
+			getString(R.string.bookcases) -> {
+				tabView.first.text = getString(R.string.bookcases)
+				tabView.second.text = count.toString()
+			}
+		}
+	}
+
+	private fun invalidateTabs(adapter: FragmentsPagerAdapter) {
+		for (i in 0 until tabs.tabCount) {
+			val tab = tabs.getTabAt(i)
+			if (tab != null) {
+				val custom = tab.customView
+				if (custom == null) tab.customView = adapter.getCustomTabView(applicationContext)
+				setupTab(0, i)
+			}
 		}
 	}
 

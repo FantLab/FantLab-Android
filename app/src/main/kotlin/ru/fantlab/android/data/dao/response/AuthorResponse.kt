@@ -10,6 +10,7 @@ data class AuthorResponse(
 		val author: Author,
 		val biography: Biography?,
 		val blogAnons: BlogAnons?,
+		val classificatory: ArrayList<GenreGroup>,
 		val registeredUser: AuthorUser?,
 		val awards: Awards?,
 		val linguaProfile: ArrayList<String>,
@@ -21,6 +22,7 @@ data class AuthorResponse(
 		private lateinit var author: Author
 		private var biography: Biography? = null
 		private var blogAnons: BlogAnons? = null
+		private val classificatory: ArrayList<GenreGroup> = arrayListOf()
 		private var registeredUser: AuthorUser? = null
 		private var awards: Awards? = null
 		private val linguaProfile: ArrayList<String> = arrayListOf()
@@ -36,6 +38,25 @@ data class AuthorResponse(
 			if (jsonObject["fl_blog_anons"] != JsonNull.INSTANCE) {
 				val `object` = jsonObject.getAsJsonObject("fl_blog_anons")
 				blogAnons = DataManager.gson.fromJson(`object`, BlogAnons::class.java)
+			}
+			if (jsonObject["classificatory"] != JsonNull.INSTANCE) {
+				val array = jsonObject.getAsJsonObject("classificatory").getAsJsonArray("genre_group")
+				if (array != null) {
+					val recursiveClassificatory = arrayListOf<RecursiveGenreGroup>()
+					array.map {
+						recursiveClassificatory.add(DataManager.gson.fromJson(
+								it.asJsonObject,
+								RecursiveGenreGroup::class.java
+						))
+					}
+					recursiveClassificatory.map {
+						val genres = arrayListOf<Pair<Int, GenreGroup.Genre>>()
+						it.genre.map { genre ->
+							genres.add(0, genre)
+						}
+						classificatory.add(GenreGroup(genres, it.genreGroupId, it.label))
+					}
+				}
 			}
 			if (jsonObject["registered_user_id"] != JsonNull.INSTANCE) {
 				registeredUser = DataManager.gson.fromJson(jsonObject, AuthorUser::class.java)
@@ -62,12 +83,21 @@ data class AuthorResponse(
 					author,
 					biography,
 					blogAnons,
+					classificatory,
 					registeredUser,
 					awards,
 					linguaProfile,
 					cycles,
 					works
 			)
+		}
+
+		private fun ArrayList<Pair<Int, GenreGroup.Genre>>.add(
+				level: Int,
+				genreGroup: RecursiveGenreGroup.Genre
+		) {
+			add(level to GenreGroup.Genre(genreGroup.genreId, genreGroup.label, genreGroup.percent))
+			genreGroup.genre?.map { add(level + 1, it) }
 		}
 	}
 }

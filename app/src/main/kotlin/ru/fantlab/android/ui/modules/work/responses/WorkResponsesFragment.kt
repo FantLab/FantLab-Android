@@ -85,7 +85,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	override fun getLoadMore() = onLoadMore
 
 	override fun onSetTabCount(count: Int) {
-		workCallback?.onSetBadge(2, count)
+		workCallback?.onSetBadge(1, count)
 	}
 
 	override fun onItemClicked(item: Response) {

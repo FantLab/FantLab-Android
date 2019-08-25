@@ -25,7 +25,7 @@ class EditionContentChildViewHolder : TreeViewBinder<EditionContentChildViewHold
 	) {
 		val childNode = node.content as EditionContentChild?
 		(holder as EditionContentChildViewHolder.ViewHolder)
-		holder.title.html = childNode!!.title
+		holder.title.html = "⚬ " + childNode!!.title
 	}
 
 	inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {

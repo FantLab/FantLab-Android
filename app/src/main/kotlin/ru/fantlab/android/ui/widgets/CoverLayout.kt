@@ -8,8 +8,8 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
-import androidx.core.content.ContextCompat
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.image_layout.view.*
@@ -68,7 +68,7 @@ class CoverLayout : FrameLayout {
 				)
 				.into(image)
 	}
-	
+
 	fun setUrlGif(url: String?, @DrawableRes fallbackImage: Int = R.drawable.work) {
 		image.scaleType = ImageView.ScaleType.FIT_START
 		Glide.with(context)

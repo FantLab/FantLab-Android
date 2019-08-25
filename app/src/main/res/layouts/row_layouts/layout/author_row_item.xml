@@ -2,29 +2,44 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="100dp"
+	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:background="?android:selectableItemBackground"
-	android:gravity="center_horizontal"
-	android:orientation="vertical"
+	android:orientation="horizontal"
 	>
 
 	<ru.fantlab.android.ui.widgets.AvatarLayout
-		android:id="@+id/avatarLayout"
-		android:layout_width="70dp"
-		android:layout_height="70dp"
+		android:id="@+id/authorAvatar"
+		android:layout_width="@dimen/large_icon_zie"
+		android:layout_height="@dimen/large_icon_zie"
+		android:layout_margin="@dimen/spacing_normal"
 		/>
 
-	<ru.fantlab.android.ui.widgets.FontTextView
-		android:id="@+id/name"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:gravity="center_horizontal"
-		android:includeFontPadding="false"
-		android:paddingTop="@dimen/spacing_micro"
-		android:textColor="?android:attr/textColorSecondary"
-		tools:text="George R.R. Martin"
-		style="@style/TextAppearance.AppCompat.Subhead"
-		/>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:gravity="center_vertical"
+		android:orientation="vertical"
+		>
+
+		<ru.fantlab.android.ui.widgets.FontTextView
+			android:id="@+id/authorName"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+			android:textColor="?android:attr/textColorPrimary"
+			tools:text="Дэн Симмонс"
+			/>
+
+		<ru.fantlab.android.ui.widgets.FontTextView
+			android:id="@+id/authorOrigName"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+			android:textColor="?android:attr/textColorSecondary"
+			tools:text="Dan Simmons"
+			/>
+
+	</LinearLayout>
 
 </LinearLayout>

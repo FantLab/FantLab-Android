@@ -16,7 +16,7 @@ import ru.fantlab.android.provider.rest.PubnewsSortOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.PubnewsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
-import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
+import ru.fantlab.android.ui.modules.edition.EditionActivity
 import ru.fantlab.android.ui.modules.plans.PlansPagerMvp
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 
@@ -85,7 +85,7 @@ class PubnewsFragment : BaseFragment<PubnewsMvp.View, PubnewsPresenter>(),
 	override fun getLoadMore() = onLoadMore
 
 	override fun onItemClicked(item: Pubnews.Object) {
-		EditionPagerActivity.startActivity(context!!, item.editionId.toInt(), item.name, 0)
+		EditionActivity.startActivity(context!!, item.editionId.toInt(), item.name)
 	}
 
 	override fun onItemLongClicked(position: Int, v: View?, item: Pubnews.Object) {

@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.evernote.android.state.State
+import kotlinx.android.synthetic.main.appbar_response_layout.*
 import kotlinx.android.synthetic.main.response_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
@@ -49,7 +50,8 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 			return
 		}
 		fab.setOnClickListener { onFabClicked() }
-		title = getString(R.string.view_response)
+		title = "«" + (if (response.workName.isNotEmpty()) response.workName else response.workNameOrig) + "»"
+		toolbar?.subtitle = getString(R.string.view_response)
 		hideShowShadow(true)
 	}
 
@@ -80,10 +82,9 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 		authors.text = if (!InputHelper.isEmpty(response.workAuthor)) response.workAuthor else response.workAuthorOrig
 
 		workName.text = if (response.workName.isNotEmpty()) response.workName else response.workNameOrig
-		workName.setOnClickListener { openWorkPager() }
+		workBlock.setOnClickListener { openWorkPager() }
 
 		coverLayout.setUrl("https:${response.workImage}", WorkTypesProvider.getCoverByTypeId(response.workTypeId))
-		coverLayout.setOnClickListener { openWorkPager() }
 
 		userInfo.setOnClickListener { showUserMenu() }
 

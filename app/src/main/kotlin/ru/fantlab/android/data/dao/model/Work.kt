@@ -11,6 +11,8 @@ data class Work(
 		val authors: ArrayList<Author>,
 		val image: String?,
 		@SerializedName("image_preview") val preview: String?,
+		@SerializedName("lang") val lang: String?,
+		@SerializedName("lang_code") val lang_code: String?,
 		@SerializedName("publish_statuses") val publishStatuses: ArrayList<String>,
 		val rating: Rating,
 		val title: String,

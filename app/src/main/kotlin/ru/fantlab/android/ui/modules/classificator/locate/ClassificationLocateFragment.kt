@@ -35,7 +35,6 @@ class ClassificationLocateFragment : BaseFragment<ClassificationLocateMvp.View, 
 
 	override fun onInitViews(classificators: ArrayList<ClassificatorModel>) {
 		hideProgress()
-		recycler.addKeyLineDivider()
 		fastScroller.attachRecyclerView(recycler)
 		refresh.setOnRefreshListener(this)
 

@@ -1,13 +1,13 @@
 package ru.fantlab.android.ui.adapter
 
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
-
-/**
- * Created by Kosh on 03 Dec 2016, 9:25 AM
- */
 
 class FragmentsPagerAdapter(fm: FragmentManager, private val fragments: MutableList<FragmentPagerAdapterModel>)
 	: FragmentStatePagerAdapter(fm) {
@@ -32,6 +32,10 @@ class FragmentsPagerAdapter(fm: FragmentManager, private val fragments: MutableL
 	fun remove(position: Int) {
 		fragments.removeAt(position)
 		notifyDataSetChanged()
+	}
+
+	fun getCustomTabView(context: Context): View {
+		return LayoutInflater.from(context).inflate(R.layout.custom_tab, null)
 	}
 
 	fun getItemKey(position: Int): String? {

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/appbar"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:stateListAnimator="@null"
+	android:theme="?android:toolbarStyle"
+	>
+
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="?actionBarSize"
+		android:theme="?android:toolbarStyle"
+		app:contentInsetStartWithNavigation="0dp"
+		app:layout_scrollFlags="scroll|enterAlways"
+		>
+
+		<RelativeLayout
+			android:id="@+id/workBlock"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="?selectableItemBackground"
+			>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_marginStart="@dimen/spacing_normal"
+				android:layout_toEndOf="@+id/coverLayout"
+				android:gravity="center_vertical"
+				android:orientation="vertical"
+				>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/workName"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="1"
+					android:textColor="?android:textColorTertiary"
+					tools:text="Восьмая нога бога"
+					style="@style/TextAppearance.AppCompat.Subhead"
+					/>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/authors"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="1"
+					android:textColor="?android:attr/textColorSecondary"
+					tools:text="Майкл Ши"
+					style="@style/TextAppearance.AppCompat.Subhead"
+					/>
+
+			</LinearLayout>
+
+			<ru.fantlab.android.ui.widgets.CoverLayout
+				android:id="@+id/coverLayout"
+				android:layout_width="30dp"
+				android:layout_height="40dp"
+				android:layout_centerVertical="true"
+				/>
+
+		</RelativeLayout>
+
+	</androidx.appcompat.widget.Toolbar>
+
+</com.google.android.material.appbar.AppBarLayout>

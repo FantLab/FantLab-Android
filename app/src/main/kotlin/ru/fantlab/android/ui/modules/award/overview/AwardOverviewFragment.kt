@@ -53,46 +53,47 @@ class AwardOverviewFragment : BaseFragment<AwardOverviewMvp.View, AwardOverviewP
 
 		pagerCallback?.onSetTitle(awardLabel)
 
-		GlideApp.with(context!!)
-				.load("https://${LinkParserHelper.HOST_DATA}/images/awards/${award.awardId}")
-				.diskCacheStrategy(DiskCacheStrategy.ALL)
-				.dontAnimate()
-				.into(coverLayout)
+		coverLayouts.setUrl("https://${LinkParserHelper.HOST_DATA}/images/awards/${award.awardId}")
+
+		if (!InputHelper.isEmpty(award.countryName)) {
+			awardCountryText.text = award.countryName
+			awardCountryInfoBlock.visibility = View.VISIBLE
+		} else awardCountryInfoBlock.visibility = View.GONE
+
+		if (!InputHelper.isEmpty(award.minDate)) {
+			awardDate.text = award.minDate.split("-")[0] + " г."
+			awardDateBlock.visibility = View.VISIBLE
+		} else awardDateBlock.visibility = View.GONE
+
+		if (!InputHelper.isEmpty(award.homepage)) {
+			awardSite.html = award.homepage
+			authorSiteBlock.visibility = View.VISIBLE
+		} else authorSiteBlock.visibility = View.GONE
 
 		if (award.rusname.isBlank()) {
-			title.text = award.name
-			title2.visibility = View.GONE
+			awardName.text = award.name
+			awardNameOrig.visibility = View.GONE
 		} else {
-			title.text = award.rusname
+			awardName.text = award.rusname
 			if (award.name.isBlank()) {
-				title2.visibility = View.GONE
-			} else title2.text = award.name
+				awardNameOrig.visibility = View.GONE
+			} else awardNameOrig.text = award.name
 		}
 
-		if (!InputHelper.isEmpty(award.description))
-			description.html = award.description
-		else aboutView.visibility = View.GONE
+		if (!InputHelper.isEmpty(award.description)) {
+			awardDescriptionText.html = award.description
+			awardDescriptionBlock.visibility = View.VISIBLE
+		} else awardDescriptionBlock.visibility = View.GONE
 
-		if (!InputHelper.isEmpty(award.comment))
-			comment.html = award.comment
-		else commentView.visibility = View.GONE
+		if (!InputHelper.isEmpty(award.comment)) {
+			commentsText.html = award.comment
+			commentsBLock.visibility = View.VISIBLE
+		} else commentsBLock.visibility = View.GONE
 
-		if (!InputHelper.isEmpty(award.notes))
-			notes.html = award.notes
-		else notesView.visibility = View.GONE
-
-		GlideApp.with(context!!)
-				.load("https://${LinkParserHelper.HOST_DEFAULT}/img/flags/${award.countryId}.png")
-				.diskCacheStrategy(DiskCacheStrategy.ALL)
-				.dontAnimate()
-				.into(langIcon)
-
-		country.text = award.countryName
-		date.text = StringBuilder()
-				.append(award.minDate.split("-")[0])
-				.append(" - ")
-				.append(award.maxDate.split("-")[0])
-		homepage.html = award.homepage
+		if (!InputHelper.isEmpty(award.notes)) {
+			notesText.html = award.notes
+			notesBLock.visibility = View.VISIBLE
+		} else notesBLock.visibility = View.GONE
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {

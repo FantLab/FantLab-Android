@@ -6,8 +6,8 @@ import ru.fantlab.android.ui.adapter.viewholder.AwardsViewHolder
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class AwardsAdapter(nom: ArrayList<AwardInList>?)
-	: BaseRecyclerAdapter<AwardInList, AwardsViewHolder>(nom!!) {
+class AwardsAdapter(nom: ArrayList<AwardInList>)
+	: BaseRecyclerAdapter<AwardInList, AwardsViewHolder>(nom) {
 
 	override fun viewHolder(parent: ViewGroup, viewType: Int): AwardsViewHolder = AwardsViewHolder.newInstance(parent, this)
 

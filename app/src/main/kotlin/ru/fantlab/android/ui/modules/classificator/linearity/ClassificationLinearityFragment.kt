@@ -35,7 +35,6 @@ class ClassificationLinearityFragment : BaseFragment<ClassificationLinearityMvp.
 
 	override fun onInitViews(classificators: ArrayList<ClassificatorModel>) {
 		hideProgress()
-		recycler.addKeyLineDivider()
 		fastScroller.attachRecyclerView(recycler)
 		refresh.setOnRefreshListener(this)
 

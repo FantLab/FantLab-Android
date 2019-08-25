@@ -3,7 +3,7 @@ package ru.fantlab.android.ui.adapter.viewholder
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.work_edition_row_item.view.*
+import kotlinx.android.synthetic.main.edition_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.EditionsBlocks
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
@@ -58,6 +58,6 @@ class EditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<EditionsBl
 				viewGroup: ViewGroup,
 				adapter: BaseRecyclerAdapter<EditionsBlocks.Edition, EditionsViewHolder>
 		): EditionsViewHolder =
-				EditionsViewHolder(getView(viewGroup, R.layout.work_edition_row_item), adapter)
+				EditionsViewHolder(getView(viewGroup, R.layout.edition_row_item), adapter)
 	}
 }

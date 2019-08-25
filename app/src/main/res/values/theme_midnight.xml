@@ -13,6 +13,7 @@
         <item name="card_background">#171F27</item>
         <item name="comment_box_style">@style/CommentBoxMidnight</item>
         <item name="icon_color">#eee</item>
+        <item name="button_icon_color">#ECECEC</item>
         <item name="timeLineBackground">@style/TimeLineBackgroundMidnight</item>
         <item name="patch_addition">@color/midnight_patch_addition_color</item>
         <item name="patch_deletion">@color/midnight_patch_deletion_color</item>

@@ -55,6 +55,7 @@
 		<activity
 			android:name=".ui.modules.user.UserPagerActivity"
 			android:parentActivityName=".ui.modules.main.MainActivity"
+			android:configChanges="keyboard|orientation|screenSize"
 			/>
 		<activity
 			android:name=".ui.modules.authors.AuthorsActivity"
@@ -81,20 +82,33 @@
 			android:parentActivityName=".ui.modules.main.MainActivity"
 			/>
 		<activity
+			android:name=".ui.modules.work.editions.WorkEditionsActivity"
+			android:parentActivityName=".ui.modules.main.MainActivity"
+			/>
+		<activity
 			android:name=".ui.modules.plans.PlansPagerActivity"
 			android:parentActivityName=".ui.modules.main.MainActivity"
+			android:configChanges="keyboard|orientation|screenSize"
 			/>
 		<activity
 			android:name=".ui.modules.author.AuthorPagerActivity"
 			android:parentActivityName=".ui.modules.authors.AuthorsActivity"
+			android:configChanges="keyboard|orientation|screenSize"
 			/>
 		<activity
 			android:name=".ui.modules.award.AwardPagerActivity"
 			android:parentActivityName=".ui.modules.awards.AwardsActivity"
+			android:configChanges="keyboard|orientation|screenSize"
 			/>
 		<activity
 			android:name=".ui.modules.work.WorkPagerActivity"
 			android:parentActivityName=".ui.modules.main.MainActivity"
+			android:configChanges="keyboard|orientation|screenSize"
+			/>
+		<activity
+			android:name=".ui.modules.work.CyclePagerActivity"
+			android:parentActivityName=".ui.modules.author.AuthorPagerActivity"
+			android:configChanges="keyboard|orientation|screenSize"
 			/>
 		<activity
 			android:name=".ui.modules.bookcases.viewer.BookcaseViewerActivity"
@@ -106,11 +120,7 @@
 			android:parentActivityName=".ui.modules.main.MainActivity"
 			/>
 		<activity
-			android:name=".ui.modules.work.CyclePagerActivity"
-			android:parentActivityName=".ui.modules.author.AuthorPagerActivity"
-			/>
-		<activity
-			android:name=".ui.modules.edition.EditionPagerActivity"
+			android:name=".ui.modules.edition.EditionActivity"
 			android:parentActivityName=".ui.modules.author.AuthorPagerActivity"
 			/>
 		<activity
@@ -181,5 +191,7 @@
 			android:value="ce31e76eb8e3dbc70e6048f75e846e7117f1574c"
 			/>
 	</application>
+
+	<uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

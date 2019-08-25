@@ -29,10 +29,13 @@ class UserMarkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Mark, User
 		itemView.type.text = mark.workType.capitalize()
 		itemView.date.text = mark.dateIso.parseFullDate(true).getTimeAgo()
 		if (mark.workYear != 0) {
-			itemView.year.text = mark.workYear.toString()
+			itemView.year.text = mark.workYear.toString() + " г."
 			itemView.year.visibility = View.VISIBLE
 		} else itemView.year.visibility = View.GONE
-		itemView.mark.text = mark.mark.toString()
+
+		itemView.ratingBar.rating = mark.mark.toFloat()
+		itemView.rateMark.text = mark.mark.toString()
+
 		itemView.classified.visibility = if (mark.userClassifiedWork == 1) View.VISIBLE else View.GONE
 		itemView.response.visibility = if (mark.userResponseWork == 1) View.VISIBLE else View.GONE
 	}

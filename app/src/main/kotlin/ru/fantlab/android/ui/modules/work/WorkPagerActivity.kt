@@ -1,6 +1,5 @@
 package ru.fantlab.android.ui.modules.work
 
-import android.app.Activity
 import android.app.Application
 import android.app.Service
 import android.content.Context
@@ -17,8 +16,10 @@ import kotlinx.android.synthetic.main.tabbed_pager_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
-import ru.fantlab.android.helper.*
-import ru.fantlab.android.helper.BundleConstant.CLASSIFICATOR_CODE
+import ru.fantlab.android.helper.ActivityHelper
+import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.ViewHelper
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
@@ -26,13 +27,8 @@ import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.bookcases.editor.BookcaseEditorActivty
 import ru.fantlab.android.ui.modules.bookcases.selector.BookcaseSelectorFragment
-import ru.fantlab.android.ui.modules.classificator.ClassificatorPagerActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
-import ru.fantlab.android.ui.modules.work.classification.WorkClassificationFragment
-import ru.fantlab.android.ui.modules.work.editions.WorkEditionsFragment
-import ru.fantlab.android.ui.modules.work.overview.WorkOverviewFragment
 import ru.fantlab.android.ui.modules.work.responses.WorkResponsesFragment
-import java.text.NumberFormat
 import java.util.*
 
 
@@ -42,14 +38,11 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	@State var index: Int = 0
 	@State var workId: Int = 0
 	@State var workName: String = ""
-	@State var isMarked: Boolean = false
 	@State var mark: Int = 0
 	@State var tabsCountSet = HashSet<TabsCountStateModel>()
-	private val numberFormat = NumberFormat.getNumberInstance()
 	private lateinit var toolbarMenu: Menu
 	private var isError = false
 	private var adapter: FragmentsPagerAdapter? = null
-
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
 	override fun isTransparent(): Boolean = true
@@ -72,23 +65,16 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 		setTaskName(workName)
 		title = workName
 		selectMenuItem(R.id.mainView, false)
-		val currentUser = PrefGetter.getLoggedUser()
-		adapter = if (currentUser == null) {
-				FragmentsPagerAdapter(
-						supportFragmentManager,
-						FragmentPagerAdapterModel.buildForWork(this, workId)
-				)
-			}
-			else {
-				FragmentsPagerAdapter(
-						supportFragmentManager,
-						FragmentPagerAdapterModel.buildForWork(this, workId, currentUser.id)
-				)
-			}
+		adapter = FragmentsPagerAdapter(
+				supportFragmentManager,
+				FragmentPagerAdapterModel.buildForWork(this, workId)
+		)
 		pager.adapter = adapter
 		tabs.tabGravity = TabLayout.GRAVITY_FILL
 		tabs.tabMode = TabLayout.MODE_SCROLLABLE
 		tabs.setupWithViewPager(pager)
+		invalidateTabs(adapter)
+
 		if (savedInstanceState == null) {
 			if (index != -1) {
 				pager.currentItem = index
@@ -114,6 +100,17 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 		fab.setOnClickListener { onFabClicked() }
 	}
 
+	private fun invalidateTabs(adapter: FragmentsPagerAdapter?) {
+		for (i in 0 until tabs.tabCount) {
+			val tab = tabs.getTabAt(i)
+			if (tab != null) {
+				val custom = tab.customView
+				if (custom == null) tab.customView = adapter?.getCustomTabView(applicationContext)
+				setupTab(0, i)
+			}
+		}
+	}
+
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
 		menuInflater.inflate(R.menu.work_menu, menu)
 		toolbarMenu = menu
@@ -131,12 +128,8 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 				return true
 			}
 			R.id.sort -> {
-				val fragment = pager.adapter?.instantiateItem(pager, 2) as? WorkResponsesFragment
+				val fragment = pager.adapter?.instantiateItem(pager, 1) as? WorkResponsesFragment
 				fragment?.showSortDialog()
-			}
-			R.id.filter -> {
-				val fragment = pager.adapter?.instantiateItem(pager, 3) as? WorkEditionsFragment
-				fragment?.showFilterDialog()
 			}
 		}
 		return super.onOptionsItemSelected(item)
@@ -165,30 +158,11 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 			return
 		}
 		when (adapter!!.getItemKey(position)) {
-			getString(R.string.overview) -> {
-				if (isLoggedIn()) {
-					fab.setImageResource(R.drawable.ic_star)
-					fab.show()
-				} else fab.hide()
-			}
-			getString(R.string.classification) -> {
-				val user = PrefGetter.getLoggedUser()
-				if (user != null && user.`class` >= FantlabHelper.Levels.PHILOSOPHER.`class` && isMarked) {
-					fab.setImageResource(R.drawable.ic_classification)
-					fab.show()
-				} else fab.hide()
-			}
 			getString(R.string.responses) -> {
 				if (isLoggedIn()) {
 					fab.setImageResource(R.drawable.ic_response)
 					fab.show()
 				}
-			}
-			getString(R.string.editions) -> fab.hide()/*fab.show()*/
-			getString(R.string.analogs) -> fab.hide()/*fab.show()*/
-			getString(R.string.my_bookcases) -> {
-				fab.setImageResource(R.drawable.ic_add)
-				fab.show()
 			}
 			else -> fab.hide()
 		}
@@ -205,11 +179,6 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 					toolbarMenu.findItem(R.id.share).isVisible = false
 					toolbarMenu.findItem(R.id.sort).isVisible = true
 				}
-				getString(R.string.editions) -> {
-					toolbarMenu.findItem(R.id.share).isVisible = false
-					toolbarMenu.findItem(R.id.sort).isVisible = false
-					toolbarMenu.findItem(R.id.filter).isVisible = true
-				}
 				getString(R.string.my_bookcases) -> {
 					toolbarMenu.findItem(R.id.share).isVisible = false
 					toolbarMenu.findItem(R.id.sort).isVisible = false
@@ -217,7 +186,6 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 				else -> {
 					toolbarMenu.findItem(R.id.share).isVisible = false
 					toolbarMenu.findItem(R.id.sort).isVisible = false
-					toolbarMenu.findItem(R.id.filter).isVisible = false
 				}
 			}
 		}
@@ -230,31 +198,26 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 
 	private fun onFabClicked() {
 		when (adapter!!.getItemKey(pager.currentItem)) {
-			getString(R.string.overview) -> {
-				val fragment = pager.adapter?.instantiateItem(pager, 0) as? WorkOverviewFragment
-				fragment?.showMarkDialog()
-			}
-			getString(R.string.classification) -> {
-				ClassificatorPagerActivity.startActivity(this, workId)
-			}
 			getString(R.string.responses) -> {
 				startActivityForResult(Intent(this, EditorActivity::class.java)
 						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_RESPONSE)
 						.putExtra(BundleConstant.ID, workId), BundleConstant.REFRESH_RESPONSE_CODE)
 			}
-			getString(R.string.my_bookcases) -> {
-				startActivityForResult(Intent(this, BookcaseEditorActivty::class.java)
-						.putExtra(BundleConstant.ID, PrefGetter.getLoggedUser()), BundleConstant.BOOKCASE_EDITOR)
-			}
 		}
 	}
 
 	private fun setupTab(count: Int, index: Int) {
-		val textView = ViewHelper.getTabTextView(tabs, index)
+		val tabView = ViewHelper.getTabView(tabs, index)
 		when (adapter!!.getItemKey(index)) {
-			getString(R.string.responses) -> textView.text = String.format("%s(%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
-			getString(R.string.editions) -> textView.text = String.format("%s(%s)", getString(R.string.editions), numberFormat.format(count.toLong()))
-			getString(R.string.analogs) -> textView.text = String.format("%s(%s)", getString(R.string.analogs), numberFormat.format(count.toLong()))
+			getString(R.string.overview) -> tabView.first.text = getString(R.string.overview)
+			getString(R.string.responses) -> {
+				tabView.first.text = getString(R.string.responses)
+				tabView.second.text = count.toString()
+			}
+			getString(R.string.analogs) -> {
+				tabView.first.text = getString(R.string.analogs)
+				tabView.second.text = count.toString()
+			}
 		}
 	}
 
@@ -267,7 +230,6 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	}
 
 	override fun onSetMarked(isMarked: Boolean, mark: Int) {
-		this.isMarked = isMarked
 		this.mark = mark
 	}
 
@@ -275,29 +237,28 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 		return mark
 	}
 
+	override fun onResponsesRefresh() {
+		val fragment = pager.adapter?.instantiateItem(pager, 1) as? WorkResponsesFragment
+		fragment?.onRefresh()
+	}
+
+	override fun isCycle(): Boolean = false
+
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		super.onActivityResult(requestCode, resultCode, data)
 		when (requestCode) {
 			BundleConstant.REFRESH_RESPONSE_CODE -> {
-				val fragment = pager.adapter?.instantiateItem(pager, 2) as? WorkResponsesFragment
+				val fragment = pager.adapter?.instantiateItem(pager, 1) as? WorkResponsesFragment
 				fragment?.onRefresh()
-			}
-			BundleConstant.CLASSIFICATOR_CODE -> {
-				if (resultCode == RESULT_OK) {
-					val fragment = pager.adapter?.instantiateItem(pager, 1) as? WorkClassificationFragment
-					fragment?.onRefresh()
-				}
 			}
 			BundleConstant.BOOKCASE_EDITOR -> {
 				if (resultCode == RESULT_OK
-					&& adapter!!.getItemKey(pager.currentItem) == getString(R.string.bookcases)) {
+						&& adapter!!.getItemKey(pager.currentItem) == getString(R.string.bookcases)) {
 					val fragment = pager.adapter?.instantiateItem(pager, pager.currentItem) as? BookcaseSelectorFragment
 					fragment?.onRefresh()
 				}
 			}
 		}
-
-		super.onActivityResult(requestCode, resultCode, data)
 	}
 
 	companion object {

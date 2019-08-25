@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import com.google.android.material.tabs.TabLayout
 import ru.fantlab.android.R
+import ru.fantlab.android.ui.widgets.FontTextView
 
 object ViewHelper {
 
@@ -74,6 +75,11 @@ object ViewHelper {
 
 	fun getTabTextView(tabs: TabLayout, tabIndex: Int): TextView {
 		return ((tabs.getChildAt(0) as LinearLayout).getChildAt(tabIndex) as LinearLayout).getChildAt(1) as TextView
+	}
+
+	fun getTabView(tabs: TabLayout, tabIndex: Int): Pair<FontTextView, FontTextView> {
+		val tabView = tabs.getTabAt(tabIndex)?.customView!!
+		return Pair(tabView.findViewById(R.id.title), tabView.findViewById(R.id.counter))
 	}
 
 	fun showKeyboard(v: View, activity: Context) {

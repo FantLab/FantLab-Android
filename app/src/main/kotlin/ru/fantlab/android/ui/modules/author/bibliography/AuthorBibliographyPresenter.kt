@@ -21,30 +21,30 @@ class AuthorBibliographyPresenter : BasePresenter<AuthorBibliographyMvp.View>(),
 	override fun onFragmentCreated(bundle: Bundle) {
 		val authorId = bundle.getInt(BundleConstant.EXTRA)
 		makeRestCall(
-				getAuthorInternal(authorId).toObservable(),
+				getAuthorBibliographyInternal(authorId).toObservable(),
 				Consumer { (cycles, works) -> sendToView { it.onInitViews(cycles, works) } }
 		)
 	}
 
-	private fun getAuthorInternal(authorId: Int) =
-			getAuthorFromServer(authorId)
+	private fun getAuthorBibliographyInternal(authorId: Int) =
+			getAuthorBibliographyFromServer(authorId)
 					.onErrorResumeNext {
-						getAuthorFromDb(authorId)
+						getAuthorBibliographyFromDb(authorId)
 					}
 
-	private fun getAuthorFromServer(authorId: Int): Single<Pair<WorksBlocks?, WorksBlocks?>> =
+	private fun getAuthorBibliographyFromServer(authorId: Int): Single<Pair<WorksBlocks?, WorksBlocks?>> =
 			DataManager.getAuthor(authorId, showBiblioBlocks = true)
-					.map { getAuthor(it) }
+					.map { getAuthorBibliography(it) }
 
-	private fun getAuthorFromDb(authorId: Int): Single<Pair<WorksBlocks?, WorksBlocks?>> =
+	private fun getAuthorBibliographyFromDb(authorId: Int): Single<Pair<WorksBlocks?, WorksBlocks?>> =
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getAuthorPath(authorId, showBiblioBlocks = true))
 					.map { it.response }
 					.map { AuthorResponse.Deserializer().deserialize(it) }
-					.map { getAuthor(it) }
+					.map { getAuthorBibliography(it) }
 
-	private fun getAuthor(response: AuthorResponse): Pair<WorksBlocks?, WorksBlocks?> =
+	private fun getAuthorBibliography(response: AuthorResponse): Pair<WorksBlocks?, WorksBlocks?> =
 			response.cycles to response.works
 
 	override fun getMarks(userId: Int, workIds: ArrayList<Int>) {

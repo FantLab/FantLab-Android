@@ -17,15 +17,13 @@ interface WorkEditionsMvp {
 
 		fun onInitViews(editions: EditionsBlocks?, editionsInfo: EditionsInfo)
 
-		fun onSetTabCount(allCount: Int)
-
 		fun onItemClicked(item: EditionsBlocks.Edition)
 	}
 
 	interface Presenter : BaseMvp.Presenter,
-			BaseViewHolder.OnItemClickListener<EditionsBlocks.Edition> {
-
-		fun onFragmentCreated(bundle: Bundle)
+			BaseViewHolder.OnItemClickListener<EditionsBlocks.Edition>
+	{
+		fun onCallApi(workId: Int)
 
 		fun getEditions(force: Boolean)
 	}

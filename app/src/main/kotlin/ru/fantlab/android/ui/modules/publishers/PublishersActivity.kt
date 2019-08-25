@@ -143,7 +143,7 @@ class PublishersActivity : BaseActivity<PublishersMvp.View, PublishersPresenter>
 		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 	}
 
-	fun showFilterDialog() {
+	private fun showFilterDialog() {
 		val dialogView = ContextMenuDialogView()
 		val sort = presenter.getCurrentSort()
 		dialogView.initArguments("filter", ContextMenuBuilder.buildForPublishersFilter(recycler.context, sort.filterCategory, sort.filterCountry))
