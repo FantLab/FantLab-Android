@@ -1,6 +1,7 @@
 package ru.fantlab.android.provider.rest
 
 import com.github.kittinunf.fuel.core.Response
+import com.github.kittinunf.fuel.httpDelete
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.fuel.rx.rxObject
@@ -194,6 +195,108 @@ object DataManager {
 			getUserResponsesPath(userId, page, sortOption)
 					.httpGet()
 					.rxObject(ResponsesResponse.Deserializer(perPage = 50))
+					.map { it.get() }
+
+	fun getPersonalBookcases(
+	): Single<BookcasesResponse> =
+			getPersonalBookcasesPath()
+					.httpGet()
+					.rxObject(BookcasesResponse.Deserializer())
+					.map { it.get() }
+
+	fun getPersonalBookcaseInformation(
+			bookcaseId: Int
+	): Single<BookcaseInformationResponse> =
+			getPersonalBookcaseInformationPath(bookcaseId)
+					.httpGet()
+					.rxObject(BookcaseInformationResponse.Deserializer())
+					.map { it.get() }
+
+	fun getPersonalEditionBookcase(
+			bookcaseId: Int,
+			offset: Int = 0
+	): Single<BookcaseEditionsResponse> =
+			getPersonalBookcasePath(bookcaseId, offset)
+					.httpGet()
+					.rxObject(BookcaseEditionsResponse.Deserializer(perPage = 10))
+					.map { it.get() }
+
+	fun getPersonalWorkBookcase(
+			bookcaseId: Int,
+			offset: Int = 0
+	): Single<BookcaseWorksResponse> =
+			getPersonalBookcasePath(bookcaseId, offset)
+					.httpGet()
+					.rxObject(BookcaseWorksResponse.Deserializer(perPage = 10))
+					.map { it.get() }
+
+	fun getPersonalFilmBookcase(
+			bookcaseId: Int,
+			offset: Int = 0
+	): Single<BookcaseFilmsResponse> =
+			getPersonalBookcasePath(bookcaseId, offset)
+					.httpGet()
+					.rxObject(BookcaseFilmsResponse.Deserializer(perPage = 10))
+					.map { it.get() }
+
+	fun createBookcase(
+			type: String,
+			name: String,
+			publicBookcase: String,
+			bookcaseComment: String?
+	): Single<String> =
+			createBookcasePath(type, name, publicBookcase, bookcaseComment)
+					.httpPost()
+					.rxString()
+					.map { it.get() }
+
+	fun updateBookcase(
+			bookcaseId: Int,
+			type: String,
+			name: String,
+			publicBookcase: String,
+			bookcaseComment: String?
+	): Single<String> =
+			updateBookcasePath(bookcaseId, type, name, publicBookcase, bookcaseComment)
+					.httpPost()
+					.rxString()
+					.map { it.get() }
+
+	fun deletePersonalBookcase(
+			bookcaseId: Int
+	): Single<String> =
+			deletePersonalBookcasePath(bookcaseId)
+					.httpDelete()
+					.rxString()
+					.map { it.get() }
+
+	fun includeItemToBookcase(
+			bookcaseId: Int,
+			entityId: Int,
+			include: String
+	): Single<String> =
+			includeItemToBookcasePath(bookcaseId, entityId, include)
+					.httpPost()
+					.rxString()
+					.map { it.get() }
+
+	fun updateBookcaseItemComment(
+			bookcaseId: Int,
+			entityId: Int,
+			text: String
+	): Single<String> =
+			updateBookcaseItemCommentPath(bookcaseId, entityId, text)
+					.httpPost()
+					.rxString()
+					.map { it.get() }
+
+	fun getBookcaseInclusions(
+			bookcaseType: String,
+			entityId: Int
+	): Single<BookcaseInclusionResponse> =
+			getBookcaseInclusionsPath(bookcaseType, entityId)
+					.httpGet()
+					.rxObject(BookcaseInclusionResponse.Deserializer())
 					.map { it.get() }
 
 	fun sendUserMark(
@@ -604,6 +707,54 @@ fun getUserResponsesPath(
 		page: Int = 1,
 		sortOption: ResponsesSortOption = ResponsesSortOption.BY_DATE
 ) = "/user/$userId/responses?page=$page&sort=${sortOption.value}".toAbsolutePathWithApiVersion()
+
+fun getPersonalBookcasesPath(
+) = "/my/bookcases".toAbsolutePathWithApiVersion()
+
+fun getPersonalBookcaseInformationPath(
+		bookcaseId: Int
+) = "/my/bookcases/$bookcaseId/description".toAbsolutePathWithApiVersion()
+
+fun getPersonalBookcasePath(
+		bookcaseId: Int,
+		offset: Int = 0
+) = "/my/bookcases/$bookcaseId/items?offset=$offset".toAbsolutePathWithApiVersion()
+
+fun createBookcasePath(
+		type: String,
+		name: String,
+		publicBookcase: String,
+		comment: String?
+) = "/my/bookcases/add?name=$name&type=$type&shared=$publicBookcase&comment=$comment".toAbsolutePathWithApiVersion()
+
+fun updateBookcasePath(
+		bookcaseId: Int,
+		type: String,
+		name: String,
+		publicBookcase: String,
+		comment: String?
+) = "/my/bookcases/$bookcaseId/edit?name=$name&type=$type&shared=$publicBookcase&comment=$comment".toAbsolutePathWithApiVersion()
+
+fun deletePersonalBookcasePath(
+		bookcaseId: Int
+) = "/my/bookcases/$bookcaseId/delete".toAbsolutePathWithApiVersion()
+
+fun includeItemToBookcasePath(
+		bookcaseId: Int,
+		entityId: Int,
+		include: String
+) = "/my/bookcases/$bookcaseId/items/$entityId/$include".toAbsolutePathWithApiVersion()
+
+fun updateBookcaseItemCommentPath(
+		bookcaseId: Int,
+		entityId: Int,
+		comment: String
+) = "/my/bookcases/$bookcaseId/items/$entityId/editcomm?txt=$comment".toAbsolutePathWithApiVersion()
+
+fun getBookcaseInclusionsPath(
+		bookcaseType: String,
+		entityId: Int
+) = "/my/bookcases/type/$bookcaseType/$entityId".toAbsolutePathWithApiVersion()
 
 fun sendUserMarkPath(
 		workId: Int,

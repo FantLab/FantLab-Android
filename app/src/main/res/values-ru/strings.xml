@@ -22,6 +22,7 @@
 	<string name="bibliographies">Библиографии</string>
 	<string name="news">Новости</string>
 	<string name="responses">Отзывы</string>
+	<string name="bookcases">Книжные полки</string>
 	<string name="analogs">Похожие</string>
 	<string name="classification">Классификация</string>
 	<string name="forum">Форум</string>
@@ -236,5 +237,26 @@
 	<string name="sort_update">Дате выхода последней статьи</string>
 	<string name="sort_articles">Количеству статей</string>
 	<string name="sort_subscribers">Количеству подписчиков</string>
-
+	<string name="bookcase_access">полка доступна для просмотра другим пользователям</string>
+	<string name="bookcase_name_hint">Название</string>
+	<string name="bookcase_creation_title">Добавление новой полки</string>
+	<string name="bookcase_update_title">Обновление полки</string>
+	<string name="bookcase_work">Подборки произведений</string>
+	<string name="bookcase_edition">Книжные полки изданий</string>
+	<string name="bookcase_film">Кинополки</string>
+	<string name="bookcase_work_type">для произведений</string>
+	<string name="bookcase_edition_type">для изданий</string>
+	<string name="bookcase_film_type">для кинофильмов</string>
+	<string name="bookcase_created">Полка добавлена</string>
+	<string name="bookcase_updated">Полка обновлена</string>
+	<string name="bookcase_delete">Удалить</string>
+	<string name="bookcase_deleting">Удаление полки</string>
+	<string name="bookcase_modify">Править</string>
+	<string name="bookcase_deleted">Полка удалена</string>
+	<string name="bookcase_add_comment">Добавить комментарий</string>
+	<string name="bookcase_item_deleting">Удаление элемента с полки</string>
+    <string name="bookcase_item_comment_modifying">Редактирование комментария</string>
+	<string name="bookcase_item_count_suffix">шт</string>
+	<string name="no_bookcases">Нет полок</string>
+	<string name="my_bookcases">Мои книжные полки</string>
 </resources>

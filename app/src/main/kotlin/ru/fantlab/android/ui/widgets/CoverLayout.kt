@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
+import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.image_layout.view.*
@@ -65,6 +66,17 @@ class CoverLayout : FrameLayout {
 						.diskCacheStrategy(DiskCacheStrategy.DATA)
 						.listener(SvgSoftwareLayerSetter())
 				)
+				.into(image)
+	}
+	
+	fun setUrlGif(url: String?, @DrawableRes fallbackImage: Int = R.drawable.work) {
+		image.scaleType = ImageView.ScaleType.FIT_START
+		Glide.with(context)
+				.load(url)
+				.fallback(ContextCompat.getDrawable(context, fallbackImage))
+				.error(ContextCompat.getDrawable(context, fallbackImage))
+				.diskCacheStrategy(DiskCacheStrategy.ALL)
+				.dontAnimate()
 				.into(image)
 	}
 

@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.work
 
+import android.app.Activity
 import android.app.Application
 import android.app.Service
 import android.content.Context
@@ -23,6 +24,8 @@ import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
+import ru.fantlab.android.ui.modules.bookcases.editor.BookcaseEditorActivty
+import ru.fantlab.android.ui.modules.bookcases.selector.BookcaseSelectorFragment
 import ru.fantlab.android.ui.modules.classificator.ClassificatorPagerActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.work.classification.WorkClassificationFragment
@@ -45,6 +48,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	private val numberFormat = NumberFormat.getNumberInstance()
 	private lateinit var toolbarMenu: Menu
 	private var isError = false
+	private var adapter: FragmentsPagerAdapter? = null
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
@@ -68,10 +72,19 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 		setTaskName(workName)
 		title = workName
 		selectMenuItem(R.id.mainView, false)
-		val adapter = FragmentsPagerAdapter(
-				supportFragmentManager,
-				FragmentPagerAdapterModel.buildForWork(this, workId)
-		)
+		val currentUser = PrefGetter.getLoggedUser()
+		adapter = if (currentUser == null) {
+				FragmentsPagerAdapter(
+						supportFragmentManager,
+						FragmentPagerAdapterModel.buildForWork(this, workId)
+				)
+			}
+			else {
+				FragmentsPagerAdapter(
+						supportFragmentManager,
+						FragmentPagerAdapterModel.buildForWork(this, workId, currentUser.id)
+				)
+			}
 		pager.adapter = adapter
 		tabs.tabGravity = TabLayout.GRAVITY_FILL
 		tabs.tabMode = TabLayout.MODE_SCROLLABLE
@@ -151,47 +164,55 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 			fab.hide()
 			return
 		}
-		when (position) {
-			0 -> {
+		when (adapter!!.getItemKey(position)) {
+			getString(R.string.overview) -> {
 				if (isLoggedIn()) {
 					fab.setImageResource(R.drawable.ic_star)
 					fab.show()
 				} else fab.hide()
 			}
-			1 -> {
+			getString(R.string.classification) -> {
 				val user = PrefGetter.getLoggedUser()
 				if (user != null && user.`class` >= FantlabHelper.Levels.PHILOSOPHER.`class` && isMarked) {
 					fab.setImageResource(R.drawable.ic_classification)
 					fab.show()
 				} else fab.hide()
 			}
-			2 -> {
+			getString(R.string.responses) -> {
 				if (isLoggedIn()) {
 					fab.setImageResource(R.drawable.ic_response)
 					fab.show()
 				}
 			}
-			3 -> fab.hide()/*fab.show()*/
-			4 -> fab.hide()/*fab.show()*/
+			getString(R.string.editions) -> fab.hide()/*fab.show()*/
+			getString(R.string.analogs) -> fab.hide()/*fab.show()*/
+			getString(R.string.my_bookcases) -> {
+				fab.setImageResource(R.drawable.ic_add)
+				fab.show()
+			}
 			else -> fab.hide()
 		}
 	}
 
 	private fun hideShowToolbar(position: Int) {
 		if (::toolbarMenu.isInitialized) {
-			when (position) {
-				0 -> {
+			when (adapter!!.getItemKey(position)) {
+				getString(R.string.overview) -> {
 					toolbarMenu.findItem(R.id.sort).isVisible = false
 					toolbarMenu.findItem(R.id.share).isVisible = true
 				}
-				2 -> {
+				getString(R.string.responses) -> {
 					toolbarMenu.findItem(R.id.share).isVisible = false
 					toolbarMenu.findItem(R.id.sort).isVisible = true
 				}
-				3 -> {
+				getString(R.string.editions) -> {
 					toolbarMenu.findItem(R.id.share).isVisible = false
 					toolbarMenu.findItem(R.id.sort).isVisible = false
 					toolbarMenu.findItem(R.id.filter).isVisible = true
+				}
+				getString(R.string.my_bookcases) -> {
+					toolbarMenu.findItem(R.id.share).isVisible = false
+					toolbarMenu.findItem(R.id.sort).isVisible = false
 				}
 				else -> {
 					toolbarMenu.findItem(R.id.share).isVisible = false
@@ -208,28 +229,32 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	}
 
 	private fun onFabClicked() {
-		when (pager.currentItem) {
-			0 -> {
+		when (adapter!!.getItemKey(pager.currentItem)) {
+			getString(R.string.overview) -> {
 				val fragment = pager.adapter?.instantiateItem(pager, 0) as? WorkOverviewFragment
 				fragment?.showMarkDialog()
 			}
-			1 -> {
+			getString(R.string.classification) -> {
 				ClassificatorPagerActivity.startActivity(this, workId)
 			}
-			2 -> {
+			getString(R.string.responses) -> {
 				startActivityForResult(Intent(this, EditorActivity::class.java)
 						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_RESPONSE)
 						.putExtra(BundleConstant.ID, workId), BundleConstant.REFRESH_RESPONSE_CODE)
+			}
+			getString(R.string.my_bookcases) -> {
+				startActivityForResult(Intent(this, BookcaseEditorActivty::class.java)
+						.putExtra(BundleConstant.ID, PrefGetter.getLoggedUser()), BundleConstant.BOOKCASE_EDITOR)
 			}
 		}
 	}
 
 	private fun setupTab(count: Int, index: Int) {
 		val textView = ViewHelper.getTabTextView(tabs, index)
-		when (index) {
-			2 -> textView.text = String.format("%s(%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
-			3 -> textView.text = String.format("%s(%s)", getString(R.string.editions), numberFormat.format(count.toLong()))
-			4 -> textView.text = String.format("%s(%s)", getString(R.string.analogs), numberFormat.format(count.toLong()))
+		when (adapter!!.getItemKey(index)) {
+			getString(R.string.responses) -> textView.text = String.format("%s(%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
+			getString(R.string.editions) -> textView.text = String.format("%s(%s)", getString(R.string.editions), numberFormat.format(count.toLong()))
+			getString(R.string.analogs) -> textView.text = String.format("%s(%s)", getString(R.string.analogs), numberFormat.format(count.toLong()))
 		}
 	}
 
@@ -263,7 +288,16 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 					fragment?.onRefresh()
 				}
 			}
+			BundleConstant.BOOKCASE_EDITOR -> {
+				if (resultCode == RESULT_OK
+					&& adapter!!.getItemKey(pager.currentItem) == getString(R.string.bookcases)) {
+					val fragment = pager.adapter?.instantiateItem(pager, pager.currentItem) as? BookcaseSelectorFragment
+					fragment?.onRefresh()
+				}
+			}
 		}
+
+		super.onActivityResult(requestCode, resultCode, data)
 	}
 
 	companion object {

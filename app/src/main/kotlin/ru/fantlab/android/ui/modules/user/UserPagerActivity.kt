@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.user
 
+import android.app.Activity
 import android.app.Application
 import android.app.Service
 import android.content.Context
@@ -26,6 +27,8 @@ import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
+import ru.fantlab.android.ui.modules.bookcases.editor.BookcaseEditorActivty
+import ru.fantlab.android.ui.modules.bookcases.overview.BookcasesOverviewFragment
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
@@ -44,6 +47,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	private lateinit var toolbarMenu: Menu
 	private val numberFormat = NumberFormat.getNumberInstance()
 	private var isError = false
+	private var adapter: FragmentsPagerAdapter? = null
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
@@ -81,7 +85,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		if (login == currentUser?.login) {
 			selectMenuItem(R.id.profile, true)
 		}
-		val adapter = FragmentsPagerAdapter(
+		adapter = FragmentsPagerAdapter(
 				supportFragmentManager,
 				FragmentPagerAdapterModel.buildForProfile(this, userId)
 		)
@@ -161,23 +165,38 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		pager.currentItem = tabIndex
 	}
 
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		if (resultCode == Activity.RESULT_OK) {
+			if ((requestCode == BundleConstant.BOOKCASE_EDITOR || requestCode == BundleConstant.BOOKCASE_VIEWER)
+					&& adapter!!.getItemKey(pager.currentItem) == getString(R.string.bookcases)) {
+				val fragment = pager.adapter?.instantiateItem(pager, pager.currentItem) as? BookcasesOverviewFragment
+				fragment?.onRefresh()
+			}
+		}
+		super.onActivityResult(requestCode, resultCode, data)
+	}
+
 	private fun hideShowFab(position: Int) {
 		if (isError) {
 			fab.hide()
 			return
 		}
-		when (position) {
-			0 -> {
+		when (adapter!!.getItemKey(position)) {
+			getString(R.string.overview) -> {
 				if (isLoggedIn() && userId != PrefGetter.getLoggedUser()?.id) {
 					fab.setImageResource(R.drawable.ic_message)
 					fab.show()
 				} else fab.hide()
 			}
-			1 -> {
+			getString(R.string.marks) -> {
 				fab.setImageResource(R.drawable.ic_charts)
 				fab.show()
 			}
-			2 -> fab.hide()/*fab.show()*/
+			getString(R.string.responses) -> fab.hide()/*fab.show()*/
+			getString(R.string.bookcases) -> {
+				fab.setImageResource(R.drawable.ic_add)
+				fab.show()
+			}
 			else -> fab.hide()
 		}
 	}
@@ -189,24 +208,28 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 
 	private fun onFabClicked() {
-		when (pager.currentItem) {
-			0 -> {
+		when (adapter!!.getItemKey(pager.currentItem)) {
+			getString(R.string.overview) -> {
 				startActivity(Intent(this, EditorActivity::class.java)
 						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_MESSAGE)
 						.putExtra(BundleConstant.ID, userId))
 			}
-			1 -> {
+			getString(R.string.marks) -> {
 				val fragment = pager.adapter?.instantiateItem(pager, 1) as? ProfileMarksFragment
 				fragment?.showChartsDialog()
+			}
+			getString(R.string.bookcases) -> {
+				BookcaseEditorActivty.startActivityForCreation(this)
 			}
 		}
 	}
 
 	private fun setupTab(count: Int, index: Int) {
 		val textView = ViewHelper.getTabTextView(tabs, index)
-		when (index) {
-			1 -> textView.text = String.format("%s (%s)", getString(R.string.marks), numberFormat.format(count.toLong()))
-			2 -> textView.text = String.format("%s (%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
+		when (adapter!!.getItemKey(index)) {
+			getString(R.string.marks) -> textView.text = String.format("%s (%s)", getString(R.string.marks), numberFormat.format(count.toLong()))
+			getString(R.string.responses) -> textView.text = String.format("%s (%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
+			getString(R.string.bookcases) -> textView.text = String.format("%s (%s)", getString(R.string.bookcases), numberFormat.format(count.toLong()))
 		}
 	}
 

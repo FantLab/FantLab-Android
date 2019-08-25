@@ -97,6 +97,15 @@
 			android:parentActivityName=".ui.modules.main.MainActivity"
 			/>
 		<activity
+			android:name=".ui.modules.bookcases.viewer.BookcaseViewerActivity"
+			android:parentActivityName=".ui.modules.main.MainActivity"
+			/>
+
+		<activity
+			android:name=".ui.modules.bookcases.editor.BookcaseEditorActivty"
+			android:parentActivityName=".ui.modules.main.MainActivity"
+			/>
+		<activity
 			android:name=".ui.modules.work.CyclePagerActivity"
 			android:parentActivityName=".ui.modules.author.AuthorPagerActivity"
 			/>

@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.edition
 
+import android.app.Activity
 import android.app.Application
 import android.app.Service
 import android.content.Context
@@ -16,15 +17,14 @@ import kotlinx.android.synthetic.main.tabbed_pager_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.FragmentPagerAdapterModel
 import ru.fantlab.android.data.dao.TabsCountStateModel
-import ru.fantlab.android.helper.ActivityHelper
-import ru.fantlab.android.helper.BundleConstant
-import ru.fantlab.android.helper.Bundler
-import ru.fantlab.android.helper.ViewHelper
+import ru.fantlab.android.helper.*
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
+import ru.fantlab.android.ui.modules.bookcases.editor.BookcaseEditorActivty
+import ru.fantlab.android.ui.modules.bookcases.selector.BookcaseSelectorFragment
 import java.text.NumberFormat
 import java.util.*
 
@@ -36,6 +36,7 @@ class EditionPagerActivity : BaseActivity<EditionPagerMvp.View, BasePresenter<Ed
 	@State var editionName: String = ""
 	@State var tabsCountSet = HashSet<TabsCountStateModel>()
 	private val numberFormat = NumberFormat.getNumberInstance()
+	private var adapter: FragmentsPagerAdapter? = null
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
@@ -59,10 +60,19 @@ class EditionPagerActivity : BaseActivity<EditionPagerMvp.View, BasePresenter<Ed
 		setTaskName(editionName)
 		title = editionName
 		selectMenuItem(R.id.mainView, false)
-		val adapter = FragmentsPagerAdapter(
-				supportFragmentManager,
-				FragmentPagerAdapterModel.buildForEdition(this, editionId)
-		)
+		val currentUser = PrefGetter.getLoggedUser()
+		adapter = if (currentUser == null) {
+			FragmentsPagerAdapter(
+					supportFragmentManager,
+					FragmentPagerAdapterModel.buildForEdition(this, editionId)
+			)
+		}
+		else {
+			FragmentsPagerAdapter(
+					supportFragmentManager,
+					FragmentPagerAdapterModel.buildForEdition(this, editionId, currentUser.id)
+			)
+		}
 		pager.adapter = adapter
 		tabs.tabGravity = TabLayout.GRAVITY_FILL
 		tabs.tabMode = TabLayout.MODE_SCROLLABLE
@@ -88,6 +98,7 @@ class EditionPagerActivity : BaseActivity<EditionPagerMvp.View, BasePresenter<Ed
 			tabsCountSet.forEach { setupTab(count = it.count, index = it.tabIndex) }
 		}
 		hideShowFab(pager.currentItem)
+		fab.setOnClickListener { onFabClicked() }
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -125,18 +136,41 @@ class EditionPagerActivity : BaseActivity<EditionPagerMvp.View, BasePresenter<Ed
 		this.title = title
 	}
 
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		if (resultCode == Activity.RESULT_OK) {
+			if (requestCode == BundleConstant.BOOKCASE_EDITOR
+					&& adapter!!.getItemKey(pager.currentItem) == getString(R.string.bookcases)) {
+				val fragment = pager.adapter?.instantiateItem(pager, pager.currentItem) as? BookcaseSelectorFragment
+				fragment?.onRefresh()
+			}
+		}
+		super.onActivityResult(requestCode, resultCode, data)
+	}
+
 	private fun hideShowFab(position: Int) {
-		when (position) {
-			3 -> fab.hide()/*fab.show()*//*книжные полки?*/
+		when (adapter!!.getItemKey(position)) {
+			getString(R.string.my_bookcases) -> {
+				fab.setImageResource(R.drawable.ic_add)
+				fab.show()
+			}
 			else -> fab.hide()
+		}
+	}
+
+	private fun onFabClicked() {
+		when (adapter!!.getItemKey(pager.currentItem)) {
+			getString(R.string.my_bookcases) -> {
+				startActivityForResult(Intent(this, BookcaseEditorActivty::class.java)
+						.putExtra(BundleConstant.ID, PrefGetter.getLoggedUser()), BundleConstant.BOOKCASE_EDITOR)
+			}
 		}
 	}
 
 	private fun setupTab(count: Int, index: Int) {
 		val textView = ViewHelper.getTabTextView(tabs, index)
-		when (index) {
-			1 -> textView.text = String.format("%s(%s)", getString(R.string.content), numberFormat.format(count.toLong()))
-			2 -> textView.text = String.format("%s(%s)", getString(R.string.photos), numberFormat.format(count.toLong()))
+		when (adapter!!.getItemKey(index)) {
+			getString(R.string.content) -> textView.text = String.format("%s(%s)", getString(R.string.content), numberFormat.format(count.toLong()))
+			getString(R.string.photos) -> textView.text = String.format("%s(%s)", getString(R.string.photos), numberFormat.format(count.toLong()))
 		}
 	}
 
