@@ -25,7 +25,6 @@ class BookcaseWorkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Bookca
 
         itemView.workAutors.text = bookcase.autors
         itemView.workName.text = bookcase.name
-        //itemView.workNumber.text = "#" + bookcase.bookcaseItemId
         itemView.workComment.text = if (bookcase.comment.orEmpty().isEmpty()) itemView.context.getString(R.string.bookcase_add_comment) else bookcase.comment
         itemView.workComment.setOnClickListener {
             if (adapter != null && (adapter as BookcaseWorksAdapter).itemCommentUpdateListener != null) {

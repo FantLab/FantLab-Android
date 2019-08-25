@@ -77,17 +77,6 @@
 
         </LinearLayout>
 
-        <!--<ru.fantlab.android.ui.widgets.FontTextView
-            android:id="@+id/workNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:textColor="?android:textColorPrimary"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/spacing_micro"
-            style="@style/TextAppearance.AppCompat.Small"
-            tools:text="#1" />-->
-
         <ru.fantlab.android.ui.widgets.ForegroundImageView
             android:id="@+id/workDelete"
             android:layout_width="wrap_content"
