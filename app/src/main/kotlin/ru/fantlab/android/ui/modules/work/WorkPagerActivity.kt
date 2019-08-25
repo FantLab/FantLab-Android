@@ -157,7 +157,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 			fab.hide()
 			return
 		}
-		when (adapter!!.getItemKey(position)) {
+		when (adapter?.getItemKey(position)) {
 			getString(R.string.responses) -> {
 				if (isLoggedIn()) {
 					fab.setImageResource(R.drawable.ic_response)
@@ -170,7 +170,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 
 	private fun hideShowToolbar(position: Int) {
 		if (::toolbarMenu.isInitialized) {
-			when (adapter!!.getItemKey(position)) {
+			when (adapter?.getItemKey(position)) {
 				getString(R.string.overview) -> {
 					toolbarMenu.findItem(R.id.sort).isVisible = false
 					toolbarMenu.findItem(R.id.share).isVisible = true
@@ -197,7 +197,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 	}
 
 	private fun onFabClicked() {
-		when (adapter!!.getItemKey(pager.currentItem)) {
+		when (adapter?.getItemKey(pager.currentItem)) {
 			getString(R.string.responses) -> {
 				startActivityForResult(Intent(this, EditorActivity::class.java)
 						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_RESPONSE)
@@ -208,7 +208,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 
 	private fun setupTab(count: Int, index: Int) {
 		val tabView = ViewHelper.getTabView(tabs, index)
-		when (adapter!!.getItemKey(index)) {
+		when (adapter?.getItemKey(index)) {
 			getString(R.string.overview) -> tabView.first.text = getString(R.string.overview)
 			getString(R.string.responses) -> {
 				tabView.first.text = getString(R.string.responses)
@@ -253,7 +253,7 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 			}
 			BundleConstant.BOOKCASE_EDITOR -> {
 				if (resultCode == RESULT_OK
-						&& adapter!!.getItemKey(pager.currentItem) == getString(R.string.bookcases)) {
+						&& adapter?.getItemKey(pager.currentItem) == getString(R.string.bookcases)) {
 					val fragment = pager.adapter?.instantiateItem(pager, pager.currentItem) as? BookcaseSelectorFragment
 					fragment?.onRefresh()
 				}

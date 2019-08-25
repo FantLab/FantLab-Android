@@ -45,7 +45,6 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	@State var userId: Int = 0
 	@State var tabsCountSet = HashSet<TabsCountStateModel>()
 	private lateinit var toolbarMenu: Menu
-	private val numberFormat = NumberFormat.getNumberInstance()
 	private var isError = false
 	private var adapter: FragmentsPagerAdapter? = null
 
@@ -85,7 +84,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		if (login == currentUser?.login) {
 			selectMenuItem(R.id.profile, true)
 		}
-		val adapter = FragmentsPagerAdapter(
+		adapter = FragmentsPagerAdapter(
 				supportFragmentManager,
 				FragmentPagerAdapterModel.buildForProfile(this, userId)
 		)
@@ -169,7 +168,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		if (resultCode == Activity.RESULT_OK) {
 			if ((requestCode == BundleConstant.BOOKCASE_EDITOR || requestCode == BundleConstant.BOOKCASE_VIEWER)
-					&& adapter!!.getItemKey(pager.currentItem) == getString(R.string.bookcases)) {
+					&& adapter?.getItemKey(pager.currentItem) == getString(R.string.bookcases)) {
 				val fragment = pager.adapter?.instantiateItem(pager, pager.currentItem) as? BookcasesOverviewFragment
 				fragment?.onRefresh()
 			}
@@ -182,7 +181,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 			fab.hide()
 			return
 		}
-		when (adapter!!.getItemKey(position)) {
+		when (adapter?.getItemKey(position)) {
 			getString(R.string.overview)  -> {
 				if (isLoggedIn() && userId != PrefGetter.getLoggedUser()?.id) {
 					fab.setImageResource(R.drawable.ic_message)
@@ -208,7 +207,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 
 	private fun onFabClicked() {
-		when (adapter!!.getItemKey(pager.currentItem)) {
+		when (adapter?.getItemKey(pager.currentItem)) {
 			getString(R.string.overview) -> {
 				startActivity(Intent(this, EditorActivity::class.java)
 						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_MESSAGE)
@@ -226,7 +225,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 	private fun setupTab(count: Int, index: Int) {
 		val tabView = ViewHelper.getTabView(tabs, index)
-		when (adapter!!.getItemKey(index)) {
+		when (adapter?.getItemKey(index)) {
 			getString(R.string.overview) -> tabView.first.text = getString(R.string.overview)
 			getString(R.string.marks) -> {
 				tabView.first.text = getString(R.string.marks)
@@ -243,12 +242,12 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		}
 	}
 
-	private fun invalidateTabs(adapter: FragmentsPagerAdapter) {
+	private fun invalidateTabs(adapter: FragmentsPagerAdapter?) {
 		for (i in 0 until tabs.tabCount) {
 			val tab = tabs.getTabAt(i)
 			if (tab != null) {
 				val custom = tab.customView
-				if (custom == null) tab.customView = adapter.getCustomTabView(applicationContext)
+				if (custom == null) tab.customView = adapter?.getCustomTabView(applicationContext)
 				setupTab(0, i)
 			}
 		}

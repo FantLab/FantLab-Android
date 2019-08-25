@@ -1,6 +1,7 @@
 package ru.fantlab.android.provider.rest
 
 import com.github.kittinunf.fuel.core.Response
+import com.github.kittinunf.fuel.httpDelete
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.fuel.rx.rxObject
