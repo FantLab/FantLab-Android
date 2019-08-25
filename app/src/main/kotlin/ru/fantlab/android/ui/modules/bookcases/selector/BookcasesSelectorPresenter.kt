@@ -70,7 +70,7 @@ class BookcasesSelectorPresenter : BasePresenter<BookcasesSelectorMvp.View>(),
     }
 
     override fun onItemLongClick(position: Int, v: View?, item: BookcaseSelection) {
-        TODO("not implemented")
+        // TODO("not implemented")
     }
 
     override fun onItemSelected(position: Int, v: View?, item: BookcaseSelection) {

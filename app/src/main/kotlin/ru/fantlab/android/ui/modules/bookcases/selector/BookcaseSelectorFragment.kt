@@ -116,6 +116,6 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
     }
 
     override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
-        TODO("not implemented")
+        // TODO("not implemented")
     }
 }

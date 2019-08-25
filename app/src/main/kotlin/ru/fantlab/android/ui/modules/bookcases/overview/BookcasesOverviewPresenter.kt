@@ -60,6 +60,6 @@ class BookcasesOverviewPresenter : BasePresenter<BookcasesOverviewMvp.View>(),
     }
 
     override fun onItemLongClick(position: Int, v: View?, item: Bookcase) {
-        TODO("not implemented")
+        // TODO("not implemented")
     }
 }
