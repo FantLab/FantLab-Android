@@ -274,6 +274,22 @@
 	<string name="sort_update">Update</string>
 	<string name="sort_articles">Articles</string>
 	<string name="sort_subscribers">Subscribers</string>
+	<string name="winner">Winner</string>
+	<string name="laureate">Laureate</string>
+	<string name="workLang">Writing language</string>
+	<string name="annotation">Annotation</string>
+	<string name="published">Published</string>
+	<string name="series">Series</string>
+	<string name="printCount">Count</string>
+	<string name="isbn" translatable="false">ISBN</string>
+	<string name="coverType">Cover type</string>
+	<string name="format">Format</string>
+	<string name="pagesCount">Pages</string>
+	<string name="born">Born</string>
+	<string name="country">Country</string>
+	<string name="die">Died</string>
+	<string name="site">Site</string>
+	<string name="awardDate">Opened</string>
 	<string name="bookcase_access">Bookcase is visible for other users</string>
 	<string name="bookcase_name_hint">Name</string>
 	<string name="bookcase_creation_title">Create a new bookcase</string>
@@ -291,7 +307,7 @@
 	<string name="bookcase_modify">Modify</string>
 	<string name="bookcase_deleted">Bookcase deleted</string>
 	<string name="bookcase_add_comment">Add comment</string>
-    <string name="bookcase_item_deleting">Removing item from bookcase</string>
+	<string name="bookcase_item_deleting">Removing item from bookcase</string>
 	<string name="bookcase_item_comment_modifying">Update comment</string>
 	<string name="bookcase_item_count_suffix">el</string>
 	<string name="no_bookcases">No bookcases</string>
