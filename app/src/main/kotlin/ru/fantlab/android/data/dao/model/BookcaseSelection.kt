@@ -1,4 +1,11 @@
 package ru.fantlab.android.data.dao.model
 
-class BookcaseSelection(var bookcase: BookcaseInclusion, var included: Boolean) {
-}
+import android.os.Parcelable
+import androidx.annotation.Keep
+import kotlinx.android.parcel.Parcelize
+
+@Keep
+@Parcelize
+data class BookcaseSelection(var bookcase: BookcaseInclusion,
+						var included: Boolean
+): Parcelable

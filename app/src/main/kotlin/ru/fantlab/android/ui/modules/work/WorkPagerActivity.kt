@@ -179,10 +179,6 @@ class WorkPagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPage
 					toolbarMenu.findItem(R.id.share).isVisible = false
 					toolbarMenu.findItem(R.id.sort).isVisible = true
 				}
-				getString(R.string.my_bookcases) -> {
-					toolbarMenu.findItem(R.id.share).isVisible = false
-					toolbarMenu.findItem(R.id.sort).isVisible = false
-				}
 				else -> {
 					toolbarMenu.findItem(R.id.share).isVisible = false
 					toolbarMenu.findItem(R.id.sort).isVisible = false

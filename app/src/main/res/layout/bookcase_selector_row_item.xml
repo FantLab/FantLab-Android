@@ -15,10 +15,11 @@
         android:layout_marginStart="@dimen/spacing_normal"
         android:checked="false"/>
 
-    <TextView
+    <ru.fantlab.android.ui.widgets.FontTextView
         android:id="@+id/bookcaseName"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?selectableItemBackground"
         android:layout_marginStart="@dimen/spacing_normal"
         android:gravity="center_vertical"
         tools:text="Моя книжняя полка"

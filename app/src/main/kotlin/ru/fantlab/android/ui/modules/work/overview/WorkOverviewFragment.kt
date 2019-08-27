@@ -20,10 +20,12 @@ import ru.fantlab.android.ui.adapter.WorkEditionsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.award.AwardPagerActivity
+import ru.fantlab.android.ui.modules.bookcases.viewer.BookcaseViewerActivity
 import ru.fantlab.android.ui.modules.classificator.ClassificatorPagerActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
 import ru.fantlab.android.ui.modules.work.editions.WorkEditionsActivity
+import ru.fantlab.android.ui.widgets.dialog.BookcasesDialogView
 import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
 
 
@@ -34,9 +36,10 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	private val adapterNoms: WorkAwardsAdapter by lazy { WorkAwardsAdapter(arrayListOf()) }
 	private val adapterAuthors: WorkAuthorsAdapter by lazy { WorkAuthorsAdapter(arrayListOf()) }
 	private val adapterEditions: WorkEditionsAdapter by lazy { WorkEditionsAdapter(arrayListOf()) }
-
 	private val adapterClassification: ClassificationAdapter by lazy { ClassificationAdapter(arrayListOf()) }
 	private var pagerCallback: WorkPagerMvp.View? = null
+
+	var inclusions: ArrayList<BookcaseSelection> = arrayListOf()
 
 	override fun fragmentLayout() = R.layout.work_overview_layout
 
@@ -132,7 +135,13 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 		classificatorButton.setOnClickListener { ClassificatorPagerActivity.startActivity(activity!!, work.id) }
 
-		bookcasesButton.setOnClickListener { showErrorMessage("Not implemented (bookcases)") }
+		bookcasesButton.setOnClickListener {
+			if (inclusions.isNotEmpty()) {
+				val dialogView = BookcasesDialogView()
+				dialogView.initArguments(getString(R.string.my_bookcases), inclusions)
+				dialogView.show(childFragmentManager, "BookcasesDialogView")
+			} else showErrorMessage(getString(R.string.no_bookcases))
+		}
 
 		responseButton.setOnClickListener {
 			startActivityForResult(Intent(activity, EditorActivity::class.java)
@@ -142,6 +151,8 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 		showEditionsButton.setOnClickListener { WorkEditionsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
 		editionsTitle.setOnClickListener { WorkEditionsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
+
+		if (isLoggedIn()) presenter.getBookcases("work", work.id, false)
 	}
 
 	override fun onSetClassification(classificatory: ArrayList<GenreGroup>) {
@@ -177,6 +188,10 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		} else editionsBlock.visibility = View.GONE
 	}
 
+	override fun onSetBookcases(inclusions: ArrayList<BookcaseSelection>) {
+		this.inclusions = inclusions
+	}
+
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
 		progress.visibility = View.VISIBLE
 	}
@@ -202,16 +217,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		super.showMessage(titleRes, msgRes)
 	}
 
-	companion object {
-
-		fun newInstance(workId: Int): WorkOverviewFragment {
-			val view = WorkOverviewFragment()
-			view.arguments = Bundler.start().put(BundleConstant.EXTRA, workId).end()
-			return view
-		}
-	}
-
-	fun showMarkDialog() {
+	private fun showMarkDialog() {
 		if (!::work.isInitialized) {
 			showErrorMessage(getString(R.string.wait))
 			return
@@ -238,6 +244,22 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			item.awardName
 		}
 		AwardPagerActivity.startActivity(context!!, item.awardId, name, 1, work.id)
+	}
+
+	override fun onBookcaseClick(item: BookcaseSelection, position: Int) {
+		BookcaseViewerActivity.startActivity(activity!!,
+				item.bookcase.bookcaseId,
+				item.bookcase.bookcaseName,
+				item.bookcase.bookcaseType)
+	}
+
+	override fun onBookcaseSelected(item: BookcaseSelection, position: Int) {
+		presenter.includeItem(item.bookcase.bookcaseId, work.id, !item.included)
+	}
+
+	override fun onBookcaseSelectionUpdated(bookcaseId: Int, include: Boolean) {
+		inclusions.find { it.bookcase.bookcaseId == bookcaseId }?.included = include
+		hideProgress()
 	}
 
 	override fun onGetMarks(marks: ArrayList<MarkMini>) {
@@ -289,6 +311,10 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		}
 	}
 
+	override fun onSetTitle(title: String) {
+		pagerCallback?.onSetTitle(title)
+	}
+
 	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is WorkPagerMvp.View) {
@@ -301,7 +327,12 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		super.onDetach()
 	}
 
-	override fun onSetTitle(title: String) {
-		pagerCallback?.onSetTitle(title)
+	companion object {
+
+		fun newInstance(workId: Int): WorkOverviewFragment {
+			val view = WorkOverviewFragment()
+			view.arguments = Bundler.start().put(BundleConstant.EXTRA, workId).end()
+			return view
+		}
 	}
 }

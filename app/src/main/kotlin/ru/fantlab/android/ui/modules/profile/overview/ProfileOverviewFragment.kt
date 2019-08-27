@@ -46,9 +46,8 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		} else {
 			StringBuilder()
 					.append(user.fio)
-					.append(" (")
+					.append(" ")
 					.append(gender)
-					.append(")")
 		}
 		login.text = user.login
 		avatarLayout.setUrl("https:${user.avatar}")
@@ -76,16 +75,25 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 			}
 		}
 
+		TooltipCompat.setTooltipText(marksLayout, getString(R.string.mark_count))
 		marksLayout.setOnClickListener(this)
 		marks.text = user.markCount.toString()
+		TooltipCompat.setTooltipText(responsesLayout, getString(R.string.response_count))
 		responsesLayout.setOnClickListener(this)
 		responses.text = user.responseCount.toString()
+		TooltipCompat.setTooltipText(votesLayout, getString(R.string.votes_count))
 		votes.text = user.voteCount.toString()
+		TooltipCompat.setTooltipText(descriptionsLayout, getString(R.string.description_count))
 		descriptions.text = user.descriptionCount.toString()
+		TooltipCompat.setTooltipText(classificationsLayout, getString(R.string.classification_count))
 		classifications.text = user.classificationCount.toString()
+		TooltipCompat.setTooltipText(ticketsLayout, getString(R.string.ticket_count))
 		tickets.text = user.ticketCount.toString()
+		TooltipCompat.setTooltipText(messagesLayout, getString(R.string.forum_messages_count))
 		messages.text = user.forumMessageCount.toString()
+		TooltipCompat.setTooltipText(topicsLayout, getString(R.string.topic_count))
 		topics.text = user.topicCount.toString()
+		TooltipCompat.setTooltipText(bookcasesLayout, getString(R.string.bookcase_count))
 		bookcases.text = user.bookcaseCount.toString()
 
 		if (user.birthDay != null)

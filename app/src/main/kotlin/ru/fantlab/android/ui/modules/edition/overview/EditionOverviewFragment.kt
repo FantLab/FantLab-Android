@@ -17,8 +17,10 @@ import ru.fantlab.android.ui.adapter.viewholder.EditionContentChildViewHolder
 import ru.fantlab.android.ui.adapter.viewholder.EditionContentParentViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
+import ru.fantlab.android.ui.modules.bookcases.viewer.BookcaseViewerActivity
 import ru.fantlab.android.ui.widgets.Dot
 import ru.fantlab.android.ui.widgets.GallerySlider
+import ru.fantlab.android.ui.widgets.dialog.BookcasesDialogView
 import ru.fantlab.android.ui.widgets.dialog.ListDialogView
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
@@ -28,6 +30,8 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 
 	private lateinit var edition: Edition
 	private val adapterAuthors: EditionAuthorsAdapter by lazy { EditionAuthorsAdapter(arrayListOf()) }
+
+	var inclusions: ArrayList<BookcaseSelection> = arrayListOf()
 
 	override fun fragmentLayout() = R.layout.edition_overview_layout
 
@@ -126,6 +130,15 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 			noteBlock.visibility = View.VISIBLE
 		} else noteBlock.visibility = View.GONE
 
+		bookcasesButton.setOnClickListener {
+			if (inclusions.isNotEmpty()) {
+				val dialogView = BookcasesDialogView()
+				dialogView.initArguments(getString(R.string.my_bookcases), inclusions)
+				dialogView.show(childFragmentManager, "BookcasesDialogView")
+			} else showErrorMessage(getString(R.string.no_bookcases))
+		}
+
+		if (isLoggedIn()) presenter.getBookcases("edition", edition.id, false)
 	}
 
 	override fun onSetContent(content: ArrayList<EditionContent>) {
@@ -151,6 +164,10 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 
 		val adapter = TreeViewAdapter(nodes, listOf(EditionContentParentViewHolder(), EditionContentChildViewHolder()))
 		contentList.adapter = adapter
+	}
+
+	override fun onSetBookcases(inclusions: ArrayList<BookcaseSelection>) {
+		this.inclusions = inclusions
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
@@ -190,6 +207,22 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 
 	override fun <T> onItemSelected(item: T, position: Int) {
 		AuthorPagerActivity.startActivity(context!!, (item as Edition.Author).id, item.name, 0)
+	}
+
+	override fun onBookcaseClick(item: BookcaseSelection, position: Int) {
+		BookcaseViewerActivity.startActivity(activity!!,
+				item.bookcase.bookcaseId,
+				item.bookcase.bookcaseName,
+				item.bookcase.bookcaseType)
+	}
+
+	override fun onBookcaseSelected(item: BookcaseSelection, position: Int) {
+		presenter.includeItem(item.bookcase.bookcaseId, edition.id, !item.included)
+	}
+
+	override fun onBookcaseSelectionUpdated(bookcaseId: Int, include: Boolean) {
+		inclusions.find { it.bookcase.bookcaseId == bookcaseId }?.included = include
+		hideProgress()
 	}
 
 	companion object {

@@ -5,12 +5,15 @@ import android.view.View
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.*
+import ru.fantlab.android.data.dao.response.BookcaseInclusionResponse
+import ru.fantlab.android.data.dao.response.BookcaseItemIncludedResponse
 import ru.fantlab.android.data.dao.response.MarksMiniResponse
 import ru.fantlab.android.data.dao.response.WorkResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.helper.Tuple4
 import ru.fantlab.android.provider.rest.DataManager
+import ru.fantlab.android.provider.rest.getBookcaseInclusionsPath
 import ru.fantlab.android.provider.rest.getUserMarksMiniPath
 import ru.fantlab.android.provider.rest.getWorkPath
 import ru.fantlab.android.provider.storage.DbProvider
@@ -162,6 +165,65 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(), WorkOvervie
 					.map { getEditions(it) }
 
 	private fun getEditions(response: WorkResponse): EditionsBlocks = response.editionsBlocks ?: EditionsBlocks(arrayListOf())
+
+	fun getBookcases(bookcaseType: String, entityId: Int, force: Boolean) {
+		makeRestCall(
+				getBookcasesInternal(bookcaseType, entityId, force).toObservable(),
+				Consumer { bookcasesInclusions ->
+					sendToView {
+						val inclusions: ArrayList<BookcaseSelection> = ArrayList()
+						bookcasesInclusions!!.forEach { inclusions.add(BookcaseSelection(it, it.itemAdded == 1)) }
+						it.onSetBookcases(inclusions)
+						it.hideProgress()
+					}
+				}
+		)
+	}
+
+	private fun getBookcasesInternal(bookcaseType: String, entityId: Int, force: Boolean) =
+			getBookcasesFromServer(bookcaseType, entityId)
+					.onErrorResumeNext { throwable ->
+						if (!force) {
+							getBookcasesFromDb(bookcaseType, entityId)
+						} else {
+							throw throwable
+						}
+					}
+
+	private fun getBookcasesFromServer(bookcaseType: String, entityId: Int): Single<ArrayList<BookcaseInclusion>> =
+			DataManager.getBookcaseInclusions(bookcaseType, entityId)
+					.map { getBookcases(it) }
+
+	private fun getBookcasesFromDb(bookcaseType: String, entityId: Int): Single<ArrayList<BookcaseInclusion>> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getBookcaseInclusionsPath(bookcaseType, entityId))
+					.map { it.response }
+					.map { BookcaseInclusionResponse.Deserializer().deserialize(it) }
+					.map { getBookcases(it) }
+
+	private fun getBookcases(response: BookcaseInclusionResponse): ArrayList<BookcaseInclusion> {
+		val inclusions = ArrayList<BookcaseInclusion>()
+		response.items.forEach { inclusions.add(BookcaseInclusion(it.bookcaseId, it.bookcaseName, it.itemAdded, "work")) }
+		return inclusions
+	}
+
+	fun includeItem(bookcaseId: Int, entityId: Int, include: Boolean) {
+		makeRestCall(
+				DataManager.includeItemToBookcase(bookcaseId, entityId, if (include) "add" else "delete").toObservable(),
+				Consumer { response ->
+					val result = BookcaseItemIncludedResponse.Parser().parse(response)
+					sendToView {
+						if (result == null) {
+							it.showErrorMessage(response)
+						} else {
+							it.onBookcaseSelectionUpdated(bookcaseId, include)
+						}
+					}
+
+				}
+		)
+	}
 
 	override fun onItemClick(position: Int, v: View?, item: Nomination) {
 		sendToView { it.onItemClicked(item) }
