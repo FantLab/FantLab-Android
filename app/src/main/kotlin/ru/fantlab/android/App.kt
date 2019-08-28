@@ -24,6 +24,11 @@ class App : Application() {
 		init()
 	}
 
+	fun onUserLogin() {
+		// re-init fuel in order to set the obtained header
+		initFuel()
+	}
+
 	private fun init() {
 		FabricProvider.initFabric(this)
 		DbProvider.initDatabase(this)
@@ -32,6 +37,12 @@ class App : Application() {
 			StethoProvider.initStetho(this)
 		}
 		Shortbread.create(this)
+		initFuel()
+		WorkTypesProvider.init()
+		SmileManager.load()
+	}
+
+	private fun initFuel() {
 		FuelManager.instance.apply {
 			// to prevent from auto redirection
 			removeAllResponseInterceptors()
@@ -42,7 +53,5 @@ class App : Application() {
 					"Cookie" to (PrefGetter.getToken() ?: "")
 			)
 		}
-		WorkTypesProvider.init()
-		SmileManager.load()
 	}
 }
