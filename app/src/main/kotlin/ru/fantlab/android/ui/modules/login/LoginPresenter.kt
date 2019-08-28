@@ -73,7 +73,7 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 					Single.fromCallable {
 						PrefGetter.setLoggedUser(user)
 						PrefGetter.setProceedWithoutLogin(false)
-						App.instance.onUserLogin()
+						App.instance.initFuel()
 					}.doOnSuccess { _ -> sendToView { it.onSuccessfullyLoggedIn() } }
 							.subscribeOn(Schedulers.io())
 							.observeOn(AndroidSchedulers.mainThread())

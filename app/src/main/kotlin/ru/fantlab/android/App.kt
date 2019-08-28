@@ -24,11 +24,6 @@ class App : Application() {
 		init()
 	}
 
-	fun onUserLogin() {
-		// re-init fuel in order to set the obtained header
-		initFuel()
-	}
-
 	private fun init() {
 		FabricProvider.initFabric(this)
 		DbProvider.initDatabase(this)
@@ -42,7 +37,7 @@ class App : Application() {
 		SmileManager.load()
 	}
 
-	private fun initFuel() {
+	fun initFuel() {
 		FuelManager.instance.apply {
 			// to prevent from auto redirection
 			removeAllResponseInterceptors()
