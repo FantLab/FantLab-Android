@@ -32,6 +32,12 @@ class App : Application() {
 			StethoProvider.initStetho(this)
 		}
 		Shortbread.create(this)
+		initFuel()
+		WorkTypesProvider.init()
+		SmileManager.load()
+	}
+
+	fun initFuel() {
 		FuelManager.instance.apply {
 			// to prevent from auto redirection
 			removeAllResponseInterceptors()
@@ -42,7 +48,5 @@ class App : Application() {
 					"Cookie" to (PrefGetter.getToken() ?: "")
 			)
 		}
-		WorkTypesProvider.init()
-		SmileManager.load()
 	}
 }
