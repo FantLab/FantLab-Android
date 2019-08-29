@@ -69,7 +69,6 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
         stateLayout.setOnReloadListener(this)
         refresh.setOnRefreshListener(this)
         recycler.setEmptyView(stateLayout, refresh)
-        recycler.addDivider()
         getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
         recycler.addOnScrollListener(getLoadMore())
         fastScroller.attachRecyclerView(recycler)
