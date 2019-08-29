@@ -4,6 +4,7 @@ import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
 import ru.fantlab.android.R
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.bookcase_edition_row_item.view.*
 import ru.fantlab.android.data.dao.model.BookcaseEdition
 import ru.fantlab.android.helper.InputHelper
@@ -40,10 +41,24 @@ class BookcaseEditionViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Boo
         }
     }
 
+    override fun onClick(v: View) {
+        super.onClick(v)
+
+        if (adapter != null && (adapter as BookcaseEditionsAdapter).itemUpdateListener != null) {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION && position < adapter!!.getItemCount()) {
+                (adapter as BookcaseEditionsAdapter).itemUpdateListener?.onEditionClicked(adapter?.getItem(position)!!)
+            }
+        }
+    }
+
+
     interface onUpdateItemListener {
         fun onDeleteItemFromBookcase(itemId: Int)
 
         fun onUpdateItemComment(itemId: Int, itemComment: String?)
+
+        fun onEditionClicked(bookcase: BookcaseEdition)
     }
 
 

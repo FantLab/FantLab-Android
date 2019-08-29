@@ -224,4 +224,16 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
     override fun onUpdateItemComment(itemId: Int, itemComment: String?) {
         sendToView { it.onUpdateItemComment(itemId, itemComment) }
     }
+
+    override fun onWorkClicked(bookcase: BookcaseWork) {
+        sendToView { it.onWorkClicked(bookcase) }
+    }
+
+    override fun onEditionClicked(bookcase: BookcaseEdition) {
+        sendToView { it.onEditionClicked(bookcase) }
+    }
+
+    override fun onFilmClicked(bookcase: BookcaseFilm) {
+        sendToView { it.onFilmClicked(bookcase) }
+    }
 }

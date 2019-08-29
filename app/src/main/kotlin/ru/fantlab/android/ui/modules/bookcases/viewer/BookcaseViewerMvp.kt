@@ -32,6 +32,12 @@ interface BookcaseViewerMvp {
         fun onDeleteItemFromBookcase(itemId: Int)
 
         fun onUpdateItemComment(itemId: Int, itemComment: String?)
+
+        fun onWorkClicked(bookcase: BookcaseWork)
+
+        fun onEditionClicked(bookcase: BookcaseEdition)
+
+        fun onFilmClicked(bookcase: BookcaseFilm)
     }
 
     interface Presenter : BaseMvp.Presenter,

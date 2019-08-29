@@ -3,6 +3,7 @@ package ru.fantlab.android.ui.adapter.viewholder
 import android.net.Uri
 import android.view.ViewGroup
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import ru.fantlab.android.R
 import kotlinx.android.synthetic.main.bookcase_work_row_item.view.*
 import ru.fantlab.android.data.dao.model.BookcaseWork
@@ -38,10 +39,23 @@ class BookcaseWorkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Bookca
         }
     }
 
+    override fun onClick(v: View) {
+        super.onClick(v)
+
+        if (adapter != null && (adapter as BookcaseWorksAdapter).itemUpdateListener != null) {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION && position < adapter!!.getItemCount()) {
+                (adapter as BookcaseWorksAdapter).itemUpdateListener?.onWorkClicked(adapter?.getItem(position)!!)
+            }
+        }
+    }
+
     interface onUpdateItemListener {
         fun onDeleteItemFromBookcase(itemId: Int)
 
         fun onUpdateItemComment(itemId: Int, itemComment: String?)
+
+        fun onWorkClicked(bookcase: BookcaseWork)
     }
 
     companion object {

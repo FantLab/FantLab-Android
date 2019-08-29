@@ -22,6 +22,8 @@ import ru.fantlab.android.ui.adapter.BookcaseFilmsAdapter
 import ru.fantlab.android.ui.adapter.BookcaseWorksAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.bookcases.editor.BookcaseEditorActivty
+import ru.fantlab.android.ui.modules.edition.EditionActivity
+import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.dialog.MessageDialogView
 
 class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseViewerPresenter>(), BookcaseViewerMvp.View {
@@ -259,6 +261,18 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
                         .put("bookcase_item_id", itemId)
                         .end()
         ).show(supportFragmentManager, MessageDialogView.TAG)
+    }
+
+    override fun onWorkClicked(bookcase: BookcaseWork) {
+        WorkPagerActivity.startActivity(this, bookcase.itemId, bookcase.name)
+    }
+
+    override fun onEditionClicked(bookcase: BookcaseEdition) {
+        EditionActivity.startActivity(this, bookcase.editionId, bookcase.name)
+    }
+
+    override fun onFilmClicked(bookcase: BookcaseFilm) {
+        // TODO: not implemented
     }
 
     companion object {
