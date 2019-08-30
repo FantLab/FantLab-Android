@@ -32,8 +32,8 @@ import ru.fantlab.android.ui.modules.bookcases.overview.BookcasesOverviewFragmen
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
+import ru.fantlab.android.ui.modules.profile.responses.ProfileResponsesFragment
 import shortbread.Shortcut
-import java.text.NumberFormat
 import java.util.*
 
 
@@ -137,8 +137,16 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 				}
 			}
 			R.id.sort -> {
-				val fragment = pager.adapter?.instantiateItem(pager, 1) as? ProfileMarksFragment
-				fragment?.showSortDialog()
+				when (adapter?.getItemKey(pager.currentItem)) {
+					getString(R.string.marks) -> {
+						val fragment = pager.adapter?.instantiateItem(pager, 1) as? ProfileMarksFragment
+						fragment?.showSortDialog()
+					}
+					getString(R.string.responses) -> {
+						val fragment = pager.adapter?.instantiateItem(pager, 2) as? ProfileResponsesFragment
+						fragment?.showSortDialog()
+					}
+				}
 			}
 			R.id.filter -> {
 				val fragment = pager.adapter?.instantiateItem(pager, 1) as? ProfileMarksFragment
@@ -182,7 +190,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 			return
 		}
 		when (adapter?.getItemKey(position)) {
-			getString(R.string.overview)  -> {
+			getString(R.string.overview) -> {
 				if (isLoggedIn() && userId != PrefGetter.getLoggedUser()?.id) {
 					fab.setImageResource(R.drawable.ic_message)
 					fab.show()
@@ -263,6 +271,11 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 					toolbarMenu.findItem(R.id.share).isVisible = false
 					toolbarMenu.findItem(R.id.sort).isVisible = true
 					toolbarMenu.findItem(R.id.filter).isVisible = true
+				}
+				2 -> {
+					toolbarMenu.findItem(R.id.share).isVisible = false
+					toolbarMenu.findItem(R.id.sort).isVisible = true
+					toolbarMenu.findItem(R.id.filter).isVisible = false
 				}
 				else -> {
 					toolbarMenu.findItem(R.id.share).isVisible = true

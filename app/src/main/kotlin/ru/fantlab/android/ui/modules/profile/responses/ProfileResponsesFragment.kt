@@ -156,8 +156,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	}
 
 	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
-		listItem as Response
-		when (item.id) {
+		if (listItem is Response) when (item.id) {
 			"vote" -> {
 				presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
 			}
@@ -182,6 +181,8 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 			"delete" -> {
 				presenter.onDeleteResponse(listItem.workId, listItem.id, position)
 			}
+		} else {
+			presenter.setCurrentSort(item.id)
 		}
 	}
 
@@ -189,6 +190,13 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 		hideProgress()
 		adapter.removeItem(position)
 		onSetTabCount(adapter.itemCount)
+	}
+
+	fun showSortDialog() {
+		val dialogView = ContextMenuDialogView()
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting(recycler.context, sort))
+		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

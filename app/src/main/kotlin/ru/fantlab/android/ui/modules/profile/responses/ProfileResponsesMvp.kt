@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.profile.responses
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.provider.rest.ResponsesSortOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.viewholder.ResponseViewHolder
 import ru.fantlab.android.ui.base.mvp.BaseMvp
@@ -42,5 +43,9 @@ interface ProfileResponsesMvp {
 		fun onSendVote(item: Response, position: Int, voteType: String)
 
 		fun onDeleteResponse(workId: Int, commentId: Int, position: Int)
+
+		fun setCurrentSort(sortValue: String)
+
+		fun getCurrentSort(): ResponsesSortOption
 	}
 }
