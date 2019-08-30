@@ -1,90 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/grid_spacing"
     android:foreground="?android:selectableItemBackground"
-    android:paddingBottom="@dimen/spacing_normal"
-    android:paddingEnd="@dimen/spacing_xs_large"
+    android:paddingEnd="@dimen/spacing_normal"
+    android:paddingStart="@dimen/spacing_normal"
     android:paddingTop="@dimen/spacing_normal"
     tools:ignore="RtlSymmetry"
     >
 
-    <RelativeLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/topView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
+        android:layout_below="@+id/category"
+        app:cardBackgroundColor="?card_background"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="1dp"
+        app:cardUseCompatPadding="true"
         >
 
-        <ru.fantlab.android.ui.widgets.CoverLayout
-            android:id="@+id/coverLayout"
-            android:layout_width="48dp"
-            android:layout_height="64dp"
-            android:layout_marginEnd="@dimen/avatar_margin_end"
-            android:layout_marginStart="@dimen/avatar_margin"
-            android:layout_alignParentLeft="true"
-            />
-
         <LinearLayout
-            android:id="@+id/contentLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/coverLayout"
             android:orientation="vertical"
+            android:background="?android:selectableItemBackground"
             >
 
-            <ru.fantlab.android.ui.widgets.FontTextView
-                android:id="@+id/workAutors"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:textColor="?android:textColorPrimary"
-                tools:text="Авторы произведения"
-                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                >
+
+                <ru.fantlab.android.ui.widgets.CoverLayout
+                    android:id="@+id/coverLayout"
+                    android:layout_width="48dp"
+                    android:layout_height="64dp"
+                    android:layout_marginEnd="@dimen/avatar_margin_end"
+                    android:layout_marginStart="@dimen/avatar_margin"
+                    android:layout_alignParentLeft="true"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/contentLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/coverLayout"
+                    android:orientation="vertical"
+                    >
+
+                    <ru.fantlab.android.ui.widgets.FontTextView
+                        android:id="@+id/workAutors"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:textColor="?android:textColorTertiary"
+                        tools:text="Авторы произведения"
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        />
+
+                    <ru.fantlab.android.ui.widgets.FontTextView
+                        android:id="@+id/workName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:textColor="?android:textColorTertiary"
+                        android:textStyle="bold"
+                        tools:text="Название"
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/spacing_xs_large"
+                android:layout_marginRight="@dimen/spacing_xs_large"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:background="?dividerColor"
                 />
 
-            <ru.fantlab.android.ui.widgets.FontTextView
-                android:id="@+id/workName"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:textColor="?android:textColorPrimary"
-                android:textStyle="bold"
-                tools:text="Название"
-                style="@style/TextAppearance.AppCompat.Medium"
-                />
+                android:layout_marginEnd="@dimen/spacing_xs_large"
+                android:layout_marginStart="@dimen/spacing_xs_large"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:layout_marginBottom="@dimen/spacing_normal"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                >
 
-            <ru.fantlab.android.ui.widgets.FontButton
-                android:id="@+id/workComment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:gravity="bottom"
-                android:textColor="?android:textColorLink"
-                android:textStyle="italic"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                tools:text="Добавить комментарий"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                />
+                <ru.fantlab.android.ui.widgets.FlowLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:flChildSpacing="5dp"
+                    app:flChildSpacingForLastRow="align"
+                    app:flRowSpacing="8dp"
+                    >
+
+                    <ru.fantlab.android.ui.widgets.FontButton
+                        android:id="@+id/workComment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:gravity="bottom"
+                        android:textColor="?android:textColorLink"
+                        android:textStyle="italic"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        tools:text="Добавить комментарий"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        />
+
+                </ru.fantlab.android.ui.widgets.FlowLayout>
+
+                <ru.fantlab.android.ui.widgets.FlowLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    app:flChildSpacing="5dp"
+                    app:flChildSpacingForLastRow="align"
+                    app:flRowSpacing="8dp"
+                    >
+
+                    <ru.fantlab.android.ui.widgets.ForegroundImageView
+                        android:id="@+id/workDelete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_delete"
+                        app:tint="?android:attr/textColorSecondary"
+                        android:layout_alignParentEnd="true"
+                        />
+
+                </ru.fantlab.android.ui.widgets.FlowLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <ru.fantlab.android.ui.widgets.ForegroundImageView
-            android:id="@+id/workDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_delete"
-            android:layout_alignParentEnd="true"
-            />
-
-    </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
 </ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

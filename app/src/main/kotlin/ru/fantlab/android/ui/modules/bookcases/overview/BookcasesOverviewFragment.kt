@@ -89,6 +89,11 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
                 }
 
                 override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
+                    val viewHolder = holder as BookcaseHeaderViewHolder.ViewHolder
+                    val ivArrow = viewHolder.expandButton
+                    val rotateDegree = if (isExpand) 90.0f else -90.0f
+                    ivArrow.animate().rotationBy(rotateDegree)
+                            .start()
                 }
             })
             fastScroller.attachRecyclerView(recycler)

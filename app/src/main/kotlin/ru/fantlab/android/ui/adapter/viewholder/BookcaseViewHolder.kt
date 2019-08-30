@@ -43,7 +43,7 @@ class BookcaseViewHolder : TreeViewBinder<BookcaseViewHolder.ViewHolder>() {
             url = "http://www.fantlab.ru/img/bc_kino.gif"
         }
         holder.coverLayout.setUrlGif(url)
-        holder.count.text = nodeItem.bookcase.itemCount.toString() + " " + holder.itemView.context.getString(R.string.bookcase_item_count_suffix)
+        holder.count.text = nodeItem.bookcase.itemCount.toString()
     }
 
     inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {

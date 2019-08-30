@@ -1,19 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?android:selectableItemBackground"
+    tools:ignore="RtlSymmetry"
     >
 
-    <TextView
-        android:id="@+id/category_name"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/spacing_normal"
-        android:gravity="center_vertical"
-        tools:text="Книжные полки изданий"
-        style="@style/TextAppearance.AppCompat.Large"
-        android:textColor="?android:textColorPrimary"
-        />
-</LinearLayout>
+        android:layout_height="50dp"
+        android:background="#16585858"
+        >
+
+        <ru.fantlab.android.ui.widgets.ForegroundImageView
+            android:id="@+id/expandButton"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:src="@drawable/ic_arrow_right"
+            app:tint="?android:attr/textColorSecondary"
+            />
+
+        <TextView
+            android:id="@+id/category_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:gravity="center_vertical"
+            android:textColor="?android:textColorTertiary"
+            tools:text="Книжные полки изданий"
+            style="@style/TextAppearance.AppCompat.Medium"
+            />
+
+    </LinearLayout>
+
+</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
