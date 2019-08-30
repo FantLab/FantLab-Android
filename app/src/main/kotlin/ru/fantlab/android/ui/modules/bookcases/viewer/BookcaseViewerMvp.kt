@@ -10,7 +10,6 @@ import ru.fantlab.android.ui.adapter.viewholder.BookcaseFilmViewHolder
 import ru.fantlab.android.ui.adapter.viewholder.BookcaseWorkViewHolder
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
-import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
 interface BookcaseViewerMvp {
 
@@ -41,12 +40,12 @@ interface BookcaseViewerMvp {
     }
 
     interface Presenter : BaseMvp.Presenter,
-            BookcaseWorkViewHolder.onUpdateItemListener,
-            BookcaseEditionViewHolder.onUpdateItemListener,
-            BookcaseFilmViewHolder.onUpdateItemListener,
+            BookcaseWorkViewHolder.OnUpdateItemListener,
+            BookcaseEditionViewHolder.OnUpdateItemListener,
+            BookcaseFilmViewHolder.OnUpdateItemListener,
             BaseMvp.PaginationListener<Int> {
 
-        fun setBookcaseType(type: String)
+        fun setParams(userId: Int, isPrivateCase: Boolean, bookcaseType: String)
 
         fun getEditions(force: Boolean, bookcaseId: Int, page: Int)
 

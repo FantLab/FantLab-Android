@@ -9,6 +9,7 @@ import ru.fantlab.android.data.dao.model.BookcaseFilm
 import ru.fantlab.android.data.dao.model.BookcaseWork
 import ru.fantlab.android.data.dao.response.*
 import ru.fantlab.android.provider.rest.getPersonalBookcasePath
+import ru.fantlab.android.provider.rest.getUserBookcasePath
 import ru.fantlab.android.provider.storage.DbProvider
 
 class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), BookcaseViewerMvp.Presenter {
@@ -16,8 +17,12 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
     private var previousTotal: Int = 0
     private var lastPage: Int = Integer.MAX_VALUE
     private var bookcaseType: String = ""
+    private var isPrivateCase = false
+    private var userId = -1
 
-    override fun setBookcaseType(type: String) {
+    override fun setParams(userId: Int, isPrivateCase: Boolean, type: String) {
+        this.userId = userId
+        this.isPrivateCase = isPrivateCase
         bookcaseType = type
     }
 
@@ -113,13 +118,13 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
                     }
 
     private fun getEditionsFromServer(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseEdition>, Int, Int>> =
-            DataManager.getPersonalEditionBookcase(bookcaseId, page * 10)
+            (if (isPrivateCase) DataManager.getPersonalEditionBookcase(bookcaseId, page * 10) else DataManager.getUserEditionBookcase(userId, bookcaseId, page * 10))
                     .map { getEditions(it) }
 
     private fun getEditionsFromDb(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseEdition>, Int, Int>> =
             DbProvider.mainDatabase
                     .responseDao()
-                    .get(getPersonalBookcasePath(bookcaseId, page * 10))
+                    .get(if (isPrivateCase) getPersonalBookcasePath(bookcaseId, page * 10) else getUserBookcasePath(userId, bookcaseId, page * 10))
                     .map { it.response }
                     .map { BookcaseEditionsResponse.Deserializer(perPage = 10).deserialize(it) }
                     .map { getEditions(it) }
@@ -152,13 +157,13 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
                     }
 
     private fun getWorksFromServer(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseWork>, Int, Int>> =
-            DataManager.getPersonalWorkBookcase(bookcaseId, page)
+            (if (isPrivateCase) DataManager.getPersonalWorkBookcase(bookcaseId, page) else DataManager.getUserWorkBookcase(userId, bookcaseId, page))
                     .map { getWorks(it) }
 
     private fun getWorksFromDb(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseWork>, Int, Int>> =
             DbProvider.mainDatabase
                     .responseDao()
-                    .get(getPersonalBookcasePath(bookcaseId, page * 10))
+                    .get(if (isPrivateCase) getPersonalBookcasePath(bookcaseId, page * 10) else getUserBookcasePath(userId, bookcaseId, page * 10))
                     .map { it.response }
                     .map { BookcaseWorksResponse.Deserializer(perPage = 10).deserialize(it) }
                     .map { getWorks(it) }
@@ -191,13 +196,13 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
                     }
 
     private fun getFilmsFromServer(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseFilm>, Int, Int>> =
-            DataManager.getPersonalFilmBookcase(bookcaseId, page * 10)
+            (if (isPrivateCase) DataManager.getPersonalFilmBookcase(bookcaseId, page * 10) else DataManager.getUserFilmBookcase(bookcaseId, page * 10))
                     .map { getFilms(it) }
 
     private fun getFilmsFromDb(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseFilm>, Int, Int>> =
             DbProvider.mainDatabase
                     .responseDao()
-                    .get(getPersonalBookcasePath(bookcaseId, page * 10))
+                    .get(if (isPrivateCase) getPersonalBookcasePath(bookcaseId, page * 10) else getUserBookcasePath(userId, bookcaseId, page * 10))
                     .map { it.response }
                     .map { BookcaseFilmsResponse.Deserializer(perPage = 10).deserialize(it) }
                     .map { getFilms(it) }

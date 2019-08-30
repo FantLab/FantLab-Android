@@ -22,9 +22,7 @@ interface BookcasesOverviewMvp {
     interface Presenter : BaseMvp.Presenter,
             BaseViewHolder.OnItemClickListener<Bookcase> {
 
-        fun onFragmentCreated()
-
-        fun getBookcases(force: Boolean)
+        fun getBookcases(userId: Int, isPrivateCase: Boolean, force: Boolean)
     }
 
 }

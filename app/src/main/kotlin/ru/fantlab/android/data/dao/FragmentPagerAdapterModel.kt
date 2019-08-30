@@ -47,7 +47,7 @@ data class FragmentPagerAdapterModel(
 					FragmentPagerAdapterModel(context.getString(R.string.overview), ProfileOverviewFragment.newInstance(userId), context.getString(R.string.overview)),
 					FragmentPagerAdapterModel(context.getString(R.string.marks), ProfileMarksFragment.newInstance(userId), context.getString(R.string.marks)),
 					FragmentPagerAdapterModel(context.getString(R.string.responses), ProfileResponsesFragment.newInstance(userId), context.getString(R.string.responses)),
-					FragmentPagerAdapterModel(context.getString(R.string.bookcases), BookcasesOverviewFragment.newInstance(), context.getString(R.string.bookcases))
+					FragmentPagerAdapterModel(context.getString(R.string.bookcases), BookcasesOverviewFragment.newInstance(userId), context.getString(R.string.bookcases))
 			)
 		}
 
@@ -88,7 +88,8 @@ data class FragmentPagerAdapterModel(
 		fun buildForCycle(context: Context, workId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
 					FragmentPagerAdapterModel(context.getString(R.string.overview), WorkOverviewFragment.newInstance(workId), context.getString(R.string.overview)),
-					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId), context.getString(R.string.responses))
+					FragmentPagerAdapterModel(context.getString(R.string.responses), WorkResponsesFragment.newInstance(workId), context.getString(R.string.responses)),
+					FragmentPagerAdapterModel(context.getString(R.string.analogs), WorkAnalogsFragment.newInstance(workId), context.getString(R.string.analogs))
 			)
 		}
 

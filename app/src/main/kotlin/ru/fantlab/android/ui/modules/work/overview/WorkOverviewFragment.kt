@@ -247,7 +247,9 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	}
 
 	override fun onBookcaseClick(item: BookcaseSelection, position: Int) {
+		val currentUser = PrefGetter.getLoggedUser()
 		BookcaseViewerActivity.startActivity(activity!!,
+				currentUser?.id ?: -1,
 				item.bookcase.bookcaseId,
 				item.bookcase.bookcaseName,
 				item.bookcase.bookcaseType)

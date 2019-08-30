@@ -31,10 +31,13 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
     @State var bookcaseId: Int = 0
     @State var bookcaseName: String = ""
     @State var bookcaseType: String = ""
+    @State var userId = -1
 
-    private val editionsAdapter: BookcaseEditionsAdapter by lazy { BookcaseEditionsAdapter(arrayListOf()) }
-    private val worksAdapter: BookcaseWorksAdapter by lazy { BookcaseWorksAdapter(arrayListOf()) }
-    private val filmsAdapter: BookcaseFilmsAdapter by lazy { BookcaseFilmsAdapter(arrayListOf()) }
+    @State var isPrivateCase = false
+
+    private val editionsAdapter: BookcaseEditionsAdapter by lazy { BookcaseEditionsAdapter(arrayListOf(), isPrivateCase = isPrivateCase) }
+    private val worksAdapter: BookcaseWorksAdapter by lazy { BookcaseWorksAdapter(arrayListOf(), isPrivateCase = isPrivateCase) }
+    private val filmsAdapter: BookcaseFilmsAdapter by lazy { BookcaseFilmsAdapter(arrayListOf(), isPrivateCase = isPrivateCase) }
 
     private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter, bookcaseId) }
 
@@ -54,12 +57,12 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
             bookcaseId = intent?.extras?.getInt(BundleConstant.EXTRA, -1) ?: -1
             bookcaseName = intent?.extras?.getString(BundleConstant.EXTRA_TWO, "") ?: ""
             bookcaseType = intent?.extras?.getString(BundleConstant.EXTRA_THREE, "") ?: ""
+            userId = intent?.extras?.getInt(BundleConstant.EXTRA_FOUR, -1) ?: -1
         }
-        if (bookcaseId == -1) {
+        if (bookcaseId == -1 || userId == -1) {
             finish()
             return
         }
-        presenter.setBookcaseType(bookcaseType)
         title = bookcaseName
         hideShowShadow(true)
         if (savedInstanceState == null) {
@@ -72,6 +75,9 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
         getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
         recycler.addOnScrollListener(getLoadMore())
         fastScroller.attachRecyclerView(recycler)
+
+        val currentUser = PrefGetter.getLoggedUser()
+        isPrivateCase = currentUser?.id == userId
 
         when (bookcaseType) {
             "edition" -> {
@@ -87,14 +93,18 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
                 recycler.adapter = filmsAdapter
             }
         }
+
+        presenter.setParams(userId, isPrivateCase, bookcaseType)
         presenter.onCallApi(1, bookcaseId)
     }
 
     override fun getLoadMore() = onLoadMore
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.bookcase_menu, menu)
-        toolbarMenu = menu
+        if (isPrivateCase) {
+            menuInflater.inflate(R.menu.bookcase_menu, menu)
+            toolbarMenu = menu
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -147,9 +157,7 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
         finish()
     }
 
-    override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
-        // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {}
 
     override fun onNotifyEditionsAdapter(items: ArrayList<BookcaseEdition>, page: Int) {
         hideProgress()
@@ -255,7 +263,8 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
                 bundleTitle = getString(R.string.bookcase_item_comment_modifying),
                 bundleMsg = itemComment ?: "",
                 bundle = Bundler.start()
-                        .put(BundleConstant.YES_NO_EXTRA, true)
+                        .put("primary_extra", getString(R.string.save))
+                        .put("secondary_extra", getString(R.string.cancel))
                         .put("bookcase_item_comment", true)
                         .put("bookcase_item_id", itemId)
                         .end()
@@ -270,18 +279,17 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
         EditionActivity.startActivity(this, bookcase.editionId, bookcase.name)
     }
 
-    override fun onFilmClicked(bookcase: BookcaseFilm) {
-        // TODO: not implemented
-    }
+    override fun onFilmClicked(bookcase: BookcaseFilm) {}
 
     companion object {
 
-        fun startActivity(activity: Activity, bookcaseId: Int, bookcaseName: String, bookcaseType: String) {
+        fun startActivity(activity: Activity, userId: Int, bookcaseId: Int, bookcaseName: String, bookcaseType: String) {
             val intent = Intent(activity, BookcaseViewerActivity::class.java)
             intent.putExtras(Bundler.start()
                     .put(BundleConstant.EXTRA, bookcaseId)
                     .put(BundleConstant.EXTRA_TWO, bookcaseName)
                     .put(BundleConstant.EXTRA_THREE, bookcaseType)
+                    .put(BundleConstant.EXTRA_FOUR, userId)
                     .end())
             activity.startActivityForResult(intent, BundleConstant.BOOKCASE_VIEWER)
         }

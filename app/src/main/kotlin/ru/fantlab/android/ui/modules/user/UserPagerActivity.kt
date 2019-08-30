@@ -193,8 +193,11 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 				fab.show()
 			}
 			getString(R.string.bookcases) -> {
-				fab.setImageResource(R.drawable.ic_add)
-				fab.show()
+				val currentUser = PrefGetter.getLoggedUser()
+				if (userId == currentUser?.id) {
+					fab.setImageResource(R.drawable.ic_add)
+					fab.show()
+				} else fab.hide()
 			}
 			else -> fab.hide()
 		}

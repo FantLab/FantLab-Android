@@ -1,352 +1,386 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="wrap_content"
+<TableLayout
+	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:layout_gravity="center_horizontal"
-	android:gravity="center_horizontal"
-	android:orientation="vertical"
-	android:paddingBottom="@dimen/spacing_normal"
-	android:paddingTop="@dimen/spacing_normal"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:paddingBottom="@dimen/spacing_xs_large"
+	android:paddingTop="@dimen/spacing_xs_large"
 	tools:showIn="@layout/profile_overview_layout"
 	>
 
-	<HorizontalScrollView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-		android:paddingBottom="@dimen/spacing_normal"
-		android:paddingTop="@dimen/spacing_normal"
-		>
+	<TableRow>
 
 		<LinearLayout
+			android:id="@+id/marksLayout"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal"
+			android:layout_weight="1"
+			android:layout_marginBottom="@dimen/spacing_normal"
+			android:background="?selectableItemBackgroundBorderless"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:orientation="vertical"
 			>
 
-			<LinearLayout
-				android:id="@+id/marksLayout"
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:layout_width="64dp"
+				android:layout_height="64dp"
+				android:id="@+id/marksIcon"
+				android:padding="@dimen/spacing_micro"
+				android:src="@drawable/ic_star"
+				app:tint="?icon_color"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/marksTitle"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginEnd="@dimen/spacing_normal"
-				android:background="?selectableItemBackgroundBorderless"
-				android:clickable="true"
-				android:focusable="true"
-				android:gravity="center"
-				android:orientation="vertical"
-				>
+				android:text="@string/marks"
+				style="@style/TextAppearance.AppCompat.Small"
+				android:textColor="?android:textColorPrimary"
+				/>
 
-				<ru.fantlab.android.ui.widgets.ForegroundImageView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:padding="@dimen/spacing_micro"
-					android:src="@drawable/ic_star"
-					android:contentDescription="@string/mark_count"
-					app:tint="?icon_color"
-					/>
-
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/marks"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:gravity="center"
-					tools:text="313"
-					style="@style/TextAppearance.AppCompat.Small"
-					/>
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:id="@+id/responsesLayout"
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/marks"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginEnd="@dimen/spacing_normal"
-				android:background="?selectableItemBackgroundBorderless"
-				android:clickable="true"
-				android:focusable="true"
-				android:gravity="center"
-				android:orientation="vertical"
-				>
-
-				<ru.fantlab.android.ui.widgets.ForegroundImageView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:padding="@dimen/spacing_micro"
-					android:src="@drawable/ic_response"
-					android:contentDescription="@string/response_count"
-					app:tint="?icon_color"
-					/>
-
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/responses"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:gravity="center"
-					tools:text="94"
-					style="@style/TextAppearance.AppCompat.Small"
-					/>
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:id="@+id/votesLayout"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:background="?selectableItemBackgroundBorderless"
-				android:clickable="true"
-				android:focusable="true"
-				android:gravity="center"
-				android:orientation="vertical"
-				>
-
-				<ru.fantlab.android.ui.widgets.ForegroundImageView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:padding="@dimen/spacing_micro"
-					android:src="@drawable/ic_thumb_up"
-					android:contentDescription="@string/votes_count"
-					app:tint="?icon_color"
-					/>
-
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/votes"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:gravity="center"
-					tools:text="635"
-					style="@style/TextAppearance.AppCompat.Small"
-					/>
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:id="@+id/descriptionsLayout"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="@dimen/spacing_normal"
-				android:background="?selectableItemBackgroundBorderless"
-				android:clickable="true"
-				android:focusable="true"
-				android:gravity="center"
-				android:orientation="vertical"
-				>
-
-				<ru.fantlab.android.ui.widgets.ForegroundImageView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:padding="@dimen/spacing_micro"
-					android:src="@drawable/ic_description"
-					android:contentDescription="@string/description_count"
-					app:tint="?icon_color"
-					/>
-
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/descriptions"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:gravity="center"
-					android:maxLength="6"
-					android:maxLines="1"
-					tools:text="118"
-					style="@style/TextAppearance.AppCompat.Small"
-					/>
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:id="@+id/classificationsLayout"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="@dimen/spacing_normal"
-				android:background="?selectableItemBackgroundBorderless"
-				android:clickable="true"
-				android:focusable="true"
-				android:gravity="center"
-				android:orientation="vertical"
-				>
-
-				<ru.fantlab.android.ui.widgets.ForegroundImageView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:padding="@dimen/spacing_micro"
-					android:src="@drawable/ic_classification"
-					android:contentDescription="@string/classification_count"
-					app:tint="?icon_color"
-					/>
-
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/classifications"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:gravity="center"
-					tools:text="105"
-					style="@style/TextAppearance.AppCompat.Small"
-					/>
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:id="@+id/ticketsLayout"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="@dimen/spacing_normal"
-				android:background="?selectableItemBackgroundBorderless"
-				android:clickable="true"
-				android:focusable="true"
-				android:gravity="center"
-				android:orientation="vertical"
-				>
-
-				<ru.fantlab.android.ui.widgets.ForegroundImageView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:padding="@dimen/spacing_micro"
-					android:src="@drawable/ic_ticket"
-					android:contentDescription="@string/ticket_count"
-					app:tint="?icon_color"
-					/>
-
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/tickets"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:gravity="center"
-					android:maxLength="6"
-					android:maxLines="1"
-					tools:text="68"
-					style="@style/TextAppearance.AppCompat.Small"
-					/>
-
-			</LinearLayout>
+				tools:text="313"
+				style="@style/TextAppearance.AppCompat.Caption"
+				/>
 
 		</LinearLayout>
 
-	</HorizontalScrollView>
-
-	<HorizontalScrollView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:gravity="center_horizontal"
-		android:orientation="horizontal"
-		android:paddingBottom="@dimen/spacing_normal"
-		android:paddingTop="@dimen/spacing_normal"
-		>
-
 		<LinearLayout
+			android:id="@+id/responsesLayout"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal"
+			android:layout_weight="1"
+			android:background="?selectableItemBackgroundBorderless"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:orientation="vertical"
 			>
 
-			<LinearLayout
-				android:id="@+id/messagesLayout"
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:layout_width="64dp"
+				android:layout_height="64dp"
+				android:padding="@dimen/spacing_micro"
+				android:src="@drawable/ic_response"
+				app:tint="?icon_color"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/responsesTitle"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="@dimen/spacing_normal"
-				android:background="?selectableItemBackgroundBorderless"
-				android:clickable="true"
-				android:focusable="true"
-				android:gravity="center"
-				android:orientation="vertical"
-				>
+				android:text="@string/responses"
+				style="@style/TextAppearance.AppCompat.Small"
+				android:textColor="?android:textColorPrimary"
+				/>
 
-				<ru.fantlab.android.ui.widgets.ForegroundImageView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:padding="@dimen/spacing_micro"
-					android:src="@drawable/ic_message"
-					android:contentDescription="@string/forum_messages_count"
-					app:tint="?icon_color"
-					/>
-
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/messages"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:gravity="center"
-					android:maxLength="6"
-					android:maxLines="1"
-					tools:text="7876"
-					style="@style/TextAppearance.AppCompat.Small"
-					/>
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:id="@+id/topicsLayout"
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/responses"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="@dimen/spacing_normal"
-				android:background="?selectableItemBackgroundBorderless"
-				android:clickable="true"
-				android:focusable="true"
-				android:gravity="center"
-				android:orientation="vertical"
-				>
-
-				<ru.fantlab.android.ui.widgets.ForegroundImageView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:padding="@dimen/spacing_micro"
-					android:src="@drawable/ic_new_list"
-					android:contentDescription="@string/topic_count"
-					app:tint="?icon_color"
-					/>
-
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/topics"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:gravity="center"
-					android:maxLength="6"
-					android:maxLines="1"
-					tools:text="68"
-					style="@style/TextAppearance.AppCompat.Small"
-					/>
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:id="@+id/bookcasesLayout"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="@dimen/spacing_normal"
-				android:background="?selectableItemBackgroundBorderless"
-				android:clickable="true"
-				android:focusable="true"
-				android:gravity="center"
-				android:orientation="vertical"
-				>
-
-				<ru.fantlab.android.ui.widgets.ForegroundImageView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:padding="@dimen/spacing_micro"
-					android:src="@drawable/ic_books"
-					android:contentDescription="@string/bookcase_count"
-					app:tint="?icon_color"
-					/>
-
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:id="@+id/bookcases"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:gravity="center"
-					android:maxLength="6"
-					android:maxLines="1"
-					tools:text="8"
-					style="@style/TextAppearance.AppCompat.Small"
-					/>
-
-			</LinearLayout>
+				tools:text="94"
+				style="@style/TextAppearance.AppCompat.Caption"
+				/>
 
 		</LinearLayout>
 
-	</HorizontalScrollView>
+		<LinearLayout
+			android:id="@+id/votesLayout"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:background="?selectableItemBackgroundBorderless"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:orientation="vertical"
+			>
 
-</LinearLayout>
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:layout_width="64dp"
+				android:layout_height="64dp"
+				android:padding="@dimen/spacing_micro"
+				android:src="@drawable/ic_thumb_up"
+				app:tint="?icon_color"
+				/>
 
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/votesTitle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/votes_count"
+				style="@style/TextAppearance.AppCompat.Small"
+				android:textColor="?android:textColorPrimary"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/votes"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				tools:text="94"
+				style="@style/TextAppearance.AppCompat.Caption"
+				/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/descriptionsLayout"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="?selectableItemBackgroundBorderless"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:layout_weight="1"
+			>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:layout_width="64dp"
+				android:layout_height="64dp"
+				android:padding="@dimen/spacing_micro"
+				android:src="@drawable/ic_description"
+				app:tint="?icon_color"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/descriptionsTitle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/description_count"
+				style="@style/TextAppearance.AppCompat.Small"
+				android:textColor="?android:textColorPrimary"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/descriptions"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:maxLength="6"
+				android:maxLines="1"
+				tools:text="118"
+				style="@style/TextAppearance.AppCompat.Caption"
+				/>
+
+		</LinearLayout>
+
+	</TableRow>
+
+	<TableRow>
+		<LinearLayout
+			android:id="@+id/classificationsLayout"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/spacing_normal"
+			android:background="?selectableItemBackgroundBorderless"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:layout_weight="1"
+			>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:layout_width="64dp"
+				android:layout_height="64dp"
+				android:padding="@dimen/spacing_micro"
+				android:src="@drawable/ic_classification"
+				app:tint="?icon_color"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/classificationsTitle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/classification_count"
+				style="@style/TextAppearance.AppCompat.Small"
+				android:textColor="?android:textColorPrimary"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/classifications"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				tools:text="105"
+				style="@style/TextAppearance.AppCompat.Caption"
+				/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/ticketsLayout"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="?selectableItemBackgroundBorderless"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:layout_weight="1"
+			>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:layout_width="64dp"
+				android:layout_height="64dp"
+				android:padding="@dimen/spacing_micro"
+				android:src="@drawable/ic_ticket"
+				app:tint="?icon_color"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/ticketsTitle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/ticket_count"
+				style="@style/TextAppearance.AppCompat.Small"
+				android:textColor="?android:textColorPrimary"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/tickets"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:maxLength="6"
+				android:maxLines="1"
+				tools:text="68"
+				style="@style/TextAppearance.AppCompat.Caption"
+				/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/messagesLayout"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="?selectableItemBackgroundBorderless"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:layout_weight="1"
+			>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:layout_width="64dp"
+				android:layout_height="64dp"
+				android:padding="@dimen/spacing_micro"
+				android:src="@drawable/ic_message"
+				app:tint="?icon_color"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/messagesTitle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/messages_count"
+				style="@style/TextAppearance.AppCompat.Small"
+				android:textColor="?android:textColorPrimary"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/messages"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:maxLength="6"
+				android:maxLines="1"
+				tools:text="7876"
+				style="@style/TextAppearance.AppCompat.Caption"
+				/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/topicsLayout"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="?selectableItemBackgroundBorderless"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:layout_weight="1"
+			>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:layout_width="64dp"
+				android:layout_height="64dp"
+				android:padding="@dimen/spacing_micro"
+				android:src="@drawable/ic_forum"
+				app:tint="?icon_color"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/topicsTitle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/topic_count"
+				style="@style/TextAppearance.AppCompat.Small"
+				android:textColor="?android:textColorPrimary"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/topics"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:maxLength="6"
+				android:maxLines="1"
+				tools:text="68"
+				style="@style/TextAppearance.AppCompat.Caption"
+				/>
+
+		</LinearLayout>
+
+	</TableRow>
+
+	<TableRow>
+		<LinearLayout
+			android:id="@+id/bookcasesLayout"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="?selectableItemBackgroundBorderless"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:layout_weight="1"
+			>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:layout_width="64dp"
+				android:layout_height="64dp"
+				android:padding="@dimen/spacing_micro"
+				android:src="@drawable/ic_books"
+				app:tint="?icon_color"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/bookcasesTitle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/bookcase_count"
+				style="@style/TextAppearance.AppCompat.Small"
+				android:textColor="?android:textColorPrimary"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/bookcases"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:maxLength="6"
+				android:maxLines="1"
+				tools:text="8"
+				style="@style/TextAppearance.AppCompat.Caption"
+				/>
+
+		</LinearLayout>
+	</TableRow>
+
+</TableLayout>

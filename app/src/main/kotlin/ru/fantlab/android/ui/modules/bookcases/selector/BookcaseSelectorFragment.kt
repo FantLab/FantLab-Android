@@ -12,6 +12,7 @@ import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.data.dao.model.BookcaseSelection
+import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.ui.adapter.BookcaseSelectorAdapter
 import ru.fantlab.android.ui.modules.bookcases.viewer.BookcaseViewerActivity
 
@@ -47,7 +48,6 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
     override fun onInitViews(items: ArrayList<BookcaseSelection>?) {
         hideProgress()
         if (items != null) {
-            onSetTabCount(items.size)
             initAdapter(items)
         }
     }
@@ -57,10 +57,12 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
     }
 
     override fun onItemClicked(item: BookcaseSelection, position: Int) {
+        val currentUser = PrefGetter.getLoggedUser()
         BookcaseViewerActivity.startActivity(activity!!,
-            item.bookcase.bookcaseId,
-            item.bookcase.bookcaseName,
-            item.bookcase.bookcaseType)
+                currentUser?.id ?: -1,
+                item.bookcase.bookcaseId,
+                item.bookcase.bookcaseName,
+                item.bookcase.bookcaseType)
     }
 
     override fun onItemSelected(item: BookcaseSelection, position: Int) {
@@ -77,10 +79,6 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
 
     override fun onClick(v: View?) {
         onRefresh()
-    }
-
-    override fun onSetTabCount(allCount: Int) {
-        // TODO: not implemented
     }
 
     override fun hideProgress() {
@@ -115,7 +113,5 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
         }
     }
 
-    override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
-        // TODO("not implemented")
-    }
+    override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {}
 }

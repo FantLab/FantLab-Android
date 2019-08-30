@@ -14,12 +14,9 @@ import ru.fantlab.android.ui.widgets.treeview.TreeViewBinder
 
 class BookcaseHeaderViewHolder : TreeViewBinder<BookcaseHeaderViewHolder.ViewHolder>() {
 
-    override val layoutId: Int
-        get() = R.layout.bookcase_header_item
+    override val layoutId = R.layout.bookcase_header_item
 
-    override fun provideViewHolder(itemView: View): ViewHolder {
-        return ViewHolder(itemView)
-    }
+    override fun provideViewHolder(itemView: View) = ViewHolder(itemView)
 
     override fun bindView(
             holder: RecyclerView.ViewHolder,

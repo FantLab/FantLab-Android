@@ -53,7 +53,7 @@ class BookcaseEditionViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Boo
     }
 
 
-    interface onUpdateItemListener {
+    interface OnUpdateItemListener {
         fun onDeleteItemFromBookcase(itemId: Int)
 
         fun onUpdateItemComment(itemId: Int, itemComment: String?)
@@ -66,8 +66,9 @@ class BookcaseEditionViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Boo
 
         fun newInstance(
                 viewGroup: ViewGroup,
-                adapter: BaseRecyclerAdapter<BookcaseEdition, BookcaseEditionViewHolder>
+                adapter: BaseRecyclerAdapter<BookcaseEdition, BookcaseEditionViewHolder>,
+                isPrivateCase: Boolean
         ): BookcaseEditionViewHolder =
-                BookcaseEditionViewHolder(getView(viewGroup, R.layout.bookcase_edition_row_item), adapter)
+                BookcaseEditionViewHolder(getView(viewGroup, if (isPrivateCase) R.layout.bookcase_edition_row_item else R.layout.public_bookcase_edition_row_item), adapter)
     }
 }

@@ -51,7 +51,7 @@ class BookcaseFilmViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Bookca
     }
 
 
-    interface onUpdateItemListener {
+    interface OnUpdateItemListener {
         fun onDeleteItemFromBookcase(itemId: Int)
 
         fun onUpdateItemComment(itemId: Int, itemComment: String?)
@@ -63,8 +63,9 @@ class BookcaseFilmViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Bookca
 
         fun newInstance(
                 viewGroup: ViewGroup,
-                adapter: BaseRecyclerAdapter<BookcaseFilm, BookcaseFilmViewHolder>
+                adapter: BaseRecyclerAdapter<BookcaseFilm, BookcaseFilmViewHolder>,
+                isPrivateCase: Boolean
         ): BookcaseFilmViewHolder =
-                BookcaseFilmViewHolder(getView(viewGroup, R.layout.bookcase_film_row_item), adapter)
+                BookcaseFilmViewHolder(getView(viewGroup, if (isPrivateCase) R.layout.bookcase_film_row_item else R.layout.public_bookcase_film_row_item), adapter)
     }
 }

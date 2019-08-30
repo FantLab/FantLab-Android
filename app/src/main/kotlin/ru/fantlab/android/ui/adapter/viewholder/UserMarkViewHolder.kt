@@ -18,11 +18,7 @@ class UserMarkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Mark, User
 		itemView.coverLayout.setUrl("https:${mark.workImage}", WorkTypesProvider.getCoverByTypeId(mark.workTypeId))
 		itemView.authors.text = mark.workAuthor
 		itemView.title.text = if (mark.workName.isNotEmpty()) {
-			if (mark.workNameOrig.isNotEmpty()) {
-				String.format("%s / %s", mark.workName, mark.workNameOrig)
-			} else {
-				mark.workName
-			}
+			mark.workName
 		} else {
 			mark.workNameOrig
 		}

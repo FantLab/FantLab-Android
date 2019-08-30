@@ -16,8 +16,6 @@ interface BookcasesSelectorMvp {
 
         fun onInitViews(items: ArrayList<BookcaseSelection>?)
 
-        fun onSetTabCount(allCount: Int)
-
         fun onItemClicked(item: BookcaseSelection, position: Int)
 
         fun onItemSelected(item: BookcaseSelection, position: Int)

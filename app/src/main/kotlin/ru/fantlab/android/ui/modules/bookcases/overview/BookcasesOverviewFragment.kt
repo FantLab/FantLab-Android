@@ -12,6 +12,9 @@ import ru.fantlab.android.data.dao.model.Bookcase
 import ru.fantlab.android.data.dao.model.BookcaseCategory
 import ru.fantlab.android.data.dao.model.BookcaseChild
 import ru.fantlab.android.data.dao.model.ContextMenus
+import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.ui.adapter.viewholder.BookcaseHeaderViewHolder
 import ru.fantlab.android.ui.adapter.viewholder.BookcaseViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
@@ -26,12 +29,16 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
 
     private var countCallback: UserPagerMvp.View? = null
     private var categories: ArrayList<Pair<String, String>> = arrayListOf()
+    private var userId = -1
+    private var isPrivateCase = false
 
     override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
 
     override fun providePresenter(): BookcasesOverviewPresenter = BookcasesOverviewPresenter()
 
     override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
+        userId = arguments?.getInt(BundleConstant.EXTRA) ?: -1
+
         categories.add(Pair("work", getString(R.string.bookcase_work)))
         categories.add(Pair("edition", getString(R.string.bookcase_edition)))
         categories.add(Pair("film", getString(R.string.bookcase_film)))
@@ -43,7 +50,10 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
         stateLayout.setOnReloadListener(this)
         refresh.setOnRefreshListener(this)
         recycler.setEmptyView(stateLayout, refresh)
-        presenter.onFragmentCreated()
+
+        val currentUser = PrefGetter.getLoggedUser()
+        isPrivateCase = currentUser?.id == userId
+        presenter.getBookcases(userId, isPrivateCase, false)
     }
 
     override fun onInitViews(items: ArrayList<Bookcase>?) {
@@ -81,6 +91,7 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
                     } else {
                         val item = node.content as BookcaseChild
                         BookcaseViewerActivity.startActivity(activity!!,
+                                userId,
                                 item.bookcase.bookcaseId,
                                 item.bookcase.bookcaseName,
                                 item.bookcase.bookcaseType)
@@ -104,13 +115,14 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
 
     override fun onItemClicked(item: Bookcase, position: Int) {
         BookcaseViewerActivity.startActivity(activity!!,
+                userId,
                 item.bookcaseId,
                 item.bookcaseName,
                 item.bookcaseType)
     }
 
     override fun onRefresh() {
-        presenter.getBookcases(true)
+        presenter.getBookcases(userId, isPrivateCase, true)
     }
 
     override fun onClick(v: View?) {
@@ -155,12 +167,14 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
 
     companion object {
 
-        fun newInstance(): BookcasesOverviewFragment {
-            return BookcasesOverviewFragment()
+        fun newInstance(userId: Int): BookcasesOverviewFragment {
+            val view = BookcasesOverviewFragment()
+            view.arguments = Bundler.start()
+                    .put(BundleConstant.EXTRA, userId)
+                    .end()
+            return view
         }
     }
 
-    override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
-        //TODO("not implemented")
-    }
+    override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {}
 }

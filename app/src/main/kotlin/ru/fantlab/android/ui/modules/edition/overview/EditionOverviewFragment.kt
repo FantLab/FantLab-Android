@@ -11,6 +11,7 @@ import ru.fantlab.android.data.dao.model.*
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
+import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.storage.WorkTypesProvider
 import ru.fantlab.android.ui.adapter.EditionAuthorsAdapter
 import ru.fantlab.android.ui.adapter.viewholder.EditionContentChildViewHolder
@@ -210,7 +211,9 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 	}
 
 	override fun onBookcaseClick(item: BookcaseSelection, position: Int) {
+		val currentUser = PrefGetter.getLoggedUser()
 		BookcaseViewerActivity.startActivity(activity!!,
+				currentUser?.id ?: -1,
 				item.bookcase.bookcaseId,
 				item.bookcase.bookcaseName,
 				item.bookcase.bookcaseType)

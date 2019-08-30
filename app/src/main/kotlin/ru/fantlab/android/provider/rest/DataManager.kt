@@ -198,6 +198,14 @@ object DataManager {
 					.rxObject(ResponsesResponse.Deserializer(perPage = 50))
 					.map { it.get() }
 
+	fun getUserBookcases(
+			userId: Int
+	): Single<BookcasesResponse> =
+			getUserBookcasesPath(userId)
+					.httpGet()
+					.rxObject(BookcasesResponse.Deserializer())
+					.map { it.get() }
+
 	fun getPersonalBookcases(
 	): Single<BookcasesResponse> =
 			getPersonalBookcasesPath()
@@ -236,6 +244,36 @@ object DataManager {
 			offset: Int = 0
 	): Single<BookcaseFilmsResponse> =
 			getPersonalBookcasePath(bookcaseId, offset)
+					.httpGet()
+					.rxObject(BookcaseFilmsResponse.Deserializer(perPage = 10))
+					.map { it.get() }
+
+	fun getUserEditionBookcase(
+			userId: Int,
+			bookcaseId: Int,
+			offset: Int = 0
+	): Single<BookcaseEditionsResponse> =
+			getUserBookcasePath(userId, bookcaseId, offset)
+					.httpGet()
+					.rxObject(BookcaseEditionsResponse.Deserializer(perPage = 10))
+					.map { it.get() }
+
+	fun getUserWorkBookcase(
+			userId: Int,
+			bookcaseId: Int,
+			offset: Int = 0
+	): Single<BookcaseWorksResponse> =
+			getUserBookcasePath(userId, bookcaseId, offset)
+					.httpGet()
+					.rxObject(BookcaseWorksResponse.Deserializer(perPage = 10))
+					.map { it.get() }
+
+	fun getUserFilmBookcase(
+			userId: Int,
+			bookcaseId: Int,
+			offset: Int = 0
+	): Single<BookcaseFilmsResponse> =
+			getUserBookcasePath(userId, bookcaseId, offset)
 					.httpGet()
 					.rxObject(BookcaseFilmsResponse.Deserializer(perPage = 10))
 					.map { it.get() }
@@ -714,9 +752,19 @@ fun getUserResponsesPath(
 fun getPersonalBookcasesPath(
 ) = "/my/bookcases".toAbsolutePathWithApiVersion()
 
+fun getUserBookcasesPath(
+		userId: Int
+) = "/user/$userId/bookcases".toAbsolutePathWithApiVersion()
+
 fun getPersonalBookcaseInformationPath(
 		bookcaseId: Int
 ) = "/my/bookcases/$bookcaseId/description".toAbsolutePathWithApiVersion()
+
+fun getUserBookcasePath(
+		userId: Int,
+		bookcaseId: Int,
+		offset: Int = 0
+) = "/user/$userId/bookcase/$bookcaseId?offset=$offset".toAbsolutePathWithApiVersion()
 
 fun getPersonalBookcasePath(
 		bookcaseId: Int,

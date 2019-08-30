@@ -95,20 +95,21 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		topics.text = user.topicCount.toString()
 		TooltipCompat.setTooltipText(bookcasesLayout, getString(R.string.bookcase_count))
 		bookcases.text = user.bookcaseCount.toString()
+		bookcasesLayout.setOnClickListener(this)
 
 		if (user.birthDay != null)
 			birthDay.text = user.birthDay.parseFullDate().getTimeAgo()
 		else birthDay.visibility = GONE
 
-		 if (!user.countryName.isNullOrEmpty() && !user.cityName.isNullOrEmpty()) {
-			 location.text = StringBuilder()
-					 .append(user.countryName)
-					 .append(", ")
-					 .append(user.cityName)
+		if (!user.countryName.isNullOrEmpty() && !user.cityName.isNullOrEmpty()) {
+			location.text = StringBuilder()
+					.append(user.countryName)
+					.append(", ")
+					.append(user.cityName)
 		} else if (!user.location.isNullOrEmpty()) {
-			 location.text = user.location
+			location.text = user.location
 		} else {
-			 location.visibility = GONE
+			location.visibility = GONE
 		}
 		regDate.text = user.regDate.parseFullDate().getTimeAgo()
 		lastActionDate.text = user.lastActionDate.parseFullDate().getTimeAgo()
@@ -164,6 +165,9 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 			}
 			R.id.responsesLayout -> {
 				pagerCallback?.onSelectTab(2)
+			}
+			R.id.bookcasesLayout -> {
+				pagerCallback?.onSelectTab(3)
 			}
 		}
 	}

@@ -25,7 +25,13 @@ class BookcaseWorkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Bookca
                 .toString())
 
         itemView.workAutors.text = bookcase.autors
-        itemView.workName.text = bookcase.name
+
+        itemView.workName.text = if (bookcase.rusname.isNotEmpty()) {
+            bookcase.rusname
+        } else {
+            bookcase.name
+        }
+
         itemView.workComment.text = if (bookcase.comment.orEmpty().isEmpty()) itemView.context.getString(R.string.bookcase_add_comment) else bookcase.comment
         itemView.workComment.setOnClickListener {
             if (adapter != null && (adapter as BookcaseWorksAdapter).itemUpdateListener != null) {
@@ -50,7 +56,7 @@ class BookcaseWorkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Bookca
         }
     }
 
-    interface onUpdateItemListener {
+    interface OnUpdateItemListener {
         fun onDeleteItemFromBookcase(itemId: Int)
 
         fun onUpdateItemComment(itemId: Int, itemComment: String?)
@@ -62,8 +68,9 @@ class BookcaseWorkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Bookca
 
         fun newInstance(
                 viewGroup: ViewGroup,
-                adapter: BaseRecyclerAdapter<BookcaseWork, BookcaseWorkViewHolder>
+                adapter: BaseRecyclerAdapter<BookcaseWork, BookcaseWorkViewHolder>,
+                isPrivateCase: Boolean
         ): BookcaseWorkViewHolder =
-                BookcaseWorkViewHolder(getView(viewGroup, R.layout.bookcase_work_row_item), adapter)
+                BookcaseWorkViewHolder(getView(viewGroup, if (isPrivateCase) R.layout.bookcase_work_row_item else R.layout.public_bookcase_work_row_item), adapter)
     }
 }
