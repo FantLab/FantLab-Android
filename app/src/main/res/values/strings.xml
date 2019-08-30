@@ -311,4 +311,5 @@
 	<string name="bookcase_item_comment_modifying">Update comment</string>
 	<string name="no_bookcases">No bookcases</string>
 	<string name="my_bookcases">My bookcases</string>
+	<string name="winners">Wins</string>
 </resources>

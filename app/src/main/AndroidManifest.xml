@@ -86,6 +86,10 @@
 			android:parentActivityName=".ui.modules.main.MainActivity"
 			/>
 		<activity
+			android:name=".ui.modules.work.awards.WorkAwardsActivity"
+			android:parentActivityName=".ui.modules.author.AuthorPagerActivity"
+			/>
+		<activity
 			android:name=".ui.modules.plans.PlansPagerActivity"
 			android:parentActivityName=".ui.modules.main.MainActivity"
 			android:configChanges="keyboard|orientation|screenSize"
