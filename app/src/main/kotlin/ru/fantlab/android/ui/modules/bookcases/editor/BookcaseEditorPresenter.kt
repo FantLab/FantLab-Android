@@ -19,7 +19,7 @@ class BookcaseEditorPresenter : BasePresenter<BookcaseEditorMvp.View>(), Bookcas
         sendToView { it.onEmptyBookcaseName(bookcaseNameIsEmpty) }
         if (!bookcaseNameIsEmpty) {
             makeRestCall(
-                    DataManager.updateBookcase(bookcaseId, bookcaseType, bookcaseName, if (isPublic) "1" else "0", bookcaseComment).toObservable(),
+                    DataManager.updateBookcase(bookcaseId, bookcaseType, bookcaseName, if (isPublic) "on" else "off", bookcaseComment).toObservable(),
                     Consumer { response ->
                         val result = UpdateBookcaseResponse.Parser().parse(response)
                         if (result.resCode != null) {
@@ -37,7 +37,7 @@ class BookcaseEditorPresenter : BasePresenter<BookcaseEditorMvp.View>(), Bookcas
         sendToView { it.onEmptyBookcaseName(bookcaseNameIsEmpty) }
         if (!bookcaseNameIsEmpty) {
             makeRestCall(
-                    DataManager.createBookcase(bookcaseType, bookcaseName, if (isPublic) "1" else "0", bookcaseComment).toObservable(),
+                    DataManager.createBookcase(bookcaseType, bookcaseName, if (isPublic) "on" else "off", bookcaseComment).toObservable(),
                     Consumer { response ->
                         val result = CreateBookcaseResponse.Parser().parse(response)
                         if (result.bookcaseId != null) {

@@ -68,6 +68,7 @@
 					android:gravity="top|start"
 					android:hint="@string/type_here"
 					android:inputType="textMultiLine|textCapSentences"
+					android:importantForAutofill="no"
 					android:minLines="2"
 					android:padding="@dimen/spacing_xs_large"
 					android:scrollbars="vertical"
