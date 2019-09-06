@@ -284,8 +284,13 @@ object DataManager {
 			publicBookcase: String,
 			bookcaseComment: String?
 	): Single<String> =
-			createBookcasePath(type, name, publicBookcase, bookcaseComment)
-					.httpPost()
+			createBookcasePath()
+					.httpPost(listOf(
+							"name" to name,
+							"type" to type,
+							"shared" to publicBookcase,
+							"comment" to bookcaseComment
+					))
 					.rxString()
 					.map { it.get() }
 
@@ -296,8 +301,13 @@ object DataManager {
 			publicBookcase: String,
 			bookcaseComment: String?
 	): Single<String> =
-			updateBookcasePath(bookcaseId, type, name, publicBookcase, bookcaseComment)
-					.httpPost()
+			updateBookcasePath(bookcaseId)
+					.httpPost(listOf(
+							"name" to name,
+							"type" to type,
+							"shared" to publicBookcase,
+							"comment" to bookcaseComment
+					))
 					.rxString()
 					.map { it.get() }
 
@@ -324,8 +334,10 @@ object DataManager {
 			entityId: Int,
 			text: String
 	): Single<String> =
-			updateBookcaseItemCommentPath(bookcaseId, entityId, text)
-					.httpPost()
+			updateBookcaseItemCommentPath(bookcaseId, entityId)
+					.httpPost(listOf(
+							"txt" to text
+					))
 					.rxString()
 					.map { it.get() }
 
@@ -772,19 +784,11 @@ fun getPersonalBookcasePath(
 ) = "/my/bookcases/$bookcaseId/items?offset=$offset".toAbsolutePathWithApiVersion()
 
 fun createBookcasePath(
-		type: String,
-		name: String,
-		publicBookcase: String,
-		comment: String?
-) = "/my/bookcases/add?name=$name&type=$type&shared=$publicBookcase&comment=$comment".toAbsolutePathWithApiVersion()
+) = "/my/bookcases/add".toAbsolutePathWithApiVersion()
 
 fun updateBookcasePath(
-		bookcaseId: Int,
-		type: String,
-		name: String,
-		publicBookcase: String,
-		comment: String?
-) = "/my/bookcases/$bookcaseId/edit?name=$name&type=$type&shared=$publicBookcase&comment=$comment".toAbsolutePathWithApiVersion()
+		bookcaseId: Int
+) = "/my/bookcases/$bookcaseId/edit".toAbsolutePathWithApiVersion()
 
 fun deletePersonalBookcasePath(
 		bookcaseId: Int
@@ -798,9 +802,8 @@ fun includeItemToBookcasePath(
 
 fun updateBookcaseItemCommentPath(
 		bookcaseId: Int,
-		entityId: Int,
-		comment: String
-) = "/my/bookcases/$bookcaseId/items/$entityId/editcomm?txt=$comment".toAbsolutePathWithApiVersion()
+		entityId: Int
+) = "/my/bookcases/$bookcaseId/items/$entityId/editcomm".toAbsolutePathWithApiVersion()
 
 fun getBookcaseInclusionsPath(
 		bookcaseType: String,
