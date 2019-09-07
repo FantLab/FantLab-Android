@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.Keep
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.edition_overview_layout.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -131,15 +132,23 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 			noteBlock.visibility = View.VISIBLE
 		} else noteBlock.visibility = View.GONE
 
-		bookcasesButton.setOnClickListener {
-			if (inclusions.isNotEmpty()) {
-				val dialogView = BookcasesDialogView()
-				dialogView.initArguments(getString(R.string.my_bookcases), inclusions)
-				dialogView.show(childFragmentManager, "BookcasesDialogView")
-			} else showErrorMessage(getString(R.string.no_bookcases))
-		}
+		setEvents()
 
 		if (isLoggedIn()) presenter.getBookcases("edition", edition.id, false)
+	}
+
+	private fun setEvents() {
+		bookcasesButton.setOnClickListener {
+			if (!isLoggedIn()) {
+				showErrorMessage(getString(R.string.unauthorized_user))
+			} else {
+				if (inclusions.isNotEmpty()) {
+					val dialogView = BookcasesDialogView()
+					dialogView.initArguments(getString(R.string.my_bookcases), inclusions)
+					dialogView.show(childFragmentManager, "BookcasesDialogView")
+				} else showErrorMessage(getString(R.string.no_bookcases))
+			}
+		}
 	}
 
 	override fun onSetContent(content: ArrayList<EditionContent>) {
@@ -169,6 +178,7 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 
 	override fun onSetBookcases(inclusions: ArrayList<BookcaseSelection>) {
 		this.inclusions = inclusions
+		if (inclusions.find { it.included } != null) bookcasesButton.tintDrawableColor(ContextCompat.getColor(context!!, R.color.gold))
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {

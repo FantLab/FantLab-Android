@@ -128,6 +128,12 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			adapterNoms.listener = presenter
 		} else awardsBlock.visibility = View.GONE
 
+		setEvents(work)
+
+		if (isLoggedIn()) presenter.getBookcases("work", work.id, false)
+	}
+
+	private fun setEvents(work: Work) {
 		myMarkBlock.setOnClickListener {
 			if (!isLoggedIn()) {
 				showErrorMessage(getString(R.string.unauthorized_user))
@@ -137,25 +143,27 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		classificatorButton.setOnClickListener { ClassificatorPagerActivity.startActivity(activity!!, work.id) }
 
 		bookcasesButton.setOnClickListener {
-			if (inclusions.isNotEmpty()) {
-				val dialogView = BookcasesDialogView()
-				dialogView.initArguments(getString(R.string.my_bookcases), inclusions)
-				dialogView.show(childFragmentManager, "BookcasesDialogView")
-			} else showErrorMessage(getString(R.string.no_bookcases))
+			if (!isLoggedIn()) {
+				showErrorMessage(getString(R.string.unauthorized_user))
+			} else {
+				if (inclusions.isNotEmpty()) {
+					val dialogView = BookcasesDialogView()
+					dialogView.initArguments(getString(R.string.my_bookcases), inclusions)
+					dialogView.show(childFragmentManager, "BookcasesDialogView")
+				} else showErrorMessage(getString(R.string.no_bookcases))
+			}
 		}
 
 		responseButton.setOnClickListener {
 			startActivityForResult(Intent(activity, EditorActivity::class.java)
-				.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_RESPONSE)
-				.putExtra(BundleConstant.ID, work.id), BundleConstant.REFRESH_RESPONSE_CODE)
+					.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_RESPONSE)
+					.putExtra(BundleConstant.ID, work.id), BundleConstant.REFRESH_RESPONSE_CODE)
 		}
 
 		showAwardsButton.setOnClickListener { WorkAwardsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
 		showEditionsButton.setOnClickListener { WorkEditionsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
 		awardsTitle.setOnClickListener { WorkAwardsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
 		editionsTitle.setOnClickListener { WorkEditionsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
-
-		if (isLoggedIn()) presenter.getBookcases("work", work.id, false)
 	}
 
 	override fun onSetClassification(classificatory: ArrayList<GenreGroup>) {
@@ -193,6 +201,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun onSetBookcases(inclusions: ArrayList<BookcaseSelection>) {
 		this.inclusions = inclusions
+		if (inclusions.find { it.included } != null) bookcasesButton.tintDrawableColor(ContextCompat.getColor(context!!, R.color.gold))
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
