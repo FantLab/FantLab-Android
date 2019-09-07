@@ -9,9 +9,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.base.BaseBottomSheetDialog
-import ru.fantlab.android.ui.widgets.FontTextView
 import ru.fantlab.android.ui.widgets.ratingbar.BaseRatingBar
-import ru.fantlab.android.ui.widgets.ratingbar.ScaleRatingBar
 
 open class RatingDialogView : BaseBottomSheetDialog(), BaseRatingBar.OnRatingDoneListener {
 	private var callback: RatingDialogViewActionCallback? = null
@@ -28,6 +26,7 @@ open class RatingDialogView : BaseBottomSheetDialog(), BaseRatingBar.OnRatingDon
 
 	override fun onAttach(context: Context) {
 		super.onAttach(context)
+		isViewportWidth = false
 		if (parentFragment != null && parentFragment is RatingDialogViewActionCallback) {
 			callback = parentFragment as RatingDialogViewActionCallback
 		} else if (context is RatingDialogViewActionCallback) {

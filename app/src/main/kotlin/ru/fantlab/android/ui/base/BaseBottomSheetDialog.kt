@@ -37,6 +37,8 @@ abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
 	}
 	protected var isAlreadyHidden: Boolean = false
 
+	protected var isViewportWidth: Boolean = true
+
 	@LayoutRes
 	protected abstract fun layoutRes(): Int
 
@@ -78,7 +80,7 @@ abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
 	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 		val dialog = super.onCreateDialog(savedInstanceState)
 		dialog.setOnShowListener {
-			if (ViewHelper.isTablet(activity)) {
+			if (ViewHelper.isTablet(activity) && isViewportWidth) {
 				dialog.window?.setLayout(
 						ViewGroup.LayoutParams.WRAP_CONTENT,
 						ViewGroup.LayoutParams.MATCH_PARENT

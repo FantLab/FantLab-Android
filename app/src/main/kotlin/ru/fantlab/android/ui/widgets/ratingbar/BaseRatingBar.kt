@@ -13,6 +13,8 @@ import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
 import ru.fantlab.android.R
 import java.util.*
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
+
 
 open class BaseRatingBar
 /**
@@ -21,12 +23,13 @@ open class BaseRatingBar
  * @param defStyleAttr attributes from default style (Application theme or activity theme)
  */
 @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr), SimpleRatingBar {
-	lateinit var mPartialViews: MutableList<PartialView>
+	var mPartialViews: MutableList<PartialView> = arrayListOf()
 	private var mNumStars: Int = 0
 	private var mPadding = 20
 	private var mStarWidth: Int = 0
 	private var mStarHeight: Int = 0
 	private var mMinimumStars = 0f
+	private var measuredSize = 0
 	override var rating = -1f
 		set(rating) {
 			var rating = rating
@@ -118,8 +121,14 @@ open class BaseRatingBar
 
 		initParamsValue(typedArray, context)
 		verifyParamsValue()
-		initRatingView()
-		rating = rating
+
+		viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+			override fun onGlobalLayout() {
+				viewTreeObserver.removeOnGlobalLayoutListener(this)
+				measuredSize = (width / mNumStars) - (mPadding / 3 * mNumStars)
+				initRatingView()
+			}
+		})
 	}
 
 	private fun initParamsValue(typedArray: TypedArray, context: Context) {
@@ -180,13 +189,13 @@ open class BaseRatingBar
 	}
 
 	private fun initRatingView() {
-		mPartialViews = ArrayList()
+		if (measuredSize == 0) return
 
 		for (i in 1..mNumStars) {
 			val partialView = getPartialView(
 					i,
-					mStarWidth,
-					mStarHeight,
+					measuredSize,
+					measuredSize,
 					mPadding,
 					mFilledDrawable,
 					mEmptyDrawable
@@ -195,6 +204,7 @@ open class BaseRatingBar
 
 			mPartialViews.add(partialView)
 		}
+		fillRatingBar(rating)
 	}
 
 	private fun getPartialView(

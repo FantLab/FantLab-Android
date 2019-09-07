@@ -41,8 +41,7 @@
 		android:layout_marginBottom="@dimen/spacing_normal"
 		android:layout_marginTop="@dimen/spacing_normal"
 		android:gravity="center"
-		app:srb_starHeight="@dimen/star_size"
-		app:srb_starWidth="@dimen/star_size"
+		app:srb_numStars="10"
 		/>
 
 </LinearLayout>
