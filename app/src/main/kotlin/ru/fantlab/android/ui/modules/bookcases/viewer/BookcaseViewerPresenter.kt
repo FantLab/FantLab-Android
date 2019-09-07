@@ -18,12 +18,12 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
     private var lastPage: Int = Integer.MAX_VALUE
     private var bookcaseType: String = ""
     private var isPrivateCase = false
-    private var userId = -1
+    private var bookcaseUserId = -1
 
-    override fun setParams(userId: Int, isPrivateCase: Boolean, type: String) {
-        this.userId = userId
+    override fun setParams(bookcaseUserId: Int, isPrivateCase: Boolean, bookcaseType: String) {
+        this.bookcaseUserId = bookcaseUserId
         this.isPrivateCase = isPrivateCase
-        bookcaseType = type
+        this.bookcaseType = bookcaseType
     }
 
     override fun onCallApi(page: Int, bookcaseId: Int?): Boolean {
@@ -118,13 +118,13 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
                     }
 
     private fun getEditionsFromServer(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseEdition>, Int, Int>> =
-            (if (isPrivateCase) DataManager.getPersonalEditionBookcase(bookcaseId, page * 10) else DataManager.getUserEditionBookcase(userId, bookcaseId, page * 10))
+            (if (isPrivateCase) DataManager.getPersonalEditionBookcase(bookcaseId, page * 10) else DataManager.getUserEditionBookcase(bookcaseUserId, bookcaseId, page * 10))
                     .map { getEditions(it) }
 
     private fun getEditionsFromDb(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseEdition>, Int, Int>> =
             DbProvider.mainDatabase
                     .responseDao()
-                    .get(if (isPrivateCase) getPersonalBookcasePath(bookcaseId, page * 10) else getUserBookcasePath(userId, bookcaseId, page * 10))
+                    .get(if (isPrivateCase) getPersonalBookcasePath(bookcaseId, page * 10) else getUserBookcasePath(bookcaseUserId, bookcaseId, page * 10))
                     .map { it.response }
                     .map { BookcaseEditionsResponse.Deserializer(perPage = 10).deserialize(it) }
                     .map { getEditions(it) }
@@ -157,13 +157,13 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
                     }
 
     private fun getWorksFromServer(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseWork>, Int, Int>> =
-            (if (isPrivateCase) DataManager.getPersonalWorkBookcase(bookcaseId, page) else DataManager.getUserWorkBookcase(userId, bookcaseId, page))
+            (if (isPrivateCase) DataManager.getPersonalWorkBookcase(bookcaseId, page) else DataManager.getUserWorkBookcase(bookcaseUserId, bookcaseId, page))
                     .map { getWorks(it) }
 
     private fun getWorksFromDb(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseWork>, Int, Int>> =
             DbProvider.mainDatabase
                     .responseDao()
-                    .get(if (isPrivateCase) getPersonalBookcasePath(bookcaseId, page * 10) else getUserBookcasePath(userId, bookcaseId, page * 10))
+                    .get(if (isPrivateCase) getPersonalBookcasePath(bookcaseId, page * 10) else getUserBookcasePath(bookcaseUserId, bookcaseId, page * 10))
                     .map { it.response }
                     .map { BookcaseWorksResponse.Deserializer(perPage = 10).deserialize(it) }
                     .map { getWorks(it) }
@@ -202,7 +202,7 @@ class BookcaseViewerPresenter : BasePresenter<BookcaseViewerMvp.View>(), Bookcas
     private fun getFilmsFromDb(bookcaseId: Int, page: Int): Single<Triple<ArrayList<BookcaseFilm>, Int, Int>> =
             DbProvider.mainDatabase
                     .responseDao()
-                    .get(if (isPrivateCase) getPersonalBookcasePath(bookcaseId, page * 10) else getUserBookcasePath(userId, bookcaseId, page * 10))
+                    .get(if (isPrivateCase) getPersonalBookcasePath(bookcaseId, page * 10) else getUserBookcasePath(bookcaseUserId, bookcaseId, page * 10))
                     .map { it.response }
                     .map { BookcaseFilmsResponse.Deserializer(perPage = 10).deserialize(it) }
                     .map { getFilms(it) }

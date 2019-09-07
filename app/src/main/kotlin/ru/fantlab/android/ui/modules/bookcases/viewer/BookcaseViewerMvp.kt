@@ -45,7 +45,7 @@ interface BookcaseViewerMvp {
             BookcaseFilmViewHolder.OnUpdateItemListener,
             BaseMvp.PaginationListener<Int> {
 
-        fun setParams(userId: Int, isPrivateCase: Boolean, bookcaseType: String)
+        fun setParams(bookcaseUserId: Int, isPrivateCase: Boolean, bookcaseType: String)
 
         fun getEditions(force: Boolean, bookcaseId: Int, page: Int)
 

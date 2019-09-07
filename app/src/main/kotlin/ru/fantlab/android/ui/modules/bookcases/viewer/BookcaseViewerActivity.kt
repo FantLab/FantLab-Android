@@ -31,7 +31,7 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
     @State var bookcaseId: Int = 0
     @State var bookcaseName: String = ""
     @State var bookcaseType: String = ""
-    @State var userId = -1
+    @State var bookcaseUserId = -1
 
     @State var isPrivateCase = false
 
@@ -57,9 +57,9 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
             bookcaseId = intent?.extras?.getInt(BundleConstant.EXTRA, -1) ?: -1
             bookcaseName = intent?.extras?.getString(BundleConstant.EXTRA_TWO, "") ?: ""
             bookcaseType = intent?.extras?.getString(BundleConstant.EXTRA_THREE, "") ?: ""
-            userId = intent?.extras?.getInt(BundleConstant.EXTRA_FOUR, -1) ?: -1
+            bookcaseUserId = intent?.extras?.getInt(BundleConstant.EXTRA_FOUR, -1) ?: -1
         }
-        if (bookcaseId == -1 || userId == -1) {
+        if (bookcaseId == -1 || bookcaseUserId == -1) {
             finish()
             return
         }
@@ -77,7 +77,7 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
         fastScroller.attachRecyclerView(recycler)
 
         val currentUser = PrefGetter.getLoggedUser()
-        isPrivateCase = currentUser?.id == userId
+        isPrivateCase = currentUser?.id == bookcaseUserId
 
         when (bookcaseType) {
             "edition" -> {
@@ -94,7 +94,7 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
             }
         }
 
-        presenter.setParams(userId, isPrivateCase, bookcaseType)
+        presenter.setParams(bookcaseUserId, isPrivateCase, bookcaseType)
         presenter.onCallApi(1, bookcaseId)
     }
 
@@ -283,13 +283,13 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
 
     companion object {
 
-        fun startActivity(activity: Activity, userId: Int, bookcaseId: Int, bookcaseName: String, bookcaseType: String) {
+        fun startActivity(activity: Activity, bookcaseUserId: Int, bookcaseId: Int, bookcaseName: String, bookcaseType: String) {
             val intent = Intent(activity, BookcaseViewerActivity::class.java)
             intent.putExtras(Bundler.start()
                     .put(BundleConstant.EXTRA, bookcaseId)
                     .put(BundleConstant.EXTRA_TWO, bookcaseName)
                     .put(BundleConstant.EXTRA_THREE, bookcaseType)
-                    .put(BundleConstant.EXTRA_FOUR, userId)
+                    .put(BundleConstant.EXTRA_FOUR, bookcaseUserId)
                     .end())
             activity.startActivityForResult(intent, BundleConstant.BOOKCASE_VIEWER)
         }
