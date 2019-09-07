@@ -15,6 +15,7 @@
 		android:layout_marginTop="@dimen/spacing_micro"
 		android:textAllCaps="true"
 		tools:text="@string/overview"
+		android:textColor="?android:attr/textColorPrimary"
 		style="@style/TextAppearance.AppCompat.Body2"
 		/>
 

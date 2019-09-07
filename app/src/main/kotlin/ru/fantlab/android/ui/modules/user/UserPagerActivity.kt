@@ -258,7 +258,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 			val tab = tabs.getTabAt(i)
 			if (tab != null) {
 				val custom = tab.customView
-				if (custom == null) tab.customView = adapter?.getCustomTabView(applicationContext)
+				if (custom == null) tab.customView = adapter?.getCustomTabView(this)
 				setupTab(0, i)
 			}
 		}
