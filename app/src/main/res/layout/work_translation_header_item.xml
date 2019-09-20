@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/translation_lang"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:gravity="center_vertical"
+        android:textColor="?android:textColorTertiary"
+        tools:text="Перевод на русский:"
+        style="@style/TextAppearance.AppCompat.Medium"
+        />
+
+</LinearLayout>

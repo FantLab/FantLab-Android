@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.state_layout.*
 import kotlinx.android.synthetic.main.work_overview_layout.*
 import ru.fantlab.android.R
@@ -17,6 +18,8 @@ import ru.fantlab.android.ui.adapter.ClassificationAdapter
 import ru.fantlab.android.ui.adapter.WorkAuthorsAdapter
 import ru.fantlab.android.ui.adapter.WorkAwardsAdapter
 import ru.fantlab.android.ui.adapter.WorkEditionsAdapter
+import ru.fantlab.android.ui.adapter.viewholder.WorkTranslationHeaderViewHolder
+import ru.fantlab.android.ui.adapter.viewholder.WorkTranslationViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.award.AwardPagerActivity
@@ -28,6 +31,10 @@ import ru.fantlab.android.ui.modules.work.awards.WorkAwardsActivity
 import ru.fantlab.android.ui.modules.work.editions.WorkEditionsActivity
 import ru.fantlab.android.ui.widgets.dialog.BookcasesDialogView
 import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
+import ru.fantlab.android.ui.widgets.treeview.TreeNode
+import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPresenter>(),
@@ -55,7 +62,8 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			work: Work,
 			rootSagas: ArrayList<WorkRootSaga>,
 			awards: ArrayList<Nomination>,
-			authors: ArrayList<Work.Author>
+			authors: ArrayList<Work.Author>,
+			translations: ArrayList<Translation>
 	) {
 		this.work = work
 		pagerCallback?.onSetTitle(if (!InputHelper.isEmpty(work.name)) work.name else work.nameOrig)
@@ -127,6 +135,37 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			awardsList.adapter = adapterNoms
 			adapterNoms.listener = presenter
 		} else awardsBlock.visibility = View.GONE
+
+		if (translations.isNotEmpty()) {
+			translationsList.visibility = View.VISIBLE
+			val nodes = arrayListOf<TreeNode<*>>()
+			translations.forEachIndexed { subIndex, translationLanguage ->
+				val langNode = TreeNode(WorkTranslationLanguage(translationLanguage))
+				nodes.add(langNode)
+				translationLanguage.translations.forEach { translation ->
+					nodes[subIndex].addChild(TreeNode(WorkTranslation(translation)))
+				}
+				langNode.expandAll()
+			}
+			val adapter = TreeViewAdapter(nodes, Arrays.asList(WorkTranslationViewHolder(), WorkTranslationHeaderViewHolder()))
+			if (authorsList.adapter == null) {
+				authorsList.adapter = adapter
+				adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
+					override fun onSelected(extra: Int, add: Boolean) {
+					}
+
+					override fun onClick(node: TreeNode<*>, holder: RecyclerView.ViewHolder): Boolean {
+						return false
+					}
+
+					override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
+					}
+				})
+			}
+			else
+				(authorsList.adapter as TreeViewAdapter).refresh(nodes)
+
+		} else translationsList.visibility = View.GONE
 
 		setEvents(work)
 

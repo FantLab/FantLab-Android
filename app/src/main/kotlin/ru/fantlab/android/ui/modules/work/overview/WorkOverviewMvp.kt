@@ -19,7 +19,8 @@ interface WorkOverviewMvp {
 				work: Work,
 				rootSagas: ArrayList<WorkRootSaga>,
 				awards: ArrayList<Nomination>,
-				authors: ArrayList<Work.Author>
+				authors: ArrayList<Work.Author>,
+				translations: ArrayList<Translation>
 		)
 
 		fun onSetClassification(classificatory: ArrayList<GenreGroup>)
