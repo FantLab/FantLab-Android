@@ -19,8 +19,7 @@ interface WorkOverviewMvp {
 				work: Work,
 				rootSagas: ArrayList<WorkRootSaga>,
 				awards: ArrayList<Nomination>,
-				authors: ArrayList<Work.Author>,
-				translations: ArrayList<Translation>
+				authors: ArrayList<Work.Author>
 		)
 
 		fun onSetClassification(classificatory: ArrayList<GenreGroup>)
@@ -28,6 +27,8 @@ interface WorkOverviewMvp {
 		fun onSetEditions(editions: ArrayList<EditionsBlocks.EditionsBlock>)
 
 		fun onSetBookcases(inclusions: ArrayList<BookcaseSelection>)
+
+		fun onSetTranslations(translations: ArrayList<Translation>)
 
 		fun onItemClicked(item: Nomination)
 

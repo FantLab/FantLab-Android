@@ -9,6 +9,7 @@ import ru.fantlab.android.data.dao.model.WorkTranslation
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import ru.fantlab.android.ui.widgets.treeview.TreeViewBinder
+import kotlin.math.min
 
 class WorkTranslationViewHolder : TreeViewBinder<WorkTranslationViewHolder.ViewHolder>() {
 
@@ -23,12 +24,25 @@ class WorkTranslationViewHolder : TreeViewBinder<WorkTranslationViewHolder.ViewH
             onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
     ) {
         val nodeItem = node.content as WorkTranslation?
-        (holder as ViewHolder).translator.text = nodeItem!!.translation.translators.joinToString()
-        holder.translation.text = nodeItem!!.translation.titles.joinToString()
+        // Assuming, that 5 translators is maximum
+        val translatorsLen = min(nodeItem!!.translation.translators.size, 5)
+        for (translatorIndex in 0 until translatorsLen) {
+            (holder as ViewHolder).translatorWidgets[translatorIndex].visibility = View.VISIBLE
+            var translatorName = nodeItem!!.translation.translators[translatorIndex].shortName
+            if (translatorIndex < translatorsLen -1) {
+                translatorName = translatorName + ","
+            }
+            holder.translatorWidgets[translatorIndex].text = translatorName
+        }
+        (holder as ViewHolder).translation.text = holder.itemView.context.getString(R.string.translation_details,
+                nodeItem.translation.titles[0].title,
+                nodeItem.translation.year,
+                nodeItem.translation.titles[0].editionCount)
     }
 
     inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
-        var translator: TextView = rootView.translator_name
+        var translatorWidgets = arrayListOf(rootView.translator1, rootView.translator2,
+                rootView.translator3, rootView.translator4, rootView.translator5)
         var translation: TextView = rootView.translation_details
     }
 }

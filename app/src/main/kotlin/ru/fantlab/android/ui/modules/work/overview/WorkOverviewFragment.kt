@@ -62,8 +62,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			work: Work,
 			rootSagas: ArrayList<WorkRootSaga>,
 			awards: ArrayList<Nomination>,
-			authors: ArrayList<Work.Author>,
-			translations: ArrayList<Translation>
+			authors: ArrayList<Work.Author>
 	) {
 		this.work = work
 		pagerCallback?.onSetTitle(if (!InputHelper.isEmpty(work.name)) work.name else work.nameOrig)
@@ -135,37 +134,6 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			awardsList.adapter = adapterNoms
 			adapterNoms.listener = presenter
 		} else awardsBlock.visibility = View.GONE
-
-		if (translations.isNotEmpty()) {
-			translationsList.visibility = View.VISIBLE
-			val nodes = arrayListOf<TreeNode<*>>()
-			translations.forEachIndexed { subIndex, translationLanguage ->
-				val langNode = TreeNode(WorkTranslationLanguage(translationLanguage))
-				nodes.add(langNode)
-				translationLanguage.translations.forEach { translation ->
-					nodes[subIndex].addChild(TreeNode(WorkTranslation(translation)))
-				}
-				langNode.expandAll()
-			}
-			val adapter = TreeViewAdapter(nodes, Arrays.asList(WorkTranslationViewHolder(), WorkTranslationHeaderViewHolder()))
-			if (authorsList.adapter == null) {
-				authorsList.adapter = adapter
-				adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
-					override fun onSelected(extra: Int, add: Boolean) {
-					}
-
-					override fun onClick(node: TreeNode<*>, holder: RecyclerView.ViewHolder): Boolean {
-						return false
-					}
-
-					override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
-					}
-				})
-			}
-			else
-				(authorsList.adapter as TreeViewAdapter).refresh(nodes)
-
-		} else translationsList.visibility = View.GONE
 
 		setEvents(work)
 
@@ -241,6 +209,39 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 	override fun onSetBookcases(inclusions: ArrayList<BookcaseSelection>) {
 		this.inclusions = inclusions
 		if (inclusions.find { it.included } != null) bookcasesButton.tintDrawableColor(ContextCompat.getColor(context!!, R.color.gold))
+	}
+
+	override fun onSetTranslations(translations: ArrayList<Translation>) {
+		if (translations.isNotEmpty()) {
+			translationsList.visibility = View.VISIBLE
+			val nodes = arrayListOf<TreeNode<*>>()
+			translations.forEachIndexed { subIndex, translationLanguage ->
+				val langNode = TreeNode(WorkTranslationLanguage(translationLanguage))
+				nodes.add(langNode)
+				translationLanguage.translations.forEach { translation ->
+					nodes[subIndex].addChild(TreeNode(WorkTranslation(translation)))
+				}
+				langNode.expandAll()
+			}
+			val adapter = TreeViewAdapter(nodes, Arrays.asList(WorkTranslationViewHolder(), WorkTranslationHeaderViewHolder()))
+			if (translationsList.adapter == null) {
+				translationsList.adapter = adapter
+				adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
+					override fun onSelected(extra: Int, add: Boolean) {
+					}
+
+					override fun onClick(node: TreeNode<*>, holder: RecyclerView.ViewHolder): Boolean {
+						return false
+					}
+
+					override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
+					}
+				})
+			}
+			else
+				(translationsList.adapter as TreeViewAdapter).refresh(nodes)
+
+		} else translationsList.visibility = View.GONE
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {

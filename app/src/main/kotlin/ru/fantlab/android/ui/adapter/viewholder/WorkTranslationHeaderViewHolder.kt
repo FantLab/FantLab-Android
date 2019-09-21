@@ -23,7 +23,7 @@ class WorkTranslationHeaderViewHolder : TreeViewBinder<WorkTranslationHeaderView
             onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
     ) {
         val nodeItem = node.content as WorkTranslationLanguage?
-        (holder as ViewHolder).title.text = nodeItem!!.translation.language
+        (holder as ViewHolder).title.text = holder.itemView.context.getString(R.string.translation_language, nodeItem!!.translation.language)
     }
 
     inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {

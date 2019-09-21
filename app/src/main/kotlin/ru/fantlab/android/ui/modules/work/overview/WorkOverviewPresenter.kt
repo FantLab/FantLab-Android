@@ -12,11 +12,7 @@ import ru.fantlab.android.data.dao.response.WorkResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.helper.Tuple4
-import ru.fantlab.android.helper.Tuple5
-import ru.fantlab.android.provider.rest.DataManager
-import ru.fantlab.android.provider.rest.getBookcaseInclusionsPath
-import ru.fantlab.android.provider.rest.getUserMarksMiniPath
-import ru.fantlab.android.provider.rest.getWorkPath
+import ru.fantlab.android.provider.rest.*
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
@@ -28,13 +24,14 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(), WorkOvervie
 		workId = bundle.getInt(BundleConstant.EXTRA)
 		makeRestCall(
 				getWorkInternal(workId).toObservable(),
-				Consumer { (response, nominations, wins, authors, translations) ->
+				Consumer { (response, nominations, wins, authors) ->
 					wins.addAll(nominations)
-					sendToView { it.onInitViews(response.work, response.rootSagas, wins, authors, translations) }
+					sendToView { it.onInitViews(response.work, response.rootSagas, wins, authors) }
 				}
 		)
 		getClassificatory()
 		getEditions()
+		getTranslations()
 	}
 
 	private fun getWorkInternal(workId: Int) =
@@ -46,12 +43,12 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(), WorkOvervie
 					.doOnError { err -> sendToView { it.onShowErrorView(err.message) } }
 
 	private fun getWorkFromServer(workId: Int):
-			Single<Tuple5<WorkResponse, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>, ArrayList<Translation>>> =
+			Single<Tuple4<WorkResponse, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>>> =
 			DataManager.getWork(workId, showAwards = true, showTranslations = true)
 					.map { getWork(it) }
 
 	private fun getWorkFromDb(workId: Int):
-			Single<Tuple5<WorkResponse, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>, ArrayList<Translation>>> =
+			Single<Tuple4<WorkResponse, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>>> =
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getWorkPath(workId, showAwards = true, showParents = true))
@@ -60,13 +57,12 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(), WorkOvervie
 					.map { getWork(it) }
 
 	private fun getWork(response: WorkResponse):
-			Tuple5<WorkResponse, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>, ArrayList<Translation>> =
-			Tuple5(
+			Tuple4<WorkResponse, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>> =
+			Tuple4(
 					response,
 					response.awards?.nominations ?: arrayListOf(),
 					response.awards?.wins ?: arrayListOf(),
-					ArrayList(response.work.authors.filter { it.id !in FantlabHelper.Authors.ignoreList }),
-					response.translations
+					ArrayList(response.work.authors.filter { it.id !in FantlabHelper.Authors.ignoreList })
 			)
 
 	override fun getMarks(userId: Int, workIds: ArrayList<Int>) {
@@ -226,6 +222,35 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(), WorkOvervie
 				}
 		)
 	}
+
+	private fun getTranslations() {
+		makeRestCall(
+				getTranslationsInternal().toObservable(),
+				Consumer { translations ->
+					sendToView { it.onSetTranslations(translations) }
+				}
+		)
+	}
+
+	private fun getTranslationsInternal() =
+			getTranslationsFromServer()
+					.onErrorResumeNext { getTranslationsFromDb() }
+					.onErrorResumeNext { ext -> Single.error(ext) }
+					.doOnError { err -> sendToView { it.hideProgress() } }
+
+	private fun getTranslationsFromServer(): Single<ArrayList<Translation>> =
+			DataManager.getWorkExtended(workId)
+					.map { getTranslations(it) }
+
+	private fun getTranslationsFromDb(): Single<ArrayList<Translation>> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getWorkExtendedPath(workId))
+					.map { it.response }
+					.map { WorkResponse.Deserializer().deserialize(it) }
+					.map { getTranslations(it) }
+
+	private fun getTranslations(response: WorkResponse): ArrayList<Translation> = response.translations
 
 	override fun onItemClick(position: Int, v: View?, item: Nomination) {
 		sendToView { it.onItemClicked(item) }
