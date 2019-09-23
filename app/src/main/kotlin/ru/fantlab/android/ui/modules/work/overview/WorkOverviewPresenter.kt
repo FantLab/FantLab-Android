@@ -239,13 +239,13 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(), WorkOvervie
 					.doOnError { err -> sendToView { it.hideProgress() } }
 
 	private fun getTranslationsFromServer(): Single<ArrayList<Translation>> =
-			DataManager.getWorkExtended(workId)
+			DataManager.getWork(workId, showTranslations = true)
 					.map { getTranslations(it) }
 
 	private fun getTranslationsFromDb(): Single<ArrayList<Translation>> =
 			DbProvider.mainDatabase
 					.responseDao()
-					.get(getWorkExtendedPath(workId))
+					.get(getWorkPath(workId, showTranslations = true))
 					.map { it.response }
 					.map { WorkResponse.Deserializer().deserialize(it) }
 					.map { getTranslations(it) }
