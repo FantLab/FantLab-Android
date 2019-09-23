@@ -132,14 +132,6 @@ object DataManager {
 					.rxObject(WorkResponse.Deserializer())
 					.map { it.get() }
 
-	fun getWorkExtended(
-			id: Int
-	): Single<WorkResponse> =
-			getWorkExtendedPath(id)
-					.httpGet()
-					.rxObject(WorkResponse.Deserializer())
-					.map { it.get() }
-
 	fun getWorkResponses(
 			workId: Int,
 			page: Int = 1,
@@ -728,10 +720,6 @@ fun getWorkPath(
 		"&editions_info=${showEditionsInfo.toInt()}&films=${showFilms.toInt()}" +
 		"&la_resume=${showLinguaProfile.toInt()}&parents=${showParents.toInt()}" +
 		"&translations=${showTranslations.toInt()}").toAbsolutePathWithApiVersion()
-
-fun getWorkExtendedPath(
-		id: Int
-) = "/work/$id/extended".toAbsolutePathWithApiVersion()
 
 fun getWorkResponsesPath(
 		workId: Int,
