@@ -44,7 +44,7 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(), WorkOvervie
 
 	private fun getWorkFromServer(workId: Int):
 			Single<Tuple4<WorkResponse, ArrayList<Nomination>, ArrayList<Nomination>, ArrayList<Work.Author>>> =
-			DataManager.getWork(workId, showAwards = true, showTranslations = true)
+			DataManager.getWork(workId, showAwards = true)
 					.map { getWork(it) }
 
 	private fun getWorkFromDb(workId: Int):
