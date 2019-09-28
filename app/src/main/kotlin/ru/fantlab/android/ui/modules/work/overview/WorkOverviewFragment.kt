@@ -371,6 +371,11 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 
 	override fun onBookcaseSelectionUpdated(bookcaseId: Int, include: Boolean) {
 		inclusions.find { it.bookcase.bookcaseId == bookcaseId }?.included = include
+
+		if (inclusions.find { it.included } != null) {
+			bookcasesButton.tintDrawableColor(ContextCompat.getColor(context!!, R.color.gold))
+		} else bookcasesButton.tintDrawableColor(ViewHelper.getColorAttr(context!!, R.attr.button_icon_color))
+
 		hideProgress()
 	}
 

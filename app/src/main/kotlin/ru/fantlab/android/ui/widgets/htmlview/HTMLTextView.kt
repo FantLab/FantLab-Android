@@ -153,7 +153,7 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 		private val LI_TAG = "<*>"
 		private val SMILES_TAG: Pattern = Pattern.compile(":([a-z]+):")
 		private val IMG_TAG: Pattern = Pattern.compile("<img>(.*?)<\\/img>", Pattern.CASE_INSENSITIVE)
-		private val UNIQUE_URL_TAG: Pattern = Pattern.compile("(https?:\\/\\/[^\"<\\s]+)(?![^<>]*>|[^=\"]*?<\\/.*)")
+		private val UNIQUE_URL_TAG: Pattern = Pattern.compile("(?!file)(?<!href=\")(\\b[\\w]+:\\/\\/[\\w-?&;#~=\\.\\/\\@]+[\\w\\/])")
 	}
 
 }

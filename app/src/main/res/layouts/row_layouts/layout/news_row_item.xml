@@ -128,7 +128,7 @@
 					android:layout_marginTop="@dimen/spacing_micro"
 					android:layout_toStartOf="@id/coverLayout"
 					android:ellipsize="end"
-					android:maxLines="10"
+					android:maxLines="15"
 					android:textColor="?android:textColorSecondary"
 					android:textSize="15sp"
 					tools:text="Составлены библиографии российских писателей, работающих в жанре «попаданческой» фантастики, Юрия и Веры Каменских."

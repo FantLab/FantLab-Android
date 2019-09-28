@@ -18,7 +18,6 @@
         <ru.fantlab.android.ui.widgets.FlowLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_micro"
             app:flChildSpacing="3dp"
             app:flChildSpacingForLastRow="align"
             app:flRowSpacing="3dp"

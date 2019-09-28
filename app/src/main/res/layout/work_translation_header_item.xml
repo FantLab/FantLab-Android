@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?android:selectableItemBackground"
     tools:ignore="RtlSymmetry"
     >
 
-        <TextView
+        <ru.fantlab.android.ui.widgets.FontTextView
             android:id="@+id/translation_lang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
             tools:text="Перевод на русский:"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
             android:textColor="?android:attr/textColorSecondary"

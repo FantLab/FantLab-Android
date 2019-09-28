@@ -9,10 +9,7 @@ import kotlinx.android.synthetic.main.edition_overview_layout.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.*
-import ru.fantlab.android.helper.BundleConstant
-import ru.fantlab.android.helper.Bundler
-import ru.fantlab.android.helper.InputHelper
-import ru.fantlab.android.helper.PrefGetter
+import ru.fantlab.android.helper.*
 import ru.fantlab.android.provider.storage.WorkTypesProvider
 import ru.fantlab.android.ui.adapter.EditionAuthorsAdapter
 import ru.fantlab.android.ui.adapter.viewholder.EditionContentChildViewHolder
@@ -235,6 +232,11 @@ class EditionOverviewFragment : BaseFragment<EditionOverviewMvp.View, EditionOve
 
 	override fun onBookcaseSelectionUpdated(bookcaseId: Int, include: Boolean) {
 		inclusions.find { it.bookcase.bookcaseId == bookcaseId }?.included = include
+
+		if (inclusions.find { it.included } != null) {
+			bookcasesButton.tintDrawableColor(ContextCompat.getColor(context!!, R.color.gold))
+		} else bookcasesButton.tintDrawableColor(ViewHelper.getColorAttr(context!!, R.attr.button_icon_color))
+
 		hideProgress()
 	}
 

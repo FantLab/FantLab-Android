@@ -42,6 +42,7 @@
 				android:visibility="gone"
 				app:fabSize="normal"
 				tools:visibility="visible"
+				app:layout_behavior=".ui.widgets.FloatingActionButtonBehavior"
 				/>
 
 		</androidx.coordinatorlayout.widget.CoordinatorLayout>

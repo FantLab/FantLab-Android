@@ -34,7 +34,7 @@ object ViewHelper {
 	}
 
 	@ColorInt
-	private fun getColorAttr(context: Context, attr: Int): Int {
+	fun getColorAttr(context: Context, attr: Int): Int {
 		val theme = context.theme
 		val typedArray = theme.obtainStyledAttributes(intArrayOf(attr))
 		val color = typedArray.getColor(0, Color.LTGRAY)

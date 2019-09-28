@@ -3,11 +3,14 @@ package ru.fantlab.android.provider.theme
 import android.app.Activity
 import android.app.ActivityManager
 import android.graphics.BitmapFactory
+import android.os.Build
 import androidx.annotation.StyleRes
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.helper.ViewHelper
 import ru.fantlab.android.ui.base.BaseActivity
+import android.view.View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+import android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS
 
 object ThemeEngine {
 
@@ -25,6 +28,9 @@ object ThemeEngine {
 	private fun applyNavBarColor(activity: Activity) {
 		if (PrefGetter.isNavBarTintingEnabled() && PrefGetter.getThemeType() != PrefGetter.LIGHT) {
 			activity.window.navigationBarColor = ViewHelper.getPrimaryColor(activity)
+		} else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1 && PrefGetter.isNavBarTintingEnabled() && PrefGetter.getThemeType() == PrefGetter.LIGHT) {
+			activity.window.navigationBarColor = ViewHelper.getPrimaryColor(activity)
+			activity.window.decorView.systemUiVisibility = FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS or SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
 		}
 	}
 

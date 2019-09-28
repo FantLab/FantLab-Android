@@ -326,7 +326,7 @@ object ContextMenuBuilder {
 						ContextMenus.MenuItem(context.getString(R.string.sort_mark), R.drawable.ic_star_small, "sort", selected = MarksSortOption.values()[0] == sortBy),
 						ContextMenus.MenuItem(context.getString(R.string.sort_name), R.drawable.ic_title, "sort", selected = MarksSortOption.values()[1] == sortBy),
 						ContextMenus.MenuItem(context.getString(R.string.sort_author), R.drawable.ic_person, "sort", selected = MarksSortOption.values()[2] == sortBy),
-						ContextMenus.MenuItem(context.getString(R.string.sort_date), R.drawable.ic_time_small, "sort", selected = MarksSortOption.values()[3] == sortBy),
+						ContextMenus.MenuItem(context.getString(R.string.sort_date), R.drawable.ic_date, "sort", selected = MarksSortOption.values()[3] == sortBy),
 						ContextMenus.MenuItem(context.getString(R.string.sort_year), R.drawable.ic_time_small, "sort", selected = MarksSortOption.values()[4] == sortBy)
 				)
 		items.add(ContextMenus(context.getString(R.string.select_sort), actions, "sort"))
