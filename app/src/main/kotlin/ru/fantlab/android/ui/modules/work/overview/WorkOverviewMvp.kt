@@ -30,6 +30,8 @@ interface WorkOverviewMvp {
 
 		fun onSetTranslations(translations: ArrayList<Translation>)
 
+		fun onSetContent(children: ArrayList<ChildWork>)
+
 		fun onItemClicked(item: Nomination)
 
 		fun onSetMark(mark: Int, markCount: String, midMark: String)
@@ -49,6 +51,8 @@ interface WorkOverviewMvp {
 		fun onFragmentCreated(bundle: Bundle)
 
 		fun getMarks(userId: Int, workIds: ArrayList<Int>)
+
+		fun getContent()
 
 		fun getClassification()
 

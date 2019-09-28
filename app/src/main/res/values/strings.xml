@@ -314,4 +314,5 @@
 	<string name="winners">Wins</string>
     <string name="translation_language">Translation to %s:</string>
 	<string name="translation_details">(%s), %d - %d pub.</string>
+	<string name="content_cycle">Cycle content</string>
 </resources>

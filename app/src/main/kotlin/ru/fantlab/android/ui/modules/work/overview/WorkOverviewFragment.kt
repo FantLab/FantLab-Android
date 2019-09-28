@@ -18,6 +18,8 @@ import ru.fantlab.android.ui.adapter.ClassificationAdapter
 import ru.fantlab.android.ui.adapter.WorkAuthorsAdapter
 import ru.fantlab.android.ui.adapter.WorkAwardsAdapter
 import ru.fantlab.android.ui.adapter.WorkEditionsAdapter
+import ru.fantlab.android.ui.adapter.viewholder.CycleContentChildViewHolder
+import ru.fantlab.android.ui.adapter.viewholder.CycleContentParentViewHolder
 import ru.fantlab.android.ui.adapter.viewholder.WorkTranslationHeaderViewHolder
 import ru.fantlab.android.ui.adapter.viewholder.WorkTranslationViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
@@ -26,6 +28,7 @@ import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 import ru.fantlab.android.ui.modules.bookcases.viewer.BookcaseViewerActivity
 import ru.fantlab.android.ui.modules.classificator.ClassificatorPagerActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
+import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
 import ru.fantlab.android.ui.modules.work.awards.WorkAwardsActivity
 import ru.fantlab.android.ui.modules.work.editions.WorkEditionsActivity
@@ -70,6 +73,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		coverLayouts.setUrl("https:${work.image}", WorkTypesProvider.getCoverByTypeId(work.typeId))
 
 		if (isLoggedIn()) {
+			presenter.getBookcases("work", work.id, false)
 			presenter.getMarks(PrefGetter.getLoggedUser()?.id ?: -1, arrayListOf(work.id))
 		} else hideProgress()
 
@@ -135,9 +139,9 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			adapterNoms.listener = presenter
 		} else awardsBlock.visibility = View.GONE
 
-		setEvents(work)
+		if (pagerCallback?.isCycle() == true) presenter.getContent()
 
-		if (isLoggedIn()) presenter.getBookcases("work", work.id, false)
+		setEvents(work)
 	}
 
 	private fun setEvents(work: Work) {
@@ -242,6 +246,60 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 				(translationsList.adapter as TreeViewAdapter).refresh(nodes)
 
 		} else translationsList.visibility = View.GONE
+	}
+
+	override fun onSetContent(children: ArrayList<ChildWork>) {
+		if (children.isNotEmpty()) {
+			val nodes = arrayListOf<TreeNode<*>>()
+			children.forEachIndexed { index, item ->
+				val title = if (item.nameOrig.isNotEmpty() && item.name.isNotEmpty()) item.name else if (item.nameOrig.isNotEmpty() && item.name.isEmpty()) item.nameOrig else item.name
+				if (item.deep <= 1) {
+					val parent = TreeNode(CycleContentParent(title, item.id ?: -1))
+					nodes.add(parent)
+				} else if (nodes.size > 0) {
+					val parent = nodes[nodes.size - 1]
+					val node = if (index + 1 != children.size && children[index + 1].deep == item.deep + 1)
+						TreeNode(CycleContentParent(title, item.id ?: -1))
+					else
+						TreeNode(CycleContentChild(title, item.id ?: -1))
+					when (item.deep) {
+						2 -> parent.addChild(node)
+						3 -> parent.childList[parent.childList.size - 1].addChild(node)
+						4 -> parent.childList[parent.childList.size - 1].childList[parent.childList[parent.childList.size - 1].childList.size - 1].addChild(node)
+					}
+					parent.expandAll()
+				}
+			}
+
+			val adapter = TreeViewAdapter(nodes, listOf(CycleContentParentViewHolder(), CycleContentChildViewHolder()))
+			adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
+				override fun onSelected(extra: Int, add: Boolean) {
+				}
+
+				override fun onClick(node: TreeNode<*>, holder: RecyclerView.ViewHolder): Boolean {
+					val item = node.content
+					var workId = -1
+					var workTitle = ""
+					if (item is CycleContentChild) {
+						workId = item.workId
+						workTitle = item.title
+					} else if (item is CycleContentParent) {
+						workId = item.workId
+						workTitle = item.title
+					}
+					if (workId != -1) {
+						WorkPagerActivity.startActivity(activity!!, workId, workTitle)
+					}
+
+					return true
+				}
+
+				override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
+				}
+			})
+			contentList.adapter = adapter
+			contentBlock.visibility = View.VISIBLE
+		} else contentBlock.visibility = View.GONE
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {

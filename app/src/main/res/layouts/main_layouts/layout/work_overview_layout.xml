@@ -479,6 +479,50 @@
 			</androidx.cardview.widget.CardView>
 
 			<androidx.cardview.widget.CardView
+				android:id="@+id/contentBlock"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="@dimen/spacing_normal"
+				android:layout_marginTop="@dimen/spacing_normal"
+				app:cardBackgroundColor="?card_background"
+				app:cardCornerRadius="0dp"
+				app:cardElevation="1dp"
+				app:cardUseCompatPadding="true"
+				android:visibility="gone"
+				tools:visibility="visible"
+				>
+
+			<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="@dimen/spacing_normal"
+				>
+
+				<ru.fantlab.android.ui.widgets.FontTextView
+					android:id="@+id/contentTitle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/content_cycle"
+					android:textColor="@color/material_teal_700"
+					style="@style/TextAppearance.AppCompat.Title"
+					/>
+
+				<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
+					android:id="@+id/contentList"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_below="@id/contentTitle"
+					android:layout_marginTop="@dimen/spacing_normal"
+					app:layoutManager="@string/linear_layout_manager"
+					tools:itemCount="1"
+					tools:listitem="@layout/cycle_content_parent_row_item"
+					/>
+
+			</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+
+			</androidx.cardview.widget.CardView>
+
+			<androidx.cardview.widget.CardView
 				android:id="@+id/awardsBlock"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -544,7 +588,6 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginBottom="@dimen/spacing_normal"
-				android:layout_marginTop="@dimen/spacing_normal"
 				app:cardBackgroundColor="?card_background"
 				app:cardCornerRadius="0dp"
 				app:cardElevation="1dp"

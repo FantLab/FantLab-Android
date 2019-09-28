@@ -12,7 +12,10 @@ import ru.fantlab.android.data.dao.response.WorkResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.helper.Tuple4
-import ru.fantlab.android.provider.rest.*
+import ru.fantlab.android.provider.rest.DataManager
+import ru.fantlab.android.provider.rest.getBookcaseInclusionsPath
+import ru.fantlab.android.provider.rest.getUserMarksMiniPath
+import ru.fantlab.android.provider.rest.getWorkPath
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
@@ -251,6 +254,34 @@ class WorkOverviewPresenter : BasePresenter<WorkOverviewMvp.View>(), WorkOvervie
 					.map { getTranslations(it) }
 
 	private fun getTranslations(response: WorkResponse): ArrayList<Translation> = response.translations
+
+
+	override fun getContent() = makeRestCall(
+			getContentInternal().toObservable(),
+			Consumer { children ->
+				sendToView { it.onSetContent(children) }
+			}
+	)
+
+	private fun getContentInternal() =
+			getContentFromServer()
+					.onErrorResumeNext { getContentFromDb() }
+					.onErrorResumeNext { ext -> Single.error(ext) }
+					.doOnError { err -> sendToView { it.hideProgress() } }
+
+	private fun getContentFromServer(): Single<ArrayList<ChildWork>> =
+			DataManager.getWork(workId, showChildren = true)
+					.map { getContent(it) }
+
+	private fun getContentFromDb(): Single<ArrayList<ChildWork>> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getWorkPath(workId, showChildren = true))
+					.map { it.response }
+					.map { WorkResponse.Deserializer().deserialize(it) }
+					.map { getContent(it) }
+
+	private fun getContent(response: WorkResponse): ArrayList<ChildWork> = response.children
 
 	override fun onItemClick(position: Int, v: View?, item: Nomination) {
 		sendToView { it.onItemClicked(item) }

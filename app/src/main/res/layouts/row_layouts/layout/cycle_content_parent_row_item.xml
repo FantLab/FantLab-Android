@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="?android:selectableItemBackground"
+	>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="3dp"
+		style="@style/TextAppearance.AppCompat.Subhead"
+		android:textColor="?android:attr/textColorSecondary"
+		tools:text="Хоббит, или Туда и обратно "
+		/>
+
+</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
