@@ -13,9 +13,12 @@ data class WorkTypesResponse(
 
 		override fun deserialize(content: String): WorkTypesResponse {
 			val items: ArrayList<WorkType> = arrayListOf()
-			val array = JsonParser().parse(content).asJsonArray
-			array.map {
-				items.add(DataManager.gson.fromJson(it, WorkType::class.java))
+			val json = JsonParser().parse(content)
+			if (json != null) {
+				val array = json.asJsonArray
+				array.map {
+					items.add(DataManager.gson.fromJson(it, WorkType::class.java))
+				}
 			}
 			return WorkTypesResponse(items)
 		}

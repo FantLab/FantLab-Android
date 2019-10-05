@@ -178,10 +178,9 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 	}
 
 	override fun onItemLongClicked(item: TreeNode<*>, position: Int) {
-		if (isLoggedIn()) {
-			val work = (item.content as CycleWork)
+		if (isLoggedIn() && item.content is CycleWork) {
 			val dialogView = ContextMenuDialogView()
-			dialogView.initArguments("main", ContextMenuBuilder.buildForMarks(recycler.context), work, position)
+			dialogView.initArguments("main", ContextMenuBuilder.buildForMarks(recycler.context), item.content as CycleWork, position)
 			dialogView.show(childFragmentManager, "ContextMenuDialogView")
 		}
 	}

@@ -43,8 +43,12 @@ object WorkTypesProvider {
 	private fun deserializeWorkTypes(workTypesData: String): Disposable =
 			Observable.just(WorkTypesResponse.Deserializer().deserialize(workTypesData)).observe()
 					.subscribe({
-						setWorkTypes(it.types)
-						saveWorkTypesLocal(workTypesData)
+						if (it.types.isEmpty()) {
+							loadWorkTypesLocal()
+						} else {
+							setWorkTypes(it.types)
+							saveWorkTypesLocal(workTypesData)
+						}
 					}, { Timber.d(it) })
 
 	private fun inputStreamToString(stream: InputStream): String = stream.bufferedReader().use { it.readText() }
