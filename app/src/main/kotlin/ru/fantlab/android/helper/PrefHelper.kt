@@ -44,7 +44,7 @@ object PrefHelper {
 
 	fun getString(key: String): String? = getPrefs().getString(key, null)
 
-	fun getBoolean(key: String, defValue: Boolean = false): Boolean = getPrefs().all[key] is Boolean && getPrefs().getBoolean(key, defValue)
+	fun getBoolean(key: String): Boolean = getPrefs().all[key] is Boolean && getPrefs().getBoolean(key, false)
 
 	fun getInt(key: String): Int = if (getPrefs().all[key] is Int) getPrefs().getInt(key, 0) else -1
 

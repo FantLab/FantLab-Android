@@ -159,11 +159,11 @@ object PrefGetter {
 	}
 
 	fun isTwiceBackButtonEnabled(): Boolean {
-		return PrefHelper.getBoolean("back_button", true)
+		return PrefHelper.getBoolean("back_button")
 	}
 
 	fun isNavBarTintingEnabled(): Boolean {
-		return PrefHelper.getBoolean("navigation_color", true)
+		return PrefHelper.getBoolean("navigation_color")
 	}
 
 	fun isRVAnimationEnabled(): Boolean {

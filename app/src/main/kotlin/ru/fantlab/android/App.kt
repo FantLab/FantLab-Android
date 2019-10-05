@@ -1,6 +1,7 @@
 package ru.fantlab.android
 
 import android.app.Application
+import androidx.preference.PreferenceManager
 import com.github.kittinunf.fuel.core.FuelManager
 import ru.fantlab.android.data.service.DbResponseInterceptor
 import ru.fantlab.android.helper.PrefGetter
@@ -25,6 +26,8 @@ class App : Application() {
 	}
 
 	private fun init() {
+		PreferenceManager.setDefaultValues(this, R.xml.customization_settings, false);
+		//PreferenceManager.setDefaultValues(this, R.xml.forum_settings, false);
 		FabricProvider.initFabric(this)
 		DbProvider.initDatabase(this)
 		TimberProvider.setupTimber()

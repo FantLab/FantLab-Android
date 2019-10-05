@@ -39,7 +39,7 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
 		recycler.adapter = adapter
 		adapter.addItem(SettingsModel(R.drawable.ic_language, getString(R.string.language), "", SettingsModel.LANGUAGE))
 		adapter.addItem(SettingsModel(R.drawable.ic_theme, getString(R.string.theme_title), "", SettingsModel.THEME))
-		adapter.addItem(SettingsModel(R.drawable.ic_forum, getString(R.string.forum), "", SettingsModel.FORUM))
+		//adapter.addItem(SettingsModel(R.drawable.ic_forum, getString(R.string.forum), "", SettingsModel.FORUM))
 		adapter.addItem(SettingsModel(R.drawable.ic_custom, getString(R.string.customization), getString(R.string.customizationHint), SettingsModel.CUSTOMIZATION))
 		hideShowShadow(true)
 	}

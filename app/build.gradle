@@ -10,8 +10,8 @@ ext {
 	min_sdk = 21
 	compile_sdk = 28
 	target_sdk = 28
-	version_code = 23
-	version_name = '0.2.0'
+	version_code = 24
+	version_name = '0.2.1'
 
 	annotations = '17.0.0'
 	compat = '1.1.0-rc01'
@@ -66,7 +66,7 @@ android {
 		versionName version_name
 		archivesBaseName = "fantlab-${versionName}(${versionCode})"
 		buildConfigField "String", "REST_URL", '"https://api.fantlab.ru/"'
-		buildConfigField "String", "API_VERSION", '"0.9.21"'
+		buildConfigField "String", "API_VERSION", '"0.9.3"'
 		resValue "string", "VERSION_NAME", "$versionName ($versionCode)"
 		javaCompileOptions {
 			annotationProcessorOptions {

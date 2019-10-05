@@ -418,6 +418,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 		super.onActivityResult(requestCode, resultCode, data)
 		when (requestCode) {
 			BundleConstant.REFRESH_RESPONSE_CODE -> {
+				responseButton.tintDrawableColor(ContextCompat.getColor(context!!, R.color.gold))
 				pagerCallback?.onResponsesRefresh()
 			}
 			BundleConstant.CLASSIFICATOR_CODE -> {
