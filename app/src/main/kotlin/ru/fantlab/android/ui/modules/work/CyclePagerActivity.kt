@@ -223,6 +223,10 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 				tabView.first.text = getString(R.string.responses)
 				tabView.second.text = count.toString()
 			}
+			2 -> {
+				tabView.first.text = getString(R.string.analogs)
+				tabView.second.text = count.toString()
+			}
 		}
 	}
 
