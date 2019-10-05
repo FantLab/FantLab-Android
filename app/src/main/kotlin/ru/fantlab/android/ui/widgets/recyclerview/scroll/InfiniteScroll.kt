@@ -16,9 +16,6 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 	private var layoutManager: RecyclerView.LayoutManager? = null
 	private var adapter: BaseRecyclerAdapter<*, *>? = null
 	private var newlyAdded = true
-	private var isUp = true
-	private var menuShowed = false
-
 	private var isPageCounter = false
 	private var totalPagesCount = 0
 
@@ -27,12 +24,7 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 	private var listener: OnScrollResumed? = null
 
 	interface OnScrollResumed {
-		fun onHideMenu()
 		fun onScrolled(isUp: Boolean)
-	}
-
-	fun setOnScrollListener(listener: OnScrollResumed) {
-		this.listener = listener
 	}
 
 	private fun initLayoutManager(layoutManager: RecyclerView.LayoutManager) {
@@ -41,6 +33,14 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 			visibleThreshold *= layoutManager.spanCount
 		} else if (layoutManager is StaggeredGridLayoutManager) {
 			visibleThreshold *= layoutManager.spanCount
+		}
+	}
+
+	override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+		super.onScrollStateChanged(recyclerView, newState)
+		if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+			val canBottomScroll = recyclerView.canScrollVertically(1)
+			if (!canBottomScroll) { onScrolled(recyclerView, 0, 1) }
 		}
 	}
 
@@ -62,16 +62,12 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 			return
 		}
 		listener?.onScrolled(dy > 0)
-		if (isUp && menuShowed) {
-			menuShowed = false
-			listener?.onHideMenu()
-		}
 
 		if (layoutManager == null) {
 			initLayoutManager(recyclerView.layoutManager!!)
 		}
 		if (adapter == null) {
-			if (recyclerView!!.adapter is BaseRecyclerAdapter<*, *>) {
+			if (recyclerView.adapter is BaseRecyclerAdapter<*, *>) {
 				adapter = recyclerView.adapter as BaseRecyclerAdapter<*, *>
 			}
 		}
@@ -98,6 +94,7 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 			loading = false
 			previousTotalItemCount = totalItemCount
 		}
+		println("loading: $loading, s1: ${lastVisibleItemPosition + visibleThreshold}, s2: $totalItemCount")
 		if (!loading && lastVisibleItemPosition + visibleThreshold > totalItemCount) {
 
 			if (isPageCounter) {
@@ -133,7 +130,4 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 		this.totalPagesCount = totalPagesCount
 	}
 
-	fun setMenuShowed(menuShowed: Boolean) {
-		this.menuShowed = menuShowed
-	}
 }
