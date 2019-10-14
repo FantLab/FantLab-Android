@@ -55,11 +55,13 @@ android {
 	compileSdkVersion(extra["compile_sdk"] as Int)
 	signingConfigs {
 		create("release") {
-			val buildProperties = readProperties(File(project.rootDir, "gradle.properties"))
-			storeFile = file(buildProperties["RELEASE_STORE_FILE"] as String)
-			keyAlias = buildProperties["RELEASE_KEY_ALIAS"] as String
-			keyPassword = buildProperties["RELEASE_KEY_PASSWORD"] as String
-			storePassword = buildProperties["RELEASE_STORE_PASSWORD"] as String
+			if (gradle.startParameter.taskNames.toString().contains("release")) {
+				val buildProperties = readProperties(File(project.rootDir, "gradle.properties"))
+				storeFile = file(buildProperties["RELEASE_STORE_FILE"] as String)
+				keyAlias = buildProperties["RELEASE_KEY_ALIAS"] as String
+				keyPassword = buildProperties["RELEASE_KEY_PASSWORD"] as String
+				storePassword = buildProperties["RELEASE_STORE_PASSWORD"] as String
+			}
 		}
 		getByName("debug") {
 			val buildProperties = readProperties(File(project.rootDir, "gradle_debug.properties"))
