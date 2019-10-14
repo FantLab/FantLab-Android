@@ -29,6 +29,7 @@ import ru.fantlab.android.ui.modules.bookcases.viewer.BookcaseViewerActivity
 import ru.fantlab.android.ui.modules.classificator.ClassificatorPagerActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
+import ru.fantlab.android.ui.modules.translator.TranslatorActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
 import ru.fantlab.android.ui.modules.work.awards.WorkAwardsActivity
 import ru.fantlab.android.ui.modules.work.editions.WorkEditionsActivity
@@ -230,7 +231,7 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			val adapter = TreeViewAdapter(nodes, Arrays.asList(WorkTranslationViewHolder(), WorkTranslationHeaderViewHolder()))
 			if (translationsList.adapter == null) {
 				translationsList.adapter = adapter
-				adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
+				adapter.setOnTreeNodeListener(object : WorkTranslationViewHolder.TranslatorTreeNodeListener {
 					override fun onSelected(extra: Int, add: Boolean) {
 					}
 
@@ -239,6 +240,10 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 					}
 
 					override fun onToggle(isExpand: Boolean, holder: RecyclerView.ViewHolder) {
+					}
+
+					override fun onTranslatorClicked(translatorId: Int, translatorName: String) {
+						TranslatorActivity.startActivity(context!!, translatorId, translatorName)
 					}
 				})
 			}

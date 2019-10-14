@@ -33,11 +33,22 @@ class WorkTranslationViewHolder : TreeViewBinder<WorkTranslationViewHolder.ViewH
                 translatorName += ","
             }
             holder.translatorWidgets[translatorIndex].text = translatorName
+            holder.translatorWidgets[translatorIndex].setOnClickListener {
+                if (onTreeNodeListener != null) {
+                    (onTreeNodeListener as TranslatorTreeNodeListener)
+                            .onTranslatorClicked(nodeItem!!.translation.translators[translatorIndex].id,
+                                    nodeItem!!.translation.translators[translatorIndex].shortName)
+                }
+            }
         }
         (holder as ViewHolder).translation.text = holder.itemView.context.getString(R.string.translation_details,
                 nodeItem.translation.titles[0].title,
                 nodeItem.translation.year,
                 nodeItem.translation.titles[0].editionCount)
+    }
+
+    interface TranslatorTreeNodeListener: TreeViewAdapter.OnTreeNodeListener {
+        fun onTranslatorClicked(translatorId: Int, translatorName: String)
     }
 
     inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {

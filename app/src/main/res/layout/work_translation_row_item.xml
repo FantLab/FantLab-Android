@@ -30,7 +30,7 @@
                 android:layout_marginStart="5dp"
                 tools:text="Владимир Иванович Иванов"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="?android:attr/textColorLink"
                 android:visibility="visible"
                 />
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_marginStart="5dp"
                 tools:text="Владимир Иванович Иванов"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="?android:attr/textColorLink"
                 android:visibility="visible"
                 />
             <TextView
@@ -50,7 +50,7 @@
                 android:layout_marginStart="5dp"
                 tools:text="Владимир Иванович Иванов"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="?android:attr/textColorLink"
                 android:visibility="visible"
                 />
             <TextView
@@ -60,7 +60,7 @@
                 android:layout_marginStart="5dp"
                 tools:text="Владимир Иванович Иванов"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="?android:attr/textColorLink"
                 android:visibility="visible"
                 />
             <TextView
@@ -70,7 +70,7 @@
                 android:layout_marginStart="5dp"
                 tools:text="Владимир Иванович Иванов"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="?android:attr/textColorLink"
                 android:visibility="visible"
                 />
         </ru.fantlab.android.ui.widgets.FlowLayout>

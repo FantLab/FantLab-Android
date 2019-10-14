@@ -168,6 +168,17 @@ object DataManager {
 					.rxObject(UserResponse.Deserializer())
 					.map { it.get() }
 
+	fun getTranslatorInformation(
+			id: Int,
+			showBio: Boolean = false,
+			showAwards: Boolean = false,
+			showTranslated: Boolean = false
+	): Single<TranslatorResponse> =
+			getTranslatorInformationPath(id, showBio, showAwards, showTranslated)
+					.httpGet()
+					.rxObject(TranslatorResponse.Deserializer())
+					.map { it.get() }
+
 	fun getUserMarks(
 			userId: Int,
 			page: Int = 1,
@@ -741,6 +752,13 @@ fun getEditionPath(
 fun getUserPath(
 		id: Int
 ) = "/user/$id".toAbsolutePathWithApiVersion()
+
+fun getTranslatorInformationPath(
+		id: Int,
+		showBio: Boolean = false,
+		showAwards: Boolean = false,
+		showTranslated: Boolean = false
+) = "/translator/$id?awards=${showAwards.toInt()}&biography=${showBio.toInt()}&translated=${showTranslated.toInt()}".toAbsolutePathWithApiVersion()
 
 fun getUserMarksPath(
 		userId: Int,

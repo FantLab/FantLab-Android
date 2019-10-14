@@ -136,6 +136,10 @@
 			android:parentActivityName=".ui.modules.main.MainActivity"
 			/>
 		<activity
+			android:name=".ui.modules.translator.TranslatorActivity"
+			android:parentActivityName=".ui.modules.main.MainActivity"
+			/>
+		<activity
 			android:name="ru.fantlab.android.ui.modules.work.responses.overview.ResponseOverviewActivity"
 			android:parentActivityName=".ui.modules.main.MainActivity"
 			/>
