@@ -54,15 +54,15 @@ fun readProperties(propertiesFile: File) = Properties().apply {
 android {
 	compileSdkVersion(extra["compile_sdk"] as Int)
 	signingConfigs {
-		create("signing") {
-
-			val propertiesFile = File(project.rootDir, "gradle.properties")
-			val buildProperties = if (propertiesFile.exists()) {
-				readProperties(propertiesFile)
-			} else {
-				readProperties(File(project.rootDir, "gradle_debug.properties"))
-			}
-
+		create("release") {
+			val buildProperties = readProperties(File(project.rootDir, "gradle.properties"))
+			storeFile = file(buildProperties["RELEASE_STORE_FILE"] as String)
+			keyAlias = buildProperties["RELEASE_KEY_ALIAS"] as String
+			keyPassword = buildProperties["RELEASE_KEY_PASSWORD"] as String
+			storePassword = buildProperties["RELEASE_STORE_PASSWORD"] as String
+		}
+		getByName("debug") {
+			val buildProperties = readProperties(File(project.rootDir, "gradle_debug.properties"))
 			storeFile = file(buildProperties["RELEASE_STORE_FILE"] as String)
 			keyAlias = buildProperties["RELEASE_KEY_ALIAS"] as String
 			keyPassword = buildProperties["RELEASE_KEY_PASSWORD"] as String
@@ -86,19 +86,19 @@ android {
 		}
 		kapt {
 			arguments {
-				arg("room.schemaLocation", "$projectDir/schemas".toString())
+				arg("room.schemaLocation", "$projectDir/schemas")
 			}
 		}
 	}
 	buildTypes {
 		getByName("debug") {
-			signingConfig = signingConfigs.getByName("signing")
+			signingConfig = signingConfigs.getByName("debug")
 			ext.set("alwaysUpdateBuildId", false)
 		}
 		getByName("release") {
 			isMinifyEnabled = true
 			isShrinkResources = true
-			signingConfig = signingConfigs.getByName("signing")
+			signingConfig = signingConfigs.getByName("release")
 			proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
 		}
 	}
