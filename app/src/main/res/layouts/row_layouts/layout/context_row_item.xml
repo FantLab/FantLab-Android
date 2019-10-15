@@ -3,7 +3,8 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:foreground="?selectableItemBackgroundBorderless"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:background="?selectableItemBackground"
 	android:minHeight="?listPreferredItemHeightSmall"
 	android:orientation="vertical"
 	android:padding="@dimen/spacing_xs_large"
@@ -14,6 +15,7 @@
 		android:layout_width="@dimen/bbn_fixed_item_icon_size"
 		android:layout_height="@dimen/bbn_fixed_item_icon_size"
 		android:layout_marginEnd="@dimen/spacing_large"
+		app:tint="?icon_color"
 		/>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
@@ -25,5 +27,6 @@
 		android:ellipsize="end"
 		android:maxLines="3"
 		style="@style/TextAppearance.AppCompat.Subhead"
+		android:textColor="?android:textColorTertiary"
 		/>
 </RelativeLayout>

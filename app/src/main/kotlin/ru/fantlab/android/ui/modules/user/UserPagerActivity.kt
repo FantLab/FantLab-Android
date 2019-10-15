@@ -1,18 +1,18 @@
 package ru.fantlab.android.ui.modules.user
 
+import android.app.Activity
 import android.app.Application
 import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.viewpager.widget.ViewPager
 import com.evernote.android.state.State
+import com.google.android.material.tabs.TabLayout
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.appbar_tabbed_elevation.*
 import kotlinx.android.synthetic.main.tabbed_pager_layout.*
@@ -27,12 +27,13 @@ import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
+import ru.fantlab.android.ui.modules.bookcases.editor.BookcaseEditorActivty
+import ru.fantlab.android.ui.modules.bookcases.overview.BookcasesOverviewFragment
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.modules.profile.marks.ProfileMarksFragment
-import ru.fantlab.android.ui.widgets.ViewPagerView
+import ru.fantlab.android.ui.modules.profile.responses.ProfileResponsesFragment
 import shortbread.Shortcut
-import java.text.NumberFormat
 import java.util.*
 
 
@@ -43,8 +44,9 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	@State var login: String? = null
 	@State var userId: Int = 0
 	@State var tabsCountSet = HashSet<TabsCountStateModel>()
-	private val numberFormat = NumberFormat.getNumberInstance()
+	private lateinit var toolbarMenu: Menu
 	private var isError = false
+	private var adapter: FragmentsPagerAdapter? = null
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
@@ -82,7 +84,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		if (login == currentUser?.login) {
 			selectMenuItem(R.id.profile, true)
 		}
-		val adapter = FragmentsPagerAdapter(
+		adapter = FragmentsPagerAdapter(
 				supportFragmentManager,
 				FragmentPagerAdapterModel.buildForProfile(this, userId)
 		)
@@ -90,6 +92,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		tabs.tabGravity = TabLayout.GRAVITY_FILL
 		tabs.tabMode = TabLayout.MODE_SCROLLABLE
 		tabs.setupWithViewPager(pager)
+		invalidateTabs(adapter)
 		if (savedInstanceState == null) {
 			if (index != -1) {
 				pager.currentItem = index
@@ -105,6 +108,7 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 			override fun onPageSelected(position: Int) {
 				super.onPageSelected(position)
 				hideShowFab(position)
+				hideShowToolbar(position)
 			}
 		})
 		if (savedInstanceState != null && !tabsCountSet.isEmpty()) {
@@ -115,7 +119,9 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
-		menuInflater.inflate(R.menu.share_menu, menu)
+		menuInflater.inflate(R.menu.profile_marks_menu, menu)
+		toolbarMenu = menu
+		hideShowToolbar(pager.currentItem)
 		return super.onCreateOptionsMenu(menu)
 	}
 
@@ -129,6 +135,22 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 							.toString())
 					return true
 				}
+			}
+			R.id.sort -> {
+				when (adapter?.getItemKey(pager.currentItem)) {
+					getString(R.string.marks) -> {
+						val fragment = pager.adapter?.instantiateItem(pager, 1) as? ProfileMarksFragment
+						fragment?.showSortDialog()
+					}
+					getString(R.string.responses) -> {
+						val fragment = pager.adapter?.instantiateItem(pager, 2) as? ProfileResponsesFragment
+						fragment?.showSortDialog()
+					}
+				}
+			}
+			R.id.filter -> {
+				val fragment = pager.adapter?.instantiateItem(pager, 1) as? ProfileMarksFragment
+				fragment?.showFilterDialog()
 			}
 		}
 		return super.onOptionsItemSelected(item)
@@ -151,23 +173,40 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 		pager.currentItem = tabIndex
 	}
 
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		if (resultCode == Activity.RESULT_OK) {
+			if ((requestCode == BundleConstant.BOOKCASE_EDITOR || requestCode == BundleConstant.BOOKCASE_VIEWER)
+					&& adapter?.getItemKey(pager.currentItem) == getString(R.string.bookcases)) {
+				val fragment = pager.adapter?.instantiateItem(pager, pager.currentItem) as? BookcasesOverviewFragment
+				fragment?.onRefresh()
+			}
+		}
+		super.onActivityResult(requestCode, resultCode, data)
+	}
+
 	private fun hideShowFab(position: Int) {
 		if (isError) {
 			fab.hide()
 			return
 		}
-		when (position) {
-			0 -> {
+		when (adapter?.getItemKey(position)) {
+			getString(R.string.overview) -> {
 				if (isLoggedIn() && userId != PrefGetter.getLoggedUser()?.id) {
 					fab.setImageResource(R.drawable.ic_message)
 					fab.show()
 				} else fab.hide()
 			}
-			1 -> {
+			getString(R.string.marks) -> {
 				fab.setImageResource(R.drawable.ic_charts)
 				fab.show()
 			}
-			2 -> fab.hide()/*fab.show()*/
+			getString(R.string.bookcases) -> {
+				val currentUser = PrefGetter.getLoggedUser()
+				if (userId == currentUser?.id) {
+					fab.setImageResource(R.drawable.ic_add)
+					fab.show()
+				} else fab.hide()
+			}
 			else -> fab.hide()
 		}
 	}
@@ -179,24 +218,71 @@ class UserPagerActivity : BaseActivity<UserPagerMvp.View, BasePresenter<UserPage
 
 
 	private fun onFabClicked() {
-		when (pager.currentItem) {
-			0 -> {
+		when (adapter?.getItemKey(pager.currentItem)) {
+			getString(R.string.overview) -> {
 				startActivity(Intent(this, EditorActivity::class.java)
 						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_MESSAGE)
 						.putExtra(BundleConstant.ID, userId))
 			}
-			1 -> {
+			getString(R.string.marks) -> {
 				val fragment = pager.adapter?.instantiateItem(pager, 1) as? ProfileMarksFragment
 				fragment?.showChartsDialog()
+			}
+			getString(R.string.bookcases) -> {
+				BookcaseEditorActivty.startActivityForCreation(this)
 			}
 		}
 	}
 
 	private fun setupTab(count: Int, index: Int) {
-		val textView = ViewHelper.getTabTextView(tabs, index)
-		when (index) {
-			1 -> textView.text = String.format("%s (%s)", getString(R.string.marks), numberFormat.format(count.toLong()))
-			2 -> textView.text = String.format("%s (%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
+		val tabView = ViewHelper.getTabView(tabs, index)
+		when (adapter?.getItemKey(index)) {
+			getString(R.string.overview) -> tabView.first.text = getString(R.string.overview)
+			getString(R.string.marks) -> {
+				tabView.first.text = getString(R.string.marks)
+				tabView.second.text = count.toString()
+			}
+			getString(R.string.responses) -> {
+				tabView.first.text = getString(R.string.responses)
+				tabView.second.text = count.toString()
+			}
+			getString(R.string.bookcases) -> {
+				tabView.first.text = getString(R.string.bookcases)
+				tabView.second.text = count.toString()
+			}
+		}
+	}
+
+	private fun invalidateTabs(adapter: FragmentsPagerAdapter?) {
+		for (i in 0 until tabs.tabCount) {
+			val tab = tabs.getTabAt(i)
+			if (tab != null) {
+				val custom = tab.customView
+				if (custom == null) tab.customView = adapter?.getCustomTabView(this)
+				setupTab(0, i)
+			}
+		}
+	}
+
+	private fun hideShowToolbar(position: Int) {
+		if (::toolbarMenu.isInitialized) {
+			when (position) {
+				1 -> {
+					toolbarMenu.findItem(R.id.share).isVisible = false
+					toolbarMenu.findItem(R.id.sort).isVisible = true
+					toolbarMenu.findItem(R.id.filter).isVisible = true
+				}
+				2 -> {
+					toolbarMenu.findItem(R.id.share).isVisible = false
+					toolbarMenu.findItem(R.id.sort).isVisible = true
+					toolbarMenu.findItem(R.id.filter).isVisible = false
+				}
+				else -> {
+					toolbarMenu.findItem(R.id.share).isVisible = true
+					toolbarMenu.findItem(R.id.sort).isVisible = false
+					toolbarMenu.findItem(R.id.filter).isVisible = false
+				}
+			}
 		}
 	}
 

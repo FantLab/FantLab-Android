@@ -8,7 +8,7 @@ import ru.fantlab.android.data.dao.response.AutplansResponse
 import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.provider.rest.AutplansSortOption
-import ru.fantlab.android.provider.rest.getPublisherAutplansPath
+import ru.fantlab.android.provider.rest.getAutplansPath
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
@@ -16,7 +16,7 @@ class AutPlansPresenter : BasePresenter<AutPlansMvp.View>(),
 		AutPlansMvp.Presenter {
 
 	private var page: Int = 1
-	private var sort: FantlabHelper.PublishersAutPlansSort<AutplansSortOption, Int, Int> = FantlabHelper.PublishersAutPlansSort(AutplansSortOption.BY_CORRECT, 0)
+	private var sort: FantlabHelper.AutPlansSort<AutplansSortOption, Int> = FantlabHelper.AutPlansSort(AutplansSortOption.BY_CORRECT, 0)
 	private var previousTotal: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 
@@ -65,7 +65,7 @@ class AutPlansPresenter : BasePresenter<AutPlansMvp.View>(),
 	private fun getAutPlansFromDb(page: Int): Single<Triple<ArrayList<Autplans.Object>, Int, Int>> =
 			DbProvider.mainDatabase
 					.responseDao()
-					.get(getPublisherAutplansPath(page, sort.sortBy.value, sort.filterLang))
+					.get(getAutplansPath(page, sort.sortBy.value, sort.filterLang))
 					.map { it.response }
 					.map { AutplansResponse.Deserializer().deserialize(it) }
 					.map { getAutPlans(it) }
@@ -94,6 +94,8 @@ class AutPlansPresenter : BasePresenter<AutPlansMvp.View>(),
 	override fun setCurrentPage(page: Int) {
 		this.page = page
 	}
+
+	override fun getCurrentSort() = sort
 
 	override fun setPreviousTotal(previousTotal: Int) {
 		this.previousTotal = previousTotal

@@ -3,11 +3,12 @@ package ru.fantlab.android.ui.adapter.viewholder
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.work_edition_row_item.view.*
+import kotlinx.android.synthetic.main.edition_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.EditionsBlocks
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
 import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
+import ru.fantlab.android.provider.storage.WorkTypesProvider
 import ru.fantlab.android.ui.widgets.Dot
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
@@ -22,7 +23,7 @@ class EditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<EditionsBl
 				.appendPath("editions")
 				.appendPath("big")
 				.appendPath(edition.editionId.toString())
-				.toString())
+				.toString(), WorkTypesProvider.getCoverByTypeId(25))
 		itemView.coverLayout.setDotColor(
 				when {
 					edition.planDate != null -> Dot.Color.GREY
@@ -57,6 +58,6 @@ class EditionsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<EditionsBl
 				viewGroup: ViewGroup,
 				adapter: BaseRecyclerAdapter<EditionsBlocks.Edition, EditionsViewHolder>
 		): EditionsViewHolder =
-				EditionsViewHolder(getView(viewGroup, R.layout.work_edition_row_item), adapter)
+				EditionsViewHolder(getView(viewGroup, R.layout.edition_row_item), adapter)
 	}
 }

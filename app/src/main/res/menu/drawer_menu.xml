@@ -16,20 +16,33 @@
 			android:icon="@drawable/ic_home"
 			android:title="@string/home"
 			/>
-	</group>
 
-	<group android:id="@+id/group_one">
 		<item
-			android:id="@+id/profile"
-			android:icon="@drawable/ic_profile"
-			android:title="@string/profile"
+			android:id="@+id/communities"
+			android:icon="@drawable/ic_communities"
+			android:visible="false"
+			android:title="@string/communities_list"
+			/>
+
+		<item
+			android:id="@+id/blogs"
+			android:icon="@drawable/ic_blogs"
+			android:visible="false"
+			android:title="@string/blogs_list"
+			/>
+
+		<item
+			android:id="@+id/forum"
+			android:icon="@drawable/ic_forum"
+			android:visible="false"
+			android:title="@string/forum_list"
 			/>
 	</group>
 
 	<group android:id="@+id/group_two">
 		<item
 			android:id="@+id/authors"
-			android:icon="@drawable/ic_book"
+			android:icon="@drawable/ic_authors"
 			android:title="@string/authors"
 			/>
 

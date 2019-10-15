@@ -6,25 +6,26 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.ScaleDrawable
 import android.os.Parcelable
-import android.support.annotation.ColorInt
-import android.support.annotation.DrawableRes
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.Gravity
+import android.view.View
 import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.appcompat.widget.TooltipCompat
 import com.crashlytics.android.Crashlytics
 import com.evernote.android.state.State
 import com.evernote.android.state.StateSaver
+import ru.fantlab.android.App
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.TypeFaceHelper
 import ru.fantlab.android.helper.ViewHelper
 
 
-/**
- * Created by Kosh on 8/18/2015. copyrights are reserved
- */
-class FontTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+open class FontTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
 		AppCompatTextView(context, attrs, defStyleAttr) {
 
 	@State
@@ -75,6 +76,9 @@ class FontTextView @JvmOverloads constructor(context: Context, attrs: AttributeS
 		if (isInEditMode) return
 		freezesText = true
 		TypeFaceHelper.applyTypeface(this)
+		if (contentDescription != null) {
+			TooltipCompat.setTooltipText(this, contentDescription)
+		}
 	}
 
 	fun tintDrawables(@ColorInt color: Int) {

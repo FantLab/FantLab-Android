@@ -1,7 +1,7 @@
 package ru.fantlab.android.data.dao.model
 
 import android.os.Parcelable
-import android.support.annotation.Keep
+import androidx.annotation.Keep
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.JsonParser
 import com.google.gson.annotations.SerializedName
@@ -40,10 +40,10 @@ data class WorksBlocks(
 			@SerializedName("work_description") val description: String?,
 			@SerializedName("work_id") val id: Int?,
 			@SerializedName("work_lp") val hasLinguaProfile: Int?,
-			@SerializedName("work_name") val name: String,
+			@SerializedName("work_name") val name: String?,
 			@SerializedName("work_name_alt") val nameAlt: String,
 			@SerializedName("work_name_bonus") val nameBonus: String?,
-			@SerializedName("work_name_orig") val nameOrig: String,
+			@SerializedName("work_name_orig") val nameOrig: String?,
 			@SerializedName("work_notfinished") val notFinished: Int,
 			@SerializedName("work_preparing") val preparing: Int,
 			@SerializedName("work_published") val published: Int,

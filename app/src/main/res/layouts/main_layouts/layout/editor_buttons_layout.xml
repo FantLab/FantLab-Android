@@ -82,7 +82,7 @@
 				android:layout_height="wrap_content"
 				android:background="?selectableItemBackgroundBorderless"
 				android:padding="@dimen/spacing_normal"
-				android:src="@drawable/ic_book_small"
+				android:src="@drawable/ic_format_spoiler"
 				/>
 
 			<ru.fantlab.android.ui.widgets.ForegroundImageView

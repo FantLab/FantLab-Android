@@ -1,8 +1,7 @@
 package ru.fantlab.android.ui.adapter.viewholder
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.edition_content_parent_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.EditionContentParent
@@ -20,23 +19,12 @@ class EditionContentParentViewHolder : TreeViewBinder<EditionContentParentViewHo
 	override fun bindView(
 			holder: RecyclerView.ViewHolder, position: Int, node: TreeNode<*>, onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
 	) {
-		(holder as EditionContentParentViewHolder.ViewHolder).arrow.rotation = 0f
+		(holder as EditionContentParentViewHolder.ViewHolder)
 		val parentNode = node.content as EditionContentParent?
-		if (node.isLeaf){
-			holder.arrow.visibility = View.INVISIBLE
-			//if (node.isRoot && node.childList.isEmpty()) {}
-		}
-		else {
-			holder.arrow.setImageResource(R.drawable.ic_arrow_right)
-			val rotateDegree = if (node.isExpand) 90f else 0f
-			holder.arrow.rotation = rotateDegree
-			holder.arrow.visibility = View.VISIBLE
-		}
-		holder.title.html = parentNode!!.title
+		holder.title.html = "• " + parentNode!!.title
 	}
 
 	class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
-		val arrow: ImageView = rootView.arrow
 		var title: HTMLTextView = rootView.title
 	}
 }

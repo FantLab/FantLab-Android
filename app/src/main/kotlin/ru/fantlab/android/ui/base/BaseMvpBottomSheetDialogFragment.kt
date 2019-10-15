@@ -6,15 +6,15 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.annotation.StringRes
-import android.support.design.widget.BottomSheetDialog
-import android.support.v4.app.DialogFragment
-import android.support.v7.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.fragment.app.DialogFragment
 import com.evernote.android.state.StateSaver
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import net.grandcentrix.thirtyinch.TiDialogFragment
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.AppHelper
@@ -33,7 +33,7 @@ abstract class BaseMvpBottomSheetDialogFragment<V : BaseMvp.View, P : BasePresen
 	@LayoutRes
 	protected abstract fun fragmentLayout(): Int
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is BaseMvp.View) {
 			callback = context

@@ -2,13 +2,14 @@ package ru.fantlab.android.ui.widgets.editor
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.design.widget.Snackbar
-import android.support.transition.TransitionManager
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.FragmentManager
+import androidx.transition.TransitionManager
+import com.google.android.material.snackbar.Snackbar
 import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.editor_buttons_layout.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Smile
@@ -58,6 +59,7 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 				TransitionManager.beginDelayedTransition(this)
 
 				if (editText.isEnabled && !InputHelper.isEmpty(editText)) {
+					view.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_eye_off))
 					it.getHtmlsText().html = it.getSavedText()
 					editText.isEnabled = false
 					editText.visibility = View.GONE
@@ -67,6 +69,7 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 					if (addSmile.visibility == View.VISIBLE) addSmile.visibility = View.INVISIBLE
 					ViewHelper.hideKeyboard(editText)
 				} else {
+					view.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_eye))
 					editText.setText(it.getSavedText())
 					editText.setSelection(selectionIndex)
 					editText.isEnabled = true
@@ -111,7 +114,7 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 			return
 		}
 		when (id) {
-			R.id.spoiler -> if (editorListener?.getCurrentType() == BundleConstant.EDITOR_NEW_RESPONSE) addSpoiler(editText) else addHidden(editText)
+			R.id.spoiler -> if (editorListener?.getCurrentType() == BundleConstant.EDITOR_NEW_RESPONSE || editorListener?.getCurrentType() == BundleConstant.EDITOR_EDIT_RESPONSE) addSpoiler(editText) else addHidden(editText)
 			R.id.bold -> addBold(editText)
 			R.id.italic -> addItalic(editText)
 			R.id.underlined -> addUnderlined(editText)
@@ -127,6 +130,7 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 		fun fragmentManager(): FragmentManager
 		fun getSavedText(): CharSequence?
 		fun getCurrentType(): String?
+		fun getExtraIds(): Int?
 	}
 
 	fun onAppendLink(title: String, link: String, isLink: Boolean) {

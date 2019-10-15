@@ -1,7 +1,8 @@
 package ru.fantlab.android.ui.modules.plans.pubnews
 
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Pubnews
+import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.provider.rest.PubnewsSortOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.base.mvp.BaseMvp
@@ -32,5 +33,8 @@ interface PubnewsMvp {
 		fun getPubnews(page: Int, force: Boolean)
 
 		fun setCurrentSort(sortBy: PubnewsSortOption?, filterLang: String?, filterPublisher: String?)
+
+		fun getCurrentSort(): FantlabHelper.PubnewsSort<PubnewsSortOption, Int, Int>
+
 	}
 }

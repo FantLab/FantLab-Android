@@ -8,8 +8,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.SearchWork
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
 import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
-import ru.fantlab.android.ui.widgets.CoverLayout
-import ru.fantlab.android.ui.widgets.FontTextView
+import ru.fantlab.android.provider.storage.WorkTypesProvider
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 import java.text.NumberFormat
@@ -20,18 +19,15 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun bind(work: SearchWork) {
-		val coverId = if (work.pictureEditionIdAuto.isNotEmpty()) {
-			work.pictureEditionIdAuto.toInt()
-		} else {
-			0 // no image
-		}
-		itemView.coverLayout.setUrl(Uri.Builder().scheme(PROTOCOL_HTTPS)
-				.authority(HOST_DATA)
-				.appendPath("images")
-				.appendPath("editions")
-				.appendPath("big")
-				.appendPath(coverId.toString())
-				.toString())
+		val coverUrl = if (work.pictureEditionIdAuto.isNotEmpty()) {
+			Uri.Builder().scheme(PROTOCOL_HTTPS)
+					.authority(HOST_DATA)
+					.appendPath("images")
+					.appendPath("editions")
+					.appendPath("big")
+					.appendPath(work.pictureEditionIdAuto).toString()
+		} else ""
+		itemView.coverLayout.setUrl(coverUrl, WorkTypesProvider.getCoverByType(work.typeName))
 
 		val authorsText = when {
 			// сначала пытаемся вычленить автора из названия (хак для журналов)

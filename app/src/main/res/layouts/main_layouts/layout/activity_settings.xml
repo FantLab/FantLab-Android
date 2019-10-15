@@ -9,7 +9,7 @@
 	tools:context=".ui.modules.settings.SettingsActivity"
 	>
 
-	<include layout="@layout/appbar_start_margin" />
+	<include layout="@layout/appbar" />
 
 	<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 		android:id="@+id/recycler"

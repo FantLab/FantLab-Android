@@ -1,10 +1,10 @@
 package ru.fantlab.android.ui.widgets
 
 import android.content.Context
-import android.support.annotation.ColorInt
-import android.support.v7.widget.AppCompatImageView
-import android.support.v7.widget.TooltipCompat
 import android.util.AttributeSet
+import androidx.annotation.ColorInt
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.TooltipCompat
 import ru.fantlab.android.helper.ViewHelper
 
 class ForegroundImageView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : AppCompatImageView(context, attrs, defStyleAttr) {

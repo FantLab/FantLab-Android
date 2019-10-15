@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_margin="@dimen/grid_spacing"
-	android:foreground="?android:selectableItemBackground"
-	android:paddingBottom="@dimen/spacing_normal"
-	android:paddingEnd="@dimen/spacing_xs_large"
-	android:paddingStart="@dimen/spacing_micro"
-	android:paddingTop="@dimen/spacing_normal"
-	tools:ignore="RtlSymmetry"
+	android:orientation="horizontal"
+	android:layout_marginBottom="@dimen/spacing_normal"
 	>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
-		android:id="@+id/label"
-		android:layout_width="wrap_content"
+		android:id="@+id/groupTitle"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:ellipsize="end"
-		android:maxLines="3"
-		tools:text="Гамильтон, Эдмонд"
 		style="@style/TextAppearance.AppCompat.Subhead"
 		android:textColor="?android:attr/textColorSecondary"
+		tools:text="Жанры/поджанры"
+		android:layout_weight="1"
+		android:paddingEnd="@dimen/spacing_micro"
 		/>
 
-</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/groupText"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+		android:textColor="?android:attr/textColorPrimary"
+		tools:text="Фантастика\nКосмоопера\nТвердая научная фантастика"
+		android:layout_weight="1"
+		/>
+
+
+</LinearLayout>

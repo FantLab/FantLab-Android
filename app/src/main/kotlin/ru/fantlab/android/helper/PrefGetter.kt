@@ -10,32 +10,28 @@ import ru.fantlab.android.provider.rest.DataManager
 
 object PrefGetter {
 
-	enum class ThemeType {
-		LIGHT,
-		DARK
-	}
-
-	enum class ThemeColor {
-		RED,
-		PINK,
-		PURPLE,
-		DEEP_PURPLE,
-		INDIGO,
-		BLUE,
-		LIGHT_BLUE,
-		CYAN,
-		TEAL,
-		GREEN,
-		LIGHT_GREEN,
-		LIME,
-		YELLOW,
-		AMBER,
-		ORANGE,
-		DEEP_ORANGE
-	}
+	val RED = 1
+	val PINK = 2
+	val PURPLE = 3
+	val DEEP_PURPLE = 4
+	val INDIGO = 5
+	val BLUE = 6
+	val LIGHT_BLUE = 7
+	val CYAN = 8
+	val TEAL = 9
+	val GREEN = 10
+	val LIGHT_GREEN = 11
+	val LIME = 12
+	val YELLOW = 13
+	val AMBER = 14
+	val ORANGE = 15
+	val DEEP_ORANGE = 16
 
 	val LIGHT = 1
 	val DARK = 2
+	val AMLOD = 3
+	val BLUISH = 4
+	val MID_NIGHT_BLUE = 5
 
 	private const val TOKEN = "token"
 	private const val WHATS_NEW_VERSION = "whats_new"
@@ -79,59 +75,69 @@ object PrefGetter {
 		return PrefHelper.getString(TOKEN)
 	}
 
-	fun getThemeType(): ThemeType {
+	fun getThemeType(): Int {
 		return getThemeType(App.instance.resources)
 	}
 
-	fun getThemeType(context: Context): ThemeType = getThemeType(context.resources)
+	fun getThemeType(context: Context): Int = getThemeType(context.resources)
 
-	fun getThemeType(resources: Resources): PrefGetter.ThemeType {
+	fun getThemeType(resources: Resources): Int {
 		val appTheme = PrefHelper.getString("appTheme")
-		if (!appTheme.isNullOrEmpty()) {
-			return when {
-				appTheme.equals(resources.getString(R.string.dark_theme_mode), true) -> PrefGetter.ThemeType.DARK
-				appTheme.equals(resources.getString(R.string.light_theme_mode), true) -> PrefGetter.ThemeType.LIGHT
-				else -> PrefGetter.ThemeType.LIGHT
+		if (!InputHelper.isEmpty(appTheme)) {
+			when {
+				appTheme.equals(resources.getString(R.string.dark_theme_mode)) -> return DARK
+				appTheme.equals(resources.getString(R.string.light_theme_mode)) -> return LIGHT
+				appTheme.equals(resources.getString(R.string.amlod_theme_mode)) -> return AMLOD
+				appTheme.equals(resources.getString(R.string.mid_night_blue_theme_mode)) -> return MID_NIGHT_BLUE
+				appTheme.equals(resources.getString(R.string.bluish_theme)) -> return BLUISH
 			}
 		}
-		return PrefGetter.ThemeType.LIGHT
+		return LIGHT
 	}
 
-	fun getThemeColor(context: Context): ThemeColor = getThemeColor(context.resources)
+	fun getThemeColor(context: Context): Int = getThemeColor(context.resources)
 
-	private fun getThemeColor(resources: Resources): ThemeColor {
+	private fun getThemeColor(resources: Resources): Int {
 		val appColor = PrefHelper.getString("appColor")
 		return getThemeColor(resources, appColor)
 	}
 
-	// used for color picker to get the color (enum) from the name of the color
-	fun getThemeColor(resources: Resources, appColor: String?): ThemeColor {
+	fun getThemeColor(resources: Resources, appColor: String?): Int {
 		if (!InputHelper.isEmpty(appColor)) {
-			return when {
-				appColor.equals(resources.getString(R.string.red_theme_mode), ignoreCase = true) -> ThemeColor.RED
-				appColor.equals(resources.getString(R.string.pink_theme_mode), ignoreCase = true) -> ThemeColor.PINK
-				appColor.equals(resources.getString(R.string.purple_theme_mode), ignoreCase = true) -> ThemeColor.PURPLE
-				appColor.equals(resources.getString(R.string.deep_purple_theme_mode), ignoreCase = true) -> ThemeColor.DEEP_PURPLE
-				appColor.equals(resources.getString(R.string.indigo_theme_mode), ignoreCase = true) -> ThemeColor.INDIGO
-				appColor.equals(resources.getString(R.string.blue_theme_mode), ignoreCase = true) -> ThemeColor.BLUE
-				appColor.equals(resources.getString(R.string.light_blue_theme_mode), ignoreCase = true) -> ThemeColor.LIGHT_BLUE
-				appColor.equals(resources.getString(R.string.cyan_theme_mode), ignoreCase = true) -> ThemeColor.CYAN
-				appColor.equals(resources.getString(R.string.teal_theme_mode), ignoreCase = true) -> ThemeColor.TEAL
-				appColor.equals(resources.getString(R.string.green_theme_mode), ignoreCase = true) -> ThemeColor.GREEN
-				appColor.equals(resources.getString(R.string.light_green_theme_mode), ignoreCase = true) -> ThemeColor.LIGHT_GREEN
-				appColor.equals(resources.getString(R.string.lime_theme_mode), ignoreCase = true) -> ThemeColor.LIME
-				appColor.equals(resources.getString(R.string.yellow_theme_mode), ignoreCase = true) -> ThemeColor.YELLOW
-				appColor.equals(resources.getString(R.string.amber_theme_mode), ignoreCase = true) -> ThemeColor.AMBER
-				appColor.equals(resources.getString(R.string.orange_theme_mode), ignoreCase = true) -> ThemeColor.ORANGE
-				appColor.equals(resources.getString(R.string.deep_orange_theme_mode), ignoreCase = true) -> ThemeColor.DEEP_ORANGE
-				else -> ThemeColor.BLUE
-			}
+			if (appColor.equals(resources.getString(R.string.red_theme_mode), ignoreCase = true))
+				return RED
+			if (appColor.equals(resources.getString(R.string.pink_theme_mode), ignoreCase = true))
+				return PINK.toInt()
+			if (appColor.equals(resources.getString(R.string.purple_theme_mode), ignoreCase = true))
+				return PURPLE
+			if (appColor.equals(resources.getString(R.string.deep_purple_theme_mode), ignoreCase = true))
+				return DEEP_PURPLE
+			if (appColor.equals(resources.getString(R.string.indigo_theme_mode), ignoreCase = true))
+				return INDIGO
+			if (appColor.equals(resources.getString(R.string.blue_theme_mode), ignoreCase = true))
+				return BLUE
+			if (appColor.equals(resources.getString(R.string.light_blue_theme_mode), ignoreCase = true))
+				return LIGHT_BLUE
+			if (appColor.equals(resources.getString(R.string.cyan_theme_mode), ignoreCase = true))
+				return CYAN
+			if (appColor.equals(resources.getString(R.string.teal_theme_mode), ignoreCase = true))
+				return TEAL
+			if (appColor.equals(resources.getString(R.string.green_theme_mode), ignoreCase = true))
+				return GREEN
+			if (appColor.equals(resources.getString(R.string.light_green_theme_mode), ignoreCase = true))
+				return LIGHT_GREEN
+			if (appColor.equals(resources.getString(R.string.lime_theme_mode), ignoreCase = true))
+				return LIME
+			if (appColor.equals(resources.getString(R.string.yellow_theme_mode), ignoreCase = true))
+				return YELLOW
+			if (appColor.equals(resources.getString(R.string.amber_theme_mode), ignoreCase = true))
+				return AMBER
+			if (appColor.equals(resources.getString(R.string.orange_theme_mode), ignoreCase = true))
+				return ORANGE
+			if (appColor.equals(resources.getString(R.string.deep_orange_theme_mode), ignoreCase = true))
+				return DEEP_ORANGE
 		}
-		return ThemeColor.BLUE
-	}
-
-	fun isAppAnimationDisabled(): Boolean {
-		return PrefHelper.getBoolean("app_animation")
+		return BLUE
 	}
 
 	fun getAppLanguage(): String {
@@ -153,28 +159,33 @@ object PrefGetter {
 		return isShowed
 	}
 
-	fun isTwiceBackButtonDisabled(): Boolean {
+	fun isTwiceBackButtonEnabled(): Boolean {
 		return PrefHelper.getBoolean("back_button")
 	}
 
-	fun isNavBarTintingDisabled(): Boolean {
+	fun isNavBarTintingEnabled(): Boolean {
 		return PrefHelper.getBoolean("navigation_color")
-	}
-
-	fun isRectAvatar(): Boolean {
-		return PrefHelper.getBoolean("rect_avatar")
 	}
 
 	fun isRVAnimationEnabled(): Boolean {
 		return PrefHelper.getBoolean("recylerViewAnimation")
 	}
 
-	fun setAppFontScale(value: Float) {
+	fun isForumExtended(): Boolean {
+		return PrefHelper.getBoolean("forumExtended")
+	}
+
+	fun getTopicMessagesOrder(): String {
+		val order = PrefHelper.getString("topicOrder")
+		return order ?: "desc"
+	}
+  
+  	fun setAppFontScale(value: Float) {
 		PrefHelper[APP_FONT_SCALE] = value
 	}
 
 	fun getAppFontScale(): Float {
 		val fontScale = PrefHelper.getFloat(APP_FONT_SCALE)
-		return if(fontScale == 0f) 1f else fontScale
+		return if (fontScale == 0f) 1f else fontScale
 	}
 }

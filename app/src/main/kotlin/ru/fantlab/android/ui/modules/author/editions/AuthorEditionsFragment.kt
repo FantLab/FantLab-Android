@@ -2,8 +2,8 @@ package ru.fantlab.android.ui.modules.author.editions
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.View
+import androidx.annotation.StringRes
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -13,7 +13,7 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.EditionsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
-import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
+import ru.fantlab.android.ui.modules.edition.EditionActivity
 
 class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditionsPresenter>(),
 		AuthorEditionsMvp.View {
@@ -30,7 +30,6 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
-		recycler.addKeyLineDivider()
 		adapter.listener = presenter
 		recycler.adapter = adapter
 		presenter.onFragmentCreated(arguments!!)
@@ -85,7 +84,7 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 		countCallback?.onSetBadge(2, allCount)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is AuthorPagerMvp.View) {
 			countCallback = context
@@ -98,6 +97,6 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 	}
 
 	override fun onItemClicked(item: EditionsBlocks.Edition) {
-		EditionPagerActivity.startActivity(context!!, item.editionId, item.name, 0)
+		EditionActivity.startActivity(context!!, item.editionId, item.name)
 	}
 }

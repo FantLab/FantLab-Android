@@ -4,6 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="40dp"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:orientation="horizontal"
 	>
 
@@ -13,6 +14,7 @@
 		android:layout_height="match_parent"
 		android:layout_gravity="center_vertical"
 		android:src="@drawable/ic_arrow_right"
+		app:tint="?android:attr/textColorSecondary"
 		/>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
@@ -23,9 +25,11 @@
 		android:layout_toEndOf="@+id/iv_arrow"
 		android:layout_toStartOf="@+id/percent"
 		android:drawablePadding="10dp"
-		android:drawableStart="@drawable/ic_book"
+		android:drawableStart="@drawable/ic_classification"
 		android:gravity="center_vertical"
 		style="@style/TextAppearance.AppCompat.Subhead"
+		android:textColor="?android:attr/textColorTertiary"
+		app:drawableColor="?android:attr/textColorSecondary"
 		/>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
@@ -36,8 +40,9 @@
 		android:layout_margin="2dp"
 		android:gravity="center_vertical"
 		android:paddingEnd="@dimen/spacing_normal"
-		style="@style/TextAppearance.AppCompat.Subhead"
 		tools:text="90%"
-		tools:ignore="RtlSymmetry"
+		android:textColor="?android:attr/textColorTertiary"
+		style="@style/TextAppearance.AppCompat.Subhead"
+
 		/>
 </RelativeLayout>

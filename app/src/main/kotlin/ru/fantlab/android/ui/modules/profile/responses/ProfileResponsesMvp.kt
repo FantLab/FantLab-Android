@@ -1,7 +1,8 @@
 package ru.fantlab.android.ui.modules.profile.responses
 
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.provider.rest.ResponsesSortOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.viewholder.ResponseViewHolder
 import ru.fantlab.android.ui.base.mvp.BaseMvp
@@ -24,7 +25,11 @@ interface ProfileResponsesMvp {
 
 		fun onItemClicked(item: Response)
 
+		fun onItemLongClicked(item: Response, position: Int)
+
 		fun onSetVote(position: Int, votesCount: String)
+
+		fun onResponseDelete(position: Int)
 
 		override fun onOpenContextMenu(userItem: Response)
 	}
@@ -36,5 +41,11 @@ interface ProfileResponsesMvp {
 		fun getResponses(userId: Int, force: Boolean)
 
 		fun onSendVote(item: Response, position: Int, voteType: String)
+
+		fun onDeleteResponse(workId: Int, commentId: Int, position: Int)
+
+		fun setCurrentSort(sortValue: String)
+
+		fun getCurrentSort(): ResponsesSortOption
 	}
 }

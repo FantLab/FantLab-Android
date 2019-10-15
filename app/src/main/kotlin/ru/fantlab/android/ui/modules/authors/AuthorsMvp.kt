@@ -1,6 +1,6 @@
 package ru.fantlab.android.ui.modules.authors
 
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.AuthorInList
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
@@ -21,7 +21,9 @@ interface AuthorsMvp {
 	interface Presenter : BaseMvp.Presenter,
 			BaseViewHolder.OnItemClickListener<AuthorInList> {
 
-		fun setCurrentSort(sortValue: String)
+		fun setCurrentSort(sortValue: Int)
+
+		fun getCurrentSort(): Int
 
 		fun onReload()
 	}

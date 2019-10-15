@@ -4,14 +4,14 @@ import android.annotation.TargetApi
 import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.design.widget.BottomSheetBehavior
-import android.support.design.widget.BottomSheetDialogFragment
 import android.view.*
+import androidx.annotation.LayoutRes
 import com.evernote.android.state.StateSaver
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.ViewHelper
-import android.support.v7.view.ContextThemeWrapper;
+import androidx.appcompat.view.ContextThemeWrapper
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /**
  * Created by Kosh on 16 Sep 2016, 2:11 PM
@@ -37,6 +37,8 @@ abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
 	}
 	protected var isAlreadyHidden: Boolean = false
 
+	protected var isViewportWidth: Boolean = true
+
 	@LayoutRes
 	protected abstract fun layoutRes(): Int
 
@@ -60,7 +62,7 @@ abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
 		view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
 			override fun onGlobalLayout() {
 				view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-				val parent = dialog.findViewById<View>(R.id.design_bottom_sheet)
+				val parent = dialog!!.findViewById<View>(R.id.design_bottom_sheet)
 				parent?.let {
 					bottomSheetBehavior = BottomSheetBehavior.from(it)
 					bottomSheetBehavior?.let {
@@ -78,7 +80,7 @@ abstract class BaseBottomSheetDialog : BottomSheetDialogFragment() {
 	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 		val dialog = super.onCreateDialog(savedInstanceState)
 		dialog.setOnShowListener {
-			if (ViewHelper.isTablet(activity)) {
+			if (ViewHelper.isTablet(activity) && isViewportWidth) {
 				dialog.window?.setLayout(
 						ViewGroup.LayoutParams.WRAP_CONTENT,
 						ViewGroup.LayoutParams.MATCH_PARENT

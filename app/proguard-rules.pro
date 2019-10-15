@@ -1,5 +1,5 @@
--keep @android.support.annotation.Keep class *
--keepclassmembers @android.support.annotation.Keep class * {
+-keep @androidx.annotation.Keep class *
+-keepclassmembers @androidx.annotation.Keep class * {
     <fields>;
 }
 
@@ -21,10 +21,20 @@
 -keepattributes Exceptions
 
 # need for valid menu/search_menu.xml/@id:action_search/app:actionViewClass processing
--keep class android.support.v7.widget.SearchView { *; }
+-keep class androidx.appcompat.widget.SearchView { *; }
 
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 -dontwarn java.rmi.**
 -dontwarn org.jaxen.**
 -dontwarn ru.fantlab.android.ui.modules.**
 -dontnote com.google.android.gms.**
+-dontwarn com.caverock.androidsvg.**
+
+-keepnames class * { @com.evernote.android.state.State *;}
+-keep class androidx.fragment.app.Fragment { *; }
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}

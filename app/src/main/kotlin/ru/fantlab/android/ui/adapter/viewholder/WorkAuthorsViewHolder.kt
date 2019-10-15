@@ -16,12 +16,17 @@ class WorkAuthorsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Work.Au
 	: BaseViewHolder<Work.Author>(itemView, adapter) {
 
 	override fun bind(author: Work.Author) {
-		itemView.avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/autors/${author.id}")
-		itemView.name.text = author.name
-		if (!InputHelper.isEmpty(author.nameOrig))
-			itemView.name_orig.text = author.nameOrig
-		else
-			itemView.name_orig.visibility = View.GONE
+		itemView.authorAvatar.setUrl("https://${LinkParserHelper.HOST_DATA}/images/autors/${author.id}")
+
+		if (!InputHelper.isEmpty(author.name)){
+			itemView.authorName.text = author.name
+			itemView.authorName.visibility = View.VISIBLE
+		} else itemView.authorName.visibility = View.GONE
+
+		if (!InputHelper.isEmpty(author.nameOrig)) {
+			itemView.authorOrigName.text = author.nameOrig
+			itemView.authorOrigName.visibility = View.VISIBLE
+		} else itemView.authorOrigName.visibility = View.GONE
 
 		itemView.setOnClickListener {
 			AuthorPagerActivity.startActivity(App.instance, author.id, author.name, 0)

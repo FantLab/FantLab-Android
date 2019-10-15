@@ -1,10 +1,10 @@
 package ru.fantlab.android.ui.modules.authors
 
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.StringRes
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -43,12 +43,13 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
 		recycler.adapter = adapter
-		recycler.addKeyLineDivider()
-		val letter = intent.extras?.getString(EXTRA) ?: "all"
+		recycler.addNormalSpacingDivider()
+		val letter = intent.extras?.getInt(EXTRA, 192) ?: 192
 		if (presenter.authors.isEmpty() && !presenter.isApiCalled()) {
 			presenter.setCurrentSort(letter)
 		}
 		fastScroller.attachRecyclerView(recycler)
+		fastScroller.setHidden(true)
 	}
 
 	override fun onNotifyAdapter(items: ArrayList<AuthorInList>) {
@@ -108,11 +109,13 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 
 	private fun showSortDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForAuthorsSorting(recycler.context))
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("main", ContextMenuBuilder.buildForAuthorsSorting(recycler.context, sort))
 		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 	}
 
 	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
-		presenter.setCurrentSort(item.id)
+		recycler?.scrollToPosition(0)
+		presenter.setCurrentSort(item.id.toInt())
 	}
 }

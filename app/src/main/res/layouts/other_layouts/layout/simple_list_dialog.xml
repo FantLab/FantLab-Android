@@ -13,7 +13,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:padding="@dimen/spacing_xs_large"
-		android:textColor="?android:textColorPrimary"
+		android:textColor="?android:textColorTertiary"
 		android:textStyle="bold"
 		style="@style/TextAppearance.AppCompat.Title"
 		/>

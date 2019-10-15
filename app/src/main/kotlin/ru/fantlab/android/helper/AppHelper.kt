@@ -3,10 +3,10 @@ package ru.fantlab.android.helper
 import android.content.Context
 import android.content.res.Resources
 import android.os.Build
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import java.util.*
 import android.content.Context.WINDOW_SERVICE
 import android.provider.Settings
@@ -22,7 +22,10 @@ object AppHelper {
 
 	fun getFragmentByTag(fragmentManager: FragmentManager, tag: String): Fragment? = fragmentManager.findFragmentByTag(tag)
 
-	fun isNightMode(resources: Resources): Boolean = PrefGetter.getThemeType(resources) != PrefGetter.ThemeType.LIGHT
+	fun isNightMode(resources: Resources): Boolean {
+		val themeType = PrefGetter.getThemeType(resources)
+		return themeType != PrefGetter.LIGHT
+	}
 
 	fun updateAppLanguage(context: Context) {
 		val lang = PrefGetter.getAppLanguage()

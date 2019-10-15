@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.editor
 
+import ru.fantlab.android.data.dao.model.ForumTopic
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.modules.editor.popup.EditorLinkImageMvp
@@ -17,13 +18,19 @@ interface EditorMvp {
 		fun onSendReviewResultAndFinish(comment: Response, isNew: Boolean)
 
 		fun onSendMessageResult(result: String)
+
+		fun onSendNewTopicMessage(message: ForumTopic.Message)
 	}
 
 	interface Presenter : BaseMvp.Presenter {
 
 		fun onEditorNewResponse(id: Int, savedText: CharSequence?, mode: String)
 
+		fun onEditorEditResponse(workId: Int, commentId: Int, newText: CharSequence?)
+
 		fun onEditorNewMessage(id: Int, savedText: CharSequence?, mode: String)
+
+		fun onEditorNewTopicMessage(topicId: Int, savedText: CharSequence?, mode: String)
 
 		fun onEditorNewComment(id: Int, savedText: CharSequence?)
 

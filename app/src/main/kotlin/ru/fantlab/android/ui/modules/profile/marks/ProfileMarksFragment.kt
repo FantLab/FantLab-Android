@@ -2,8 +2,8 @@ package ru.fantlab.android.ui.modules.profile.marks
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.View
+import androidx.annotation.StringRes
 import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
@@ -15,6 +15,8 @@ import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.helper.PrefGetter
+import ru.fantlab.android.provider.rest.MarksSortOption
+import ru.fantlab.android.provider.rest.MarksTypeOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ProfileMarksAdapter
 import ru.fantlab.android.ui.base.BaseFragment
@@ -47,7 +49,6 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
 		recycler.adapter = adapter
-		recycler.addKeyLineDivider()
 		userId = arguments!!.getInt(BundleConstant.EXTRA)
 		presenter.getMarks(userId, false)
 		getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
@@ -55,7 +56,7 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 		fastScroller.attachRecyclerView(recycler)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is UserPagerMvp.View) {
 			countCallback = context
@@ -144,7 +145,16 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 							points = points,
 							colored = position == 0
 					).show(childFragmentManager, ChartBar.TAG)
-
+				}
+				"sort" -> {
+					presenter.setCurrentSort(MarksSortOption.values()[position], null)
+				}
+				else -> {
+					when (parent) {
+						"category" -> {
+							presenter.setCurrentSort(null, MarksTypeOption.values()[position])
+						}
+					}
 				}
 			}
 		}
@@ -189,6 +199,20 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	fun showChartsDialog() {
 		val dialogView = ContextMenuDialogView()
 		dialogView.initArguments("main", ContextMenuBuilder.buildForMarksCharts(recycler.context))
+		dialogView.show(childFragmentManager, "ContextMenuDialogView")
+	}
+
+	fun showSortDialog() {
+		val dialogView = ContextMenuDialogView()
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("sort", ContextMenuBuilder.buildForProfileMarksSorting(recycler.context, sort.sortBy))
+		dialogView.show(childFragmentManager, "ContextMenuDialogView")
+	}
+
+	fun showFilterDialog() {
+		val dialogView = ContextMenuDialogView()
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("filter", ContextMenuBuilder.buildForProfileMarksFilter(recycler.context, sort.filterCategory))
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 

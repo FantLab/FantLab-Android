@@ -16,7 +16,7 @@ class WorkResponsesPresenter : BasePresenter<WorkResponsesMvp.View>(),
 		WorkResponsesMvp.Presenter {
 
 	private var page: Int = 1
-	private var sort: ResponsesSortOption = ResponsesSortOption.BY_RATING
+	private var sort: ResponsesSortOption = ResponsesSortOption.BY_DATE
 	private var previousTotal: Int = 0
 	private var workId: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
@@ -90,10 +90,19 @@ class WorkResponsesPresenter : BasePresenter<WorkResponsesMvp.View>(),
 		)
 	}
 
+	override fun onDeleteResponse(workId: Int, commentId: Int, position: Int) {
+		makeRestCall(
+				DataManager.editResponse(workId, commentId, "").toObservable(),
+				Consumer { sendToView { it.onResponseDelete(position) } }
+		)
+	}
+
 	override fun setCurrentSort(sortValue: String) {
 		sort = ResponsesSortOption.valueOf(sortValue)
 		onCallApi(1, workId)
 	}
+
+	override fun getCurrentSort() = sort
 
 	override fun onItemClick(position: Int, v: View?, item: Response) {
 		sendToView { it.onItemClicked(item) }

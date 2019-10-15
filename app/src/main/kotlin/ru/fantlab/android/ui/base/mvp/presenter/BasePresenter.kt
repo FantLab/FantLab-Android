@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.base.mvp.presenter
 
 import android.os.Bundle
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import com.evernote.android.state.StateSaver
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable

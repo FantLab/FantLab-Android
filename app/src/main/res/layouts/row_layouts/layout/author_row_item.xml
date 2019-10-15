@@ -1,64 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
+	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:layout_margin="@dimen/grid_spacing"
-	android:foreground="?android:selectableItemBackground"
-	android:paddingBottom="@dimen/spacing_normal"
-	android:paddingTop="@dimen/spacing_normal"
-	tools:ignore="RtlSymmetry"
+	android:background="?android:selectableItemBackground"
+	android:orientation="horizontal"
 	>
+
+	<ru.fantlab.android.ui.widgets.AvatarLayout
+		android:id="@+id/authorAvatar"
+		android:layout_width="@dimen/large_icon_zie"
+		android:layout_height="@dimen/large_icon_zie"
+		android:layout_margin="@dimen/spacing_normal"
+		/>
 
 	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:orientation="horizontal"
+		android:layout_height="match_parent"
+		android:gravity="center_vertical"
+		android:orientation="vertical"
 		>
 
-		<ru.fantlab.android.ui.widgets.AvatarLayout
-			android:id="@+id/avatarLayout"
-			android:layout_width="45dp"
-			android:layout_height="45dp"
-			android:layout_marginEnd="8dp"
+		<ru.fantlab.android.ui.widgets.FontTextView
+			android:id="@+id/authorName"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+			android:textColor="?android:attr/textColorPrimary"
+			tools:text="Дэн Симмонс"
 			/>
 
-		<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:gravity="center_vertical"
-			>
-
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/name_orig"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@+id/name"
-				android:layout_marginTop="4dp"
-				android:ellipsize="end"
-				android:includeFontPadding="false"
-				android:lines="1"
-				tools:text="Джордж Р.Р. Мартин"
-				android:textColor="?android:attr/textColorSecondary"
-				style="@style/TextAppearance.AppCompat.Subhead"
-				/>
-
-			<ru.fantlab.android.ui.widgets.FontTextView
-				android:id="@+id/name"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_toEndOf="@+id/authorLayout"
-				android:ellipsize="end"
-				android:includeFontPadding="false"
-				android:lines="1"
-				tools:text="George R.R. Martin"
-				style="@style/TextAppearance.AppCompat.Title"
-				/>
-
-		</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+		<ru.fantlab.android.ui.widgets.FontTextView
+			android:id="@+id/authorOrigName"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+			android:textColor="?android:attr/textColorSecondary"
+			tools:text="Dan Simmons"
+			/>
 
 	</LinearLayout>
 
-</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+</LinearLayout>

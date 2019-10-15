@@ -6,9 +6,9 @@ import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Mark
 import ru.fantlab.android.data.dao.model.MarksStatistics
 import ru.fantlab.android.data.dao.response.MarksResponse
+import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.helper.Tuple4
-import ru.fantlab.android.provider.rest.DataManager
-import ru.fantlab.android.provider.rest.getUserMarksPath
+import ru.fantlab.android.provider.rest.*
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
@@ -17,7 +17,9 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 	private var page: Int = 1
 	private var previousTotal: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
+	private var sort: FantlabHelper.ProfileMarksSort<MarksSortOption, MarksTypeOption> = FantlabHelper.ProfileMarksSort(MarksSortOption.BY_DATE, MarksTypeOption.ALL)
 	var stats: MarksStatistics? = null
+	var userId: Int = 0
 
 	override fun onCallApi(page: Int, parameter: Int?): Boolean {
 		if (page == 1) {
@@ -34,6 +36,7 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 	}
 
 	override fun getMarks(userId: Int, force: Boolean) {
+		this.userId = userId
 		if (force) {
 			lastPage = Integer.MAX_VALUE
 			sendToView { it.getLoadMore().reset() }
@@ -65,13 +68,13 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 					}
 
 	private fun getMarksFromServer(userId: Int): Single<Tuple4<ArrayList<Mark>, MarksStatistics, Int, Int>> =
-			DataManager.getUserMarks(userId, page)
+			DataManager.getUserMarks(userId, page, sort.filterCategory, sort.sortBy)
 					.map { getMarks(it) }
 
 	private fun getMarksFromDb(userId: Int): Single<Tuple4<ArrayList<Mark>, MarksStatistics, Int, Int>> =
 			DbProvider.mainDatabase
 					.responseDao()
-					.get(getUserMarksPath(userId, 1))
+					.get(getUserMarksPath(userId, 1, sort.filterCategory, sort.sortBy))
 					.map { it.response }
 					.map { MarksResponse.Deserializer(perPage = 200).deserialize(it) }
 					.map { getMarks(it) }
@@ -105,4 +108,13 @@ class ProfileMarksPresenter : BasePresenter<ProfileMarksMvp.View>(), ProfileMark
 	override fun setPreviousTotal(previousTotal: Int) {
 		this.previousTotal = previousTotal
 	}
+
+	override fun setCurrentSort(sortBy: MarksSortOption?, filterCategory: MarksTypeOption?) {
+		sort.sortBy = sortBy ?: sort.sortBy
+		sort.filterCategory = filterCategory ?: sort.filterCategory
+		getMarks(userId, true)
+	}
+
+	override fun getCurrentSort() = sort
+
 }

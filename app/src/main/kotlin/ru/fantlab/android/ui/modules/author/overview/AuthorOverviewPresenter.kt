@@ -3,8 +3,7 @@ package ru.fantlab.android.ui.modules.author.overview
 import android.os.Bundle
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.model.Author
-import ru.fantlab.android.data.dao.model.Biography
+import ru.fantlab.android.data.dao.model.*
 import ru.fantlab.android.data.dao.response.AuthorResponse
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
@@ -19,7 +18,7 @@ class AuthorOverviewPresenter : BasePresenter<AuthorOverviewMvp.View>(),
 		val authorId = bundle.getInt(BundleConstant.EXTRA)
 		makeRestCall(
 				getAuthorInternal(authorId).toObservable(),
-				Consumer { (author, biography) -> sendToView { it.onInitViews(author, biography) } }
+				Consumer { (author, biography, classificatory) -> sendToView { it.onInitViews(author, biography, classificatory) } }
 		)
 	}
 
@@ -31,18 +30,17 @@ class AuthorOverviewPresenter : BasePresenter<AuthorOverviewMvp.View>(),
 					.onErrorResumeNext { ext -> Single.error(ext) }
 					.doOnError { err -> sendToView { it.onShowErrorView(err.message) } }
 
-	private fun getAuthorFromServer(authorId: Int): Single<Pair<Author, Biography?>> =
-			DataManager.getAuthor(authorId, showBiography = true)
+	private fun getAuthorFromServer(authorId: Int): Single<Triple<Author, Biography?, ArrayList<GenreGroup>>> =
+			DataManager.getAuthor(authorId, showBiography = true, showClassificatory = true)
 					.map { getAuthor(it) }
 
-	private fun getAuthorFromDb(authorId: Int): Single<Pair<Author, Biography?>> =
+	private fun getAuthorFromDb(authorId: Int): Single<Triple<Author, Biography?, ArrayList<GenreGroup>>> =
 			DbProvider.mainDatabase
 					.responseDao()
-					.get(getAuthorPath(authorId, showBiography = true))
+					.get(getAuthorPath(authorId, showBiography = true, showClassificatory = true))
 					.map { it.response }
 					.map { AuthorResponse.Deserializer().deserialize(it) }
 					.map { getAuthor(it) }
 
-	private fun getAuthor(response: AuthorResponse): Pair<Author, Biography?> =
-			response.author to response.biography
+	private fun getAuthor(response: AuthorResponse): Triple<Author, Biography?, ArrayList<GenreGroup>> = Triple(response.author, response.biography, response.classificatory)
 }

@@ -16,6 +16,10 @@ interface WorkPagerMvp {
 
 		fun onGetMark(): Int?
 
+		fun onResponsesRefresh()
+
+		fun isCycle(): Boolean
+
 		fun onError()
 	}
 

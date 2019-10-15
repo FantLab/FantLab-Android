@@ -43,8 +43,18 @@ open class MessageDialogView : BaseBottomSheetDialog() {
 		super.onViewCreated(view, savedInstanceState)
 		val bundle = arguments
 		title.text = bundle?.getString("bundleTitle")
-		val msg = bundle?.getString("bundleMsg")
-		message.text = msg
+		val editorMode = bundle?.getBoolean("editorMode")!!
+		if (editorMode) {
+			message.visibility = View.GONE
+			editText.visibility = View.VISIBLE
+			val msg = bundle?.getString("bundleMsg")
+			editText.setText(msg ?: "")
+		} else {
+			editText.visibility = View.GONE
+			message.visibility = View.VISIBLE
+			val msg = bundle?.getString("bundleMsg")
+			message.text = msg
+		}
 		bundle?.let {
 			val hideCancel = it.getBoolean("hideCancel")
 			if (hideCancel) cancel.visibility = View.GONE
@@ -53,7 +63,11 @@ open class MessageDialogView : BaseBottomSheetDialog() {
 		ok.setOnClickListener {
 			callback?.let {
 				isAlreadyHidden = true
-				it.onMessageDialogActionClicked(true, arguments?.getBundle("bundle"))
+				val resBundle = arguments?.getBundle("bundle")
+				if (editorMode) {
+					resBundle?.putString("edit_text", editText?.text.toString())
+				}
+				it.onMessageDialogActionClicked(true, resBundle)
 			}
 			dismiss()
 		}
@@ -106,16 +120,23 @@ open class MessageDialogView : BaseBottomSheetDialog() {
 
 		fun newInstance(bundleTitle: String, bundleMsg: String, hideCancel: Boolean = false, bundle: Bundle? = null): MessageDialogView {
 			val messageDialogView = MessageDialogView()
-			messageDialogView.arguments = getBundle(bundleTitle, bundleMsg, bundle, hideCancel)
+			messageDialogView.arguments = getBundle(bundleTitle, bundleMsg, bundle, hideCancel, false)
 			return messageDialogView
 		}
 
-		private fun getBundle(bundleTitle: String, bundleMsg: String, bundle: Bundle?, hideCancel: Boolean): Bundle {
+		fun newInstanceForEdit(bundleTitle: String, bundleMsg: String, bundle: Bundle? = null): MessageDialogView {
+			val messageDialogView = MessageDialogView()
+			messageDialogView.arguments = getBundle(bundleTitle, bundleMsg, bundle, false, true)
+			return messageDialogView
+		}
+
+		private fun getBundle(bundleTitle: String, bundleMsg: String, bundle: Bundle?, hideCancel: Boolean, editorMode: Boolean): Bundle {
 			return Bundler.start()
 					.put("bundleTitle", bundleTitle)
 					.put("bundleMsg", bundleMsg)
 					.put("bundle", bundle)
 					.put("hideCancel", hideCancel)
+					.put("editorMode", editorMode)
 					.end()
 		}
 

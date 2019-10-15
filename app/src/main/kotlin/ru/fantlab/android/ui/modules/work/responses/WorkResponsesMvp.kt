@@ -1,7 +1,8 @@
 package ru.fantlab.android.ui.modules.work.responses
 
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.provider.rest.ResponsesSortOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.viewholder.WorkResponseViewHolder
 import ru.fantlab.android.ui.base.mvp.BaseMvp
@@ -27,6 +28,8 @@ interface WorkResponsesMvp {
 		fun onItemLongClicked(position: Int, v: android.view.View?, item: Response)
 
 		fun onSetVote(position: Int, votesCount: String)
+
+		fun onResponseDelete(position: Int)
 	}
 
 	interface Presenter : BaseMvp.Presenter,
@@ -38,5 +41,9 @@ interface WorkResponsesMvp {
 		fun onSendVote(item: Response, position: Int, voteType: String)
 
 		fun setCurrentSort(sortValue: String)
+
+		fun getCurrentSort(): ResponsesSortOption
+
+		fun onDeleteResponse(workId: Int, commentId: Int, position: Int)
 	}
 }

@@ -1,9 +1,9 @@
 package ru.fantlab.android.ui.widgets.recyclerview.layoutManager
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.AttributeSet
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 /**
  * Created by Kosh on 17 May 2016, 10:02 PM
@@ -22,7 +22,7 @@ class StaggeredManager : StaggeredGridLayoutManager {
 		}
 	}
 
-	override fun onMeasure(recycler: RecyclerView.Recycler?, state: RecyclerView.State?, widthSpec: Int, heightSpec: Int) {
+	override fun onMeasure(recycler: RecyclerView.Recycler, state: RecyclerView.State, widthSpec: Int, heightSpec: Int) {
 		try {
 			super.onMeasure(recycler, state, widthSpec, heightSpec)
 		} catch (ignored: Exception) {

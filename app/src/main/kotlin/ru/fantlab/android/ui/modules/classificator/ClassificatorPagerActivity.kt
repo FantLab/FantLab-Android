@@ -3,11 +3,10 @@ package ru.fantlab.android.ui.modules.classificator
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.TabLayout
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.view.View
 import com.evernote.android.state.State
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.appbar_tabbed_elevation.*
 import kotlinx.android.synthetic.main.tabbed_pager_layout.*
 import ru.fantlab.android.R
@@ -20,7 +19,6 @@ import ru.fantlab.android.helper.ViewHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.base.BaseFragment
-import ru.fantlab.android.ui.widgets.ViewPagerView
 import java.util.*
 
 class ClassificatorPagerActivity : BaseActivity<ClassificatorPagerMvp.View, ClassificatorPagerPresenter>(),

@@ -27,7 +27,7 @@
 			/>
 
 
-		<android.support.v4.widget.NestedScrollView
+		<androidx.core.widget.NestedScrollView
 			android:layout_width="match_parent"
 			android:layout_height="0dp"
 			android:layout_weight="1"
@@ -60,9 +60,23 @@
 					style="@style/TextAppearance.AppCompat.Medium"
 					/>
 
+				<ru.fantlab.android.ui.widgets.editor.EditorEditText
+					android:id="@+id/editText"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="@color/transparent"
+					android:gravity="top|start"
+					android:hint="@string/type_here"
+					android:inputType="textMultiLine|textCapSentences"
+					android:minLines="2"
+					android:padding="@dimen/spacing_xs_large"
+					android:scrollbars="vertical"
+					tools:ignore="ScrollViewSize"
+					/>
+
 			</LinearLayout>
 
-		</android.support.v4.widget.NestedScrollView>
+		</androidx.core.widget.NestedScrollView>
 
 		<LinearLayout
 			android:layout_width="match_parent"

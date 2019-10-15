@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	>
+
+	<androidx.core.widget.NestedScrollView
+		android:id="@+id/parentView"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:clipToPadding="false"
+		android:orientation="vertical"
+		>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:paddingTop="@dimen/spacing_normal"
+			android:descendantFocusability="blocksDescendants"
+			>
+
+			<androidx.cardview.widget.CardView
+				android:id="@+id/firstMenu"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:cardBackgroundColor="?card_background"
+				app:cardCornerRadius="0dp"
+				app:cardElevation="1dp"
+				app:cardUseCompatPadding="true"
+				>
+
+				<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					>
+
+					<RelativeLayout
+						android:id="@+id/topBlock"
+						android:layout_marginBottom="@dimen/spacing_normal"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent">
+
+						<ru.fantlab.android.ui.widgets.CoverLayout
+							android:id="@+id/coverLayouts"
+							android:layout_width="120dp"
+							android:layout_height="160dp"
+							android:layout_gravity="center_horizontal"
+							android:layout_marginBottom="@dimen/spacing_normal"
+							android:layout_marginLeft="@dimen/spacing_normal"
+							android:layout_marginRight="@dimen/spacing_normal"
+							android:layout_marginTop="@dimen/spacing_normal"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/awardName"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="@dimen/spacing_normal"
+							android:layout_marginTop="@dimen/spacing_normal"
+							android:layout_toEndOf="@id/coverLayouts"
+							android:textColor="?android:attr/textColorPrimary"
+							tools:text="AnLab"
+							style="@style/TextAppearance.AppCompat.Title"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/awardNameOrig"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@id/awardName"
+							android:layout_marginStart="@dimen/spacing_normal"
+							android:layout_toEndOf="@id/coverLayouts"
+							android:textColor="?android:attr/textColorSecondary"
+							tools:text="AnLab award (Analog)"
+							style="@style/TextAppearance.AppCompat.Subhead"
+							/>
+
+						<TableLayout
+							android:id="@+id/awardGeneralInfoBlock"
+							android:layout_width="match_parent"
+							android:layout_height="match_parent"
+							android:layout_below="@id/awardNameOrig"
+							android:layout_marginEnd="@dimen/spacing_normal"
+							android:layout_marginStart="@dimen/spacing_normal"
+							android:layout_marginTop="@dimen/spacing_micro"
+							android:layout_toEndOf="@id/coverLayouts"
+							android:orientation="horizontal"
+							android:visibility="visible"
+							>
+
+							<TableRow android:id="@+id/awardCountryInfoBlock" android:visibility="gone">
+
+								<ru.fantlab.android.ui.widgets.FontTextView
+									android:id="@+id/awardCountryTitle"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:text="@string/country"
+									android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+									android:textColor="?android:attr/textColorSecondary"
+									/>
+
+
+								<ru.fantlab.android.ui.widgets.FontTextView
+									android:id="@+id/awardCountryText"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:gravity="end"
+									android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+									android:textColor="?android:attr/textColorPrimary"
+									tools:text="США"
+									/>
+							</TableRow>
+
+							<TableRow android:id="@+id/awardDateBlock" android:visibility="gone">
+
+								<ru.fantlab.android.ui.widgets.FontTextView
+									android:id="@+id/awardDateTitle"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:text="@string/awardDate"
+									android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+									android:textColor="?android:attr/textColorSecondary"
+									/>
+
+								<ru.fantlab.android.ui.widgets.FontTextView
+									android:id="@+id/awardDate"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:gravity="end"
+									android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+									android:textColor="?android:attr/textColorPrimary"
+									tools:text="1979 г."
+									/>
+							</TableRow>
+
+
+							<TableRow android:id="@+id/authorSiteBlock" android:visibility="gone">
+
+								<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
+									android:id="@+id/awardSite"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:gravity="end"
+									android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+									android:textColor="?android:attr/textColorPrimary"
+									tools:text="www.analogsf.com"
+									/>
+							</TableRow>
+
+						</TableLayout>
+
+					</RelativeLayout>
+
+
+				</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+
+			</androidx.cardview.widget.CardView>
+
+			<androidx.cardview.widget.CardView
+				android:id="@+id/infoBlock"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/spacing_normal"
+				app:cardBackgroundColor="?card_background"
+				app:cardCornerRadius="0dp"
+				app:cardElevation="1dp"
+				app:cardUseCompatPadding="true"
+				>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:orientation="vertical"
+					android:layout_marginBottom="@dimen/spacing_normal"
+					>
+
+					<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+						android:id="@+id/awardDescriptionBlock"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_margin="@dimen/spacing_normal"
+						>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/awardDescriptionTitle"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="@string/description"
+							android:textColor="@color/material_teal_700"
+							style="@style/TextAppearance.AppCompat.Title"
+							/>
+
+						<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
+							android:id="@+id/awardDescriptionText"
+							android:layout_width="match_parent"
+							android:layout_height="match_parent"
+							android:layout_below="@id/awardDescriptionTitle"
+							android:layout_marginTop="@dimen/spacing_normal"
+							android:textColor="?android:attr/textColorSecondary"
+							tools:text="Название премии (полностью оно звучит «Analytical Laboratory Award») происходит от традиции, которую ещё в 1938 году ввёл Джон Кэмпбелл."
+							style="@style/TextAppearance.AppCompat.Subhead"
+							/>
+
+					</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+
+
+					<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+						android:id="@+id/commentsBLock"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_margin="@dimen/spacing_normal"
+						>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/commentsTitle"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="@string/comments"
+							android:textColor="@color/material_teal_700"
+							style="@style/TextAppearance.AppCompat.Title"
+							/>
+
+						<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
+							android:id="@+id/commentsText"
+							android:layout_width="match_parent"
+							android:layout_height="match_parent"
+							android:layout_below="@id/commentsTitle"
+							android:layout_marginTop="@dimen/spacing_normal"
+							android:textColor="?android:attr/textColorSecondary"
+							tools:text="Учитывая специфику журнала, премия вручается за повести, рассказы и научные статьи, написанные и посвящённые тематике научной фантастики."
+							style="@style/TextAppearance.AppCompat.Subhead"
+							/>
+
+
+					</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+
+					<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+						android:id="@+id/notesBLock"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="@dimen/spacing_normal"
+						android:layout_marginEnd="@dimen/spacing_normal"
+						>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/notesTitle"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="@string/notes"
+							android:textColor="@color/material_teal_700"
+							style="@style/TextAppearance.AppCompat.Title"
+							/>
+
+						<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
+							android:id="@+id/notesText"
+							android:layout_width="match_parent"
+							android:layout_height="match_parent"
+							android:layout_below="@id/notesTitle"
+							android:layout_marginTop="@dimen/spacing_normal"
+							android:textColor="?android:attr/textColorSecondary"
+							tools:text="Премия традиционно вручается на ежегодном мероприятии, проводимом обычно в конце банкета при вручении одной из главных наград Небьюла"
+							style="@style/TextAppearance.AppCompat.Subhead"
+							/>
+
+
+					</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+				</LinearLayout>
+			</androidx.cardview.widget.CardView>
+
+			<LinearLayout
+				android:id="@+id/progress"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:visibility="visible"
+				>
+
+				<ProgressBar
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+	</androidx.core.widget.NestedScrollView>
+
+	<include
+		layout="@layout/state_layout"
+		android:visibility="gone"
+		/>
+
+</FrameLayout>

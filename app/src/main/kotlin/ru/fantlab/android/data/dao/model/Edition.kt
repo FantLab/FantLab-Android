@@ -1,7 +1,7 @@
 package ru.fantlab.android.data.dao.model
 
 import android.os.Parcelable
-import android.support.annotation.Keep
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -17,7 +17,7 @@ data class Edition(
 		@SerializedName("edition_name") val name: String,
 		@SerializedName("edition_type") val type: String,
 		@SerializedName("edition_type_plus") val additionalTypes: ArrayList<String>,
-		val format: String,
+		@SerializedName("format") val format: String,
 		@SerializedName("format_mm") val formatMm: String?,
 		val image: String,
 		@SerializedName("image_preview") val preview: String,

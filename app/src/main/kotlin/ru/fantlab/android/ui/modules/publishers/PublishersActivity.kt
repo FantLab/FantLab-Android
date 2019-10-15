@@ -1,11 +1,11 @@
 package ru.fantlab.android.ui.modules.publishers
 
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.publishers_layout.*
 import kotlinx.android.synthetic.main.state_layout.*
@@ -52,8 +52,8 @@ class PublishersActivity : BaseActivity<PublishersMvp.View, PublishersPresenter>
 		presenter.onCallApi(1, null)
 		fastScroller.attachRecyclerView(recycler)
 		recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-			override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-				onScrolled(dy > 0);
+			override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+				onScrolled(dy > 0)
 			}
 		})
 		fab.setImageResource(R.drawable.ic_filter)
@@ -84,6 +84,7 @@ class PublishersActivity : BaseActivity<PublishersMvp.View, PublishersPresenter>
 	}
 
 	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
+		recycler?.scrollToPosition(0)
 		when (item.id) {
 			"sort" -> {
 				presenter.setCurrentSort(PublishersSortOption.values()[position], null, null)
@@ -91,10 +92,10 @@ class PublishersActivity : BaseActivity<PublishersMvp.View, PublishersPresenter>
 			else -> {
 				when (parent) {
 					"countries" -> {
-						presenter.setCurrentSort(null, item.id, null)
+						presenter.setCurrentSort(null, item.id.toInt(), null)
 					}
 					"category" -> {
-						presenter.setCurrentSort(null, null, item.id)
+						presenter.setCurrentSort(null, null, item.id.toInt())
 					}
 				}
 			}
@@ -137,13 +138,15 @@ class PublishersActivity : BaseActivity<PublishersMvp.View, PublishersPresenter>
 
 	fun showSortDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("sort", ContextMenuBuilder.buildForPublishersSorting(recycler.context))
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("sort", ContextMenuBuilder.buildForPublishersSorting(recycler.context, sort.sortBy))
 		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 	}
 
-	fun showFilterDialog() {
+	private fun showFilterDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("filter", ContextMenuBuilder.buildForPublishersFilter(recycler.context))
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("filter", ContextMenuBuilder.buildForPublishersFilter(recycler.context, sort.filterCategory, sort.filterCountry))
 		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 	}
 

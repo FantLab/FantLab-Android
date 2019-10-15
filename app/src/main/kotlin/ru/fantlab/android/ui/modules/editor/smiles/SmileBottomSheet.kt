@@ -44,7 +44,7 @@ class SmileBottomSheet : BaseMvpBottomSheetDialogFragment<SmileMvp.View, SmilePr
 		})
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		smileCallback = when {
 			parentFragment is SmileMvp.SmileCallback -> parentFragment as SmileMvp.SmileCallback

@@ -1,9 +1,12 @@
 package ru.fantlab.android.provider.rest
 
 import com.github.kittinunf.fuel.core.Response
+import com.github.kittinunf.fuel.httpDelete
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
-import com.github.kittinunf.fuel.rx.*
+import com.github.kittinunf.fuel.rx.rxObject
+import com.github.kittinunf.fuel.rx.rxResponsePair
+import com.github.kittinunf.fuel.rx.rxString
 import com.google.gson.Gson
 import io.reactivex.Single
 import ru.fantlab.android.data.dao.response.*
@@ -12,7 +15,7 @@ object DataManager {
 
 	val gson = Gson()
 
-	fun getAuthors(sort: String): Single<AuthorsResponse> =
+	fun getAuthors(sort: Int): Single<AuthorsResponse> =
 			getAuthorsPath(sort)
 					.httpGet()
 					.rxObject(AuthorsResponse.Deserializer())
@@ -27,15 +30,56 @@ object DataManager {
 					.rxObject(AwardsResponse.Deserializer())
 					.map { it.get() }
 
+	fun getForums(): Single<ForumsResponse> =
+			getForumsPath()
+					.httpGet()
+					.rxObject(ForumsResponse.Deserializer())
+					.map { it.get() }
+
+	fun getTopics(id: Int,
+				  page: Int,
+				  perPage: Int
+	): Single<ForumResponse> =
+			getTopicsPath(id, page, perPage)
+					.httpGet()
+					.rxObject(ForumResponse.Deserializer())
+					.map { it.get() }
+
+	fun getTopicMessages(id: Int,
+						 page: Int,
+						 order: TopicMessagesSortOption = TopicMessagesSortOption.BY_ASCENDING,
+						 perPage: Int
+	): Single<ForumTopicResponse> =
+			getTopicMessagesPath(id, page, order, perPage)
+					.httpGet()
+					.rxObject(ForumTopicResponse.Deserializer())
+					.map { it.get() }
+
+	fun getCommunities(): Single<CommunitiesResponse> =
+			getCommunitiesPath()
+					.httpGet()
+					.rxObject(CommunitiesResponse.Deserializer())
+					.map { it.get() }
+
+	fun getBlogs(page: Int,
+				 limit: Int,
+				 sortOption: BlogsSortOption
+	): Single<BlogsResponse> =
+			getBlogsPath(page, limit, sortOption)
+					.httpGet()
+					.rxObject(BlogsResponse.Deserializer())
+					.map { it.get() }
+
 	fun getAuthor(
 			id: Int,
 			showBiography: Boolean = false,
 			showAwards: Boolean = false,
 			showLinguaProfile: Boolean = false,
 			showBiblioBlocks: Boolean = false,
+			showClassificatory: Boolean = false,
 			sortOption: BiblioSortOption = BiblioSortOption.BY_YEAR
 	): Single<AuthorResponse> =
-			getAuthorPath(id, showBiography, showAwards, showLinguaProfile, showBiblioBlocks, sortOption)
+			getAuthorPath(id, showBiography, showAwards, showLinguaProfile, showBiblioBlocks, showClassificatory, sortOption)
 					.httpGet()
 					.rxObject(AuthorResponse.Deserializer())
 					.map { it.get() }
@@ -91,7 +135,7 @@ object DataManager {
 	fun getWorkResponses(
 			workId: Int,
 			page: Int = 1,
-			sortOption: ResponsesSortOption = ResponsesSortOption.BY_RATING
+			sortOption: ResponsesSortOption = ResponsesSortOption.BY_DATE
 	): Single<ResponsesResponse> =
 			getWorkResponsesPath(workId, page, sortOption)
 					.httpGet()
@@ -154,6 +198,159 @@ object DataManager {
 					.rxObject(ResponsesResponse.Deserializer(perPage = 50))
 					.map { it.get() }
 
+	fun getUserBookcases(
+			userId: Int
+	): Single<BookcasesResponse> =
+			getUserBookcasesPath(userId)
+					.httpGet()
+					.rxObject(BookcasesResponse.Deserializer())
+					.map { it.get() }
+
+	fun getPersonalBookcases(
+	): Single<BookcasesResponse> =
+			getPersonalBookcasesPath()
+					.httpGet()
+					.rxObject(BookcasesResponse.Deserializer())
+					.map { it.get() }
+
+	fun getPersonalBookcaseInformation(
+			bookcaseId: Int
+	): Single<BookcaseInformationResponse> =
+			getPersonalBookcaseInformationPath(bookcaseId)
+					.httpGet()
+					.rxObject(BookcaseInformationResponse.Deserializer())
+					.map { it.get() }
+
+	fun getPersonalEditionBookcase(
+			bookcaseId: Int,
+			offset: Int = 0
+	): Single<BookcaseEditionsResponse> =
+			getPersonalBookcasePath(bookcaseId, offset)
+					.httpGet()
+					.rxObject(BookcaseEditionsResponse.Deserializer(perPage = 10))
+					.map { it.get() }
+
+	fun getPersonalWorkBookcase(
+			bookcaseId: Int,
+			offset: Int = 0
+	): Single<BookcaseWorksResponse> =
+			getPersonalBookcasePath(bookcaseId, offset)
+					.httpGet()
+					.rxObject(BookcaseWorksResponse.Deserializer(perPage = 10))
+					.map { it.get() }
+
+	fun getPersonalFilmBookcase(
+			bookcaseId: Int,
+			offset: Int = 0
+	): Single<BookcaseFilmsResponse> =
+			getPersonalBookcasePath(bookcaseId, offset)
+					.httpGet()
+					.rxObject(BookcaseFilmsResponse.Deserializer(perPage = 10))
+					.map { it.get() }
+
+	fun getUserEditionBookcase(
+			userId: Int,
+			bookcaseId: Int,
+			offset: Int = 0
+	): Single<BookcaseEditionsResponse> =
+			getUserBookcasePath(userId, bookcaseId, offset)
+					.httpGet()
+					.rxObject(BookcaseEditionsResponse.Deserializer(perPage = 10))
+					.map { it.get() }
+
+	fun getUserWorkBookcase(
+			userId: Int,
+			bookcaseId: Int,
+			offset: Int = 0
+	): Single<BookcaseWorksResponse> =
+			getUserBookcasePath(userId, bookcaseId, offset)
+					.httpGet()
+					.rxObject(BookcaseWorksResponse.Deserializer(perPage = 10))
+					.map { it.get() }
+
+	fun getUserFilmBookcase(
+			userId: Int,
+			bookcaseId: Int,
+			offset: Int = 0
+	): Single<BookcaseFilmsResponse> =
+			getUserBookcasePath(userId, bookcaseId, offset)
+					.httpGet()
+					.rxObject(BookcaseFilmsResponse.Deserializer(perPage = 10))
+					.map { it.get() }
+
+	fun createBookcase(
+			type: String,
+			name: String,
+			publicBookcase: String,
+			bookcaseComment: String?
+	): Single<String> =
+			createBookcasePath()
+					.httpPost(listOf(
+							"name" to name,
+							"type" to type,
+							"shared" to publicBookcase,
+							"comment" to bookcaseComment
+					))
+					.rxString()
+					.map { it.get() }
+
+	fun updateBookcase(
+			bookcaseId: Int,
+			type: String,
+			name: String,
+			publicBookcase: String,
+			bookcaseComment: String?
+	): Single<String> =
+			updateBookcasePath(bookcaseId)
+					.httpPost(listOf(
+							"name" to name,
+							"type" to type,
+							"shared" to publicBookcase,
+							"comment" to bookcaseComment
+					))
+					.rxString()
+					.map { it.get() }
+
+	fun deletePersonalBookcase(
+			bookcaseId: Int
+	): Single<String> =
+			deletePersonalBookcasePath(bookcaseId)
+					.httpDelete()
+					.rxString()
+					.map { it.get() }
+
+	fun includeItemToBookcase(
+			bookcaseId: Int,
+			entityId: Int,
+			include: String
+	): Single<String> =
+			includeItemToBookcasePath(bookcaseId, entityId, include)
+					.httpPost()
+					.rxString()
+					.map { it.get() }
+
+	fun updateBookcaseItemComment(
+			bookcaseId: Int,
+			entityId: Int,
+			text: String
+	): Single<String> =
+			updateBookcaseItemCommentPath(bookcaseId, entityId)
+					.httpPost(listOf(
+							"txt" to text
+					))
+					.rxString()
+					.map { it.get() }
+
+	fun getBookcaseInclusions(
+			bookcaseType: String,
+			entityId: Int
+	): Single<BookcaseInclusionResponse> =
+			getBookcaseInclusionsPath(bookcaseType, entityId)
+					.httpGet()
+					.rxObject(BookcaseInclusionResponse.Deserializer())
+					.map { it.get() }
+
+
 	fun sendUserMark(
 			workId: Int,
 			toWorkId: Int,
@@ -178,8 +375,12 @@ object DataManager {
 			message: CharSequence?,
 			mode: String
 	): Single<String> =
-			sendMessagePath(userId, message, mode)
-					.httpPost()
+			sendMessagePath(userId)
+					.httpPost(listOf(
+							"message" to message,
+							"mode" to mode,
+							"action" to "/user$userId/sendprivatemessage"
+					))
 					.rxString()
 					.map { it.get() }
 
@@ -188,8 +389,24 @@ object DataManager {
 			message: CharSequence?,
 			mode: String
 	): Single<String> =
-			sendResponsePath(workId, message, mode)
-					.httpPost()
+			sendResponsePath(workId)
+					.httpPost(listOf(
+							"message" to message,
+							"mode" to mode,
+							"autosave" to "0"
+					))
+					.rxString()
+					.map { it.get() }
+
+	fun editResponse(
+			workId: Int,
+			commentId: Int,
+			newText: CharSequence?
+	): Single<String> =
+			editResponsePath(workId, commentId)
+					.httpPost(listOf(
+							"message" to newText
+					))
 					.rxString()
 					.map { it.get() }
 
@@ -206,8 +423,11 @@ object DataManager {
 			login: String,
 			password: String
 	): Single<Response> =
-			loginPath(login, password)
-					.httpPost()
+			loginPath()
+					.httpPost(listOf(
+							"login" to login,
+							"password" to password
+					))
 					.rxResponsePair()
 					.map { it.first }
 
@@ -269,7 +489,7 @@ object DataManager {
 			countryId: Int = 0,
 			type: Int = 0
 	): Single<PublishersResponse> =
-			getPublishersAllPath(page, sort, countryId, type)
+			getPublishersPath(page, sort, countryId, type)
 					.httpGet()
 					.rxObject(PublishersResponse.Deserializer(perPage = 250))
 					.map { it.get() }
@@ -280,7 +500,7 @@ object DataManager {
 			lang: Int,
 			pubId: Int
 	): Single<PubnewsResponse> =
-			getPublisherPubnewsPath(page, sort, lang, pubId)
+			getPubnewsPath(page, sort, lang, pubId)
 					.httpGet()
 					.rxObject(PubnewsResponse.Deserializer())
 					.map { it.get() }
@@ -292,7 +512,7 @@ object DataManager {
 			lang: Int,
 			pubId: Int
 	): Single<PubplansResponse> =
-			getPublisherPubplansPath(page, sort, lang, pubId)
+			getPubplansPath(page, sort, lang, pubId)
 					.httpGet()
 					.rxObject(PubplansResponse.Deserializer())
 					.map { it.get() }
@@ -302,9 +522,34 @@ object DataManager {
 			sort: String = AutplansSortOption.BY_CORRECT.value,
 			lang: Int
 	): Single<AutplansResponse> =
-			getPublisherAutplansPath(page, sort, lang)
+			getAutplansPath(page, sort, lang)
 					.httpGet()
 					.rxObject(AutplansResponse.Deserializer())
+					.map { it.get() }
+
+	fun getNews(
+			page: Int = 1,
+			perPage: Int = 15
+	): Single<NewsResponse> =
+			getNewsPath(page, perPage)
+					.httpGet()
+					.rxObject(NewsResponse.Deserializer(perPage = perPage))
+					.map { it.get() }
+
+	fun getContest(
+			contestId: Int,
+			includeWorks: Boolean
+	): Single<ContestResponse> =
+			getContestPath(contestId, includeWorks)
+					.httpGet()
+					.rxObject(ContestResponse.Deserializer())
+					.map { it.get() }
+
+	fun getWorkTypes(
+	): Single<String> =
+			getWorkTypesPath()
+					.httpGet()
+					.rxString()
 					.map { it.get() }
 }
 
@@ -359,6 +604,7 @@ enum class PublishersSortOption(val value: String) {
 
 enum class PubnewsSortOption(val value: String) {
 	BY_DATE("date"),
+	BY_POPULARITY("popularity"),
 	BY_TYPE("type"),
 	BY_PUBLISHER("pub"),
 	BY_AUTHOR("author"),
@@ -367,6 +613,7 @@ enum class PubnewsSortOption(val value: String) {
 
 enum class PubplansSortOption(val value: String) {
 	BY_CORRECT("correct"),
+	BY_POPULARITY("popularity"),
 	BY_DATE("date"),
 	BY_TYPE("type"),
 	BY_PUBLISHER("pub"),
@@ -376,19 +623,54 @@ enum class PubplansSortOption(val value: String) {
 
 enum class AutplansSortOption(val value: String) {
 	BY_CORRECT("correct"),
+	BY_POPULARITY("popularity"),
 	BY_AUTHOR("author"),
 	BY_NAME("title")
+}
+
+enum class TopicMessagesSortOption(val value: String) {
+	BY_DESCENDING("desc"),
+	BY_ASCENDING("asc")
+}
+
+enum class BlogsSortOption(val value: String) {
+	BY_UPDATE("update"),
+	BY_ARTICLES("article"),
+	BY_SUBSCRIBERS("subscriber")
 }
 //endregion
 
 //region Urls
-fun getAuthorsPath(sort: String) =
-		"/autors$sort".toAbsolutePathWithApiVersion()
+fun getAuthorsPath(sort: Int) =
+		"/autors/$sort".toAbsolutePathWithApiVersion()
 
 fun getAwardsPath(
 		nonfant: Boolean,
 		sortOption: AwardsSortOption = AwardsSortOption.BY_NAME
 ) = "/awards?nonfant=${nonfant.toInt()}&sort=${sortOption.value}".toAbsolutePathWithApiVersion()
+
+fun getForumsPath() = "/v1/forums".toAbsolutePathWithTestApiVersion()
+
+fun getCommunitiesPath() = "/v1/communities".toAbsolutePathWithTestApiVersion()
+
+fun getBlogsPath(
+		page: Int,
+		limit: Int,
+		sortOption: BlogsSortOption
+) = "/v1/blogs?page=$page&limit=$limit&sort=${sortOption.value}".toAbsolutePathWithTestApiVersion()
+
+fun getTopicsPath(
+		id: Int,
+		page: Int,
+		perPage: Int
+) = "/v1/forums/$id?page=$page&limit=$perPage".toAbsolutePathWithTestApiVersion()
+
+fun getTopicMessagesPath(
+		id: Int,
+		page: Int,
+		order: TopicMessagesSortOption,
+		perPage: Int
+) = "/v1/topics/$id?page=$page&order=${order.value}&limit=$perPage".toAbsolutePathWithTestApiVersion()
 
 fun getAuthorPath(
 		id: Int,
@@ -396,9 +678,10 @@ fun getAuthorPath(
 		showAwards: Boolean = false,
 		showLinguaProfile: Boolean = false,
 		showBiblioBlocks: Boolean = false,
+		showClassificatory : Boolean = false,
 		sortOption: BiblioSortOption = BiblioSortOption.BY_YEAR
 ) = ("/autor/$id?biography=${showBiography.toInt()}&awards=${showAwards.toInt()}" +
-		"&la_resume=${showLinguaProfile.toInt()}&biblio_blocks=${showBiblioBlocks.toInt()}" +
+		"&la_resume=${showLinguaProfile.toInt()}&biblio_blocks=${showBiblioBlocks.toInt()}&classificatory=${showClassificatory.toInt()}" +
 		"&sort=${sortOption.value}").toAbsolutePathWithApiVersion()
 
 fun getAuthorEditionsPath(
@@ -441,7 +724,7 @@ fun getWorkPath(
 fun getWorkResponsesPath(
 		workId: Int,
 		page: Int = 1,
-		sortOption: ResponsesSortOption = ResponsesSortOption.BY_RATING
+		sortOption: ResponsesSortOption = ResponsesSortOption.BY_DATE
 ) = "/work/$workId/responses?page=$page&sort=${sortOption.value}".toAbsolutePathWithApiVersion()
 
 fun getWorkAnalogsPath(
@@ -463,7 +746,7 @@ fun getUserMarksPath(
 		userId: Int,
 		page: Int = 1,
 		typeOption: MarksTypeOption = MarksTypeOption.ALL,
-		sortOption: MarksSortOption = MarksSortOption.BY_MARK
+		sortOption: MarksSortOption = MarksSortOption.BY_DATE
 ) = "/user/$userId/marks/extended?page=$page&type=${typeOption.value}&sort=${sortOption.value}"
 		.toAbsolutePathWithApiVersion()
 
@@ -478,6 +761,55 @@ fun getUserResponsesPath(
 		sortOption: ResponsesSortOption = ResponsesSortOption.BY_DATE
 ) = "/user/$userId/responses?page=$page&sort=${sortOption.value}".toAbsolutePathWithApiVersion()
 
+fun getPersonalBookcasesPath(
+) = "/my/bookcases".toAbsolutePathWithApiVersion()
+
+fun getUserBookcasesPath(
+		userId: Int
+) = "/user/$userId/bookcases".toAbsolutePathWithApiVersion()
+
+fun getPersonalBookcaseInformationPath(
+		bookcaseId: Int
+) = "/my/bookcases/$bookcaseId/description".toAbsolutePathWithApiVersion()
+
+fun getUserBookcasePath(
+		userId: Int,
+		bookcaseId: Int,
+		offset: Int = 0
+) = "/user/$userId/bookcase/$bookcaseId?offset=$offset".toAbsolutePathWithApiVersion()
+
+fun getPersonalBookcasePath(
+		bookcaseId: Int,
+		offset: Int = 0
+) = "/my/bookcases/$bookcaseId/items?offset=$offset".toAbsolutePathWithApiVersion()
+
+fun createBookcasePath(
+) = "/my/bookcases/add".toAbsolutePathWithApiVersion()
+
+fun updateBookcasePath(
+		bookcaseId: Int
+) = "/my/bookcases/$bookcaseId/edit".toAbsolutePathWithApiVersion()
+
+fun deletePersonalBookcasePath(
+		bookcaseId: Int
+) = "/my/bookcases/$bookcaseId/delete".toAbsolutePathWithApiVersion()
+
+fun includeItemToBookcasePath(
+		bookcaseId: Int,
+		entityId: Int,
+		include: String
+) = "/my/bookcases/$bookcaseId/items/$entityId/$include".toAbsolutePathWithApiVersion()
+
+fun updateBookcaseItemCommentPath(
+		bookcaseId: Int,
+		entityId: Int
+) = "/my/bookcases/$bookcaseId/items/$entityId/editcomm".toAbsolutePathWithApiVersion()
+
+fun getBookcaseInclusionsPath(
+		bookcaseType: String,
+		entityId: Int
+) = "/my/bookcases/type/$bookcaseType/$entityId".toAbsolutePathWithApiVersion()
+
 fun sendUserMarkPath(
 		workId: Int,
 		toWorkId: Int,
@@ -490,27 +822,25 @@ fun sendResponseVotePath(
 ) = "/vote$responseId$voteType".toAbsolutePath()
 
 fun sendMessagePath(
-		userId: Int,
-		message: CharSequence?,
-		mode: String
-) = "/user$userId/sendprivatemessage?message=$message&mode=$mode&action=/user$userId/sendprivatemessage"
+		userId: Int
+) = "/user$userId/sendprivatemessage"
 		.toAbsolutePath()
 
 fun sendResponsePath(
+		workId: Int
+) = "/work$workId/addresponse".toAbsolutePath()
+
+fun editResponsePath(
 		workId: Int,
-		message: CharSequence?,
-		mode: String
-) = "/work$workId/addresponse?message=$message&mode=$mode&autosave=0".toAbsolutePath()
+		commentId: Int
+) = "/work$workId/editresponse$commentId/editresponse${commentId}ok".toAbsolutePath()
 
 fun sendClassificationPath(
 		workId: Int,
 		query: String
 ) = "/genrevote$workId?$query".toAbsolutePath()
 
-fun loginPath(
-		login: String,
-		password: String
-) = "/login?login=$login&password=$password".toAbsolutePath()
+fun loginPath() = "/login".toAbsolutePath()
 
 fun getUserIdPath(
 		login: String
@@ -540,38 +870,53 @@ fun getLastResponsesPath(
 		page: Int = 1
 ) = "/responses?page=$page".toAbsolutePathWithApiVersion()
 
-fun getPublishersAllPath(
+fun getPublishersPath(
 		page: Int,
 		sort: String,
 		countryId: Int,
 		type: Int
-) = "/publishers.json?page=$page&sort=$sort&country_id=$countryId&type=$type".toAbsolutePath()
+) = "/publishers?page=$page&sort=$sort&country_id=$countryId&type=$type".toAbsolutePathWithApiVersion()
 
-fun getPublisherPubnewsPath(
+fun getPubnewsPath(
 		page: Int,
 		sort: String,
 		lang: Int,
 		pubId: Int
-) = "/pubnews.json?page=$page&lang=$lang&sort=$sort&pub_id=$pubId".toAbsolutePath()
+) = "/pubnews?page=$page&lang=$lang&sort=$sort&pub_id=$pubId".toAbsolutePathWithApiVersion()
 
-fun getPublisherPubplansPath(
+fun getPubplansPath(
 		page: Int,
 		sort: String,
 		lang: Int,
 		pubId: Int
-) = "/pubplans.json?page=$page&lang=$lang&sort=$sort&pub_id=$pubId".toAbsolutePath()
+) = "/pubplans?page=$page&lang=$lang&sort=$sort&pub_id=$pubId".toAbsolutePathWithApiVersion()
 
-fun getPublisherAutplansPath(
+fun getAutplansPath(
 		page: Int,
 		sort: String,
 		lang: Int
-) = "/autplans.json?page=$page&sort=$sort&lang=$lang".toAbsolutePath()
+) = "/autplans?page=$page&sort=$sort&lang=$lang".toAbsolutePathWithApiVersion()
+
+fun getNewsPath(
+		page: Int,
+		perPage: Int
+) = "/news?page=$page&mpp=$perPage".toAbsolutePathWithApiVersion()
+
+fun getContestPath(
+		contestId: Int,
+		includeWorks: Boolean
+) = "/contest/$contestId?include_works=${includeWorks.toInt()}".toAbsolutePathWithApiVersion()
+
+fun getWorkTypesPath(
+) = "/conf/worktypes.json".toAbsolutePathWithApiVersion()
 //endregion
 
 //region Utils
 fun String.toAbsolutePath() = "https://fantlab.ru$this"
 
 fun String.toAbsolutePathWithApiVersion() = "https://api.fantlab.ru$this"
+
+fun String.toAbsolutePathWithTestApiVersion() = "http://dev3.fantlab.org:4242$this"
 
 fun Boolean.toInt(): Int = if (this) 1 else 0
 //endregion

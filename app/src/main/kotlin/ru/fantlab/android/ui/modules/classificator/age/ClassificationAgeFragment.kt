@@ -2,9 +2,9 @@ package ru.fantlab.android.ui.modules.classificator.age
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -35,7 +35,6 @@ class ClassificationAgeFragment : BaseFragment<ClassificationAgeMvp.View, Classi
 
 	override fun onInitViews(classificators: ArrayList<ClassificatorModel>) {
 		hideProgress()
-		recycler.addKeyLineDivider()
 		fastScroller.attachRecyclerView(recycler)
 		refresh.setOnRefreshListener(this)
 
@@ -132,7 +131,7 @@ class ClassificationAgeFragment : BaseFragment<ClassificationAgeMvp.View, Classi
 		pagerCallback?.onSetBadge(6, count)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is ClassificatorPagerMvp.View) {
 			pagerCallback = context

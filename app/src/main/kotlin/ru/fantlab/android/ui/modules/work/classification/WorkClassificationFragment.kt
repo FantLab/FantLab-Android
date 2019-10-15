@@ -2,9 +2,9 @@ package ru.fantlab.android.ui.modules.work.classification
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -40,8 +40,8 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 	override fun onInitViews(classificatory: ArrayList<GenreGroup>) {
 		hideProgress()
 		recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-			override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-				workCallback?.onScrolled(dy > 0);
+			override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+				workCallback?.onScrolled(dy > 0)
 			}
 		})
 		val nodes = arrayListOf<TreeNode<*>>()
@@ -129,7 +129,7 @@ class WorkClassificationFragment : BaseFragment<WorkClassificationMvp.View, Work
 		presenter.getClassificatory(true)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is WorkPagerMvp.View) {
 			workCallback = context

@@ -2,11 +2,11 @@ package ru.fantlab.android.ui.base
 
 import android.content.Intent
 import android.os.Handler
-import android.support.design.widget.NavigationView
-import android.support.transition.TransitionManager
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.transition.TransitionManager
+import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.drawer_header.view.*
 import kotlinx.android.synthetic.main.nav_menu_layout.*
 import ru.fantlab.android.R
@@ -15,10 +15,12 @@ import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.ui.modules.about.AboutActivity
 import ru.fantlab.android.ui.modules.authors.AuthorsActivity
 import ru.fantlab.android.ui.modules.awards.AwardsActivity
+import ru.fantlab.android.ui.modules.blogs.BlogsActivity
+import ru.fantlab.android.ui.modules.communities.CommunitiesActivity
+import ru.fantlab.android.ui.modules.forums.ForumsActivity
 import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.modules.main.MainActivity
 import ru.fantlab.android.ui.modules.plans.PlansPagerActivity
-import ru.fantlab.android.ui.modules.publishers.PublishersActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
@@ -44,7 +46,7 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 
 	private fun setupView(view: View) {
 		if (userModel != null) {
-			view.navAvatarLayout.setUrl("https://${userModel.avatar}")
+			view.navAvatarLayout.setUrl("https:${userModel.avatar}")
 			view.navUsername.text = userModel.login
 			val navFullName = view.navFullName
 			if (userModel.fio.isBlank()) {
@@ -99,6 +101,9 @@ class MainNavDrawer(val view: BaseActivity<*, *>, private val extraNav: Navigati
 					}
 					R.id.authors -> view.startActivity(Intent(view, AuthorsActivity::class.java))
 					R.id.awards -> view.startActivity(Intent(view, AwardsActivity::class.java))
+					R.id.forum -> view.startActivity(Intent(view, ForumsActivity::class.java))
+					R.id.communities -> view.startActivity(Intent(view, CommunitiesActivity::class.java))
+					R.id.blogs -> view.startActivity(Intent(view, BlogsActivity::class.java))
 					//R.id.publishers -> view.startActivity(Intent(view, PublishersActivity::class.java))
 					R.id.plans -> view.startActivity(Intent(view, PlansPagerActivity::class.java))
 				}

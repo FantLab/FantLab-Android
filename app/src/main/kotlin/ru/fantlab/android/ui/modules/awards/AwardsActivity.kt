@@ -1,10 +1,10 @@
 package ru.fantlab.android.ui.modules.awards
 
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.StringRes
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -49,11 +49,12 @@ class AwardsActivity : BaseActivity<AwardsMvp.View, AwardsPresenter>(), AwardsMv
 		recycler.addDivider()
 		presenter.getAwards(false)
 		fastScroller.attachRecyclerView(recycler)
+		fastScroller.setHidden(true)
 	}
 
 	fun showSortDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForAwardsSorting(recycler.context))
+		dialogView.initArguments("main", ContextMenuBuilder.buildForAwardsSorting(recycler.context, presenter.sort))
 		dialogView.show(supportFragmentManager, "ContextMenuDialogView")
 	}
 

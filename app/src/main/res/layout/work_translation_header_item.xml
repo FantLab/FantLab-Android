@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:selectableItemBackground"
+    tools:ignore="RtlSymmetry"
+    >
+
+        <ru.fantlab.android.ui.widgets.FontTextView
+            android:id="@+id/translation_lang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Перевод на русский:"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:textColor="?android:attr/textColorSecondary"
+        />
+
+</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

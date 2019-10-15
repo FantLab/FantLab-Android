@@ -6,11 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
+import androidx.viewpager.widget.ViewPager
 import com.evernote.android.state.State
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.appbar_tabbed_elevation.*
 import kotlinx.android.synthetic.main.tabbed_pager_layout.*
 import ru.fantlab.android.R
@@ -45,6 +45,7 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 	private val numberFormat = NumberFormat.getNumberInstance()
 	private lateinit var toolbarMenu: Menu
 	private var isError = false
+	@State var mark: Int = 0
 
 	override fun layout(): Int = R.layout.tabbed_pager_layout
 
@@ -76,6 +77,7 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 		tabs.tabGravity = TabLayout.GRAVITY_FILL
 		tabs.tabMode = TabLayout.MODE_SCROLLABLE
 		tabs.setupWithViewPager(pager)
+		invalidateTabs(adapter)
 		if (savedInstanceState == null) {
 			if (index != -1) {
 				pager.currentItem = index
@@ -101,6 +103,17 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 		fab.setOnClickListener { onFabClicked() }
 	}
 
+	private fun invalidateTabs(adapter: FragmentsPagerAdapter) {
+		for (i in 0 until tabs.tabCount) {
+			val tab = tabs.getTabAt(i)
+			if (tab != null) {
+				val custom = tab.customView
+				if (custom == null) tab.customView = adapter.getCustomTabView(this)
+				setupTab(0, i)
+			}
+		}
+	}
+
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
 		menuInflater.inflate(R.menu.work_menu, menu)
 		toolbarMenu = menu
@@ -118,7 +131,7 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 				return true
 			}
 			R.id.sort -> {
-				val fragment = pager.adapter?.instantiateItem(pager, 2) as? WorkResponsesFragment
+				val fragment = pager.adapter?.instantiateItem(pager, 1) as? WorkResponsesFragment
 				fragment?.showSortDialog()
 			}
 		}
@@ -144,11 +157,11 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 
 	private fun hideShowFab(position: Int) {
 		when (position) {
-			2 -> {
+			1 -> {
 				if (isLoggedIn()) {
 					fab.setImageResource(R.drawable.ic_response)
 					fab.show()
-				}
+				} else fab.hide()
 			}
 			else -> fab.hide()
 		}
@@ -165,13 +178,13 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 					toolbarMenu.findItem(R.id.sort).isVisible = false
 					toolbarMenu.findItem(R.id.share).isVisible = true
 				}
-				2 -> {
-					toolbarMenu.findItem(R.id.share).isVisible = false
+				1 -> {
 					toolbarMenu.findItem(R.id.sort).isVisible = true
+					toolbarMenu.findItem(R.id.share).isVisible = false
 				}
 				else -> {
-					toolbarMenu.findItem(R.id.share).isVisible = false
 					toolbarMenu.findItem(R.id.sort).isVisible = false
+					toolbarMenu.findItem(R.id.share).isVisible = false
 				}
 			}
 		}
@@ -184,20 +197,36 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 
 	private fun onFabClicked() {
 		when (pager.currentItem) {
-			2 -> {
-				startActivity(Intent(this, EditorActivity::class.java)
+			1 -> {
+				startActivityForResult(Intent(this, EditorActivity::class.java)
 						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_RESPONSE)
-						.putExtra(BundleConstant.ID, workId))
+						.putExtra(BundleConstant.ID, workId), BundleConstant.REFRESH_RESPONSE_CODE)
+			}
+		}
+	}
+
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		super.onActivityResult(requestCode, resultCode, data)
+		when (requestCode) {
+			BundleConstant.REFRESH_RESPONSE_CODE -> {
+				val fragment = pager.adapter?.instantiateItem(pager, 1) as? WorkResponsesFragment
+				fragment?.onRefresh()
 			}
 		}
 	}
 
 	private fun setupTab(count: Int, index: Int) {
-		val textView = ViewHelper.getTabTextView(tabs, index)
+		val tabView = ViewHelper.getTabView(tabs, index)
 		when (index) {
-			1 -> textView.text = String.format("%s(%s)", getString(R.string.content), numberFormat.format(count.toLong()))
-			2 -> textView.text = String.format("%s(%s)", getString(R.string.responses), numberFormat.format(count.toLong()))
-			3 -> textView.text = String.format("%s(%s)", getString(R.string.editions), numberFormat.format(count.toLong()))
+			0 -> tabView.first.text = getString(R.string.overview)
+			1 -> {
+				tabView.first.text = getString(R.string.responses)
+				tabView.second.text = count.toString()
+			}
+			2 -> {
+				tabView.first.text = getString(R.string.analogs)
+				tabView.second.text = count.toString()
+			}
 		}
 	}
 
@@ -225,7 +254,18 @@ class CyclePagerActivity : BaseActivity<WorkPagerMvp.View, BasePresenter<WorkPag
 	}
 
 	override fun onSetMarked(isMarked: Boolean, mark: Int) {
+		this.mark = mark
 	}
 
-	override fun onGetMark(): Int? = -1
+	override fun onGetMark(): Int {
+		return mark
+	}
+
+	override fun onResponsesRefresh() {
+		val fragment = pager.adapter?.instantiateItem(pager, 1) as? WorkResponsesFragment
+		fragment?.onRefresh()
+	}
+
+	override fun isCycle(): Boolean = true
+
 }

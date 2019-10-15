@@ -2,8 +2,8 @@ package ru.fantlab.android.ui.widgets.recyclerview
 
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.support.annotation.ColorInt
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.ColorInt
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * A decoration which draws a horizontal divider between [RecyclerView.ViewHolder]s of a given
@@ -37,8 +37,8 @@ internal class InsetDividerDecoration @JvmOverloads constructor(private val heig
 						continue
 					}
 					if (position != state.itemCount - 1) {
-						lines[i * 4] = (if (inset == 0) inset else inset + lm.getDecoratedLeft(child)).toFloat()
-						lines[i * 4 + 2] = lm.getDecoratedRight(child).toFloat()
+						lines[i * 4] = (if (inset == 0) inset else inset + lm!!.getDecoratedLeft(child)).toFloat()
+						lines[i * 4 + 2] = lm!!.getDecoratedRight(child).toFloat()
 						val y = lm.getDecoratedBottom(child) + child.translationY.toInt() - height
 						lines[i * 4 + 1] = y.toFloat()
 						lines[i * 4 + 3] = y.toFloat()

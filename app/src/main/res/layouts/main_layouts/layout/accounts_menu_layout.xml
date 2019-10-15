@@ -1,179 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<androidx.core.widget.NestedScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	>
 
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:background="@drawable/bottom_border"
 		android:orientation="vertical"
 		>
 
-		<LinearLayout
+		<FrameLayout
+			android:id="@+id/profile"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:background="@drawable/bottom_border"
+			android:background="?selectableItemBackground"
+			android:orientation="horizontal"
+			android:paddingBottom="@dimen/spacing_xs_large"
+			android:paddingTop="@dimen/spacing_xs_large"
 			>
 
-			<FrameLayout
-				android:id="@+id/logout"
-				android:layout_width="match_parent"
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:background="?selectableItemBackground"
-				android:orientation="horizontal"
-				android:paddingBottom="@dimen/spacing_xs_large"
-				android:paddingTop="@dimen/spacing_xs_large"
-				>
-
-				<android.support.v7.widget.AppCompatImageView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="start|center"
-					android:layout_marginStart="@dimen/spacing_xs_large"
-					android:src="@drawable/ic_logout"
-					/>
-
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_gravity="start|center"
-					android:paddingStart="@dimen/keyline_1"
-					android:text="@string/logout"
-					style="@style/TextAppearance.AppCompat.Subhead"
-					android:textColor="?android:attr/textColorSecondary"
-					/>
-
-			</FrameLayout>
-
-		</LinearLayout>
-
-		<!--<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="@drawable/bottom_border"
-			android:orientation="vertical"
-			>
-
-			<FrameLayout
-				android:id="@+id/togglePinned"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:background="?selectableItemBackground"
-				android:orientation="horizontal"
-				android:paddingBottom="@dimen/spacing_xs_large"
-				android:paddingTop="@dimen/spacing_xs_large"
-				>
-
-				<android.support.v7.widget.AppCompatImageView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="start|center"
-					android:layout_marginStart="@dimen/spacing_xs_large"
-					android:src="@drawable/ic_pin"
-					/>
-
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_gravity="start|center"
-					android:paddingEnd="@dimen/keyline_1"
-					android:paddingStart="@dimen/keyline_1"
-					android:text="@string/pinned"
-					android:textColor="@color/search_tab_highlighter"
-					style="@style/TextAppearance.AppCompat.Subhead"
-					/>
-
-			</FrameLayout>
-
-			<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-				android:id="@+id/pinnedList"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:nestedScrollingEnabled="false"
-				app:layoutManager="@string/linear_layout_manager"
-				tools:visibility="gone"
+				android:layout_gravity="start|center"
+				android:layout_marginStart="@dimen/spacing_xs_large"
+				android:src="@drawable/ic_person"
+				app:tint="?android:attr/textColorSecondary"
 				/>
 
-		</LinearLayout>
-
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="@drawable/bottom_border"
-			>
-
-			<FrameLayout
-				android:id="@+id/repos"
+			<TextView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:background="?selectableItemBackground"
-				android:orientation="horizontal"
-				android:paddingBottom="@dimen/spacing_xs_large"
-				android:paddingTop="@dimen/spacing_xs_large"
-				>
+				android:layout_gravity="start|center"
+				android:paddingStart="@dimen/keyline_1"
+				android:text="@string/profile"
+				android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+				android:textColor="?android:attr/textColorSecondary"
+				/>
 
-				<android.support.v7.widget.AppCompatImageView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="start|center"
-					android:layout_marginStart="@dimen/spacing_xs_large"
-					android:src="@drawable/ic_repo"
-					/>
+		</FrameLayout>
 
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_gravity="start|center"
-					android:paddingStart="@dimen/keyline_1"
-					android:text="@string/repos"
-					android:textColor="@color/search_tab_highlighter"
-					style="@style/TextAppearance.AppCompat.Subhead"
-					/>
-
-			</FrameLayout>
-
-		</LinearLayout>
-
-		<LinearLayout
+		<FrameLayout
+			android:id="@+id/logout"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:background="@drawable/bottom_border"
+			android:background="?selectableItemBackground"
+			android:orientation="horizontal"
+			android:paddingBottom="@dimen/spacing_xs_large"
+			android:paddingTop="@dimen/spacing_xs_large"
 			>
 
-			<FrameLayout
-				android:id="@+id/starred"
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="start|center"
+				android:layout_marginStart="@dimen/spacing_xs_large"
+				android:src="@drawable/ic_logout"
+				app:tint="?android:attr/textColorSecondary"
+				/>
+
+			<TextView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:background="?selectableItemBackground"
-				android:orientation="horizontal"
-				android:paddingBottom="@dimen/spacing_xs_large"
-				android:paddingTop="@dimen/spacing_xs_large"
-				>
+				android:layout_gravity="start|center"
+				android:paddingStart="@dimen/keyline_1"
+				android:text="@string/logout"
+				android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+				android:textColor="?android:attr/textColorSecondary"
+				/>
 
-				<android.support.v7.widget.AppCompatImageView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="start|center"
-					android:layout_marginStart="@dimen/spacing_xs_large"
-					android:src="@drawable/ic_star_filled"
-					/>
-
-				<ru.fantlab.android.ui.widgets.FontTextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_gravity="start|center"
-					android:paddingStart="@dimen/keyline_1"
-					android:text="@string/starred"
-					android:textColor="@color/search_tab_highlighter"
-					style="@style/TextAppearance.AppCompat.Subhead"
-					/>
-
-			</FrameLayout>
-
-		</LinearLayout>-->
+		</FrameLayout>
 
 	</LinearLayout>
 
-</android.support.v4.widget.NestedScrollView>
+	<!--<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@drawable/bottom_border"
+		android:orientation="vertical"
+		>
+
+		<FrameLayout
+			android:id="@+id/togglePinned"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="?selectableItemBackground"
+			android:orientation="horizontal"
+			android:paddingBottom="@dimen/spacing_xs_large"
+			android:paddingTop="@dimen/spacing_xs_large"
+			>
+
+			<android.support.v7.widget.AppCompatImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="start|center"
+				android:layout_marginStart="@dimen/spacing_xs_large"
+				android:src="@drawable/ic_pin"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="start|center"
+				android:paddingEnd="@dimen/keyline_1"
+				android:paddingStart="@dimen/keyline_1"
+				android:text="@string/pinned"
+				android:textColor="@color/search_tab_highlighter"
+				style="@style/TextAppearance.AppCompat.Subhead"
+				/>
+
+		</FrameLayout>
+
+		<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
+			android:id="@+id/pinnedList"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:nestedScrollingEnabled="false"
+			app:layoutManager="@string/linear_layout_manager"
+			tools:visibility="gone"
+			/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@drawable/bottom_border"
+		>
+
+		<FrameLayout
+			android:id="@+id/repos"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="?selectableItemBackground"
+			android:orientation="horizontal"
+			android:paddingBottom="@dimen/spacing_xs_large"
+			android:paddingTop="@dimen/spacing_xs_large"
+			>
+
+			<android.support.v7.widget.AppCompatImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="start|center"
+				android:layout_marginStart="@dimen/spacing_xs_large"
+				android:src="@drawable/ic_repo"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="start|center"
+				android:paddingStart="@dimen/keyline_1"
+				android:text="@string/repos"
+				android:textColor="@color/search_tab_highlighter"
+				style="@style/TextAppearance.AppCompat.Subhead"
+				/>
+
+		</FrameLayout>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@drawable/bottom_border"
+		>
+
+		<FrameLayout
+			android:id="@+id/starred"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="?selectableItemBackground"
+			android:orientation="horizontal"
+			android:paddingBottom="@dimen/spacing_xs_large"
+			android:paddingTop="@dimen/spacing_xs_large"
+			>
+
+			<android.support.v7.widget.AppCompatImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="start|center"
+				android:layout_marginStart="@dimen/spacing_xs_large"
+				android:src="@drawable/ic_star_filled"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="start|center"
+				android:paddingStart="@dimen/keyline_1"
+				android:text="@string/starred"
+				android:textColor="@color/search_tab_highlighter"
+				style="@style/TextAppearance.AppCompat.Subhead"
+				/>
+
+		</FrameLayout>
+
+	</LinearLayout>-->
+
+</androidx.core.widget.NestedScrollView>

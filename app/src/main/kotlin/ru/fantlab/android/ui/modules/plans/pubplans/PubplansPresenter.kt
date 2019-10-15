@@ -8,7 +8,7 @@ import ru.fantlab.android.data.dao.response.PubplansResponse
 import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.provider.rest.PubplansSortOption
-import ru.fantlab.android.provider.rest.getPublisherPubplansPath
+import ru.fantlab.android.provider.rest.getPubplansPath
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
@@ -16,7 +16,7 @@ class PubplansPresenter : BasePresenter<PubplansMvp.View>(),
 		PubplansMvp.Presenter {
 
 	private var page: Int = 1
-	private var sort: FantlabHelper.PublishersPubplansSort<PubplansSortOption, Int, Int> = FantlabHelper.PublishersPubplansSort(PubplansSortOption.BY_CORRECT, 0, 0)
+	private var sort: FantlabHelper.PubplansSort<PubplansSortOption, Int, Int> = FantlabHelper.PubplansSort(PubplansSortOption.BY_CORRECT, 0, 0)
 	private var previousTotal: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 	var publishers: List<Pubplans.Publisher> = arrayListOf()
@@ -66,7 +66,7 @@ class PubplansPresenter : BasePresenter<PubplansMvp.View>(),
 	private fun getPubplansFromDb(page: Int): Single<Triple<ArrayList<Pubplans.Object>, Int, Int>> =
 			DbProvider.mainDatabase
 					.responseDao()
-					.get(getPublisherPubplansPath(page, sort.sortBy.value, sort.filterLang, sort.filterPublisher))
+					.get(getPubplansPath(page, sort.sortBy.value, sort.filterLang, sort.filterPublisher))
 					.map { it.response }
 					.map { PubplansResponse.Deserializer().deserialize(it) }
 					.map { getPubplans(it) }
@@ -82,6 +82,8 @@ class PubplansPresenter : BasePresenter<PubplansMvp.View>(),
 		sort.filterPublisher = filterPublisher?.toInt() ?: sort.filterPublisher
 		getPubplans(1, true)
 	}
+
+	override fun getCurrentSort() = sort
 
 	override fun onItemClick(position: Int, v: View?, item: Pubplans.Object) {
 		sendToView { it.onItemClicked(item) }

@@ -7,8 +7,11 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_settings.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.SettingsModel
+import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.SettingsAdapter
 import ru.fantlab.android.ui.base.BaseActivity
+import ru.fantlab.android.ui.modules.settings.category.SettingsCategoryActivity
 import ru.fantlab.android.ui.modules.theme.ThemeActivity
 import ru.fantlab.android.ui.widgets.dialog.FontScaleBottomSheetDialog
 import ru.fantlab.android.ui.widgets.dialog.LanguageBottomSheetDialog
@@ -36,9 +39,11 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
 		adapter.listener = presenter
 		recycler.addDivider()
 		recycler.adapter = adapter
-		adapter.addItem(SettingsModel(R.drawable.ic_color, getString(R.string.theme_title), "", SettingsModel.THEME))
 		adapter.addItem(SettingsModel(R.drawable.ic_language, getString(R.string.language), "", SettingsModel.LANGUAGE))
-		adapter.addItem(SettingsModel(R.drawable.ic_font_size, getString(R.string.font), "", SettingsModel.FONT_SCALE))
+		adapter.addItem(SettingsModel(R.drawable.ic_theme, getString(R.string.theme_title), "", SettingsModel.THEME))
+		//adapter.addItem(SettingsModel(R.drawable.ic_forum, getString(R.string.forum), "", SettingsModel.FORUM))
+		adapter.addItem(SettingsModel(R.drawable.ic_custom, getString(R.string.customization), getString(R.string.customizationHint), SettingsModel.CUSTOMIZATION))
+    	adapter.addItem(SettingsModel(R.drawable.ic_font_size, getString(R.string.font), "", SettingsModel.FONT_SCALE))
 		hideShowShadow(true)
 	}
 
@@ -52,6 +57,14 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
 			}
 			SettingsModel.FONT_SCALE -> {
 				showFontScaleList()
+			}
+			else -> {
+				val intent = Intent(this, SettingsCategoryActivity::class.java)
+				intent.putExtras(Bundler.start()
+						.put(BundleConstant.ITEM, item.settingsType)
+						.put(BundleConstant.EXTRA, item.title)
+						.end())
+				startActivity(intent)
 			}
 		}
 	}

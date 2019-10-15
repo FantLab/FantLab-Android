@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.adapter.viewholder
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.edition_content_child_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.EditionContentChild
@@ -25,7 +25,7 @@ class EditionContentChildViewHolder : TreeViewBinder<EditionContentChildViewHold
 	) {
 		val childNode = node.content as EditionContentChild?
 		(holder as EditionContentChildViewHolder.ViewHolder)
-		holder.title.html = childNode!!.title
+		holder.title.html = "⚬ " + childNode!!.title
 	}
 
 	inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {

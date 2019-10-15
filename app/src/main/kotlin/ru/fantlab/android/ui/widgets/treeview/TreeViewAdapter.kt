@@ -1,11 +1,11 @@
 package ru.fantlab.android.ui.widgets.treeview
 
 import android.os.Bundle
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
 class TreeViewAdapter(nodes: List<TreeNode<*>>?, private val viewBinders: List<TreeViewBinder<*>>) :
@@ -65,40 +65,42 @@ class TreeViewAdapter(nodes: List<TreeNode<*>>?, private val viewBinders: List<T
 	}
 
 	override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-		holder.itemView.setPadding(displayNodes!![position].getHeight() * padding, 3, 3, 3)
-		holder.itemView.setOnClickListener(View.OnClickListener {
-			val selectedNode = displayNodes[holder.layoutPosition]
-			try {
-				val lastClickTime = holder.itemView.tag as Long
-				if (System.currentTimeMillis() - lastClickTime < 500)
-					return@OnClickListener
-			} catch (e: Exception) {
+		if (displayNodes != null) {
+			if (padding != 0) holder.itemView.setPadding(displayNodes[position].getHeight() * padding, 3, 3, 3)
+			holder.itemView.setOnClickListener(View.OnClickListener {
+				val selectedNode = displayNodes[holder.layoutPosition]
+				try {
+					val lastClickTime = holder.itemView.tag as Long
+					if (System.currentTimeMillis() - lastClickTime < 500)
+						return@OnClickListener
+				} catch (e: Exception) {
+					holder.itemView.tag = System.currentTimeMillis()
+				}
+
 				holder.itemView.tag = System.currentTimeMillis()
+
+				if (onTreeNodeListener != null && onTreeNodeListener!!.onClick(selectedNode, holder))
+					return@OnClickListener
+				if (selectedNode.isLeaf)
+					return@OnClickListener
+				if (selectedNode.isLocked) return@OnClickListener
+				val isExpand = selectedNode.isExpand
+				val positionStart = displayNodes.indexOf(selectedNode) + 1
+				if (!isExpand) {
+					notifyItemRangeInserted(positionStart, addChildNodes(selectedNode, positionStart))
+				} else {
+					notifyItemRangeRemoved(positionStart, removeChildNodes(selectedNode, true))
+				}
+			})
+			for (viewBinder in viewBinders) {
+				if (viewBinder.layoutId == displayNodes[position].content!!.layoutId)
+					viewBinder.bindView(holder, position, displayNodes[position], onTreeNodeListener)
 			}
 
-			holder.itemView.tag = System.currentTimeMillis()
-
-			if (onTreeNodeListener != null && onTreeNodeListener!!.onClick(selectedNode, holder))
-				return@OnClickListener
-			if (selectedNode.isLeaf)
-				return@OnClickListener
-			if (selectedNode.isLocked) return@OnClickListener
-			val isExpand = selectedNode.isExpand
-			val positionStart = displayNodes.indexOf(selectedNode) + 1
-			if (!isExpand) {
-				notifyItemRangeInserted(positionStart, addChildNodes(selectedNode, positionStart))
-			} else {
-				notifyItemRangeRemoved(positionStart, removeChildNodes(selectedNode, true))
+			holder.itemView.setOnLongClickListener { it ->
+				onItemClickListener?.onItemLongClick(displayNodes[position], position)
+				true
 			}
-		})
-		for (viewBinder in viewBinders) {
-			if (viewBinder.layoutId == displayNodes[position].content!!.layoutId)
-				viewBinder.bindView(holder, position, displayNodes[position], onTreeNodeListener)
-		}
-
-		holder.itemView.setOnLongClickListener { it ->
-			onItemClickListener?.onItemLongClick(displayNodes[position], position)
-			true
 		}
 	}
 

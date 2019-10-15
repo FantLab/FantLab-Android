@@ -6,14 +6,15 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
-import android.support.annotation.ColorInt
-import android.support.design.widget.TabLayout
 import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.ColorInt
+import com.google.android.material.tabs.TabLayout
 import ru.fantlab.android.R
+import ru.fantlab.android.ui.widgets.FontTextView
 
 object ViewHelper {
 
@@ -33,12 +34,17 @@ object ViewHelper {
 	}
 
 	@ColorInt
-	private fun getColorAttr(context: Context, attr: Int): Int {
+	fun getColorAttr(context: Context, attr: Int): Int {
 		val theme = context.theme
 		val typedArray = theme.obtainStyledAttributes(intArrayOf(attr))
 		val color = typedArray.getColor(0, Color.LTGRAY)
 		typedArray.recycle()
 		return color
+	}
+
+	@ColorInt
+	fun getPrimaryTextColor(context: Context): Int {
+		return getColorAttr(context, android.R.attr.textColorPrimary)
 	}
 
 	@ColorInt
@@ -69,6 +75,11 @@ object ViewHelper {
 
 	fun getTabTextView(tabs: TabLayout, tabIndex: Int): TextView {
 		return ((tabs.getChildAt(0) as LinearLayout).getChildAt(tabIndex) as LinearLayout).getChildAt(1) as TextView
+	}
+
+	fun getTabView(tabs: TabLayout, tabIndex: Int): Pair<FontTextView, FontTextView> {
+		val tabView = tabs.getTabAt(tabIndex)?.customView!!
+		return Pair(tabView.findViewById(R.id.title), tabView.findViewById(R.id.counter))
 	}
 
 	fun showKeyboard(v: View, activity: Context) {

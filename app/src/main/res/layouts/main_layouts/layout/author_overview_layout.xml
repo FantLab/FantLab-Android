@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	>
+
+	<androidx.core.widget.NestedScrollView
+		android:id="@+id/parentView"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:clipToPadding="false"
+		android:orientation="vertical"
+		>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:paddingTop="@dimen/spacing_normal"
+			android:descendantFocusability="blocksDescendants"
+			>
+
+			<androidx.cardview.widget.CardView
+				android:id="@+id/firstMenu"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:cardBackgroundColor="?card_background"
+				app:cardCornerRadius="0dp"
+				app:cardElevation="1dp"
+				app:cardUseCompatPadding="true"
+				>
+
+				<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					>
+
+					<RelativeLayout
+						android:id="@+id/topBlock"
+						android:layout_marginBottom="@dimen/spacing_normal"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent">
+
+						<ru.fantlab.android.ui.widgets.CoverLayout
+							android:id="@+id/coverLayouts"
+							android:layout_width="120dp"
+							android:layout_height="160dp"
+							android:layout_gravity="center_horizontal"
+							android:layout_marginBottom="@dimen/spacing_normal"
+							android:layout_marginLeft="@dimen/spacing_normal"
+							android:layout_marginRight="@dimen/spacing_normal"
+							android:layout_marginTop="@dimen/spacing_normal"
+							android:elevation="1dp"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/authorName"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="@dimen/spacing_normal"
+							android:layout_marginTop="@dimen/spacing_normal"
+							android:layout_toEndOf="@id/coverLayouts"
+							android:textColor="?android:attr/textColorPrimary"
+							tools:text="Тэд Уильямс"
+							style="@style/TextAppearance.AppCompat.Title"
+							/>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/authorNameOrig"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_below="@id/authorName"
+							android:layout_marginStart="@dimen/spacing_normal"
+							android:layout_toEndOf="@id/coverLayouts"
+							android:textColor="?android:attr/textColorSecondary"
+							tools:text="Tad Williams"
+							style="@style/TextAppearance.AppCompat.Subhead"
+							/>
+
+						<TableLayout
+							android:id="@+id/authorGeneralInfoBlock"
+							android:layout_width="match_parent"
+							android:layout_height="match_parent"
+							android:layout_below="@id/authorNameOrig"
+							android:layout_marginEnd="@dimen/spacing_normal"
+							android:layout_marginStart="@dimen/spacing_normal"
+							android:layout_marginTop="@dimen/spacing_micro"
+							android:layout_toEndOf="@id/coverLayouts"
+							android:orientation="horizontal"
+							android:visibility="visible"
+							>
+
+							<TableRow android:id="@+id/authorCountryInfoBlock" android:visibility="gone">
+
+								<ru.fantlab.android.ui.widgets.FontTextView
+									android:id="@+id/authorCountryTitle"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:text="@string/country"
+									android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+									android:textColor="?android:attr/textColorSecondary"
+									/>
+
+
+								<ru.fantlab.android.ui.widgets.FontTextView
+									android:id="@+id/authorCountryInfo"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:gravity="end"
+									android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+									android:textColor="?android:attr/textColorPrimary"
+									tools:text="США"
+									/>
+							</TableRow>
+
+							<TableRow android:id="@+id/editionBornBlock" android:visibility="gone">
+
+								<ru.fantlab.android.ui.widgets.FontTextView
+									android:id="@+id/editionBornTitle"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:text="@string/born"
+									android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+									android:textColor="?android:attr/textColorSecondary"
+									/>
+
+								<ru.fantlab.android.ui.widgets.FontTextView
+									android:id="@+id/editionBorn"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:gravity="end"
+									android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+									android:textColor="?android:attr/textColorPrimary"
+									tools:text="14 марта 1957 г."
+									/>
+							</TableRow>
+
+							<TableRow android:id="@+id/editionDieBlock" android:visibility="gone">
+
+								<ru.fantlab.android.ui.widgets.FontTextView
+									android:id="@+id/editionDieTitle"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:text="@string/die"
+									android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+									android:textColor="?android:attr/textColorSecondary"
+									/>
+
+								<ru.fantlab.android.ui.widgets.FontTextView
+									android:id="@+id/editionDie"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:gravity="end"
+									android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+									android:textColor="?android:attr/textColorPrimary"
+									tools:text="14 марта 1957 г."
+									/>
+							</TableRow>
+
+							<TableRow android:id="@+id/authorSiteBlock" android:visibility="gone">
+
+								<ru.fantlab.android.ui.widgets.FontTextView
+									android:id="@+id/authorSiteTitle"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:text="@string/site"
+									android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+									android:textColor="?android:attr/textColorSecondary"
+									/>
+
+								<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
+									android:id="@+id/authorSite"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_weight="1"
+									android:gravity="end"
+									android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+									android:textColor="?android:attr/textColorPrimary"
+									tools:text="www.tadwilliams.com "
+									/>
+							</TableRow>
+
+							<ru.fantlab.android.ui.widgets.FontTextView
+								android:id="@+id/notOpened"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="@dimen/spacing_normal"
+								android:text="@string/author_not_opened"
+								android:textColor="@color/material_red_500"
+								android:textStyle="bold"
+								android:visibility="gone"
+								style="@style/Base.TextAppearance.AppCompat.Subhead"
+								/>
+
+						</TableLayout>
+
+					</RelativeLayout>
+
+
+				</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+
+			</androidx.cardview.widget.CardView>
+
+			<androidx.cardview.widget.CardView
+				android:id="@+id/infoBlock"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/spacing_normal"
+				app:cardBackgroundColor="?card_background"
+				app:cardCornerRadius="0dp"
+				app:cardElevation="1dp"
+				app:cardUseCompatPadding="true"
+				>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:orientation="vertical"
+					android:layout_marginBottom="@dimen/spacing_normal"
+					>
+
+					<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+						android:id="@+id/biographyBlock"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_margin="@dimen/spacing_normal"
+						>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/biographyTitle"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="@string/about_author"
+							android:textColor="@color/material_teal_700"
+							style="@style/TextAppearance.AppCompat.Title"
+							/>
+
+						<ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
+							android:id="@+id/biographyText"
+							android:layout_width="match_parent"
+							android:layout_height="match_parent"
+							android:layout_below="@id/biographyTitle"
+							android:layout_marginTop="@dimen/spacing_normal"
+							android:textColor="?android:attr/textColorSecondary"
+							tools:text="Первый роман первой дилогии цикла «Песни Гипериона».\nИллюстрация на обложке М. Уэлана; внутренние иллюстрации С. Чайкуна."
+							style="@style/TextAppearance.AppCompat.Subhead"
+							/>
+
+					</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+
+
+					<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+						android:id="@+id/classificationBLock"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="@dimen/spacing_normal"
+						android:layout_marginEnd="@dimen/spacing_normal"
+						>
+
+						<ru.fantlab.android.ui.widgets.FontTextView
+							android:id="@+id/classificationTitle"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="@string/classification"
+							android:textColor="@color/material_teal_700"
+							style="@style/TextAppearance.AppCompat.Title"
+							/>
+
+						<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
+							android:id="@+id/classificationList"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_below="@id/classificationTitle"
+							android:layout_marginTop="@dimen/spacing_normal"
+							app:layoutManager="@string/linear_layout_manager"
+							tools:itemCount="2"
+							tools:listitem="@layout/classification_row_item"
+							/>
+
+
+					</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+				</LinearLayout>
+			</androidx.cardview.widget.CardView>
+
+			<LinearLayout
+				android:id="@+id/progress"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:visibility="visible"
+				>
+
+				<ProgressBar
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+	</androidx.core.widget.NestedScrollView>
+
+	<include
+		layout="@layout/state_layout"
+		android:visibility="gone"
+		/>
+
+</FrameLayout>

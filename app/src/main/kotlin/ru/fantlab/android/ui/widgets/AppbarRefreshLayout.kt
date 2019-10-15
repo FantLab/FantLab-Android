@@ -1,8 +1,8 @@
 package ru.fantlab.android.ui.widgets
 
 import android.content.Context
-import android.support.v4.widget.SwipeRefreshLayout
 import android.util.AttributeSet
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.R
 
 /**

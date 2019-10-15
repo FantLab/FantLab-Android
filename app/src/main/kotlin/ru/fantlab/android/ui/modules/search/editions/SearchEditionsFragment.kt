@@ -2,8 +2,8 @@ package ru.fantlab.android.ui.modules.search.editions
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.View
+import androidx.annotation.StringRes
 import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
@@ -13,7 +13,7 @@ import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.SearchEditionsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
-import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
+import ru.fantlab.android.ui.modules.edition.EditionActivity
 import ru.fantlab.android.ui.modules.search.SearchMvp
 
 class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditionsPresenter>(),
@@ -48,7 +48,7 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 		fastScroller.attachRecyclerView(recycler)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is SearchMvp.View) {
 			countCallback = context
@@ -109,7 +109,7 @@ class SearchEditionsFragment : BaseFragment<SearchEditionsMvp.View, SearchEditio
 	}
 
 	override fun onItemClicked(item: SearchEdition) {
-		EditionPagerActivity.startActivity(context!!, item.id, item.name, 0)
+		EditionActivity.startActivity(context!!, item.id, item.name)
 	}
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list

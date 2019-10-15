@@ -41,7 +41,7 @@ class ThemeActivity : BaseActivity<BaseMvp.View, BasePresenter<BaseMvp.View>>(),
 		pager.setPadding(pagerPadding, pagerPadding, pagerPadding, pagerPadding)
 		if (savedInstanceState == null) {
 			val theme = PrefGetter.getThemeType(this)
-			pager.setCurrentItem(theme.ordinal, true)
+			pager.setCurrentItem(theme - 1, true)
 		}
 	}
 

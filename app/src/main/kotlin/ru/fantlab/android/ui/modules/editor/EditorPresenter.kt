@@ -1,10 +1,14 @@
 package ru.fantlab.android.ui.modules.editor
 
+import com.google.gson.JsonParser
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.data.dao.model.ForumTopic
 import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.helper.BundleConstant.EDITOR_EDIT_RESPONSE
 import ru.fantlab.android.helper.BundleConstant.EDITOR_NEW_COMMENT
 import ru.fantlab.android.helper.BundleConstant.EDITOR_NEW_MESSAGE
 import ru.fantlab.android.helper.BundleConstant.EDITOR_NEW_RESPONSE
+import ru.fantlab.android.helper.BundleConstant.EDITOR_NEW_TOPIC_MESSAGE
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.DataManager
@@ -21,12 +25,23 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 			EDITOR_NEW_RESPONSE -> {
 				onEditorNewResponse(itemId, savedText, mode)
 			}
+			EDITOR_EDIT_RESPONSE -> {
+				val extraId = view?.getExtraIds()
+				if (extraId != null) onEditorEditResponse(itemId, extraId, savedText)
+			}
 			EDITOR_NEW_MESSAGE -> {
 				if (itemId == PrefGetter.getLoggedUser()?.id) {
 					sendToView { it.showErrorMessage("Ошибка") }
 					return
 				}
 				onEditorNewMessage(itemId, savedText, mode)
+			}
+			EDITOR_NEW_TOPIC_MESSAGE -> {
+				if (itemId == PrefGetter.getLoggedUser()?.id) {
+					sendToView { it.showErrorMessage("Ошибка") }
+					return
+				}
+				onEditorNewTopicMessage(itemId, savedText, mode)
 			}
 			EDITOR_NEW_COMMENT -> {
 				onEditorNewComment(itemId, savedText)
@@ -43,6 +58,15 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 		}
 	}
 
+	override fun onEditorEditResponse(workId: Int, commentId: Int, newText: CharSequence?) {
+		if (!InputHelper.isEmpty(newText)) {
+			makeRestCall(
+					DataManager.editResponse(workId, commentId, newText).toObservable(),
+					Consumer { result -> sendToView { it.onSendMessageResult(result) } }
+			)
+		}
+	}
+
 	override fun onEditorNewMessage(id: Int, savedText: CharSequence?, mode: String) {
 		if (!InputHelper.isEmpty(savedText)) {
 			makeRestCall(
@@ -50,6 +74,10 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 					Consumer { result -> sendToView { it.onSendMessageResult(result) } }
 			)
 		}
+	}
+
+	override fun onEditorNewTopicMessage(topicId: Int, savedText: CharSequence?, mode: String) {
+		view?.showErrorMessage("onEditorNewTopicMessage :: topicId - $topicId")
 	}
 
 	override fun onEditorNewComment(id: Int, savedText: CharSequence?) {

@@ -19,8 +19,8 @@ class WorkAnalogsPresenter : BasePresenter<WorkAnalogsMvp.View>(),
 
 	private var workId = -1
 
-	override fun onFragmentCreated(bundle: Bundle) {
-		workId = bundle.getInt(BundleConstant.EXTRA)
+	override fun onFragmentCreated(bundle: Bundle?) {
+		workId = bundle?.getInt(BundleConstant.EXTRA) ?: -1
 		getAnalogs(false)
 	}
 

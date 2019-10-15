@@ -4,7 +4,7 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
+	android:layout_height="wrap_content"
 	app:layout_behavior="@string/scroll_behavior"
 	tools:ignore="MergeRootFrame"
 	android:orientation="vertical"
@@ -16,14 +16,15 @@
 		android:layout_height="wrap_content"
 		android:text="@string/similar"
 		style="@style/TextAppearance.AppCompat.Title"
+		android:textColor="?android:attr/textColorTertiary"
 		/>
 
 	<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 		android:id="@+id/recycler"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		app:layoutManager="@string/staggered_layout_manager"
-		app:spanCount="2"
+		app:layoutManager="@string/linear_layout_manager"
+		android:orientation="horizontal"
 		tools:listitem="@layout/work_analog_row_item"
 		/>
 

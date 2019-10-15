@@ -3,8 +3,8 @@ package ru.fantlab.android.ui.modules.work.responses
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.View
+import androidx.annotation.StringRes
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -13,6 +13,7 @@ import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.WorkResponsesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
@@ -44,7 +45,6 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
 		recycler.adapter = adapter
-		recycler.addNormalSpacingDivider()
 		workId = arguments!!.getInt(BundleConstant.EXTRA)
 		getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
 		recycler.addOnScrollListener(getLoadMore())
@@ -52,7 +52,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 		fastScroller.attachRecyclerView(recycler)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is WorkPagerMvp.View) {
 			workCallback = context
@@ -85,7 +85,7 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	override fun getLoadMore() = onLoadMore
 
 	override fun onSetTabCount(count: Int) {
-		workCallback?.onSetBadge(2, count)
+		workCallback?.onSetBadge(1, count)
 	}
 
 	override fun onItemClicked(item: Response) {
@@ -93,6 +93,11 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 	}
 
 	override fun onItemLongClicked(position: Int, v: View?, item: Response) {
+		if (isLoggedIn() && PrefGetter.getLoggedUser()?.id == item.userId) {
+			val dialogView = ContextMenuDialogView()
+			dialogView.initArguments("main", ContextMenuBuilder.buildForUserResponse(recycler.context), item, position)
+			dialogView.show(childFragmentManager, "ContextMenuDialogView")
+		}
 	}
 
 	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
@@ -109,8 +114,41 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 						.putExtra(BundleConstant.ID, listItem.userId)
 				)
 			}
+			"edit" -> {
+				startActivityForResult(Intent(activity, EditorActivity::class.java)
+						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_EDIT_RESPONSE)
+						.putExtra(BundleConstant.EXTRA, listItem.text)
+						.putExtra(BundleConstant.EXTRA_TWO, listItem.id)
+						.putExtra(BundleConstant.EXTRA_THREE, position)
+						.putExtra(BundleConstant.ID, listItem.workId),
+						BundleConstant.REFRESH_RESPONSE_CODE)
+			}
+			"delete" -> {
+				presenter.onDeleteResponse(listItem.workId, listItem.id, position)
+			}
 		} else {
 			presenter.setCurrentSort(item.id)
+		}
+	}
+
+	override fun onResponseDelete(position: Int) {
+		hideProgress()
+		adapter.removeItem(position)
+		onSetTabCount(adapter.itemCount)
+	}
+
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		when (requestCode) {
+			BundleConstant.REFRESH_RESPONSE_CODE -> {
+				if (data != null) {
+					val position = data.extras?.getInt(BundleConstant.ID)
+					if (position != null && position != -1) {
+						val responseNewText = data.extras?.getCharSequence(BundleConstant.EXTRA)
+						adapter.data[position].text = responseNewText.toString()
+						adapter.notifyItemChanged(position)
+					}
+				}
+			}
 		}
 	}
 
@@ -148,7 +186,8 @@ class WorkResponsesFragment : BaseFragment<WorkResponsesMvp.View, WorkResponsesP
 
 	fun showSortDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting(recycler.context))
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting(recycler.context, sort))
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 

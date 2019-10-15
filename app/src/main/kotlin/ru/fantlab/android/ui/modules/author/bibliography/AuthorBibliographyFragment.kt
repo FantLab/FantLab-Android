@@ -2,9 +2,9 @@ package ru.fantlab.android.ui.modules.author.bibliography
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.StringRes
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -45,7 +45,6 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
-		recycler.addDivider()
 		presenter.onFragmentCreated(arguments!!)
 	}
 
@@ -53,14 +52,16 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		this.cycles = cycles
 		this.works = works
 
-		val ids = ArrayList<ArrayList<WorksBlocks.Work>>()
+		val ids = ArrayList<WorksBlocks.Work>()
 		val workIds = arrayListOf<Int>()
-		this.cycles?.worksBlocks?.map { ids.add(it.list) }
-		ids.map { it ->
-			it.map { cycle ->
-				cycle.children?.filter { it.id != null }?.map { workIds.add(it.id!!) }
-			}
+		this.cycles?.worksBlocks?.map {
+			ids.addAll(it.list)
 		}
+		this.works?.worksBlocks?.map {
+			ids.addAll(it.list)
+		}
+
+		ids.filter { it.id != null }.map { workIds.add(it.id!!) }
 		if (isLoggedIn()) {
 			presenter.getMarks(PrefGetter.getLoggedUser()!!.id, workIds)
 		} else {
@@ -74,13 +75,12 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 
 	private fun initAdapter(bibliography: WorksBlocks?, works: WorksBlocks?, marks: ArrayList<MarkMini>?) {
 		hideProgress()
-
 		val nodes = arrayListOf<TreeNode<*>>()
 		extractListData(bibliography, nodes, marks)
 		extractListData(works, nodes, marks)
 		adapter = TreeViewAdapter(nodes, Arrays.asList(CycleWorkViewHolder(), CycleViewHolder()))
 		if (recycler.adapter != null)
-			recycler.adapter.notifyDataSetChanged()
+			recycler.adapter!!.notifyDataSetChanged()
 		else
 			recycler.adapter = adapter
 		adapter.setOnTreeNodeListener(object : TreeViewAdapter.OnTreeNodeListener {
@@ -125,8 +125,8 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 
 			worksBlock.list.forEachIndexed { subIndex, work ->
 
-				val name = if (work.name.isNotEmpty()) {
-					if (work.nameOrig.isNotEmpty()) {
+				val name = if (!work.name.isNullOrEmpty()) {
+					if (!work.nameOrig.isNullOrEmpty()) {
 						String.format("%s / %s", work.name, work.nameOrig)
 					} else {
 						work.name
@@ -136,7 +136,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 				}
 
 				if (work.children != null) {
-					val apps = TreeNode(Cycle(name))
+					val apps = TreeNode(Cycle(name ?: ""))
 					app.addChild(apps)
 
 					work.children.forEach { item ->
@@ -151,7 +151,9 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 								item.responses?.toInt(),
 								item.votersCount,
 								item.rating,
-								if (mark != null && mark.isNotEmpty()) mark.first().mark else null))
+								if (mark != null && mark.isNotEmpty()) mark.first().mark else null,
+								if (mark != null && mark.isNotEmpty()) mark.first().user_work_classif_flag else 0
+								))
 						)
 					}
 				} else {
@@ -159,14 +161,16 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 					app.addChild(TreeNode(CycleWork(
 							work.id,
 							work.authors.asSequence().map { it.name }.toList(),
-							work.name,
-							work.nameOrig,
+							work.name ?: "",
+							work.nameOrig ?: "",
 							work.description,
 							work.year,
 							work.responseCount,
 							work.votersCount,
 							work.rating,
-							if (mark != null && mark.isNotEmpty()) mark.first().mark else null))
+							if (mark != null && mark.isNotEmpty()) mark.first().mark else null,
+							if (mark != null && mark.isNotEmpty()) mark.first().user_work_classif_flag else 0
+							))
 					)
 				}
 			}
@@ -174,10 +178,9 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 	}
 
 	override fun onItemLongClicked(item: TreeNode<*>, position: Int) {
-		if (isLoggedIn()) {
-			val work = (item.content as CycleWork)
+		if (isLoggedIn() && item.content is CycleWork) {
 			val dialogView = ContextMenuDialogView()
-			dialogView.initArguments("main", ContextMenuBuilder.buildForMarks(recycler.context), work, position)
+			dialogView.initArguments("main", ContextMenuBuilder.buildForMarks(recycler.context), item.content as CycleWork, position)
 			dialogView.show(childFragmentManager, "ContextMenuDialogView")
 		}
 	}
@@ -245,7 +248,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 		onRefresh()
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is AuthorPagerMvp.View) {
 			countCallback = context

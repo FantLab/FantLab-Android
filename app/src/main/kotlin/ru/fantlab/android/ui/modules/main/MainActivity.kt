@@ -2,22 +2,19 @@ package ru.fantlab.android.ui.modules.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.view.GravityCompat
+import androidx.core.view.GravityCompat
 import android.view.Menu
 import android.view.MenuItem
-import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.main_bottom_navigation.*
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.helper.TypeFaceHelper
 import ru.fantlab.android.ui.base.BaseActivity
-import ru.fantlab.android.ui.modules.main.responses.ResponsesFragment
+import ru.fantlab.android.ui.modules.main.news.NewsFragment
 import ru.fantlab.android.ui.modules.search.SearchActivity
 
 class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
-
-	@State var navType = MainMvp.NavigationType.RESPONSES
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -63,7 +60,6 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 	override fun providePresenter(): MainPresenter = MainPresenter()
 
 	override fun onNavigationChanged(navType: MainMvp.NavigationType) {
-		this.navType = navType
 		if (bottomNavigation.selectedIndex != navType.ordinal) {
 			bottomNavigation.setSelectedIndex(navType.ordinal, true)
 		}
@@ -78,7 +74,7 @@ class MainActivity : BaseActivity<MainMvp.View, MainPresenter>(), MainMvp.View {
 				hideShowShadow(true)
 				supportFragmentManager
 						.beginTransaction()
-						.replace(R.id.container, ResponsesFragment(), ResponsesFragment.TAG)
+						.replace(R.id.container, NewsFragment(), NewsFragment.TAG)
 						.commit()
 			}
 			val myTypeface = TypeFaceHelper.typeface

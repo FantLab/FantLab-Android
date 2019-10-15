@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<SwitchPreference
+		android:defaultValue="false"
+		android:icon="@drawable/ic_time"
+		android:key="forumExtended"
+		android:summary="@string/forum_last_summary"
+		android:title="@string/forum_last_title"/>
+
+	<ListPreference
+		android:defaultValue="desc"
+		android:icon="@drawable/ic_sort"
+		android:key="topicOrder"
+		android:summary="@string/topic_order_summary"
+		android:title="@string/topic_order_title"
+		android:entries="@array/topic_orders"
+		android:entryValues="@array/topic_orders_values"
+		/>
+
+</androidx.preference.PreferenceScreen>

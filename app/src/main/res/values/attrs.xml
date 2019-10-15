@@ -26,6 +26,19 @@
 		<attr format="float" name="srb_stepSize" />
 	</declare-styleable>
 
+	<declare-styleable name="FlexibleRatingBar">
+		<attr name="colorOutlineOn" format="color" />
+		<attr name="colorOutlineOff" format="color" />
+		<attr name="colorOutlinePressed" format="color" />
+		<attr name="colorFillOn" format="color" />
+		<attr name="colorFillOff" format="color" />
+		<attr name="colorFillPressedOn" format="color" />
+		<attr name="colorFillPressedOff" format="color" />
+		<attr name="polygonVertices" format="integer" />
+		<attr name="polygonRotation" format="integer" />
+		<attr name="strokeWidth" format="dimension" />
+	</declare-styleable>
+
 	<declare-styleable name="ExpandableTextView">
 		<attr format="integer" name="trimLength" />
 	</declare-styleable>

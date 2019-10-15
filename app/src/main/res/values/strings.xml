@@ -13,6 +13,9 @@
 	<string name="title_transition" translatable="false">profile_title_transition</string>
 	<string name="light_theme_mode" translatable="false">Light Theme</string>
 	<string name="dark_theme_mode" translatable="false">Dark Theme</string>
+	<string name="amlod_theme_mode" translatable="false">Amlod Theme</string>
+	<string name="mid_night_blue_theme_mode" translatable="false">Mid Night Blue</string>
+	<string name="bluish_theme" translatable="false">Bluish Theme</string>
 	<string name="red_theme_mode" translatable="false">Red</string>
 	<string name="pink_theme_mode" translatable="false">Pink</string>
 	<string name="purple_theme_mode" translatable="false">Purple</string>
@@ -30,7 +33,6 @@
 	<string name="orange_theme_mode" translatable="false">Orange</string>
 	<string name="deep_orange_theme_mode" translatable="false">Deep Orange</string>
 	<string name="share">Share</string>
-
 	<string name="in_progress">Loading, please wait…</string>
 	<string name="cancel">Cancel</string>
 	<string name="ok">OK</string>
@@ -51,6 +53,7 @@
 	<string name="bibliographies">Bibliographies</string>
 	<string name="news">News</string>
 	<string name="responses">Responses</string>
+	<string name="bookcases">Bookcases</string>
 	<string name="analogs">Analogs</string>
 	<string name="classification">Classification</string>
 	<string name="forum">Forum</string>
@@ -93,13 +96,13 @@
 	<string name="read_blog">Read blog</string>
 	<string name="mark_count">Mark count</string>
 	<string name="response_count">Response count</string>
-	<string name="votes_count">Votes for responses count</string>
-	<string name="description_count">Description count</string>
-	<string name="classification_count">Classified works count</string>
-	<string name="ticket_count">Ticket count</string>
+	<string name="votes_count">Votes</string>
+	<string name="description_count">Descriptions</string>
+	<string name="classification_count">Classifications</string>
+	<string name="ticket_count">Tickets</string>
 	<string name="forum_messages_count">Forum messages count</string>
-	<string name="topic_count">New forum topic count</string>
-	<string name="bookcase_count">Bookcase count</string>
+	<string name="topic_count">Topics</string>
+	<string name="bookcase_count">Bookcases</string>
 	<string name="no_marks">No marks</string>
 	<string name="no_notes">No notes</string>
 	<string name="no_description">No description</string>
@@ -127,7 +130,7 @@
 	<string name="submit">Submit</string>
 	<string name="close">Close</string>
 	<string name="unsaved_data_warning">Are you sure you want to cancel the entry?</string>
-	<string name="discard">Discard</string>
+	<string name="discard">Close</string>
 	<string name="comment">Comment</string>
 	<string name="type_here">Start type here</string>
 	<string name="title">Title</string>
@@ -152,7 +155,7 @@
 	<string name="sort_country">Country</string>
 	<string name="sort_type">Type</string>
 	<string name="sort_lang">Language</string>
-	<string name="editor_review">Review Editor</string>
+	<string name="editor_response">Response Editor</string>
 	<string name="editor_comment">Comment Editor</string>
 	<string name="editor_message">Message Editor</string>
 	<string name="wins">Awards and prizes</string>
@@ -213,6 +216,7 @@
 	<string name="alphabet_authors">Authors by letter</string>
 	<string name="alphabet_sort">Alphabetical authors</string>
 	<string name="publishers_news">New fiction</string>
+	<string name="pubnew">New</string>
 	<string name="publishers_plans">Publishing plans</string>
 	<string name="publishers_autplans">Authors plans</string>
 	<string name="publishers">Publishers</string>
@@ -227,5 +231,89 @@
 	<string name="sort_author">Author</string>
 	<string name="no_publishers">No publishers</string>
 	<string name="plans">News and plans</string>
-	<string name="font">Font</string>
+	<string name="sort_popularity">Popularity</string>
+	<string name="wait">Please, wait…</string>
+	<string name="sort_year">Year</string>
+	<string name="customization">Customization</string>
+	<string name="customizationHint">Extended application options</string>
+	<string name="currentColor">Accent color, current: %s</string>
+	<string name="colored_navbar_summary">Enable colored navigation bar</string>
+	<string name="colored_navbar_title">Colorless Navbar</string>
+	<string name="list_animation_title">List animation</string>
+	<string name="list_animation_summary">Animating list items</string>
+	<string name="theme_color_title">Colour</string>
+	<string name="theme_color_summary">Primary color of the application</string>
+	<string name="back_button_summary">Press back button twice to close application</string>
+	<string name="back_button_title">Double click to exit</string>
+	<string name="all">All</string>
+	<string name="response_edit">Edit</string>
+	<string name="response_delete">Delete</string>
+	<string name="forum_list">Forum</string>
+	<string name="forums_list">FantLab Forums</string>
+	<string name="topic">Forum topic</string>
+	<string name="quote">Quote</string>
+	<string name="editor_topic_message">Topic message editor</string>
+	<string name="copy_link">Copy Link</string>
+	<string name="reply">Reply</string>
+	<string name="topics_count">Topics</string>
+	<string name="messages_count">Messages</string>
+	<string name="views_count">Views</string>
+	<string name="is_pinned">Topic is pinned</string>
+	<string name="is_closed">Topic is closed</string>
+	<string name="from">by</string>
+	<string name="forum_last_summary">Information about the last post and the author in the list of topics</string>
+	<string name="forum_last_title">Details on the topic list</string>
+	<string name="topic_order_title">Message sorting</string>
+	<string name="topic_order_summary">Choosing the order in which the topic messages will be showed</string>
+	<string name="communities_list">Communities</string>
+	<string name="general_communities">General communities</string>
+	<string name="additional_communities">Additional communities</string>
+	<string name="no_communities">No communities</string>
+	<string name="blogs_list">Blogs</string>
+	<string name="no_blogs">No blogs</string>
+	<string name="sort_update">Update</string>
+	<string name="sort_articles">Articles</string>
+	<string name="sort_subscribers">Subscribers</string>
+	<string name="winner">Winner</string>
+	<string name="laureate">Laureate</string>
+	<string name="workLang">Writing language</string>
+	<string name="annotation">Annotation</string>
+	<string name="published">Published</string>
+	<string name="series">Series</string>
+	<string name="printCount">Count</string>
+	<string name="isbn" translatable="false">ISBN</string>
+	<string name="coverType">Cover type</string>
+	<string name="format">Format</string>
+	<string name="pagesCount">Pages</string>
+	<string name="born">Born</string>
+	<string name="country">Country</string>
+	<string name="die">Died</string>
+	<string name="site">Site</string>
+	<string name="awardDate">Opened</string>
+	<string name="bookcase_access">Bookcase is visible for other users</string>
+	<string name="bookcase_name_hint">Name</string>
+	<string name="bookcase_creation_title">Create a new bookcase</string>
+	<string name="bookcase_update_title">Update bookcase</string>
+	<string name="bookcase_work">Sets of works</string>
+	<string name="bookcase_edition">Sets of editions</string>
+	<string name="bookcase_film">Sets of films</string>
+	<string name="bookcase_work_type">for works</string>
+	<string name="bookcase_edition_type">for editions</string>
+	<string name="bookcase_film_type">for films</string>
+	<string name="bookcase_created">Bookcase created</string>
+	<string name="bookcase_updated">Bookcase updated</string>
+	<string name="bookcase_delete">Remove</string>
+	<string name="bookcase_deleting">Removing bookcase</string>
+	<string name="bookcase_modify">Modify</string>
+	<string name="bookcase_deleted">Bookcase deleted</string>
+	<string name="bookcase_add_comment">Add comment</string>
+	<string name="bookcase_item_deleting">Removing item from bookcase</string>
+	<string name="bookcase_item_comment_modifying">Update comment</string>
+	<string name="no_bookcases">No bookcases</string>
+	<string name="my_bookcases">My bookcases</string>
+	<string name="winners">Wins</string>
+    <string name="translation_language">Translation to %s:</string>
+	<string name="translation_details">(%s), %d - %d pub.</string>
+	<string name="content_cycle">Cycle content</string>
+  <string name="font">Font</string>
 </resources>

@@ -2,9 +2,9 @@ package ru.fantlab.android.ui.modules.plans.pubplans
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -15,7 +15,7 @@ import ru.fantlab.android.provider.rest.PubplansSortOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.PlansAdapter
 import ru.fantlab.android.ui.base.BaseFragment
-import ru.fantlab.android.ui.modules.edition.EditionPagerActivity
+import ru.fantlab.android.ui.modules.edition.EditionActivity
 import ru.fantlab.android.ui.modules.plans.PlansPagerMvp
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 
@@ -40,19 +40,18 @@ class PubplansFragment : BaseFragment<PubplansMvp.View, PubplansPresenter>(),
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
 		recycler.adapter = adapter
-		recycler.addNormalSpacingDivider()
 		getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
 		recycler.addOnScrollListener(getLoadMore())
 		presenter.onCallApi(1, null)
 		fastScroller.attachRecyclerView(recycler)
 		recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-			override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-				publisherCallback?.onScrolled(dy > 0);
+			override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+				publisherCallback?.onScrolled(dy > 0)
 			}
 		})
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is PlansPagerMvp.View) {
 			publisherCallback = context
@@ -85,7 +84,7 @@ class PubplansFragment : BaseFragment<PubplansMvp.View, PubplansPresenter>(),
 	override fun getLoadMore() = onLoadMore
 
 	override fun onItemClicked(item: Pubplans.Object) {
-		EditionPagerActivity.startActivity(context!!, item.editionId.toInt(), item.name, 0)
+		EditionActivity.startActivity(context!!, item.editionId.toInt(), item.name)
 	}
 
 	override fun onItemLongClicked(position: Int, v: View?, item: Pubplans.Object) {
@@ -124,6 +123,7 @@ class PubplansFragment : BaseFragment<PubplansMvp.View, PubplansPresenter>(),
 	}
 
 	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
+		recycler?.scrollToPosition(0)
 		when (item.id) {
 			"sort" -> {
 				presenter.setCurrentSort(PubplansSortOption.values()[position], null, null)
@@ -143,13 +143,15 @@ class PubplansFragment : BaseFragment<PubplansMvp.View, PubplansPresenter>(),
 
 	fun showSortDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("sort", ContextMenuBuilder.buildForPubplansSorting(recycler.context))
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("sort", ContextMenuBuilder.buildForPubplansSorting(recycler.context, sort.sortBy))
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 
 	fun showFilterDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("filter", ContextMenuBuilder.buildForPubplansFilter(recycler.context, presenter.publishers))
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("filter", ContextMenuBuilder.buildForPubplansFilter(recycler.context, presenter.publishers, sort.filterLang, sort.filterPublisher))
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 

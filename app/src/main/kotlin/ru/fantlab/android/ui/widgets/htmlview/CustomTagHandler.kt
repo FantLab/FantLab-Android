@@ -16,9 +16,16 @@ class CustomTagHandler : TagHandler {
 				if (opening) startSpoiler(output, SpoilerSpan())
 				else end(output, SpoilerSpan::class.java, SpoilerSpan())
 			}
-			"q" ->
+			"q" ->{
 				if (opening) startBlockquote(output)
-				else endBlockquote(output)
+				else endBlockquote(output)}
+			"moder" ->
+				if (opening) startBlockquote(output)
+				else endModerblock(output)
+			"censor" ->
+				if (opening) startBlockquote(output)
+				else endCensorblock(output)
+
 		}
 	}
 
@@ -34,8 +41,20 @@ class CustomTagHandler : TagHandler {
 
 	private fun endBlockquote(text: Editable) {
 		endBlockElement(text)
-		val theme = PrefGetter.getThemeType().ordinal
-		end(text, Blockquote::class.java, CustomQuoteSpan(getWindowBackground(theme)))
+		val theme = PrefGetter.getThemeType()
+		end(text, Blockquote::class.java, CustomQuoteSpan(getWindowBackground(theme), Color.GRAY))
+	}
+
+	private fun endModerblock(text: Editable) {
+		endBlockElement(text)
+		val theme = PrefGetter.getThemeType()
+		end(text, Blockquote::class.java, CustomQuoteSpan(getWindowBackground(theme), Color.RED))
+	}
+
+	private fun endCensorblock(text: Editable) {
+		endBlockElement(text)
+		val theme = PrefGetter.getThemeType()
+		end(text, Blockquote::class.java, CustomQuoteSpan(getWindowBackground(theme), Color.parseColor("#fc8c03")))
 	}
 
 	private fun endBlockElement(text: Editable) {
@@ -129,10 +148,13 @@ class CustomTagHandler : TagHandler {
 	}
 
 	private fun getWindowBackground(theme: Int): Int {
-		return if (theme == PrefGetter.DARK) {
-			Color.parseColor("#22252A")
-		} else {
-			Color.parseColor("#EEEEEE")
+		return when (theme) {
+			PrefGetter.LIGHT -> Color.parseColor("#f5f5f5")
+			PrefGetter.DARK -> Color.parseColor("#22252A")
+			PrefGetter.AMLOD -> Color.parseColor("#141414")
+			PrefGetter.BLUISH -> Color.parseColor("#091e42")
+			PrefGetter.MID_NIGHT_BLUE -> Color.parseColor("#262d38")
+			else -> Color.parseColor("#f5f5f5")
 		}
 	}
 }

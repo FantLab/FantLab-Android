@@ -2,8 +2,8 @@ package ru.fantlab.android.ui.modules.search.works
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.View
+import androidx.annotation.StringRes
 import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
@@ -48,7 +48,7 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 		fastScroller.attachRecyclerView(recycler)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is SearchMvp.View) {
 			countCallback = context

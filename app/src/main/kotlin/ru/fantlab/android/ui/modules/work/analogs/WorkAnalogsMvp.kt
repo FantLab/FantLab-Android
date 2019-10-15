@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.modules.work.analogs
 
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.WorkAnalog
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
@@ -16,13 +16,15 @@ interface WorkAnalogsMvp {
 
 		fun onSetTabCount(count: Int)
 
+		fun onNotifyAdapter()
+
 		fun onItemClicked(item: WorkAnalog)
 	}
 
 	interface Presenter : BaseMvp.Presenter,
 			BaseViewHolder.OnItemClickListener<WorkAnalog> {
 
-		fun onFragmentCreated(bundle: Bundle)
+		fun onFragmentCreated(bundle: Bundle?)
 
 		fun getAnalogs(force: Boolean)
 	}

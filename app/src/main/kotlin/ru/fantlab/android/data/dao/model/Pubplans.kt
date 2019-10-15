@@ -1,7 +1,7 @@
 package ru.fantlab.android.data.dao.model
 
 import android.os.Parcelable
-import android.support.annotation.Keep
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -78,6 +78,10 @@ data class Pubplans(
 			val picOrig: String,
 			@SerializedName("plan_description")
 			val planDescription: String,
+			@SerializedName("popularity")
+			val popularity: String,
+			@SerializedName("popularity_date_of_calc")
+			val popularityDate: String,
 			@SerializedName("preread")
 			val preread: String,
 			@SerializedName("publisher")

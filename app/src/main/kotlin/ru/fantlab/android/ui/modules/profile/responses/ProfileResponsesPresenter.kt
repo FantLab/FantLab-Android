@@ -7,6 +7,7 @@ import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.data.dao.response.ResponsesResponse
 import ru.fantlab.android.data.dao.response.VoteResponse
 import ru.fantlab.android.provider.rest.DataManager
+import ru.fantlab.android.provider.rest.ResponsesSortOption
 import ru.fantlab.android.provider.rest.getUserResponsesPath
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -15,6 +16,8 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 		ProfileResponsesMvp.Presenter {
 
 	private var page: Int = 1
+	private var sort: ResponsesSortOption = ResponsesSortOption.BY_DATE
+	private var userId: Int = 0
 	private var previousTotal: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 
@@ -33,6 +36,7 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 	}
 
 	override fun getResponses(userId: Int, force: Boolean) {
+		this.userId = userId
 		if (force) {
 			lastPage = Integer.MAX_VALUE
 			sendToView { it.getLoadMore().reset() }
@@ -43,7 +47,7 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 				Consumer { (responses, totalCount, lastPage) ->
 					this.lastPage = lastPage
 					sendToView {
-						with (it) {
+						with(it) {
 							onNotifyAdapter(responses, page)
 							onSetTabCount(totalCount)
 						}
@@ -63,13 +67,13 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 					}
 
 	private fun getResponsesFromServer(userId: Int): Single<Triple<ArrayList<Response>, Int, Int>> =
-			DataManager.getUserResponses(userId, page)
+			DataManager.getUserResponses(userId, page, sort)
 					.map { getResponses(it) }
 
 	private fun getResponsesFromDb(userId: Int): Single<Triple<ArrayList<Response>, Int, Int>> =
 			DbProvider.mainDatabase
 					.responseDao()
-					.get(getUserResponsesPath(userId, 1))
+					.get(getUserResponsesPath(userId, 1, sort))
 					.map { it.response }
 					.map { ResponsesResponse.Deserializer(perPage = 50).deserialize(it) }
 					.map { getResponses(it) }
@@ -90,11 +94,26 @@ class ProfileResponsesPresenter : BasePresenter<ProfileResponsesMvp.View>(),
 				})
 	}
 
+	override fun onDeleteResponse(workId: Int, commentId: Int, position: Int) {
+		makeRestCall(
+				DataManager.editResponse(workId, commentId, "").toObservable(),
+				Consumer { sendToView { it.onResponseDelete(position) } }
+		)
+	}
+
+	override fun setCurrentSort(sortValue: String) {
+		sort = ResponsesSortOption.valueOf(sortValue)
+		onCallApi(1, userId)
+	}
+
+	override fun getCurrentSort() = sort
+
 	override fun onItemClick(position: Int, v: View?, item: Response) {
 		sendToView { it.onItemClicked(item) }
 	}
 
 	override fun onItemLongClick(position: Int, v: View?, item: Response) {
+		sendToView { it.onItemLongClicked(item, position) }
 	}
 
 	override fun getCurrentPage(): Int = page

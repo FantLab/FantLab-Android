@@ -1,7 +1,7 @@
 package ru.fantlab.android.data.dao.model
 
 import android.os.Parcelable
-import android.support.annotation.Keep
+import androidx.annotation.Keep
 import kotlinx.android.parcel.Parcelize
 
 @Keep
@@ -17,6 +17,7 @@ data class ContextMenus(
 			val title: String,
 			val icon: Int?,
 			val id: String,
-			val logged: Boolean = false
+			val logged: Boolean = false,
+			val selected: Boolean = false
 	) : Parcelable
 }

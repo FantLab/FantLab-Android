@@ -2,6 +2,7 @@
 <resources>
 	<attr format="color|reference" name="card_background" />
 	<attr format="color|reference" name="icon_color" />
+	<attr format="color|reference" name="button_icon_color" />
 	<attr format="reference" name="timeLineBackground" />
 	<attr format="color" name="patch_deletion" />
 	<attr format="color" name="patch_addition" />

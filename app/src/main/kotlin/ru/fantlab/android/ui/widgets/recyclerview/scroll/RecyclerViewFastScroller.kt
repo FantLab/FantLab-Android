@@ -2,11 +2,6 @@ package ru.fantlab.android.ui.widgets.recyclerview.scroll
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.design.widget.AppBarLayout
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -15,6 +10,11 @@ import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.appbar.AppBarLayout
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation
 import ru.fantlab.android.R
 import ru.fantlab.android.helper.ActivityHelper
@@ -29,6 +29,7 @@ class RecyclerViewFastScroller : FrameLayout {
 	private var appBarLayout: AppBarLayout? = null
 	private var bottomNavigation: BottomNavigation? = null
 	private var toggled: Boolean = false
+	private var hidden: Boolean = false
 	private var registeredObserver = false
 
 	private val onScrollListener = object : RecyclerView.OnScrollListener() {
@@ -158,7 +159,7 @@ class RecyclerViewFastScroller : FrameLayout {
 			this.layoutManager = recyclerView.layoutManager
 			this.recyclerView?.addOnScrollListener(onScrollListener)
 			if (recyclerView.adapter != null && !registeredObserver) {
-				recyclerView.adapter.registerAdapterDataObserver(observer)
+				recyclerView.adapter!!.registerAdapterDataObserver(observer)
 				registeredObserver = true
 			}
 			hideShow()
@@ -194,7 +195,7 @@ class RecyclerViewFastScroller : FrameLayout {
 
 	private fun setRecyclerViewPosition(y: Float) {
 		recyclerView?.let {
-			val itemCount = it.adapter.itemCount
+			val itemCount = it.adapter!!.itemCount
 			val proportion: Float = when {
 				scrollerView.y == 0f -> 0f
 				scrollerView.y + scrollerView.height >= aHeight - TRACK_SNAP_RANGE -> 1f
@@ -216,12 +217,20 @@ class RecyclerViewFastScroller : FrameLayout {
 
 	private fun hideShow() {
 		recyclerView?.let {
-			if (recyclerView != null && it.adapter != null) {
-				visibility = if (it.adapter.itemCount > 10) View.VISIBLE else View.GONE
+			if (hidden) {
+				View.GONE
+				return
+			}
+			visibility = if (recyclerView != null && it.adapter != null) {
+				if (it.adapter!!.itemCount > 10) View.VISIBLE else View.GONE
 			} else {
-				visibility = View.GONE
+				View.GONE
 			}
 		}
+	}
+
+	fun setHidden(hidden: Boolean) {
+		this.hidden = hidden
 	}
 
 	companion object {

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "000000000000",
+    "firebase_url": "https://fantlab-debug.firebaseio.com",
+    "project_id": "fantlab-debug",
+    "storage_bucket": "fantlab-debug.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123456789012:android:1234567890123456",
+        "android_client_info": {
+          "package_name": "ru.fantlab.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "fantlab-debug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "123456789012345678901234567890123456789"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

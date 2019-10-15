@@ -2,10 +2,9 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:foreground="?android:selectableItemBackground"
+	android:background="?android:selectableItemBackground"
 	android:gravity="center_vertical"
 	>
 
@@ -42,6 +41,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				style="@style/TextAppearance.AppCompat.Title"
+				android:textColor="?android:attr/textColorTertiary"
 				/>
 
 			<ru.fantlab.android.ui.widgets.FontTextView

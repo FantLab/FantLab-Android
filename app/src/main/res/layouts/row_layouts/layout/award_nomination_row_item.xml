@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:foreground="?selectableItemBackgroundBorderless"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:background="?selectableItemBackgroundBorderless"
 	android:minHeight="?listPreferredItemHeightSmall"
 	android:orientation="vertical"
 	android:padding="@dimen/spacing_xs_large"
@@ -17,9 +18,10 @@
 		android:drawablePadding="10dp"
 		android:drawableStart="@drawable/ic_type_small"
 		android:ellipsize="end"
-		style="@style/TextAppearance.AppCompat.Title"
-		android:textSize="16sp"
+		android:textColor="?android:textColorTertiary"
 		tools:text="Дебютный роман"
+		style="@style/TextAppearance.AppCompat.Medium"
+		app:drawableColor="?android:attr/textColorSecondary"
 		/>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
@@ -27,9 +29,9 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:ellipsize="end"
-		android:visibility="gone"
 		android:textColor="?android:attr/textColorSecondary"
-		style="@style/TextAppearance.AppCompat.Subhead"
+		android:visibility="gone"
 		tools:text="Юн Ха Ли Гамбит девятихвостого лиса"
+		style="@style/TextAppearance.AppCompat.Subhead"
 		/>
 </LinearLayout>

@@ -6,7 +6,6 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:layout_gravity="bottom"
-	android:visibility="gone"
 	app:bbn_entries="@menu/bottom_nav_menu"
 	app:layout_behavior="@string/bbn_phone_view_behavior"
 	/>

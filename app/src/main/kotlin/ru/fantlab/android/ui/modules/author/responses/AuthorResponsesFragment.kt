@@ -3,7 +3,7 @@ package ru.fantlab.android.ui.modules.author.responses
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import android.view.View
 import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
@@ -45,7 +45,6 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
 		recycler.adapter = adapter
-		recycler.addKeyLineDivider()
 		if (savedInstanceState == null) {
 			authorId = arguments?.getInt(BundleConstant.EXTRA)
 		}
@@ -57,7 +56,7 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 		fastScroller.attachRecyclerView(recycler)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is AuthorPagerMvp.View) {
 			authorCallback = context
@@ -126,7 +125,8 @@ class AuthorResponsesFragment : BaseFragment<AuthorResponsesMvp.View, AuthorResp
 
 	fun showSortDialog() {
 		val dialogView = ContextMenuDialogView()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting(recycler.context))
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting(recycler.context, sort))
 		dialogView.show(childFragmentManager, "ContextMenuDialogView")
 	}
 

@@ -1,6 +1,6 @@
 package ru.fantlab.android.ui.adapter.viewholder
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import kotlinx.android.synthetic.main.author_cycle_work_row_item.view.*
@@ -8,6 +8,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.CycleWork
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.ui.widgets.FontTextView
+import ru.fantlab.android.ui.widgets.ForegroundImageView
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import ru.fantlab.android.ui.widgets.treeview.TreeViewBinder
@@ -48,10 +49,12 @@ class CycleWorkViewHolder : TreeViewBinder<CycleWorkViewHolder.ViewHolder>() {
 
 		if (!InputHelper.isEmpty(work.description)) {
 			holder.description.text = work.description?.let { work.description.replace("\\[(.*?)]".toRegex(), "") }
+			holder.description.visibility = View.VISIBLE
 		} else holder.description.visibility = View.GONE
 
 		if (!InputHelper.isEmpty(work.year)) {
 			holder.year.text = work.year.toString()
+			holder.year.visibility = View.VISIBLE
 		} else holder.year.visibility = View.GONE
 
 		if (work.responseCount != null && work.responseCount != 0) {
@@ -73,6 +76,11 @@ class CycleWorkViewHolder : TreeViewBinder<CycleWorkViewHolder.ViewHolder>() {
 			holder.mark.text = myMark.toString()
 			holder.mark.visibility = View.VISIBLE
 		} else holder.mark.visibility = View.GONE
+
+		val classified = work.classified
+		if (classified == 1) {
+			holder.classified.visibility = View.VISIBLE
+		} else holder.classified.visibility = View.GONE
 	}
 
 	inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
@@ -83,5 +91,6 @@ class CycleWorkViewHolder : TreeViewBinder<CycleWorkViewHolder.ViewHolder>() {
 		var rating: TextView = rootView.rating
 		var responses: TextView = rootView.responses
 		var mark: TextView = rootView.mark
+		var classified: ForegroundImageView = rootView.classified
 	}
 }

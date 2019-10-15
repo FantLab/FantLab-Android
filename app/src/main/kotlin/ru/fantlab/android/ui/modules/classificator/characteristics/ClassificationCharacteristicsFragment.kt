@@ -2,9 +2,9 @@ package ru.fantlab.android.ui.modules.classificator.characteristics
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -36,7 +36,6 @@ class ClassificationCharacteristicsFragment :
 
 	override fun onInitViews(classificators: ArrayList<ClassificatorModel>) {
 		hideProgress()
-		recycler.addKeyLineDivider()
 		fastScroller.attachRecyclerView(recycler)
 		refresh.setOnRefreshListener(this)
 
@@ -133,7 +132,7 @@ class ClassificationCharacteristicsFragment :
 		pagerCallback?.onSetBadge(1, count)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is ClassificatorPagerMvp.View) {
 			pagerCallback = context

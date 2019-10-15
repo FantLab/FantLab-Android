@@ -2,9 +2,10 @@ package ru.fantlab.android.ui.modules.work.analogs
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.View
-import kotlinx.android.synthetic.main.analogs_list.*
+import androidx.annotation.StringRes
+import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
+import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.WorkAnalog
 import ru.fantlab.android.helper.BundleConstant
@@ -13,49 +14,44 @@ import ru.fantlab.android.ui.adapter.AnalogsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 
 class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresenter>(),
 		WorkAnalogsMvp.View {
 
 	private val adapter: AnalogsAdapter by lazy { AnalogsAdapter(arrayListOf()) }
-	private var countCallback: WorkPagerMvp.View? = null
+	private var pagerCallback: WorkPagerMvp.View? = null
 
-	override fun fragmentLayout() = R.layout.analogs_list
+	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
 
 	override fun providePresenter() = WorkAnalogsPresenter()
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
-		presenter.onFragmentCreated(arguments!!)
+		if (savedInstanceState == null) {
+			stateLayout.hideProgress()
+		}
+		stateLayout.setEmptyText(R.string.no_analogs)
+		stateLayout.setOnReloadListener(this)
+		refresh.setOnRefreshListener(this)
+		recycler.setEmptyView(stateLayout, refresh)
+		adapter.listener = presenter
+		recycler.adapter = adapter
+		fastScroller.attachRecyclerView(recycler)
+		presenter.onFragmentCreated(arguments)
 	}
 
 	override fun onInitViews(analogs: ArrayList<WorkAnalog>) {
-		if (analogs.isEmpty()) {
-			fragmentManager?.beginTransaction()?.remove(this)?.commit()
-			return
-		}
-		fragmentManager?.beginTransaction()?.show(this)?.commit()
-		recycler.addKeyLineDivider()
-		recycler.isNestedScrollingEnabled = false
-		adapter.listener = presenter
-		recycler.adapter = adapter
+		hideProgress()
 		adapter.addItems(analogs)
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
+		refresh.isRefreshing = true
+		stateLayout.showProgress()
 	}
 
 	override fun hideProgress() {
-	}
-
-	override fun showErrorMessage(msgRes: String?) {
-		hideProgress()
-		super.showErrorMessage(msgRes)
-	}
-
-	override fun showMessage(titleRes: Int, msgRes: Int) {
-		hideProgress()
-		super.showMessage(titleRes, msgRes)
+		refresh.isRefreshing = false
+		stateLayout.hideProgress()
 	}
 
 	companion object {
@@ -68,23 +64,29 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 		}
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is WorkPagerMvp.View) {
-			countCallback = context
+			pagerCallback = context
 		}
 	}
 
 	override fun onDetach() {
-		countCallback = null
+		pagerCallback = null
 		super.onDetach()
 	}
 
 	override fun onSetTabCount(count: Int) {
+		pagerCallback?.onSetBadge(2, count)
 	}
 
 	override fun onRefresh() {
 		presenter.getAnalogs(true)
+	}
+
+	override fun onNotifyAdapter() {
+		hideProgress()
+		adapter.notifyDataSetChanged()
 	}
 
 	override fun onClick(p0: View?) {

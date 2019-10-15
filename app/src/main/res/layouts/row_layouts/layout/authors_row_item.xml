@@ -5,7 +5,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:layout_margin="@dimen/grid_spacing"
-	android:foreground="?android:selectableItemBackground"
+	android:background="?android:selectableItemBackground"
 	android:paddingBottom="@dimen/spacing_normal"
 	android:paddingEnd="@dimen/spacing_xs_large"
 	android:paddingTop="@dimen/spacing_normal"
@@ -57,6 +57,7 @@
 				android:lines="1"
 				tools:text="George R.R. Martin"
 				style="@style/TextAppearance.AppCompat.Title"
+				android:textColor="?android:attr/textColorTertiary"
 				/>
 
 		</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

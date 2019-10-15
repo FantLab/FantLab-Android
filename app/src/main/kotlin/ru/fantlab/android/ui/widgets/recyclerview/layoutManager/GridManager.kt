@@ -1,9 +1,9 @@
 package ru.fantlab.android.ui.widgets.recyclerview.layoutManager
 
 import android.content.Context
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class GridManager : GridLayoutManager {
 
@@ -28,7 +28,7 @@ class GridManager : GridLayoutManager {
 
 	}
 
-	override fun onMeasure(recycler: RecyclerView.Recycler?, state: RecyclerView.State?, widthSpec: Int, heightSpec: Int) {
+	override fun onMeasure(recycler: RecyclerView.Recycler, state: RecyclerView.State, widthSpec: Int, heightSpec: Int) {
 		try {
 			super.onMeasure(recycler, state, widthSpec, heightSpec)
 		} catch (ignored: Exception) {

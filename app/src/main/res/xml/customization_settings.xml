@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<ru.fantlab.android.ui.widgets.ColorPickerPreference
+		android:defaultValue="@string/light_blue_theme_mode"
+		android:dialogTitle="@string/theme_color_title"
+		android:icon="@drawable/ic_color"
+		android:key="appColor"
+		android:summary="@string/theme_color_summary"
+		android:title="@string/theme_color_title"/>
+
+	<SwitchPreference
+		android:defaultValue="true"
+		android:icon="@drawable/ic_navbar"
+		android:key="navigation_color"
+		android:summary="@string/colored_navbar_summary"
+		android:title="@string/colored_navbar_title"/>
+
+	<SwitchPreference
+		android:defaultValue="false"
+		android:icon="@drawable/ic_animlist"
+		android:key="recylerViewAnimation"
+		android:summary="@string/list_animation_summary"
+		android:title="@string/list_animation_title"/>
+
+	<SwitchPreference
+		android:defaultValue="true"
+		android:icon="@drawable/ic_clear"
+		android:key="back_button"
+		android:summary="@string/back_button_summary"
+		android:title="@string/back_button_title"/>
+
+</androidx.preference.PreferenceScreen>

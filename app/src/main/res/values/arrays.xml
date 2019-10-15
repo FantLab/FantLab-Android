@@ -9,7 +9,6 @@
 		<item>ru</item>
 	</string-array>
 	<string-array name="alphabet_array" translatable="false">
-		<item>Все</item>
 		<item>А</item>
 		<item>Б</item>
 		<item>В</item>
@@ -40,8 +39,7 @@
 		<item>Ю</item>
 		<item>Я</item>
 	</string-array>
-	<string-array name="alphabet_array_id" translatable="false">
-		<item>all</item>
+	<integer-array name="alphabet_array_id" translatable="false">
 		<item>192</item>
 		<item>193</item>
 		<item>194</item>
@@ -71,7 +69,7 @@
 		<item>221</item>
 		<item>222</item>
 		<item>223</item>
-	</string-array>
+	</integer-array>
 	<string-array name="countries_array_id" translatable="false">
 		<item>0</item>
 		<item>1</item>
@@ -251,6 +249,60 @@
 		<item>Русскоязычные</item>
 		<item>Зарубежные</item>
 	</string-array>
+
+  <string-array name="marks_categories_array" translatable="false">
+		<item>Все</item>
+		<item>Только романы</item>
+		<item>Только повести, рассказы</item>
+	</string-array>
+
+	<string-array name="theme_colors" translatable="false">
+		<item>@string/red_theme_mode</item>
+		<item>@string/pink_theme_mode</item>
+		<item>@string/purple_theme_mode</item>
+		<item>@string/deep_purple_theme_mode</item>
+		<item>@string/indigo_theme_mode</item>
+		<item>@string/blue_theme_mode</item>
+		<item>@string/light_blue_theme_mode</item>
+		<item>@string/cyan_theme_mode</item>
+		<item>@string/teal_theme_mode</item>
+		<item>@string/green_theme_mode</item>
+		<item>@string/light_green_theme_mode</item>
+		<item>@string/lime_theme_mode</item>
+		<item>@string/yellow_theme_mode</item>
+		<item>@string/amber_theme_mode</item>
+		<item>@string/orange_theme_mode</item>
+		<item>@string/deep_orange_theme_mode</item>
+	</string-array>
+
+	<array name="theme_colors_hex" translatable="false">
+		<item>@color/material_red_700</item>
+		<item>@color/material_pink_700</item>
+		<item>@color/material_purple_700</item>
+		<item>@color/material_deep_purple_700</item>
+		<item>@color/material_indigo_700</item>
+		<item>@color/material_blue_700</item>
+		<item>@color/material_light_blue_700</item>
+		<item>@color/material_cyan_700</item>
+		<item>@color/material_teal_700</item>
+		<item>@color/material_green_700</item>
+		<item>@color/material_light_green_700</item>
+		<item>@color/material_lime_700</item>
+		<item>@color/material_yellow_700</item>
+		<item>@color/material_amber_700</item>
+		<item>@color/material_orange_700</item>
+		<item>@color/material_deep_orange_700</item>
+	</array>
+
+	<string-array name="topic_orders">
+		<item>От старых к новым</item>
+		<item>От новых к старым</item>
+	</string-array>
+	<string-array name="topic_orders_values">
+		<item>desc</item>
+		<item>asc</item>
+	</string-array>
+
 	<string-array name="fonts_array" translatable="false">
 		<item>0.7x</item>
 		<item>0.8x</item>

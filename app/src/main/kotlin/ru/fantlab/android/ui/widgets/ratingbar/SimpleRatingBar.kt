@@ -1,8 +1,8 @@
 package ru.fantlab.android.ui.widgets.ratingbar
 
 import android.graphics.drawable.Drawable
-import android.support.annotation.DrawableRes
-import android.support.annotation.FloatRange
+import androidx.annotation.DrawableRes
+import androidx.annotation.FloatRange
 
 internal interface SimpleRatingBar {
 
@@ -33,6 +33,4 @@ internal interface SimpleRatingBar {
 	fun setFilledDrawableRes(@DrawableRes res: Int)
 
 	fun setMinimumStars(@FloatRange(from = 0.0) minimumStars: Float)
-
-
 }

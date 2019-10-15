@@ -2,10 +2,10 @@ package ru.fantlab.android.ui.widgets
 
 import android.content.Context
 import android.os.Parcelable
-import android.support.annotation.StringRes
-import android.support.v4.widget.NestedScrollView
+import androidx.core.widget.NestedScrollView
 import android.util.AttributeSet
 import android.view.View
+import androidx.annotation.StringRes
 import com.evernote.android.state.State
 import com.evernote.android.state.StateSaver
 import kotlinx.android.synthetic.main.empty_layout.view.*

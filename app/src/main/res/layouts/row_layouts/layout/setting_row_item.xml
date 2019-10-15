@@ -3,6 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:background="?selectableItemBackground"
 	android:gravity="center_vertical"
 	android:orientation="horizontal"
@@ -15,6 +16,7 @@
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"
 		android:layout_marginEnd="@dimen/spacing_large"
+		app:tint="?android:attr/textColorSecondary"
 		/>
 
 	<LinearLayout
@@ -30,6 +32,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			style="@style/TextAppearance.AppCompat.Subhead"
+			android:textColor="?android:textColorTertiary"
 			/>
 
 		<ru.fantlab.android.ui.widgets.FontTextView
@@ -38,6 +41,7 @@
 			android:layout_height="wrap_content"
 			android:alpha="0.7"
 			style="?android:attr/textAppearanceListItemSecondary"
+			android:textColor="?android:textColorSecondary"
 			/>
 
 	</LinearLayout>

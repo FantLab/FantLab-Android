@@ -23,14 +23,13 @@ class AwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<AwardInList,
 				.dontAnimate()
 				.into(itemView.langIcon)
 		itemView.name_rus.text = nom.nameRus
+
 		if (!nom.nameOrig.isEmpty()) {
 			itemView.name_orig.text = nom.nameOrig
 			itemView.name_orig.visibility = View.VISIBLE
-		}
-		itemView.country.text = StringBuilder()
-				.append(nom.countryName)
-				.append(", ")
-				.append(nom.langName)
+		} else itemView.name_orig.visibility = View.GONE
+
+		itemView.country.text = nom.countryName
 		itemView.noms.text = StringBuilder()
 				.append(nom.nomCount)
 				.append(" | ")

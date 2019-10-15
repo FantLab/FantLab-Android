@@ -1,7 +1,8 @@
 package ru.fantlab.android.ui.modules.plans.autplans
 
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Autplans
+import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.provider.rest.AutplansSortOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.base.mvp.BaseMvp
@@ -32,5 +33,8 @@ interface AutPlansMvp {
 		fun getAutPlans(page: Int, force: Boolean)
 
 		fun setCurrentSort(sortBy: AutplansSortOption?, filterLang: String?)
+
+		fun getCurrentSort(): FantlabHelper.AutPlansSort<AutplansSortOption, Int>
+
 	}
 }

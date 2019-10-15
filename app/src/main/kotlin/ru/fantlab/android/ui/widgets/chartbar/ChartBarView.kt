@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import ru.fantlab.android.helper.ViewHelper
 import java.util.*
 
 class ChartBarView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
@@ -12,6 +13,8 @@ class ChartBarView @JvmOverloads constructor(context: Context, attrs: AttributeS
 	private lateinit var points: ArrayList<Pair<String, Int>>
 	private var colored: Boolean = false
 	private var rect = Rect()
+	private val valueTextColor = ViewHelper.getTertiaryTextColor(context)
+	private val labelTextColor = ViewHelper.getTertiaryTextColor(context)
 
 	private var paint: Paint = Paint().apply {
 		style = Paint.Style.FILL
@@ -101,10 +104,10 @@ class ChartBarView @JvmOverloads constructor(context: Context, attrs: AttributeS
 		val colorEnd = Color.parseColor("#FF1900")
 		@JvmField
 		val barColor = Color.parseColor("#3178A8")
+		/*@JvmField
+		val valueTextColor = ViewHelper.getTertiaryTextColor(context)
 		@JvmField
-		val valueTextColor = Color.parseColor("#6d6d6d")
-		@JvmField
-		val labelTextColor = Color.parseColor("#4A4A4A")
+		val labelTextColor = ViewHelper.getTertiaryTextColor(context)*/
 	}
 
 }

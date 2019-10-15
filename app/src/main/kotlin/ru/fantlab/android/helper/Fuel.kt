@@ -9,16 +9,15 @@ private val jsonParser = JsonParser()
 private val gson = Gson().newBuilder().setPrettyPrinting().create()
 
 fun Request.format(): String = buildString {
-	val url = url.toString()
-	val safeUrl = if (url.contains("password")) {
-		url.substring(0, url.indexOf("password") - 1)
-	} else {
-		url
-	}
-	appendln("--> $method $safeUrl")
+	appendln("--> $method $url")
 	appendln("Headers : (${headers.size})")
 	headers.transformIterate({ key: String, value: String -> appendln("\t$key : $value") })
-	appendln("Body :\n${String(body.toByteArray()).prettify()}")
+	val bodyAsString = String(body.toByteArray())
+	try {
+		appendln("Body :\n${bodyAsString.prettify()}")
+	} catch (e: Exception) {
+		appendln("Body :\n$bodyAsString")
+	}
 }
 
 fun Response.format(): String = buildString {
@@ -28,7 +27,12 @@ fun Response.format(): String = buildString {
 	appendln("Headers : (${headers.size})")
 	headers.transformIterate({ key: String, value: String -> appendln("\t$key : $value") })
 	appendln("Duration : ${getRequestDuration()}ms")
-	appendln("Body :\n${String(body().toByteArray()).prettify()}")
+	val bodyAsString = String(body().toByteArray())
+	try {
+		appendln("Body :\n${bodyAsString.prettify()}")
+	} catch (e: Exception) {
+		appendln("Body :\n$bodyAsString")
+	}
 }
 
 fun Response.getRequestDuration(): String {

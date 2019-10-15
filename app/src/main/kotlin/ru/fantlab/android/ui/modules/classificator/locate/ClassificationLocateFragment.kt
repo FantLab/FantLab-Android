@@ -2,10 +2,9 @@ package ru.fantlab.android.ui.modules.classificator.locate
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
@@ -16,9 +15,6 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.viewholder.ClassificatorViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.classificator.ClassificatorPagerMvp
-import ru.fantlab.android.ui.widgets.StateLayout
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
-import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import java.util.*
@@ -39,7 +35,6 @@ class ClassificationLocateFragment : BaseFragment<ClassificationLocateMvp.View, 
 
 	override fun onInitViews(classificators: ArrayList<ClassificatorModel>) {
 		hideProgress()
-		recycler.addKeyLineDivider()
 		fastScroller.attachRecyclerView(recycler)
 		refresh.setOnRefreshListener(this)
 
@@ -136,7 +131,7 @@ class ClassificationLocateFragment : BaseFragment<ClassificationLocateMvp.View, 
 		pagerCallback?.onSetBadge(2, count)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is ClassificatorPagerMvp.View) {
 			pagerCallback = context

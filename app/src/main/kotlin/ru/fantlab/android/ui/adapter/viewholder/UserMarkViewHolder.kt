@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.profile_mark_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Mark
-import ru.fantlab.android.ui.widgets.CoverLayout
-import ru.fantlab.android.ui.widgets.FontTextView
-import ru.fantlab.android.ui.widgets.ForegroundImageView
+import ru.fantlab.android.helper.getTimeAgo
+import ru.fantlab.android.helper.parseFullDate
+import ru.fantlab.android.provider.storage.WorkTypesProvider
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
@@ -15,23 +15,23 @@ class UserMarkViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Mark, User
 	: BaseViewHolder<Mark>(itemView, adapter) {
 
 	override fun bind(mark: Mark) {
-		itemView.coverLayout.setUrl(if (mark.workImage != null) "https:${mark.workImage}" else null)
+		itemView.coverLayout.setUrl("https:${mark.workImage}", WorkTypesProvider.getCoverByTypeId(mark.workTypeId))
 		itemView.authors.text = mark.workAuthor
 		itemView.title.text = if (mark.workName.isNotEmpty()) {
-			if (mark.workNameOrig.isNotEmpty()) {
-				String.format("%s / %s", mark.workName, mark.workNameOrig)
-			} else {
-				mark.workName
-			}
+			mark.workName
 		} else {
 			mark.workNameOrig
 		}
 		itemView.type.text = mark.workType.capitalize()
+		itemView.date.text = mark.dateIso.parseFullDate(true).getTimeAgo()
 		if (mark.workYear != 0) {
-			itemView.year.text = mark.workYear.toString()
+			itemView.year.text = mark.workYear.toString() + " г."
 			itemView.year.visibility = View.VISIBLE
 		} else itemView.year.visibility = View.GONE
-		itemView.mark.text = mark.mark.toString()
+
+		itemView.ratingBar.rating = mark.mark.toFloat()
+		itemView.rateMark.text = mark.mark.toString()
+
 		itemView.classified.visibility = if (mark.userClassifiedWork == 1) View.VISIBLE else View.GONE
 		itemView.response.visibility = if (mark.userResponseWork == 1) View.VISIBLE else View.GONE
 	}

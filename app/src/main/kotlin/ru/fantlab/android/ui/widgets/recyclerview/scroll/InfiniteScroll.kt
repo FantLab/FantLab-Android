@@ -1,9 +1,9 @@
 package ru.fantlab.android.ui.widgets.recyclerview.scroll
 
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 
 abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
@@ -16,20 +16,15 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 	private var layoutManager: RecyclerView.LayoutManager? = null
 	private var adapter: BaseRecyclerAdapter<*, *>? = null
 	private var newlyAdded = true
-	private var isUp = true
-	private var menuShowed = false
+	private var isPageCounter = false
+	private var totalPagesCount = 0
 
 	abstract fun onLoadMore(page: Int, totalItemsCount: Int): Boolean
 
 	private var listener: OnScrollResumed? = null
 
 	interface OnScrollResumed {
-		fun onHideMenu()
 		fun onScrolled(isUp: Boolean)
-	}
-
-	fun setOnScrollListener(listener: OnScrollResumed) {
-		this.listener = listener
 	}
 
 	private fun initLayoutManager(layoutManager: RecyclerView.LayoutManager) {
@@ -38,6 +33,14 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 			visibleThreshold *= layoutManager.spanCount
 		} else if (layoutManager is StaggeredGridLayoutManager) {
 			visibleThreshold *= layoutManager.spanCount
+		}
+	}
+
+	override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+		super.onScrollStateChanged(recyclerView, newState)
+		if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+			val canBottomScroll = recyclerView.canScrollVertically(1)
+			if (!canBottomScroll) { onScrolled(recyclerView, 0, 1) }
 		}
 	}
 
@@ -53,22 +56,18 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 		return maxSize
 	}
 
-	override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+	override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 		if (newlyAdded) {
 			newlyAdded = false
 			return
 		}
 		listener?.onScrolled(dy > 0)
-		if (isUp && menuShowed) {
-			menuShowed = false
-			listener?.onHideMenu()
-		}
 
 		if (layoutManager == null) {
-			initLayoutManager(recyclerView!!.layoutManager)
+			initLayoutManager(recyclerView.layoutManager!!)
 		}
 		if (adapter == null) {
-			if (recyclerView!!.adapter is BaseRecyclerAdapter<*, *>) {
+			if (recyclerView.adapter is BaseRecyclerAdapter<*, *>) {
 				adapter = recyclerView.adapter as BaseRecyclerAdapter<*, *>
 			}
 		}
@@ -95,8 +94,16 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 			loading = false
 			previousTotalItemCount = totalItemCount
 		}
+		println("loading: $loading, s1: ${lastVisibleItemPosition + visibleThreshold}, s2: $totalItemCount")
 		if (!loading && lastVisibleItemPosition + visibleThreshold > totalItemCount) {
+
+			if (isPageCounter) {
+				if (currentPage+1 == totalPagesCount) {
+					return
+				}
+			}
 			currentPage++
+
 			val isCallingApi = onLoadMore(currentPage, totalItemCount)
 			loading = true
 			if (isCallingApi) {
@@ -112,12 +119,15 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 	}
 
 	fun initialize(page: Int, previousTotal: Int) {
+		this.isPageCounter = false
 		this.currentPage = page
 		this.previousTotalItemCount = previousTotal
 		this.loading = true
 	}
 
-	fun setMenuShowed(menuShowed: Boolean) {
-		this.menuShowed = menuShowed
+	fun setTotalPagesCount(totalPagesCount: Int) {
+		this.isPageCounter = true
+		this.totalPagesCount = totalPagesCount
 	}
+
 }

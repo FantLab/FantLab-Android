@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_margin="@dimen/grid_spacing"
+	android:background="?android:selectableItemBackground"
+	android:paddingBottom="@dimen/spacing_normal"
+	android:paddingTop="@dimen/spacing_normal"
+	tools:ignore="RtlSymmetry"
+	>
+
+	<ru.fantlab.android.ui.widgets.ForegroundImageView
+		android:id="@+id/icon"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:padding="10dp"
+		android:src="@drawable/ic_trophy"
+		app:tint="?android:attr/textColorSecondary"
+		/>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_toEndOf="@+id/icon"
+		android:textColor="?android:textColorTertiary"
+		android:textStyle="bold"
+		tools:text="Восьмая нога бога"
+		style="@style/TextAppearance.AppCompat.Medium"
+		/>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/place"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/title"
+		android:layout_toEndOf="@+id/icon"
+		android:paddingBottom="2dp"
+		android:paddingTop="2dp"
+		android:textColor="?android:attr/textColorSecondary"
+		tools:text="1 место"
+		style="@style/TextAppearance.AppCompat.Subhead"
+		/>
+
+</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

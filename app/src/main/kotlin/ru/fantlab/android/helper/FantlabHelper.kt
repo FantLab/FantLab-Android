@@ -37,28 +37,47 @@ object FantlabHelper {
 		TYPE_TIME("time")
 	}
 
-	data class PublishersAllSort<A, B, C>(
+	data class PublishersSort<A, B, C>(
 			var sortBy: A,
 			var filterCountry: B,
 			var filterCategory: C
 	)
 
-	data class PublishersPubnewsSort<A, B, C>(
+	data class PubnewsSort<A, B, C>(
 			var sortBy: A,
 			var filterLang: B,
 			var filterPublisher: C
 	)
 
-	data class PublishersPubplansSort<A, B, C>(
+	data class PubplansSort<A, B, C>(
 			var sortBy: A,
 			var filterLang: B,
 			var filterPublisher: C
 	)
 
-	data class PublishersAutPlansSort<A, B, C>(
+	data class AutPlansSort<A, B>(
 			var sortBy: A,
 			var filterLang: B
 	)
+
+	data class ProfileMarksSort<A, B>(
+			var sortBy: A,
+			var filterCategory: B
+	)
+
+	fun classToName(`class`: Int): String? {
+		return 	when (`class`) {
+			0 -> "Новичок"
+			1 -> "Активист"
+			2 -> "Авторитет"
+			3 -> "Философ"
+			4 -> "Магистр"
+			5 -> "Гранд-мастер"
+			6 -> "Миродержец"
+			7 -> "Миротворец"
+			else -> this.toString()
+		}
+	}
 
 	var currentUserId: Int = -1
 

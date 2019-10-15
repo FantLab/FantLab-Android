@@ -7,7 +7,6 @@ import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.EditionsBlocks
 import ru.fantlab.android.data.dao.model.EditionsInfo
 import ru.fantlab.android.data.dao.response.WorkResponse
-import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.provider.rest.getWorkPath
 import ru.fantlab.android.provider.storage.DbProvider
@@ -18,8 +17,8 @@ class WorkEditionsPresenter : BasePresenter<WorkEditionsMvp.View>(),
 
 	private var workId = -1
 
-	override fun onFragmentCreated(bundle: Bundle) {
-		workId = bundle.getInt(BundleConstant.EXTRA)
+	override fun onCallApi(workId: Int) {
+		this.workId = workId
 		getEditions(false)
 	}
 

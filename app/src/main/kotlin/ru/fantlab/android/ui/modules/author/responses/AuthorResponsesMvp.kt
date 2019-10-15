@@ -1,7 +1,8 @@
 package ru.fantlab.android.ui.modules.author.responses
 
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.provider.rest.ResponsesSortOption
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.viewholder.ResponseViewHolder
 import ru.fantlab.android.ui.base.mvp.BaseMvp
@@ -33,6 +34,8 @@ interface AuthorResponsesMvp {
 			BaseMvp.PaginationListener<Int> {
 
 		fun setCurrentSort(sortValue: String)
+
+		fun getCurrentSort(): ResponsesSortOption
 
 		fun onSendVote(responseId: Int, voteType: String, position: Int)
 	}

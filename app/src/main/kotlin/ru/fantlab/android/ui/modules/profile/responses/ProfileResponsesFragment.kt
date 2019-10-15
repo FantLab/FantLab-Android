@@ -3,8 +3,8 @@ package ru.fantlab.android.ui.modules.profile.responses
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.View
+import androidx.annotation.StringRes
 import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
@@ -14,6 +14,7 @@ import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
+import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
 import ru.fantlab.android.ui.adapter.ResponsesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
@@ -45,7 +46,6 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 		recycler.setEmptyView(stateLayout, refresh)
 		adapter.listener = presenter
 		recycler.adapter = adapter
-		recycler.addKeyLineDivider()
 		userId = arguments!!.getInt(BundleConstant.EXTRA)
 		getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
 		recycler.addOnScrollListener(getLoadMore())
@@ -53,7 +53,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 		fastScroller.attachRecyclerView(recycler)
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is UserPagerMvp.View) {
 			countCallback = context
@@ -91,6 +91,14 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 
 	override fun onItemClicked(item: Response) {
 		ResponseOverviewActivity.startActivity(context!!, item)
+	}
+
+	override fun onItemLongClicked(item: Response, position: Int) {
+		if (isLoggedIn() && PrefGetter.getLoggedUser()?.id == userId) {
+			val dialogView = ContextMenuDialogView()
+			dialogView.initArguments("main", ContextMenuBuilder.buildForUserResponse(recycler.context), item, position)
+			dialogView.show(childFragmentManager, "ContextMenuDialogView")
+		}
 	}
 
 	override fun onRefresh() {
@@ -148,8 +156,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 	}
 
 	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
-		listItem as Response
-		when (item.id) {
+		if (listItem is Response) when (item.id) {
 			"vote" -> {
 				presenter.onSendVote(listItem, position, if (item.title.contains("+")) "plus" else "minus")
 			}
@@ -161,6 +168,49 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_MESSAGE)
 						.putExtra(BundleConstant.ID, listItem.userId)
 				)
+			}
+			"edit" -> {
+				startActivityForResult(Intent(activity, EditorActivity::class.java)
+						.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_EDIT_RESPONSE)
+						.putExtra(BundleConstant.EXTRA, listItem.text)
+						.putExtra(BundleConstant.EXTRA_TWO, listItem.id)
+						.putExtra(BundleConstant.EXTRA_THREE, position)
+						.putExtra(BundleConstant.ID, listItem.workId),
+						BundleConstant.REFRESH_RESPONSE_CODE)
+			}
+			"delete" -> {
+				presenter.onDeleteResponse(listItem.workId, listItem.id, position)
+			}
+		} else {
+			presenter.setCurrentSort(item.id)
+		}
+	}
+
+	override fun onResponseDelete(position: Int) {
+		hideProgress()
+		adapter.removeItem(position)
+		onSetTabCount(adapter.itemCount)
+	}
+
+	fun showSortDialog() {
+		val dialogView = ContextMenuDialogView()
+		val sort = presenter.getCurrentSort()
+		dialogView.initArguments("main", ContextMenuBuilder.buildForResponseSorting(recycler.context, sort))
+		dialogView.show(childFragmentManager, "ContextMenuDialogView")
+	}
+
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		super.onActivityResult(requestCode, resultCode, data)
+		when (requestCode) {
+			BundleConstant.REFRESH_RESPONSE_CODE -> {
+				if (data != null) {
+					val position = data.extras?.getInt(BundleConstant.ID)
+					if (position != null && position != -1) {
+						val responseNewText = data.extras?.getCharSequence(BundleConstant.EXTRA)
+						adapter.data[position].text = responseNewText.toString()
+						adapter.notifyItemChanged(position)
+					}
+				}
 			}
 		}
 	}

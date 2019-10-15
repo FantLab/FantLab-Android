@@ -8,6 +8,7 @@
 	android:layout_height="wrap_content"
 	android:gravity="center_vertical"
 	android:orientation="vertical"
+	android:background="?card_background"
 	tools:context=".ui.modules.main.MainActivity"
 	>
 
@@ -17,8 +18,8 @@
 		android:layout_marginTop="@dimen/spacing_normal"
 		android:gravity="center"
 		android:text="@string/select_mark"
-		android:textStyle="bold"
 		style="@style/TextAppearance.AppCompat.Title"
+		android:textColor="?android:attr/textColorTertiary"
 		/>
 
 	<ru.fantlab.android.ui.widgets.FontTextView
@@ -30,6 +31,7 @@
 		android:text="@string/select_mark"
 		android:visibility="gone"
 		style="@style/TextAppearance.AppCompat.Caption"
+		android:textColor="?android:attr/textColorTertiary"
 		/>
 
 	<ru.fantlab.android.ui.widgets.ratingbar.ScaleRatingBar

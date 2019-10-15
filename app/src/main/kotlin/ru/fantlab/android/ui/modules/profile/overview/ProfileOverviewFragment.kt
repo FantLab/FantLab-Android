@@ -2,11 +2,11 @@ package ru.fantlab.android.ui.modules.profile.overview
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.TooltipCompat
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.annotation.StringRes
+import androidx.appcompat.widget.TooltipCompat
 import kotlinx.android.synthetic.main.profile_overview_icons_layout.*
 import kotlinx.android.synthetic.main.profile_overview_layout.*
 import kotlinx.android.synthetic.main.state_layout.*
@@ -46,12 +46,11 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		} else {
 			StringBuilder()
 					.append(user.fio)
-					.append(" (")
+					.append(" ")
 					.append(gender)
-					.append(")")
 		}
 		login.text = user.login
-		avatarLayout.setUrl("https://${user.avatar}")
+		avatarLayout.setUrl("https:${user.avatar}")
 		val userLevel = numberFormat.format(user.level.toDouble())
 		val maxClassLevel = numberFormat.format(classRanges[user.`class`].toLong())
 		level.text = StringBuilder()
@@ -96,20 +95,21 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 		topics.text = user.topicCount.toString()
 		TooltipCompat.setTooltipText(bookcasesLayout, getString(R.string.bookcase_count))
 		bookcases.text = user.bookcaseCount.toString()
+		bookcasesLayout.setOnClickListener(this)
 
 		if (user.birthDay != null)
 			birthDay.text = user.birthDay.parseFullDate().getTimeAgo()
 		else birthDay.visibility = GONE
 
-		 if (!user.countryName.isNullOrEmpty() && !user.cityName.isNullOrEmpty()) {
-			 location.text = StringBuilder()
-					 .append(user.countryName)
-					 .append(", ")
-					 .append(user.cityName)
+		if (!user.countryName.isNullOrEmpty() && !user.cityName.isNullOrEmpty()) {
+			location.text = StringBuilder()
+					.append(user.countryName)
+					.append(", ")
+					.append(user.cityName)
 		} else if (!user.location.isNullOrEmpty()) {
-			 location.text = user.location
+			location.text = user.location
 		} else {
-			 location.visibility = GONE
+			location.visibility = GONE
 		}
 		regDate.text = user.regDate.parseFullDate().getTimeAgo()
 		lastActionDate.text = user.lastActionDate.parseFullDate().getTimeAgo()
@@ -166,10 +166,13 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 			R.id.responsesLayout -> {
 				pagerCallback?.onSelectTab(2)
 			}
+			R.id.bookcasesLayout -> {
+				pagerCallback?.onSelectTab(3)
+			}
 		}
 	}
 
-	override fun onAttach(context: Context?) {
+	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is UserPagerMvp.View) {
 			pagerCallback = context

@@ -1,78 +1,41 @@
 package ru.fantlab.android.ui.widgets
 
+import android.R
 import android.content.Context
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import it.sephiroth.android.library.bottomnavigation.BottomNavigation
-import it.sephiroth.android.library.bottomnavigation.MiscUtils
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class FloatingActionButtonBehavior : CoordinatorLayout.Behavior<FloatingActionButton> {
+class FloatingActionButtonBehavior(context: Context, attrs: AttributeSet) : CoordinatorLayout.Behavior<FloatingActionButton>(context, attrs) {
+	private val toolbarHeight: Int
 
-	private var navigationBarHeight = 0
-
-	constructor() : super()
-
-	constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
-
-	override fun onAttachedToLayoutParams(lp: CoordinatorLayout.LayoutParams) {
-		// super.onAttachedToLayoutParams(lp);
+	init {
+		this.toolbarHeight = getToolbarHeight(context)
 	}
 
-	override fun layoutDependsOn(parent: CoordinatorLayout?, child: FloatingActionButton?, dependency: View?): Boolean {
-		if (BottomNavigation::class.java.isInstance(dependency)) {
-			return true
-		} else if (Snackbar.SnackbarLayout::class.java.isInstance(dependency)) {
-			return true
+	override fun layoutDependsOn(parent: CoordinatorLayout, fab: FloatingActionButton, dependency: View): Boolean {
+		return dependency is AppBarLayout
+	}
+
+	override fun onDependentViewChanged(parent: CoordinatorLayout, fab: FloatingActionButton, dependency: View): Boolean {
+		if (dependency is AppBarLayout) {
+			val lp = fab.layoutParams as CoordinatorLayout.LayoutParams
+			val fabBottomMargin = lp.bottomMargin
+			val distanceToScroll = fab.height + fabBottomMargin
+			val ratio = dependency.getY() / toolbarHeight.toFloat()
+			fab.translationY = -distanceToScroll * ratio
 		}
-		return super.layoutDependsOn(parent, child, dependency)
+		return true
 	}
 
-	override fun onDependentViewChanged(parent: CoordinatorLayout, child: FloatingActionButton, dependency: View?): Boolean {
-		MiscUtils.log(TAG, Log.INFO, "onDependentViewChanged: " + dependency!!)
-		val list = parent.getDependencies(child)
-		val params = child.layoutParams as ViewGroup.MarginLayoutParams
-		val bottomMargin = params.bottomMargin + params.rightMargin - (params.topMargin + params.leftMargin)
-		var t = 0f
-		var t2 = 0f
-		var result = false
-		for (dep in list) {
-			if (Snackbar.SnackbarLayout::class.java.isInstance(dep)) {
-				t += dep.translationY - dep.height
-				result = true
-			} else if (BottomNavigation::class.java.isInstance(dep)) {
-				val navigation = dep as BottomNavigation
-				t2 = navigation.translationY - navigation.height + bottomMargin
-				t += t2
-				result = true
+	fun getToolbarHeight(context: Context): Int {
+		val styledAttributes = context.theme.obtainStyledAttributes(
+				intArrayOf(R.attr.actionBarSize))
+		val toolbarHeight = styledAttributes.getDimension(0, 0f).toInt()
+		styledAttributes.recycle()
 
-				if (navigationBarHeight > 0) {
-					if (!navigation.isExpanded) {
-						child.hide()
-					} else {
-						child.show()
-					}
-				}
-			}
-		}
-
-		if (navigationBarHeight > 0 && t2 < 0) {
-			t = Math.min(t2, t + navigationBarHeight)
-		}
-
-		child.translationY = t
-		return result
-	}
-
-	fun setNavigationBarHeight(height: Int) {
-		this.navigationBarHeight = height
-	}
-
-	companion object {
-		private val TAG = FloatingActionButtonBehavior::class.java.simpleName
+		return toolbarHeight
 	}
 }

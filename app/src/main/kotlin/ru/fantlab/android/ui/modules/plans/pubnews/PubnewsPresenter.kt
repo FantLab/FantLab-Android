@@ -8,7 +8,7 @@ import ru.fantlab.android.data.dao.response.PubnewsResponse
 import ru.fantlab.android.helper.FantlabHelper
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.provider.rest.PubnewsSortOption
-import ru.fantlab.android.provider.rest.getPublisherPubnewsPath
+import ru.fantlab.android.provider.rest.getPubnewsPath
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
@@ -16,7 +16,7 @@ class PubnewsPresenter : BasePresenter<PubnewsMvp.View>(),
 		PubnewsMvp.Presenter {
 
 	private var page: Int = 1
-	private var sort: FantlabHelper.PublishersPubnewsSort<PubnewsSortOption, Int, Int> = FantlabHelper.PublishersPubnewsSort(PubnewsSortOption.BY_DATE, 0, 0)
+	private var sort: FantlabHelper.PubnewsSort<PubnewsSortOption, Int, Int> = FantlabHelper.PubnewsSort(PubnewsSortOption.BY_DATE, 0, 0)
 	private var previousTotal: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 	var publishers: List<Pubnews.Publisher> = arrayListOf()
@@ -66,7 +66,7 @@ class PubnewsPresenter : BasePresenter<PubnewsMvp.View>(),
 	private fun getPubnewsFromDb(page: Int): Single<Triple<ArrayList<Pubnews.Object>, Int, Int>> =
 			DbProvider.mainDatabase
 					.responseDao()
-					.get(getPublisherPubnewsPath(page, sort.sortBy.value, sort.filterLang, sort.filterPublisher))
+					.get(getPubnewsPath(page, sort.sortBy.value, sort.filterLang, sort.filterPublisher))
 					.map { it.response }
 					.map { PubnewsResponse.Deserializer().deserialize(it) }
 					.map { getPubnews(it) }
@@ -98,6 +98,8 @@ class PubnewsPresenter : BasePresenter<PubnewsMvp.View>(),
 	override fun setCurrentPage(page: Int) {
 		this.page = page
 	}
+
+	override fun getCurrentSort() = sort
 
 	override fun setPreviousTotal(previousTotal: Int) {
 		this.previousTotal = previousTotal

@@ -2,17 +2,19 @@ package ru.fantlab.android.ui.widgets
 
 import android.app.Dialog
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewPager
+import androidx.core.content.ContextCompat
 import android.view.MotionEvent
 import android.view.View
 import android.view.Window
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.viewpager.widget.ViewPager
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.SliderModel
 import ru.fantlab.android.ui.adapter.SliderAdapter
+import kotlin.math.abs
+import kotlin.math.sqrt
 
 class GallerySlider(context: Context?) : FrameLayout(context), View.OnTouchListener {
 	private var dialog: Dialog = Dialog(context, R.style.SliderTheme)
@@ -106,9 +108,9 @@ class GallerySlider(context: Context?) : FrameLayout(context), View.OnTouchListe
 				dy = (e.y - y1).toDouble()
 				when (mode) {
 					SLIDE_PRESSED -> {
-						val dis: Double = Math.sqrt(dx * dx + dy * dy)
+						val dis: Double = sqrt(dx * dx + dy * dy)
 						if (dis > 4) {
-							mode = if (Math.abs(dx) > Math.abs(dy)) SLIDE_HORIZONTAL else SLIDE_VERTICAL
+							mode = if (abs(dx) > abs(dy)) SLIDE_HORIZONTAL else SLIDE_VERTICAL
 						}
 					}
 					SLIDE_HORIZONTAL -> {
@@ -117,8 +119,8 @@ class GallerySlider(context: Context?) : FrameLayout(context), View.OnTouchListe
 					SLIDE_VERTICAL -> {
 						val yPosition = e.rawY + cY
 						moveTo(view, yPosition, 0)
-						hideSlider = Math.abs(yPosition) >= view.height / 2.7
-						val movedTo = 1 - Math.abs(yPosition) / view.height * 2
+						hideSlider = abs(yPosition) >= view.height / 2.7
+						val movedTo = 1 - abs(yPosition) / view.height * 2
 						setAlpha(view, movedTo)
 						return true
 					}

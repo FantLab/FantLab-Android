@@ -1,7 +1,7 @@
 package ru.fantlab.android.data.dao.model
 
 import android.os.Parcelable
-import android.support.annotation.Keep
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -63,7 +63,7 @@ data class Award(
 			@SerializedName("cw_link_id") val cwLinkId: Int?,
 			@SerializedName("cw_link_type") val cwLinkType: String,
 			@SerializedName("cw_name") val cwName: String?,
-			@SerializedName("cw_number") val cwNumber: String?,
+			@SerializedName("cw_number") val cwNumber: String,
 			@SerializedName("cw_postfix") val cwPostfix: String,
 			@SerializedName("cw_prefix") val cwPrefix: String?,
 			@SerializedName("cw_rusname") val cwRusname: String,
@@ -71,7 +71,7 @@ data class Award(
 			@SerializedName("nomination_id") val nominationId: String,
 			@SerializedName("nomination_name") val nominationName: String?,
 			@SerializedName("nomination_number") val nominationNumber: String,
-			@SerializedName("nomination_rusname") val nominationRusname: String?,
+			@SerializedName("nomination_rusname") val nominationRusname: String,
 			@SerializedName("work_rusname") val workRusname: String?
 	) : Parcelable
 

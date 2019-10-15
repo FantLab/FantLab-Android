@@ -4,28 +4,29 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.DrawableRes
-import android.support.annotation.IdRes
-import android.support.annotation.LayoutRes
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.Toast
+import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
 import com.evernote.android.state.State
 import com.evernote.android.state.StateSaver
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.navigation.NavigationView
 import es.dmoral.toasty.Toasty
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.accounts_menu_layout.*
 import net.grandcentrix.thirtyinch.TiActivity
 import ru.fantlab.android.App
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.model.User
 import ru.fantlab.android.helper.*
 import ru.fantlab.android.provider.theme.ThemeEngine
 import ru.fantlab.android.ui.base.mvp.BaseMvp
@@ -33,6 +34,7 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.login.LoginActivity
 import ru.fantlab.android.ui.modules.main.MainActivity
 import ru.fantlab.android.ui.modules.settings.SettingsActivity
+import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.widgets.dialog.MessageDialogView
 import ru.fantlab.android.ui.widgets.dialog.ProgressDialogFragment
 import java.util.*
@@ -72,6 +74,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 			extraNav = findViewById(R.id.extrasNav)
 			accountsNav = findViewById(R.id.accountsNav)
 			logout?.setOnClickListener { onLogoutClicked() }
+			profile?.setOnClickListener { onProfileClicked() }
 		}
 		if (!validateAuth()) return
 		showChangelog()
@@ -112,7 +115,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		if (drawer != null && drawer!!.isDrawerOpen(GravityCompat.START)) {
 			closeDrawer()
 		} else {
-			val clickTwiceToExit = !PrefGetter.isTwiceBackButtonDisabled()
+			val clickTwiceToExit = PrefGetter.isTwiceBackButtonEnabled()
 			superOnBackPressed(clickTwiceToExit)
 		}
 	}
@@ -156,6 +159,14 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	internal fun onLogoutClicked() {
 		closeDrawer()
 		onLogoutPressed()
+	}
+
+	private fun onProfileClicked() {
+		closeDrawer()
+		val userModel: User? = PrefGetter.getLoggedUser()
+		userModel?.let {
+			UserPagerActivity.startActivity(this, it.login, it.id, 0)
+		}
 	}
 
 	protected fun selectMenuItem(@IdRes id: Int, check: Boolean) {
@@ -371,14 +382,13 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 			with(it) {
 				setNavigationItemSelectedListener(this@BaseActivity)
 				menu?.findItem(R.id.sign_in)?.isVisible = !isLoggedIn
-				menu?.findItem(R.id.profile)?.isVisible = isLoggedIn
 			}
 		}
 		mainNavDrawer?.setupViewDrawer()
 	}
 
 	private fun setupDrawer() {
-		if (this !is MainActivity) {
+		if (this is MainActivity) {
 			if (!PrefGetter.isNavDrawerHintShowed()) {
 				drawer?.let {
 					it.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
@@ -390,7 +400,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 									drawerView.postDelayed({
 										closeDrawer()
 										it.removeDrawerListener(this)
-									}, 1000)
+									}, 800)
 								}
 							})
 							it.viewTreeObserver.removeOnPreDrawListener(this)

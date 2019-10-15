@@ -7,6 +7,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.getTimeAgo
 import ru.fantlab.android.helper.parseFullDate
+import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
@@ -15,29 +16,15 @@ class WorkResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Respon
 	: BaseViewHolder<Response>(itemView, adapter) {
 
 	override fun bind(response: Response) {
-		itemView.info.text = StringBuilder()
-				.append(response.userName)
-				.append(", ")
-				.append(response.dateIso.parseFullDate(true).getTimeAgo())
-		itemView.info.setOnClickListener {
-			listener?.onOpenContextMenu(response)
-		}
+		itemView.avatarLayout.setUrl("https://${LinkParserHelper.HOST_DATA}/images/users/${response.userId}")
+		itemView.responseUser.text = response.userName.capitalize()
+		itemView.date.text = response.dateIso.parseFullDate(true).getTimeAgo()
 
-		itemView.workName.text = if (response.workName.isNotEmpty()) {
-			if (response.workNameOrig.isNotEmpty()) {
-				String.format("%s / %s", response.workName, response.workNameOrig)
-			} else {
-				response.workName
-			}
-		} else {
-			response.workNameOrig
-		}
-
-		itemView.text.text = response.text
-				.replace("(\r\n)+".toRegex(), "\n")    // пустые переносы строк
+		itemView.responseText.text = response.text
+				.replace("(\r\n)+".toRegex(), "\n")
 				.replace("\\[spoiler].*|\\[\\/spoiler]".toRegex(), "")
-				.replace("\\[.*]".toRegex(), "")       // bb-коды
-				.replace(":\\w+:".toRegex(), "")       // смайлы
+				.replace("\\[.*]".toRegex(), "")
+				.replace(":\\w+:".toRegex(), "")
 
 		if (response.mark == null) {
 			itemView.rating.visibility = View.GONE
@@ -49,18 +36,20 @@ class WorkResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Respon
 		response.voteCount.let {
 			when {
 				it < 0 -> {
-					itemView.votes.setDrawables(R.drawable.ic_thumb_down_small)
+					itemView.votes.setDrawables(R.drawable.ic_thumb_down)
 					itemView.votes.text = response.voteCount.toString()
 					itemView.votes.visibility = View.VISIBLE
 				}
 				it > 0 -> {
-					itemView.votes.setDrawables(R.drawable.ic_thumb_up_small)
+					itemView.votes.setDrawables(R.drawable.ic_thumb_up)
 					itemView.votes.text = response.voteCount.toString()
 					itemView.votes.visibility = View.VISIBLE
 				}
 				else -> itemView.votes.visibility = View.GONE
 			}
 		}
+
+		itemView.userInfo.setOnClickListener { listener?.onOpenContextMenu(response) }
 	}
 
 	interface OnOpenContextMenu {
