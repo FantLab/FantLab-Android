@@ -10,12 +10,13 @@ import ru.fantlab.android.data.dao.SettingsModel
 import ru.fantlab.android.ui.adapter.SettingsAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.theme.ThemeActivity
+import ru.fantlab.android.ui.widgets.dialog.FontScaleBottomSheetDialog
 import ru.fantlab.android.ui.widgets.dialog.LanguageBottomSheetDialog
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import kotlin.reflect.KFunction0
 
 class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), SettingsMvp.View,
-		LanguageBottomSheetDialog.LanguageDialogViewActionCallback {
+		LanguageBottomSheetDialog.LanguageDialogViewActionCallback,
+		FontScaleBottomSheetDialog.FontScaleDialogViewActionCallback{
 
 	override fun isTransparent(): Boolean = false
 	override fun providePresenter(): SettingsPresenter = SettingsPresenter()
@@ -37,6 +38,7 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
 		recycler.adapter = adapter
 		adapter.addItem(SettingsModel(R.drawable.ic_color, getString(R.string.theme_title), "", SettingsModel.THEME))
 		adapter.addItem(SettingsModel(R.drawable.ic_language, getString(R.string.language), "", SettingsModel.LANGUAGE))
+		adapter.addItem(SettingsModel(R.drawable.ic_font_size, getString(R.string.font), "", SettingsModel.FONT_SCALE))
 		hideShowShadow(true)
 	}
 
@@ -48,6 +50,9 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
 			SettingsModel.LANGUAGE -> {
 				showLanguageList()
 			}
+			SettingsModel.FONT_SCALE -> {
+				showFontScaleList()
+			}
 		}
 	}
 
@@ -58,6 +63,12 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
 		}
 	}
 
+	private fun showFontScaleList(){
+		val fontSizeBottomSheetDialog = FontScaleBottomSheetDialog()
+		fontSizeBottomSheetDialog.onAttach(this as Context)
+		fontSizeBottomSheetDialog.show(supportFragmentManager, "fontSizeBottomSheetDialog")
+	}
+
 	private fun showLanguageList() {
 		val languageBottomSheetDialog = LanguageBottomSheetDialog()
 		languageBottomSheetDialog.onAttach(this as Context)
@@ -66,6 +77,11 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
 
 	override fun onLanguageChanged(action: KFunction0<Unit>) {
 		action.run { }
+		setResult(Activity.RESULT_OK)
+		finish()
+	}
+
+	override fun onFontChanged(action: KFunction0<Unit>) {
 		setResult(Activity.RESULT_OK)
 		finish()
 	}

@@ -192,4 +192,5 @@
 	<string name="sort_author">Автору</string>
 	<string name="no_publishers">Нет издательств</string>
 	<string name="plans">Новинки и планы</string>
+	<string name="font">Шрифт</string>
 </resources>

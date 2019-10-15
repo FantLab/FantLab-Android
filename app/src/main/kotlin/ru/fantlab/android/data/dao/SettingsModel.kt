@@ -13,6 +13,7 @@ data class SettingsModel(
 	companion object SettingType {
 		const val THEME: Int = 0
 		const val LANGUAGE: Int = 1
+		const val FONT_SCALE: Int = 2
 	}
 }
 

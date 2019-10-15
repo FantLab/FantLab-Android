@@ -8,6 +8,9 @@ import android.support.v4.app.FragmentManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import java.util.*
+import android.content.Context.WINDOW_SERVICE
+import android.provider.Settings
+import android.view.WindowManager
 
 
 object AppHelper {
@@ -62,5 +65,20 @@ object AppHelper {
 			Locale(language)
 		}
 		return locale
+	}
+
+	@Suppress("DEPRECATION")
+	fun updateAppFont(context: Context) {
+		val appFontScale = PrefGetter.getAppFontScale()
+		val resources = context.resources
+		val configuration = resources.configuration
+		val systemScale = Settings.System.getFloat(context.contentResolver, Settings.System.FONT_SCALE, 1f)
+
+		configuration.fontScale = appFontScale*systemScale
+		val metrics = context.resources.displayMetrics
+		val wm = context.getSystemService(WINDOW_SERVICE) as WindowManager
+		wm.defaultDisplay.getMetrics(metrics)
+		metrics.scaledDensity = configuration.fontScale * metrics.density
+		context.resources.updateConfiguration(configuration, metrics)
 	}
 }
