@@ -64,6 +64,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		setTaskName(null)
 		setupTheme()
 		AppHelper.updateAppLanguage(this)
+		AppHelper.updateAppFont(this)
 		super.onCreate(savedInstanceState)
 		if (layout() != 0) {
 			setContentView(layout())

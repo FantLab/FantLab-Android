@@ -315,4 +315,6 @@
     <string name="translation_language">Translation to %s:</string>
 	<string name="translation_details">(%s), %d - %d pub.</string>
 	<string name="content_cycle">Cycle content</string>
+	<string name="font_title">Font</string>
+	<string name="font_summary">Font size change</string>
 </resources>

@@ -277,4 +277,6 @@
     <string name="translation_language">Перевод на %s:</string>
 	<string name="translation_details">(%s), %d - %d изд.</string>
 	<string name="content_cycle">Содержание цикла</string>
+	<string name="font_title">Шрифт</string>
+	<string name="font_summary">Изменения размера шрифта</string>
 </resources>

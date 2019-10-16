@@ -30,4 +30,10 @@
 		android:summary="@string/back_button_summary"
 		android:title="@string/back_button_title"/>
 
+	<Preference
+		android:icon="@drawable/ic_font_size"
+		android:key="font_scale"
+		android:title="@string/font_title"
+		android:summary="@string/font_summary"/>
+
 </androidx.preference.PreferenceScreen>

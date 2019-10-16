@@ -13,11 +13,12 @@ import ru.fantlab.android.ui.adapter.SettingsAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.modules.settings.category.SettingsCategoryActivity
 import ru.fantlab.android.ui.modules.theme.ThemeActivity
+import ru.fantlab.android.ui.widgets.dialog.FontScaleBottomSheetDialog
 import ru.fantlab.android.ui.widgets.dialog.LanguageBottomSheetDialog
 import kotlin.reflect.KFunction0
 
 class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), SettingsMvp.View,
-		LanguageBottomSheetDialog.LanguageDialogViewActionCallback {
+		LanguageBottomSheetDialog.LanguageDialogViewActionCallback{
 
 	override fun isTransparent(): Boolean = false
 	override fun providePresenter(): SettingsPresenter = SettingsPresenter()
