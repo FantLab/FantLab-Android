@@ -15,7 +15,6 @@ data class SettingsModel(
 		const val LANGUAGE: Int = 1
 		const val CUSTOMIZATION: Int = 2
 		const val FORUM: Int = 3
-    	const val FONT_SCALE: Int = 4
   }
 }
 

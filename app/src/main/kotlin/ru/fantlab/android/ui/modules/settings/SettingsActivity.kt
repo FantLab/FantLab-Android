@@ -18,8 +18,7 @@ import ru.fantlab.android.ui.widgets.dialog.LanguageBottomSheetDialog
 import kotlin.reflect.KFunction0
 
 class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), SettingsMvp.View,
-		LanguageBottomSheetDialog.LanguageDialogViewActionCallback,
-		FontScaleBottomSheetDialog.FontScaleDialogViewActionCallback{
+		LanguageBottomSheetDialog.LanguageDialogViewActionCallback{
 
 	override fun isTransparent(): Boolean = false
 	override fun providePresenter(): SettingsPresenter = SettingsPresenter()
@@ -43,7 +42,6 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
 		adapter.addItem(SettingsModel(R.drawable.ic_theme, getString(R.string.theme_title), "", SettingsModel.THEME))
 		//adapter.addItem(SettingsModel(R.drawable.ic_forum, getString(R.string.forum), "", SettingsModel.FORUM))
 		adapter.addItem(SettingsModel(R.drawable.ic_custom, getString(R.string.customization), getString(R.string.customizationHint), SettingsModel.CUSTOMIZATION))
-    	adapter.addItem(SettingsModel(R.drawable.ic_font_size, getString(R.string.font), "", SettingsModel.FONT_SCALE))
 		hideShowShadow(true)
 	}
 
@@ -54,9 +52,6 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
 			}
 			SettingsModel.LANGUAGE -> {
 				showLanguageList()
-			}
-			SettingsModel.FONT_SCALE -> {
-				showFontScaleList()
 			}
 			else -> {
 				val intent = Intent(this, SettingsCategoryActivity::class.java)
@@ -76,12 +71,6 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
 		}
 	}
 
-	private fun showFontScaleList(){
-		val fontSizeBottomSheetDialog = FontScaleBottomSheetDialog()
-		fontSizeBottomSheetDialog.onAttach(this as Context)
-		fontSizeBottomSheetDialog.show(supportFragmentManager, "fontSizeBottomSheetDialog")
-	}
-
 	private fun showLanguageList() {
 		val languageBottomSheetDialog = LanguageBottomSheetDialog()
 		languageBottomSheetDialog.onAttach(this as Context)
@@ -90,11 +79,6 @@ class SettingsActivity : BaseActivity<SettingsMvp.View, SettingsPresenter>(), Se
 
 	override fun onLanguageChanged(action: KFunction0<Unit>) {
 		action.run { }
-		setResult(Activity.RESULT_OK)
-		finish()
-	}
-
-	override fun onFontChanged(action: KFunction0<Unit>) {
 		setResult(Activity.RESULT_OK)
 		finish()
 	}

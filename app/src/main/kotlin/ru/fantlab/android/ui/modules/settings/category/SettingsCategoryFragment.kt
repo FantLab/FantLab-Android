@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.settings.category
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
@@ -13,8 +14,10 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.SettingsModel
 import ru.fantlab.android.helper.PrefHelper
 import ru.fantlab.android.ui.base.mvp.BaseMvp
+import ru.fantlab.android.ui.widgets.dialog.FontScaleBottomSheetDialog
 
-class SettingsCategoryFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
+class SettingsCategoryFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener,
+		FontScaleBottomSheetDialog.FontScaleDialogViewActionCallback {
 	private var callback: BaseMvp.View? = null
 	private var appColor: String? = null
 	private var appLanguage: String? = null
@@ -70,6 +73,10 @@ class SettingsCategoryFragment : PreferenceFragmentCompat(), Preference.OnPrefer
 		}
 	}
 
+	override fun onFontChanged() {
+		callback?.onThemeChanged()
+	}
+
 	override fun onDestroyView() {
 		disposable.clear()
 		super.onDestroyView()
@@ -84,6 +91,13 @@ class SettingsCategoryFragment : PreferenceFragmentCompat(), Preference.OnPrefer
 		addPreferencesFromResource(R.xml.customization_settings)
 		findPreference("recylerViewAnimation").onPreferenceChangeListener = this
 		findPreference("appColor").onPreferenceChangeListener = this
+		findPreference("font_scale").onPreferenceChangeListener = this
+		findPreference("font_scale").setOnPreferenceClickListener {
+			val fontSizeBottomSheetDialog = FontScaleBottomSheetDialog()
+			fontSizeBottomSheetDialog.onAttach(requireContext())
+			fontSizeBottomSheetDialog.show(childFragmentManager, "fontSizeBottomSheetDialog")
+			true
+		}
 	}
 
 	private fun addForum() {
