@@ -53,7 +53,3 @@ Android-клиент для краудсорсингового библиогр�
 - Топ 100 Фантастика & Фэнтези: [анонс](https://fantlab.ru/blogarticle32490) и [тема](https://fantlab.ru/forum/forum2page2/topic9391page1)
 - [Сканер Fantlab для WinPhone](https://fantlab.ru/forum/forum2page3/topic9396page1)
 - [Текущая итерация](https://fantlab.ru/forum/forum2page1/topic10144page1)
-
-
-## License
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FFantLab%2FFantLab-Android.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FFantLab%2FFantLab-Android?ref=badge_large)
