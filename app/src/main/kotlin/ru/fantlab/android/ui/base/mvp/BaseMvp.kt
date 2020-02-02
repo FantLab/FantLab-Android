@@ -41,7 +41,7 @@ interface BaseMvp {
 
 		fun onOpenSettings()
 
-		fun onOpenUrlInBrowser()
+		fun onOpenUrlInBrowser(url: String)
 	}
 
 	interface Presenter {

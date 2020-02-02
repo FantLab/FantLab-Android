@@ -47,9 +47,9 @@ class BookcaseSelectorFragment : BaseFragment<BookcasesSelectorMvp.View, Bookcas
 
     override fun onInitViews(items: ArrayList<BookcaseSelection>?) {
         hideProgress()
-        if (items != null) {
+        if (!items.isNullOrEmpty()) {
             initAdapter(items)
-        }
+        } else stateLayout.showEmptyState()
     }
 
     private fun initAdapter(selections: ArrayList<BookcaseSelection>) {

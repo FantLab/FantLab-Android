@@ -297,9 +297,9 @@
 	<string name="bookcase_work">Sets of works</string>
 	<string name="bookcase_edition">Sets of editions</string>
 	<string name="bookcase_film">Sets of films</string>
-	<string name="bookcase_work_type">for works</string>
-	<string name="bookcase_edition_type">for editions</string>
-	<string name="bookcase_film_type">for films</string>
+	<string name="bookcase_work_type">For works</string>
+	<string name="bookcase_edition_type">For editions</string>
+	<string name="bookcase_film_type">For films</string>
 	<string name="bookcase_created">Bookcase created</string>
 	<string name="bookcase_updated">Bookcase updated</string>
 	<string name="bookcase_delete">Remove</string>
@@ -315,4 +315,7 @@
     <string name="translation_language">Translation to %s:</string>
 	<string name="translation_details">(%s), %d - %d pub.</string>
 	<string name="content_cycle">Cycle content</string>
+	<string name="font_title">Font</string>
+	<string name="font_summary">Font size change</string>
+	<string name="signup">Signup</string>
 </resources>

@@ -74,6 +74,7 @@ class ProfileResponsesFragment : BaseFragment<ProfileResponsesMvp.View, ProfileR
 		hideProgress()
 		if (items.isEmpty()) {
 			adapter.clear()
+			stateLayout.showEmptyState()
 			return
 		}
 		if (page <= 1) {

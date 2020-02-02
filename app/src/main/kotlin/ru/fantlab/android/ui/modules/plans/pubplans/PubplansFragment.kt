@@ -72,6 +72,7 @@ class PubplansFragment : BaseFragment<PubplansMvp.View, PubplansPresenter>(),
 		hideProgress()
 		if (items.isEmpty()) {
 			adapter.clear()
+			stateLayout.showEmptyState()
 			return
 		}
 		if (page <= 1) {

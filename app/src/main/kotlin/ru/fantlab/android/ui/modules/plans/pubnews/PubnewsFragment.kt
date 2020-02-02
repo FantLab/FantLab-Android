@@ -73,6 +73,7 @@ class PubnewsFragment : BaseFragment<PubnewsMvp.View, PubnewsPresenter>(),
 		hideProgress()
 		if (items.isEmpty()) {
 			adapter.clear()
+			stateLayout.showEmptyState()
 			return
 		}
 		if (page <= 1) {

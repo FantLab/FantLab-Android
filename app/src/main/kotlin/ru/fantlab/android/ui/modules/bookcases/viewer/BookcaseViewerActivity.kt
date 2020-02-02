@@ -163,6 +163,7 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
         hideProgress()
         if (items.isEmpty()) {
             editionsAdapter.clear()
+            stateLayout.showEmptyState()
             return
         }
         if (page <= 1) {
@@ -176,6 +177,7 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
         hideProgress()
         if (items.isEmpty()) {
             worksAdapter.clear()
+            stateLayout.showEmptyState()
             return
         }
         if (page <= 1) {
@@ -189,6 +191,7 @@ class BookcaseViewerActivity : BaseActivity<BookcaseViewerMvp.View, BookcaseView
         hideProgress()
         if (items.isEmpty()) {
             filmsAdapter.clear()
+            stateLayout.showEmptyState()
             return
         }
         if (page <= 1) {

@@ -116,8 +116,8 @@ abstract class BaseFragment<V : BaseMvp.View, P : BasePresenter<V>> : TiFragment
 
 	override fun onScrollTop(index: Int) {}
 
-	override fun onOpenUrlInBrowser() {
-		callback?.onOpenUrlInBrowser()
+	override fun onOpenUrlInBrowser(url: String) {
+		callback?.onOpenUrlInBrowser(url)
 	}
 
 	protected fun isSafe(): Boolean {

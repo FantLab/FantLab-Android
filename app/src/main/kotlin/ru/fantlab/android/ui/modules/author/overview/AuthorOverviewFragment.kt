@@ -144,7 +144,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 	override fun onShowErrorView(msgRes: String?) {
 		parentView.visibility = View.GONE
 		stateLayout.setEmptyText(R.string.network_error)
-		stateLayout.showEmptyState()
+		stateLayout.showErrorState()
 	}
 
 	override fun showMessage(titleRes: Int, msgRes: Int) {

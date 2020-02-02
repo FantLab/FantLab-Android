@@ -31,6 +31,7 @@ class AuthorsPresenter : BasePresenter<AuthorsMvp.View>(), AuthorsMvp.Presenter 
 					.onErrorResumeNext {
 						getAuthorsFromDb()
 					}
+					.doOnError { err -> sendToView { it.onShowErrorView(err.message) } }
 
 	private fun getAuthorsFromServer(): Single<ArrayList<AuthorInList>> =
 			DataManager.getAuthors(sort)

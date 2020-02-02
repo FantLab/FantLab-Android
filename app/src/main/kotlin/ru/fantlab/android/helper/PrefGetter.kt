@@ -38,6 +38,7 @@ object PrefGetter {
 	private const val APP_LANGUAGE = "app_language"
 	private const val NAV_DRAWER_GUIDE = "nav_drawer_guide"
 	private const val LOGGED_USER = "logged_user"
+	private const val APP_FONT_SCALE = "app_font_scale"
 
 	fun setLoggedUser(user: User) {
 		PrefHelper[LOGGED_USER] = DataManager.gson.toJson(user)
@@ -177,5 +178,14 @@ object PrefGetter {
 	fun getTopicMessagesOrder(): String {
 		val order = PrefHelper.getString("topicOrder")
 		return order ?: "desc"
+	}
+  
+  	fun setAppFontScale(value: Float) {
+		PrefHelper[APP_FONT_SCALE] = value
+	}
+
+	fun getAppFontScale(): Float {
+		val fontScale = PrefHelper.getFloat(APP_FONT_SCALE)
+		return if (fontScale == 0f) 1f else fontScale
 	}
 }

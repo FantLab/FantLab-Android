@@ -3,6 +3,7 @@ package ru.fantlab.android.ui.base
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.MenuItem
@@ -64,6 +65,7 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		setTaskName(null)
 		setupTheme()
 		AppHelper.updateAppLanguage(this)
+		AppHelper.updateAppFont(this)
 		super.onCreate(savedInstanceState)
 		if (layout() != 0) {
 			setContentView(layout())
@@ -275,8 +277,9 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 		startActivityForResult(Intent(this, SettingsActivity::class.java), BundleConstant.REFRESH_CODE)
 	}
 
-	override fun onOpenUrlInBrowser() {
-		// open url in browser
+	override fun onOpenUrlInBrowser(url: String) {
+		val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+		startActivity(Intent.createChooser(browserIntent, getString(R.string.open)))
 	}
 
 	override fun onScrollTop(index: Int) {

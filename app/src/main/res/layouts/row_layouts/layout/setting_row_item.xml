@@ -16,7 +16,7 @@
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"
 		android:layout_marginEnd="@dimen/spacing_large"
-		app:tint="?android:attr/textColorSecondary"
+		app:tint="?android:attr/textColorPrimary"
 		/>
 
 	<LinearLayout
@@ -32,14 +32,13 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			style="@style/TextAppearance.AppCompat.Subhead"
-			android:textColor="?android:textColorTertiary"
+			android:textColor="?android:textColorPrimary"
 			/>
 
 		<ru.fantlab.android.ui.widgets.FontTextView
 			android:id="@+id/iconItemSummary"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:alpha="0.7"
 			style="?android:attr/textAppearanceListItemSecondary"
 			android:textColor="?android:textColorSecondary"
 			/>

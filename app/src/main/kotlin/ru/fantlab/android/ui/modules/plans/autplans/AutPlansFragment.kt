@@ -73,6 +73,7 @@ class AutPlansFragment : BaseFragment<AutPlansMvp.View, AutPlansPresenter>(),
 		hideProgress()
 		if (items.isEmpty()) {
 			adapter.clear()
+			stateLayout.showEmptyState()
 			return
 		}
 		if (page <= 1) {

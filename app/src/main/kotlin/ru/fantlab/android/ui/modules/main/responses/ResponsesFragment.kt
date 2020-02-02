@@ -54,6 +54,7 @@ class ResponsesFragment : BaseFragment<ResponsesMvp.View, ResponsesPresenter>(),
 		hideProgress()
 		if (items.isEmpty()) {
 			adapter.clear()
+			stateLayout.showEmptyState()
 			return
 		}
 		if (page <= 1) {

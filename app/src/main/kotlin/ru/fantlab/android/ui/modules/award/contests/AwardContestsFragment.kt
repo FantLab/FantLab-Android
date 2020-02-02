@@ -47,9 +47,11 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 
 	override fun onInitViews(contests: List<Award.Contest>?) {
 		hideProgress()
-		if (contests != null) {
+		if (!contests.isNullOrEmpty()) {
 			onSetTabCount(contests.size)
 			initAdapter(contests)
+		} else {
+			stateLayout.showEmptyState()
 		}
 	}
 
@@ -86,9 +88,7 @@ class AwardContestsFragment : BaseFragment<AwardContestsMvp.View, AwardContestsP
 							.toString()
 				} else nameConsts
 
-				nodes[subIndex].addChild(TreeNode(Consts(nameConsts
-						?: "", contestsWork.nominationRusname
-						?: contestsWork.nominationName, contestsWork.cwLinkId ?: 0)))
+				nodes[subIndex].addChild(TreeNode(Consts(nameConsts, contestsWork.nominationRusname, contestsWork.cwLinkId ?: 0)))
 				if (workId != -1) app.expandAll()
 			}
 

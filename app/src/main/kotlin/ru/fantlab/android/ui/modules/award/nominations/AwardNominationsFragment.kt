@@ -74,12 +74,12 @@ class AwardNominationsFragment : BaseFragment<AwardNominationsMvp.View, AwardNom
 
 	override fun onNotifyAdapter(items: List<Award.Nominations>?) {
 		hideProgress()
-		if (items != null) {
-			if (items.isEmpty()) {
-				adapter.clear()
-				return
-			}
+		if (!items.isNullOrEmpty()) {
 			adapter.insertItems(items)
+		} else {
+			adapter.clear()
+			stateLayout.showEmptyState()
+			return
 		}
 		fastScroller.attachRecyclerView(recycler)
 	}

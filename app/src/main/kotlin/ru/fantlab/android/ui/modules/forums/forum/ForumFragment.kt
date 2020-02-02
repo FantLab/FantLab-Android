@@ -73,6 +73,7 @@ class ForumFragment : BaseFragment<ForumMvp.View, ForumPresenter>(),
 		hideProgress()
 		if (items.isEmpty()) {
 			adapter.clear()
+			stateLayout.showEmptyState()
 			return
 		}
 		if (page <= 1) {

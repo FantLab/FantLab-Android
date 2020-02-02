@@ -58,10 +58,10 @@ class BookcasesOverviewFragment : BaseFragment<BookcasesOverviewMvp.View, Bookca
 
     override fun onInitViews(items: ArrayList<Bookcase>?) {
         hideProgress()
-        if (items != null) {
+        if (!items.isNullOrEmpty()) {
             onSetTabCount(items.size)
             initAdapter(items)
-        }
+        } else stateLayout.showEmptyState()
     }
 
     private fun initAdapter(bookcases: ArrayList<Bookcase>) {

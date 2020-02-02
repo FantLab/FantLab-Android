@@ -106,6 +106,7 @@ class PublishersActivity : BaseActivity<PublishersMvp.View, PublishersPresenter>
 		hideProgress()
 		if (items.isEmpty()) {
 			adapter.clear()
+			stateLayout.showEmptyState()
 			return
 		}
 		if (page <= 1) {

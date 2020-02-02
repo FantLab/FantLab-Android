@@ -41,6 +41,10 @@ class WorkAnalogsFragment : BaseFragment<WorkAnalogsMvp.View, WorkAnalogsPresent
 
 	override fun onInitViews(analogs: ArrayList<WorkAnalog>) {
 		hideProgress()
+		if (analogs.isEmpty()) {
+			stateLayout.showEmptyState()
+			return
+		}
 		adapter.addItems(analogs)
 	}
 

@@ -56,6 +56,7 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 		hideProgress()
 		if (items.isEmpty()) {
 			adapter.clear()
+			stateLayout.showEmptyState()
 			return
 		}
 		adapter.insertItems(items)
@@ -63,6 +64,12 @@ class AuthorsActivity : BaseActivity<AuthorsMvp.View, AuthorsPresenter>(), Autho
 
 	override fun onItemClicked(item: AuthorInList) {
 		AuthorPagerActivity.startActivity(this, item.id, item.name, 0)
+	}
+
+	override fun onShowErrorView(msgRes: String?) {
+		recycler.visibility = View.GONE
+		stateLayout.setEmptyText(R.string.network_error)
+		stateLayout.showErrorState()
 	}
 
 	override fun onRefresh() {

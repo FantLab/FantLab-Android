@@ -136,7 +136,7 @@ abstract class BaseMvpBottomSheetDialogFragment<V : BaseMvp.View, P : BasePresen
 		return dialog
 	}
 
-	override fun onOpenUrlInBrowser() {
-		callback?.onOpenUrlInBrowser()
+	override fun onOpenUrlInBrowser(url: String) {
+		callback?.onOpenUrlInBrowser(url)
 	}
 }

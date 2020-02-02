@@ -20,6 +20,9 @@ class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.Vi
 		proceedWithoutLogin.setOnClickListener {
 			presenter.proceedWithoutLogin()
 		}
+		register.setOnClickListener {
+			onOpenUrlInBrowser("https://fantlab.ru/regform")
+		}
 		passwordEditText.setOnEditorActionListener { _, _, _ ->
 			doLogin()
 			true

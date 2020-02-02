@@ -28,9 +28,9 @@ class WorkTranslationViewHolder : TreeViewBinder<WorkTranslationViewHolder.ViewH
         val translatorsLen = min(nodeItem!!.translation.translators.size, 5)
         for (translatorIndex in 0 until translatorsLen) {
             (holder as ViewHolder).translatorWidgets[translatorIndex].visibility = View.VISIBLE
-            var translatorName = nodeItem!!.translation.translators[translatorIndex].shortName
+            var translatorName = nodeItem.translation.translators[translatorIndex].shortName
             if (translatorIndex < translatorsLen -1) {
-                translatorName = translatorName + ","
+                translatorName += ","
             }
             holder.translatorWidgets[translatorIndex].text = translatorName
         }

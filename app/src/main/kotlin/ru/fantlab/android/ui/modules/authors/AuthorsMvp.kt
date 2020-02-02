@@ -16,6 +16,8 @@ interface AuthorsMvp {
 		fun onNotifyAdapter(items: ArrayList<AuthorInList>)
 
 		fun onItemClicked(item: AuthorInList)
+
+		fun onShowErrorView(msgRes: String?)
 	}
 
 	interface Presenter : BaseMvp.Presenter,

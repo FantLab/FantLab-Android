@@ -41,6 +41,9 @@ class AuthorEditionsFragment : BaseFragment<AuthorEditionsMvp.View, AuthorEditio
 		onSetTabCount(count)
 		adapter.clear()
 		editionsBlocks?.forEach { adapter.addItems(it.list) }
+		if (adapter.data.isEmpty()) {
+			stateLayout.showEmptyState()
+		}
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {

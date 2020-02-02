@@ -112,8 +112,8 @@ abstract class BaseDialogFragment<V : BaseMvp.View, P : BasePresenter<V>>
 		callback?.onOpenSettings()
 	}
 
-	override fun onOpenUrlInBrowser() {
-		callback?.onOpenUrlInBrowser()
+	override fun onOpenUrlInBrowser(url: String) {
+		callback?.onOpenUrlInBrowser(url)
 	}
 
 	override fun onScrollTop(index: Int) {

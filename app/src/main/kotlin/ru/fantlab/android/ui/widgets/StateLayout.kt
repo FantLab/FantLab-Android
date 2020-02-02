@@ -6,6 +6,7 @@ import androidx.core.widget.NestedScrollView
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import com.evernote.android.state.State
 import com.evernote.android.state.StateSaver
 import kotlinx.android.synthetic.main.empty_layout.view.*
@@ -25,7 +26,7 @@ open class StateLayout : NestedScrollView {
 	constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
 
-	fun onReload() {
+	private fun onReload() {
 		onReloadListener?.onClick(reload)
 	}
 
@@ -71,7 +72,7 @@ open class StateLayout : NestedScrollView {
 
 	fun setEmptyText(text: String?) {
 		text?.let {
-			this.emptyTextValue = "$it\n\n¯\\_(ツ)_/¯"
+			this.emptyTextValue = it
 			empty_text.text = emptyTextValue
 		}
 	}
@@ -81,7 +82,15 @@ open class StateLayout : NestedScrollView {
 		hideReload()
 		visibility = View.VISIBLE
 		empty_text.visibility = View.VISIBLE
-		layoutState = SHOW_EMPTY_STATE// last so it override visibility state.
+		layoutState = SHOW_EMPTY_STATE
+	}
+
+	fun showErrorState() {
+		hideProgress()
+		hideReload()
+		visibility = View.VISIBLE
+		empty_text.visibility = View.VISIBLE
+		layoutState = SHOW_EMPTY_STATE
 	}
 
 	fun setOnReloadListener(onReloadListener: View.OnClickListener) {

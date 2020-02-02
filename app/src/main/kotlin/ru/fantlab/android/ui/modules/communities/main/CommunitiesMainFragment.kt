@@ -46,6 +46,7 @@ class CommunitiesMainFragment : BaseFragment<CommunitiesMainMvp.View, Communitie
 	override fun onInitViews(main: ArrayList<Community.Main>, additional: ArrayList<Community.Additional>) {
 		hideProgress()
 		if (main.isEmpty() || additional.isEmpty()) {
+			stateLayout.showEmptyState()
 			return
 		}
 

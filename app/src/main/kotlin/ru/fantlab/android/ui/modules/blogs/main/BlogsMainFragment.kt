@@ -63,6 +63,7 @@ class BlogsMainFragment : BaseFragment<BlogsMainMvp.View, BlogsMainPresenter>(),
 		hideProgress()
 		if (blogs.isEmpty()) {
 			adapter.clear()
+			stateLayout.showEmptyState()
 			return
 		}
 		if (page <= 1) {

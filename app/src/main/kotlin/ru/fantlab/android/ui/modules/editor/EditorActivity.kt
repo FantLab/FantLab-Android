@@ -201,39 +201,41 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 	private fun onCreate() {
 		if (intent != null && intent.extras != null) {
 			val bundle = intent.extras
-			extraType = bundle.getString(BundleConstant.EXTRA_TYPE)
-			reviewComment = bundle.getParcelable(BundleConstant.REVIEW_EXTRA)
-			itemId = bundle.getInt(BundleConstant.ID)
-			val textToUpdate = bundle.getString(BundleConstant.EXTRA)
-			if (!InputHelper.isEmpty(textToUpdate)) {
-				extraId = bundle.getInt(BundleConstant.EXTRA_TWO)
-				editText.setText(String.format("%s ", textToUpdate))
-				editText.setSelection(InputHelper.toString(editText).length)
-			}
-			extraPosition = bundle.getInt(BundleConstant.EXTRA_THREE)
-			when (extraType) {
-				BundleConstant.EDITOR_NEW_RESPONSE,
-				BundleConstant.EDITOR_EDIT_RESPONSE -> {
-					title = getString(R.string.editor_response)
-					editorLayout.addSmile.visibility = GONE
-					editorLayout.bold.visibility = GONE
-					editorLayout.strikethrough.visibility = GONE
-					editorLayout.italic.visibility = GONE
-					editorLayout.underlined.visibility = GONE
-					editorLayout.quote.visibility = GONE
-					editorLayout.list.visibility = GONE
-					editorLayout.link.visibility = GONE
-					editorLayout.image.visibility = GONE
+			if (bundle != null) {
+				extraType = bundle.getString(BundleConstant.EXTRA_TYPE)
+				reviewComment = bundle.getParcelable(BundleConstant.REVIEW_EXTRA)
+				itemId = bundle.getInt(BundleConstant.ID)
+				val textToUpdate = bundle.getString(BundleConstant.EXTRA)
+				if (!InputHelper.isEmpty(textToUpdate)) {
+					extraId = bundle.getInt(BundleConstant.EXTRA_TWO)
+					editText.setText(String.format("%s ", textToUpdate))
+					editText.setSelection(InputHelper.toString(editText).length)
 				}
-				BundleConstant.EDITOR_NEW_COMMENT -> {
-					title = getString(R.string.editor_comment)
-					editorLayout.editorIconsHolder.visibility = View.INVISIBLE
-				}
-				BundleConstant.EDITOR_NEW_MESSAGE -> {
-					title = getString(R.string.editor_message)
-				}
-				BundleConstant.EDITOR_NEW_TOPIC_MESSAGE -> {
-					title = getString(R.string.editor_topic_message)
+				extraPosition = bundle.getInt(BundleConstant.EXTRA_THREE)
+				when (extraType) {
+					BundleConstant.EDITOR_NEW_RESPONSE,
+					BundleConstant.EDITOR_EDIT_RESPONSE -> {
+						title = getString(R.string.editor_response)
+						editorLayout.addSmile.visibility = GONE
+						editorLayout.bold.visibility = GONE
+						editorLayout.strikethrough.visibility = GONE
+						editorLayout.italic.visibility = GONE
+						editorLayout.underlined.visibility = GONE
+						editorLayout.quote.visibility = GONE
+						editorLayout.list.visibility = GONE
+						editorLayout.link.visibility = GONE
+						editorLayout.image.visibility = GONE
+					}
+					BundleConstant.EDITOR_NEW_COMMENT -> {
+						title = getString(R.string.editor_comment)
+						editorLayout.editorIconsHolder.visibility = View.INVISIBLE
+					}
+					BundleConstant.EDITOR_NEW_MESSAGE -> {
+						title = getString(R.string.editor_message)
+					}
+					BundleConstant.EDITOR_NEW_TOPIC_MESSAGE -> {
+						title = getString(R.string.editor_topic_message)
+					}
 				}
 			}
 		}

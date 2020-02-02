@@ -259,9 +259,9 @@
 	<string name="bookcase_work">Подборки произведений</string>
 	<string name="bookcase_edition">Книжные полки изданий</string>
 	<string name="bookcase_film">Кинополки</string>
-	<string name="bookcase_work_type">для произведений</string>
-	<string name="bookcase_edition_type">для изданий</string>
-	<string name="bookcase_film_type">для кинофильмов</string>
+	<string name="bookcase_work_type">Для произведений</string>
+	<string name="bookcase_edition_type">Для изданий</string>
+	<string name="bookcase_film_type">Для кинофильмов</string>
 	<string name="bookcase_created">Полка добавлена</string>
 	<string name="bookcase_updated">Полка обновлена</string>
 	<string name="bookcase_delete">Удалить</string>
@@ -277,4 +277,7 @@
     <string name="translation_language">Перевод на %s:</string>
 	<string name="translation_details">(%s), %d - %d изд.</string>
 	<string name="content_cycle">Содержание цикла</string>
+	<string name="font_title">Шрифт</string>
+	<string name="font_summary">Изменения размера шрифта</string>
+	<string name="signup">Регистрация</string>
 </resources>
