@@ -32,55 +32,55 @@ class TranslatorOverviewFragment : BaseFragment<TranslatorOverviewMvp.View, Tran
         hideProgress()
         coverLayouts.setUrl("https:${translator.image}")
 
-        /*if (!InputHelper.isEmpty(author.countryName)) {
-            authorCountryInfo.text = author.countryName
-            authorCountryInfoBlock.visibility = View.VISIBLE
-        } else authorCountryInfoBlock.visibility = View.GONE
+        if (!translator.countries.isEmpty()) {
+            translatorCountryInfo.text = translator.countries[0].name
+            translatorCountryInfoBlock.visibility = View.VISIBLE
+        } else translatorCountryInfoBlock.visibility = View.GONE
 
-        if (InputHelper.isEmpty(author.name)) {
-            authorName.text = author.nameOriginal
-            authorNameOrig.visibility = View.GONE
+        if (InputHelper.isEmpty(translator.name)) {
+            translatorName.text = translator.nameOriginal
+            translatorNameOrig.visibility = View.GONE
         } else {
-            authorName.text = author.name
-            if (!InputHelper.isEmpty(author.nameOriginal))
-                authorNameOrig.text = author.nameOriginal
+            translatorName.text = translator.name
+            if (!InputHelper.isEmpty(translator.nameOriginal))
+                translatorNameOrig.text = translator.nameOriginal
             else
-                authorNameOrig.visibility = View.GONE
-        }*/
+                translatorNameOrig.visibility = View.GONE
+        }
 
         pagerCallback?.onSetTitle(if (!InputHelper.isEmpty(translator.name)) translator.name else translator.nameOriginal)
 
-        /*if (!author.birthDay.isNullOrEmpty()) {
-            editionBorn.text = author.birthDay
-            editionBornBlock.visibility = View.VISIBLE
-        } else editionBornBlock.visibility = View.GONE
+        if (!translator.birthday.isNullOrEmpty()) {
+            translatorBorn.text = translator.birthday
+            translatorBornBlock.visibility = View.VISIBLE
+        } else translatorBornBlock.visibility = View.GONE
 
-        if (!author.deathDay.isNullOrEmpty()) {
-            editionDie.text = author.deathDay
-            editionDieBlock.visibility = View.VISIBLE
-        } else editionDieBlock.visibility = View.GONE*/
+        if (!translator.deathday.isNullOrEmpty()) {
+            translatorDie.text = translator.deathday
+            translatorDieBlock.visibility = View.VISIBLE
+        } else translatorDieBlock.visibility = View.GONE
 
+        if (!translator.translatorFrom.isNullOrEmpty()) {
+            translatorFrom.text = translator.translatorFrom
+            translatorFromBlock.visibility = View.VISIBLE
+        } else translatorFromBlock.visibility = View.GONE
+
+        if (!translator.translatorTo.isNullOrEmpty()) {
+            translatorTo.text = translator.translatorTo
+            translatorToBlock.visibility = View.VISIBLE
+        } else translatorToBlock.visibility = View.GONE
 
         if (!translator?.biography.isNullOrEmpty()) {
-            /*val source = when {
-                biography!!.source.isNotEmpty() && biography.sourceLink.isNotEmpty() -> {
-                    val sourceText = "© <a href=\"${biography.sourceLink}\">${biography.source}</a>"
-                    sourceText
-                }
-                biography.source.isNotEmpty() -> {
-                    getString(R.string.copyright, biography.source)
-                }
-                biography.sourceLink.isNotEmpty() -> {
-                    getString(R.string.copyright, biography.sourceLink)
+            val source = when {
+                translator!!.biographySource.isNotEmpty() -> {
+                    getString(R.string.copyright, translator!!.biographySource)
                 }
                 else -> {
                     ""
                 }
             }
 
-            biographyText.html = biography.biography.replace("(\r\n)+".toRegex(), "\n").trim() + "\n\n" + source*/
-
-            biographyText.html = translator.biography!!.replace("(\r\n)+".toRegex(), "\n").trim()
+            biographyText.html = translator.biography!!.replace("(\r\n)+".toRegex(), "\n").trim() + "\n\n" + source
 
             biographyBlock.visibility = View.VISIBLE
         } else biographyBlock.visibility = View.GONE

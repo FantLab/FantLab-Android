@@ -280,4 +280,6 @@
 	<string name="font_title">Шрифт</string>
 	<string name="font_summary">Изменения размера шрифта</string>
 	<string name="signup">Регистрация</string>
+	<string name="translatorFrom">Переводчик с:</string>
+	<string name="translatorTo">Переводчик на:</string>
 </resources>

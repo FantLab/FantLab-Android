@@ -118,10 +118,10 @@
                                     />
                             </TableRow>
 
-                            <TableRow android:id="@+id/editionBornBlock" android:visibility="gone">
+                            <TableRow android:id="@+id/translatorBornBlock" android:visibility="gone">
 
                                 <ru.fantlab.android.ui.widgets.FontTextView
-                                    android:id="@+id/editionBornTitle"
+                                    android:id="@+id/translatorBornTitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/born"
@@ -130,7 +130,7 @@
                                     />
 
                                 <ru.fantlab.android.ui.widgets.FontTextView
-                                    android:id="@+id/editionBorn"
+                                    android:id="@+id/translatorBorn"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -141,10 +141,10 @@
                                     />
                             </TableRow>
 
-                            <TableRow android:id="@+id/editionDieBlock" android:visibility="gone">
+                            <TableRow android:id="@+id/translatorDieBlock" android:visibility="gone">
 
                                 <ru.fantlab.android.ui.widgets.FontTextView
-                                    android:id="@+id/editionDieTitle"
+                                    android:id="@+id/translatorDieTitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/die"
@@ -153,7 +153,7 @@
                                     />
 
                                 <ru.fantlab.android.ui.widgets.FontTextView
-                                    android:id="@+id/editionDie"
+                                    android:id="@+id/translatorDie"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -161,6 +161,52 @@
                                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                                     android:textColor="?android:attr/textColorPrimary"
                                     tools:text="14 марта 1957 г."
+                                    />
+                            </TableRow>
+
+                            <TableRow android:id="@+id/translatorFromBlock" android:visibility="gone">
+
+                                <ru.fantlab.android.ui.widgets.FontTextView
+                                    android:id="@+id/translatorFromTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/translatorFrom"
+                                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                                    android:textColor="?android:attr/textColorSecondary"
+                                    />
+
+                                <ru.fantlab.android.ui.widgets.FontTextView
+                                    android:id="@+id/translatorFrom"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="end"
+                                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                                    android:textColor="?android:attr/textColorPrimary"
+                                    tools:text="английского"
+                                    />
+                            </TableRow>
+
+                            <TableRow android:id="@+id/translatorToBlock" android:visibility="gone">
+
+                                <ru.fantlab.android.ui.widgets.FontTextView
+                                    android:id="@+id/translatorToTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/translatorTo"
+                                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                                    android:textColor="?android:attr/textColorSecondary"
+                                    />
+
+                                <ru.fantlab.android.ui.widgets.FontTextView
+                                    android:id="@+id/translatorTo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="end"
+                                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                                    android:textColor="?android:attr/textColorPrimary"
+                                    tools:text="русский"
                                     />
                             </TableRow>
 
@@ -197,15 +243,6 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/spacing_normal"
                         >
-
-                        <ru.fantlab.android.ui.widgets.FontTextView
-                            android:id="@+id/biographyTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/about_author"
-                            android:textColor="@color/material_teal_700"
-                            style="@style/TextAppearance.AppCompat.Title"
-                            />
 
                         <ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
                             android:id="@+id/biographyText"
