@@ -70,4 +70,12 @@ data class Translator (
             @SerializedName("work_rusname") val workRusName: String,
             @SerializedName("work_year") val workYear: Int?
     ) : Parcelable
+
+    @Keep
+    @Parcelize
+    data class TranslatedWork(
+            val author: AuthorCard,
+            val editions: ArrayList<EditionCard>,
+            val work: WorkCard
+    ) : Parcelable
 }
