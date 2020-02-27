@@ -8,8 +8,8 @@ import ru.fantlab.android.provider.rest.DataManager
 
 data class TranslatorResponse(
         val translator: Translator,
-        val sortedWorks: ArrayList<String>?,
-        val translatedWorks: HashMap<String, Translator.TranslatedWork>?
+        val sortedWorks: ArrayList<String>,
+        val translatedWorks: HashMap<String, Translator.TranslatedWork>
 ) {
     class Deserializer : ResponseDeserializable<TranslatorResponse> {
         private lateinit var translator: Translator

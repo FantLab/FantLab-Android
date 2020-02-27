@@ -30,6 +30,7 @@ import ru.fantlab.android.ui.modules.search.editions.SearchEditionsFragment
 import ru.fantlab.android.ui.modules.search.works.SearchWorksFragment
 import ru.fantlab.android.ui.modules.theme.fragment.ThemeFragment
 import ru.fantlab.android.ui.modules.translator.overview.TranslatorOverviewFragment
+import ru.fantlab.android.ui.modules.translator.works.TranslatorWorksFragment
 import ru.fantlab.android.ui.modules.work.analogs.WorkAnalogsFragment
 import ru.fantlab.android.ui.modules.work.overview.WorkOverviewFragment
 import ru.fantlab.android.ui.modules.work.responses.WorkResponsesFragment
@@ -72,7 +73,8 @@ data class FragmentPagerAdapterModel(
 
 		fun buildForTranslator(context: Context, translatorId: Int): MutableList<FragmentPagerAdapterModel> {
 			return mutableListOf(
-					FragmentPagerAdapterModel(context.getString(R.string.overview), TranslatorOverviewFragment.newInstance(translatorId), context.getString(R.string.overview))
+					FragmentPagerAdapterModel(context.getString(R.string.overview), TranslatorOverviewFragment.newInstance(translatorId), context.getString(R.string.overview)),
+					FragmentPagerAdapterModel(context.getString(R.string.bibiography), TranslatorWorksFragment.newInstance(translatorId), context.getString(R.string.bibiography))
 			)
 		}
 
