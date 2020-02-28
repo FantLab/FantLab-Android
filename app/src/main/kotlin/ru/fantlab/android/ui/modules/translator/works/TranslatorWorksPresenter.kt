@@ -5,13 +5,17 @@ import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Translator
 import ru.fantlab.android.data.dao.response.TranslatorResponse
 import ru.fantlab.android.provider.rest.DataManager
+import ru.fantlab.android.provider.rest.TranslationsSortOption
 import ru.fantlab.android.provider.rest.getTranslatorInformationPath
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
 class TranslatorWorksPresenter : BasePresenter<TranslatorWorksMvp.View>(), TranslatorWorksMvp.Presenter {
+    private var sort: TranslationsSortOption = TranslationsSortOption.BY_YEAR
+    private var translator: Int = -1
 
     override fun getTranslatorWorks(translatorId: Int) {
+        translator = translatorId
         makeRestCall(
                 retrieveTranslatorInfoInternal(translatorId).toObservable(),
                 Consumer { translated ->
@@ -39,4 +43,12 @@ class TranslatorWorksPresenter : BasePresenter<TranslatorWorksMvp.View>(), Trans
     private fun getTranslatorWorks(response: TranslatorResponse):
             HashMap<String, Translator.TranslatedWork> =
             response.translatedWorks
+
+    override fun setCurrentSort(sortBy: TranslationsSortOption) {
+        sort = sortBy
+        getTranslatorWorks(translator)
+    }
+
+    override fun getCurrentSort() = sort
+
 }

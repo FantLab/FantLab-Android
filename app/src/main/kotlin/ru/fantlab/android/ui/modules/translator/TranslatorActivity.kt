@@ -5,6 +5,8 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.viewpager.widget.ViewPager
 import com.evernote.android.state.State
 import com.google.android.material.tabs.TabLayout
@@ -20,6 +22,7 @@ import ru.fantlab.android.helper.ViewHelper
 import ru.fantlab.android.ui.adapter.FragmentsPagerAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
+import ru.fantlab.android.ui.modules.translator.works.TranslatorWorksFragment
 import java.util.HashSet
 
 class TranslatorActivity : BaseActivity<TranslatorMvp.View, BasePresenter<TranslatorMvp.View>>(), TranslatorMvp.View {
@@ -27,6 +30,7 @@ class TranslatorActivity : BaseActivity<TranslatorMvp.View, BasePresenter<Transl
     @State var translatorId: Int = 0
     @State var translatorName: String = ""
     @State var tabsCountSet = HashSet<TabsCountStateModel>()
+    private lateinit var toolbarMenu: Menu
 
     override fun isTransparent(): Boolean = true
 
@@ -75,6 +79,7 @@ class TranslatorActivity : BaseActivity<TranslatorMvp.View, BasePresenter<Transl
         pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
+                hideShowToolbar(position)
             }
         })
         if (savedInstanceState != null && !tabsCountSet.isEmpty()) {
@@ -117,6 +122,41 @@ class TranslatorActivity : BaseActivity<TranslatorMvp.View, BasePresenter<Transl
                 val custom = tab.customView
                 if (custom == null) tab.customView = adapter.getCustomTabView(this)
                 setupTab(0, i)
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.translator_works_menu, menu)
+        toolbarMenu = menu
+        hideShowToolbar(pager.currentItem)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.sort -> {
+                when ((pager.adapter as FragmentsPagerAdapter).getItemKey(pager.currentItem)) {
+                    getString(R.string.bibiography) -> {
+                        val fragment = pager.adapter?.instantiateItem(pager, 1) as? TranslatorWorksFragment
+                        fragment?.showSortDialog()
+                    }
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun hideShowToolbar(position: Int) {
+        if (::toolbarMenu.isInitialized) {
+            when (position) {
+                1 -> {
+                    toolbarMenu.findItem(R.id.sort).isVisible = true
+                }
+                else -> {
+                    toolbarMenu.findItem(R.id.sort).isVisible = false
+                }
             }
         }
     }

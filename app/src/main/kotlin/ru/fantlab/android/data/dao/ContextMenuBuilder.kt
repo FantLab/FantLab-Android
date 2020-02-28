@@ -334,6 +334,19 @@ object ContextMenuBuilder {
 		return items
 	}
 
+	fun buildForTranslatorWorksSorting(context: Context, sortBy: TranslationsSortOption): ArrayList<ContextMenus> {
+		val items = ArrayList<ContextMenus>()
+		val actions =
+				arrayListOf(
+						ContextMenus.MenuItem(context.getString(R.string.sort_translation_year), R.drawable.ic_time_small, "sort", selected = TranslationsSortOption.values()[0] == sortBy),
+						ContextMenus.MenuItem(context.getString(R.string.sort_translation_author), R.drawable.ic_person, "sort", selected = TranslationsSortOption.values()[1] == sortBy),
+						ContextMenus.MenuItem(context.getString(R.string.sort_translation_type), R.drawable.ic_type_small, "sort", selected = TranslationsSortOption.values()[2] == sortBy)
+				)
+		items.add(ContextMenus(context.getString(R.string.select_sort), actions, "sort"))
+
+		return items
+	}
+
 	fun buildForProfileMarksFilter(context: Context, filterCategory: MarksTypeOption): ArrayList<ContextMenus> {
 		val items = ArrayList<ContextMenus>()
 

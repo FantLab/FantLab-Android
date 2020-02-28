@@ -284,4 +284,7 @@
 	<string name="translatorTo">Переводчик на:</string>
 	<string name="unknownTranslationYear">год неизвестен</string>
 	<string name="noTranslations">Нет переводов</string>
+	<string name="sort_translation_year">Году издания перевода</string>
+	<string name="sort_translation_author">Автору</string>
+	<string name="sort_translation_type">Типу произведения</string>
 </resources>
