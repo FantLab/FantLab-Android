@@ -282,4 +282,6 @@
 	<string name="signup">Регистрация</string>
 	<string name="translatorFrom">Переводчик с:</string>
 	<string name="translatorTo">Переводчик на:</string>
+	<string name="unknownTranslationYear">год неизвестен</string>
+	<string name="noTranslations">Нет переводов</string>
 </resources>

@@ -17,6 +17,8 @@ import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.ui.adapter.viewholder.TranslatedWorkHeaderViewHolder
 import ru.fantlab.android.ui.adapter.viewholder.TranslatedWorkItemViewHolder
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.translator.TranslatorMvp
+import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import java.util.*
@@ -28,13 +30,14 @@ class TranslatorWorksFragment : BaseFragment<TranslatorWorksMvp.View, Translator
         TranslatorWorksMvp.View {
 
     private var translatorId = -1
+    private var countCallback: TranslatorMvp.View? = null
 
     override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list
 
     override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
         stateLayout.hideReload()
         translatorId = arguments!!.getInt(BundleConstant.EXTRA)
-        stateLayout.setEmptyText(R.string.no_bookcases)
+        stateLayout.setEmptyText(R.string.noTranslations)
         stateLayout.setOnReloadListener(this)
         refresh.setOnRefreshListener(this)
         recycler.setEmptyView(stateLayout, refresh)
@@ -46,6 +49,7 @@ class TranslatorWorksFragment : BaseFragment<TranslatorWorksMvp.View, Translator
 
     override fun onTranslatorInformationRetrieved(translatedWorks: HashMap<String, Translator.TranslatedWork>) {
         hideProgress()
+        onSetTabCount(translatedWorks.size)
         val nodes = buildNodesForYearSort(translatedWorks)
 
         val adapter = TreeViewAdapter(nodes, Arrays.asList(TranslatedWorkItemViewHolder(), TranslatedWorkHeaderViewHolder()))
@@ -61,6 +65,10 @@ class TranslatorWorksFragment : BaseFragment<TranslatorWorksMvp.View, Translator
                     } else if (node.isLeaf && node.content is TranslatedWorkHeader) {
                         return false
                     } else {
+                        val item = node.content as TranslatedWorkItem
+                        WorkPagerActivity.startActivity(activity!!,
+                                item.translatedWork.work.id,
+                                item.translatedWork.work.name)
                     }
                     return false
                 }
@@ -102,6 +110,10 @@ class TranslatorWorksFragment : BaseFragment<TranslatorWorksMvp.View, Translator
         return nodes
     }
 
+    override fun onSetTabCount(allCount: Int) {
+        countCallback?.onSetBadge(1, allCount)
+    }
+
     override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
         refresh.isRefreshing = true
         stateLayout.showProgress()
@@ -132,6 +144,18 @@ class TranslatorWorksFragment : BaseFragment<TranslatorWorksMvp.View, Translator
     override fun showMessage(titleRes: Int, msgRes: Int) {
         hideProgress()
         super.showMessage(titleRes, msgRes)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is TranslatorMvp.View) {
+            countCallback = context
+        }
+    }
+
+    override fun onDetach() {
+        countCallback = null
+        super.onDetach()
     }
 
     companion object {

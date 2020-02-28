@@ -25,7 +25,7 @@ class TranslatedWorkHeaderViewHolder : TreeViewBinder<TranslatedWorkHeaderViewHo
             onTreeNodeListener: TreeViewAdapter.OnTreeNodeListener?
     ) {
         val nodeItem = node.content as TranslatedWorkHeader?
-        (holder as ViewHolder).title.text = nodeItem!!.name
+        (holder as ViewHolder).title.text = if (nodeItem!!.name == "0") holder.itemView.context.getString(R.string.unknownTranslationYear) else nodeItem!!.name
         holder.expandButton.rotation = 0f
         holder.expandButton.setImageResource(R.drawable.ic_arrow_right)
         val rotateDegree = if (node.isExpand) 90f else 0f

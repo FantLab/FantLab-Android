@@ -13,17 +13,6 @@
     tools:ignore="RtlSymmetry"
     >
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/topView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/category"
-        app:cardBackgroundColor="?card_background"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="1dp"
-        app:cardUseCompatPadding="true"
-        >
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,7 +39,7 @@
                 android:ellipsize="end"
                 android:gravity="start|center"
                 android:maxLines="4"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="?android:attr/textColorPrimary"
                 tools:text="Марк Твен"
                 style="@style/TextAppearance.AppCompat.Caption"
                 />
@@ -64,7 +53,7 @@
                 android:ellipsize="end"
                 android:gravity="start|center"
                 android:maxLines="4"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="?android:attr/textColorLink"
                 tools:text="Архив семейства Адама"
                 style="@style/TextAppearance.AppCompat.Caption"
                 />
@@ -86,7 +75,5 @@
             </ru.fantlab.android.ui.widgets.FlowLayout>
 
         </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
 
 </ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

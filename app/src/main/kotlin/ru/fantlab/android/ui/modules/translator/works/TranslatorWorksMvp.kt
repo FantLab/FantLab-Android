@@ -1,6 +1,5 @@
 package ru.fantlab.android.ui.modules.translator.works
 
-import android.os.Bundle
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.Translator
 import ru.fantlab.android.ui.base.mvp.BaseMvp
@@ -14,6 +13,8 @@ interface TranslatorWorksMvp {
             ContextMenuDialogView.ListDialogViewActionCallback {
 
         fun onTranslatorInformationRetrieved(translatedWorks: HashMap<String, Translator.TranslatedWork>)
+
+        fun onSetTabCount(allCount: Int)
     }
 
     interface Presenter : BaseMvp.Presenter {

@@ -25,7 +25,11 @@ class TranslatedWorkItemViewHolder : TreeViewBinder<TranslatedWorkItemViewHolder
         val nodeItem = node.content as TranslatedWorkItem?
         (holder as ViewHolder).author.text = nodeItem!!.translatedWork.author.name
         holder.work.text = nodeItem!!.translatedWork.work.name
-        holder.details.text = "(" + nodeItem!!.translatedWork.work.year + ", " + nodeItem!!.translatedWork.work.type + ")"
+        if (nodeItem!!.translatedWork.editions[0].year == 0) {
+            holder.details.text = "(" + nodeItem!!.translatedWork.work.nameType + ")"
+        } else {
+            holder.details.text = "(" + nodeItem!!.translatedWork.editions[0].year + ", " + nodeItem!!.translatedWork.work.nameType + ")"
+        }
     }
 
     inner class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
