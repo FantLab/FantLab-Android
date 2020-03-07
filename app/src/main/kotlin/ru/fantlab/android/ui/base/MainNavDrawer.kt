@@ -14,7 +14,7 @@ import ru.fantlab.android.data.dao.model.User
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.ui.modules.about.AboutActivity
 import ru.fantlab.android.ui.modules.authors.AuthorsActivity
-import ru.fantlab.android.ui.modules.awards.AwardsActivity
+import ru.fantlab.android.ui.modules.awards.overall.AwardsActivity
 import ru.fantlab.android.ui.modules.blogs.BlogsActivity
 import ru.fantlab.android.ui.modules.communities.CommunitiesActivity
 import ru.fantlab.android.ui.modules.forums.ForumsActivity

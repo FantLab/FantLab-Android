@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.work.awards
+package ru.fantlab.android.ui.modules.awards.item
 
 import android.app.Application
 import android.app.Service
@@ -24,7 +24,7 @@ import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 
-class WorkAwardsActivity : BaseActivity<WorkAwardsMvp.View, WorkAwardsPresenter>(), WorkAwardsMvp.View {
+class ItemAwardsActivity : BaseActivity<ItemAwardsMvp.View, ItemAwardsPresenter>(), ItemAwardsMvp.View {
 
 	@State var workId: Int = 0
 	@State var workName: String = ""
@@ -35,7 +35,7 @@ class WorkAwardsActivity : BaseActivity<WorkAwardsMvp.View, WorkAwardsPresenter>
 
 	override fun canBack(): Boolean = true
 
-	override fun providePresenter() = WorkAwardsPresenter()
+	override fun providePresenter() = ItemAwardsPresenter()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -141,7 +141,7 @@ class WorkAwardsActivity : BaseActivity<WorkAwardsMvp.View, WorkAwardsPresenter>
 	companion object {
 
 		fun startActivity(context: Context, workId: Int, workName: String) {
-			val intent = Intent(context, WorkAwardsActivity::class.java)
+			val intent = Intent(context, ItemAwardsActivity::class.java)
 			intent.putExtras(Bundler.start()
 					.put(BundleConstant.EXTRA, workId)
 					.put(BundleConstant.EXTRA_TWO, workName)

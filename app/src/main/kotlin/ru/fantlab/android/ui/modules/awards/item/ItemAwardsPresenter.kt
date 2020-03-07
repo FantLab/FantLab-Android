@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.work.awards
+package ru.fantlab.android.ui.modules.awards.item
 
 import android.view.View
 import io.reactivex.Single
@@ -11,8 +11,8 @@ import ru.fantlab.android.provider.rest.getWorkPath
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
-class WorkAwardsPresenter : BasePresenter<WorkAwardsMvp.View>(),
-		WorkAwardsMvp.Presenter {
+class ItemAwardsPresenter : BasePresenter<ItemAwardsMvp.View>(),
+		ItemAwardsMvp.Presenter {
 
 	private var workId = -1
 

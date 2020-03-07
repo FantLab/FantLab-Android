@@ -30,7 +30,7 @@ import ru.fantlab.android.ui.modules.classificator.ClassificatorPagerActivity
 import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
-import ru.fantlab.android.ui.modules.work.awards.WorkAwardsActivity
+import ru.fantlab.android.ui.modules.awards.item.ItemAwardsActivity
 import ru.fantlab.android.ui.modules.work.editions.WorkEditionsActivity
 import ru.fantlab.android.ui.widgets.dialog.BookcasesDialogView
 import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
@@ -171,9 +171,9 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 					.putExtra(BundleConstant.ID, work.id), BundleConstant.REFRESH_RESPONSE_CODE)
 		}
 
-		showAwardsButton.setOnClickListener { WorkAwardsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
+		showAwardsButton.setOnClickListener { ItemAwardsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
 		showEditionsButton.setOnClickListener { WorkEditionsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
-		awardsTitle.setOnClickListener { WorkAwardsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
+		awardsTitle.setOnClickListener { ItemAwardsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
 		editionsTitle.setOnClickListener { WorkEditionsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
 	}
 

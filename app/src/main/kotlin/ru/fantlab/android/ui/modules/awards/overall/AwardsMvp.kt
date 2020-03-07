@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.awards
+package ru.fantlab.android.ui.modules.awards.overall
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.fantlab.android.data.dao.model.AwardInList
