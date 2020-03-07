@@ -1,12 +1,13 @@
 package ru.fantlab.android.ui.modules.awards.item
 
-import android.view.View
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Awards
 import ru.fantlab.android.data.dao.model.Nomination
+import ru.fantlab.android.data.dao.response.AuthorResponse
 import ru.fantlab.android.data.dao.response.WorkResponse
 import ru.fantlab.android.provider.rest.DataManager
+import ru.fantlab.android.provider.rest.getAuthorPath
 import ru.fantlab.android.provider.rest.getWorkPath
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
@@ -14,39 +15,69 @@ import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 class ItemAwardsPresenter : BasePresenter<ItemAwardsMvp.View>(),
 		ItemAwardsMvp.Presenter {
 
-	private var workId = -1
-
-	override fun onCallApi(workId: Int) {
-		this.workId = workId
+	override fun getWorkAwards(workId: Int) {
 		makeRestCall(
-				getAwardsInternal(workId).toObservable(),
+				getWorkAwardsInternal(workId).toObservable(),
 				Consumer { nominations ->
 					sendToView { it.onInitViews(nominations) }
 				}
 		)
 	}
 
-	private fun getAwardsInternal(workId: Int) =
-			getAwardsFromServer(workId)
+	private fun getWorkAwardsInternal(workId: Int) =
+			getWorkAwardsFromServer(workId)
 					.onErrorResumeNext {
-						getAwardsFromDb(workId)
+						getWorkAwardsFromDb(workId)
 					}
 					.onErrorResumeNext { ext -> Single.error(ext) }
 					.doOnError { err -> sendToView { it.showErrorMessage(err.message) } }
 
-	private fun getAwardsFromServer(workId: Int):
+	private fun getWorkAwardsFromServer(workId: Int):
 			Single<Awards> =
 			DataManager.getWork(workId, showAwards = true)
-					.map { getAwards(it) }
+					.map { getAwardsFromWork(it) }
 
-	private fun getAwardsFromDb(workId: Int):
+	private fun getWorkAwardsFromDb(workId: Int):
 			Single<Awards> =
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getWorkPath(workId, showAwards = true))
 					.map { it.response }
 					.map { WorkResponse.Deserializer().deserialize(it) }
-					.map { getAwards(it) }
+					.map { getAwardsFromWork(it) }
 
-	private fun getAwards(response: WorkResponse): Awards? = response.awards
+	private fun getAwardsFromWork(response: WorkResponse): Awards? = response.awards
+
+	override fun getAuthorAwards(authorId: Int) {
+		makeRestCall(
+				getAuthorAwardsInternal(authorId).toObservable(),
+				Consumer { nominations ->
+					sendToView { it.onInitViews(nominations) }
+				}
+		)
+	}
+
+	private fun getAuthorAwardsInternal(authorId: Int) =
+			getAuthorAwardsFromServer(authorId)
+					.onErrorResumeNext {
+						getAuthorAwardsFromDb(authorId)
+					}
+					.onErrorResumeNext { ext -> Single.error(ext) }
+					.doOnError { err -> sendToView { it.showErrorMessage(err.message) } }
+
+	private fun getAuthorAwardsFromServer(authorId: Int):
+			Single<Awards> =
+			DataManager.getAuthor(authorId, showAwards = true)
+					.map { getAwardsFromAuthor(it) }
+
+	private fun getAuthorAwardsFromDb(authorId: Int):
+			Single<Awards> =
+			DbProvider.mainDatabase
+					.responseDao()
+					.get(getAuthorPath(authorId, showAwards = true))
+					.map { it.response }
+					.map { AuthorResponse.Deserializer().deserialize(it) }
+					.map { getAwardsFromAuthor(it) }
+
+	private fun getAwardsFromAuthor(response: AuthorResponse): Awards? = response.awards
 }

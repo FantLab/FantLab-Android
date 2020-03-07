@@ -171,9 +171,9 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 					.putExtra(BundleConstant.ID, work.id), BundleConstant.REFRESH_RESPONSE_CODE)
 		}
 
-		showAwardsButton.setOnClickListener { ItemAwardsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
+		showAwardsButton.setOnClickListener { ItemAwardsActivity.startActivity(context!!, work.id, workTitle.text.toString(), ItemAwardsActivity.ItemType.WORK) }
 		showEditionsButton.setOnClickListener { WorkEditionsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
-		awardsTitle.setOnClickListener { ItemAwardsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
+		awardsTitle.setOnClickListener { ItemAwardsActivity.startActivity(context!!, work.id, workTitle.text.toString(), ItemAwardsActivity.ItemType.WORK) }
 		editionsTitle.setOnClickListener { WorkEditionsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
 	}
 

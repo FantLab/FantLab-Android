@@ -14,6 +14,7 @@ interface ItemAwardsMvp {
 	}
 
 	interface Presenter : BaseMvp.Presenter {
-		fun onCallApi(workId: Int)
+		fun getWorkAwards(workId: Int)
+		fun getAuthorAwards(authorId: Int)
 	}
 }
