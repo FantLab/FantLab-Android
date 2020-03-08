@@ -1,5 +1,6 @@
 package ru.fantlab.android.ui.modules.awards.item
 
+import android.view.View
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.Awards

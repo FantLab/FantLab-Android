@@ -158,7 +158,7 @@ class ItemAwardsActivity : BaseActivity<ItemAwardsMvp.View, ItemAwardsPresenter>
 			intent.putExtras(Bundler.start()
 					.put(BundleConstant.EXTRA, itemId)
 					.put(BundleConstant.EXTRA_TWO, itemName)
-					.put(BundleConstant.EXTRA_THREE, itemType)
+					.put(BundleConstant.EXTRA_THREE, itemType.toString())
 					.end())
 			if (context is Service || context is Application) {
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
