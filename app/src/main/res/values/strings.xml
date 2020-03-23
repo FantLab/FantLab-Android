@@ -318,4 +318,11 @@
 	<string name="font_title">Font</string>
 	<string name="font_summary">Font size change</string>
 	<string name="signup">Signup</string>
+	<string name="translatorFrom">Translator from:</string>
+	<string name="translatorTo">Translator to:</string>
+	<string name="unknownTranslationYear">Unknown year</string>
+	<string name="noTranslations">No translations</string>
+	<string name="sort_translation_year">Year of translation</string>
+	<string name="sort_translation_author">Author</string>
+	<string name="sort_translation_type">Type of the work</string>
 </resources>
