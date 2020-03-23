@@ -16,7 +16,7 @@ import ru.fantlab.android.helper.*
 import ru.fantlab.android.provider.storage.WorkTypesProvider
 import ru.fantlab.android.ui.adapter.ClassificationAdapter
 import ru.fantlab.android.ui.adapter.WorkAuthorsAdapter
-import ru.fantlab.android.ui.adapter.WorkAwardsAdapter
+import ru.fantlab.android.ui.adapter.ItemAwardsAdapter
 import ru.fantlab.android.ui.adapter.WorkEditionsAdapter
 import ru.fantlab.android.ui.adapter.viewholder.CycleContentChildViewHolder
 import ru.fantlab.android.ui.adapter.viewholder.CycleContentParentViewHolder
@@ -31,7 +31,7 @@ import ru.fantlab.android.ui.modules.editor.EditorActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.modules.translator.TranslatorActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerMvp
-import ru.fantlab.android.ui.modules.work.awards.WorkAwardsActivity
+import ru.fantlab.android.ui.modules.awards.item.ItemAwardsActivity
 import ru.fantlab.android.ui.modules.work.editions.WorkEditionsActivity
 import ru.fantlab.android.ui.widgets.dialog.BookcasesDialogView
 import ru.fantlab.android.ui.widgets.dialog.RatingDialogView
@@ -40,12 +40,11 @@ import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPresenter>(),
 		WorkOverviewMvp.View {
 
 	private lateinit var work: Work
-	private val adapterNoms: WorkAwardsAdapter by lazy { WorkAwardsAdapter(arrayListOf()) }
+	private val adapterNoms: ItemAwardsAdapter by lazy { ItemAwardsAdapter(arrayListOf()) }
 	private val adapterAuthors: WorkAuthorsAdapter by lazy { WorkAuthorsAdapter(arrayListOf()) }
 	private val adapterEditions: WorkEditionsAdapter by lazy { WorkEditionsAdapter(arrayListOf()) }
 	private val adapterClassification: ClassificationAdapter by lazy { ClassificationAdapter(arrayListOf()) }
@@ -172,9 +171,9 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 					.putExtra(BundleConstant.ID, work.id), BundleConstant.REFRESH_RESPONSE_CODE)
 		}
 
-		showAwardsButton.setOnClickListener { WorkAwardsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
+		showAwardsButton.setOnClickListener { ItemAwardsActivity.startActivity(context!!, work.id, workTitle.text.toString(), ItemAwardsActivity.ItemType.WORK) }
 		showEditionsButton.setOnClickListener { WorkEditionsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
-		awardsTitle.setOnClickListener { WorkAwardsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
+		awardsTitle.setOnClickListener { ItemAwardsActivity.startActivity(context!!, work.id, workTitle.text.toString(), ItemAwardsActivity.ItemType.WORK) }
 		editionsTitle.setOnClickListener { WorkEditionsActivity.startActivity(context!!, work.id, workTitle.text.toString()) }
 	}
 

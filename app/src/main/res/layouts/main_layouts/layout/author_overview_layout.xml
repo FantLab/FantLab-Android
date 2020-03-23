@@ -289,6 +289,67 @@
 				</LinearLayout>
 			</androidx.cardview.widget.CardView>
 
+			<androidx.cardview.widget.CardView
+				android:id="@+id/awardsBlock"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="@dimen/spacing_normal"
+				android:layout_marginTop="@dimen/spacing_normal"
+				app:cardBackgroundColor="?card_background"
+				app:cardCornerRadius="0dp"
+				app:cardElevation="1dp"
+				app:cardUseCompatPadding="true"
+				>
+
+				<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					>
+
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:id="@+id/awardsTitle"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:padding="@dimen/spacing_normal"
+						android:text="@string/awards"
+						android:textColor="@color/material_teal_700"
+						style="@style/TextAppearance.AppCompat.Title"
+						/>
+
+					<ru.fantlab.android.ui.widgets.ForegroundImageView
+						android:id="@+id/showAwardsButton"
+						android:layout_width="24dp"
+						android:layout_height="24dp"
+						android:layout_alignParentRight="true"
+						android:layout_marginEnd="@dimen/spacing_normal"
+						android:layout_marginTop="@dimen/spacing_normal"
+						android:background="?selectableItemBackground"
+						android:clickable="true"
+						android:focusable="true"
+						android:src="@drawable/ic_arrow_right"
+						app:tint="@color/material_teal_700"
+						/>
+
+					<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
+						android:id="@+id/awardsList"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_below="@id/awardsTitle"
+						android:layout_marginEnd="@dimen/spacing_normal"
+						android:layout_marginTop="@dimen/spacing_normal"
+						android:layout_marginBottom="@dimen/spacing_normal"
+						android:layout_toEndOf="@id/coverLayouts"
+						android:orientation="horizontal"
+						app:layoutManager="@string/linear_layout_manager"
+						tools:itemCount="3"
+						tools:listitem="@layout/award_row_item"
+						/>
+
+
+				</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
+
+			</androidx.cardview.widget.CardView>
+
 			<LinearLayout
 				android:id="@+id/progress"
 				android:layout_width="match_parent"

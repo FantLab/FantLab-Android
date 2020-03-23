@@ -7,21 +7,22 @@ import android.view.View
 import kotlinx.android.synthetic.main.author_overview_layout.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.Author
-import ru.fantlab.android.data.dao.model.Biography
-import ru.fantlab.android.data.dao.model.Classification
-import ru.fantlab.android.data.dao.model.GenreGroup
+import ru.fantlab.android.data.dao.model.*
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.ui.adapter.ClassificationAdapter
+import ru.fantlab.android.ui.adapter.ItemAwardsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.author.AuthorPagerMvp
+import ru.fantlab.android.ui.modules.award.AwardPagerActivity
+import ru.fantlab.android.ui.modules.awards.item.ItemAwardsActivity
 
 class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOverviewPresenter>(),
 		AuthorOverviewMvp.View {
 
 	private var pagerCallback: AuthorPagerMvp.View? = null
+	private val adapterNoms: ItemAwardsAdapter by lazy { ItemAwardsAdapter(arrayListOf()) }
 
 	override fun fragmentLayout() = R.layout.author_overview_layout
 
@@ -34,7 +35,7 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 
 	override fun providePresenter() = AuthorOverviewPresenter()
 
-	override fun onInitViews(author: Author, biography: Biography?, classificatory: ArrayList<GenreGroup>) {
+	override fun onInitViews(author: Author, biography: Biography?, classificatory: ArrayList<GenreGroup>, awards: ArrayList<Nomination>) {
 		hideProgress()
 		coverLayouts.setUrl("https:${author.image}")
 
@@ -102,7 +103,15 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 			biographyBlock.visibility = View.VISIBLE
 		} else biographyBlock.visibility = View.GONE
 
+		if (awards.isNotEmpty()) {
+			adapterNoms.insertItems(awards)
+			awardsList.adapter = adapterNoms
+			adapterNoms.listener = presenter
+		} else awardsBlock.visibility = View.GONE
+
 		onSetClassification(classificatory)
+		showAwardsButton.setOnClickListener { ItemAwardsActivity.startActivity(context!!, author.id, authorName.text.toString(), ItemAwardsActivity.ItemType.AUTHOR) }
+		awardsTitle.setOnClickListener { ItemAwardsActivity.startActivity(context!!, author.id, authorName.text.toString(), ItemAwardsActivity.ItemType.AUTHOR) }
 	}
 
 	private fun onSetClassification(classificatory: ArrayList<GenreGroup>) {
@@ -162,6 +171,19 @@ class AuthorOverviewFragment : BaseFragment<AuthorOverviewMvp.View, AuthorOvervi
 	override fun onDetach() {
 		pagerCallback = null
 		super.onDetach()
+	}
+
+	override fun onItemClicked(item: Nomination) {
+		val name = if (item.awardRusName.isNotEmpty()) {
+			if (item.awardName.isNotEmpty()) {
+				String.format("%s / %s", item.awardRusName, item.awardName)
+			} else {
+				item.awardRusName
+			}
+		} else {
+			item.awardName
+		}
+		AwardPagerActivity.startActivity(context!!, item.awardId, name, 1, -1)
 	}
 
 	companion object {

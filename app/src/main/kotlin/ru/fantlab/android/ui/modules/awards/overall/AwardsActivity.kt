@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.awards
+package ru.fantlab.android.ui.modules.awards.overall
 
 import android.os.Bundle
 import android.view.Menu

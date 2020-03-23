@@ -62,7 +62,7 @@
 			android:parentActivityName=".ui.modules.main.MainActivity"
 			/>
 		<activity
-			android:name=".ui.modules.awards.AwardsActivity"
+			android:name=".ui.modules.awards.overall.AwardsActivity"
 			android:parentActivityName=".ui.modules.main.MainActivity"
 			/>
 		<activity
@@ -86,7 +86,7 @@
 			android:parentActivityName=".ui.modules.main.MainActivity"
 			/>
 		<activity
-			android:name=".ui.modules.work.awards.WorkAwardsActivity"
+			android:name=".ui.modules.awards.item.ItemAwardsActivity"
 			android:parentActivityName=".ui.modules.author.AuthorPagerActivity"
 			/>
 		<activity
@@ -101,7 +101,7 @@
 			/>
 		<activity
 			android:name=".ui.modules.award.AwardPagerActivity"
-			android:parentActivityName=".ui.modules.awards.AwardsActivity"
+			android:parentActivityName=".ui.modules.awards.overall.AwardsActivity"
 			android:configChanges="keyboard|orientation|screenSize"
 			/>
 		<activity

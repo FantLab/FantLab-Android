@@ -10,7 +10,7 @@ import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
 import ru.fantlab.android.ui.modules.author.AuthorPagerActivity
 import ru.fantlab.android.ui.modules.authors.AuthorsActivity
 import ru.fantlab.android.ui.modules.award.AwardPagerActivity
-import ru.fantlab.android.ui.modules.awards.AwardsActivity
+import ru.fantlab.android.ui.modules.awards.overall.AwardsActivity
 import ru.fantlab.android.ui.modules.edition.EditionActivity
 import ru.fantlab.android.ui.modules.plans.PlansPagerActivity
 import ru.fantlab.android.ui.modules.translator.TranslatorActivity

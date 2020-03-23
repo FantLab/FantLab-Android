@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.work.awards
+package ru.fantlab.android.ui.modules.awards.item
 
 import android.app.Application
 import android.app.Service
@@ -24,10 +24,11 @@ import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 import ru.fantlab.android.ui.widgets.treeview.TreeNode
 import ru.fantlab.android.ui.widgets.treeview.TreeViewAdapter
 
-class WorkAwardsActivity : BaseActivity<WorkAwardsMvp.View, WorkAwardsPresenter>(), WorkAwardsMvp.View {
+class ItemAwardsActivity : BaseActivity<ItemAwardsMvp.View, ItemAwardsPresenter>(), ItemAwardsMvp.View {
 
-	@State var workId: Int = 0
-	@State var workName: String = ""
+	@State var itemId: Int = 0
+	@State var itemName: String = ""
+	@State var itemType: ItemType = ItemType.WORK
 
 	override fun layout(): Int = R.layout.work_awards_layout
 
@@ -35,21 +36,22 @@ class WorkAwardsActivity : BaseActivity<WorkAwardsMvp.View, WorkAwardsPresenter>
 
 	override fun canBack(): Boolean = true
 
-	override fun providePresenter() = WorkAwardsPresenter()
+	override fun providePresenter() = ItemAwardsPresenter()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		hideShowShadow(true)
 		if (savedInstanceState == null) {
-			workId = intent?.extras?.getInt(BundleConstant.EXTRA, -1) ?: -1
-			workName = intent?.extras?.getString(BundleConstant.EXTRA_TWO) ?: ""
+			itemId = intent?.extras?.getInt(BundleConstant.EXTRA, -1) ?: -1
+			itemName = intent?.extras?.getString(BundleConstant.EXTRA_TWO) ?: ""
+			itemType = ItemType.valueOf(intent?.extras?.getString(BundleConstant.EXTRA_THREE) ?: "work")
 		}
-		if (workId == -1) {
+		if (itemId == -1) {
 			finish()
 			return
 		}
-		setTaskName(workName)
-		title = workName
+		setTaskName(itemName)
+		title = itemName
 		toolbar?.subtitle = getString(R.string.awards)
 		if (savedInstanceState == null) {
 			stateLayout.hideProgress()
@@ -58,7 +60,7 @@ class WorkAwardsActivity : BaseActivity<WorkAwardsMvp.View, WorkAwardsPresenter>
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
-		presenter.onCallApi(workId)
+		retrieveAwards()
 		fastScroller.attachRecyclerView(recycler)
 	}
 
@@ -105,7 +107,7 @@ class WorkAwardsActivity : BaseActivity<WorkAwardsMvp.View, WorkAwardsPresenter>
 						} else {
 							parentNode.nameOrig
 						}
-						AwardPagerActivity.startActivity(applicationContext, parentNode.awardId, name, 1, workId)
+						AwardPagerActivity.startActivity(applicationContext, parentNode.awardId, name, 1, itemId)
 					}
 				} else if (!node.isLeaf) onToggle(!node.isExpand, holder)
 				return false
@@ -121,7 +123,7 @@ class WorkAwardsActivity : BaseActivity<WorkAwardsMvp.View, WorkAwardsPresenter>
 	}
 
 	override fun onRefresh() {
-		presenter.onCallApi(workId)
+		retrieveAwards()
 	}
 
 	override fun onClick(v: View?) {
@@ -138,13 +140,25 @@ class WorkAwardsActivity : BaseActivity<WorkAwardsMvp.View, WorkAwardsPresenter>
 		stateLayout.showProgress()
 	}
 
-	companion object {
+	private fun retrieveAwards() {
+		when(itemType) {
+			ItemType.WORK -> presenter.getWorkAwards(itemId)
+			ItemType.AUTHOR -> presenter.getAuthorAwards(itemId)
+		}
+	}
 
-		fun startActivity(context: Context, workId: Int, workName: String) {
-			val intent = Intent(context, WorkAwardsActivity::class.java)
+	public enum class ItemType(val value: String) {
+		WORK("work"),
+		AUTHOR("author")
+	}
+
+	companion object {
+		fun startActivity(context: Context, itemId: Int, itemName: String, itemType: ItemType) {
+			val intent = Intent(context, ItemAwardsActivity::class.java)
 			intent.putExtras(Bundler.start()
-					.put(BundleConstant.EXTRA, workId)
-					.put(BundleConstant.EXTRA_TWO, workName)
+					.put(BundleConstant.EXTRA, itemId)
+					.put(BundleConstant.EXTRA_TWO, itemName)
+					.put(BundleConstant.EXTRA_THREE, itemType.toString())
 					.end())
 			if (context is Service || context is Application) {
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

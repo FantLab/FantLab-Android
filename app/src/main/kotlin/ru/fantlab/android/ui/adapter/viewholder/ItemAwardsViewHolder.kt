@@ -12,7 +12,7 @@ import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.ui.widgets.recyclerview.BaseRecyclerAdapter
 import ru.fantlab.android.ui.widgets.recyclerview.BaseViewHolder
 
-class WorkAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Nomination, WorkAwardsViewHolder>)
+class ItemAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Nomination, ItemAwardsViewHolder>)
 	: BaseViewHolder<Nomination>(itemView, adapter) {
 
 	override fun bind(nom: Nomination) {
@@ -37,8 +37,8 @@ class WorkAwardsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Nominati
 
 		fun newInstance(
 				viewGroup: ViewGroup,
-				adapter: BaseRecyclerAdapter<Nomination, WorkAwardsViewHolder>
-		): WorkAwardsViewHolder =
-				WorkAwardsViewHolder(getView(viewGroup, R.layout.award_row_item), adapter)
+				adapter: BaseRecyclerAdapter<Nomination, ItemAwardsViewHolder>
+		): ItemAwardsViewHolder =
+				ItemAwardsViewHolder(getView(viewGroup, R.layout.award_row_item), adapter)
 	}
 }
