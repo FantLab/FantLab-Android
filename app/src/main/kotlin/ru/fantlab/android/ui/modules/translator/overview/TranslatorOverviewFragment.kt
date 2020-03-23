@@ -70,17 +70,17 @@ class TranslatorOverviewFragment : BaseFragment<TranslatorOverviewMvp.View, Tran
             translatorToBlock.visibility = View.VISIBLE
         } else translatorToBlock.visibility = View.GONE
 
-        if (!translator?.biography.isNullOrEmpty()) {
+        if (!translator.biography.isNullOrEmpty()) {
             val source = when {
-                translator!!.biographySource.isNotEmpty() -> {
-                    getString(R.string.copyright, translator!!.biographySource)
+                translator.biographySource.isNotEmpty() -> {
+                    getString(R.string.copyright, translator.biographySource)
                 }
                 else -> {
                     ""
                 }
             }
 
-            biographyText.html = translator.biography!!.replace("(\r\n)+".toRegex(), "\n").trim() + "\n\n" + source
+            biographyText.html = translator.biography.replace("(\r\n)+".toRegex(), "\n").trim() + "\n\n" + source
 
             biographyBlock.visibility = View.VISIBLE
         } else biographyBlock.visibility = View.GONE

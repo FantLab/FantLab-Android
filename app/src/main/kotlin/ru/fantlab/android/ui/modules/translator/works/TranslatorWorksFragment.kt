@@ -9,10 +9,7 @@ import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
-import ru.fantlab.android.data.dao.model.ContextMenus
-import ru.fantlab.android.data.dao.model.TranslatedWorkHeader
-import ru.fantlab.android.data.dao.model.TranslatedWorkItem
-import ru.fantlab.android.data.dao.model.Translator
+import ru.fantlab.android.data.dao.model.*
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.provider.rest.TranslationsSortOption
@@ -169,40 +166,50 @@ class TranslatorWorksFragment : BaseFragment<TranslatorWorksMvp.View, Translator
     }
 
     class TranslatedWorkSorting (var sortBy: TranslationsSortOption) {
-        fun getCategoryName(work: Translator.TranslatedWork): String {
-            var resName = "";
-            when (sortBy) {
-                TranslationsSortOption.BY_YEAR -> {
-                    if (work.editions.isNotEmpty()) {
-                        resName = work.editions[0].year.toString()
+        private fun getEditionYear(editions: ArrayList<EditionCard>): String {
+            var res = ""
+            if (editions.isNotEmpty()) {
+                for (edition in editions) {
+                    if (edition != null) {
+                        res = edition.year.toString()
+                        break
                     }
-                }
-                TranslationsSortOption.BY_AUTHOR -> {
-                    resName = work.author.name
-                }
-                TranslationsSortOption.BY_TYPE -> {
-                    resName = work.work.nameType
                 }
             }
 
-            return resName
+            return res
+        }
+
+        fun getCategoryName(work: Translator.TranslatedWork): String {
+            return when (sortBy) {
+                TranslationsSortOption.BY_YEAR -> {
+                    getEditionYear(work.editions)
+                }
+                TranslationsSortOption.BY_AUTHOR -> {
+                    work.author.name
+                }
+                TranslationsSortOption.BY_TYPE -> {
+                    work.work.nameType
+                }
+            }
         }
 
         fun isIncludedIntoCategory(work: Translator.TranslatedWork, category: String): Boolean {
             when (sortBy) {
                 TranslationsSortOption.BY_YEAR -> {
-                    if (work.editions.isNotEmpty() && work.editions[0].year.toString() == category) {
+                    val year = getEditionYear(work.editions)
+                    if (year.isNotEmpty() && year == category) {
                         return true
                     }
                 }
                 TranslationsSortOption.BY_AUTHOR -> {
                     if (work.author.name == category) {
-                        return true;
+                        return true
                     }
                 }
                 TranslationsSortOption.BY_TYPE -> {
                     if (work.work.nameType == category) {
-                        return true;
+                        return true
                     }
                 }
             }
