@@ -13,6 +13,7 @@ import ru.fantlab.android.ui.modules.award.AwardPagerActivity
 import ru.fantlab.android.ui.modules.awards.AwardsActivity
 import ru.fantlab.android.ui.modules.edition.EditionActivity
 import ru.fantlab.android.ui.modules.plans.PlansPagerActivity
+import ru.fantlab.android.ui.modules.translator.TranslatorActivity
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.modules.work.CyclePagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
@@ -37,6 +38,9 @@ object SchemeParser {
 				}
 				"autors" -> {
 					context.startActivity(Intent(context, AuthorsActivity::class.java).putExtra(EXTRA, id.toInt()))
+				}
+				"translator" -> {
+					TranslatorActivity.startActivity(context, id.toInt(), label, 0)
 				}
 				"award" -> {
 					AwardPagerActivity.startActivity(context, id.toInt(), label, 0)
