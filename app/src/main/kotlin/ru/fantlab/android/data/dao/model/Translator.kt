@@ -10,7 +10,6 @@ import kotlinx.android.parcel.Parcelize
 data class Translator (
     val age: Int,
     val articles: ArrayList<String>?,
-    val awards: ArrayList<TranslationAward>,
     val biography: String?,
     val anons: String?,
     @SerializedName("biography_notes") val biographyNotes: String,
@@ -63,12 +62,12 @@ data class Translator (
             @SerializedName("cw_is_winner") val isWinner: Int,
             @SerializedName("cw_postfix") val postfix: String?,
             @SerializedName("cw_prefix") val prefix: String?,
-            @SerializedName("nomination_id") val nominationId: Int,
-            @SerializedName("nomination_name") val nominationName: String,
-            @SerializedName("nomination_rusname") val nominationRusName: String,
+            @SerializedName("nomination_id") val nominationId: Int?,
+            @SerializedName("nomination_name") val nominationName: String?,
+            @SerializedName("nomination_rusname") val nominationRusName: String?,
             @SerializedName("work_id") val workId: Int,
             @SerializedName("work_rusname") val workRusName: String,
-            @SerializedName("work_year") val workYear: Int?
+            @SerializedName("work_year") val workYear: String?
     ) : Parcelable
 
     @Keep
@@ -78,4 +77,32 @@ data class Translator (
             val editions: ArrayList<EditionCard>,
             val work: WorkCard
     ) : Parcelable
+
+    class AwardsConverter {
+        fun convert(awards: ArrayList<TranslationAward>): ArrayList<Nomination> {
+            val res: ArrayList<Nomination> = arrayListOf()
+            awards.forEach { award ->
+                val nomination = Nomination(
+                        award.awardIcon,
+                        award.awardId,
+                        award.awardInList,
+                        award.isAwardOpened,
+                        award.awardName,
+                        award.awardRusName,
+                        award.contestId,
+                        award.contestName,
+                        award.contestYear,
+                        award.id,
+                        award.isWinner,
+                        award.postfix,
+                        award.prefix,
+                        award.nominationId ?: 0,
+                        award.nominationName ?: "",
+                        award.nominationRusName ?: ""
+                )
+                res.add(nomination)
+            }
+            return res
+        }
+    }
 }

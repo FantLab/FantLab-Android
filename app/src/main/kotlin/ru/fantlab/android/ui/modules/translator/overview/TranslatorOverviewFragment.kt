@@ -7,17 +7,22 @@ import androidx.annotation.StringRes
 import kotlinx.android.synthetic.main.translator_overview_layout.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.model.Nomination
 import ru.fantlab.android.data.dao.model.Translator
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
+import ru.fantlab.android.ui.adapter.ItemAwardsAdapter
 import ru.fantlab.android.ui.base.BaseFragment
+import ru.fantlab.android.ui.modules.award.AwardPagerActivity
+import ru.fantlab.android.ui.modules.awards.item.ItemAwardsActivity
 import ru.fantlab.android.ui.modules.translator.TranslatorMvp
 
 class TranslatorOverviewFragment : BaseFragment<TranslatorOverviewMvp.View, TranslatorOverviewPresenter>(),
         TranslatorOverviewMvp.View {
 
     private var pagerCallback: TranslatorMvp.View? = null
+    private val adapterNoms: ItemAwardsAdapter by lazy { ItemAwardsAdapter(arrayListOf()) }
 
     override fun fragmentLayout() = R.layout.translator_overview_layout
 
@@ -28,11 +33,11 @@ class TranslatorOverviewFragment : BaseFragment<TranslatorOverviewMvp.View, Tran
 
     override fun providePresenter() = TranslatorOverviewPresenter()
 
-    override fun onTranslatorInformationRetrieved(translator: Translator) {
+    override fun onTranslatorInformationRetrieved(translator: Translator, awards: ArrayList<Translator.TranslationAward>) {
         hideProgress()
         coverLayouts.setUrl("https:${translator.image}")
 
-        if (!translator.countries.isEmpty()) {
+        if (translator.countries.isNotEmpty()) {
             translatorCountryInfo.text = translator.countries[0].name
             translatorCountryInfoBlock.visibility = View.VISIBLE
         } else translatorCountryInfoBlock.visibility = View.GONE
@@ -85,6 +90,14 @@ class TranslatorOverviewFragment : BaseFragment<TranslatorOverviewMvp.View, Tran
             biographyBlock.visibility = View.VISIBLE
         } else biographyBlock.visibility = View.GONE
 
+        if (awards.isNotEmpty()) {
+            adapterNoms.insertItems(Translator.AwardsConverter().convert(awards))
+            awardsList.adapter = adapterNoms
+            adapterNoms.listener = presenter
+        } else awardsBlock.visibility = View.GONE
+
+        showAwardsButton.setOnClickListener { ItemAwardsActivity.startActivity(context!!, translator.id, translator.name, ItemAwardsActivity.ItemType.TRANSLATOR) }
+        awardsTitle.setOnClickListener { ItemAwardsActivity.startActivity(context!!, translator.id, translator.name, ItemAwardsActivity.ItemType.TRANSLATOR) }
     }
 
     override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
@@ -121,6 +134,19 @@ class TranslatorOverviewFragment : BaseFragment<TranslatorOverviewMvp.View, Tran
     override fun onDetach() {
         pagerCallback = null
         super.onDetach()
+    }
+
+    override fun onItemClicked(item: Nomination) {
+        val name = if (item.awardRusName.isNotEmpty()) {
+            if (item.awardName.isNotEmpty()) {
+                String.format("%s / %s", item.awardRusName, item.awardName)
+            } else {
+                item.awardRusName
+            }
+        } else {
+            item.awardName
+        }
+        AwardPagerActivity.startActivity(context!!, item.awardId, name, 1, -1)
     }
 
     companion object {

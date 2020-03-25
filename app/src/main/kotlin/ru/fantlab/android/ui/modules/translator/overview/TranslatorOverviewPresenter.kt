@@ -1,8 +1,10 @@
 package ru.fantlab.android.ui.modules.translator.overview
 
 import android.os.Bundle
+import android.view.View
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
+import ru.fantlab.android.data.dao.model.Nomination
 import ru.fantlab.android.data.dao.model.Translator
 import ru.fantlab.android.data.dao.response.TranslatorResponse
 import ru.fantlab.android.helper.BundleConstant
@@ -17,29 +19,36 @@ class TranslatorOverviewPresenter : BasePresenter<TranslatorOverviewMvp.View>(),
         val translatorId = bundle.getInt(BundleConstant.EXTRA)
         makeRestCall(
             retrieveTranslatorInfoInternal(translatorId).toObservable(),
-            Consumer { translator ->
-                sendToView { it.onTranslatorInformationRetrieved(translator) }
+            Consumer { (translator, awards) ->
+                sendToView { it.onTranslatorInformationRetrieved(translator, awards) }
             }
         )
+    }
+
+    override fun onItemClick(position: Int, v: View?, item: Nomination) {
+        sendToView { it.onItemClicked(item) }
+    }
+
+    override fun onItemLongClick(position: Int, v: View?, item: Nomination) {
     }
 
     private fun retrieveTranslatorInfoInternal(translatorId: Int) =
             retrieveTranslatorInfoFromServer(translatorId)
                     .onErrorResumeNext { retrieveTranslatorInfoFromDb(translatorId) }
 
-    private fun retrieveTranslatorInfoFromServer(translatorId: Int): Single<Translator> =
-            DataManager.getTranslatorInformation(translatorId, showBio = true)
+    private fun retrieveTranslatorInfoFromServer(translatorId: Int): Single<Pair<Translator, ArrayList<Translator.TranslationAward>>> =
+            DataManager.getTranslatorInformation(translatorId, showBio = true, showAwards = true)
                     .map { getTranslator(it) }
 
-    private fun retrieveTranslatorInfoFromDb(translatorId: Int): Single<Translator> =
+    private fun retrieveTranslatorInfoFromDb(translatorId: Int): Single<Pair<Translator, ArrayList<Translator.TranslationAward>>> =
             DbProvider.mainDatabase
                     .responseDao()
-                    .get(getTranslatorInformationPath(translatorId))
+                    .get(getTranslatorInformationPath(translatorId, showBio = true, showAwards = true))
                     .map { it.response }
                     .map { TranslatorResponse.Deserializer().deserialize(it) }
                     .map { getTranslator(it) }
 
-    private fun getTranslator(response: TranslatorResponse): Translator =
-            response.translator
+    private fun getTranslator(response: TranslatorResponse): Pair<Translator, ArrayList<Translator.TranslationAward>> =
+            Pair(response.translator, response.awards)
 
 }
