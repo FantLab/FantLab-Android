@@ -19,17 +19,17 @@ data class Forum(
 			val id: Int,
 			@SerializedName("title")
 			val title: String,
-			@SerializedName("topic_type")
+			@SerializedName("topicType")
 			val topicType: String,
 			@SerializedName("creation")
 			val creation: Creation,
-			@SerializedName("is_closed")
+			@SerializedName("isClosed")
 			val isClosed: Boolean?,
-			@SerializedName("is_pinned")
+			@SerializedName("isPinned")
 			val isPinned: Boolean?,
 			@SerializedName("stats")
 			val stats: Stats,
-			@SerializedName("last_message")
+			@SerializedName("lastMessage")
 			val lastMessage: LastMessage
 	) : Parcelable {
 		@Parcelize
@@ -78,9 +78,9 @@ data class Forum(
 
 		@Parcelize
 		data class Stats(
-				@SerializedName("message_count")
+				@SerializedName("messageCount")
 				val messageCount: Int,
-				@SerializedName("view_count")
+				@SerializedName("viewCount")
 				val viewCount: Int
 		) : Parcelable
 	}

@@ -67,12 +67,12 @@ class TopicMessagesViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Forum
 
 	override fun bind(message: ForumTopic.Message) {
 		itemView.userAvatar.setUrl(message.creation.user.avatar)
-		val gender = if (message.creation.user.gender == "MALE") "\u2642" else "\u2640"
+		val gender = if (message.creation.user.gender == "GENDER_MALE") "\u2642" else "\u2640"
 		itemView.username.text = "${message.creation.user.login} $gender"
 		itemView.userClass.text = FantlabHelper.classToName(message.creation.user.classX)
 		itemView.messageDate.text = message.creation.date.parseFullDate(true).getTimeAgo()
-		if (message.isCensored) {
-			itemView.messageText.html = "[censor]Сообщение изъято модератором[/censor]"
+		if (message.isCensored == true) {
+			itemView.messageText.html = "[censor]${message.text}[/censor]"
 		} else itemView.messageText.html = message.text
 
 		if (!message.creation.user.sign.isNullOrEmpty()) {

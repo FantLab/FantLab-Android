@@ -172,7 +172,7 @@ class TopicFragment : BaseFragment<TopicMvp.View, TopicPresenter>(),
 				onShowEditor(replyText)
 			}
 			"profile" -> {
-				UserPagerActivity.startActivity(context!!, listItem.creation.user.login, listItem.creation.user.id, 0)
+				UserPagerActivity.startActivity(context!!, listItem.creation.user.login, listItem.creation.user.id.toInt(), 0)
 			}
 		}
 	}

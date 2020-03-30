@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import cn.gavinliu.android.lib.shapedimageview.ShapedImageView
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.image_layout.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.provider.glide.GlideApp
@@ -50,6 +51,7 @@ class AvatarLayout : FrameLayout {
 	fun setUrl(url: String?, @DrawableRes fallbackImage: Int = R.drawable.ic_person) {
 		GlideApp.with(context)
 				.load(url)
+				.apply(RequestOptions.circleCropTransform())
 				.placeholder(progressBar)
 				.fallback(ContextCompat.getDrawable(context, fallbackImage))
 				.error(ContextCompat.getDrawable(context, fallbackImage))

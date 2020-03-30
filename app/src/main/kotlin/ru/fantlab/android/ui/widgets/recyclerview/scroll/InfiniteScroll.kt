@@ -94,7 +94,6 @@ abstract class InfiniteScroll : RecyclerView.OnScrollListener() {
 			loading = false
 			previousTotalItemCount = totalItemCount
 		}
-		println("loading: $loading, s1: ${lastVisibleItemPosition + visibleThreshold}, s2: $totalItemCount")
 		if (!loading && lastVisibleItemPosition + visibleThreshold > totalItemCount) {
 
 			if (isPageCounter) {

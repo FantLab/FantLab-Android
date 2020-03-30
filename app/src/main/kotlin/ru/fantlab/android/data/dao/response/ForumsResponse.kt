@@ -14,13 +14,8 @@ data class ForumsResponse(
 		private val forums: ArrayList<Forums.ForumBlock> = arrayListOf()
 
 		override fun deserialize(content: String): ForumsResponse {
-			val forumBlock = JsonParser().parse(content).asJsonObject
-			val array = forumBlock.getAsJsonArray("forum_blocks")
-			array.map {
-				forums.add(DataManager.gson.fromJson(it, Forums.ForumBlock::class.java))
-			}
-
-			return ForumsResponse(forums)
+			val forums = DataManager.gson.fromJson(content, Forums::class.java)
+			return ForumsResponse(forums.forumBlocks)
 		}
 	}
 }

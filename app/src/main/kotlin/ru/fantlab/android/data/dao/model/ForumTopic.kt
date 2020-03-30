@@ -10,31 +10,39 @@ data class ForumTopic(
 		val topic: Topic,
 		@SerializedName("forum")
 		val forum: Forum,
+		@SerializedName("pinnedMessage")
+		val pinnedMessage: PinnedMessage,
 		@SerializedName("messages")
-		val messages: List<Message>
+		val messages: List<Message>,
+		@SerializedName("pages")
+		val pages: Pages
 ) : Parcelable {
 	@Parcelize
-	data class Forum(
+	data class Topic(
 			@SerializedName("id")
-			val id: Int,
+			val id: String,
 			@SerializedName("title")
 			val title: String
 	) : Parcelable
 
 	@Parcelize
-	data class Message(
+	data class Forum(
 			@SerializedName("id")
-			val id: Int,
+			val id: String,
+			@SerializedName("title")
+			val title: String
+	) : Parcelable
+
+	@Parcelize
+	data class PinnedMessage(
+			@SerializedName("id")
+			val id: String,
 			@SerializedName("creation")
 			val creation: Creation,
 			@SerializedName("text")
 			val text: String,
-			@SerializedName("is_censored")
-			val isCensored: Boolean,
-			@SerializedName("is_moder_tag_works")
-			val isModerTagWorks: Boolean,
 			@SerializedName("stats")
-			val stats: Stats?
+			val stats: Stats
 	) : Parcelable {
 		@Parcelize
 		data class Creation(
@@ -46,7 +54,7 @@ data class ForumTopic(
 			@Parcelize
 			data class User(
 					@SerializedName("id")
-					val id: Int,
+					val id: String,
 					@SerializedName("login")
 					val login: String,
 					@SerializedName("gender")
@@ -54,7 +62,49 @@ data class ForumTopic(
 					@SerializedName("avatar")
 					val avatar: String,
 					@SerializedName("class")
-					val classX: Int,
+					val classX: String,
+					@SerializedName("sign")
+					val sign: String
+			) : Parcelable
+		}
+
+		@Parcelize
+		class Stats(
+		) : Parcelable
+	}
+
+	@Parcelize
+	data class Message(
+			@SerializedName("id")
+			val id: String,
+			@SerializedName("creation")
+			val creation: Creation,
+			@SerializedName("text")
+			val text: String,
+			@SerializedName("stats")
+			val stats: Stats,
+			@SerializedName("IsCensored")
+			val isCensored: Boolean?
+	) : Parcelable {
+		@Parcelize
+		data class Creation(
+				@SerializedName("user")
+				val user: User,
+				@SerializedName("date")
+				val date: String
+		) : Parcelable {
+			@Parcelize
+			data class User(
+					@SerializedName("id")
+					val id: String,
+					@SerializedName("login")
+					val login: String,
+					@SerializedName("gender")
+					val gender: String,
+					@SerializedName("avatar")
+					val avatar: String,
+					@SerializedName("class")
+					val classX: String,
 					@SerializedName("sign")
 					val sign: String?
 			) : Parcelable
@@ -62,16 +112,14 @@ data class ForumTopic(
 
 		@Parcelize
 		class Stats(
-				@SerializedName("rating")
-				val rating: Int?
 		) : Parcelable
 	}
 
 	@Parcelize
-	data class Topic(
-			@SerializedName("id")
-			val id: Int,
-			@SerializedName("title")
-			val title: String
+	data class Pages(
+			@SerializedName("current")
+			val current: String,
+			@SerializedName("count")
+			val count: String
 	) : Parcelable
 }

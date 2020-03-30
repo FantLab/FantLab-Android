@@ -2,8 +2,8 @@ package ru.fantlab.android.data.dao.model
 import com.google.gson.annotations.SerializedName
 
 data class Forums(
-    @SerializedName("forum_blocks")
-    val forumBlocks: List<ForumBlock>
+    @SerializedName("forumBlocks")
+    val forumBlocks: ArrayList<ForumBlock>
 ) {
     data class ForumBlock(
         @SerializedName("id")
@@ -18,19 +18,19 @@ data class Forums(
             val id: Int,
             @SerializedName("title")
             val title: String,
-            @SerializedName("forum_description")
+            @SerializedName("forumDescription")
             val forumDescription: String,
             @SerializedName("moderators")
             val moderators: List<Moderator>,
             @SerializedName("stats")
             val stats: Stats,
-            @SerializedName("last_message")
+            @SerializedName("lastMessage")
             val lastMessage: LastMessage
         ) {
             data class Stats(
-                @SerializedName("topic_count")
+                @SerializedName("topicCount")
                 val topicCount: Int,
-                @SerializedName("message_count")
+                @SerializedName("messageCount")
                 val messageCount: Int
             )
 

@@ -65,16 +65,16 @@ object FantlabHelper {
 			var filterCategory: B
 	)
 
-	fun classToName(`class`: Int): String? {
+	fun classToName(`class`: String): String? {
 		return 	when (`class`) {
-			0 -> "Новичок"
-			1 -> "Активист"
-			2 -> "Авторитет"
-			3 -> "Философ"
-			4 -> "Магистр"
-			5 -> "Гранд-мастер"
-			6 -> "Миродержец"
-			7 -> "Миротворец"
+			"USERCLASS_BEGINNER"  -> "Новичок"
+			"USERCLASS_ACTIVIST" -> "Активист"
+			"USERCLASS_AUTHORITY" -> "Авторитет"
+			"USERCLASS_PHILOSOPHER" -> "Философ"
+			"USERCLASS_MASTER" -> "Магистр"
+			"USERCLASS_GRANDMASTER" -> "Гранд-мастер"
+			"USERCLASS_PEACEKEEPER" -> "Миродержец"
+			"USERCLASS_PEACEMAKER" -> "Миротворец"
 			else -> this.toString()
 		}
 	}

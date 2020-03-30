@@ -8,6 +8,7 @@ import com.github.kittinunf.fuel.rx.rxObject
 import com.github.kittinunf.fuel.rx.rxResponsePair
 import com.github.kittinunf.fuel.rx.rxString
 import com.google.gson.Gson
+import com.google.gson.JsonElement
 import io.reactivex.Single
 import ru.fantlab.android.data.dao.response.*
 
@@ -941,6 +942,15 @@ fun String.toAbsolutePath() = "https://fantlab.ru$this"
 fun String.toAbsolutePathWithApiVersion() = "https://api.fantlab.ru$this"
 
 fun String.toAbsolutePathWithTestApiVersion() = "http://dev3.fantlab.org:4242$this"
+//endregion
 
 fun Boolean.toInt(): Int = if (this) 1 else 0
-//endregion
+
+fun JsonElement?.isNullable(): Boolean {
+	return when {
+		this == null -> true
+		this.isJsonNull -> true
+		this.toString() == "null" -> true
+		else -> false
+	}
+}
