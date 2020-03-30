@@ -1,14 +1,13 @@
 package ru.fantlab.android.provider.rest
 
-import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.fuel.httpDelete
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.fuel.rx.rxObject
-import com.github.kittinunf.fuel.rx.rxResponsePair
 import com.github.kittinunf.fuel.rx.rxString
 import com.google.gson.Gson
 import io.reactivex.Single
+import ru.fantlab.android.BuildConfig
 import ru.fantlab.android.data.dao.response.*
 
 object DataManager {
@@ -433,21 +432,13 @@ object DataManager {
 	fun login(
 			login: String,
 			password: String
-	): Single<Response> =
+	): Single<LoginResponse> =
 			loginPath()
 					.httpPost(listOf(
 							"login" to login,
 							"password" to password
 					))
-					.rxResponsePair()
-					.map { it.first }
-
-	fun getUserId(
-			login: String
-	): Single<UserIdResponse> =
-			getUserIdPath(login)
-					.httpGet()
-					.rxObject(UserIdResponse.Deserializer())
+					.rxObject(LoginResponse.Deserializer())
 					.map { it.get() }
 
 	fun searchAuthors(
@@ -666,28 +657,28 @@ fun getAwardsPath(
 		sortOption: AwardsSortOption = AwardsSortOption.BY_NAME
 ) = "/awards?nonfant=${nonfant.toInt()}&sort=${sortOption.value}".toAbsolutePathWithApiVersion()
 
-fun getForumsPath() = "/v1/forums".toAbsolutePathWithTestApiVersion()
+fun getForumsPath() = "/forums".toAbsolutePathWithTestApiVersion()
 
-fun getCommunitiesPath() = "/v1/communities".toAbsolutePathWithTestApiVersion()
+fun getCommunitiesPath() = "/communities".toAbsolutePathWithTestApiVersion()
 
 fun getBlogsPath(
 		page: Int,
 		limit: Int,
 		sortOption: BlogsSortOption
-) = "/v1/blogs?page=$page&limit=$limit&sort=${sortOption.value}".toAbsolutePathWithTestApiVersion()
+) = "/blogs?page=$page&limit=$limit&sort=${sortOption.value}".toAbsolutePathWithTestApiVersion()
 
 fun getTopicsPath(
 		id: Int,
 		page: Int,
 		perPage: Int
-) = "/v1/forums/$id?page=$page&limit=$perPage".toAbsolutePathWithTestApiVersion()
+) = "/forums/$id?page=$page&limit=$perPage".toAbsolutePathWithTestApiVersion()
 
 fun getTopicMessagesPath(
 		id: Int,
 		page: Int,
 		order: TopicMessagesSortOption,
 		perPage: Int
-) = "/v1/topics/$id?page=$page&order=${order.value}&limit=$perPage".toAbsolutePathWithTestApiVersion()
+) = "/topics/$id?page=$page&order=${order.value}&limit=$perPage".toAbsolutePathWithTestApiVersion()
 
 fun getAuthorPath(
 		id: Int,
@@ -864,7 +855,7 @@ fun sendClassificationPath(
 		query: String
 ) = "/genrevote$workId?$query".toAbsolutePath()
 
-fun loginPath() = "/login".toAbsolutePath()
+fun loginPath() = "/auth/login".toAbsolutePathWithTestApiVersion()
 
 fun getUserIdPath(
 		login: String
@@ -940,7 +931,7 @@ fun String.toAbsolutePath() = "https://fantlab.ru$this"
 
 fun String.toAbsolutePathWithApiVersion() = "https://api.fantlab.ru$this"
 
-fun String.toAbsolutePathWithTestApiVersion() = "http://dev3.fantlab.org:4242$this"
+fun String.toAbsolutePathWithTestApiVersion() = "http://dev3.fantlab.org:4242/v${BuildConfig.API_REVISION}$this"
 
 fun Boolean.toInt(): Int = if (this) 1 else 0
 //endregion
