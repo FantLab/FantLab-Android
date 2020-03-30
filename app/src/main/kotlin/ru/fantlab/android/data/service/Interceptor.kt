@@ -1,23 +1,12 @@
 package ru.fantlab.android.data.service
 
 import android.net.Uri
-import com.github.kittinunf.fuel.core.*
+import com.github.kittinunf.fuel.core.FoldableResponseInterceptor
+import com.github.kittinunf.fuel.core.ResponseTransformer
+import com.github.kittinunf.fuel.core.isSuccessful
 import ru.fantlab.android.BuildConfig
 import ru.fantlab.android.helper.PrefGetter
-import ru.fantlab.android.helper.format
 import ru.fantlab.android.provider.storage.DbProvider
-import timber.log.Timber
-
-object LogReqRespInterceptor : FoldableResponseInterceptor {
-	override fun invoke(next: ResponseTransformer): ResponseTransformer {
-		return { request, response ->
-			if (request.url.toString().contains("login")) {
-				Timber.e("${request.format()}\n${response.format()}")
-			}
-			next(request, response)
-		}
-	}
-}
 
 object DbResponseInterceptor : FoldableResponseInterceptor {
 	override fun invoke(next: ResponseTransformer): ResponseTransformer {

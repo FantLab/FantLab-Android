@@ -287,4 +287,6 @@
 	<string name="sort_translation_year">Году издания перевода</string>
 	<string name="sort_translation_author">Автору</string>
 	<string name="sort_translation_type">Типу произведения</string>
+	<string name="wrong_password">Неверный пароль</string>
+	<string name="wrong_login">Неверное имя пользователя</string>
 </resources>

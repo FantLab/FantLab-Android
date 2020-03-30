@@ -85,6 +85,14 @@ class LoginActivity : BaseActivity<LoginMvp.View, LoginPresenter>(), LoginMvp.Vi
 		showMessage(R.string.error, R.string.second_failed_login)
 	}
 
+	override fun onWrongUsername() {
+		showErrorMessage(getString(R.string.wrong_login))
+	}
+
+	override fun onWrongPassword() {
+		showErrorMessage(getString(R.string.wrong_password))
+	}
+
 	override fun showUserBlocked(endDate: String) {
 		val date = endDate.parseFullDate(false)!!.getTimeAgo().toString().toLowerCase()
 		val message = getString(R.string.user_blocked, date)
