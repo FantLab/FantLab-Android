@@ -325,4 +325,6 @@
 	<string name="sort_translation_year">Year of translation</string>
 	<string name="sort_translation_author">Author</string>
 	<string name="sort_translation_type">Type of the work</string>
+	<string name="wrong_password">Wrong password</string>
+	<string name="wrong_login">Wrong username</string>
 </resources>

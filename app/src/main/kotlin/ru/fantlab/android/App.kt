@@ -42,13 +42,11 @@ class App : Application() {
 
 	fun initFuel() {
 		FuelManager.instance.apply {
-			// to prevent from auto redirection
 			removeAllResponseInterceptors()
-			// addResponseInterceptor(LogReqRespInterceptor)
 			addResponseInterceptor(DbResponseInterceptor)
 			baseHeaders = mapOf(
 					"User-Agent" to "FantLab for Android v${BuildConfig.VERSION_NAME}",
-					"Cookie" to (PrefGetter.getToken() ?: "")
+					"X-Session" to (PrefGetter.getToken() ?: "")
 			)
 		}
 	}

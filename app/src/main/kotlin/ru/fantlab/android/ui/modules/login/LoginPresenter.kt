@@ -1,16 +1,17 @@
 package ru.fantlab.android.ui.modules.login
 
+import com.github.kittinunf.fuel.core.FuelError
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import ru.fantlab.android.App
+import ru.fantlab.android.data.dao.model.Login
 import ru.fantlab.android.data.dao.model.User
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
-import timber.log.Timber
 
 class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 
@@ -25,40 +26,25 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 		sendToView { it.onEmptyUserName(usernameIsEmpty) }
 		sendToView { it.onEmptyPassword(passwordIsEmpty) }
 		if (!usernameIsEmpty && !passwordIsEmpty) {
-			makeRestCall(
-					DataManager.login(username, password).toObservable(),
-					Consumer { response ->
-						if (response.headers["Location"].contains("/loginincorrect")) {
-							sendToView { it.showSignInFailed() }
-							return@Consumer
-						}
-						onTokenResponse(username, response)
-					}
+			manageDisposable(
+					DataManager.login(username, password).toObservable()
+							.subscribe({ response -> onLoginResponse(response.login) }) { throwable ->
+								if (throwable is FuelError) when (throwable.response.statusCode) {
+									401 -> sendToView { it.onWrongPassword() }
+									404 -> sendToView { it.onWrongUsername() }
+									500 -> sendToView { it.showSignInFailed() }
+								} else sendToView { it.showSignInFailed() }
+							}
 			)
 		}
 	}
 
-	private fun onTokenResponse(username: String, response: com.github.kittinunf.fuel.core.Response) {
-		response.headers["Set-Cookie"]?.map { cookie ->
-			if (!InputHelper.isEmpty(cookie) && cookie.startsWith("fl_s")) {
-				PrefGetter.setToken(cookie.substring(0, cookie.indexOf(";")))
-				makeRestCall(
-						DataManager.getUserId(username).toObservable(),
-						Consumer { response ->
-							if (response.userId.id == 0) {
-								Timber.e("Not found (0) ID  for user: $username")
-								sendToView { it.showSignInSecondFailed() }
-								return@Consumer
-							}
-							makeRestCall(
-									DataManager.getUser(response.userId.id).toObservable(),
-									Consumer { onUserResponse(it.user) }
-							)
-						}
-				)
-				return
-			}
-		}
+	private fun onLoginResponse(login: Login) {
+		PrefGetter.setToken(login.token)
+		makeRestCall(
+				DataManager.getUser(login.userId.toInt()).toObservable(),
+				Consumer { onUserResponse(it.user) }
+		)
 	}
 
 	private fun onUserResponse(user: User) {

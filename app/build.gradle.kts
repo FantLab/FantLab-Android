@@ -80,6 +80,7 @@ android {
 		base.archivesBaseName = "fantlab-${versionName}(${versionCode})"
 		buildConfigField("String", "REST_URL", "\"https://api.fantlab.ru/\"")
 		buildConfigField("String", "API_VERSION", "\"0.9.3\"")
+		buildConfigField("String", "API_REVISION", "\"1\"")
 		resValue("string", "VERSION_NAME", "$versionName ($versionCode)")
 		javaCompileOptions {
 			annotationProcessorOptions {
