@@ -857,10 +857,6 @@ fun sendClassificationPath(
 
 fun loginPath() = "/auth/login".toAbsolutePathWithTestApiVersion()
 
-fun getUserIdPath(
-		login: String
-) = "/userlogin?usersearch=$login".toAbsolutePathWithApiVersion()
-
 fun searchAuthorsPath(
 		query: String,
 		page: Int = 1
