@@ -1,10 +1,9 @@
 package ru.fantlab.android.ui.modules.editor
 
-import com.google.gson.JsonParser
 import io.reactivex.functions.Consumer
-import ru.fantlab.android.data.dao.model.ForumTopic
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.helper.BundleConstant.EDITOR_EDIT_RESPONSE
+import ru.fantlab.android.helper.BundleConstant.EDITOR_EDIT_TOPIC_MESSAGE
 import ru.fantlab.android.helper.BundleConstant.EDITOR_NEW_COMMENT
 import ru.fantlab.android.helper.BundleConstant.EDITOR_NEW_MESSAGE
 import ru.fantlab.android.helper.BundleConstant.EDITOR_NEW_RESPONSE
@@ -37,11 +36,18 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 				onEditorNewMessage(itemId, savedText, mode)
 			}
 			EDITOR_NEW_TOPIC_MESSAGE -> {
-				if (itemId == PrefGetter.getLoggedUser()?.id) {
+				if (itemId < 1) {
 					sendToView { it.showErrorMessage("Ошибка") }
 					return
 				}
 				onEditorNewTopicMessage(itemId, savedText, mode)
+			}
+			EDITOR_EDIT_TOPIC_MESSAGE -> {
+				if (itemId < 1) {
+					sendToView { it.showErrorMessage("Ошибка") }
+					return
+				}
+				onEditorEditTopicMessage(itemId, savedText)
 			}
 			EDITOR_NEW_COMMENT -> {
 				onEditorNewComment(itemId, savedText)
@@ -77,7 +83,21 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 	}
 
 	override fun onEditorNewTopicMessage(topicId: Int, savedText: CharSequence?, mode: String) {
-		view?.showErrorMessage("onEditorNewTopicMessage :: topicId - $topicId")
+		if (!InputHelper.isEmpty(savedText)) {
+			makeRestCall(
+					DataManager.sendTopicMessage(topicId, savedText).toObservable(),
+					Consumer { result -> sendToView { it.showErrorMessage(result) } /*sendToView { it.onSendNewTopicMessage(response) }*/ }
+			)
+		}
+	}
+
+	override fun onEditorEditTopicMessage(messageId: Int, savedText: CharSequence?) {
+		if (!InputHelper.isEmpty(savedText)) {
+			makeRestCall(
+					DataManager.editTopicMessage(messageId, savedText).toObservable(),
+					Consumer { _ -> sendToView { it.onEditTopicMessage(messageId, savedText.toString()) } }
+			)
+		}
 	}
 
 	override fun onEditorNewComment(id: Int, savedText: CharSequence?) {

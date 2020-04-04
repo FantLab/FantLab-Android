@@ -227,15 +227,15 @@ abstract class BaseActivity<V : BaseMvp.View, P : BasePresenter<V>>
 	}
 
 	override fun isLoggedIn(): Boolean {
-		return PrefGetter.getLoggedUser() != null
+		return PrefGetter.getLoggedUser() != null && PrefGetter.getRefreshToken() != null
 	}
 
 	override fun onRequireLogin() {
-		Toasty.warning(App.instance, getString(R.string.unauthorized_user), Toast.LENGTH_LONG).show()
 		val glide = Glide.get(App.instance)
 		presenter.manageViewDisposable(Observable.fromCallable<Any> {
 			glide.clearDiskCache()
 			PrefGetter.setToken(null)
+			PrefGetter.setRefreshToken(null)
 			PrefGetter.clearLoggedUser()
 			PrefGetter.setSessionUserId()
 			true

@@ -28,7 +28,7 @@ class ForumsActivity : BaseActivity<ForumsMvp.View, ForumsPresenter>(), ForumsMv
 		}
 	}
 
-	override fun openForum(page: String, id: Int, title: String, forumId: Int) = presenter.openForum(supportFragmentManager, page, id, title, forumId)
+	override fun openForum(page: String, id: Int, title: String, forumId: Int, isClosed: Boolean) = presenter.openForum(supportFragmentManager, page, id, title, forumId, isClosed)
 
 	override fun setTitle(title: String) {
 		this.title = title

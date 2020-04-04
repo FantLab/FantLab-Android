@@ -8,6 +8,7 @@
 		android:id="@+id/message"
 		android:icon="@drawable/ic_response"
 		android:title="@string/message"
+		android:orderInCategory="0"
 		app:showAsAction="ifRoom"
 		/>
 
@@ -15,7 +16,8 @@
 		android:id="@+id/share"
 		android:icon="@drawable/ic_share"
 		android:title="@string/share"
-		app:showAsAction="never"
+		android:orderInCategory="1"
+		app:showAsAction="ifRoom"
 		/>
 
 </menu>

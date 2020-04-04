@@ -11,6 +11,7 @@ object BundleConstant {
 	var REFRESH_CODE = 64
 	var REFRESH_RESPONSE_CODE = 65
 	var NEW_TOPIC_MESSAGE_CODE = 65
+	var EDIT_TOPIC_MESSAGE_CODE = 66
 	val REQUEST_CODE = 2563
 	val BOOKCASE_EDITOR = 319
 	val BOOKCASE_VIEWER = 320
@@ -25,5 +26,6 @@ object BundleConstant {
 	var EDITOR_NEW_MESSAGE = "editor_new_message"
 	var EDITOR_NEW_COMMENT = "editor_new_comment"
 	var EDITOR_NEW_TOPIC_MESSAGE = "editor_new_topic_message"
+	var EDITOR_EDIT_TOPIC_MESSAGE = "editor_edit_topic_message"
 
 }

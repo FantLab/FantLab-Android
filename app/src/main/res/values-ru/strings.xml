@@ -289,4 +289,7 @@
 	<string name="sort_translation_type">Типу произведения</string>
 	<string name="wrong_password">Неверный пароль</string>
 	<string name="wrong_login">Неверное имя пользователя</string>
+	<string name="delete">Удалить</string>
+	<string name="edit">Редактировать</string>
+	<string name="editor_edit_topic_message">Редактирование сообщения</string>
 </resources>

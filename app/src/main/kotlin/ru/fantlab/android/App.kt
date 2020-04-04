@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.preference.PreferenceManager
 import com.github.kittinunf.fuel.core.FuelManager
 import ru.fantlab.android.data.service.DbResponseInterceptor
+import ru.fantlab.android.data.service.AuthenticatorInterceptor
 import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.fabric.FabricProvider
 import ru.fantlab.android.provider.stetho.StethoProvider
@@ -43,6 +44,7 @@ class App : Application() {
 	fun initFuel() {
 		FuelManager.instance.apply {
 			removeAllResponseInterceptors()
+			addResponseInterceptor(AuthenticatorInterceptor)
 			addResponseInterceptor(DbResponseInterceptor)
 			baseHeaders = mapOf(
 					"User-Agent" to "FantLab for Android v${BuildConfig.VERSION_NAME}",

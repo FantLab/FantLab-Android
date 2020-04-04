@@ -5,7 +5,6 @@ import io.reactivex.Single
 import io.reactivex.functions.Consumer
 import ru.fantlab.android.data.dao.model.ForumTopic
 import ru.fantlab.android.data.dao.response.ForumTopicResponse
-import ru.fantlab.android.helper.PrefGetter
 import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.provider.rest.TopicMessagesSortOption
 import ru.fantlab.android.provider.rest.getTopicMessagesPath
@@ -72,6 +71,13 @@ class TopicPresenter : BasePresenter<TopicMvp.View>(),
 					.map { getMessages(it) }
 
 	private fun getMessages(response: ForumTopicResponse): Pair<ArrayList<ForumTopic.Message>, Int> = response.messages.items to response.messages.last
+
+	fun onDeleteMessage(messageId: Int) {
+		makeRestCall(
+				DataManager.deleteTopicMessage(messageId).toObservable(),
+				Consumer { _ -> sendToView { it.onMessageDeleted(messageId) } }
+		)
+	}
 
 	override fun getCurrentPage(): Int = page
 

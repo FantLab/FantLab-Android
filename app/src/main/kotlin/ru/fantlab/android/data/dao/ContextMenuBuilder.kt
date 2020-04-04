@@ -395,7 +395,7 @@ object ContextMenuBuilder {
 		return items
 	}
 
-	fun buildForTopicMessage(context: Context, isLoggedIn: Boolean): ArrayList<ContextMenus> {
+	fun buildForTopicMessage(context: Context, isLoggedIn: Boolean, owner: Boolean = false): ArrayList<ContextMenus> {
 		val items = ArrayList<ContextMenus>()
 
 		val actions =
@@ -405,6 +405,10 @@ object ContextMenuBuilder {
 				)
 
 		if (isLoggedIn) actions.add(ContextMenus.MenuItem(context.getString(R.string.reply), R.drawable.reply, "reply"))
+		if (owner) {
+			actions.add(ContextMenus.MenuItem(context.getString(R.string.edit), R.drawable.ic_response, "edit"))
+			actions.add(ContextMenus.MenuItem(context.getString(R.string.delete), R.drawable.ic_delete, "delete"))
+		}
 
 		items.add(ContextMenus("", actions, "main"))
 

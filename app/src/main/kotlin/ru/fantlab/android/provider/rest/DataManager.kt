@@ -1,16 +1,23 @@
 package ru.fantlab.android.provider.rest
 
+import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.fuel.core.Response
+import com.github.kittinunf.fuel.core.ResponseResultOf
+import com.github.kittinunf.fuel.core.response
 import com.github.kittinunf.fuel.httpDelete
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
+import com.github.kittinunf.fuel.httpPut
 import com.github.kittinunf.fuel.rx.rxObject
 import com.github.kittinunf.fuel.rx.rxResponsePair
 import com.github.kittinunf.fuel.rx.rxString
+import com.github.kittinunf.result.Result
+import com.github.kittinunf.result.map
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import io.reactivex.Single
 import ru.fantlab.android.BuildConfig
+import ru.fantlab.android.data.dao.model.Login
 import ru.fantlab.android.data.dao.response.*
 
 object DataManager {
@@ -397,6 +404,40 @@ object DataManager {
 					.rxString()
 					.map { it.get() }
 
+	fun sendTopicMessage(
+			topicId: Int,
+			message: CharSequence?
+	): Single<String> =
+			sendTopicMessagePath(topicId)
+					.httpPost(listOf(
+							"id" to topicId,
+							"message" to message
+					))
+					.rxString()
+					.map { it.get() }
+
+	fun deleteTopicMessage(
+			messageId: Int
+	): Single<String> =
+			topicMessagePath(messageId)
+					.httpDelete(listOf(
+							"id" to messageId
+					))
+					.rxString()
+					.map { it.get() }
+
+	fun editTopicMessage(
+			messageId: Int,
+			message: CharSequence?
+	): Single<String> =
+			topicMessagePath(messageId)
+					.httpPut(listOf(
+							"id" to messageId,
+							"message" to message
+					))
+					.rxString()
+					.map { it.get() }
+
 	fun sendResponse(
 			workId: Int,
 			message: CharSequence?,
@@ -443,6 +484,18 @@ object DataManager {
 					))
 					.rxObject(LoginResponse.Deserializer())
 					.map { it.get() }
+
+	fun refreshToken(
+			refreshToken: String
+	): Login =
+			refreshTokenPath()
+					.httpPost(listOf(
+							"refresh_token" to refreshToken
+					))
+					.responseObject(LoginResponse.Deserializer())
+					.third
+					.map { it.login }
+					.get()
 
 	fun searchAuthors(
 			query: String,
@@ -844,6 +897,16 @@ fun sendMessagePath(
 ) = "/user$userId/sendprivatemessage"
 		.toAbsolutePath()
 
+fun sendTopicMessagePath(
+		topicId: Int
+) = "/topics/$topicId/message"
+		.toAbsolutePathWithTestApiVersion()
+
+fun topicMessagePath(
+		messageId: Int
+) = "/forum_messages/$messageId"
+		.toAbsolutePathWithTestApiVersion()
+
 fun sendResponsePath(
 		workId: Int
 ) = "/work$workId/addresponse".toAbsolutePath()
@@ -859,6 +922,8 @@ fun sendClassificationPath(
 ) = "/genrevote$workId?$query".toAbsolutePath()
 
 fun loginPath() = "/auth/login".toAbsolutePathWithTestApiVersion()
+
+fun refreshTokenPath() = "/auth/refresh".toAbsolutePathWithTestApiVersion()
 
 fun searchAuthorsPath(
 		query: String,

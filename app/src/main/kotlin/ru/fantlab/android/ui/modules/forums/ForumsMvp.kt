@@ -13,13 +13,13 @@ interface ForumsMvp {
 
 		fun setTitle(title: String)
 
-		fun openForum(page: String, id: Int, title: String, forumId: Int)
+		fun openForum(page: String, id: Int, title: String, forumId: Int, isClosed: Boolean = false)
 
 	}
 
 	interface Presenter : BaseMvp.Presenter {
 
-		fun openForum(fragmentManager: FragmentManager, page: String, id: Int, title: String, forumId: Int)
+		fun openForum(fragmentManager: FragmentManager, page: String, id: Int, title: String, forumId: Int, isClosed: Boolean = false)
 
 	}
 }

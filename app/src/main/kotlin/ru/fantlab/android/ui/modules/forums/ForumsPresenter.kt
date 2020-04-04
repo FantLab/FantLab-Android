@@ -15,7 +15,7 @@ import ru.fantlab.android.ui.modules.forums.topic.TopicFragment
 
 class ForumsPresenter : BasePresenter<ForumsMvp.View>(), ForumsMvp.Presenter {
 
-	override fun openForum(fragmentManager: FragmentManager, page: String, id: Int, title: String, forumId: Int) {
+	override fun openForum(fragmentManager: FragmentManager, page: String, id: Int, title: String, forumId: Int, isClosed: Boolean) {
 		lateinit var forumFragment: BaseFragment<*, *>
 		val arguments = Bundle()
 
@@ -42,6 +42,7 @@ class ForumsPresenter : BasePresenter<ForumsMvp.View>(), ForumsMvp.Presenter {
 					arguments.putInt(BundleConstant.EXTRA, id)
 					arguments.putString(BundleConstant.EXTRA_TWO, title)
 					arguments.putInt(BundleConstant.EXTRA_THREE, forumId)
+					arguments.putBoolean(BundleConstant.YES_NO_EXTRA, isClosed)
 					forumFragment.arguments = arguments
 
 					onAddAndHide(fragmentManager, forumFragment, currentVisible)

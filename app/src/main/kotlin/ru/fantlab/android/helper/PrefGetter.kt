@@ -2,6 +2,7 @@ package ru.fantlab.android.helper
 
 import android.content.Context
 import android.content.res.Resources
+import com.github.kittinunf.fuel.core.FuelManager
 import ru.fantlab.android.App
 import ru.fantlab.android.BuildConfig
 import ru.fantlab.android.R
@@ -34,6 +35,7 @@ object PrefGetter {
 	val MID_NIGHT_BLUE = 5
 
 	private const val TOKEN = "token"
+	private const val REFRESH_TOKEN = "refresh_token"
 	private const val WHATS_NEW_VERSION = "whats_new"
 	private const val APP_LANGUAGE = "app_language"
 	private const val NAV_DRAWER_GUIDE = "nav_drawer_guide"
@@ -69,10 +71,22 @@ object PrefGetter {
 
 	fun setToken(token: String?) {
 		PrefHelper[TOKEN] = token
+		FuelManager.instance.baseHeaders = mapOf(
+				"User-Agent" to "FantLab for Android v${BuildConfig.VERSION_NAME}",
+				"X-Session" to (token ?: "")
+		)
 	}
 
 	fun getToken(): String? {
 		return PrefHelper.getString(TOKEN)
+	}
+
+	fun setRefreshToken(refreshToken: String?) {
+		PrefHelper[REFRESH_TOKEN] = refreshToken
+	}
+
+	fun getRefreshToken(): String? {
+		return PrefHelper.getString(REFRESH_TOKEN)
 	}
 
 	fun getThemeType(): Int {

@@ -80,7 +80,7 @@ data class ForumTopic(
 			@SerializedName("creation")
 			val creation: Creation,
 			@SerializedName("text")
-			val text: String,
+			var text: String,
 			@SerializedName("stats")
 			val stats: Stats,
 			@SerializedName("IsCensored")

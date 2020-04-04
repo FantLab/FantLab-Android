@@ -41,6 +41,7 @@ class LoginPresenter : BasePresenter<LoginMvp.View>(), LoginMvp.Presenter {
 
 	private fun onLoginResponse(login: Login) {
 		PrefGetter.setToken(login.token)
+		PrefGetter.setRefreshToken(login.refreshToken)
 		makeRestCall(
 				DataManager.getUser(login.userId.toInt()).toObservable(),
 				Consumer { onUserResponse(it.user) }

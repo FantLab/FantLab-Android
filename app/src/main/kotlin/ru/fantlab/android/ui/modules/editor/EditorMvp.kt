@@ -20,6 +20,8 @@ interface EditorMvp {
 		fun onSendMessageResult(result: String)
 
 		fun onSendNewTopicMessage(message: ForumTopic.Message)
+
+		fun onEditTopicMessage(messageId: Int, messageText: String)
 	}
 
 	interface Presenter : BaseMvp.Presenter {
@@ -31,6 +33,8 @@ interface EditorMvp {
 		fun onEditorNewMessage(id: Int, savedText: CharSequence?, mode: String)
 
 		fun onEditorNewTopicMessage(topicId: Int, savedText: CharSequence?, mode: String)
+
+		fun onEditorEditTopicMessage(messageId: Int, savedText: CharSequence?)
 
 		fun onEditorNewComment(id: Int, savedText: CharSequence?)
 

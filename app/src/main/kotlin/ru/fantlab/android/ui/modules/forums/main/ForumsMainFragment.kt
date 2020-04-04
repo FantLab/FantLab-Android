@@ -66,7 +66,6 @@ class ForumsMainFragment : BaseFragment<ForumsMainMvp.View, ForumsMainPresenter>
 						forum.stats.messageCount,
 						forum.stats.topicCount,
 						forum.id
-
 				))
 				parentForum.addChild(childForum)
 			}

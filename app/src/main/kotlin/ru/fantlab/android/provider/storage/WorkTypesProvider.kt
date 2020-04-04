@@ -35,7 +35,7 @@ object WorkTypesProvider {
 
 	private fun loadWorkTypesLocal(): Single<String> {
 		val file = File(App.instance.filesDir.toString() + FILENAME)
-		return Single.just(if (file.exists()) (inputStreamToString(file.inputStream())) else loadWorkTypesAssets())
+		return Single.just(if (file.exists() && file.length() > 0) (inputStreamToString(file.inputStream())) else loadWorkTypesAssets())
 	}
 
 	private fun saveWorkTypesLocal(workTypes: String) = File(App.instance.filesDir.toString() + FILENAME).bufferedWriter().use { out -> out.write(workTypes) }

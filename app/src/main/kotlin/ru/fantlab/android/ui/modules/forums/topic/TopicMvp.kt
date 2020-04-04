@@ -24,6 +24,7 @@ interface TopicMvp {
 
 		fun onItemLongClicked(position: Int, v: android.view.View?, item: ForumTopic.Message)
 
+		fun onMessageDeleted(messageId: Int)
 	}
 
 	interface Presenter : BaseMvp.Presenter,

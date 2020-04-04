@@ -84,6 +84,15 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 		finish()
 	}
 
+	override fun onEditTopicMessage(messageId: Int, messageText: String) {
+		hideProgress()
+		val intent = Intent()
+		intent.putExtra(BundleConstant.ID, messageId)
+		intent.putExtra(BundleConstant.EXTRA, messageText)
+		setResult(Activity.RESULT_OK, intent)
+		finish()
+	}
+
 	override fun onSendReviewResultAndFinish(comment: Response, isNew: Boolean) {
 		hideProgress()
 		val intent = Intent()
@@ -235,6 +244,9 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 					}
 					BundleConstant.EDITOR_NEW_TOPIC_MESSAGE -> {
 						title = getString(R.string.editor_topic_message)
+					}
+					BundleConstant.EDITOR_EDIT_TOPIC_MESSAGE -> {
+						title = getString(R.string.editor_edit_topic_message)
 					}
 				}
 			}

@@ -114,7 +114,7 @@ class ForumFragment : BaseFragment<ForumMvp.View, ForumPresenter>(),
 	}
 
 	override fun onItemClicked(item: Forum.Topic) {
-		forumsCallback?.openForum(TopicFragment.TAG, item.id, item.title, forumId)
+		forumsCallback?.openForum(TopicFragment.TAG, item.id, item.title, forumId, item.isClosed ?: false)
 	}
 
 	override fun onItemLongClicked(position: Int, v: View?, item: Forum.Topic) {
