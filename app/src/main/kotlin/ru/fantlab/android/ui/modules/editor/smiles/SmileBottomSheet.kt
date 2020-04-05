@@ -10,9 +10,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Smile
 import ru.fantlab.android.ui.adapter.SmileAdapter
 import ru.fantlab.android.ui.base.BaseMvpBottomSheetDialogFragment
-import ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
 import ru.fantlab.android.ui.widgets.recyclerview.layoutManager.GridManager
-import ru.fantlab.android.ui.widgets.recyclerview.scroll.RecyclerViewFastScroller
 
 class SmileBottomSheet : BaseMvpBottomSheetDialogFragment<SmileMvp.View, SmilePresenter>(), SmileMvp.View {
 
@@ -28,8 +26,6 @@ class SmileBottomSheet : BaseMvpBottomSheetDialogFragment<SmileMvp.View, SmilePr
 		recycler.adapter = adapter
 		fastScroller.attachRecyclerView(recycler)
 		presenter.onLoadSmile()
-		val gridManager = recycler.layoutManager as GridManager
-		gridManager.iconSize = resources.getDimensionPixelSize(R.dimen.header_icon_size)
 		editText.addTextChangedListener(object: TextWatcher{
 			override fun afterTextChanged(text: Editable?) {
 				adapter.filter.filter(text)

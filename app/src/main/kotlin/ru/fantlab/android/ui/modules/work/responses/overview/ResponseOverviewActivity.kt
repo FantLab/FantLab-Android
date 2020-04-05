@@ -26,6 +26,7 @@ import ru.fantlab.android.ui.modules.work.CyclePagerActivity
 import ru.fantlab.android.ui.modules.work.WorkPagerActivity
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 
+
 class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, ResponseOverviewPresenter>(),
 		ResponseOverviewMvp.View {
 

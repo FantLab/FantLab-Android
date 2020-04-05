@@ -1,25 +1,28 @@
 package ru.fantlab.android.ui.widgets.htmlview
 
 import android.content.Context
-import androidx.appcompat.widget.AppCompatTextView
 import android.text.Html
 import android.text.SpannableString
 import android.text.style.ClickableSpan
+import android.text.style.ImageSpan
 import android.util.AttributeSet
 import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
+import android.view.ViewTreeObserver
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
+import ru.fantlab.android.App
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.model.SliderModel
 import ru.fantlab.android.helper.ActivityHelper
 import ru.fantlab.android.helper.TypeFaceHelper
 import ru.fantlab.android.helper.ViewHelper
 import ru.fantlab.android.provider.handler.BetterLinkMovementExtended
 import ru.fantlab.android.provider.scheme.LinkParserHelper
 import ru.fantlab.android.provider.scheme.SchemeParser
+import ru.fantlab.android.ui.widgets.GallerySlider
 import ru.fantlab.android.ui.widgets.htmlview.drawable.DrawableGetter
-import java.util.regex.Pattern
-import android.view.ViewTreeObserver
 
 open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr),
 		BetterLinkMovementExtended.OnLinkClickListener,
@@ -30,7 +33,7 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 	var html: CharSequence? = null
 		set(value) {
 			field = value
-			render(html)
+			render(value)
 		}
 
 	init {
@@ -49,19 +52,7 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 
 	private fun render(html: CharSequence?) {
 		if (html == null) return
-		//println(html)
-		val data = html
-				.replace(SQUARE_TAG.toRegex(), "<$1>")
-				.replace(BBCODES_TAG.toRegex(), "<a href=\"$1$2\">$3</a>")
-				.replace(URL_LINK_TAG.toRegex(), "<a href=\"$2\">$3</a>")
-				.replace(LIST_TAG.toRegex(), "<ul>$1</ul>")
-				.replace(PHOTO_TAG.toRegex(), "")
-				.replace(FORUM_QUOTE.toRegex(), "<small>Цитата <b>$1:</b></small>\n<q>$2</q>")
-				.replace(SMILES_TAG.toRegex(), "<img src=\"file:///android_asset/smiles/$1.gif\">")
-				.replace(IMG_TAG.toRegex(), "<img src=\"$1\">")
-				.replace(LI_TAG, "\t• ")
-				.replace(UNIQUE_URL_TAG.toRegex(), "<a href=\"$1\">$1</a>")
-				.replace("\n", "<br>")
+		val data = App.processor.process(html).toString()
 		text = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
 			Html.fromHtml(data, Html.FROM_HTML_MODE_LEGACY, DrawableGetter(this, width), CustomTagHandler());
 		} else {
@@ -141,19 +132,6 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 				setText(text)
 			}
 		}
-	}
-
-	companion object {
-		private val SQUARE_TAG: Pattern = Pattern.compile("\\[(.*?)\\]")
-		private val BBCODES_TAG: Pattern = Pattern.compile("<(autor|author|work|cycle|edition|person|user|art|dictor|series|film|translator|pub)=(.*?)>(.*?)<\\/.*>", Pattern.CASE_INSENSITIVE)
-		private val URL_LINK_TAG: Pattern = Pattern.compile("<(link|url)=(.*?)>(.*?)<\\/.*>", Pattern.CASE_INSENSITIVE)
-		private val PHOTO_TAG: Pattern = Pattern.compile("<PHOTO.*?>")
-		private val FORUM_QUOTE: Pattern = Pattern.compile("<q=(.*?)>(.*?)</q>", Pattern.CASE_INSENSITIVE or Pattern.DOTALL)
-		private val LIST_TAG: Pattern = Pattern.compile("<list>(.*?)<\\/list>", Pattern.CASE_INSENSITIVE or Pattern.DOTALL)
-		private val LI_TAG = "<*>"
-		private val SMILES_TAG: Pattern = Pattern.compile(":([a-z]+):")
-		private val IMG_TAG: Pattern = Pattern.compile("<img>(.*?)<\\/img>", Pattern.CASE_INSENSITIVE)
-		private val UNIQUE_URL_TAG: Pattern = Pattern.compile("(?!file)(?<!href=\")(\\b[\\w]+:\\/\\/[\\w-?&;#~=\\.\\/\\@]+[\\w\\/])")
 	}
 
 }
