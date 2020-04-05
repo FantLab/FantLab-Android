@@ -3,30 +3,7 @@
                xmlns="http://kefirsf.org/kefirbb/schema"
                xsi:schemaLocation="http://kefirsf.org/kefirbb/schema http://kefirsf.org/kefirbb/schema/kefirbb-1.2.xsd">
 
-    <scope name="escapeXml">
-        <code priority="100">
-            <pattern>&amp;</pattern>
-            <template>&amp;amp;</template>
-        </code>
-        <code priority="100">
-            <pattern>&apos;</pattern>
-            <template>&amp;apos;</template>
-        </code>
-        <code priority="100">
-            <pattern>&lt;</pattern>
-            <template>&amp;lt;</template>
-        </code>
-        <code priority="100">
-            <pattern>&gt;</pattern>
-            <template>&amp;gt;</template>
-        </code>
-        <code priority="100">
-            <pattern>&quot;</pattern>
-            <template>&amp;quot;</template>
-        </code>
-    </scope>
-
-    <scope name="escapeBb" parent="escapeXml">
+    <scope name="escapeBb">
         <code name="slash" priority="10">
             <pattern>\\</pattern>
             <template>\</template>
@@ -53,9 +30,16 @@
             <template>&lt;br/&gt;</template>
         </code>
 
-        <code name="symbol">
-            <pattern ignoreCase="true">[symbol=<var scope="escapeXml"/>/]</pattern>
-            <template>&amp;<var/>;</template>
+        <code name="br1" priority="1">
+            <pattern>&lt;br/&gt;</pattern>
+            <pattern>&lt;br <junk/>/&gt;</pattern>
+            <template>&lt;br/&gt;</template>
+        </code>
+
+        <code name="br2">
+            <pattern>&lt;br&gt;</pattern>
+            <pattern>&lt;br <junk/>&gt;</pattern>
+            <template>&lt;br&gt;</template>
         </code>
 
         <code name="aquote">
@@ -113,40 +97,6 @@
         <template>&lt;i&gt;<var/>&lt;/i&gt;</template>
     </code>
 
-    <code name="h1">
-        <pattern ignoreCase="true">&lt;h1&gt;<var scope="basic"/>&lt;/h1&gt;</pattern>
-        <pattern ignoreCase="true">&lt;h1 <junk/>&gt;<var scope="basic"/>&lt;/h1&gt;</pattern>
-        <template>&lt;h1&gt;<var/>&lt;/h1&gt;</template>
-    </code>
-    <code name="h2">
-        <pattern ignoreCase="true">&lt;h2&gt;<var scope="basic"/>&lt;/h2&gt;</pattern>
-        <pattern ignoreCase="true">&lt;h2 <junk/>&gt;<var scope="basic"/>&lt;/h2&gt;</pattern>
-        <template>&lt;h2&gt;<var/>&lt;/h2&gt;</template>
-    </code>
-
-    <code name="h3">
-        <pattern ignoreCase="true">&lt;h3&gt;<var scope="basic"/>&lt;/h3&gt;</pattern>
-        <pattern ignoreCase="true">&lt;h3 <junk/>&gt;<var scope="basic"/>&lt;/h3&gt;</pattern>
-        <template>&lt;h3&gt;<var/>&lt;/h3&gt;</template>
-    </code>
-
-    <code name="h4">
-        <pattern ignoreCase="true">&lt;h4&gt;<var scope="basic"/>&lt;/h4&gt;</pattern>
-        <pattern ignoreCase="true">&lt;h4 <junk/>&gt;<var scope="basic"/>&lt;/h4&gt;</pattern>
-        <template>&lt;h4&gt;<var/>&lt;/h4&gt;</template>
-    </code>
-
-    <code name="h5">
-        <pattern ignoreCase="true">&lt;h5&gt;<var scope="basic"/>&lt;/h5&gt;</pattern>
-        <pattern ignoreCase="true">&lt;h5 <junk/>&gt;<var scope="basic"/>&lt;/h5&gt;</pattern>
-        <template>&lt;h5&gt;<var/>&lt;/h5&gt;</template>
-    </code>
-    <code name="h6">
-        <pattern ignoreCase="true">&lt;h6&gt;<var scope="basic"/>&lt;/h6&gt;</pattern>
-        <pattern ignoreCase="true">&lt;h6 <junk/>&gt;<var scope="basic"/>&lt;/h6&gt;</pattern>
-        <template>&lt;h6&gt;<var/>&lt;/h6&gt;</template>
-    </code>
-
     <code name="p">
         <pattern ignoreCase="true">[p]<var name="content" inherit="true"/>[/p]</pattern>
         <pattern ignoreCase="true">&lt;p&gt;<var name="content" inherit="true"/>&lt;/p&gt;</pattern>
@@ -173,12 +123,12 @@
     </code>
 
     <code name="color">
-        <pattern ignoreCase="true">[color=<var name="color" scope="escapeXml"/>]<var name="text" inherit="true"/>[/color]</pattern>
+        <pattern ignoreCase="true">[color=<var name="color"/>]<var name="text" inherit="true"/>[/color]</pattern>
         <template>&lt;span style=&quot;color:<var name="color"/>;&quot;&gt;<var name="text"/>&lt;/span&gt;</template>
     </code>
 
     <code name="size">
-        <pattern ignoreCase="true">[size=<var name="size" scope="escapeXml"/>]<var name="text" inherit="true"/>[/size]</pattern>
+        <pattern ignoreCase="true">[size=<var name="size"/>]<var name="text" inherit="true"/>[/size]</pattern>
         <template>&lt;span style=&quot;font-size:<var name="size"/>;&quot;&gt;<var name="text"/>&lt;/span&gt;</template>
     </code>
 
