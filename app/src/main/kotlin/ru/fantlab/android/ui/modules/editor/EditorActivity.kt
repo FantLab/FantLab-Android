@@ -14,9 +14,9 @@ import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.editor_buttons_layout.view.*
 import kotlinx.android.synthetic.main.editor_layout.*
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.model.ForumTopic
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.data.dao.model.Smile
+import ru.fantlab.android.data.dao.model.TopicMessage
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
@@ -76,7 +76,7 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 		onSendEditorResult()
 	}
 
-	override fun onSendNewTopicMessage(message: ForumTopic.Message) {
+	override fun onSendNewTopicMessage(message: TopicMessage) {
 		hideProgress()
 		val intent = Intent()
 		intent.putExtra(BundleConstant.ITEM, message)

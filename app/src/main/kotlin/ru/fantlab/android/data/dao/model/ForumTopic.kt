@@ -83,7 +83,7 @@ data class ForumTopic(
 			var text: String,
 			@SerializedName("stats")
 			val stats: Stats,
-			@SerializedName("IsCensored")
+			@SerializedName("isCensored")
 			val isCensored: Boolean?
 	) : Parcelable {
 		@Parcelize

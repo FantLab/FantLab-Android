@@ -191,7 +191,7 @@ object PrefGetter {
 
 	fun getTopicMessagesOrder(): String {
 		val order = PrefHelper.getString("topicOrder")
-		return order ?: "desc"
+		return order ?: "0"
 	}
   
   	fun setAppFontScale(value: Float) {

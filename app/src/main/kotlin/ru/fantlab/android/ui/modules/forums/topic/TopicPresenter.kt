@@ -18,7 +18,7 @@ class TopicPresenter : BasePresenter<TopicMvp.View>(),
 	private var topicId: Int = 0
 	private var lastPage: Int = Integer.MAX_VALUE
 	private var previousTotal: Int = 0
-	private var order = TopicMessagesSortOption.BY_DESCENDING
+	private var order = TopicMessagesSortOption.BY_NEW
 
 	override fun onCallApi(page: Int, parameter: Int?): Boolean {
 		topicId = parameter!!

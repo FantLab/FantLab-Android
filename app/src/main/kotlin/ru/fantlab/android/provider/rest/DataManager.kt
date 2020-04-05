@@ -56,7 +56,7 @@ object DataManager {
 
 	fun getTopicMessages(id: Int,
 						 page: Int,
-						 order: TopicMessagesSortOption = TopicMessagesSortOption.BY_ASCENDING,
+						 order: TopicMessagesSortOption = TopicMessagesSortOption.BY_NEW,
 						 perPage: Int
 	): Single<ForumTopicResponse> =
 			getTopicMessagesPath(id, page, order, perPage)
@@ -407,13 +407,13 @@ object DataManager {
 	fun sendTopicMessage(
 			topicId: Int,
 			message: CharSequence?
-	): Single<String> =
+	): Single<TopicMessageResponse> =
 			sendTopicMessagePath(topicId)
 					.httpPost(listOf(
 							"id" to topicId,
 							"message" to message
 					))
-					.rxString()
+					.rxObject(TopicMessageResponse.Deserializer())
 					.map { it.get() }
 
 	fun deleteTopicMessage(
@@ -693,8 +693,8 @@ enum class AutplansSortOption(val value: String) {
 }
 
 enum class TopicMessagesSortOption(val value: String) {
-	BY_DESCENDING("desc"),
-	BY_ASCENDING("asc")
+	BY_NEW("0"),
+	BY_OLD("1")
 }
 
 enum class BlogsSortOption(val value: String) {
@@ -734,7 +734,7 @@ fun getTopicMessagesPath(
 		page: Int,
 		order: TopicMessagesSortOption,
 		perPage: Int
-) = "/topics/$id?page=$page&order=${order.value}&limit=$perPage".toAbsolutePathWithTestApiVersion()
+) = "/topics/$id?page=$page&sortAsc=${order.value}&limit=$perPage".toAbsolutePathWithTestApiVersion()
 
 fun getAuthorPath(
 		id: Int,

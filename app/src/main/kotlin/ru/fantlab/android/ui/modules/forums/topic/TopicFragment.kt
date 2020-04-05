@@ -19,6 +19,7 @@ import ru.fantlab.android.data.dao.ContextMenuBuilder
 import ru.fantlab.android.data.dao.model.ContextMenus
 import ru.fantlab.android.data.dao.model.Forum
 import ru.fantlab.android.data.dao.model.ForumTopic
+import ru.fantlab.android.data.dao.model.TopicMessage
 import ru.fantlab.android.helper.ActivityHelper
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
@@ -65,7 +66,7 @@ class TopicFragment : BaseFragment<TopicMvp.View, TopicPresenter>(),
 				stateLayout.hideProgress()
 			}
 
-			if (PrefGetter.getTopicMessagesOrder() == TopicMessagesSortOption.BY_DESCENDING.value) {
+			if (PrefGetter.getTopicMessagesOrder() == TopicMessagesSortOption.BY_NEW.value) {
 				recycler.apply {
 					layoutManager = LinearManager(context).apply {
 						reverseLayout = true
@@ -217,9 +218,11 @@ class TopicFragment : BaseFragment<TopicMvp.View, TopicPresenter>(),
 		if (resultCode == Activity.RESULT_OK) {
 			when (requestCode) {
 				BundleConstant.NEW_TOPIC_MESSAGE_CODE -> {
-					val myMessage = data?.extras?.getParcelable<ForumTopic.Message>(BundleConstant.ITEM)
-					recycler.scrollToPosition(0)
-					adapter.addItem(myMessage!!, 0)
+					val myMessage = data?.extras?.getParcelable<TopicMessage>(BundleConstant.ITEM)
+					if (myMessage != null) {
+						recycler.scrollToPosition(0)
+						adapter.addItem(myMessage.message, 0)
+					}
 				}
 				BundleConstant.EDIT_TOPIC_MESSAGE_CODE -> {
 					val extra = data?.extras

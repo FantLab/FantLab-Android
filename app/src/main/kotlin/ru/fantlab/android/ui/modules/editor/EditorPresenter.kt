@@ -86,7 +86,7 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 		if (!InputHelper.isEmpty(savedText)) {
 			makeRestCall(
 					DataManager.sendTopicMessage(topicId, savedText).toObservable(),
-					Consumer { result -> sendToView { it.showErrorMessage(result) } /*sendToView { it.onSendNewTopicMessage(response) }*/ }
+					Consumer { result -> sendToView { it.onSendNewTopicMessage(result.message) } }
 			)
 		}
 	}

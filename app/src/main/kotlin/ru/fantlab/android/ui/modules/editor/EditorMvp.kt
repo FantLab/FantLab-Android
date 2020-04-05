@@ -1,7 +1,7 @@
 package ru.fantlab.android.ui.modules.editor
 
-import ru.fantlab.android.data.dao.model.ForumTopic
 import ru.fantlab.android.data.dao.model.Response
+import ru.fantlab.android.data.dao.model.TopicMessage
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.modules.editor.popup.EditorLinkImageMvp
 import ru.fantlab.android.ui.modules.editor.smiles.SmileMvp
@@ -19,7 +19,7 @@ interface EditorMvp {
 
 		fun onSendMessageResult(result: String)
 
-		fun onSendNewTopicMessage(message: ForumTopic.Message)
+		fun onSendNewTopicMessage(message: TopicMessage)
 
 		fun onEditTopicMessage(messageId: Int, messageText: String)
 	}
