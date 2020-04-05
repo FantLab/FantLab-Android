@@ -176,6 +176,7 @@ dependencies {
 	implementation("com.facebook.stetho:stetho-okhttp3:${project.extra["stetho"]}")
 	implementation("petrov.kristiyan:colorpicker-library:${project.extra["colorpicker"]}")
 	implementation("com.caverock:androidsvg-aar:${project.extra["svg"]}")
+	implementation("org.kefirsf:kefirbb:1.5")
 }
 
 apply(plugin = "com.google.gms.google-services")
