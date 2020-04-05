@@ -82,10 +82,19 @@ open class HTMLTextView @JvmOverloads constructor(context: Context, attrs: Attri
 			val buffer = SpannableString(text)
 
 			val link = buffer.getSpans(off, off, ClickableSpan::class.java)
+			val image = buffer.getSpans(off, off, ImageSpan::class.java)
+
 			if (link.isNotEmpty()) {
 				betterLinkMovementMethod.isLongPress = true
 				betterLinkMovementMethod.onTouchEvent(this, buffer, event)
 				return true
+			} else if (image.isNotEmpty() && action == MotionEvent.ACTION_UP) {
+				val url = image[0].source ?: ""
+				val isEmoticon = url.contains("file://")
+				if (!isEmoticon) {
+					GallerySlider(context).showSlider(arrayListOf(SliderModel(url, "")), 0)
+				}
+				return false
 			}
 			return super.onTouchEvent(event)
 		}

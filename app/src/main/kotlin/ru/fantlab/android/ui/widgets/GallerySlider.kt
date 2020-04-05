@@ -119,7 +119,7 @@ class GallerySlider(context: Context?) : FrameLayout(context), View.OnTouchListe
 					SLIDE_VERTICAL -> {
 						val yPosition = e.rawY + cY
 						moveTo(view, yPosition, 0)
-						hideSlider = abs(yPosition) >= view.height / 2.7
+						hideSlider = abs(yPosition) >= view.height / 4
 						val movedTo = 1 - abs(yPosition) / view.height * 2
 						setAlpha(view, movedTo)
 						return true
