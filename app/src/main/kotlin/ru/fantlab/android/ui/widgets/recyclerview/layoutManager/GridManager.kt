@@ -2,8 +2,11 @@ package ru.fantlab.android.ui.widgets.recyclerview.layoutManager
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ru.fantlab.android.App
+import ru.fantlab.android.R
 
 class GridManager : GridLayoutManager {
 
@@ -31,6 +34,14 @@ class GridManager : GridLayoutManager {
 	override fun onMeasure(recycler: RecyclerView.Recycler, state: RecyclerView.State, widthSpec: Int, heightSpec: Int) {
 		try {
 			super.onMeasure(recycler, state, widthSpec, heightSpec)
+			val width = View.MeasureSpec.getSize(widthSpec)
+			if (width != 0) {
+				val columnWidth = App.instance.resources.getDimensionPixelSize(R.dimen.smile_icon_size)
+				val spans: Int = width / columnWidth
+				if (spans > 0) {
+					this.spanCount =  spans
+				}
+			}
 		} catch (ignored: Exception) {
 		}
 

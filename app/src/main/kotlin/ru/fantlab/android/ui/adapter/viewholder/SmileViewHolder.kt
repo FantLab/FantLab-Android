@@ -15,7 +15,7 @@ class SmileViewHolder private constructor(view: View, adapter: BaseRecyclerAdapt
 
 	override fun bind(t: Smile) {
 		Glide.with(itemView.context)
-				.load("file:///android_asset/smiles/${t.id}.gif")
+				.load("file:///android_asset/smiles/${t.id}.png")
 				.diskCacheStrategy(DiskCacheStrategy.ALL)
 				.dontAnimate()
 				.into(itemView.smile)

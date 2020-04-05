@@ -3,6 +3,8 @@ package ru.fantlab.android
 import android.app.Application
 import androidx.preference.PreferenceManager
 import com.github.kittinunf.fuel.core.FuelManager
+import org.kefirsf.bb.BBProcessorFactory
+import org.kefirsf.bb.TextProcessor
 import ru.fantlab.android.data.service.DbResponseInterceptor
 import ru.fantlab.android.data.service.AuthenticatorInterceptor
 import ru.fantlab.android.helper.PrefGetter
@@ -18,11 +20,13 @@ class App : Application() {
 
 	companion object {
 		lateinit var instance: App
+		lateinit var processor: TextProcessor
 	}
 
 	override fun onCreate() {
 		super.onCreate()
 		instance = this
+		processor = BBProcessorFactory.getInstance().create(assets.open("tags.xml"))
 		init()
 	}
 

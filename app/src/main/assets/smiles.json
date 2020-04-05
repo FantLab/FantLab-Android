@@ -40,10 +40,6 @@
 		"description": "злой"
 	},
 	{
-		"id": "dont",
-		"description": "нет"
-	},
-	{
 		"id": "eek",
 		"description": "шок"
 	},
@@ -56,11 +52,19 @@
 		"description": "пиво"
 	},
 	{
+		"id": "sad",
+		"description": "грусть"
+	},
+	{
+		"id": "shock",
+		"description": "шок"
+	},
+	{
 		"id": "help",
 		"description": "помощь"
 	},
 	{
-		"id": "hb",
-		"description": "цветы"
+		"id": "love",
+		"description": "любовь"
 	}
 ]

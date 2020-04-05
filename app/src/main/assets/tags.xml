@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns="http://kefirsf.org/kefirbb/schema"
+               xsi:schemaLocation="http://kefirsf.org/kefirbb/schema http://kefirsf.org/kefirbb/schema/kefirbb-1.2.xsd">
+
+    <scope name="escapeBb">
+        <code name="slash" priority="10">
+            <pattern>\\</pattern>
+            <template>\</template>
+        </code>
+        <code name="left_square_bracket" priority="9">
+            <pattern>\[</pattern>
+            <template>[</template>
+        </code>
+        <code name="right_square_bracket" priority="9">
+            <pattern>\]</pattern>
+            <template>]</template>
+        </code>
+        <coderef name="comment"/>
+    </scope>
+
+    <code name="comment">
+        <pattern>[*<junk/>*]</pattern>
+        <template/>
+    </code>
+
+    <scope name="basic" parent="escapeBb">
+        <code name="br">
+            <pattern><eol/></pattern>
+            <template>&lt;br/&gt;</template>
+        </code>
+
+        <code name="br1" priority="1">
+            <pattern>&lt;br/&gt;</pattern>
+            <pattern>&lt;br <junk/>/&gt;</pattern>
+            <template>&lt;br/&gt;</template>
+        </code>
+
+        <code name="br2">
+            <pattern>&lt;br&gt;</pattern>
+            <pattern>&lt;br <junk/>&gt;</pattern>
+            <template>&lt;br&gt;</template>
+        </code>
+
+        <code name="aquote">
+            <pattern ignoreCase="true">[aquote]<var inherit="true"/>[/aquote]</pattern>
+            <template>&amp;laquo;<var/>&amp;raquo;</template>
+        </code>
+    </scope>
+
+    <scope name="ROOT" parent="basic">
+        <coderef name="p"/>
+        <coderef name="hr"/>
+        <coderef name="span"/>
+        <coderef name="div"/>
+        <coderef name="bold"/>
+        <coderef name="u"/>
+        <coderef name="s"/>
+        <coderef name="i"/>
+        <coderef name="color"/>
+        <coderef name="size"/>
+        <coderef name="pre"/>
+        <coderef name="code"/>
+        <coderef name="quote"/>
+        <coderef name="quote2"/>
+        <coderef name="spoiler"/>
+        <coderef name="hidden"/>
+        <coderef name="censor"/>
+        <coderef name="moder"/>
+        <coderef name="img"/>
+        <coderef name="url1"/>
+        <coderef name="url2"/>
+        <coderef name="url3"/>
+        <coderef name="url4"/>
+        <coderef name="table"/>
+        <coderef name="list"/>
+        <coderef name="outerLinks"/>
+        <coderef name="video"/>
+        <coderef name="typePages"/>
+        <coderef name="smiles"/>
+    </scope>
+
+    <code name="bold">
+        <pattern ignoreCase="true">[b]<var inherit="true"/>[/b]</pattern>
+        <template>&lt;b&gt;<var/>&lt;/b&gt;</template>
+    </code>
+    <code name="u">
+        <pattern ignoreCase="true">[u]<var inherit="true"/>[/u]</pattern>
+        <template>&lt;u&gt;<var/>&lt;/u&gt;</template>
+    </code>
+    <code name="s">
+        <pattern ignoreCase="true">[s]<var inherit="true"/>[/s]</pattern>
+        <template>&lt;s&gt;<var/>&lt;/s&gt;</template>
+    </code>
+    <code name="i">
+        <pattern ignoreCase="true">[i]<var inherit="true"/>[/i]</pattern>
+        <template>&lt;i&gt;<var/>&lt;/i&gt;</template>
+    </code>
+
+    <code name="p">
+        <pattern ignoreCase="true">[p]<var name="content" inherit="true"/>[/p]</pattern>
+        <pattern ignoreCase="true">&lt;p&gt;<var name="content" inherit="true"/>&lt;/p&gt;</pattern>
+        <pattern ignoreCase="true">&lt;p <junk/>&gt;<var name="content" inherit="true"/>&lt;/p&gt;</pattern>
+        <template>&lt;p&gt;<var name="content"/>&lt;/p&gt;</template>
+    </code>
+
+    <code name="hr">
+        <pattern ignoreCase="true">&lt;hr/&gt;</pattern>
+        <pattern ignoreCase="true">&lt;hr <junk/>/&gt;</pattern>
+        <template>&lt;hr/&gt;</template>
+    </code>
+
+    <code name="div">
+        <pattern ignoreCase="true">&lt;div&gt;<var inherit="true"/>&lt;/div&gt;</pattern>
+        <pattern ignoreCase="true">&lt;div <junk/>&gt;<var inherit="true"/>&lt;/div&gt;</pattern>
+        <template>&lt;div&gt;<var/>&lt;/div&gt;</template>
+    </code>
+
+    <code name="span">
+        <pattern ignoreCase="true">&lt;span&gt;<var inherit="true"/>&lt;/span&gt;</pattern>
+        <pattern ignoreCase="true">&lt;span <junk/>&gt;<var inherit="true"/>&lt;/span&gt;</pattern>
+        <template>&lt;span&gt;<var/>&lt;/span&gt;</template>
+    </code>
+
+    <code name="color">
+        <pattern ignoreCase="true">[color=<var name="color"/>]<var name="text" inherit="true"/>[/color]</pattern>
+        <template>&lt;span style=&quot;color:<var name="color"/>;&quot;&gt;<var name="text"/>&lt;/span&gt;</template>
+    </code>
+
+    <code name="size">
+        <pattern ignoreCase="true">[size=<var name="size"/>]<var name="text" inherit="true"/>[/size]</pattern>
+        <template>&lt;span style=&quot;font-size:<var name="size"/>;&quot;&gt;<var name="text"/>&lt;/span&gt;</template>
+    </code>
+
+    <code name="img" priority="3">
+        <pattern ignoreCase="true">[img]<var/>[/img]</pattern>
+        <template>&lt;img src=&quot;<var/>&quot;/&gt;</template>
+    </code>
+
+    <scope name="url" parent="basic">
+        <coderef name="bold"/>
+        <coderef name="u"/>
+        <coderef name="s"/>
+        <coderef name="i"/>
+        <coderef name="color"/>
+        <coderef name="size"/>
+        <coderef name="img"/>
+    </scope>
+
+    <code name="url1" priority="3">
+        <pattern ignoreCase="true">[url=<url local="true"/>]<var name="text" scope="url"/>[/url]</pattern>
+        <template>&lt;a href=&quot;<var name="url"/>&quot;&gt;<var name="text"/>&lt;/a&gt;</template>
+    </code>
+    <code name="url2" priority="3">
+        <pattern ignoreCase="true">[url]<url local="true"/>[/url]</pattern>
+        <template>&lt;a href=&quot;<var name="url"/>&quot;&gt;<var name="url"/>&lt;/a&gt;</template>
+    </code>
+    <code name="url3" priority="1">
+        <pattern ignoreCase="true">[url=<url schemaless="true"/>]<var name="text" scope="url"/>[/url]</pattern>
+        <template>&lt;a href=&quot;http://<var name="url"/>&quot;&gt;<var name="text"/>&lt;/a&gt;</template>
+    </code>
+    <code name="url4" priority="1">
+        <pattern ignoreCase="true">[url]<url schemaless="true"/>[/url]</pattern>
+        <template>&lt;a href=&quot;http://<var name="url"/>&quot;&gt;<var name="url"/>&lt;/a&gt;</template>
+    </code>
+
+    <code name="quote">
+        <pattern ignoreCase="true">[q]<var inherit="true"/>[/q]</pattern>
+        <template>&lt;q&gt;<var/>&lt;/q&gt;</template>
+    </code>
+
+    <code name="quote2">
+        <pattern ignoreCase="true">[q=<var name="user" inherit="true"/>]<var name="content" inherit="true"/>[/q]</pattern>
+        <template>&lt;small>Цитата &lt;b&gt;<var name="user"/>:&lt;/b&gt;&lt;/small&gt;&lt;br>&lt;q&gt;<var name="content"/>&lt;/q&gt;</template>
+    </code>
+
+    <code name="spoiler">
+        <pattern ignoreCase="true">[h]<var inherit="true"/>[/h]</pattern>
+        <template>&lt;h&gt;<var/>&lt;/h&gt;</template>
+    </code>
+
+    <code name="hidden">
+        <pattern ignoreCase="true">[spoiler]<var inherit="true"/>[/spoiler]</pattern>
+        <template>&lt;h&gt;<var/>&lt;/h&gt;</template>
+    </code>
+
+    <code name="moder">
+        <pattern ignoreCase="true">[moder]<var inherit="true"/>[/moder]</pattern>
+        <template>&lt;moder&gt;<var/>&lt;/moder&gt;</template>
+    </code>
+
+    <code name="censor">
+        <pattern ignoreCase="true">[censor]<var inherit="true"/>[/censor]</pattern>
+        <template>&lt;censor&gt;<var/>&lt;/censor&gt;</template>
+    </code>
+
+    <code name="code">
+        <pattern ignoreCase="true">[code]<var scope="basic"/>[/code]</pattern>
+        <template>&lt;pre&gt;<var/>&lt;/pre&gt;</template>
+    </code>
+    <code name="pre">
+        <pattern ignoreCase="true">&lt;pre&gt;<var name="content" inherit="true"/>&lt;/pre&gt;</pattern>
+        <pattern ignoreCase="true">&lt;pre <junk/>&gt;<var name="content" inherit="true"/>&lt;/pre&gt;</pattern>
+        <template>&lt;pre&gt;<var name="content"/>&lt;/pre&gt;</template>
+    </code>
+
+    <code name="table">
+        <pattern ignoreCase="true">[table]<var scope="tableScope"/>[/table]</pattern>
+        <template>&lt;table&gt;<var/>&lt;/table&gt;</template>
+    </code>
+    <scope name="tableScope" ignoreText="true">
+        <code name="tr">
+            <pattern ignoreCase="true">[tr]<var scope="trScope"/>[/tr]</pattern>
+            <template>&lt;tr&gt;<var/>&lt;/tr&gt;</template>
+        </code>
+        <coderef name="comment"/>
+    </scope>
+    <scope name="trScope" ignoreText="true">
+        <code name="th">
+            <pattern ignoreCase="true">[th]<var/>[/th]</pattern>
+            <template>&lt;th&gt;<var/>&lt;/th&gt;</template>
+        </code>
+        <code name="td">
+            <pattern ignoreCase="true">[td]<var/>[/td]</pattern>
+            <template>&lt;td&gt;<var/>&lt;/td&gt;</template>
+        </code>
+        <coderef name="comment"/>
+    </scope>
+
+    <code name="list" priority="2">
+        <pattern ignoreCase="true">[list]<var name="content" scope="listScope" />[/list]</pattern>
+        <template>&lt;ul&gt;<var name="content"/>&lt;/ul&gt;</template>
+    </code>
+    <scope name="listScope" ignoreText="true">
+        <code>
+            <pattern>[*]<var /><constant value="[*]" ghost="true"/></pattern>
+            <pattern>*<var /><constant value="*" ghost="true"/></pattern>
+            <pattern>[*]<var /><constant value="*" ghost="true"/></pattern>
+            <pattern>*<var /><constant value="[*]" ghost="true"/></pattern>
+            <pattern>[*]<var /></pattern>
+            <pattern>*<var /></pattern>
+            <template>&lt;li&gt;<var/>&lt;/li&gt;</template>
+        </code>
+    </scope>
+
+    <code name="outerLinks">
+        <pattern ignoreCase="true">[link=<var name="url" inherit="true"/>]<var name="text"/>[/link]</pattern>
+        <template>&lt;a href=&quot;/<var name="url"/>&quot;&gt;<var name="text"/>&lt;/a&gt;</template>
+    </code>
+
+    <code name="video">
+        <pattern ignoreCase="true">[video=<var name="url" inherit="true"/>]</pattern>
+        <template>&lt;a href=&quot;/<var name="url"/>&quot;&gt;Youtube&lt;/a&gt;</template>
+    </code>
+
+    <code name="typePages">
+        <pattern ignoreCase="true">[<var name="type" regex="(\w+)"/>=<var name="id" regex="(\d+)"/>]<var name="text"/>[/<var/>]</pattern>
+        <template>&lt;a href=&quot;/<var name="type"/><var name="id"/>&quot;&gt;<var name="text"/>&lt;/a&gt;</template>
+    </code>
+
+    <code name="smiles">
+        <pattern ignoreCase="true">:<var regex="([a-z]+)"/>:</pattern>
+        <template>&lt;img src=&quot;file:///android_asset/smiles/<var/>.png&quot;&lt;/img&gt;</template>
+    </code>
+
+</configuration>
