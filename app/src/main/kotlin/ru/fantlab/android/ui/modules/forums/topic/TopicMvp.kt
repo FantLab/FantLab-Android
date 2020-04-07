@@ -18,6 +18,10 @@ interface TopicMvp {
 
 		fun onNotifyAdapter(items: ArrayList<ForumTopic.Message>, page: Int)
 
+		fun onAddToAdapter(items: ArrayList<ForumTopic.Message>, isNewMessage: Boolean)
+
+		fun onSetPinnedMessage(message: ForumTopic.PinnedMessage?)
+
 		fun getLoadMore(): OnLoadMore<Int>
 
 		fun onItemClicked(item: ForumTopic.Message)
@@ -32,5 +36,7 @@ interface TopicMvp {
 			BaseViewHolder.OnItemClickListener<ForumTopic.Message> {
 
 		fun getMessages(force: Boolean)
+
+		fun refreshMessages(lastMessageId: String, isNewMessage: Boolean)
 	}
 }

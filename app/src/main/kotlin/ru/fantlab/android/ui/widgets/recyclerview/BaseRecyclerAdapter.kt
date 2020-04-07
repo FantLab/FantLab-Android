@@ -113,6 +113,12 @@ abstract class BaseRecyclerAdapter<M, VH : BaseViewHolder<M>>(internal var data:
 		notifyItemRangeInserted(itemCount, itemCount + items.size - 1)
 	}
 
+	fun addItems(items: List<M>, position: Int) {
+		removeProgress()
+		data.addAll(position, items)
+		notifyItemRangeInserted(position, itemCount + items.size - 1)
+	}
+
 	private fun removeProgress() {
 		if (!isEmpty()) {
 			val m = getItem(itemCount - 1)

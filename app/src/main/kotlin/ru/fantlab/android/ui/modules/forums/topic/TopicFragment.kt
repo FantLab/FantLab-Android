@@ -34,7 +34,7 @@ import ru.fantlab.android.ui.modules.forums.ForumsMvp
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.layoutManager.LinearManager
-import java.util.*
+import kotlin.collections.ArrayList
 
 
 class TopicFragment : BaseFragment<TopicMvp.View, TopicPresenter>(),
@@ -109,6 +109,15 @@ class TopicFragment : BaseFragment<TopicMvp.View, TopicPresenter>(),
 		} else {
 			adapter.addItems(items)
 		}
+	}
+
+	override fun onAddToAdapter(items: ArrayList<ForumTopic.Message>, isNewMessage: Boolean) {
+		hideProgress()
+		if (isNewMessage) adapter.data.removeAt(0)
+		adapter.addItems(items, 0)
+	}
+
+	override fun onSetPinnedMessage(message: ForumTopic.PinnedMessage?) {
 	}
 
 	override fun getLoadMore() = onLoadMore
@@ -222,6 +231,7 @@ class TopicFragment : BaseFragment<TopicMvp.View, TopicPresenter>(),
 					if (myMessage != null) {
 						recycler.scrollToPosition(0)
 						adapter.addItem(myMessage.message, 0)
+						presenter.refreshMessages(adapter.data.first().id, true)
 					}
 				}
 				BundleConstant.EDIT_TOPIC_MESSAGE_CODE -> {
@@ -234,6 +244,7 @@ class TopicFragment : BaseFragment<TopicMvp.View, TopicPresenter>(),
 						if (message != null) {
 							adapter.getItem(position).text = messageText!!
 							adapter.notifyItemChanged(position)
+							presenter.refreshMessages(adapter.data.first().id, false)
 						}
 					}
 				}

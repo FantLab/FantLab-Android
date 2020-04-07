@@ -38,11 +38,29 @@ class TopicPresenter : BasePresenter<TopicMvp.View>(),
 	override fun getMessages(force: Boolean) {
 		makeRestCall(
 				getTopicsInternal(force).toObservable(),
-				Consumer { (messages, lastPage) ->
+				Consumer { (pinned, messages, lastPage) ->
 					sendToView {
 						this.lastPage = lastPage
 						it.getLoadMore().setTotalPagesCount(lastPage)
+						it.onSetPinnedMessage(pinned)
 						it.onNotifyAdapter(messages, page)
+					}
+				}
+		)
+	}
+
+	override fun refreshMessages(lastMessageId: String, isNewMessage: Boolean) {
+		makeRestCall(
+				getLastMessages().toObservable(),
+				Consumer { messages ->
+					sendToView {
+						val newMessages = messages.filter { message -> message.id > lastMessageId } as ArrayList<ForumTopic.Message>
+						if (isNewMessage && newMessages.size > 1)
+							it.onAddToAdapter(newMessages, isNewMessage)
+						else if (!isNewMessage && newMessages.isNotEmpty())
+							it.onAddToAdapter(newMessages, isNewMessage)
+						else
+							it.hideProgress()
 					}
 				}
 		)
@@ -58,11 +76,11 @@ class TopicPresenter : BasePresenter<TopicMvp.View>(),
 						}
 					}
 
-	private fun getTopicsFromServer(): Single<Pair<ArrayList<ForumTopic.Message>, Int>> =
+	private fun getTopicsFromServer(): Single<Triple<ForumTopic.PinnedMessage?, ArrayList<ForumTopic.Message>, Int>> =
 			DataManager.getTopicMessages(topicId, page, order, 20)
 					.map { getMessages(it) }
 
-	private fun getMessagesFromDb(): Single<Pair<ArrayList<ForumTopic.Message>, Int>> =
+	private fun getMessagesFromDb(): Single<Triple<ForumTopic.PinnedMessage?, ArrayList<ForumTopic.Message>, Int>> =
 			DbProvider.mainDatabase
 					.responseDao()
 					.get(getTopicMessagesPath(topicId, page, order, 20))
@@ -70,7 +88,11 @@ class TopicPresenter : BasePresenter<TopicMvp.View>(),
 					.map { ForumTopicResponse.Deserializer().deserialize(it) }
 					.map { getMessages(it) }
 
-	private fun getMessages(response: ForumTopicResponse): Pair<ArrayList<ForumTopic.Message>, Int> = response.messages.items to response.messages.last
+	private fun getLastMessages(): Single<ArrayList<ForumTopic.Message>> =
+			DataManager.getTopicMessages(topicId, 1, TopicMessagesSortOption.BY_NEW, 10)
+					.map { it.messages.items }
+
+	private fun getMessages(response: ForumTopicResponse): Triple<ForumTopic.PinnedMessage?, ArrayList<ForumTopic.Message>, Int> = Triple(response.pinnedMessage, response.messages.items, response.messages.last)
 
 	fun onDeleteMessage(messageId: Int) {
 		makeRestCall(
