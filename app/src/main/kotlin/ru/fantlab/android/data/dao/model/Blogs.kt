@@ -20,9 +20,11 @@ data class Blogs(
         val id: Int,
         @SerializedName("user")
         val user: User,
+        @SerializedName("isClosed")
+        val isClosed: Boolean,
         @SerializedName("stats")
         val stats: Stats,
-        @SerializedName("last_article")
+        @SerializedName("lastArticle")
         val lastArticle: LastArticle
     ) {
         data class LastArticle(
@@ -35,9 +37,9 @@ data class Blogs(
         )
 
         data class Stats(
-            @SerializedName("article_count")
+            @SerializedName("articleCount")
             val articleCount: Int,
-            @SerializedName("subscriber_count")
+            @SerializedName("subscriberCount")
             val subscriberCount: Int
         )
 

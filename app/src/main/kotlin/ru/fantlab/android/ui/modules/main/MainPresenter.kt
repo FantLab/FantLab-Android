@@ -1,10 +1,9 @@
 package ru.fantlab.android.ui.modules.main
 
 import androidx.annotation.IdRes
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import ru.fantlab.android.R
 import ru.fantlab.android.helper.ActivityHelper
+import ru.fantlab.android.helper.AppHelper
 import ru.fantlab.android.helper.AppHelper.getFragmentByTag
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 import ru.fantlab.android.ui.modules.main.news.NewsFragment
@@ -21,46 +20,26 @@ class MainPresenter : BasePresenter<MainMvp.View>(), MainMvp.Presenter {
 		when (type) {
 			MainMvp.NavigationType.NEWS -> {
 				if (homeView == null) {
-					onAddAndHide(fragmentManager, NewsFragment(), currentVisible)
+					AppHelper.onAddAndHide(fragmentManager, NewsFragment(), currentVisible)
 				} else {
-					onShowHideFragment(fragmentManager, homeView, currentVisible)
+					AppHelper.onShowHideFragment(fragmentManager, homeView, currentVisible)
 				}
 			}
 			MainMvp.NavigationType.NEWFICTION -> {
 				if (pubnewsView == null) {
-					onAddAndHide(fragmentManager, PubnewsFragment(), currentVisible)
+					AppHelper.onAddAndHide(fragmentManager, PubnewsFragment(), currentVisible)
 				} else {
-					onShowHideFragment(fragmentManager, pubnewsView, currentVisible)
+					AppHelper.onShowHideFragment(fragmentManager, pubnewsView, currentVisible)
 				}
 			}
 			MainMvp.NavigationType.RESPONSES -> {
 				if (responsesView == null) {
-					onAddAndHide(fragmentManager, ResponsesFragment(), currentVisible)
+					AppHelper.onAddAndHide(fragmentManager, ResponsesFragment(), currentVisible)
 				} else {
-					onShowHideFragment(fragmentManager, responsesView, currentVisible)
+					AppHelper.onShowHideFragment(fragmentManager, responsesView, currentVisible)
 				}
 			}
 		}
-	}
-
-	private fun onShowHideFragment(fragmentManager: FragmentManager, toShow: Fragment, toHide: Fragment?) {
-		toHide?.onHiddenChanged(true)
-		fragmentManager
-				.beginTransaction()
-				.apply { if (toHide != null) hide(toHide) }
-				.show(toShow)
-				.commit()
-		toShow.onHiddenChanged(false)
-	}
-
-	private fun onAddAndHide(fragmentManager: FragmentManager, toAdd: Fragment, toHide: Fragment?) {
-		toHide?.onHiddenChanged(true)
-		fragmentManager
-				.beginTransaction()
-				.apply { if (toHide != null) hide(toHide) }
-				.add(R.id.container, toAdd, toAdd.javaClass.simpleName)
-				.commit()
-		toAdd.onHiddenChanged(false)
 	}
 
 	override fun onMenuItemSelect(@IdRes id: Int, position: Int, fromUser: Boolean) {

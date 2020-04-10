@@ -1,42 +1,46 @@
-package ru.fantlab.android.ui.modules.blogs.main
+package ru.fantlab.android.ui.modules.blogs.articles.list
 
 import android.content.Context
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import androidx.annotation.Keep
 import androidx.annotation.StringRes
+import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
-import ru.fantlab.android.data.dao.ContextMenuBuilder
-import ru.fantlab.android.data.dao.model.Blogs
-import ru.fantlab.android.data.dao.model.ContextMenus
+import ru.fantlab.android.data.dao.model.BlogArticles
+import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.provider.rest.loadmore.OnLoadMore
-import ru.fantlab.android.ui.adapter.BlogsAdapter
+import ru.fantlab.android.ui.adapter.BlogArticlesAdapter
 import ru.fantlab.android.ui.base.BaseFragment
 import ru.fantlab.android.ui.modules.blogs.BlogsMvp
-import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
+import ru.fantlab.android.ui.modules.blogs.articles.overview.BlogArticleOverviewActivity
 import java.util.*
 
-class BlogsMainFragment : BaseFragment<BlogsMainMvp.View, BlogsMainPresenter>(),
-		BlogsMainMvp.View {
+class BlogsArticlesFragment : BaseFragment<BlogsArticlesMvp.View, BlogsArticlesPresenter>(),
+		BlogsArticlesMvp.View {
 
 	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
 
-	override fun providePresenter() = BlogsMainPresenter()
+	override fun providePresenter() = BlogsArticlesPresenter()
 
 	private val onLoadMore: OnLoadMore<Int> by lazy { OnLoadMore(presenter) }
 
 	private var blogsCallback: BlogsMvp.View? = null
 
-	private val adapter: BlogsAdapter by lazy { BlogsAdapter(arrayListOf()) }
+	private val adapter: BlogArticlesAdapter by lazy { BlogArticlesAdapter(arrayListOf()) }
+
+	@State
+	var blogId = -1
+	@State
+	var isClosed = false
+	@State
+	var blogTitle = ""
 
 	override fun onFragmentCreated(view: View, savedInstanceState: Bundle?) {
 		blogsCallback?.setTitle(getString(R.string.blogs_list))
-
 		stateLayout.setEmptyText(R.string.no_blogs)
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
@@ -47,9 +51,16 @@ class BlogsMainFragment : BaseFragment<BlogsMainMvp.View, BlogsMainPresenter>(),
 
 		getLoadMore().initialize(presenter.getCurrentPage() - 1, presenter.getPreviousTotal())
 		recycler.addOnScrollListener(getLoadMore())
-		presenter.onCallApi(1, null)
+
+		blogId = arguments!!.getInt(BundleConstant.EXTRA)
+		blogTitle = arguments!!.getString(BundleConstant.EXTRA_TWO) ?: getString(R.string.blogs_list)
+		isClosed = arguments!!.getBoolean(BundleConstant.YES_NO_EXTRA)
+		blogsCallback?.setTitle(blogTitle)
+
+		presenter.onCallApi(1, blogId)
 		fastScroller.attachRecyclerView(recycler)
 		setHasOptionsMenu(true)
+
 	}
 
 	override fun onHiddenChanged(hidden: Boolean) {
@@ -59,32 +70,18 @@ class BlogsMainFragment : BaseFragment<BlogsMainMvp.View, BlogsMainPresenter>(),
 
 	override fun getLoadMore() = onLoadMore
 
-	override fun onNotifyAdapter(blogs: ArrayList<Blogs.Blog>, page: Int) {
+	override fun onNotifyAdapter(articles: ArrayList<BlogArticles.Article>, page: Int) {
 		hideProgress()
-		if (blogs.isEmpty()) {
+		if (articles.isEmpty()) {
 			adapter.clear()
 			stateLayout.showEmptyState()
 			return
 		}
 		if (page <= 1) {
-			adapter.insertItems(blogs)
+			adapter.insertItems(articles)
 		} else {
-			adapter.addItems(blogs)
+			adapter.addItems(articles)
 		}
-	}
-
-	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-		inflater.inflate(R.menu.blogs_menu, menu)
-		super.onCreateOptionsMenu(menu, inflater)
-	}
-
-	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		when (item.itemId) {
-			R.id.sort -> {
-				showSortDialog()
-			}
-		}
-		return super.onOptionsItemSelected(item)
 	}
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
@@ -112,25 +109,14 @@ class BlogsMainFragment : BaseFragment<BlogsMainMvp.View, BlogsMainPresenter>(),
 	}
 
 	override fun onRefresh() {
-		presenter.onCallApi(1, null)
+		presenter.onCallApi(1, blogId)
 	}
 
-	fun showSortDialog() {
-		val dialogView = ContextMenuDialogView()
-		val sort = presenter.getCurrentSort()
-		dialogView.initArguments("main", ContextMenuBuilder.buildForBlogsSorting(recycler.context, sort))
-		dialogView.show(childFragmentManager, "ContextMenuDialogView")
+	override fun onItemClicked(item: BlogArticles.Article) {
+		BlogArticleOverviewActivity.startActivity(context!!, item)
 	}
 
-	override fun onItemSelected(parent: String, item: ContextMenus.MenuItem, position: Int, listItem: Any) {
-		presenter.setCurrentSort(item.id)
-	}
-
-	override fun onItemClicked(item: Blogs.Blog) {
-		blogsCallback?.openBlog(item.id, item.user.login, item.isClosed)
-	}
-
-	override fun onItemLongClicked(position: Int, v: View?, item: Blogs.Blog) {
+	override fun onItemLongClicked(position: Int, v: View?, item: BlogArticles.Article) {
 	}
 
 	override fun onAttach(context: Context) {
@@ -147,7 +133,17 @@ class BlogsMainFragment : BaseFragment<BlogsMainMvp.View, BlogsMainPresenter>(),
 
 	companion object {
 		@Keep
-		val TAG: String = BlogsMainFragment::class.java.simpleName
+		val TAG: String = BlogsArticlesFragment::class.java.simpleName
+
+		fun newInstance(blogId: Int, blogTitle: String, isClosed: Boolean): BlogsArticlesFragment {
+			val view = BlogsArticlesFragment()
+			view.arguments = Bundler.start()
+					.put(BundleConstant.EXTRA, blogId)
+					.put(BundleConstant.EXTRA_TWO, blogTitle)
+					.put(BundleConstant.YES_NO_EXTRA, isClosed)
+					.end()
+			return view
+		}
 	}
 
 }

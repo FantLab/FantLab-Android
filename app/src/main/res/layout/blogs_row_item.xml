@@ -40,7 +40,7 @@
 				android:orientation="horizontal"
 				>
 
-				<ru.fantlab.android.ui.widgets.ForegroundImageView
+				<ru.fantlab.android.ui.widgets.AvatarLayout
 					android:id="@+id/userAvatar"
 					android:layout_width="46dp"
 					android:layout_height="46dp"
@@ -69,11 +69,23 @@
 				android:layout_marginRight="@dimen/spacing_normal"
 				>
 
+				<ru.fantlab.android.ui.widgets.ForegroundImageView
+					android:id="@+id/isClosed"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:contentDescription="@string/is_closed"
+					android:layout_marginStart="@dimen/spacing_normal"
+					android:layout_marginTop="@dimen/spacing_micro"
+					app:srcCompat="@drawable/archive"
+					android:visibility="gone"
+					app:tint="?android:attr/textColorSecondary"
+					/>
+
 				<ru.fantlab.android.ui.widgets.FlowLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginBottom="@dimen/spacing_micro"
-					android:layout_marginStart="@dimen/spacing_xlarge"
+					android:layout_marginStart="@dimen/spacing_normal"
 					android:gravity="end"
 					app:flChildSpacing="5dp"
 					app:flChildSpacingForLastRow="align"

@@ -287,6 +287,7 @@ class TopicFragment : BaseFragment<TopicMvp.View, TopicPresenter>(),
 		val TAG: String = TopicFragment::class.java.simpleName
 
 		fun newInstance(topicId: Int, topicTitle: String, forumId: Int, isClosed: Boolean): TopicFragment {
+			//TODO fix uselles code
 			val view = TopicFragment()
 			view.arguments = Bundler.start()
 					.put(BundleConstant.EXTRA, topicId)

@@ -38,6 +38,7 @@ class ForumsPresenter : BasePresenter<ForumsMvp.View>(), ForumsMvp.Presenter {
 			}
 			TopicFragment.TAG -> {
 				if (topicView == null) {
+					// TODO fix uselles code
 					forumFragment = TopicFragment()
 					arguments.putInt(BundleConstant.EXTRA, id)
 					arguments.putString(BundleConstant.EXTRA_TWO, title)

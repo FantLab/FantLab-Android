@@ -33,6 +33,8 @@ class BlogsActivity : BaseActivity<BlogsMvp.View, BlogsPresenter>(), BlogsMvp.Vi
 		appbar?.setExpanded(true, false)
 	}
 
+	override fun openBlog(blogId: Int, title: String, isClosed: Boolean) = presenter.openBlog(supportFragmentManager, blogId, title, isClosed)
+
 	override fun onBackPressed() {
 		val fm = supportFragmentManager
 		when {

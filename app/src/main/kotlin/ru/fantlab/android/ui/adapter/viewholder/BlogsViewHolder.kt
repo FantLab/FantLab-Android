@@ -2,7 +2,7 @@ package ru.fantlab.android.ui.adapter.viewholder
 
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.blogs_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Blogs
@@ -16,11 +16,11 @@ class BlogsViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Blogs.Blog, B
 	: BaseViewHolder<Blogs.Blog>(itemView, adapter) {
 
 	override fun bind(blog: Blogs.Blog) {
-		Glide.with(itemView.context).load(blog.user.avatar).into(itemView.userAvatar)
-
+		itemView.userAvatar.setUrl(blog.user.avatar)
 		itemView.blogUsername.text = if (!InputHelper.isEmpty(blog.user.name) && !InputHelper.isEmpty(blog.user.login))
 			"${blog.user.login} (${blog.user.name})" else blog.user.login
 
+		itemView.isClosed.isVisible = blog.isClosed
 		itemView.articleCount.text = blog.stats.articleCount.toString()
 		itemView.subscriberCount.text = blog.stats.subscriberCount.toString()
 		itemView.lastDate.text = blog.lastArticle.date.parseFullDate(true).getTimeAgo()

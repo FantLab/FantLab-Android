@@ -292,4 +292,6 @@
 	<string name="delete">Удалить</string>
 	<string name="edit">Редактировать</string>
 	<string name="editor_edit_topic_message">Редактирование сообщения</string>
+	<string name="blog_title">Авторская колонка</string>
+	<string name="view_article">Просмотр статьи</string>
 </resources>

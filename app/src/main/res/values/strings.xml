@@ -330,4 +330,6 @@
 	<string name="delete">Delete</string>
 	<string name="edit">Edit</string>
 	<string name="editor_edit_topic_message">Message editor</string>
+	<string name="blog_title">Blog</string>
+	<string name="view_article">Article review</string>
 </resources>

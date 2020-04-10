@@ -11,6 +11,7 @@ import java.util.*
 import android.content.Context.WINDOW_SERVICE
 import android.provider.Settings
 import android.view.WindowManager
+import ru.fantlab.android.R
 
 
 object AppHelper {
@@ -21,6 +22,27 @@ object AppHelper {
 	}
 
 	fun getFragmentByTag(fragmentManager: FragmentManager, tag: String): Fragment? = fragmentManager.findFragmentByTag(tag)
+
+	fun onShowHideFragment(fragmentManager: FragmentManager, toShow: Fragment, toHide: Fragment?) {
+		toHide?.onHiddenChanged(true)
+		fragmentManager
+				.beginTransaction()
+				.apply { if (toHide != null) hide(toHide) }
+				.show(toShow)
+				.commit()
+		toShow.onHiddenChanged(false)
+	}
+
+	fun onAddAndHide(fragmentManager: FragmentManager, toAdd: Fragment, toHide: Fragment?) {
+		toHide?.onHiddenChanged(true)
+		fragmentManager
+				.beginTransaction()
+				.apply { if (toHide != null) hide(toHide) }
+				.add(R.id.container, toAdd, toAdd.javaClass.simpleName)
+				.addToBackStack(toAdd.javaClass.simpleName)
+				.commit()
+		toAdd.onHiddenChanged(false)
+	}
 
 	fun isNightMode(resources: Resources): Boolean {
 		val themeType = PrefGetter.getThemeType(resources)

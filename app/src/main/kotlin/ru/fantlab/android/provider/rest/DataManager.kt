@@ -79,6 +79,22 @@ object DataManager {
 					.rxObject(BlogsResponse.Deserializer())
 					.map { it.get() }
 
+	fun getBlogArticles(id: Int,
+						page: Int,
+						limit: Int
+	): Single<BlogArticlesResponse> =
+			getBlogArticlesPath(id, page, limit)
+					.httpGet()
+					.rxObject(BlogArticlesResponse.Deserializer())
+					.map { it.get() }
+
+	fun getBlogArticle(id: Int
+	): Single<BlogArticleResponse> =
+			getBlogArticlePath(id)
+					.httpGet()
+					.rxObject(BlogArticleResponse.Deserializer())
+					.map { it.get() }
+
 	fun getAuthor(
 			id: Int,
 			showBiography: Boolean = false,
@@ -388,6 +404,15 @@ object DataManager {
 			sendResponseVotePath(responseId, voteType)
 					.httpGet()
 					.rxString()
+					.map { it.get() }
+
+	fun sendArticleLike(
+			articleId: Int,
+			likeType: Boolean
+	): Single<BlogArticlesVoteResponse> =
+			sendArticleLikePath(articleId)
+					.httpPut(listOf("like" to likeType))
+					.rxObject(BlogArticlesVoteResponse.Deserializer())
 					.map { it.get() }
 
 	fun sendMessage(
@@ -723,6 +748,16 @@ fun getBlogsPath(
 		sortOption: BlogsSortOption
 ) = "/blogs?page=$page&limit=$limit&sort=${sortOption.value}".toAbsolutePathWithTestApiVersion()
 
+fun getBlogArticlesPath(
+		id: Int,
+		page: Int,
+		limit: Int
+) = "/blogs/$id?page=$page&limit=$limit".toAbsolutePathWithTestApiVersion()
+
+fun getBlogArticlePath(
+		id: Int
+) = "/blog_articles/$id".toAbsolutePathWithTestApiVersion()
+
 fun getTopicsPath(
 		id: Int,
 		page: Int,
@@ -892,6 +927,10 @@ fun sendResponseVotePath(
 		voteType: String
 ) = "/vote$responseId$voteType".toAbsolutePath()
 
+fun sendArticleLikePath(
+		articleId: Int
+) = "/blog_articles/$articleId/like".toAbsolutePathWithTestApiVersion()
+
 fun sendMessagePath(
 		userId: Int
 ) = "/user$userId/sendprivatemessage"
@@ -995,7 +1034,7 @@ fun String.toAbsolutePath() = "https://fantlab.ru$this"
 
 fun String.toAbsolutePathWithApiVersion() = "https://api.fantlab.ru$this"
 
-fun String.toAbsolutePathWithTestApiVersion() = "http://dev3.fantlab.org:4242/v${BuildConfig.API_REVISION}$this"
+fun String.toAbsolutePathWithTestApiVersion() = "https://api.test.dev3.fantlab.org/v${BuildConfig.API_REVISION}$this"
 //endregion
 
 fun Boolean.toInt(): Int = if (this) 1 else 0
