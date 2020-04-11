@@ -74,14 +74,10 @@ class NewsOverviewActivity : BaseActivity<NewsOverviewMvp.View, NewsOverviewPres
 			titleNews.visibility = View.VISIBLE
 		} else titleNews.visibility = View.GONE
 
-		if (!InputHelper.isEmpty(news.description) && !news.newsText.contains("print_contest")) {
-			newsText.html = news.description
-			newsText.visibility = View.VISIBLE
-		} else if (!InputHelper.isEmpty(news.description) && news.newsText.contains("print_contest")) {
-			newsText.html = news.newsText
+		if (!InputHelper.isEmpty(news.newsText)) {
+			newsText.html = if (news.newsText.contains("print_contest")) news.newsText.replace("\\[print_contest=(\\d+)\\]".toRegex(), "") else news.newsText
 			newsText.visibility = View.VISIBLE
 		} else newsText.visibility = View.GONE
-
 
 		loadContest(news)
 	}
