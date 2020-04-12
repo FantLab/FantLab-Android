@@ -78,8 +78,22 @@
         <coderef name="video"/>
         <coderef name="typePages"/>
         <coderef name="smiles"/>
+        <coderef name="center"/>
+        <coderef name="right"/>
+        <coderef name="left"/>
     </scope>
-
+    <code name="center">
+        <pattern ignoreCase="true">[center]<var inherit="true"/>[/center]</pattern>
+        <template>&lt;center&gt;<var/>&lt;/center&gt;</template>
+    </code>
+    <code name="right">
+        <pattern ignoreCase="true">[right]<var inherit="true"/>[/right]</pattern>
+        <template>&lt;right&gt;<var/>&lt;/right&gt;</template>
+    </code>
+    <code name="left">
+        <pattern ignoreCase="true">[left]<var inherit="true"/>[/left]</pattern>
+        <template>&lt;left&gt;<var/>&lt;/left&gt;</template>
+    </code>
     <code name="bold">
         <pattern ignoreCase="true">[b]<var inherit="true"/>[/b]</pattern>
         <template>&lt;b&gt;<var/>&lt;/b&gt;</template>

@@ -16,18 +16,36 @@ class CustomTagHandler : TagHandler {
 				if (opening) startSpoiler(output, SpoilerSpan())
 				else end(output, SpoilerSpan::class.java, SpoilerSpan())
 			}
-			"q" ->{
+			"q" -> {
 				if (opening) startBlockquote(output)
-				else endBlockquote(output)}
+				else endBlockquote(output)
+			}
 			"moder" ->
 				if (opening) startBlockquote(output)
 				else endModerblock(output)
 			"censor" ->
 				if (opening) startBlockquote(output)
 				else endCensorblock(output)
-
+			"center" -> {
+				if (opening) start(output, Center())
+				else end(output, Center::class.java, true, AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER))
+			}
+			"right" -> {
+				if (opening) start(output, Right())
+				else end(output, Right::class.java, true, AlignmentSpan.Standard(Layout.Alignment.ALIGN_OPPOSITE))
+			}
+			"left" -> {
+				if (opening) start(output, Left())
+				else end(output, Left::class.java, true, AlignmentSpan.Standard(Layout.Alignment.ALIGN_NORMAL))
+			}
 		}
 	}
+
+	private class Center
+
+	private class Left
+
+	private class Right
 
 	private fun startSpoiler(text: Editable, mark: Any) {
 		val len = text.length
@@ -115,6 +133,23 @@ class CustomTagHandler : TagHandler {
 		val obj = getLast(text, kind)
 		if (obj != null) {
 			setSpanFromMark(text, obj, repl)
+		}
+	}
+
+	private fun end(output: Editable, kind: Class<*>, paragraphStyle: Boolean, vararg replaces: Any) {
+		val obj = getLast(output, kind)
+		val where = output.getSpanStart(obj)
+		val len = output.length
+		output.removeSpan(obj)
+		if (where != len) {
+			var thisLen = len
+			if (paragraphStyle) {
+				output.append("\n")
+				thisLen++
+			}
+			for (replace in replaces) {
+				output.setSpan(replace, where, thisLen, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+			}
 		}
 	}
 
