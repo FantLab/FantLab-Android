@@ -17,6 +17,7 @@ import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.data.dao.model.Smile
 import ru.fantlab.android.data.dao.model.TopicMessage
+import ru.fantlab.android.data.dao.model.TopicMessageDraft
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
@@ -80,6 +81,16 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 		hideProgress()
 		val intent = Intent()
 		intent.putExtra(BundleConstant.ITEM, message)
+		intent.putExtra(BundleConstant.YES_NO_EXTRA, false)
+		setResult(Activity.RESULT_OK, intent)
+		finish()
+	}
+
+	override fun onSendNewTopicMessageDraft(message: TopicMessageDraft) {
+		hideProgress()
+		val intent = Intent()
+		intent.putExtra(BundleConstant.ITEM, message)
+		intent.putExtra(BundleConstant.YES_NO_EXTRA, true)
 		setResult(Activity.RESULT_OK, intent)
 		finish()
 	}
@@ -120,16 +131,13 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 						showErrorMessage(getString(R.string.too_short_text))
 						return true
 					}
-					presenter.onHandleSubmission(editText.savedText, extraType, itemId, reviewComment, "send")
-					/*
-					TODO Реализовать после появления возможности работы с черновиком
 					MessageDialogView.newInstance(getString(R.string.select_action), getString(R.string.save_hint), false,
 							Bundler.start()
 									.put("primary_extra", getString(R.string.submit))
 									.put("secondary_extra", getString(R.string.save))
 									.put(BundleConstant.EXTRA_TYPE, extraType!!)
 									.end())
-							.show(supportFragmentManager, MessageDialogView.TAG)*/
+							.show(supportFragmentManager, MessageDialogView.TAG)
 				} else presenter.onHandleSubmission(editText.savedText, extraType, itemId, reviewComment, "")
 				return true
 			}
@@ -182,7 +190,7 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 			if (type == null) {
 				if (isOk) finish()
 			} else {
-				presenter.onHandleSubmission(editText.savedText, extraType, itemId, reviewComment, if (isOk) "send" else "preview")
+				presenter.onHandleSubmission(editText.savedText, extraType, itemId, reviewComment, if (isOk) "message" else "draft")
 			}
 		}
 	}
@@ -244,9 +252,11 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 					}
 					BundleConstant.EDITOR_NEW_TOPIC_MESSAGE -> {
 						title = getString(R.string.editor_topic_message)
+						extraId = bundle.getInt(BundleConstant.EXTRA_TWO)
 					}
 					BundleConstant.EDITOR_EDIT_TOPIC_MESSAGE -> {
 						title = getString(R.string.editor_edit_topic_message)
+						extraId = bundle.getInt(BundleConstant.EXTRA_TWO)
 					}
 				}
 			}

@@ -29,6 +29,8 @@ interface TopicMvp {
 		fun onItemLongClicked(position: Int, v: android.view.View?, item: ForumTopic.Message)
 
 		fun onMessageDeleted(messageId: Int)
+
+		fun onMessageDraftDeleted()
 	}
 
 	interface Presenter : BaseMvp.Presenter,
@@ -38,5 +40,9 @@ interface TopicMvp {
 		fun getMessages(force: Boolean)
 
 		fun refreshMessages(lastMessageId: String, isNewMessage: Boolean)
+
+		fun onDeleteDraftMessage(topicId: Int)
+
+		fun onConfirmDraftMessage(topicId: Int, lastMessageId: String)
 	}
 }

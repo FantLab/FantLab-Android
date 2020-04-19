@@ -101,6 +101,26 @@ class TopicPresenter : BasePresenter<TopicMvp.View>(),
 		)
 	}
 
+	override fun onDeleteDraftMessage(topicId: Int) {
+		makeRestCall(
+				DataManager.deleteTopicDraft(topicId).toObservable(),
+				Consumer { sendToView {
+					it.onMessageDraftDeleted()
+					it.hideProgress()
+				} }
+		)
+	}
+
+	override fun onConfirmDraftMessage(topicId: Int, lastMessageId: String) {
+		makeRestCall(
+				DataManager.confirmTopicDraft(topicId).toObservable(),
+				Consumer {
+					sendToView { it.onMessageDraftDeleted() }
+					refreshMessages(lastMessageId, false)
+				}
+		)
+	}
+
 	override fun getCurrentPage(): Int = page
 
 	override fun getPreviousTotal(): Int = previousTotal

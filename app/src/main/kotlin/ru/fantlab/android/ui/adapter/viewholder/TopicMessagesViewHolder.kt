@@ -91,7 +91,7 @@ class TopicMessagesViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Forum
 
 	interface MessageMenu {
 		fun onOpenContextMenu(topicMessage: Forum.Topic)
-		fun onShowEditor(quoteText: String, isEditor: Boolean = false, messageId: Int = -1)
+		fun onShowEditor(quoteText: String, isEditor: Boolean = false, isDraft: Boolean = false, messageId: Int = -1)
 	}
 
 	companion object {

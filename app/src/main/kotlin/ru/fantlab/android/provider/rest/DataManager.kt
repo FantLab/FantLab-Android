@@ -441,6 +441,18 @@ object DataManager {
 					.rxObject(TopicMessageResponse.Deserializer())
 					.map { it.get() }
 
+	fun sendTopicMessageDraft(
+			topicId: Int,
+			message: CharSequence?
+	): Single<TopicMessageDraftResponse> =
+			topicDraftPath(topicId)
+					.httpPut(listOf(
+							"id" to topicId,
+							"message" to message
+					))
+					.rxObject(TopicMessageDraftResponse.Deserializer())
+					.map { it.get() }
+
 	fun deleteTopicMessage(
 			messageId: Int
 	): Single<String> =
@@ -460,6 +472,22 @@ object DataManager {
 							"id" to messageId,
 							"message" to message
 					))
+					.rxString()
+					.map { it.get() }
+
+	fun confirmTopicDraft(
+			topicId: Int
+	): Single<TopicMessageResponse> =
+			topicDraftPath(topicId)
+					.httpPost()
+					.rxObject(TopicMessageResponse.Deserializer())
+					.map { it.get() }
+
+	fun deleteTopicDraft(
+			topicId: Int
+	): Single<String> =
+			topicDraftPath(topicId)
+					.httpDelete()
 					.rxString()
 					.map { it.get() }
 
@@ -941,9 +969,19 @@ fun sendTopicMessagePath(
 ) = "/topics/$topicId/message"
 		.toAbsolutePathWithTestApiVersion()
 
+fun sendTopicMessageDraftPath(
+		topicId: Int
+) = "/topics/$topicId/message_draft"
+		.toAbsolutePathWithTestApiVersion()
+
 fun topicMessagePath(
 		messageId: Int
 ) = "/forum_messages/$messageId"
+		.toAbsolutePathWithTestApiVersion()
+
+fun topicDraftPath(
+		topicId: Int
+) = "/topics/$topicId/message_draft"
 		.toAbsolutePathWithTestApiVersion()
 
 fun sendResponsePath(

@@ -82,11 +82,14 @@ class EditorPresenter : BasePresenter<EditorMvp.View>(), EditorMvp.Presenter {
 		}
 	}
 
-	override fun onEditorNewTopicMessage(topicId: Int, savedText: CharSequence?, mode: String) {
+	override fun onEditorNewTopicMessage(messageId: Int, savedText: CharSequence?, mode: String) {
 		if (!InputHelper.isEmpty(savedText)) {
-			makeRestCall(
-					DataManager.sendTopicMessage(topicId, savedText).toObservable(),
+			if (mode == "message") makeRestCall(
+					DataManager.sendTopicMessage(messageId, savedText).toObservable(),
 					Consumer { result -> sendToView { it.onSendNewTopicMessage(result.message) } }
+			) else makeRestCall(
+					DataManager.sendTopicMessageDraft(view?.getExtraIds() ?: -1, savedText).toObservable(),
+					Consumer { result -> sendToView { it.onSendNewTopicMessageDraft(result.message) } }
 			)
 		}
 	}

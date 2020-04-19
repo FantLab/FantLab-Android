@@ -2,6 +2,7 @@ package ru.fantlab.android.ui.modules.editor
 
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.data.dao.model.TopicMessage
+import ru.fantlab.android.data.dao.model.TopicMessageDraft
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import ru.fantlab.android.ui.modules.editor.popup.EditorLinkImageMvp
 import ru.fantlab.android.ui.modules.editor.smiles.SmileMvp
@@ -21,6 +22,8 @@ interface EditorMvp {
 
 		fun onSendNewTopicMessage(message: TopicMessage)
 
+		fun onSendNewTopicMessageDraft(message: TopicMessageDraft)
+
 		fun onEditTopicMessage(messageId: Int, messageText: String)
 	}
 
@@ -32,7 +35,7 @@ interface EditorMvp {
 
 		fun onEditorNewMessage(id: Int, savedText: CharSequence?, mode: String)
 
-		fun onEditorNewTopicMessage(topicId: Int, savedText: CharSequence?, mode: String)
+		fun onEditorNewTopicMessage(messageId: Int, savedText: CharSequence?, mode: String)
 
 		fun onEditorEditTopicMessage(messageId: Int, savedText: CharSequence?)
 

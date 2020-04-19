@@ -11,15 +11,14 @@ import android.view.MenuItem
 import android.view.View
 import androidx.annotation.Keep
 import androidx.annotation.StringRes
+import androidx.core.view.isVisible
 import com.evernote.android.state.State
+import kotlinx.android.synthetic.main.draft_view.*
 import kotlinx.android.synthetic.main.micro_grid_refresh_list.*
 import kotlinx.android.synthetic.main.state_layout.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.ContextMenuBuilder
-import ru.fantlab.android.data.dao.model.ContextMenus
-import ru.fantlab.android.data.dao.model.Forum
-import ru.fantlab.android.data.dao.model.ForumTopic
-import ru.fantlab.android.data.dao.model.TopicMessage
+import ru.fantlab.android.data.dao.model.*
 import ru.fantlab.android.helper.ActivityHelper
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.Bundler
@@ -34,13 +33,12 @@ import ru.fantlab.android.ui.modules.forums.ForumsMvp
 import ru.fantlab.android.ui.modules.user.UserPagerActivity
 import ru.fantlab.android.ui.widgets.dialog.ContextMenuDialogView
 import ru.fantlab.android.ui.widgets.recyclerview.layoutManager.LinearManager
-import kotlin.collections.ArrayList
 
 
 class TopicFragment : BaseFragment<TopicMvp.View, TopicPresenter>(),
 		TopicMvp.View {
 
-	override fun fragmentLayout() = R.layout.micro_grid_refresh_list
+	override fun fragmentLayout() = R.layout.forum_topic_layout
 
 	override fun providePresenter() = TopicPresenter()
 
@@ -120,6 +118,13 @@ class TopicFragment : BaseFragment<TopicMvp.View, TopicPresenter>(),
 	override fun onSetPinnedMessage(message: ForumTopic.PinnedMessage?) {
 	}
 
+	override fun onMessageDraftDeleted() {
+		draftView.isVisible = false
+		draftMessage.text = ""
+		deleteDraft.setOnClickListener {  }
+		confirmDraft.setOnClickListener {  }
+	}
+
 	override fun getLoadMore() = onLoadMore
 
 	override fun showProgress(@StringRes resId: Int, cancelable: Boolean) {
@@ -197,12 +202,12 @@ class TopicFragment : BaseFragment<TopicMvp.View, TopicPresenter>(),
 				presenter.onDeleteMessage(listItem.id.toInt())
 			}
 			"edit" -> {
-				onShowEditor(listItem.text, true, listItem.id.toInt())
+				onShowEditor(listItem.text, isEditor = true, messageId = listItem.id.toInt())
 			}
 		}
 	}
 
-	override fun onShowEditor(quoteText: String, isEditor: Boolean, messageId: Int) {
+	override fun onShowEditor(quoteText: String, isEditor: Boolean, isDraft: Boolean, messageId: Int) {
 		if (!isLoggedIn()) {
 			showErrorMessage(getString(R.string.unauthorized_user))
 			return
@@ -211,12 +216,15 @@ class TopicFragment : BaseFragment<TopicMvp.View, TopicPresenter>(),
 			startActivityForResult(Intent(activity, EditorActivity::class.java)
 					.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_EDIT_TOPIC_MESSAGE)
 					.putExtra(BundleConstant.EXTRA, quoteText)
-					.putExtra(BundleConstant.ID, messageId),
+					.putExtra(BundleConstant.EXTRA_TWO, topicId)
+					.putExtra(BundleConstant.ID, messageId)
+					.putExtra(BundleConstant.YES_NO_EXTRA, isDraft),
 					BundleConstant.EDIT_TOPIC_MESSAGE_CODE)
 		} else {
 			startActivityForResult(Intent(activity, EditorActivity::class.java)
 					.putExtra(BundleConstant.EXTRA_TYPE, BundleConstant.EDITOR_NEW_TOPIC_MESSAGE)
 					.putExtra(BundleConstant.EXTRA, quoteText)
+					.putExtra(BundleConstant.EXTRA_TWO, topicId)
 					.putExtra(BundleConstant.ID, topicId),
 					BundleConstant.NEW_TOPIC_MESSAGE_CODE)
 		}
@@ -227,11 +235,23 @@ class TopicFragment : BaseFragment<TopicMvp.View, TopicPresenter>(),
 		if (resultCode == Activity.RESULT_OK) {
 			when (requestCode) {
 				BundleConstant.NEW_TOPIC_MESSAGE_CODE -> {
-					val myMessage = data?.extras?.getParcelable<TopicMessage>(BundleConstant.ITEM)
-					if (myMessage != null) {
-						recycler.scrollToPosition(0)
-						adapter.addItem(myMessage.message, 0)
-						presenter.refreshMessages(adapter.data.first().id, true)
+					val isDraft = data?.extras?.getBoolean(BundleConstant.YES_NO_EXTRA) ?: false
+					if (isDraft) {
+						val myMessage = data?.extras?.getParcelable<TopicMessageDraft>(BundleConstant.ITEM)
+						if (myMessage != null) {
+							draftMessage.text = myMessage.messageDraft.text
+							deleteDraft.setOnClickListener { presenter.onDeleteDraftMessage(topicId) }
+							confirmDraft.setOnClickListener { presenter.onConfirmDraftMessage(topicId, adapter.data.first().id) }
+							draftView.isVisible = true
+						}
+					} else {
+						onMessageDraftDeleted()
+						val myMessage = data?.extras?.getParcelable<TopicMessage>(BundleConstant.ITEM)
+						if (myMessage != null) {
+							recycler.scrollToPosition(0)
+							adapter.addItem(myMessage.message, 0)
+							presenter.refreshMessages(adapter.data.first().id, true)
+						}
 					}
 				}
 				BundleConstant.EDIT_TOPIC_MESSAGE_CODE -> {
