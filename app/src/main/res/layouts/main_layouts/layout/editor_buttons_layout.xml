@@ -103,6 +103,16 @@
 				android:src="@drawable/ic_image"
 				/>
 
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/file"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="?selectableItemBackgroundBorderless"
+				android:drawableStart="@drawable/attach"
+				android:padding="@dimen/spacing_normal"
+				android:textColor="?android:attr/textColorPrimary"
+				/>
+
 		</LinearLayout>
 
 	</HorizontalScrollView>

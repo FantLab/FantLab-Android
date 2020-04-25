@@ -333,4 +333,23 @@
 	<string name="blog_title">Blog</string>
 	<string name="view_article">Article review</string>
 	<string name="draft">Draft</string>
+	<string name="filename">Filename</string>
+	<string name="select_file">Select</string>
+	<string name="select_file_hint">File not selected</string>
+	<string name="attach">Attach</string>
+	<string name="permissions_denied">Permissions denied</string>
+	<string name="check_input">Please, check input text</string>
+	<string name="add_attach">Add</string>
+	<string name="attach_already_exist">A file with the name already exists</string>
+	<string name="attaches_max">Maximum attaches exceeded</string>
+	<string name="cancel_button_label">Cancel</string>
+	<string name="choose_button_label">Select</string>
+	<string name="label_parent_directory">Parent Directory</string>
+	<string name="last_edit">Last edited: %1$s, %2$s</string>
+	<string name="error_dir_access">Directory cannot be accessed</string>
+	<string name="default_dir" translatable="false">/sdcard</string>
+	<string name="label_parent_dir" translatable="false">..</string>
+	<string name="attach_selector">Select file</string>
+	<string name="no_attaches">Attachment list is empty.\nAdd file to attach with message.</string>
+
 </resources>

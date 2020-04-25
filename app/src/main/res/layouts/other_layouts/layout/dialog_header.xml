@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="?android:listPreferredItemHeight"
+	android:background="?colorPrimary"
+	android:orientation="horizontal"
+	>
+
+	<ImageView
+		android:id="@+id/imageView"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:layout_marginStart="@dimen/toolbar_image_margin"
+		android:background="@null"
+		android:scaleType="centerInside"
+		android:src="@drawable/folder_parent"
+		/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		android:background="@null"
+		android:orientation="vertical"
+		>
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@null"
+			>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/dname"
+				style="@style/TextAppearance.AppCompat.Medium"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="16dp"
+				android:textColor="?android:attr/textColorPrimary"
+				/>
+
+			<ru.fantlab.android.ui.widgets.FontTextView
+				android:id="@+id/title"
+				style="@style/TextAppearance.AppCompat.Subhead"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="16dp"
+				android:textColor="?android:attr/textColorPrimary"
+				android:visibility="invisible"
+				/>
+
+		</RelativeLayout>
+
+		<ru.fantlab.android.ui.widgets.FontTextView
+			android:id="@+id/dir_path"
+			style="@style/TextAppearance.AppCompat.Subhead"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:textColor="?android:attr/textColorSecondary"
+			/>
+	</LinearLayout>
+</LinearLayout>

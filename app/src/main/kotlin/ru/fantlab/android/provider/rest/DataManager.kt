@@ -1,24 +1,19 @@
 package ru.fantlab.android.provider.rest
 
-import com.github.kittinunf.fuel.core.FuelError
-import com.github.kittinunf.fuel.core.Response
-import com.github.kittinunf.fuel.core.ResponseResultOf
-import com.github.kittinunf.fuel.core.response
-import com.github.kittinunf.fuel.httpDelete
-import com.github.kittinunf.fuel.httpGet
-import com.github.kittinunf.fuel.httpPost
-import com.github.kittinunf.fuel.httpPut
+import com.github.kittinunf.fuel.*
+import com.github.kittinunf.fuel.core.*
 import com.github.kittinunf.fuel.rx.rxObject
 import com.github.kittinunf.fuel.rx.rxResponsePair
 import com.github.kittinunf.fuel.rx.rxString
-import com.github.kittinunf.result.Result
 import com.github.kittinunf.result.map
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import io.reactivex.Single
 import ru.fantlab.android.BuildConfig
+import ru.fantlab.android.data.dao.model.AttachUrl
 import ru.fantlab.android.data.dao.model.Login
 import ru.fantlab.android.data.dao.response.*
+import java.io.File
 
 object DataManager {
 
@@ -490,6 +485,43 @@ object DataManager {
 					.httpDelete()
 					.rxString()
 					.map { it.get() }
+
+	fun getTopicAttachUrl(
+			messageId: String,
+			filename: String,
+			filepath: String
+	): Single<Triple<String, String, String>> =
+			attachTopicUrlPath(messageId)
+					.httpGet(listOf(
+							"file_name" to filename
+					))
+					.rxObject(AttachUrlResponse.Deserializer())
+					.map { Triple(it.get().url, filename, filepath) }
+
+	fun getTopicDraftAttachUrl(
+			topicId: Int,
+			filename: String,
+			filepath: String
+	): Single<Triple<String, String, String>> =
+			attachTopicDraftUrlPath(topicId)
+					.httpGet(listOf(
+							"file_name" to filename
+					))
+					.rxObject(AttachUrlResponse.Deserializer())
+					.map { Triple(it.get().url, filename, filepath) }
+
+	fun sendTopicAttach(
+			url: String,
+			filename: String,
+			file: File,
+			requestHandler: ProgressCallback
+	): Single<Pair<Int, String>> =
+			url
+					.httpUpload(method = Method.PUT)
+					.add(FileDataPart(file))
+					.requestProgress(requestHandler)
+					.rxResponsePair()
+					.map { Pair(it.first.statusCode, filename) }
 
 	fun sendResponse(
 			workId: Int,
@@ -982,6 +1014,16 @@ fun topicMessagePath(
 fun topicDraftPath(
 		topicId: Int
 ) = "/topics/$topicId/message_draft"
+		.toAbsolutePathWithTestApiVersion()
+
+fun attachTopicUrlPath(
+		messageId: String
+) = "/forum_messages/$messageId/file_upload_url"
+		.toAbsolutePathWithTestApiVersion()
+
+fun attachTopicDraftUrlPath(
+		topicId: Int
+) = "/topics/$topicId/message_draft/file_upload_url"
 		.toAbsolutePathWithTestApiVersion()
 
 fun sendResponsePath(

@@ -43,6 +43,7 @@ extra.apply {
 	set("room", "2.1.0")
 	set("crashlytics_version", "2.9.9")
 	set("firebase", "16.0.8")
+	set("kefirbb", "1.5")
 }
 
 fun readProperties(propertiesFile: File) = Properties().apply {
@@ -176,7 +177,7 @@ dependencies {
 	implementation("com.facebook.stetho:stetho-okhttp3:${project.extra["stetho"]}")
 	implementation("petrov.kristiyan:colorpicker-library:${project.extra["colorpicker"]}")
 	implementation("com.caverock:androidsvg-aar:${project.extra["svg"]}")
-	implementation("org.kefirsf:kefirbb:1.5")
+	implementation("org.kefirsf:kefirbb:${project.extra["kefirbb"]}")
 }
 
 apply(plugin = "com.google.gms.google-services")

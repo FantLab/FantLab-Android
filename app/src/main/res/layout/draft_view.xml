@@ -46,21 +46,24 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="@dimen/spacing_xs_large"
+					android:layout_marginTop="@dimen/spacing_normal"
 					android:layout_marginEnd="@dimen/spacing_xs_large"
+					android:layout_marginBottom="@dimen/spacing_normal"
 					android:layout_weight="1"
 					android:gravity="center"
 					android:text="@string/draft"
 					android:textAllCaps="true"
-					android:textColor="?android:textColorTertiary"
+					android:textColor="?colorAccent"
 					/>
 
 				<ru.fantlab.android.ui.widgets.ForegroundImageView
 					android:id="@+id/deleteDraft"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_margin="@dimen/spacing_micro"
+					android:layout_marginEnd="@dimen/spacing_normal"
 					android:layout_weight="0"
 					android:background="?android:selectableItemBackground"
+					android:padding="@dimen/spacing_normal"
 					app:srcCompat="@drawable/ic_delete"
 					/>
 
@@ -68,9 +71,10 @@
 					android:id="@+id/confirmDraft"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_margin="@dimen/spacing_micro"
+					android:layout_marginEnd="@dimen/spacing_normal"
 					android:layout_weight="0"
 					android:background="?android:selectableItemBackground"
+					android:padding="@dimen/spacing_micro"
 					app:srcCompat="@drawable/ic_done"
 					/>
 			</LinearLayout>

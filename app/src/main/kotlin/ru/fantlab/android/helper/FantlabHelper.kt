@@ -10,6 +10,10 @@ object FantlabHelper {
 		val ignoreList = listOf(10, 100, 12345, 2000, 7000, 46137)
 	}
 
+	object Attaches {
+		val MaxAttachCountPerMessage = 10
+	}
+
 	enum class Levels(val `class`: Int) {
 		NOVICE(0),
 		ACTIVIST(1),

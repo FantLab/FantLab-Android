@@ -9,30 +9,44 @@ import android.view.View
 import android.view.View.GONE
 import android.widget.EditText
 import androidx.annotation.StringRes
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import com.evernote.android.state.State
 import kotlinx.android.synthetic.main.editor_buttons_layout.view.*
 import kotlinx.android.synthetic.main.editor_layout.*
 import ru.fantlab.android.R
+import ru.fantlab.android.data.dao.AttachModel
 import ru.fantlab.android.data.dao.model.Response
 import ru.fantlab.android.data.dao.model.Smile
 import ru.fantlab.android.data.dao.model.TopicMessage
 import ru.fantlab.android.data.dao.model.TopicMessageDraft
 import ru.fantlab.android.helper.BundleConstant
+import ru.fantlab.android.helper.BundleConstant.EDITOR_DRAFT_TYPE
+import ru.fantlab.android.helper.BundleConstant.EDITOR_MESSAGE_TYPE
 import ru.fantlab.android.helper.Bundler
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.ViewHelper
+import ru.fantlab.android.ui.adapter.AttachUploadAdapter
 import ru.fantlab.android.ui.base.BaseActivity
 import ru.fantlab.android.ui.widgets.dialog.MessageDialogView
 import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
 
 class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMvp.View {
 
-	@State var extraType: String? = null
-	@State var extraId: Int? = null
-	@State var itemId: Int? = null
-	@State var extraPosition: Int = -1
-	@State var reviewComment: Response? = null
+	@State
+	var extraType: String? = null
+	@State
+	var extraId: Int? = null
+	@State
+	var itemId: Int? = null
+	@State
+	var extraPosition: Int = -1
+	@State
+	var reviewComment: Response? = null
+
+	var attaches: ArrayList<AttachModel> = arrayListOf()
+
+	private val attachesAdapter: AttachUploadAdapter by lazy { AttachUploadAdapter(arrayListOf()) }
 
 	override fun layout(): Int = R.layout.editor_layout
 
@@ -168,6 +182,22 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 		super.hideProgress()
 	}
 
+	override fun onNotifyUploadAttach(filepath: String, filename: String, progress: Int) {
+		val item = attachesAdapter.data.find { it.filepath == filepath && it.filename == filename}
+		if (item != null) {
+			val position = attachesAdapter.data.indexOf(item)
+			attachesAdapter.data[position].progress = progress
+			attachesAdapter.notifyItemChanged(position, progress)
+		}
+	}
+
+	override fun initAttachUpload() {
+		attachesAdapter.setEnableAnimation(false)
+		attachesAdapter.insertItems(attaches)
+		attachUploadList.adapter = attachesAdapter
+		attachUploadList.isVisible = true
+	}
+
 	override fun onBackPressed() {
 		if (!InputHelper.isEmpty(editText.text)) {
 			ViewHelper.hideKeyboard(editText)
@@ -190,13 +220,50 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 			if (type == null) {
 				if (isOk) finish()
 			} else {
-				presenter.onHandleSubmission(editText.savedText, extraType, itemId, reviewComment, if (isOk) "message" else "draft")
+				presenter.onHandleSubmission(editText.savedText, extraType, itemId, reviewComment, if (isOk) EDITOR_MESSAGE_TYPE else EDITOR_DRAFT_TYPE)
 			}
 		}
 	}
 
 	override fun onAppendLink(title: String, link: String, isLink: Boolean) {
 		editorLayout.onAppendLink(title, link, isLink)
+	}
+
+	override fun onAppendAttach(filename: String, filepath: String) {
+		attaches.add(AttachModel(filename, filepath))
+		editorLayout.file.text = attaches.size.toString()
+	}
+
+	override fun getAttachesList(): ArrayList<AttachModel> = attaches
+
+	override fun removeAttach(attach: AttachModel) {
+		attaches.remove(attach)
+		refreshAttachCounter()
+	}
+
+	override fun onClearAttach(){
+		attaches.clear()
+		refreshAttachCounter()
+	}
+
+	private fun refreshAttachCounter() {
+		if (attaches.isEmpty()) {
+			editorLayout.file.text = ""
+		} else editorLayout.file.text = attaches.size.toString()
+	}
+
+	override fun onPrepareUploadFile(attach: AttachModel) {
+		val position = attachesAdapter.data.indexOf(attach)
+		attachesAdapter.data[position].progress = -1
+		attachesAdapter.notifyItemChanged(position)
+	}
+
+	override fun onAttachUploaded(filename: String) {
+		val attach = attachesAdapter.data.find { it.filename == filename }
+		val position = attachesAdapter.data.indexOf(attach)
+		attachesAdapter.removeItem(position)
+		attaches.remove(attach)
+		if (attaches.isEmpty()) attachUploadList.isVisible = false
 	}
 
 	override fun onSmileAdded(smile: Smile?) {
@@ -242,6 +309,7 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 						editorLayout.list.visibility = GONE
 						editorLayout.link.visibility = GONE
 						editorLayout.image.visibility = GONE
+						editorLayout.file.visibility = GONE
 					}
 					BundleConstant.EDITOR_NEW_COMMENT -> {
 						title = getString(R.string.editor_comment)
@@ -249,6 +317,7 @@ class EditorActivity : BaseActivity<EditorMvp.View, EditorPresenter>(), EditorMv
 					}
 					BundleConstant.EDITOR_NEW_MESSAGE -> {
 						title = getString(R.string.editor_message)
+						editorLayout.file.visibility = GONE
 					}
 					BundleConstant.EDITOR_NEW_TOPIC_MESSAGE -> {
 						title = getString(R.string.editor_topic_message)

@@ -295,4 +295,20 @@
 	<string name="blog_title">Авторская колонка</string>
 	<string name="view_article">Просмотр статьи</string>
 	<string name="draft">Черновик</string>
+	<string name="filename">Название файла</string>
+	<string name="select_file">Выбрать</string>
+	<string name="select_file_hint">Файл не выбран</string>
+	<string name="attach">Вложить</string>
+	<string name="permissions_denied">Нет прав на чтение</string>
+	<string name="check_input">Проверьте введенные данные</string>
+	<string name="add_attach">Добавить</string>
+	<string name="attach_already_exist">Файл с таким именем уже добавлен в список</string>
+	<string name="attaches_max">Превышено максимальное количество вложений</string>
+	<string name="cancel_button_label">Отмена</string>
+	<string name="choose_button_label">Выбрать</string>
+	<string name="label_parent_directory">Вернуться назад</string>
+	<string name="last_edit">Последнее изменение: %1$s, %2$s</string>
+	<string name="error_dir_access">Нет прав на чтение директории</string>
+	<string name="attach_selector">Выберите файл</string>
+	<string name="no_attaches">Список вложений пуст.\nДобавьте файл, чтобы приложить к сообщению.</string>
 </resources>

@@ -1,4 +1,4 @@
-package ru.fantlab.android.ui.modules.editor.popup
+package ru.fantlab.android.ui.modules.editor.popup.linkimage
 
 import android.content.Context
 import android.os.Bundle

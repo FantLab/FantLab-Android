@@ -26,6 +26,9 @@ object BundleConstant {
 	var EDITOR_NEW_MESSAGE = "editor_new_message"
 	var EDITOR_NEW_COMMENT = "editor_new_comment"
 	var EDITOR_NEW_TOPIC_MESSAGE = "editor_new_topic_message"
+	var EDITOR_NEW_TOPIC_DRAFT_MESSAGE = "editor_new_topic_draft_message"
 	var EDITOR_EDIT_TOPIC_MESSAGE = "editor_edit_topic_message"
+	var EDITOR_MESSAGE_TYPE = "message"
+	var EDITOR_DRAFT_TYPE = "draft"
 
 }

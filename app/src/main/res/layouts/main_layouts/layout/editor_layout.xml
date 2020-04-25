@@ -4,6 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:background="?card_background"
 	android:orientation="vertical"
 	>
@@ -60,6 +61,18 @@
 		android:layout_width="match_parent"
 		android:layout_height="4dp"
 		android:background="@drawable/toolbar_shadow_up"
+		/>
+
+	<ru.fantlab.android.ui.widgets.recyclerview.DynamicRecyclerView
+		android:id="@+id/attachUploadList"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:visibility="gone"
+		app:layoutManager="@string/staggered_layout_manager"
+		app:spanCount="@integer/micro_spans"
+		tools:itemCount="2"
+		tools:listitem="@layout/attach_upload_row"
+		tools:visibility="visible"
 		/>
 
 	<ru.fantlab.android.ui.widgets.editor.EditorLayout

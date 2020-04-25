@@ -1,8 +1,7 @@
-package ru.fantlab.android.ui.modules.editor.popup
+package ru.fantlab.android.ui.modules.editor.popup.linkimage
 
 import ru.fantlab.android.data.dao.model.Smile
 import ru.fantlab.android.ui.base.mvp.BaseMvp
-import java.io.File
 
 interface EditorLinkImageMvp {
 
@@ -15,7 +14,5 @@ interface EditorLinkImageMvp {
 		fun onUploaded(title: String, link: String)
 	}
 
-	interface Presenter {
-		fun onSubmit(title: String?, file: File)
-	}
+	interface Presenter
 }

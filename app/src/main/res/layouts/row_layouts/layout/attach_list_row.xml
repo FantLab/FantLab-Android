@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_margin="@dimen/grid_spacing"
+	tools:ignore="RtlSymmetry"
+	>
+
+	<androidx.cardview.widget.CardView
+		android:id="@+id/topView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:cardBackgroundColor="?card_background"
+		app:cardCornerRadius="0dp"
+		app:cardElevation="1dp"
+		app:cardUseCompatPadding="true"
+		>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical"
+			>
+
+			<ru.fantlab.android.ui.widgets.ForegroundImageView
+				android:id="@+id/attachIcon"
+				android:layout_width="42dp"
+				android:layout_height="42dp"
+				android:padding="@dimen/spacing_normal"
+				app:srcCompat="@drawable/attach"
+				/>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				>
+
+				<LinearLayout
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:orientation="vertical"
+					>
+
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:id="@+id/fileName"
+						style="@style/TextAppearance.AppCompat.Subhead"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textColor="?android:attr/textColorSecondary"
+						tools:text="Filename"
+						/>
+
+					<ru.fantlab.android.ui.widgets.FontTextView
+						android:id="@+id/filePath"
+						style="@style/TextAppearance.AppCompat.Caption"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textColor="?android:attr/textColorSecondary"
+						tools:text="/sdcard/file.txt"
+						/>
+
+
+				</LinearLayout>
+
+				<ru.fantlab.android.ui.widgets.ForegroundImageView
+					android:id="@+id/deleteAttach"
+					android:layout_width="28dp"
+					android:layout_height="28dp"
+					android:padding="@dimen/spacing_micro"
+					android:layout_gravity="center_vertical"
+					android:layout_marginEnd="@dimen/spacing_normal"
+					android:layout_weight="0"
+					android:background="?android:selectableItemBackground"
+					android:clickable="true"
+					android:contentDescription="@string/delete"
+					android:focusable="true"
+					app:srcCompat="@drawable/ic_delete"
+					/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+
+	</androidx.cardview.widget.CardView>
+
+
+</ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>

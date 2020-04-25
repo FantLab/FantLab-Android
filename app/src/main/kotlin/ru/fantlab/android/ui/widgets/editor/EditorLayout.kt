@@ -16,7 +16,8 @@ import ru.fantlab.android.data.dao.model.Smile
 import ru.fantlab.android.helper.BundleConstant
 import ru.fantlab.android.helper.InputHelper
 import ru.fantlab.android.helper.ViewHelper
-import ru.fantlab.android.ui.modules.editor.popup.EditorLinkImageDialogFragment
+import ru.fantlab.android.ui.modules.editor.popup.attach.EditorAttachDialogFragment
+import ru.fantlab.android.ui.modules.editor.popup.linkimage.EditorLinkImageDialogFragment
 import ru.fantlab.android.ui.modules.editor.smiles.SmileBottomSheet
 import ru.fantlab.android.ui.modules.editor.smiles.SmileMvp
 import ru.fantlab.android.ui.widgets.htmlview.HTMLTextView
@@ -45,6 +46,7 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 		quote.setOnClickListener { onActions(it) }
 		link.setOnClickListener { onActions(it) }
 		image.setOnClickListener { onActions(it) }
+		file.setOnClickListener { onActions(it) }
 		addSmile.setOnClickListener { onActions(it) }
 	}
 
@@ -92,14 +94,17 @@ class EditorLayout : LinearLayout, SmileMvp.SmileCallback {
 				if (!editText.isEnabled) {
 					Snackbar.make(this, R.string.error_highlighting_editor, Snackbar.LENGTH_SHORT).show()
 				} else {
-					when {
-						v.id == R.id.link -> EditorLinkImageDialogFragment.newInstance(true, getSelectedText())
+					when (v.id) {
+						R.id.link -> EditorLinkImageDialogFragment.newInstance(true, getSelectedText())
 								.show(it.fragmentManager(), "EditorLinkImageDialogFragment")
-						v.id == R.id.image -> EditorLinkImageDialogFragment.newInstance(false, getSelectedText())
+						R.id.image -> EditorLinkImageDialogFragment.newInstance(false, getSelectedText())
 								.show(it.fragmentManager(), "EditorLinkImageDialogFragment")
-						v.id == R.id.addSmile -> {
+						R.id.addSmile -> {
 							ViewHelper.hideKeyboard(it.getEditText())
 							SmileBottomSheet().show(it.fragmentManager(), "SmileBottomSheet")
+						}
+						R.id.file -> {
+							EditorAttachDialogFragment.newInstance().show(it.fragmentManager(), "EditorAttachDialogFragment")
 						}
 						else -> onActionClicked(editText, v.id)
 					}
