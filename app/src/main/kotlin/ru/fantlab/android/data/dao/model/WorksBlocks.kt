@@ -34,7 +34,7 @@ data class WorksBlocks(
 			@SerializedName("position_show_in_biblio") val positionShowInBiblio: Int,
 			@SerializedName("position_show_subworks_in_biblio") val positionShowSubWorksInBiblio: Int,
 			@SerializedName("publish_status") val publishStatus: String,
-			@SerializedName("val midmark_by_weight") val rating: Float?,
+			@SerializedName("val_midmark_by_weight") val rating: Float?,
 			@SerializedName("val_responsecount") val responseCount: Int?,
 			@SerializedName("val_voters") val votersCount: String?,
 			@SerializedName("work_description") val description: String?,
