@@ -144,12 +144,14 @@ class ItemAwardsActivity : BaseActivity<ItemAwardsMvp.View, ItemAwardsPresenter>
 		when(itemType) {
 			ItemType.WORK -> presenter.getWorkAwards(itemId)
 			ItemType.AUTHOR -> presenter.getAuthorAwards(itemId)
+			ItemType.TRANSLATOR -> presenter.getTranslatorAwards(itemId)
 		}
 	}
 
-	public enum class ItemType(val value: String) {
+	enum class ItemType(val value: String) {
 		WORK("work"),
-		AUTHOR("author")
+		AUTHOR("author"),
+		TRANSLATOR("translator")
 	}
 
 	companion object {

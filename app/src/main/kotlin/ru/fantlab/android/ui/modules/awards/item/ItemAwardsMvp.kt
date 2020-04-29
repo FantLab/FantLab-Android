@@ -19,5 +19,6 @@ interface ItemAwardsMvp {
 
 		fun getWorkAwards(workId: Int)
 		fun getAuthorAwards(authorId: Int)
+		fun getTranslatorAwards(translatorId: Int)
 	}
 }

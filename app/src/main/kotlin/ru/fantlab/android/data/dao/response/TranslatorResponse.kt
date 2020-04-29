@@ -9,12 +9,14 @@ import ru.fantlab.android.provider.rest.DataManager
 data class TranslatorResponse(
         val translator: Translator,
         val sortedWorks: ArrayList<String>,
+        val awards: ArrayList<Translator.TranslationAward>,
         val translatedWorks: HashMap<String, Translator.TranslatedWork>
 ) {
     class Deserializer : ResponseDeserializable<TranslatorResponse> {
         private lateinit var translator: Translator
         private val sortedWorks: ArrayList<String> = arrayListOf()
         private val translatedWorks: HashMap<String, Translator.TranslatedWork> = HashMap()
+        private val awards: ArrayList<Translator.TranslationAward>  = arrayListOf()
 
         override fun deserialize(content: String): TranslatorResponse {
             val jsonObject = JsonParser().parse(content).asJsonObject
@@ -27,6 +29,13 @@ data class TranslatorResponse(
                 }
             }
 
+            if (jsonObject["awards"] != JsonNull.INSTANCE) {
+                val array = jsonObject.getAsJsonArray("awards")
+                array.map {
+                    awards.add(DataManager.gson.fromJson(it, Translator.TranslationAward::class.java))
+                }
+            }
+
             if (jsonObject["translated"] != JsonNull.INSTANCE) {
                 val translatedObject = jsonObject.getAsJsonObject("translated")
                 val keysArray = translatedObject.keySet()
@@ -36,7 +45,7 @@ data class TranslatorResponse(
                 }
             }
 
-            return TranslatorResponse(translator, sortedWorks, translatedWorks)
+            return TranslatorResponse(translator, sortedWorks, awards, translatedWorks)
         }
     }
 }
