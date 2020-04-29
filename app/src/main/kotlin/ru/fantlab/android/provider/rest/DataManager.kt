@@ -114,6 +114,14 @@ object DataManager {
 					.rxObject(AwardResponse.Deserializer())
 					.map { it.get() }
 
+	fun getPersonAwards(
+			personId: Int,
+			personType: String
+	): Single<PersonAwardsResponse> =
+			getPersonAwardsPath(personId, personType)
+					.httpGet()
+					.rxObject(PersonAwardsResponse.Deserializer())
+					.map { it.get() }
 	fun getWork(
 			id: Int,
 			showAwards: Boolean = false,
@@ -712,6 +720,11 @@ fun getAuthorResponsesPath(
 		page: Int = 1,
 		sortOption: ResponsesSortOption = ResponsesSortOption.BY_DATE
 ) = "/autor/$authorId/responses?page=$page&sort=${sortOption.value}".toAbsolutePathWithApiVersion()
+
+fun getPersonAwardsPath(
+		personId: Int,
+		personType: String
+) = "/$personType/$personId/awards".toAbsolutePathWithApiVersion()
 
 fun getAwardPath(
 		id: Int,

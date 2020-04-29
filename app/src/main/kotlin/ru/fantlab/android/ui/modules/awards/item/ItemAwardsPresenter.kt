@@ -7,12 +7,10 @@ import ru.fantlab.android.data.dao.model.Awards
 import ru.fantlab.android.data.dao.model.Nomination
 import ru.fantlab.android.data.dao.model.Translator
 import ru.fantlab.android.data.dao.response.AuthorResponse
+import ru.fantlab.android.data.dao.response.PersonAwardsResponse
 import ru.fantlab.android.data.dao.response.TranslatorResponse
 import ru.fantlab.android.data.dao.response.WorkResponse
-import ru.fantlab.android.provider.rest.DataManager
-import ru.fantlab.android.provider.rest.getAuthorPath
-import ru.fantlab.android.provider.rest.getTranslatorInformationPath
-import ru.fantlab.android.provider.rest.getWorkPath
+import ru.fantlab.android.provider.rest.*
 import ru.fantlab.android.provider.storage.DbProvider
 import ru.fantlab.android.ui.base.mvp.presenter.BasePresenter
 
@@ -71,19 +69,17 @@ class ItemAwardsPresenter : BasePresenter<ItemAwardsMvp.View>(),
 
 	private fun getAuthorAwardsFromServer(authorId: Int):
 			Single<Awards> =
-			DataManager.getAuthor(authorId, showAwards = true)
-					.map { getAwardsFromAuthor(it) }
+			DataManager.getPersonAwards(authorId, "autor")
+					.map { getAwardsFromPerson(it) }
 
 	private fun getAuthorAwardsFromDb(authorId: Int):
 			Single<Awards> =
 			DbProvider.mainDatabase
 					.responseDao()
-					.get(getAuthorPath(authorId, showAwards = true))
+					.get(getPersonAwardsPath(authorId, "autor"))
 					.map { it.response }
-					.map { AuthorResponse.Deserializer().deserialize(it) }
-					.map { getAwardsFromAuthor(it) }
-
-	private fun getAwardsFromAuthor(response: AuthorResponse): Awards? = response.awards
+					.map { PersonAwardsResponse.Deserializer().deserialize(it) }
+					.map { getAwardsFromPerson(it) }
 
 	override fun getTranslatorAwards(translatorId: Int) {
 		makeRestCall(
@@ -104,17 +100,27 @@ class ItemAwardsPresenter : BasePresenter<ItemAwardsMvp.View>(),
 
 	private fun getTranslatorAwardsFromServer(translatorId: Int):
 			Single<Awards> =
-			DataManager.getTranslatorInformation(translatorId, showAwards = true)
-					.map { getAwardsFromTranslator(it) }
+			DataManager.getPersonAwards(translatorId, "translator")
+					.map { getAwardsFromPerson(it) }
 
 	private fun getTranslatorAwardsFromDb(translatorId: Int):
 			Single<Awards> =
 			DbProvider.mainDatabase
 					.responseDao()
-					.get(getTranslatorInformationPath(translatorId, showAwards = true))
+					.get(getPersonAwardsPath(translatorId, "translator"))
 					.map { it.response }
-					.map { TranslatorResponse.Deserializer().deserialize(it) }
-					.map { getAwardsFromTranslator(it) }
+					.map { PersonAwardsResponse.Deserializer().deserialize(it) }
+					.map { getAwardsFromPerson(it) }
 
-	private fun getAwardsFromTranslator(response: TranslatorResponse): Awards? = Awards(arrayListOf(), Translator.AwardsConverter().convert(response.awards))
+	private fun getAwardsFromPerson(response: PersonAwardsResponse): Awards? {
+		var res = Awards(arrayListOf(), arrayListOf())
+		response.awards.forEach { nomination ->
+			if (nomination.isWinner == 1) {
+				res.wins.add(nomination)
+			} else {
+				res.nominations.add(nomination)
+			}
+		}
+		return res
+	}
 }
