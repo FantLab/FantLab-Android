@@ -41,7 +41,7 @@
                 android:maxLines="4"
                 android:textColor="?android:attr/textColorPrimary"
                 tools:text="Марк Твен"
-                style="@style/TextAppearance.AppCompat.Caption"
+                style="@style/TextAppearance.AppCompat.Body1"
                 />
 
             <ru.fantlab.android.ui.widgets.FontTextView
@@ -55,7 +55,7 @@
                 android:maxLines="4"
                 android:textColor="?android:attr/textColorLink"
                 tools:text="Архив семейства Адама"
-                style="@style/TextAppearance.AppCompat.Caption"
+                style="@style/TextAppearance.AppCompat.Body1"
                 />
 
             <ru.fantlab.android.ui.widgets.FontTextView
@@ -69,7 +69,7 @@
                 android:maxLines="4"
                 android:textColor="?android:attr/textColorSecondary"
                 tools:text="(1982, цикл)"
-                style="@style/TextAppearance.AppCompat.Caption"
+                style="@style/TextAppearance.AppCompat.Body1"
                 />
 
             </ru.fantlab.android.ui.widgets.FlowLayout>

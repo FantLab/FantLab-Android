@@ -87,8 +87,8 @@ class TranslatorOverviewFragment : BaseFragment<TranslatorOverviewMvp.View, Tran
 
             biographyText.html = translator.biography.replace("(\r\n)+".toRegex(), "\n").trim() + "\n\n" + source
 
-            biographyBlock.visibility = View.VISIBLE
-        } else biographyBlock.visibility = View.GONE
+            infoBlock.visibility = View.VISIBLE
+        } else infoBlock.visibility = View.GONE
 
         if (awards.isNotEmpty()) {
             adapterNoms.insertItems(Translator.AwardsConverter().convert(awards))

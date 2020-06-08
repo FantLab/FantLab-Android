@@ -274,6 +274,7 @@
 	<string name="no_bookcases">Нет полок</string>
 	<string name="my_bookcases">Мои книжные полки</string>
 	<string name="winners">Победы</string>
+	<string name="about_translator">О переводчике</string>
     <string name="translation_language">Перевод на %s:</string>
 	<string name="translation_details">(%s), %d - %d изд.</string>
 	<string name="content_cycle">Содержание цикла</string>
