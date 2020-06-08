@@ -312,6 +312,7 @@
 	<string name="no_bookcases">No bookcases</string>
 	<string name="my_bookcases">My bookcases</string>
 	<string name="winners">Wins</string>
+	<string name="about_translator">About translator</string>
     <string name="translation_language">Translation to %s:</string>
 	<string name="translation_details">(%s), %d - %d pub.</string>
 	<string name="content_cycle">Cycle content</string>
