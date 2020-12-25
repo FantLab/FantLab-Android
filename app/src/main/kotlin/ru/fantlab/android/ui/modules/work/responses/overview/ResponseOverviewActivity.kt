@@ -66,7 +66,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 			R.id.share -> {
 				ActivityHelper.shareUrl(this, Uri.Builder().scheme(LinkParserHelper.PROTOCOL_HTTPS)
 						.authority(LinkParserHelper.HOST_DEFAULT)
-						.appendEncodedPath("work${response.workId}#response${response.id}")
+						.appendEncodedPath("work${response.workId}/toresponse${response.id}")
 						.toString())
 				return true
 			}
