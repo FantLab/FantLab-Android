@@ -7,17 +7,17 @@ import ru.fantlab.android.provider.rest.DataManager
 import java.util.*
 
 data class WorkTypesResponse(
-		val types: ArrayList<WorkType>
+		val types: ArrayList<WorkType.WorkTypeItem>
 ) {
 	class Deserializer : ResponseDeserializable<WorkTypesResponse> {
 
 		override fun deserialize(content: String): WorkTypesResponse {
-			val items: ArrayList<WorkType> = arrayListOf()
+			val items: ArrayList<WorkType.WorkTypeItem> = arrayListOf()
 			val json = JsonParser().parse(content)
 			if (json != null) {
-				val array = json.asJsonArray
+				val array = json.asJsonObject.getAsJsonArray("work_types")
 				array.map {
-					items.add(DataManager.gson.fromJson(it, WorkType::class.java))
+					items.add(DataManager.gson.fromJson(it, WorkType.WorkTypeItem::class.java))
 				}
 			}
 			return WorkTypesResponse(items)

@@ -9,7 +9,6 @@ import ru.fantlab.android.data.dao.response.WorkTypesResponse
 import ru.fantlab.android.helper.observe
 import ru.fantlab.android.helper.single
 import ru.fantlab.android.provider.rest.DataManager
-import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
 import timber.log.Timber
 import java.io.File
 import java.io.InputStream
@@ -17,7 +16,7 @@ import java.io.InputStream
 object WorkTypesProvider {
 
 	private const val FILENAME = "worktypes.json"
-	private var WORKTYPES: List<WorkType>? = null
+	private var WORKTYPES: List<WorkType.WorkTypeItem> = listOf()
 
 	fun init(): Disposable = loadWorkTypesLocal().single()
 			.subscribe({
@@ -53,15 +52,13 @@ object WorkTypesProvider {
 
 	private fun inputStreamToString(stream: InputStream): String = stream.bufferedReader().use { it.readText() }
 
-	fun getWorkTypes(): List<WorkType>? = WORKTYPES
+	fun getWorkTypes(): List<WorkType.WorkTypeItem> = WORKTYPES
 
-	fun getCoverByType(type: String) = PROTOCOL_HTTPS + ":" + WORKTYPES?.find { it.workType == type }?.workTypeImage
+	fun getCoverByTypeId(typeId: Int) = WORKTYPES.find { it.id == typeId }?.image ?: ""
 
-	fun getCoverByTypeId(typeId: Int) = PROTOCOL_HTTPS + ":" + WORKTYPES?.find { it.workTypeId == typeId }?.workTypeImage
+	fun getCoverByTypeName(typeName: String, isRussian: Boolean = true) = WORKTYPES.find { it.title.rus == typeName }?.image ?: ""
 
-	fun getCoverByTypeName(typeName: String) = PROTOCOL_HTTPS + ":" + WORKTYPES?.find { it.workTypeName == typeName }?.workTypeImage
-
-	private fun setWorkTypes(workTypes: ArrayList<WorkType>) {
-		WORKTYPES = workTypes
+	private fun setWorkTypes(workTypeItems: ArrayList<WorkType.WorkTypeItem>) {
+		WORKTYPES = workTypeItems
 	}
 }
