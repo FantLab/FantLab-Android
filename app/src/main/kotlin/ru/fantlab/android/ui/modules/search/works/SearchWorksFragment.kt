@@ -105,7 +105,7 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 	}
 
 	override fun onItemClicked(item: SearchWork) {
-		if (item.workTypeId == FantlabHelper.WorkType.WORK_TYPE_VERSE.id)
+		if (item.workTypeId == FantlabHelper.WorkType.WORK_TYPE_CYCLE.id)
 			CyclePagerActivity.startActivity(context!!, item.workId, item.rusname, 0)
 		else
 			WorkPagerActivity.startActivity(context!!, item.workId, item.rusname, 0)

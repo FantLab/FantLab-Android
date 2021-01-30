@@ -26,7 +26,10 @@ object FantlabHelper {
 	}
 
 	enum class WorkType(val id: Int) {
-		WORK_TYPE_UNKNOWN(0),
+		WORK_TYPE_NOVEL(1),
+		WORK_TYPE_SHORTSTORY(45),
+		WORK_TYPE_CYCLE(4)
+		/*WORK_TYPE_UNKNOWN(0),
 		WORK_TYPE_NOVEL(1),
 		WORK_TYPE_COMPILATION(2),
 		WORK_TYPE_SERIES(3),
@@ -62,7 +65,7 @@ object FantlabHelper {
 		WORK_TYPE_REVIEW(33),
 		WORK_TYPE_POPULAR_SCIENCE_BOOK(34),
 		WORK_TYPE_ARTBOOK(35),
-		WORK_TYPE_LIBRETTO(36)
+		WORK_TYPE_LIBRETTO(36)*/
 	}
 
 	enum class ClassificatorTypes(val tag: String) {

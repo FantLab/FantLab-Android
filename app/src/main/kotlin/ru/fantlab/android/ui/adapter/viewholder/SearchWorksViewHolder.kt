@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.search_works_row_item.view.*
 import ru.fantlab.android.R
 import ru.fantlab.android.data.dao.model.SearchWork
+import ru.fantlab.android.helper.round
 import ru.fantlab.android.provider.scheme.LinkParserHelper.HOST_DATA
 import ru.fantlab.android.provider.scheme.LinkParserHelper.PROTOCOL_HTTPS
 import ru.fantlab.android.provider.storage.WorkTypesProvider
@@ -86,9 +87,7 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 		}
 
 		if (work.markcount != 0) {
-			itemView.rating.text = String.format("%s / %s",
-					numberFormat.format(work.midmark[0].toDouble()),
-					numberFormat.format(work.markcount.toLong()))
+			itemView.rating.text = work.rating[0].round(2).toString()
 			itemView.rating.visibility = View.VISIBLE
 		} else {
 			itemView.rating.visibility = View.GONE

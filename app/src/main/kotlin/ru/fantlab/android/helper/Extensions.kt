@@ -13,6 +13,7 @@ import ru.fantlab.android.provider.rest.DataManager
 import ru.fantlab.android.ui.base.mvp.BaseMvp
 import java.io.IOException
 import java.util.concurrent.TimeoutException
+import kotlin.math.round
 
 
 fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
@@ -63,4 +64,10 @@ private fun getPrettifiedErrorMessage(throwable: Throwable?): Int {
 		is TimeoutException -> R.string.unexpected_error
 		else -> R.string.network_error
 	}
+}
+
+fun Double.round(decimals: Int): Double {
+	var multiplier = 1.0
+	repeat(decimals) { multiplier *= 10 }
+	return round(this * multiplier) / multiplier
 }

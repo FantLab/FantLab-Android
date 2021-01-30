@@ -126,7 +126,7 @@ class ResponseOverviewActivity : BaseActivity<ResponseOverviewMvp.View, Response
 	}
 
 	private fun openWorkPager() {
-		if (response.workTypeId == FantlabHelper.WorkType.WORK_TYPE_VERSE.id)
+		if (response.workTypeId == FantlabHelper.WorkType.WORK_TYPE_CYCLE.id)
 			CyclePagerActivity.startActivity(this, response.workId, response.workName, 0)
 		else
 			WorkPagerActivity.startActivity(this, response.workId, response.workName, 0)
