@@ -34,7 +34,7 @@ class PubplansFragment : BaseFragment<PubplansMvp.View, PubplansPresenter>(),
 		if (savedInstanceState == null) {
 			stateLayout.hideProgress()
 		}
-		stateLayout.setEmptyText(R.string.no_responses)
+		stateLayout.setEmptyText(R.string.no_plans)
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)

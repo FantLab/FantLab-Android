@@ -12,6 +12,7 @@
 	<string name="no_responses">Нет отзывов</string>
 	<string name="no_messages">Нет сообщений</string>
 	<string name="no_classification">Нет классификации</string>
+	<string name="no_plans">Нет планов авторов</string>
 	<string name="reload">Обновить</string>
 	<string name="press_again_to_exit">Нажмите еще раз, чтобы выйти</string>
 	<string name="logout">Выйти</string>

@@ -35,7 +35,7 @@ class PubnewsFragment : BaseFragment<PubnewsMvp.View, PubnewsPresenter>(),
 		if (savedInstanceState == null) {
 			stateLayout.hideProgress()
 		}
-		stateLayout.setEmptyText(R.string.no_responses)
+		stateLayout.setEmptyText(R.string.no_news)
 		stateLayout.setOnReloadListener(this)
 		refresh.setOnRefreshListener(this)
 		recycler.setEmptyView(stateLayout, refresh)
