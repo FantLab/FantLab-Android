@@ -27,6 +27,7 @@ data class User(
 		@SerializedName("date_of_block") val blockDate: String?,
 		@SerializedName("date_of_block_end") val blockEndDate: String?,
 		@SerializedName("date_of_last_action") val lastActionDate: String,
+		@SerializedName("date_of_last_action_iso") val lastActionDateIso: String,
 		@SerializedName("date_of_reg") val regDate: String,
 		@SerializedName("descriptioncount") val descriptionCount: Int,
 		val fio: String,

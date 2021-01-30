@@ -112,7 +112,7 @@ class ProfileOverviewFragment : BaseFragment<ProfileOverviewMvp.View, ProfileOve
 			location.visibility = GONE
 		}
 		regDate.text = user.regDate.parseFullDate().getTimeAgo()
-		lastActionDate.text = user.lastActionDate.parseFullDate().getTimeAgo()
+		lastActionDate.text = user.lastActionDateIso.parseFullDate(true).getTimeAgo()
 		if (user.sign.isNullOrEmpty()) {
 			sign.visibility = View.GONE
 		} else {
