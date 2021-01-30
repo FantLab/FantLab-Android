@@ -105,10 +105,10 @@ class SearchWorksFragment : BaseFragment<SearchWorksMvp.View, SearchWorksPresent
 	}
 
 	override fun onItemClicked(item: SearchWork) {
-		if (item.typeName.equals(FantlabHelper.WorkType.CYCLE.name, true))
-			CyclePagerActivity.startActivity(context!!, item.id, item.rusName, 0)
+		if (item.workTypeId == FantlabHelper.WorkType.WORK_TYPE_VERSE.id)
+			CyclePagerActivity.startActivity(context!!, item.workId, item.rusname, 0)
 		else
-			WorkPagerActivity.startActivity(context!!, item.id, item.rusName, 0)
+			WorkPagerActivity.startActivity(context!!, item.workId, item.rusname, 0)
 	}
 
 	override fun fragmentLayout(): Int = R.layout.micro_grid_refresh_list

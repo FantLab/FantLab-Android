@@ -36,7 +36,7 @@ class ResponseViewHolder(itemView: View, adapter: BaseRecyclerAdapter<Response, 
 		itemView.coverLayout.setUrl("https:${response.workImage}", WorkTypesProvider.getCoverByTypeId(response.workTypeId))
 
 		itemView.coverLayout.setOnClickListener {
-			if (response.workTypeId == FantlabHelper.WorkType.CYCLE.id)
+			if (response.workTypeId == FantlabHelper.WorkType.WORK_TYPE_VERSE.id)
 				CyclePagerActivity.startActivity(itemView.context, response.workId, response.workName, 0)
 			else
 				WorkPagerActivity.startActivity(itemView.context, response.workId, response.workName, 0)

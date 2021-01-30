@@ -105,7 +105,7 @@ class ProfileMarksFragment : BaseFragment<ProfileMarksMvp.View, ProfileMarksPres
 	}
 
 	override fun onItemClicked(item: Mark) {
-		if (item.workTypeId == FantlabHelper.WorkType.CYCLE.id)
+		if (item.workTypeId == FantlabHelper.WorkType.WORK_TYPE_VERSE.id)
 			CyclePagerActivity.startActivity(context!!, item.workId, item.workName, 0)
 		else
 			WorkPagerActivity.startActivity(context!!, item.workId, item.workName, 0)

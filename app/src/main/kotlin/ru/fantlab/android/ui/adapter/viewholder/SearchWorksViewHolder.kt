@@ -19,26 +19,26 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 	private val numberFormat = NumberFormat.getNumberInstance()
 
 	override fun bind(work: SearchWork) {
-		val coverUrl = if (work.pictureEditionIdAuto.isNotEmpty()) {
+		val coverUrl = if (work.picEditionIdAuto != 0) {
 			Uri.Builder().scheme(PROTOCOL_HTTPS)
 					.authority(HOST_DATA)
 					.appendPath("images")
 					.appendPath("editions")
 					.appendPath("big")
-					.appendPath(work.pictureEditionIdAuto).toString()
+					.appendPath(work.picEditionIdAuto.toString()).toString()
 		} else ""
-		itemView.coverLayout.setUrl(coverUrl, WorkTypesProvider.getCoverByType(work.typeName))
+		itemView.coverLayout.setUrl(coverUrl, WorkTypesProvider.getCoverByTypeId(work.workTypeId))
 
 		val authorsText = when {
 			// сначала пытаемся вычленить автора из названия (хак для журналов)
 			// прим.: решение все равно покрывает не все возможные случаи из-за косяков в базе
-			work.rusName.contains(AUTHORS_REGEX) -> {
+			work.rusname.contains(AUTHORS_REGEX) -> {
 				// произведение без отдельной/открытой страницы с несколькими авторами
-				work.rusName.substring(work.rusName.lastIndexOf("Авторы", ignoreCase = true) + "Авторы".length + 1).trim()
+				work.rusname.substring(work.rusname.lastIndexOf("Авторы", ignoreCase = true) + "Авторы".length + 1).trim()
 			}
-			work.rusName.contains(AUTHOR_REGEX) -> {
+			work.rusname.contains(AUTHOR_REGEX) -> {
 				// произведение без отдельной/открытой страницы с одним автором
-				work.rusName.substring(work.rusName.lastIndexOf("Автор", ignoreCase = true) + "Автор".length + 1).trim()
+				work.rusname.substring(work.rusname.lastIndexOf("Автор", ignoreCase = true) + "Автор".length + 1).trim()
 			}
 			work.name.contains(AUTHORS_REGEX) -> {
 				// произведение без отдельной/открытой страницы и перевода с несколькими авторами
@@ -48,8 +48,8 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 				// произведение без отдельной/открытой страницы и перевода с одним автором
 				work.name.substring(work.name.lastIndexOf("Автор", ignoreCase = true) + "Автор".length + 1).trim()
 			}
-			work.allAuthorRusName.isNotEmpty() -> work.allAuthorRusName
-			work.allAuthorName.isNotEmpty() -> work.allAuthorName
+			work.allAutorRusname.isNotEmpty() -> work.allAutorRusname
+			work.allAutorName.isNotEmpty() -> work.allAutorName
 			else -> ""
 		}
 		if (authorsText.isNotEmpty()) {
@@ -59,10 +59,10 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 			itemView.authors.visibility = View.GONE
 		}
 
-		val rusName = if (work.rusName.contains(AUTHORS_REGEX) || work.rusName.contains(AUTHOR_REGEX)) {
-			work.rusName.substring(0, work.rusName.lastIndexOf("//")).trim()
+		val rusName = if (work.rusname.contains(AUTHORS_REGEX) || work.rusname.contains(AUTHOR_REGEX)) {
+			work.rusname.substring(0, work.rusname.lastIndexOf("//")).trim()
 		} else {
-			work.rusName
+			work.rusname
 		}
 		val name = if (work.name.contains(AUTHORS_REGEX) || work.name.contains(AUTHOR_REGEX)) {
 			work.name.substring(0, work.name.lastIndexOf("//")).trim()
@@ -85,10 +85,10 @@ class SearchWorksViewHolder(itemView: View, adapter: BaseRecyclerAdapter<SearchW
 			itemView.year.visibility = View.GONE
 		}
 
-		if (work.markCount != 0) {
+		if (work.markcount != 0) {
 			itemView.rating.text = String.format("%s / %s",
-					numberFormat.format(work.midMark[0].toDouble()),
-					numberFormat.format(work.markCount.toLong()))
+					numberFormat.format(work.midmark[0].toDouble()),
+					numberFormat.format(work.markcount.toLong()))
 			itemView.rating.visibility = View.VISIBLE
 		} else {
 			itemView.rating.visibility = View.GONE
