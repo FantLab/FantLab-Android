@@ -16,7 +16,7 @@ class CycleWork(
 		val description: String?,
 		var year: Int?,
 		var responseCount: Int?,
-		var votersCount: String?,
+		var votersCount: Int?,
 		var rating: Float?,
 		var mark: Int?,
 		var classified: Int?

@@ -148,7 +148,7 @@ class AuthorBibliographyFragment : BaseFragment<AuthorBibliographyMvp.View, Auth
 								item.nameOrig,
 								item.description,
 								item.year,
-								item.responses?.toInt(),
+								item.responses,
 								item.votersCount,
 								item.rating,
 								if (mark != null && mark.isNotEmpty()) mark.first().mark else null,

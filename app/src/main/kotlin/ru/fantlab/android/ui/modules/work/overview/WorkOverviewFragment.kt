@@ -258,14 +258,14 @@ class WorkOverviewFragment : BaseFragment<WorkOverviewMvp.View, WorkOverviewPres
 			children.forEachIndexed { index, item ->
 				val title = if (item.nameOrig.isNotEmpty() && item.name.isNotEmpty()) item.name else if (item.nameOrig.isNotEmpty() && item.name.isEmpty()) item.nameOrig else item.name
 				if (item.deep <= 1) {
-					val parent = TreeNode(CycleContentParent(title, item.id ?: -1))
+					val parent = TreeNode(CycleContentParent(title, item.id ?: -1, item.deep, item.rating ?: 0.0F, item.responses ?: 0))
 					nodes.add(parent)
 				} else if (nodes.size > 0) {
 					val parent = nodes[nodes.size - 1]
 					val node = if (index + 1 != children.size && children[index + 1].deep == item.deep + 1)
-						TreeNode(CycleContentParent(title, item.id ?: -1))
+						TreeNode(CycleContentParent(title, item.id ?: -1, item.deep, item.rating ?: 0.0F, item.responses ?: 0))
 					else
-						TreeNode(CycleContentChild(title, item.id ?: -1))
+						TreeNode(CycleContentChild(title, item.id ?: -1, item.rating ?: 0.0F, item.responses ?: 0))
 					when (item.deep) {
 						2 -> parent.addChild(node)
 						3 -> parent.childList[parent.childList.size - 1].addChild(node)

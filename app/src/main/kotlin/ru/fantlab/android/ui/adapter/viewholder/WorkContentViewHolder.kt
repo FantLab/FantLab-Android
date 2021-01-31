@@ -39,7 +39,7 @@ class WorkContentViewHolder(itemView: View, adapter: BaseRecyclerAdapter<ChildWo
 
 		if (!InputHelper.isEmpty(content.votersCount) && !InputHelper.isEmpty(content.rating)) {
 			itemView.rating.text = content.rating.toString()
-			itemView.votes.text = content.votersCount
+			itemView.votes.text = content.votersCount.toString()
 			itemView.votes.visibility = View.VISIBLE
 			itemView.rating.visibility = View.VISIBLE
 		} else {

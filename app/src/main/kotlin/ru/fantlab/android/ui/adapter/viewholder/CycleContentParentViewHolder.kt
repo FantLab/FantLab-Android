@@ -1,6 +1,7 @@
 package ru.fantlab.android.ui.adapter.viewholder
 
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.cycle_content_parent_row_item.view.*
 import ru.fantlab.android.R
@@ -21,10 +22,30 @@ class CycleContentParentViewHolder : TreeViewBinder<CycleContentParentViewHolder
 	) {
 		(holder as CycleContentParentViewHolder.ViewHolder)
 		val parentNode = node.content as CycleContentParent?
-		holder.title.text = "• " + parentNode!!.title
+		parentNode?.let {
+			val prefix = when (true) {
+				it.deep == 1 && !node.isLeaf -> "☰"
+				it.deep > 1 && !node.isLeaf -> "▪"
+				it.deep == 1 && node.isLeaf -> "▬"
+				else -> "▪"
+			}
+			holder.apply {
+				title.text = prefix + " " + it.title
+				if (it.rating != 0F) {
+					rating.text = it.rating.toString()
+					rating.isVisible = true
+				} else rating.isVisible = false
+				if (it.responses != 0) {
+					responses.text = it.responses.toString()
+					responses.isVisible = true
+				} else responses.isVisible = false
+			}
+		}
 	}
 
 	class ViewHolder(rootView: View) : TreeViewBinder.ViewHolder(rootView) {
 		var title: FontTextView = rootView.title
+		var rating: FontTextView = rootView.rating
+		var responses: FontTextView = rootView.responses
 	}
 }

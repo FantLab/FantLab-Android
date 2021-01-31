@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<ru.fantlab.android.ui.widgets.ForegroundRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:background="?android:selectableItemBackground"
-	>
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:background="?android:selectableItemBackground">
 
 	<ru.fantlab.android.ui.widgets.FontTextView
 		android:id="@+id/title"
@@ -13,8 +12,35 @@
 		android:layout_height="wrap_content"
 		android:layout_margin="3dp"
 		style="@style/TextAppearance.AppCompat.Subhead"
-		android:textColor="?android:attr/textColorSecondary"
+		android:textColor="?android:attr/textColorPrimary"
 		tools:text="Хоббит, или Туда и обратно "
 		/>
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/rating"
+		style="@style/TextAppearance.AppCompat.Caption"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/title"
+		android:layout_marginStart="@dimen/spacing_s_large"
+		android:drawableStart="@drawable/ic_star_small"
+		android:drawablePadding="@dimen/spacing_micro"
+		android:textColor="?android:attr/textColorSecondary"
+		app:drawableTint="?button_icon_color"
+		tools:text="8.12" />
+
+	<ru.fantlab.android.ui.widgets.FontTextView
+		android:id="@+id/responses"
+		style="@style/TextAppearance.AppCompat.Caption"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/title"
+		android:layout_marginStart="@dimen/spacing_normal"
+		android:layout_toEndOf="@id/rating"
+		android:drawableStart="@drawable/ic_response_small"
+		android:drawablePadding="@dimen/spacing_micro"
+		android:textColor="?android:attr/textColorSecondary"
+		app:drawableTint="?button_icon_color"
+		tools:text="12" />
 
 </ru.fantlab.android.ui.widgets.ForegroundRelativeLayout>
