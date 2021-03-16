@@ -204,7 +204,7 @@
 	<string name="about_app">About</string>
 	<string name="send_with">Send with Telegram</string>
 	<string name="developers">Developers</string>
-	<string name="developers_names" translatable="false">\kenrube\n\ilyakokhan</string>
+	<string name="developers_names" translatable="false">\ilyakokhan\n\grbIzl</string>
 	<string name="discuss">Discuss on forum</string>
 	<string name="github" translatable="false">Github</string>
 	<string name="github_url" translatable="false">https://github.com/FantLab/FantLab-Android</string>
