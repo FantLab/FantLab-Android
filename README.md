@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/FantLab/FantLab-Android.svg?branch=master)](https://travis-ci.org/FantLab/FantLab-Android)
 
 # FantLab-Android
-Android-клиент для краудсорсингового библиографического проекта [FantLab.ru](https://fantlab.ru). Основан на [FastHub by Kosh Sergani](https://github.com/k0shk0sh/FastHub).
+Android-клиент для краудсорсингового библиографического проекта [FantLab.ru](https://fantlab.ru). Основан на коде [FastHub](https://github.com/k0shk0sh/FastHub).
 
 ## Спецификации / Open-source библиотеки:
 - Минимальный **SDK 21** (Android 5.0)
